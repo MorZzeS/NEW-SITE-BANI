@@ -1,11 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  distDir: 'dist',
+  basePath: '/NEW-SITE-BANI',
+  assetPrefix: '/NEW-SITE-BANI/',
   images: {
-    formats: ['image/avif', 'image/webp'],
-    remotePatterns: [],
+    unoptimized: true,
+    formats: ['image/webp', 'image/avif'],
   },
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react'],
   },
 }
 
