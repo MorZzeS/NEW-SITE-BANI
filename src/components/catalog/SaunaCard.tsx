@@ -33,6 +33,8 @@ export function SaunaCard({ sauna, featured }: Props) {
             src={sauna.image}
             alt={sauna.name}
             fill
+            loading="lazy"
+            quality={85}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes={featured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw'}
           />

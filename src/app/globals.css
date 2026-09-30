@@ -230,3 +230,18 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Mobile performance: reduce glass intensity */
+@media (max-width: 768px) {
+  .glass, .glass-card, .glass-dark {
+    backdrop-filter: blur(6px) saturate(120%);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+  }
+  .glass-strong {
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+  }
+}
+
+/* Will-change only for key animated elements */
+.will-animate { will-change: transform, opacity; }
