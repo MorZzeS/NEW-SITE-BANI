@@ -1,0 +1,85 @@
+// ─── Product Types ───
+export interface ProductSpec {
+  label: string
+  value: string
+}
+
+export interface Sauna {
+  id: string
+  slug: string
+  name: string
+  series: 'Исток' | 'Север' | 'Скандинавия' | 'Усадьба'
+  subtitle: string
+  description: string
+  image: string
+  images: string[]
+  floorPlan?: string
+  size: string       // e.g. "6×2.5 м"
+  area: number       // m²
+  rooms: number
+  priceFrom: number
+  priceLabel?: string
+  article?: string
+  collection?: string
+  tags: string[]     // ['Хит', 'Новинка', 'В наличии', 'Под заказ']
+  specs: ProductSpec[]
+  features: string[]
+  isPopular?: boolean
+  hasBathroom?: boolean; hasTerrace?: boolean; hasShower?: boolean
+}
+
+export interface Home {
+  id: string
+  slug: string
+  name: string
+  subtitle: string
+  description: string
+  image: string
+  images: string[]
+  floorPlan?: string
+  size: string
+  area: number
+  rooms: number
+  sleepingPlaces: number
+  priceFrom: number
+  priceLabel?: string
+  tags: string[]
+  article?: string
+  specs: ProductSpec[]
+  features: string[]
+  isPopular?: boolean
+}
+
+export interface Article {
+  id: string
+  slug: string
+  title: string
+  excerpt: string
+  category: string
+  date: string
+  readTime: number
+  image?: string
+  content: string
+}
+
+export interface Project {
+  id: string
+  slug: string
+  title: string
+  model: string
+  region: string
+  date: string
+  description: string
+  image: string
+  images: string[]
+  tags: string[]
+}
+
+export interface SiteSettings {
+  phone: string; phoneDisplay: string
+  phone2?: string; phoneDisplay2?: string
+  email: string
+  address: string; addressShowroom?: string
+  telegram: string; whatsapp: string; vk: string; youtube: string
+  workingHours: string
+}
