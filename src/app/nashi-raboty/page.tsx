@@ -5,7 +5,7 @@ import { projects } from '@/data'
 
 export const metadata = {
   title: 'Наши работы — реализованные проекты',
-  description: 'Реальные объекты. Фото и видео установленных мобильных бань и домов по всей России.',
+  description: 'Реальные объекты в Московской области. Фото и видео установленных мобильных бань и домов.',
 }
 
 export default function NashiRabotyPage() {
@@ -16,7 +16,7 @@ export default function NashiRabotyPage() {
           <div className="section-tag mb-4">Наши работы</div>
           <h1 className="text-5xl font-extrabold text-cream mb-3">Реализованные проекты</h1>
           <p className="text-cream/60 max-w-lg">
-            Реальные объекты, реальные фото. Более 500 бань и домов установлено по всей России.
+            Реальные объекты, реальные фото. Установка по Москве и Московской области.
           </p>
         </div>
 

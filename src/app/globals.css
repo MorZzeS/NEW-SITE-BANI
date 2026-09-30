@@ -245,3 +245,30 @@ body {
 
 /* Will-change only for key animated elements */
 .will-animate { will-change: transform, opacity; }
+
+/* Light theme readability overrides */
+@media (min-width: 0px) {
+  [data-theme="light"] .glass-card,
+  [data-theme="light"] .glass,
+  [data-theme="light"] .glass-dark {
+    border-color: rgba(0,0,0,0.12);
+  }
+  [data-theme="light"] .glass-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px) saturate(140%);
+  }
+  [data-theme="light"] .text-cream,
+  [data-theme="light"] h1,
+  [data-theme="light"] h2,
+  [data-theme="light"] h3 {
+    color: #1e2330 !important;
+  }
+  [data-theme="light"] .text-cream\/60,
+  [data-theme="light"] .text-cream\/70 { color: rgba(30,35,48,0.65) !important; }
+  [data-theme="light"] .text-cream\/40 { color: rgba(30,35,48,0.45) !important; }
+  [data-theme="light"] .btn-primary,
+  [data-theme="light"] .btn-secondary {
+    background: linear-gradient(135deg, #c4762e, #d4a843);
+    color: #1e2330;
+  }
+}

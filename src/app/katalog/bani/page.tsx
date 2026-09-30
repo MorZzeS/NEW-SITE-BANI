@@ -55,7 +55,7 @@ export default function BaniCatalogPage() {
           <div className="section-tag mb-4">Каталог</div>
           <h1 className="text-5xl font-extrabold text-cream mb-3">Мобильные бани</h1>
           <p className="text-cream/60 max-w-xl">
-            {saunas.length} моделей собственного производства. Доставка и установка по всей России.
+            {saunas.length} моделей собственного производства. Доставка и установка по Москве и Московской области.
           </p>
         </div>
 

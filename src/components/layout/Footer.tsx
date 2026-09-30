@@ -44,7 +44,7 @@ export function Footer({ settings }: Props) {
                 </div>
               </Link>
               <p className="text-cream/60 text-sm leading-relaxed mb-6">
-                Собственное производство мобильных бань и домов. Доставка и установка по всей России.
+                Собственное производство мобильных бань и домов. Доставка и установка по Москве и Московской области.
               </p>
               <div className="flex items-center gap-3">
                 <a href={settings.vk} target="_blank" rel="noopener noreferrer"
