@@ -27,10 +27,14 @@ export function CTAFormInline({ modelName }: Props) {
         {submitted ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <CheckCircle className="w-14 h-14 text-emerald-400 mb-4" />
-            <h3 className="text-2xl font-bold text-cream mb-2">Заявка принята</h3>
-            <p className="text-cream/60">Менеджер свяжется с вами для уточнения деталей и расчёта стоимости.</p>
-            <p className="text-cream/30 text-xs mt-2">Обратите внимание: для быстрой связи используйте кнопки ниже.</p>
+            <h3 className="text-2xl font-bold text-cream mb-2">Онлайн-отправка заявки пока недоступна</h3>
+            <p className="text-cream/60">Свяжитесь с нами удобным способом ниже.</p>
+            <div className="flex flex-wrap justify-center gap-3 mt-4">
+            <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer" className="btn-secondary px-6 py-3 rounded-xl text-sm font-medium"><span>Написать в MAX</span></a>
+            <a href="https://t.me/banigerasimov" target="_blank" rel="noopener noreferrer" className="btn-secondary px-6 py-3 rounded-xl text-sm font-medium"><span>Telegram</span></a>
+            <a href="tel:+79362000050" className="btn-primary px-6 py-3 rounded-xl text-sm font-medium"><span>Позвонить</span></a>
           </div>
+        </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
