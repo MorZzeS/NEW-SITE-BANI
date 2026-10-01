@@ -20,10 +20,7 @@ const navItems = [
       { label: 'Мобильные дома', href: '/katalog/doma', desc: 'Серия Усадьба' },
     ],
   },
-  { label: 'Как устроено', href: '/kak-ustroeno' },
   { label: 'Комплектация', href: '/komplektaciya' },
-  { label: 'Наши работы', href: '/nashi-raboty' },
-  { label: 'Полезное', href: '/poleznoe' },
   { label: 'Доставка и установка', href: '/dostavka-i-ustanovka' },
   { label: 'О компании', href: '/o-kompanii' },
 ]
@@ -129,15 +126,6 @@ export function Header({ settings }: Props) {
             >
               <Phone className="w-4 h-4 text-gold-400" />
               {settings.phoneDisplay}
-            </a>
-            <a
-              href={settings.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex btn-secondary px-4 py-2 text-xs rounded-xl"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              WhatsApp
             </a>
             <a
               href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"

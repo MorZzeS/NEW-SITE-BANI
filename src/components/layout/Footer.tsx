@@ -115,15 +115,6 @@ export function Footer({ settings }: Props) {
                   {settings.workingHours}
                 </li>
               </ul>
-              <a
-                href={settings.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary mt-5 inline-flex px-5 py-2.5 text-xs"
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
-                Написать в WhatsApp
-              </a>
             </div>
           </div>
         </div>

@@ -53,10 +53,6 @@ export default function KontaktyPage() {
             <div className="glass-card p-5">
               <div className="text-sm font-semibold text-cream mb-4">Мессенджеры</div>
               <div className="flex gap-3">
-                <a href={siteSettings.whatsapp} target="_blank" rel="noopener noreferrer"
-                  className="btn-primary px-5 py-2.5 text-sm">
-                  <MessageCircle className="w-4 h-4" /> WhatsApp
-                </a>
                 <a href={siteSettings.telegram} target="_blank" rel="noopener noreferrer"
                   className="btn-secondary px-5 py-2.5 text-sm">
                   Telegram
@@ -74,8 +70,8 @@ export default function KontaktyPage() {
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <CheckCircle className="w-16 h-16 text-emerald-400 mb-5" />
-                <h2 className="text-2xl font-bold text-cream mb-2">Заявка отправлена!</h2>
-                <p className="text-cream/60">Мы свяжемся с вами в ближайшее рабочее время.</p>
+                <h2 className="text-2xl font-bold text-cream mb-2">Онлайн-отправка заявки пока недоступна</h2>
+                <p className="text-cream/60">Свяжитесь с нами удобным способом ниже.</p>
               </div>
             ) : (
               <>

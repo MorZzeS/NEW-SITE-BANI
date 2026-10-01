@@ -51,16 +51,6 @@ export function CTASection() {
                       <div className="font-semibold">{siteSettings.phoneDisplay}</div>
                     </div>
                   </a>
-                  <a href={siteSettings.whatsapp} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-cream hover:text-gold-300 transition-colors group">
-                    <div className="w-11 h-11 glass rounded-2xl flex items-center justify-center group-hover:bg-gold-400/15 transition-colors">
-                      <MessageCircle className="w-5 h-5 text-gold-400" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-cream/50">WhatsApp</div>
-                      <div className="font-semibold">Написать сейчас</div>
-                    </div>
-                  </a>
                 </div>
               </div>
 
