@@ -5,6 +5,7 @@ import { WhyUsSection } from '@/components/sections/WhyUsSection'
 import { HowItWorksSection } from '@/components/sections/HowItWorksSection'
 import { ProjectsSection } from '@/components/sections/ProjectsSection'
 import { ArticlesSection } from '@/components/sections/ArticlesSection'
+import { InteriorGallery } from '@/components/sections/InteriorGallery'
 import { CTASection } from '@/components/sections/CTASection'
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
       <HowItWorksSection />
       <ProjectsSection />
       <ArticlesSection />
+      <InteriorGallery />
       <CTASection />
     </>
   )

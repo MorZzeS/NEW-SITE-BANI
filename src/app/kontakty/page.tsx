@@ -61,6 +61,10 @@ export default function KontaktyPage() {
                   className="btn-secondary px-5 py-2.5 text-sm">
                   Telegram
                 </a>
+                <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer"
+                  className="btn-secondary px-5 py-2.5 text-sm">
+                  MAX
+                </a>
               </div>
             </div>
           </div>

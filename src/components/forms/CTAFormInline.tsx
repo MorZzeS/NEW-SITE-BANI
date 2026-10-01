@@ -27,8 +27,9 @@ export function CTAFormInline({ modelName }: Props) {
         {submitted ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <CheckCircle className="w-14 h-14 text-emerald-400 mb-4" />
-            <h3 className="text-2xl font-bold text-cream mb-2">Заявка отправлена!</h3>
-            <p className="text-cream/60">Мы свяжемся с вами в ближайшее время.</p>
+            <h3 className="text-2xl font-bold text-cream mb-2">Заявка принята</h3>
+            <p className="text-cream/60">Менеджер свяжется с вами для уточнения деталей и расчёта стоимости.</p>
+            <p className="text-cream/30 text-xs mt-2">Обратите внимание: для быстрой связи используйте кнопки ниже.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -70,6 +71,7 @@ export function CTAFormInline({ modelName }: Props) {
                 <Send className="w-4 h-4" />
                 Получить расчёт
               </button>
+              <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center py-3.5"><span>Написать в MAX</span></a>
               <p className="text-[10px] text-cream/30 text-center">
                 Нажимая кнопку, вы соглашаетесь с{' '}
                 <a href="/privacy" className="underline">политикой конфиденциальности</a>

@@ -13,6 +13,7 @@ export interface Sauna {
   description: string
   image: string
   images: string[]
+  interiorImages?: string[]
   floorPlan?: string
   size: string       // e.g. "6×2.5 м"
   area: number       // m²
@@ -36,6 +37,7 @@ export interface Home {
   description: string
   image: string
   images: string[]
+  interiorImages?: string[]
   floorPlan?: string
   size: string
   area: number

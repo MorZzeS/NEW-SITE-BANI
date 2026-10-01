@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { saunas } from '@/data'
+import Image from 'next/image'
+import { saunas, homes } from '@/data'
 
 export const metadata = {
   title: 'Планировки мобильных бань',
@@ -22,6 +23,22 @@ export default function PlanirovkiPage() {
           <p className="text-cream/60 max-w-lg">
             Выберите оптимальную планировку под ваши задачи и количество человек
           </p>
+        </div>
+
+        {/* Floor plans section */}
+        <div className="space-y-8 mt-16">
+          <h2 className="text-3xl font-bold text-cream mb-6">Планы домов</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {homes.filter(h => h.floorPlan).map((h) => (
+              <Link href={`/dom/${h.slug}`} key={h.id} className="glass rounded-3xl p-5 hover:bg-white/10 transition-all group">
+                <div className="relative h-48 rounded-2xl mb-4 overflow-hidden bg-graphite-900">
+                  <img src={h.floorPlan} alt={`${h.name} — план`} className="w-full h-full object-contain" />
+                </div>
+                <div className="font-bold text-cream mb-1 group-hover:text-gold-300 transition-colors">{h.name}</div>
+                <div className="text-xs text-cream/60">Площадь: {h.area} м²</div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div className="space-y-8">

@@ -139,6 +139,15 @@ export function Header({ settings }: Props) {
               <MessageCircle className="w-3.5 h-3.5" />
               WhatsApp
             </a>
+            <a
+              href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex btn-secondary px-3 py-2 text-xs rounded-xl"
+              aria-label="MAX"
+            >
+              MAX
+            </a>
             <Link href="/kontakty#zayavka" className="btn-primary px-4 py-2.5 text-xs hidden sm:flex">
               Заказать звонок
             </Link>

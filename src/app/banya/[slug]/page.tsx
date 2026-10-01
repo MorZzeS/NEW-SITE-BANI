@@ -147,6 +147,30 @@ export default function SaunaPage({ params }: Props) {
           </div>
         </div>
 
+        {/* Interior photos */}
+        {(sauna as any).interiorImages?.length > 0 && (
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold text-cream mb-6">Интерьеры</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {(sauna as any).interiorImages.map((img: string, i: number) => (
+                <div key={i} className="relative aspect-[4/3] rounded-2xl overflow-hidden glass-card border-0">
+                  <Image src={img} alt={`${sauna.name} — интерьер ${i + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Floor plan */}
+        {(sauna as any).floorPlan && (
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold text-cream mb-6">Планировка</h2>
+            <div className="glass rounded-3xl overflow-hidden">
+              <Image src={(sauna as any).floorPlan} alt={`${sauna.name} — план`} width={800} height={600} className="w-full h-auto object-contain" unoptimized />
+            </div>
+          </div>
+        )}
+
         {/* Additional images */}
         {sauna.images.length > 1 && (
           <div className="mb-16">
