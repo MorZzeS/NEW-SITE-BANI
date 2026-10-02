@@ -14,12 +14,16 @@ export function Favorites() {
   }, [])
 
   return (
-    <a href="#" className="flex items-center gap-1.5 text-sm text-cream/60 hover:text-cream transition-colors">
+    <button
+      type="button"
+      aria-label="Избранное"
+      className="flex items-center gap-1.5 text-sm text-cream/60 hover:text-cream transition-colors cursor-pointer"
+    >
       <Heart className="w-4 h-4 text-gold-400" />
       <span>Избранное</span>
       {count > 0 && (
         <span className="ml-0.5 bg-gold-400/20 text-gold-300 text-[10px] font-bold px-1.5 py-0.5 rounded-md">{count}</span>
       )}
-    </a>
+    </button>
   )
 }

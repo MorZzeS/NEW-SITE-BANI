@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, Check, Phone, MessageCircle } from 'lucide-react'
+import { ArrowLeft, Check, Phone } from 'lucide-react'
 import { saunas, formatPrice, siteSettings } from '@/data'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
@@ -18,10 +18,20 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const sauna = saunas.find((s) => s.slug === params.slug)
   if (!sauna) return {}
+  const BASE = 'https://banger.su'
+  const canonical = `${BASE}/banya/${sauna.slug}`
+  // OG image: prefer full URL
+  const ogImage = sauna.image.startsWith('http') ? sauna.image : `${BASE}${sauna.image.replace('/NEW-SITE-BANI', '')}`
   return {
-    title: `${sauna.name} — мобильная баня ${sauna.size}`,
-    description: sauna.description,
-    openGraph: { images: [sauna.image] },
+    title: `${sauna.name} — мобильная баня ${sauna.size} | Бани Герасимов`,
+    description: `${sauna.name} (${sauna.article}): ${sauna.subtitle}. Размер ${sauna.size}, ${sauna.area} м². ${sauna.description} Доставка по Москве и МО.`,
+    alternates: { canonical },
+    openGraph: {
+      url: canonical,
+      title: `${sauna.name} — мобильная баня ${sauna.size}`,
+      description: `${sauna.subtitle}. Размер ${sauna.size}. ${sauna.description}`,
+      images: [{ url: ogImage, alt: sauna.name }],
+    },
   }
 }
 
@@ -97,21 +107,33 @@ export default function SaunaPage({ params }: Props) {
             </div>
 
             {/* CTA buttons */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              <Link href={`/kontakty?model=${sauna.name}`} className="btn-primary flex-1 justify-center py-3.5">
-                Получить расчёт
-              </Link>
-              <a href={siteSettings.whatsapp} target="_blank" rel="noopener noreferrer"
+            <div className="flex flex-wrap gap-3 mb-4">
+              <a href={`tel:${siteSettings.phone}`} className="btn-primary flex-1 justify-center py-3.5">
+                <Phone className="w-4 h-4" />
+                Позвонить
+              </a>
+              <a href={siteSettings.telegram} target="_blank" rel="noopener noreferrer"
                 className="btn-secondary flex-1 justify-center py-3.5">
-                <MessageCircle className="w-4 h-4" />
-                WhatsApp
+                Telegram
               </a>
             </div>
+            <div className="flex flex-wrap gap-3 mb-6">
+              <a
+                href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary flex-1 justify-center py-3"
+              >
+                MAX
+              </a>
+              <Link href={`/kontakty?model=${encodeURIComponent(sauna.name)}`} className="btn-secondary flex-1 justify-center py-3">
+                Получить расчёт
+              </Link>
+            </div>
 
-            <a href={`tel:${siteSettings.phone}`} className="flex items-center gap-2 text-sm text-cream/60 hover:text-cream transition-colors">
-              <Phone className="w-4 h-4 text-gold-400" />
-              {siteSettings.phoneDisplay} — консультация
-            </a>
+            <p className="text-xs text-cream/40 leading-relaxed">
+              {siteSettings.phoneDisplay} — консультация без обязательств
+            </p>
           </div>
         </div>
 

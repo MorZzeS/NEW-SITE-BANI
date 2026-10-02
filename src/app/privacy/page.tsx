@@ -1,3 +1,12 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Политика конфиденциальности',
+  description: 'Политика конфиденциальности сайта banger.su. Порядок обработки персональных данных.',
+  alternates: { canonical: 'https://banger.su/privacy' },
+  robots: { index: false, follow: false },
+}
+
 export default function PrivacyPage() {
   return (
     <div className="pt-28 pb-20">

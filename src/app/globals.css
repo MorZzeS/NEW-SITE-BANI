@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+/* Inter загружается через next/font/google в layout.tsx — @import не нужен */
 
 @tailwind base;
 @tailwind components;
@@ -57,6 +57,9 @@
 
 /* ─── Base ─── */
 *, *::before, *::after { box-sizing: border-box; }
+
+/* Prevent horizontal overflow on all viewports */
+html, body { overflow-x: hidden; max-width: 100%; }
 
 html { scroll-behavior: smooth; }
 
@@ -257,6 +260,7 @@ body {
     background: rgba(255,255,255,0.85);
     backdrop-filter: blur(8px) saturate(140%);
   }
+  /* Headings and primary text */
   [data-theme="light"] .text-cream,
   [data-theme="light"] h1,
   [data-theme="light"] h2,
@@ -264,11 +268,63 @@ body {
     color: #1e2330 !important;
   }
   [data-theme="light"] .text-cream\/60,
-  [data-theme="light"] .text-cream\/70 { color: rgba(30,35,48,0.65) !important; }
-  [data-theme="light"] .text-cream\/40 { color: rgba(30,35,48,0.45) !important; }
-  [data-theme="light"] .btn-primary,
-  [data-theme="light"] .btn-secondary {
+  [data-theme="light"] .text-cream\/70 { color: rgba(30,35,48,0.68) !important; }
+  [data-theme="light"] .text-cream\/65 { color: rgba(30,35,48,0.68) !important; }
+  [data-theme="light"] .text-cream\/40,
+  [data-theme="light"] .text-cream\/50 { color: rgba(30,35,48,0.55) !important; }
+  [data-theme="light"] .text-cream\/30 { color: rgba(30,35,48,0.40) !important; }
+  [data-theme="light"] .text-cream\/80,
+  [data-theme="light"] .text-cream\/85,
+  [data-theme="light"] .text-cream\/90 { color: rgba(30,35,48,0.82) !important; }
+
+  /* Buttons */
+  [data-theme="light"] .btn-primary {
     background: linear-gradient(135deg, #c4762e, #d4a843);
+    color: #fff;
+  }
+  [data-theme="light"] .btn-secondary {
+    background: rgba(30,35,48,0.08);
+    border-color: rgba(30,35,48,0.15);
     color: #1e2330;
   }
+  [data-theme="light"] .btn-secondary:hover {
+    background: rgba(30,35,48,0.14);
+  }
+
+  /* Section tag */
+  [data-theme="light"] .section-tag { color: #a05c1c; }
+
+  /* Glass forms */
+  [data-theme="light"] .glass {
+    background: rgba(255,255,255,0.60);
+    border-color: rgba(0,0,0,0.10);
+  }
+  [data-theme="light"] .glass-strong {
+    background: rgba(255,255,255,0.80);
+    border-color: rgba(0,0,0,0.10);
+  }
+  [data-theme="light"] .glass-dark {
+    background: rgba(240,236,228,0.75);
+    border-color: rgba(0,0,0,0.08);
+  }
+  [data-theme="light"] .glass-dark-strong {
+    background: rgba(235,230,220,0.93);
+    border-color: rgba(0,0,0,0.10);
+  }
+
+  /* Input fields */
+  [data-theme="light"] .input-glass {
+    background: rgba(255,255,255,0.75);
+    border-color: rgba(0,0,0,0.12);
+    color: #1e2330;
+  }
+  [data-theme="light"] .input-glass::placeholder { color: rgba(30,35,48,0.38); }
+
+  /* Nav links */
+  [data-theme="light"] .nav-link { color: rgba(30,35,48,0.70); }
+  [data-theme="light"] .nav-link:hover { color: #1e2330; }
+
+  /* Placeholder */
+  [data-theme="light"] input::placeholder,
+  [data-theme="light"] textarea::placeholder { color: rgba(30,35,48,0.38) !important; }
 }

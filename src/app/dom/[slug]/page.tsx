@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { MessageCircle, Phone, Check } from 'lucide-react'
+import { Phone, Check } from 'lucide-react'
 import { homes, formatPrice, siteSettings } from '@/data'
 import { HomeCard } from '@/components/catalog/HomeCard'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
@@ -18,10 +18,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const home = homes.find((h) => h.slug === params.slug)
   if (!home) return {}
+  const BASE = 'https://banger.su'
+  const canonical = `${BASE}/dom/${home.slug}`
+  const ogImage = home.image.startsWith('http') ? home.image : `${BASE}${home.image.replace('/NEW-SITE-BANI', '')}`
   return {
-    title: `${home.name} — мобильный дом ${home.size}`,
-    description: home.description,
-    openGraph: { images: [home.image] },
+    title: `${home.name} — мобильный дом ${home.size} | Бани Герасимов`,
+    description: `${home.name} (${home.article}): ${home.subtitle}. Размер ${home.size}, ${home.area} м². ${home.description} Доставка по Москве и МО.`,
+    alternates: { canonical },
+    openGraph: {
+      url: canonical,
+      title: `${home.name} — мобильный дом ${home.size}`,
+      description: `${home.subtitle}. ${home.description}`,
+      images: [{ url: ogImage, alt: home.name }],
+    },
   }
 }
 
@@ -88,13 +97,27 @@ export default function HomePage({ params }: Props) {
               <div className="text-xs text-cream/40 mt-1">Зависит от комплектации и региона</div>
             </div>
 
+            <div className="flex flex-wrap gap-3 mb-4">
+              <a href={`tel:${siteSettings.phone}`} className="btn-primary flex-1 justify-center py-3.5">
+                <Phone className="w-4 h-4" />
+                Позвонить
+              </a>
+              <a href={siteSettings.telegram} target="_blank" rel="noopener noreferrer" className="btn-secondary flex-1 justify-center py-3.5">
+                Telegram
+              </a>
+            </div>
             <div className="flex flex-wrap gap-3 mb-6">
-              <Link href={`/kontakty?model=${home.name}`} className="btn-primary flex-1 justify-center py-3.5">
+              <a
+                href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary flex-1 justify-center py-3"
+              >
+                MAX
+              </a>
+              <Link href={`/kontakty?model=${encodeURIComponent(home.name)}`} className="btn-secondary flex-1 justify-center py-3">
                 Получить расчёт
               </Link>
-              <a href={siteSettings.whatsapp} target="_blank" rel="noopener noreferrer" className="btn-secondary flex-1 justify-center py-3.5">
-                <MessageCircle className="w-4 h-4" /> WhatsApp
-              </a>
             </div>
 
             <a href={`tel:${siteSettings.phone}`} className="flex items-center gap-2 text-sm text-cream/60 hover:text-cream transition-colors">

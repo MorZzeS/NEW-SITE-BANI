@@ -19,22 +19,47 @@ export const metadata: Metadata = {
     template: '%s | Бани Герасимов',
   },
   description: 'Производство и продажа мобильных бань и домов. Доставка и установка по Москве и Московской области. Собственное производство, гарантия качества.',
-  keywords: ['мобильная баня', 'баня под ключ', 'купить баню', 'мобильный дом', 'баня на колёсах', 'Бани Герасимов', 'BANGER', 'БГ-01', 'БГ-12', 'Исток'],
+  keywords: ['мобильная баня', 'баня под ключ', 'купить баню', 'мобильный дом', 'баня на колёсах', 'Бани Герасимов', 'BANGER', 'Исток', 'Скандинавия', 'Север'],
   authors: [{ name: 'Бани Герасимов' }],
   metadataBase: new URL('https://banger.su'),
+  alternates: {
+    canonical: 'https://banger.su',
+  },
   openGraph: {
-    type: 'website', locale: 'ru_RU', url: 'https://banger.su',
+    type: 'website',
+    locale: 'ru_RU',
+    url: 'https://banger.su',
     siteName: 'Бани Герасимов',
     title: 'Бани Герасимов — мобильные бани и дома под ключ',
     description: 'Производство и продажа мобильных бань и домов. Доставка и установка по Москве и Московской области.',
-    images: [{ url: '/images/hero/hero-bg.png', width: 1671, height: 941 }],
+    images: [{
+      url: 'https://banger.su/NEW-SITE-BANI/images/hero/hero-bg.png',
+      width: 1671,
+      height: 941,
+      alt: 'Бани Герасимов — мобильные бани и дома',
+    }],
   },
   robots: { index: true, follow: true },
 }
 
+// Anti-flash: применяем тему до гидратации React
+const themeScript = `
+(function(){
+  try{
+    var s=localStorage.getItem('banger-theme');
+    var p=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';
+    document.documentElement.setAttribute('data-theme',s||p);
+  }catch(e){}
+})();
+`
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={inter.variable}>
+      <head>
+        {/* Anti-flash theme script — runs before paint */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
           <Header settings={siteSettings} />

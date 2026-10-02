@@ -1,21 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import { Phone, MessageCircle, Send, CheckCircle } from 'lucide-react'
+import { Phone } from 'lucide-react'
 import { siteSettings } from '@/data'
 
 export function CTASection() {
-  const [submitted, setSubmitted] = useState(false)
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In production, send to API
-    console.log('Form submitted:', { name, phone })
-    setSubmitted(true)
-  }
-
   return (
     <section className="py-20">
       <div className="site-container">
@@ -37,14 +25,17 @@ export function CTASection() {
                   Готовы обсудить<br />вашу баню?
                 </h2>
                 <p className="text-cream/65 leading-relaxed mb-8">
-                  Оставьте заявку — перезвоним в течение 15 минут, ответим на все вопросы,
+                  Свяжитесь с нами удобным способом — ответим на все вопросы,
                   подберём подходящую модель и рассчитаем стоимость с доставкой.
                 </p>
                 <div className="space-y-4">
-                  <a href={`tel:${siteSettings.phone}`}
-                    className="flex items-center gap-3 text-cream hover:text-gold-300 transition-colors group">
-                    <div className="w-11 h-11 glass rounded-2xl flex items-center justify-center group-hover:bg-gold-400/15 transition-colors">
-                      <Phone className="w-5 h-5 text-gold-400" />
+                  <a
+                    href={`tel:${siteSettings.phone}`}
+                    className="flex items-center gap-3 text-cream hover:text-[#d4a843] transition-colors group"
+                    aria-label={`Позвонить: ${siteSettings.phoneDisplay}`}
+                  >
+                    <div className="w-11 h-11 glass rounded-2xl flex items-center justify-center group-hover:bg-[#d4a843]/15 transition-colors">
+                      <Phone className="w-5 h-5 text-[#d4a843]" />
                     </div>
                     <div>
                       <div className="text-xs text-cream/50">Позвонить</div>
@@ -54,54 +45,44 @@ export function CTASection() {
                 </div>
               </div>
 
-              {/* Right: Form */}
+              {/* Right: contacts block — no fake form */}
               <div className="glass-strong rounded-3xl p-8">
-                {submitted ? (
-                  <div className="flex flex-col items-center justify-center py-8 text-center">
-                    <CheckCircle className="w-14 h-14 text-emerald-400 mb-4" />
-                    <h3 className="text-xl font-bold text-cream mb-2">Заявка отправлена!</h3>
-                    <p className="text-cream/60 text-sm">
-                      Мы перезвоним вам в течение 15 минут в рабочее время.
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <h3 className="text-xl font-bold text-cream mb-2">Заказать звонок</h3>
-                    <p className="text-sm text-cream/60 mb-6">Перезвоним в течение 15 минут</p>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div>
-                        <label className="block text-xs text-cream/60 mb-1.5">Ваше имя</label>
-                        <input
-                          type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Иван"
-                          required
-                          className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none focus:border-gold-400/50 border border-transparent transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-cream/60 mb-1.5">Телефон</label>
-                        <input
-                          type="tel"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+7 900 000-00-00"
-                          required
-                          className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none focus:border-gold-400/50 border border-transparent transition-colors"
-                        />
-                      </div>
-                      <button type="submit" className="btn-primary w-full justify-center py-3.5">
-                        <Send className="w-4 h-4" />
-                        Отправить заявку
-                      </button>
-                      <p className="text-[10px] text-cream/30 text-center leading-relaxed">
-                        Нажимая «Отправить», вы соглашаетесь с{' '}
-                        <a href="/privacy" className="underline hover:text-cream/50">политикой конфиденциальности</a>
-                      </p>
-                    </form>
-                  </>
-                )}
+                <h3 className="text-xl font-bold text-cream mb-2">Связаться с нами</h3>
+                <p className="text-sm text-cream/60 mb-6">
+                  Онлайн-отправка заявки пока недоступна — напишите или позвоните напрямую.
+                </p>
+                <div className="space-y-3">
+                  <a
+                    href={`tel:${siteSettings.phone}`}
+                    className="btn-primary w-full justify-center py-3.5"
+                    aria-label={`Позвонить ${siteSettings.phoneDisplay}`}
+                  >
+                    <Phone className="w-4 h-4" />
+                    {siteSettings.phoneDisplay}
+                  </a>
+                  <a
+                    href={siteSettings.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary w-full justify-center py-3.5"
+                    aria-label="Написать в Telegram"
+                  >
+                    Telegram
+                  </a>
+                  <a
+                    href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary w-full justify-center py-3.5"
+                    aria-label="Написать в MAX"
+                  >
+                    MAX
+                  </a>
+                  <p className="text-[10px] text-cream/30 text-center leading-relaxed pt-1">
+                    Нажимая, вы соглашаетесь с{' '}
+                    <a href="/privacy" className="underline hover:text-cream/50">политикой конфиденциальности</a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

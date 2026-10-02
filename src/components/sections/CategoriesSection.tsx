@@ -19,9 +19,10 @@ export function CategoriesSection() {
           <Link href="/katalog/bani" className="group block">
             <div className="relative overflow-hidden rounded-3xl h-80 glass-card border-0">
               <Image
-                src="/NEW-SITE-BANI/images/renders/Исток 8.png"
-                alt="Мобильные бани"
+                src="/NEW-SITE-BANI/images/renders/istok-8.png"
+                alt="Мобильная баня — серии Исток, Север, Скандинавия"
                 fill
+                loading="lazy"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
@@ -43,9 +44,10 @@ export function CategoriesSection() {
           <Link href="/katalog/doma" className="group block">
             <div className="relative overflow-hidden rounded-3xl h-80 glass-card border-0">
               <Image
-                src="/NEW-SITE-BANI/images/renders/Усадьба Терра 7.png"
-                alt="Мобильные дома"
+                src="/NEW-SITE-BANI/images/renders/usadba-terra-7.png"
+                alt="Мобильный дом — серия Усадьба"
                 fill
+                loading="lazy"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
