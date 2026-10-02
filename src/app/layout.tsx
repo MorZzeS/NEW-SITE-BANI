@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: 'Бани Герасимов — мобильные бани и дома под ключ',
     description: 'Производство и продажа мобильных бань и домов. Доставка и установка по Москве и Московской области.',
     images: [{
-      url: 'https://banger.su/NEW-SITE-BANI/images/hero/hero-bg.png',
+      url: 'https://banger.su/NEW-SITE-BANI/images/hero/hero-bg.webp',
       width: 1671,
       height: 941,
       alt: 'Бани Герасимов — мобильные бани и дома',

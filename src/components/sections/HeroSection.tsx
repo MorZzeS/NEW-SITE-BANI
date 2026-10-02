@@ -22,7 +22,7 @@ export function HeroSection() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/NEW-SITE-BANI/images/hero/hero-bg.png"
+          src="/NEW-SITE-BANI/images/hero/hero-bg.webp"
           alt="Мобильная баня Герасимов на природе"
           fill
           priority
