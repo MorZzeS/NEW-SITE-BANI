@@ -5,6 +5,9 @@ import { articles } from '@/data'
 export const metadata = {
   title: 'Полезное — советы и статьи о банях',
   description: 'Советы по выбору, уходу и эксплуатации мобильных бань. Материалы, печи, доставка, подготовка участка.',
+  alternates: {
+    canonical: 'https://banger.su/poleznoe',
+  },
 }
 
 export default function PoleznoeePage() {
