@@ -1,10 +1,17 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, MessageCircle, Send, CheckCircle } from 'lucide-react'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Выставка — Бани Герасимов',
   description: 'Посетите выставочный образец мобильной бани вживую. Запишитесь на просмотр.',
+  alternates: { canonical: 'https://banger.su/vystavka' },
+  openGraph: {
+    url: 'https://banger.su/vystavka',
+    title: 'Выставка — Бани Герасимов',
+    description: 'Посетите выставочный образец мобильной бани вживую. Запишитесь на просмотр.',
+  },
 }
 
 export default function VystavkaPage() {

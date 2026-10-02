@@ -1,6 +1,8 @@
-export const metadata = {
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
   title: 'Политика обработки персональных данных',
   description: 'Политика в отношении обработки персональных данных для сайта BANGER.SU / Бани Герасимов.',
+  alternates: { canonical: 'https://banger.su/politika' },
 }
 
 export default function PolicyPage() {

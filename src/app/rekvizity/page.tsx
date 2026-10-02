@@ -1,4 +1,5 @@
-export const metadata = { title: 'Реквизиты — Бани Герасимов', description: 'Юридические данные продавца и оператора персональных данных.' }
+import type { Metadata } from 'next'
+export const metadata: Metadata = { title: 'Реквизиты — Бани Герасимов', description: 'Юридические данные продавца и оператора персональных данных.', alternates: { canonical: 'https://banger.su/rekvizity' }, }
 export default function RekvizityPage() {
   return (
     <div className="pt-28 pb-20 site-container">

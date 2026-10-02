@@ -1,9 +1,16 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Factory, Award, Users, Truck } from 'lucide-react'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'О компании — Бани Герасимов',
   description: 'Производитель мобильных бань с 2026 года. Собственное производство в Московской области, доставка и установка по Москве и Московской области.',
+  alternates: { canonical: 'https://banger.su/o-kompanii' },
+  openGraph: {
+    url: 'https://banger.su/o-kompanii',
+    title: 'О компании — Бани Герасимов',
+    description: 'Производитель мобильных бань с 2026 года. Собственное производство в Московской области, доставка и установка по Москве и Московской области.',
+  },
 }
 
 const stats = [

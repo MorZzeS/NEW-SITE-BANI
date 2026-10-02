@@ -17,10 +17,18 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = projects.find((p) => p.slug === params.slug)
   if (!project) return {}
+  const BASE = 'https://banger.su'
+  const canonical = `${BASE}/nashi-raboty/${project.slug}`
   return {
-    title: project.title,
+    title: `${project.title} — наши работы | Бани Герасимов`,
     description: project.description,
-    openGraph: { images: [project.image] },
+    alternates: { canonical },
+    openGraph: {
+      url: canonical,
+      title: project.title,
+      description: project.description,
+      images: [{ url: project.image.startsWith('http') ? project.image : `${BASE}${project.image.replace('/NEW-SITE-BANI', '')}`, alt: project.title }],
+    },
   }
 }
 

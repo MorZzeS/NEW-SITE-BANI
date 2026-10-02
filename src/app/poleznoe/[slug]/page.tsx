@@ -15,9 +15,17 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = articles.find((a) => a.slug === params.slug)
   if (!article) return {}
+  const canonical = `https://banger.su/poleznoe/${article.slug}`
   return {
-    title: article.title,
+    title: `${article.title} — советы и статьи о мобильных банях | Бани Герасимов`,
     description: article.excerpt,
+    alternates: { canonical },
+    openGraph: {
+      url: canonical,
+      title: article.title,
+      description: article.excerpt,
+      siteName: 'Бани Герасимов',
+    },
   }
 }
 

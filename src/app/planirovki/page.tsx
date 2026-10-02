@@ -1,10 +1,13 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { saunas, homes } from '@/data'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Планировки мобильных бань',
   description: 'Готовые варианты планировок мобильных бань. Двухкомнатные, трёхкомнатные, с террасой.',
+  alternates: { canonical: 'https://banger.su/planirovki' },
+  openGraph: { url: 'https://banger.su/planirovki' },
 }
 
 const layouts = [
