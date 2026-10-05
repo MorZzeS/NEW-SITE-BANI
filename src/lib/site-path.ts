@@ -12,7 +12,7 @@ export function withBasePath(path: string): string {
 export function articleHtmlWithBasePath(html: string, homeSlugs: string[]): string {
   return html.replace(/\b(href|src)=(['"])([^'"]+)\2/g, (_, attr, quote, url: string) => {
     const home = homeSlugs.find((slug) => url === `/banya/${slug}`)
-    const path = home ? `/dom/${home}` : url
+    const path = home ? `/dom/${home}` : url.replace(/^(\/poleznoe\/[^/?#]+)\/(?=[?#]|$)/, '$1')
     return `${attr}=${quote}${withBasePath(path)}${quote}`
   })
 }

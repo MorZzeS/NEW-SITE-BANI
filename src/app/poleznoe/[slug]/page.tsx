@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = articles.find((a) => a.slug === (articleAliases[params.slug] || params.slug))
   if (!article) return {}
-  const canonical = `https://banger.su/poleznoe/${article.slug}/`
+  const canonical = `https://banger.su/poleznoe/${article.slug}`
   return {
     title: { absolute: article.seoTitle || article.title },
     description: article.metaDescription || article.excerpt,
@@ -36,7 +36,7 @@ export default function ArticlePage({ params }: Props) {
   const article = articles.find((a) => a.slug === (articleAliases[params.slug] || params.slug))
   if (!article) notFound()
 
-  if (articleAliases[params.slug]) return <div className="site-container pt-32 pb-20"><h1 className="text-3xl font-bold text-cream mb-6">Материал обновлён</h1><p className="text-cream/70 mb-6">Актуальная статья доступна по новому адресу.</p><Link href={`/poleznoe/${article.slug}/`} className="btn-primary">{article.title}</Link></div>
+  if (articleAliases[params.slug]) return <div className="site-container pt-32 pb-20"><h1 className="text-3xl font-bold text-cream mb-6">Материал обновлён</h1><p className="text-cream/70 mb-6">Актуальная статья доступна по новому адресу.</p><Link href={`/poleznoe/${article.slug}`} className="btn-primary">{article.title}</Link></div>
 
   const related = (article.relatedSlugs || []).map((slug) => articles.find((a) => a.slug === slug)).filter((a): a is NonNullable<typeof a> => Boolean(a))
 
@@ -93,7 +93,7 @@ export default function ArticlePage({ params }: Props) {
             <h2 className="text-2xl font-bold text-cream mb-6">Читайте также</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {related.map((a) => (
-                <Link href={`/poleznoe/${a.slug}/`} key={a.id} className="group block">
+                <Link href={`/poleznoe/${a.slug}`} key={a.id} className="group block">
                   <div className="glass-card p-5 h-full">
                     <span className="section-tag text-[10px] px-2.5 py-1 mb-3 inline-block">{a.category}</span>
                     <h3 className="text-sm font-bold text-cream group-hover:text-gold-300 transition-colors leading-snug">

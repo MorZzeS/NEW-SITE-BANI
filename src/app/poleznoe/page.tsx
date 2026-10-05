@@ -24,7 +24,7 @@ export default function PoleznoeePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {articles.map((article) => (
-            <Link href={`/poleznoe/${article.slug}/`} key={article.id} className="group block">
+            <Link href={`/poleznoe/${article.slug}`} key={article.id} className="group block">
               <div className="glass-card p-6 h-full flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="section-tag text-[10px] px-3 py-1">{article.category}</span>

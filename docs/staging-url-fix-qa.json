@@ -1,0 +1,618 @@
+{
+  "date": "2026-10-05",
+  "status": "PASS",
+  "build": "PASS",
+  "static": {
+    "pages": 103,
+    "local_urls": 220,
+    "models": 31,
+    "plans": 28,
+    "errors": []
+  },
+  "http_articles": [
+    {
+      "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/kak-vybrat-drevesinu-dlya-mobilnoy-bani"
+    },
+    {
+      "slug": "obrabotka-drevesiny-neomid-v-bane",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/obrabotka-drevesiny-neomid-v-bane"
+    },
+    {
+      "slug": "materialy-dlya-mobilnoy-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/materialy-dlya-mobilnoy-bani"
+    },
+    {
+      "slug": "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/podgotovka-ploshchadki-pod-mobilnuyu-banyu"
+    },
+    {
+      "slug": "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/fundament-dlya-mobilnoy-bani-bloki-ili-svai"
+    },
+    {
+      "slug": "karkas-ili-brus-dlya-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/karkas-ili-brus-dlya-bani"
+    },
+    {
+      "slug": "pirog-steny-mobilnoy-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/pirog-steny-mobilnoy-bani"
+    },
+    {
+      "slug": "uteplenie-mobilnoy-bani-dlya-zimy",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/uteplenie-mobilnoy-bani-dlya-zimy"
+    },
+    {
+      "slug": "pol-i-sliv-v-bane",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/pol-i-sliv-v-bane"
+    },
+    {
+      "slug": "ventilyatsiya-mobilnoy-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/ventilyatsiya-mobilnoy-bani"
+    },
+    {
+      "slug": "kak-vybrat-pech-dlya-mobilnoy-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/kak-vybrat-pech-dlya-mobilnoy-bani"
+    },
+    {
+      "slug": "dymohod-v-derevyannoy-bane",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/dymohod-v-derevyannoy-bane"
+    },
+    {
+      "slug": "elektrika-v-bane",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/elektrika-v-bane"
+    },
+    {
+      "slug": "voda-i-boyler-v-mobilnoy-bane",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/voda-i-boyler-v-mobilnoy-bane"
+    },
+    {
+      "slug": "otdelka-parnoy-i-polki",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/otdelka-parnoy-i-polki"
+    },
+    {
+      "slug": "okna-i-dveri-v-bane",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/okna-i-dveri-v-bane"
+    },
+    {
+      "slug": "fasad-mobilnoy-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/fasad-mobilnoy-bani"
+    },
+    {
+      "slug": "dostavka-i-ustanovka-mobilnoy-bani",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/dostavka-i-ustanovka-mobilnoy-bani"
+    },
+    {
+      "slug": "kak-prinyat-mobilnuyu-banyu",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/kak-prinyat-mobilnuyu-banyu"
+    },
+    {
+      "slug": "uhod-za-mobilnoy-baney",
+      "no_slash": 200,
+      "slash": 200,
+      "identical_html": true,
+      "canonical": "https://banger.su/poleznoe/uhod-za-mobilnoy-baney"
+    }
+  ],
+  "browser_articles": [
+    {
+      "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+          "h1": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+          "h1": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "obrabotka-drevesiny-neomid-v-bane",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/obrabotka-drevesiny-neomid-v-bane",
+          "h1": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/obrabotka-drevesiny-neomid-v-bane",
+          "h1": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "materialy-dlya-mobilnoy-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/materialy-dlya-mobilnoy-bani",
+          "h1": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/materialy-dlya-mobilnoy-bani",
+          "h1": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+          "h1": "Как подготовить площадку под мобильную баню: участок, подъезд, дренаж и место для монтажа",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+          "h1": "Как подготовить площадку под мобильную баню: участок, подъезд, дренаж и место для монтажа",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+          "h1": "Блоки или винтовые сваи под мобильную баню: как выбирать и почему нельзя считать «по длине»",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+          "h1": "Блоки или винтовые сваи под мобильную баню: как выбирать и почему нельзя считать «по длине»",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "karkas-ili-brus-dlya-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/karkas-ili-brus-dlya-bani",
+          "h1": "Каркасная баня или баня из бруса: что отличается в реальной эксплуатации",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/karkas-ili-brus-dlya-bani",
+          "h1": "Каркасная баня или баня из бруса: что отличается в реальной эксплуатации",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "pirog-steny-mobilnoy-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/pirog-steny-mobilnoy-bani",
+          "h1": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/pirog-steny-mobilnoy-bani",
+          "h1": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "uteplenie-mobilnoy-bani-dlya-zimy",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/uteplenie-mobilnoy-bani-dlya-zimy",
+          "h1": "Как утеплить мобильную баню для зимы: стены, пол, потолок и слабые места",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/uteplenie-mobilnoy-bani-dlya-zimy",
+          "h1": "Как утеплить мобильную баню для зимы: стены, пол, потолок и слабые места",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "pol-i-sliv-v-bane",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/pol-i-sliv-v-bane",
+          "h1": "Пол и слив в бане: как сделать мойку, чтобы вода уходила, а конструкция не гнила",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/pol-i-sliv-v-bane",
+          "h1": "Пол и слив в бане: как сделать мойку, чтобы вода уходила, а конструкция не гнила",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "ventilyatsiya-mobilnoy-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/ventilyatsiya-mobilnoy-bani",
+          "h1": "Вентиляция бани: как получить хороший пар и быстро высушить помещение после использования",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/ventilyatsiya-mobilnoy-bani",
+          "h1": "Вентиляция бани: как получить хороший пар и быстро высушить помещение после использования",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "kak-vybrat-pech-dlya-mobilnoy-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/kak-vybrat-pech-dlya-mobilnoy-bani",
+          "h1": "Как выбрать печь для мобильной бани: объем парной, мощность, камни и режим парения",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/kak-vybrat-pech-dlya-mobilnoy-bani",
+          "h1": "Как выбрать печь для мобильной бани: объем парной, мощность, камни и режим парения",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "dymohod-v-derevyannoy-bane",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/dymohod-v-derevyannoy-bane",
+          "h1": "Дымоход в деревянной бане: проход через потолок и кровлю без опасных сокращений",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/dymohod-v-derevyannoy-bane",
+          "h1": "Дымоход в деревянной бане: проход через потолок и кровлю без опасных сокращений",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "elektrika-v-bane",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/elektrika-v-bane",
+          "h1": "Электрика в бане: кабель, свет, розетки и защита во влажных и горячих зонах",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/elektrika-v-bane",
+          "h1": "Электрика в бане: кабель, свет, розетки и защита во влажных и горячих зонах",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "voda-i-boyler-v-mobilnoy-bane",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/voda-i-boyler-v-mobilnoy-bane",
+          "h1": "Вода, душ и бойлер в мобильной бане: как сделать систему удобной и пережить зиму",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/voda-i-boyler-v-mobilnoy-bane",
+          "h1": "Вода, душ и бойлер в мобильной бане: как сделать систему удобной и пережить зиму",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "otdelka-parnoy-i-polki",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/otdelka-parnoy-i-polki",
+          "h1": "Чем отделывать парную: осина, липа, хвойная древесина и правильные полки",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/otdelka-parnoy-i-polki",
+          "h1": "Чем отделывать парную: осина, липа, хвойная древесина и правильные полки",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "okna-i-dveri-v-bane",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/okna-i-dveri-v-bane",
+          "h1": "Окна и двери в бане: ПВХ, стекло, герметичность и теплопотери",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/okna-i-dveri-v-bane",
+          "h1": "Окна и двери в бане: ПВХ, стекло, герметичность и теплопотери",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "fasad-mobilnoy-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/fasad-mobilnoy-bani",
+          "h1": "Фасад мобильной бани: планкен, дерево, графитовые элементы и защита от солнца и дождя",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/fasad-mobilnoy-bani",
+          "h1": "Фасад мобильной бани: планкен, дерево, графитовые элементы и защита от солнца и дождя",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "dostavka-i-ustanovka-mobilnoy-bani",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/dostavka-i-ustanovka-mobilnoy-bani",
+          "h1": "Как доставляют и устанавливают готовую мобильную баню: что происходит в день монтажа",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/dostavka-i-ustanovka-mobilnoy-bani",
+          "h1": "Как доставляют и устанавливают готовую мобильную баню: что происходит в день монтажа",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "kak-prinyat-mobilnuyu-banyu",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/kak-prinyat-mobilnuyu-banyu",
+          "h1": "Как принять готовую мобильную баню: чек-лист покупателя перед подписанием акта",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/kak-prinyat-mobilnuyu-banyu",
+          "h1": "Как принять готовую мобильную баню: чек-лист покупателя перед подписанием акта",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    },
+    {
+      "slug": "uhod-za-mobilnoy-baney",
+      "pass": true,
+      "versions": [
+        {
+          "canonical": "https://banger.su/poleznoe/uhod-za-mobilnoy-baney",
+          "h1": "Как ухаживать за мобильной баней после покупки: сушка, древесина, печь, дымоход и сезонное обслуживание",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        },
+        {
+          "canonical": "https://banger.su/poleznoe/uhod-za-mobilnoy-baney",
+          "h1": "Как ухаживать за мобильной баней после покупки: сушка, древесина, печь, дымоход и сезонное обслуживание",
+          "noncanonicalLinks": [],
+          "overflow": false,
+          "theme": "dark"
+        }
+      ]
+    }
+  ],
+  "homepage": [
+    {
+      "width": 1435,
+      "mode": "light",
+      "pass": true,
+      "counts": [
+        "Направления",
+        "25 моделей",
+        "6 моделей"
+      ],
+      "height": 674,
+      "overflow": false,
+      "x": 0,
+      "y": 900,
+      "viewport_width": 1440
+    },
+    {
+      "width": 1435,
+      "mode": "dark",
+      "pass": true,
+      "counts": [
+        "Направления",
+        "25 моделей",
+        "6 моделей"
+      ],
+      "height": 674,
+      "overflow": false,
+      "x": 0,
+      "y": 900,
+      "viewport_width": 1440
+    },
+    {
+      "width": 385,
+      "mode": "light",
+      "pass": true,
+      "counts": [
+        "Направления",
+        "25 моделей",
+        "6 моделей"
+      ],
+      "height": 1082,
+      "overflow": false,
+      "x": 0,
+      "y": 923.3125,
+      "viewport_width": 390
+    },
+    {
+      "width": 385,
+      "mode": "dark",
+      "pass": true,
+      "counts": [
+        "Направления",
+        "25 моделей",
+        "6 моделей"
+      ],
+      "height": 1082,
+      "overflow": false,
+      "x": 0,
+      "y": 923.3125,
+      "viewport_width": 390
+    }
+  ]
+}

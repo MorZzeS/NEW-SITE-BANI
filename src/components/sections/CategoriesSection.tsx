@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { saunas } from '@/data'
 
 export function CategoriesSection() {
   return (
@@ -28,7 +29,7 @@ export function CategoriesSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/90 via-graphite-950/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-7">
-                <div className="section-tag mb-3 text-[10px]">17 моделей</div>
+                <div className="section-tag mb-3 text-[10px]">{saunas.length} моделей</div>
                 <h3 className="text-2xl font-bold text-cream mb-2">Мобильные бани</h3>
                 <p className="text-cream/70 text-sm mb-5">
                   Серии Исток, Север, Скандинавия. От 4 до 8 метров. Русская парная, мойка, комната отдыха.

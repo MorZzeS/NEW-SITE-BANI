@@ -59,6 +59,24 @@ const dataExports = {}
 const dataJs = ts.transpileModule(fs.readFileSync(path.join(root, 'src/data/index.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText
 vm.runInNewContext(dataJs, { exports: dataExports })
 const models = [...dataExports.saunas, ...dataExports.homes]
+const articleRecords = JSON.parse(fs.readFileSync(path.join(root, 'docs/articles-word-source.json'), 'utf8')).articles
+const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8')
+for (const { slug } of articleRecords) {
+  const articlePath = `/poleznoe/${slug}`
+  const canonical = `https://banger.su${articlePath}`
+  const original = path.join(dist, articlePath + '.html')
+  const alias = path.join(dist, articlePath, 'index.html')
+  if (!fs.existsSync(alias) || fs.readFileSync(alias, 'utf8') !== fs.readFileSync(original, 'utf8')) errors.push(`${slug}: slash alias differs or is missing`)
+  if (!fs.readFileSync(original, 'utf8').includes(`rel="canonical" href="${canonical}"`)) errors.push(`${slug}: noncanonical article metadata`)
+  if (sitemap.split(`<loc>${canonical}</loc>`).length !== 2 || sitemap.includes(`<loc>${canonical}/</loc>`)) errors.push(`${slug}: duplicate or incorrect sitemap URL`)
+  urls.add(prefix + articlePath)
+  urls.add(prefix + articlePath + '/')
+}
+for (const file of htmlFiles) {
+  if (/href="(?:\/NEW-SITE-BANI)?\/poleznoe\/[^"/?#]+\/(?=["?#])/.test(fs.readFileSync(file, 'utf8'))) errors.push(`${path.relative(dist, file)}: article link has trailing slash`)
+}
+const homepage = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+if (!homepage.includes(`>${dataExports.saunas.length}<!-- --> моделей</div>`) || !homepage.includes('>6 моделей</div>')) errors.push('homepage catalog counts do not match 25 saunas / 6 homes')
 if (models.length !== 31 || new Set(models.map((m) => m.id)).size !== 31 || new Set(models.map((m) => m.slug)).size !== 31) errors.push('model IDs/slugs are not unique 31/31')
 if (new Set(records.map((r) => r.model_source_sha256)).size !== 31) errors.push('duplicate catalog main image')
 for (const record of records) {

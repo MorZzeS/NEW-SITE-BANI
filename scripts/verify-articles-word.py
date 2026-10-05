@@ -110,11 +110,15 @@ for a in articles:
     assert ''.join(page.h1) == a['title'], slug + ': H1'
     assert ''.join(page.title) == a['title'], slug + ': SEO title'
     assert page.meta['description'] == a['Meta description'], slug + ': description'
-    assert page.canonical == 'https://banger.su' + a['URL'], slug + ': canonical'
+    canonical = 'https://banger.su' + a['URL'].rstrip('/')
+    assert page.canonical == canonical, slug + ': canonical'
+    assert (root / f'dist/poleznoe/{slug}/index.html').read_text(encoding='utf-8') == html, slug + ': slash alias'
     assert normalized(''.join(page.body)) == normalized(' '.join(a['blocks'][1:])), slug + ': body'
     assert a['blocks'][0] in html, slug + ': lead'
     assert a['photoBrief'] in html, slug + ': photo brief'
     assert page.images == 0, slug + ': unexpected image'
-    assert 'https://banger.su' + a['URL'] in sitemap, slug + ': sitemap'
-    assert '/poleznoe/' + slug + '/' in listing, slug + ': listing'
+    assert '<loc>' + canonical + '</loc>' in sitemap, slug + ': sitemap'
+    assert '<loc>' + canonical + '/</loc>' not in sitemap, slug + ': duplicate sitemap'
+    assert '/poleznoe/' + slug + '"' in listing, slug + ': listing'
+    assert '/poleznoe/' + slug + '/"' not in listing, slug + ': noncanonical listing'
 print('PASS: 20/20 approved Word articles; exact body, H1/title, description, canonical, sitemap, photo briefs; no images.')
