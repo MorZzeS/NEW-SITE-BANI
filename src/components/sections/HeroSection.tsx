@@ -51,19 +51,19 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Main hero content — pushed down from nav */}
-        <div className="flex-1 flex items-center pt-24">
+        <div className="flex-1 flex items-center pt-28 pb-8 md:pb-10">
           <div className="site-container w-full">
             <div className="flex items-start justify-between gap-8">
               {/* Left: Text content */}
               <div className="max-w-xl xl:max-w-2xl">
                 {/* Tag */}
-                <div className="section-tag mb-5 animate-fade-up" style={{ animationDelay: '0.1s' }}>
+                <div className="section-tag mb-5 text-[10px] sm:text-xs animate-fade-up" style={{ animationDelay: '0.1s' }}>
                   Готовые решения для отдыха и жизни
                 </div>
 
                 {/* Headline */}
                 <h1
-                  className="text-5xl xl:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6 animate-fade-up"
+                  className="text-[40px] sm:text-5xl xl:text-[64px] font-bold leading-[1.08] tracking-tight mb-5 animate-fade-up"
                   style={{ animationDelay: '0.2s' }}
                 >
                   <span className="text-cream">Мобильные бани</span>
@@ -73,7 +73,7 @@ export function HeroSection() {
 
                 {/* Subheading */}
                 <p
-                  className="text-lg text-cream/75 leading-relaxed mb-8 max-w-md animate-fade-up"
+                  className="text-base sm:text-lg text-cream/75 leading-relaxed mb-6 max-w-md animate-fade-up"
                   style={{ animationDelay: '0.3s' }}
                 >
                   Современные, тёплые, надёжные.<br />
@@ -81,19 +81,19 @@ export function HeroSection() {
                 </p>
 
                 {/* Feature badges */}
-                <div className="flex flex-wrap gap-3 mb-10 animate-fade-up" style={{ animationDelay: '0.4s' }}>
+                <div className="flex flex-wrap gap-x-5 gap-y-3 mb-7 animate-fade-up" style={{ animationDelay: '0.4s', textShadow: '0 1px 3px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7)' }}>
                   {features.map(({ icon: Icon, label }) => (
-                    <div key={label} className="glass flex items-center gap-3 px-4 py-3 rounded-2xl">
-                      <div className="w-8 h-8 rounded-xl bg-gold-400/20 flex items-center justify-center shrink-0">
-                        <Icon className="w-4 h-4 text-gold-400" />
+                    <div key={label} className="flex items-center gap-2.5 cursor-default">
+                      <div className="flex items-center justify-center shrink-0">
+                        <Icon className="w-4 h-4 text-cream/75" strokeWidth={1.5} />
                       </div>
-                      <span className="text-xs text-cream/85 font-medium whitespace-pre-line leading-tight">{label}</span>
+                      <span className="text-xs text-cream font-medium whitespace-pre-line leading-snug">{label}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* CTAs */}
-                <div className="flex flex-wrap items-center gap-4 animate-fade-up" style={{ animationDelay: '0.5s' }}>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-4 animate-fade-up" style={{ animationDelay: '0.5s' }}>
                   <Link href="/katalog/bani" className="btn-primary text-sm px-7 py-3.5">
                     Смотреть каталог
                     <ArrowRight className="w-4 h-4" />
@@ -108,7 +108,7 @@ export function HeroSection() {
               </div>
 
               {/* Right: Info cards — NOT buttons */}
-              <div className="hidden xl:flex flex-col gap-3 w-56 shrink-0 mt-8">
+              <div className="hidden xl:flex flex-col gap-4 w-52 shrink-0 mt-8">
                 {sideCards.map((card, i) => (
                   <div
                     key={card.label}
@@ -116,7 +116,7 @@ export function HeroSection() {
                     style={{ animationDelay: `${0.3 + i * 0.1}s` }}
                   >
                     <span aria-hidden="true" className="absolute top-4 left-4 w-6 h-px bg-gold-400/70" />
-                    <div className={`h-28 bg-gradient-to-br ${card.bg} flex items-end p-4`}>
+                    <div className={`h-24 bg-gradient-to-br ${card.bg} flex items-end p-4`}>
                       <p className="text-sm font-semibold text-cream leading-tight whitespace-pre-line">{card.label}</p>
                     </div>
                   </div>
