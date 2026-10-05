@@ -4,7 +4,7 @@ GitHub Pages: /NEW-SITE-BANI (basePath)
 Stack: Next.js 14 + Tailwind + TypeScript + Framer Motion + lucide-react
 
 ## GIT STATE
-Branch: main | HEAD: 30c360a | Msg: GATE-5: ProductGallery swipe+lightbox fix, bg-28 in saunas only, build PASS | PUSH DONE | Previous green Actions: 62b329a (run #23, success) | e789985 run #23 also SUCCESS | Waiting Actions for 30c360a (not yet appeared)
+Branch: main | HEAD: 4d2d4ae | Msg: GATE-5: interiorImages for bg-01; card layout: gallery (MAIN→PLAN→MODEL→INTERIOR) + Plan section + Interiors section | PUSH DONE | Actions: 30c360a pending, 4d2d4ae pending (workflow may lag)
 
 ## DONE
 Header: Catalog / Komplektaciya / Dostavka / Poleznoe / O-kompaniya; MAX + Telegram + phone links; NO WhatsApp anywhere
