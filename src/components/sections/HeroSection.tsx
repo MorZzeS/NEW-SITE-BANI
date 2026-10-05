@@ -2,6 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import { useState } from 'react'
+import { bathVideoAction } from '@/data/videos'
 import { ArrowRight, Play, Shield, Truck, Factory, Wrench } from 'lucide-react'
 
 const features = [
@@ -23,7 +26,10 @@ const trustItems = [
   { icon: Shield, title: 'Гарантия', caption: 'По договору' },
 ]
 
+const BathVideoViewer = dynamic(() => import('@/components/ui/BathVideoViewer'), { ssr: false })
+
 export function HeroSection() {
+  const [videoOpen, setVideoOpen] = useState(false)
   return (
     <section className="theme-hero relative min-h-screen flex flex-col overflow-hidden">
       {/* Background image */}
@@ -92,12 +98,11 @@ export function HeroSection() {
                     Смотреть каталог
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <button className="flex items-center gap-3 text-sm text-cream/80 hover:text-cream transition-colors group">
+                  <button type="button" aria-haspopup="dialog" onClick={() => setVideoOpen(true)} className="flex items-center gap-3 text-sm text-cream/80 hover:text-cream transition-colors group min-h-11 text-left">
                     <div className="w-11 h-11 glass rounded-full flex items-center justify-center group-hover:bg-white/15 transition-colors">
                       <Play className="w-4 h-4 text-cream fill-current ml-0.5" />
                     </div>
-                    Посмотреть видео<br className="hidden sm:block" />
-                    <span className="hidden sm:inline">о наших банях</span>
+                    <span><span className="block font-medium">{bathVideoAction.title}</span><span className="block text-xs text-cream/75 mt-0.5">{bathVideoAction.caption}</span></span>
                   </button>
                 </div>
               </div>
@@ -138,6 +143,7 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+      {videoOpen && <BathVideoViewer onClose={() => setVideoOpen(false)} />}
     </section>
   )
 }
