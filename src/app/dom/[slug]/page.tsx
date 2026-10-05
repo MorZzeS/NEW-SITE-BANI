@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Check } from 'lucide-react'
 import { homes, formatPrice, siteSettings } from '@/data'
@@ -55,23 +54,14 @@ export default function HomePage({ params }: Props) {
 
         {/* Hero grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <div className="space-y-3">
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden glass-card border-0">
-              <Image src={home.image} alt={home.name} fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-              <div className="absolute top-4 left-4 flex gap-2">
-                {home.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 rounded-lg text-xs font-semibold bg-graphite-950/80 backdrop-blur text-gold-300 border border-gold-400/30">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+          <div className="relative">
+            <ProductGallery compact items={[
+              { src: home.image, type: 'MAIN', alt: home.name },
+              ...home.images.filter((img) => img !== home.image).map((img, i) => ({ src: img, type: 'MODEL_PHOTO' as const, alt: `${home.name} — фото ${i + 1}` })),
+            ]} />
+            <div className="absolute top-4 left-4 flex gap-2 pointer-events-none">
+              {home.tags.map((tag) => <span key={tag} className="px-3 py-1 rounded-lg text-xs font-semibold bg-graphite-950/80 backdrop-blur text-gold-300 border border-gold-400/30">{tag}</span>)}
             </div>
-            {home.floorPlan && (
-              <div className="relative aspect-video rounded-2xl overflow-hidden glass-card border-0">
-                <Image src={home.floorPlan} alt={`${home.name} — планировка`} fill className="object-contain p-4" sizes="50vw" />
-                <div className="absolute bottom-3 left-3 section-tag text-[10px] px-3 py-1">Планировка</div>
-              </div>
-            )}
           </div>
 
           <div className="flex flex-col">
@@ -128,26 +118,9 @@ export default function HomePage({ params }: Props) {
           </div>
         </div>
 
-        {/* Product Gallery */}
-        <div className="mb-16">
-          <ProductGallery
-            title="Галерея модели"
-            items={[
-              { src: home.image, type: 'MAIN', alt: home.name },
-              ...(home.floorPlan ? [{ src: home.floorPlan, type: 'PLAN' as const, alt: `${home.name} — планировка`, label: 'Планировка' }] : []),
-              ...home.images.filter((img: string) => img !== home.image).map((img: string, i: number) => ({ src: img, type: 'MODEL_PHOTO' as const, alt: `${home.name} — фото ${i + 1}` })),
-              ...((home as any).interiorImages || []).map((img: string, i: number) => {
-                const isReal = home.slug === 'barn-premium'
-                return {
-                  src: img,
-                  type: 'INTERIOR_REAL' as const,
-                  alt: `${home.name} — интерьер ${i + 1}`,
-                  label: isReal ? `Интерьер ${home.name}` : `Пример интерьера. Так может выглядеть дом внутри. Фактический интерьер зависит от выбранной модели и комплектации.`,
-                }
-              }),
-            ]}
-          />
-        </div>
+        {home.floorPlan && <ProductGallery title="Планировка модели" items={[
+          { src: home.floorPlan, type: 'PLAN', alt: `${home.name} — планировка`, label: 'Планировка модели' },
+        ]} />}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           <div className="lg:col-span-2">

@@ -14,9 +14,10 @@ export type GalleryItem = {
 interface Props {
   items: GalleryItem[]
   title?: string
+  compact?: boolean
 }
 
-export function ProductGallery({ items: sourceItems, title }: Props) {
+export function ProductGallery({ items: sourceItems, title, compact = false }: Props) {
   const items = useMemo(() => sourceItems.filter((item, i) => sourceItems.findIndex((other) => other.src === item.src) === i), [sourceItems])
   const [current, setCurrent] = useState(0)
   const swipeRef = useRef<number | null>(null)
@@ -75,8 +76,8 @@ export function ProductGallery({ items: sourceItems, title }: Props) {
   }
 
   return (
-    <div className="mb-16">
-      <h2 className="text-2xl font-bold text-cream mb-6">{title || 'Галерея'}</h2>
+    <div className={compact ? "" : "mb-16"}>
+      {!compact && <h2 className="text-2xl font-bold text-cream mb-6">{title || 'Галерея'}</h2>}
 
       {/* Main image viewer */}
       <div className="relative rounded-3xl overflow-hidden glass-card mb-4">
@@ -103,7 +104,7 @@ export function ProductGallery({ items: sourceItems, title }: Props) {
           ref={openerRef}
           type="button"
           aria-label={`Открыть ${currentItem.type === 'PLAN' ? 'планировку' : 'фото'}: ${currentItem.alt}`}
-          className="block w-full relative aspect-[4/3] md:aspect-[16/10] cursor-pointer select-none"
+          className={`block w-full relative aspect-[4/3] ${compact ? '' : 'md:aspect-[16/10]'} cursor-pointer select-none`}
           onClick={() => { if (!swipedRef.current) setLightbox(true); swipedRef.current = false }}
           {...touchHandlers}
         >

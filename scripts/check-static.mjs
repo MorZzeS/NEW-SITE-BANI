@@ -62,8 +62,9 @@ for (const record of records) {
     if (!fs.existsSync(asset)) errors.push(`${record.id}: missing plan asset`)
     else if (crypto.createHash('sha256').update(fs.readFileSync(asset)).digest('hex') !== record.source_image_sha256) errors.push(`${record.id}: plan differs from source`)
     if (!html.includes(prefix + '/' + record.asset)) errors.push(`${record.id}: plan not connected`)
-    const plan = html.indexOf('>Планировка</h2>')
+    const plan = html.indexOf('>Планировка модели</h2>')
     const interior = html.search(/>(?:Интерьеры|Варианты внутреннего исполнения)<\/h2>/)
+    if (plan === -1) errors.push(`${record.id}: missing plan heading`)
     if (interior !== -1 && plan !== -1 && interior < plan) errors.push(`${record.id}: interiors precede plan`)
   } else if (html.includes('/images/plans/' + record.id)) errors.push(`${record.id}: unexpected plan`)
 }

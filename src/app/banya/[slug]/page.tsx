@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, Check, Phone } from 'lucide-react'
+import { Check, Phone } from 'lucide-react'
 import { saunas, formatPrice, siteSettings } from '@/data'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
@@ -40,6 +39,8 @@ export default function SaunaPage({ params }: Props) {
   const sauna = saunas.find((s) => s.slug === params.slug)
   if (!sauna) notFound()
 
+  const interiorImages = sauna.interiorImages?.length ? sauna.interiorImages : saunas.find((s) => s.id === 'bg-01')?.interiorImages || []
+
   const related = saunas.filter((s) => s.series === sauna.series && s.id !== sauna.id).slice(0, 3)
 
   return (
@@ -56,22 +57,14 @@ export default function SaunaPage({ params }: Props) {
 
         {/* Hero grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {/* Image */}
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden glass-card border-0">
-            <Image
-              src={sauna.image}
-              alt={sauna.name}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-            {/* Tags */}
-            <div className="absolute top-4 left-4 flex gap-2">
+          <div className="relative">
+            <ProductGallery compact items={[
+              { src: sauna.image, type: 'MAIN', alt: sauna.name },
+              ...sauna.images.filter((img) => img !== sauna.image).map((img, i) => ({ src: img, type: 'MODEL_PHOTO' as const, alt: `${sauna.name} — фото ${i + 1}` })),
+            ]} />
+            <div className="absolute top-4 left-4 flex gap-2 pointer-events-none">
               {sauna.tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-lg text-xs font-semibold bg-graphite-950/80 backdrop-blur text-gold-300 border border-gold-400/30">
-                  {tag}
-                </span>
+                <span key={tag} className="px-3 py-1 rounded-lg text-xs font-semibold bg-graphite-950/80 backdrop-blur text-gold-300 border border-gold-400/30">{tag}</span>
               ))}
             </div>
           </div>
@@ -138,26 +131,19 @@ export default function SaunaPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Product Gallery */}
-        <div className="mb-16">
-          <ProductGallery
-            title="Галерея модели"
-            items={[
-              { src: sauna.image, type: 'MAIN', alt: sauna.name },
-              ...(sauna.floorPlan ? [{ src: sauna.floorPlan, type: 'PLAN' as const, alt: `${sauna.name} — планировка`, label: 'Планировка' }] : []),
-              ...sauna.images.filter((img: string) => img !== sauna.image).map((img: string, i: number) => ({ src: img, type: 'MODEL_PHOTO' as const, alt: `${sauna.name} — фото ${i + 1}` })),
-              ...(sauna.slug === 'barn-premium' ? sauna.interiorImages || [] : []).map((img: string, i: number) => {
-                const isReal = sauna.slug === 'barn-premium'
-                return {
-                  src: img,
-                  type: 'INTERIOR_REAL' as const,
-                  alt: `${sauna.name} — интерьер ${i + 1}`,
-                  label: isReal ? `Интерьер ${sauna.name}` : 'Пример интерьера — так может выглядеть баня внутри. Фактический интерьер зависит от выбранной модели и комплектации.',
-                }
-              }),
-            ]}
-          />
-        </div>
+        {sauna.floorPlan && <ProductGallery
+          title="Планировка модели"
+          items={[{ src: sauna.floorPlan, type: 'PLAN', alt: `${sauna.name} — планировка`, label: 'Планировка модели' }]}
+        />}
+
+        {!!interiorImages.length && <div className="mb-16">
+          <p className="text-sm text-cream/60 mb-6">Варианты внутреннего исполнения на наших фотографиях. Фактический интерьер зависит от выбранной модели и комплектации.</p>
+          <ProductGallery title="Варианты внутреннего исполнения" items={interiorImages.map((src, i) => ({
+            src, type: 'INTERIOR_EXAMPLE' as const,
+            alt: `Вариант внутреннего исполнения — фото ${i + 1}`,
+            label: 'Вариант внутреннего исполнения',
+          }))} />
+        </div>}
 
         {/* Description */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
@@ -190,45 +176,6 @@ export default function SaunaPage({ params }: Props) {
             </div>
           </div>
         </div>
-
-        {/* Floor plan */}
-        {sauna.floorPlan && (
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold text-cream mb-6">Планировка</h2>
-            <div className="glass rounded-3xl overflow-hidden">
-              <Image src={sauna.floorPlan} alt={`${sauna.name} — план`} width={800} height={600} className="w-full h-auto object-contain" unoptimized />
-            </div>
-          </div>
-        )}
-
-        {/* Interior photos */}
-        {!!sauna.interiorImages?.length && (
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold text-cream mb-6">{sauna.slug === 'barn-premium' ? 'Интерьеры' : 'Варианты внутреннего исполнения'}</h2>
-            {sauna.slug !== 'barn-premium' && <p className="text-sm text-cream/60 mb-6">Так может выглядеть баня внутри. Фактический интерьер зависит от выбранной модели и комплектации.</p>}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {sauna.interiorImages?.map((img: string, i: number) => (
-                <div key={i} className="relative aspect-[4/3] rounded-2xl overflow-hidden glass-card border-0">
-                  <Image src={img} alt={`${sauna.name} — интерьер ${i + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Additional images */}
-        {sauna.images.length > 1 && (
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold text-cream mb-6">Галерея</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {sauna.images.map((img, i) => (
-                <div key={i} className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                  <Image src={img} alt={`${sauna.name} - фото ${i + 1}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Inline form */}
         <div className="mb-16">
