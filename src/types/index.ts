@@ -8,7 +8,7 @@ export interface Sauna {
   id: string
   slug: string
   name: string
-  series: 'Исток' | 'Север' | 'Скандинавия' | 'Усадьба'
+  series: 'Исток' | 'Север' | 'Скандинавия' | 'Барн' | 'Усадьба'
   subtitle: string
   description: string
   image: string

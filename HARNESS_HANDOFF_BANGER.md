@@ -4,7 +4,7 @@ GitHub Pages: /NEW-SITE-BANI (basePath)
 Stack: Next.js 14 + Tailwind + TypeScript + Framer Motion + lucide-react
 
 ## GIT STATE
-Branch: main | HEAD: b24ea30 | Msg: v4 TZ | Clean working tree | PUSH NOT DONE
+Branch: main | HEAD: 62b329a | Msg: gate-3: fix slugs bg-16/17, remove whatsapp, add InteriorPhotosSection on homepage, fix duplicate bg-28 in homes, max in SiteSettings type | Clean working tree | PUSH DONE | GitHub Actions: SUCCESS ✅
 
 ## DONE
 Header: Catalog / Komplektaciya / Dostavka / Poleznoe / O-kompaniya; MAX + Telegram + phone links; NO WhatsApp anywhere
@@ -20,6 +20,10 @@ Company data: founded 2026, team 8, Moscow/MO only
 Prices (31 models): verified vs Catalog v4 (bg-01..bg-31 corrected per user list)
 Images: 33 safe renders (no +/Cyrillic in src); 19 interiors + 18 v2 extracted; mapping.txt present
 Data: src/data/index.ts (31 saunas + articles + homes); src/types/index.ts (Sauna/Home + interiorImages?: string[])
+Build: PASS (67 static pages; output: dist; basePath /NEW-SITE-BANI; assetPrefix /NEW-SITE-BANI)
+Slugs: bg-16 skandinaviya-komfort-plus-6 FIXED; bg-17 skandinaviya-komfort-plus-7 FIXED (were -6-plus/-7-plus)
+Data: duplicate bg-28 in homes[] REMOVED; SiteSettings.whatsapp removed, SiteSettings.max added
+InteriorPhotosSection: ADDED to homepage (6 real interior photos with captions)
 Build: PASS (65 static pages; output: dist; basePath /NEW-SITE-BANI; assetPrefix /NEW-SITE-BANI)
 SEO v4: sitemap.xml (56 URLs) + robots.txt generated via App Router; canonical on all key pages; OG absolute URLs; metadata on all pages incl. client-pages via layout.tsx wrappers; H1 verified across all pages
 Performance v4: Google Fonts @import REMOVED from globals.css (Inter loaded via next/font only); lazy loading on below-fold images; overflow-x: hidden on html+body; Favorites href="#" fixed to button; Cyrillic filenames removed from src
