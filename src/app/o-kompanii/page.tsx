@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 // Факты о компании — вынесены в единый объект.
 // Цифры (модели, сотрудники, год основания) подтверждены владельцем.
 // Не генерировать и не менять без согласия владельца.
-export const companyFacts = {
+const companyFacts = {
   founded: '2026',
   saunas: 24,
   homes: 7,
