@@ -1,5 +1,5 @@
 'use client'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -17,6 +17,7 @@ interface Props {
 
 export function ProductGallery({ items, title }: Props) {
   const [current, setCurrent] = useState(0)
+  const swipeRef = useRef<number>(0)
   const [lightbox, setLightbox] = useState(false)
 
   const single = items.length <= 1
@@ -70,9 +71,9 @@ export function ProductGallery({ items, title }: Props) {
         <div
           className="relative aspect-[4/3] md:aspect-[16/10] cursor-pointer select-none"
           onClick={() => setLightbox(true)}
-          onTouchStart={(e) => { (window as any)._swipeStart = e.touches[0].clientX }}
+          onTouchStart={(e) => { swipeRef.current = e.touches[0].clientX }}
           onTouchEnd={(e) => {
-            const start = (window as any)._swipeStart || 0
+            const start = swipeRef.current || 0
             const end = e.changedTouches[0].clientX
             const diff = start - end
             if (Math.abs(diff) > 40) go(diff > 0 ? 1 : -1)
@@ -122,7 +123,9 @@ export function ProductGallery({ items, title }: Props) {
           <button onClick={() => setLightbox(false)} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 text-cream flex items-center justify-center hover:bg-white/20" aria-label="Закрыть">×</button>
           <button onClick={(e) => { e.stopPropagation(); go(-1) }} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-cream flex items-center justify-center hover:bg-white/20">‹</button>
           <button onClick={(e) => { e.stopPropagation(); go(1) }} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-cream flex items-center justify-center hover:bg-white/20">›</button>
-          <Image src={currentItem.src} alt={currentItem.alt} fill className={currentItem.type === 'PLAN' ? 'object-contain' : 'object-cover'} sizes="100vw" onClick={(e) => e.stopPropagation()} />
+          <div className="relative w-[90vw] h-[85vh] flex items-center justify-center">
+            <Image src={currentItem.src} alt={currentItem.alt} fill={false} width={1200} height={800} className={currentItem.type === 'PLAN' ? 'object-contain max-w-full max-h-full' : 'object-contain max-w-full max-h-full'} sizes="100vw" onClick={(e) => e.stopPropagation()} />
+          </div>
         </div>
       )}
     </div>

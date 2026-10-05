@@ -4,7 +4,7 @@ GitHub Pages: /NEW-SITE-BANI (basePath)
 Stack: Next.js 14 + Tailwind + TypeScript + Framer Motion + lucide-react
 
 ## GIT STATE
-Branch: main | HEAD: 62b329a | Msg: gate-3: fix slugs bg-16/17, remove whatsapp, add InteriorPhotosSection on homepage, fix duplicate bg-28 in homes, max in SiteSettings type | Clean working tree | PUSH DONE | GitHub Actions: SUCCESS ✅
+Branch: main | HEAD: e789985 | Msg: GATE-2/3/4: bg-28 moved to saunas (was homes), series expanded, build PASS | Clean working tree | PUSH DONE | Previous green Actions: 62b329a (run #22, success) | Waiting Actions for e789985
 
 ## DONE
 Header: Catalog / Komplektaciya / Dostavka / Poleznoe / O-kompaniya; MAX + Telegram + phone links; NO WhatsApp anywhere
