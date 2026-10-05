@@ -35,7 +35,7 @@ export function SaunaCard({ sauna, featured }: Props) {
             fill
             loading="lazy"
             quality={85}
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-contain transition-transform duration-500 group-hover:scale-105"
             sizes={featured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw'}
           />
           {/* Tags overlay */}
@@ -71,7 +71,7 @@ export function SaunaCard({ sauna, featured }: Props) {
             {[
               { label: 'Размер', value: sauna.size },
               { label: 'Площадь', value: `${sauna.area} м²` },
-              { label: 'Помещений', value: sauna.rooms },
+              { label: 'Артикул', value: sauna.article },
             ].map((s) => (
               <div key={s.label} className="glass rounded-xl p-2.5 text-center">
                 <div className="text-xs text-cream/40 mb-0.5">{s.label}</div>
@@ -83,7 +83,7 @@ export function SaunaCard({ sauna, featured }: Props) {
           {/* Price + CTA */}
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-[10px] text-cream/40 mb-0.5">от</div>
+              <div className="text-[10px] text-cream/40 mb-0.5">{sauna.id === 'bg-28' ? 'Представленное исполнение' : 'от'}</div>
               <div className="text-xl font-bold text-cream">
                 {formatPrice(sauna.priceFrom)}
               </div>

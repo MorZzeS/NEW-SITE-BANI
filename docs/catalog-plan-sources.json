@@ -12,7 +12,59 @@
       396
     ],
     "source_image_sha256": "196287e340d26a83186601453442b19a35ca45382916506cbaad978b562d75c4",
-    "route": "/banya/istok-4"
+    "route": "/banya/istok-4",
+    "model_slide": 4,
+    "model_asset": "images/catalog/bg-01/model.png",
+    "model_source_sha256": "dc7458b783c83a1a221b92b9d0bcd65b6cf8e55d0f2078df11c4d1554139be65",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-01",
+    "size": "4 × 2,4 м",
+    "priceFrom": 357500,
+    "description": "Компактный формат с парной и комнатой отдыха.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 370 500 ₽"
+    ],
+    "area": 9.6,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image.png",
+    "plan_embedded_media": "ppt/media/image2.png"
   },
   {
     "id": "bg-02",
@@ -27,7 +79,59 @@
       316
     ],
     "source_image_sha256": "ffefd72ec95508f5204a0361f99baa601b3868abbd8c360b7c94feff7473b22e",
-    "route": "/banya/istok-terra-5"
+    "route": "/banya/istok-terra-5",
+    "model_slide": 6,
+    "model_asset": "images/catalog/bg-02/model.png",
+    "model_source_sha256": "75120eeb43822133e4c5899bcb9f50f159a00e8fefc90321eea29cf48c0b4e6d",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-02",
+    "size": "5 × 2,4 м + крыльцо",
+    "priceFrom": 416000,
+    "description": "Двухзонная баня с отдельным входным крыльцом. По исходному плану: модуль 5 м и крыльцо 1 м.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 429 000 ₽"
+    ],
+    "area": 12.0,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image3.png",
+    "plan_embedded_media": "ppt/media/image4.png"
   },
   {
     "id": "bg-03",
@@ -42,7 +146,59 @@
       411
     ],
     "source_image_sha256": "4819bc480b0f2d929c24f6931f818ed47e4d8482ca0052205bf2c5dc4185e1aa",
-    "route": "/banya/istok-5"
+    "route": "/banya/istok-5",
+    "model_slide": 8,
+    "model_asset": "images/catalog/bg-03/model.png",
+    "model_source_sha256": "c17882f9cc6acce26f8a8a6a919a23fb4757939961d46bab5420406e179a0ceb",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-03",
+    "size": "5 × 2,4 м",
+    "priceFrom": 409500,
+    "description": "Дополнительное пространство в простом прямоугольном модуле.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 422 500 ₽"
+    ],
+    "area": 12.0,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image5.png",
+    "plan_embedded_media": "ppt/media/image6.png"
   },
   {
     "id": "bg-04",
@@ -57,7 +213,59 @@
       341
     ],
     "source_image_sha256": "e4e12e47a3a27891167f37dc7b70ffce8de903e1f96eabbff68ef3626fe60fa0",
-    "route": "/banya/istok-6"
+    "route": "/banya/istok-6",
+    "model_slide": 10,
+    "model_asset": "images/catalog/bg-04/model.png",
+    "model_source_sha256": "cc3dda8d21727f3c0998fb450a378400bd066c801913556b737506748bd4e8bc",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-04",
+    "size": "6 × 2,4 м",
+    "priceFrom": 429000,
+    "description": "Увеличенный модуль с парной и зоной отдыха.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 435 500 ₽"
+    ],
+    "area": 14.4,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image7.png",
+    "plan_embedded_media": "ppt/media/image8.png"
   },
   {
     "id": "bg-05",
@@ -72,7 +280,59 @@
       296
     ],
     "source_image_sha256": "92e74625e8a3337439276d4cd99c814a35208bb36972430881ef3be3752fe6a2",
-    "route": "/banya/istok-semeynyy-7"
+    "route": "/banya/istok-semeynyy-7",
+    "model_slide": 12,
+    "model_asset": "images/catalog/bg-05/model.png",
+    "model_source_sha256": "bbea3f778c8a61833d27481ed714a327f428abece11cd63428cb9b735439db21",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-05",
+    "size": "7 × 2,4 м",
+    "priceFrom": 461500,
+    "description": "Раздельные зоны и вход со стороны длинного фасада.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 474 500 ₽"
+    ],
+    "area": 16.8,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image9.png",
+    "plan_embedded_media": "ppt/media/image10.png"
   },
   {
     "id": "bg-06",
@@ -87,7 +347,59 @@
       346
     ],
     "source_image_sha256": "a39252e2fcda7fd1da8c9031c14c08c6ab8d259cedb1d67e55077b0156a19066",
-    "route": "/banya/istok-semeynyy-7r"
+    "route": "/banya/istok-semeynyy-7r",
+    "model_slide": 14,
+    "model_asset": "images/catalog/bg-06/model.png",
+    "model_source_sha256": "a41c65de51529306dc6487cb7ef0788398f5a0960321df53981221f3b7ec6962",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-06",
+    "size": "7 × 2,4 м",
+    "priceFrom": 461500,
+    "description": "Альтернативное расположение помещений: парная справа на плане.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 474 500 ₽"
+    ],
+    "area": 16.8,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image11.png",
+    "plan_embedded_media": "ppt/media/image12.png"
   },
   {
     "id": "bg-07",
@@ -102,7 +414,59 @@
       336
     ],
     "source_image_sha256": "319c0b96ee5669ebe8a4a519b1c79631715d3f3c73bdd4d937c4277adf8d471f",
-    "route": "/banya/istok-prostor-7"
+    "route": "/banya/istok-prostor-7",
+    "model_slide": 16,
+    "model_asset": "images/catalog/bg-07/model.png",
+    "model_source_sha256": "9a820dd7b9f4aa4f46b1917379e1787ba35a99094373313dc0928b366a23e6f9",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-07",
+    "size": "7 × 2,4 м",
+    "priceFrom": 455000,
+    "description": "Другая пропорция помещений в семиметровом модуле.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 468 000 ₽"
+    ],
+    "area": 16.8,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image13.png",
+    "plan_embedded_media": "ppt/media/image14.png"
   },
   {
     "id": "bg-08",
@@ -117,7 +481,59 @@
       316
     ],
     "source_image_sha256": "97a89de33aa6842fa10e028521aab4d55cbcda621d93909bbfb3f6430f3d5f53",
-    "route": "/banya/istok-8"
+    "route": "/banya/istok-8",
+    "model_slide": 18,
+    "model_asset": "images/catalog/bg-08/model.png",
+    "model_source_sha256": "7a6e3b4f785ae6f32bbc0f2a6a9a3930a7c0226f2408e5c4f75f968469f44d7f",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-08",
+    "size": "8 × 2,4 м",
+    "priceFrom": 546000,
+    "description": "Самый длинный модуль серии с отдельными зонами отдыха и парения.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "Осиновая отделка парной и полки",
+      "Печь «Каменка-2», бак и камни",
+      "Освещение, стол и две лавки",
+      "Пол и потолок: утепление 50 мм по базовой спецификации"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 585 000 ₽"
+    ],
+    "area": 19.2,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image15.png",
+    "plan_embedded_media": "ppt/media/image16.png"
   },
   {
     "id": "bg-09",
@@ -132,7 +548,59 @@
       555
     ],
     "source_image_sha256": "c8255cf304f7a714fa5e4e9986b777c1bacc01482cf2a70914094a6610ed9711",
-    "route": "/banya/skandinaviya-mini-45"
+    "route": "/banya/skandinaviya-mini-45",
+    "model_slide": 20,
+    "model_asset": "images/catalog/bg-09/model.png",
+    "model_source_sha256": "92bb2817850bdcc57767bf9910fcc1488f2813c54531395a6f1a1c65e28548e7",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-09",
+    "size": "4,5 × 2,4 м",
+    "priceFrom": 520000,
+    "description": "Компактная баня с входной площадкой.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 533 000 ₽"
+    ],
+    "area": 10.8,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image17.png",
+    "plan_embedded_media": "ppt/media/image18.png"
   },
   {
     "id": "bg-10",
@@ -147,7 +615,59 @@
       571
     ],
     "source_image_sha256": "2f6ac655f665af1b755f7cb5ddf0c8470507c8feec9150b40106d0af051dfa9e",
-    "route": "/banya/skandinaviya-start-6"
+    "route": "/banya/skandinaviya-start-6",
+    "model_slide": 22,
+    "model_asset": "images/catalog/bg-10/model.png",
+    "model_source_sha256": "ae4da0f14dc8b05b56d9d7fa0c7985271e2a2cde7b09c04cfcdec0fb9048593b",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-10",
+    "size": "6 × 2,4 м",
+    "priceFrom": 552500,
+    "description": "Крытое крыльцо, комната отдыха и парная. Две основные внутренние зоны в шестиметровом формате.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 565 500 ₽"
+    ],
+    "area": 14.4,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image19.png",
+    "plan_embedded_media": "ppt/media/image20.png"
   },
   {
     "id": "bg-11",
@@ -162,7 +682,59 @@
       496
     ],
     "source_image_sha256": "f8a9017ee31f6b97b700bdef1f4931a0650b161bd59d0446a3383598fde133cf",
-    "route": "/banya/skandinaviya-start-65"
+    "route": "/banya/skandinaviya-start-65",
+    "model_slide": 24,
+    "model_asset": "images/catalog/bg-11/model.png",
+    "model_source_sha256": "02272b32ccea07da0365af1a8847bfc60d554abf9b0375886ca96738db78bfeb",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-11",
+    "size": "6,5 × 2,4 м",
+    "priceFrom": 585000,
+    "description": "Три помещения и небольшой запас пространства у входа.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 598 000 ₽"
+    ],
+    "area": 15.6,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image21.png",
+    "plan_embedded_media": "ppt/media/image22.png"
   },
   {
     "id": "bg-12",
@@ -177,7 +749,59 @@
       538
     ],
     "source_image_sha256": "eb04d47bb17d0de068dd205cd9f9bf9e72f8e981a4acbacd9adf196b58b3abca",
-    "route": "/banya/skandinaviya-standart-7"
+    "route": "/banya/skandinaviya-standart-7",
+    "model_slide": 26,
+    "model_asset": "images/catalog/bg-12/model.png",
+    "model_source_sha256": "1364ff975eba3284bcf1cdce2c6851e3d37a52bfe44b41610d08062a3b85c2f3",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-12",
+    "size": "7 × 2,4 м",
+    "priceFrom": 591500,
+    "description": "Комната отдыха, моечная и парная в одном модуле.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 604 500 ₽"
+    ],
+    "area": 16.8,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image23.png",
+    "plan_embedded_media": "ppt/media/image24.png"
   },
   {
     "id": "bg-13",
@@ -192,7 +816,59 @@
       485
     ],
     "source_image_sha256": "6befb8dd05c08e51cfa318eaf408464021b61f039ff3c4862f6aca58956d9167",
-    "route": "/banya/skandinaviya-standart-75"
+    "route": "/banya/skandinaviya-standart-75",
+    "model_slide": 28,
+    "model_asset": "images/catalog/bg-13/model.png",
+    "model_source_sha256": "56bb98550e7f61a59160e7154f8f5360464ffd6087358ee65207b1b26d2ef7a5",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-13",
+    "size": "7,5 × 2,4 м",
+    "priceFrom": 617500,
+    "description": "Удлинённая версия с разделением основных зон.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 630 500 ₽"
+    ],
+    "area": 18.0,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image25.png",
+    "plan_embedded_media": "ppt/media/image26.png"
   },
   {
     "id": "bg-14",
@@ -207,7 +883,59 @@
       643
     ],
     "source_image_sha256": "9331f0fecad21dbd39cc045d17b327abb4ddffa0ff14b578a4fdfa1acf77d235",
-    "route": "/banya/skandinaviya-komfort-6"
+    "route": "/banya/skandinaviya-komfort-6",
+    "model_slide": 30,
+    "model_asset": "images/catalog/bg-14/model.png",
+    "model_source_sha256": "2601a0f3b032395133657663fd06c941d314c77cc42c48755247806be55156ab",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-14",
+    "size": "6 × 2,4 м",
+    "priceFrom": 591500,
+    "description": "Боковой вход и отдельная моечная зона.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 604 500 ₽"
+    ],
+    "area": 14.4,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image27.png",
+    "plan_embedded_media": "ppt/media/image28.png"
   },
   {
     "id": "bg-15",
@@ -222,7 +950,59 @@
       518
     ],
     "source_image_sha256": "fe4e9e791f428db0bd281b4e17bc521547d61e9005b37c07c60ad77393edfa5c",
-    "route": "/banya/skandinaviya-komfort-8"
+    "route": "/banya/skandinaviya-komfort-8",
+    "model_slide": 32,
+    "model_asset": "images/catalog/bg-15/model.png",
+    "model_source_sha256": "90700164adc275d57ae8c33b58a03d3166a247f5978832a351f01321398da8bd",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-15",
+    "size": "8 × 2,4 м",
+    "priceFrom": 676000,
+    "description": "Просторный формат с входной площадкой.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 689 000 ₽"
+    ],
+    "area": 19.2,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image29.png",
+    "plan_embedded_media": "ppt/media/image30.png"
   },
   {
     "id": "bg-16",
@@ -237,7 +1017,59 @@
       603
     ],
     "source_image_sha256": "979ff03e858bc79fc5974de418e098dcecd386549cb0d7593f76a35b4cf0e796",
-    "route": "/banya/skandinaviya-komfort-plus-6"
+    "route": "/banya/skandinaviya-komfort-plus-6",
+    "model_slide": 34,
+    "model_asset": "images/catalog/bg-16/model.png",
+    "model_source_sha256": "573fccbae1f7194e5bc35fa44a998bb7732b1e50c3c92a8c8db7d2ce903ba78c",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-16",
+    "size": "6 × 2,4 м",
+    "priceFrom": 585000,
+    "description": "Комната отдыха, моечная, парная и санузел по плану.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 598 000 ₽"
+    ],
+    "area": 14.4,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image31.png",
+    "plan_embedded_media": "ppt/media/image32.png"
   },
   {
     "id": "bg-17",
@@ -252,7 +1084,59 @@
       608
     ],
     "source_image_sha256": "830a30d4866beecdf6e5a684e58949b79871568db46793d87cbddfc8ef3a80e3",
-    "route": "/banya/skandinaviya-komfort-plus-7"
+    "route": "/banya/skandinaviya-komfort-plus-7",
+    "model_slide": 36,
+    "model_asset": "images/catalog/bg-17/model.png",
+    "model_source_sha256": "2f09d6a49e132f9694de1a93dc420c497fad75b6b0060463a06b49636e823d0b",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-17",
+    "size": "7 × 2,4 м",
+    "priceFrom": 643500,
+    "description": "Расширенная планировка с санузлом и отдельной моечной.",
+    "features": [
+      "Парная и зона отдыха",
+      "Каркас 100 мм или брус 90 × 140 мм",
+      "ПВХ-окна и входная ПВХ-дверь",
+      "Стеклянные двери мокрых зон по проекту",
+      "Печь Ермак 12, бак 55 л, камни",
+      "Пол и потолок: утепление 100 мм"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 656 500 ₽"
+    ],
+    "area": 16.8,
+    "shared_specification_slide": 3,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image33.png",
+    "plan_embedded_media": "ppt/media/image34.png"
   },
   {
     "id": "bg-18",
@@ -267,7 +1151,53 @@
       381
     ],
     "source_image_sha256": "915d592fbae57debfc4341fbbb3c89c62a4fb2697aaf68a39b6cc477d62a2828",
-    "route": "/banya/sever-layt-4"
+    "route": "/banya/sever-layt-4",
+    "model_slide": 38,
+    "model_asset": "images/catalog/bg-18/model.png",
+    "model_source_sha256": "56499b5bc83e0b58ab20a7d5517751bd43798ad1c3d791d8e6c1bf35e54b25da",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-18",
+    "size": "4 × 2,4 м",
+    "priceFrom": 564200,
+    "description": "Вариант индивидуального исполнения. Внешний вид показан в визуализации.",
+    "features": [
+      "Скрытая электрика и уличная подсветка",
+      "Абажуры и ограждение печи",
+      "Шпросы на окнах и двери"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 9.6,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image35.png",
+    "plan_embedded_media": "ppt/media/image36.png"
   },
   {
     "id": "bg-19",
@@ -282,7 +1212,54 @@
       281
     ],
     "source_image_sha256": "80e4feaedc31a182fe5dc06679d0a8ae1380cba846cef676eb7e1aadec3741be",
-    "route": "/banya/sever-terra-65"
+    "route": "/banya/sever-terra-65",
+    "model_slide": 40,
+    "model_asset": "images/catalog/bg-19/model.png",
+    "model_source_sha256": "cb8225b732115de654c5744eedbc7576268b942287daa68146196ec9674fbffc",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-19",
+    "size": "6,5 × 2,4 м",
+    "priceFrom": 698100,
+    "description": "Вариант индивидуального исполнения. Внешний вид показан в визуализации.",
+    "features": [
+      "Скрытая электрика и уличная подсветка",
+      "Ламинация окон и двери",
+      "Тропический душ и бойлер 50 л",
+      "Профлист в цвете графит"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 15.6,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image37.png",
+    "plan_embedded_media": "ppt/media/image38.png"
   },
   {
     "id": "bg-20",
@@ -297,7 +1274,54 @@
       286
     ],
     "source_image_sha256": "1d8f75982fe896201e1078c6dcaef2c5c5b2ebff7e78e4ed69d72b713a623d2d",
-    "route": "/banya/sever-rezidents-7"
+    "route": "/banya/sever-rezidents-7",
+    "model_slide": 42,
+    "model_asset": "images/catalog/bg-20/model.png",
+    "model_source_sha256": "6f775a729cfb0b3881825a9db4e80b8d83c935633bce26c9d92943d17450e845",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-20",
+    "size": "7 × 2,4 м",
+    "priceFrom": 984100,
+    "description": "Вариант индивидуального исполнения. Внешний вид показан в визуализации.",
+    "features": [
+      "Скрытая электрика и подсветка",
+      "Ламинация окон и двери",
+      "Тропический душ и бойлер 50 л",
+      "Санузел и декоративные рейки"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 16.8,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image39.png",
+    "plan_embedded_media": "ppt/media/image40.png"
   },
   {
     "id": "bg-21",
@@ -312,7 +1336,54 @@
       241
     ],
     "source_image_sha256": "c06c27e9d67a50c9bfa9fab232f1bac99f2b4cc9ba94a9864ab7cb33b58e6da2",
-    "route": "/banya/sever-panorama-8"
+    "route": "/banya/sever-panorama-8",
+    "model_slide": 44,
+    "model_asset": "images/catalog/bg-21/model.png",
+    "model_source_sha256": "ce1f6955ba3c28939efebb16deedb7e1e1d2641c688de376ad91333e2d562968",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-21",
+    "size": "8 × 2,4 м",
+    "priceFrom": 821600,
+    "description": "Вариант индивидуального исполнения. Внешний вид показан в визуализации.",
+    "features": [
+      "Скрытая электрика и подсветка",
+      "Бойлер 50 л и обливное устройство",
+      "Проливной пол в парной и мойке",
+      "Декоративные рейки"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 19.2,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image41.png",
+    "plan_embedded_media": "ppt/media/image42.png"
   },
   {
     "id": "bg-22",
@@ -327,7 +1398,54 @@
       421
     ],
     "source_image_sha256": "da06125104e6dfe8cd3821c6fcad80450c4faf0b5d05d1e1c33eb5798e38d196",
-    "route": "/banya/istok-grafit-4"
+    "route": "/banya/istok-grafit-4",
+    "model_slide": 46,
+    "model_asset": "images/catalog/bg-22/model.png",
+    "model_source_sha256": "4879fcfe1fbda2c9b2fe50b5df3187ca3e2c9102aaf90f3bc169eb729797f732",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-22",
+    "size": "4 × 2,4 м",
+    "priceFrom": 392600,
+    "description": "Вариант индивидуального исполнения. Внешний вид показан в визуализации.",
+    "features": [
+      "Вывод трубы в крышу",
+      "Ограждение печи",
+      "Декоративные рейки",
+      "Утепление: каменная вата 100 мм"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 9.6,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image43.png",
+    "plan_embedded_media": "ppt/media/image44.png"
   },
   {
     "id": "bg-23",
@@ -342,7 +1460,54 @@
       336
     ],
     "source_image_sha256": "589c30e87d88f4af849de04ce307667bffeb31379ed12481f263d52c8ee4d2c5",
-    "route": "/banya/istok-teplo-6"
+    "route": "/banya/istok-teplo-6",
+    "model_slide": 48,
+    "model_asset": "images/catalog/bg-23/model.png",
+    "model_source_sha256": "e5ea48e8dc22bd7f84b1bd2ec19335bd342ed52295ebd04a82cb3ce67e67a3c5",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-23",
+    "size": "6 × 2,4 м",
+    "priceFrom": 479700,
+    "description": "Вариант индивидуального исполнения. Внешний вид показан в визуализации.",
+    "features": [
+      "Вывод трубы в крышу",
+      "Стеклянная дверь в парной",
+      "Проливной пол в мойке",
+      "Утепление: каменная вата 100 мм"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 14.4,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image45.png",
+    "plan_embedded_media": "ppt/media/image46.png"
   },
   {
     "id": "bg-24",
@@ -357,7 +1522,55 @@
       321
     ],
     "source_image_sha256": "2e60972df08ec6cca3970b0c169cc62e3b2f8d4bf3360f0e4bf71dded97613c0",
-    "route": "/banya/istok-stil-7"
+    "route": "/banya/istok-stil-7",
+    "model_slide": 50,
+    "model_asset": "images/catalog/bg-24/model.png",
+    "model_source_sha256": "bb4953ea2a5b83d5042f2a858ac1f908585b30111f460809654a89e703a839e2",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-24",
+    "size": "7 × 2,4 м",
+    "priceFrom": 556400,
+    "description": "Вариант индивидуального исполнения. Внешний вид показан в визуализации.",
+    "features": [
+      "Печь Ермак 12",
+      "Стеклянная дверь в парной",
+      "Металлическая входная дверь",
+      "Декоративные рейки, цвет графит",
+      "Вывод крана в мойку"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 16.8,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Парная 2 фото.jpg",
+      "Парная 3 фото.jpg",
+      "Парная 4 фото.jpg",
+      "Парная 5 фото.jpg",
+      "Парная 6 фото.jpg",
+      "Парная 7 фото.jpg",
+      "Парная фото.jpg",
+      "Помоывочная с обливным устройством.jpg",
+      "Помывочная без душа фото.jpg",
+      "Помывочная душ фото 2.jpg",
+      "Помывочная душ фото 3.jpg",
+      "Помывочная душ фото.jpg",
+      "Помывочная с обливным устройством 2.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image47.png",
+    "plan_embedded_media": "ppt/media/image48.png"
   },
   {
     "id": "bg-25",
@@ -369,7 +1582,38 @@
     "asset": null,
     "dimensions": null,
     "source_image_sha256": null,
-    "route": "/dom/usadba-praktik"
+    "route": "/dom/usadba-praktik",
+    "model_slide": 52,
+    "model_asset": "images/catalog/bg-25/model.png",
+    "model_source_sha256": "1f1db86b7d21f2dbbce61b38b2a3c44e93e5780b5b1ab0c7ecdf5dfb10d929cb",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-25",
+    "size": "7 × 4,6 м",
+    "priceFrom": 1475500,
+    "description": "Баня с дополнительным хозяйственным модулем.",
+    "features": [
+      "Двухмодульный формат",
+      "Планировка и комплектация согласуются при заказе"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 32.2,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": null,
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image49.png"
   },
   {
     "id": "bg-26",
@@ -381,7 +1625,38 @@
     "asset": null,
     "dimensions": null,
     "source_image_sha256": null,
-    "route": "/dom/usadba-prostor"
+    "route": "/dom/usadba-prostor",
+    "model_slide": 53,
+    "model_asset": "images/catalog/bg-26/model.png",
+    "model_source_sha256": "9821510a6a974c938582ec9738c8cd9b440bac1ab79b79511a353ea06df4a52d",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-26",
+    "size": "7 × 4,6 м",
+    "priceFrom": 1328600,
+    "description": "Баня в широком двухмодульном формате.",
+    "features": [
+      "Двухмодульный формат",
+      "Планировка и комплектация согласуются при заказе"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 32.2,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": null,
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image50.png"
   },
   {
     "id": "bg-27",
@@ -393,7 +1668,38 @@
     "asset": null,
     "dimensions": null,
     "source_image_sha256": null,
-    "route": "/dom/usadba-veranda"
+    "route": "/dom/usadba-veranda",
+    "model_slide": 54,
+    "model_asset": "images/catalog/bg-27/model.png",
+    "model_source_sha256": "eabe9d9cb7d9833c1a1f08f79010baf23e8a2b1290e3629f1fd4579c0a46300f",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-27",
+    "size": "7 × 4,6 м",
+    "priceFrom": 1657500,
+    "description": "Баня с верандой для отдыха на открытом воздухе.",
+    "features": [
+      "Двухмодульный формат",
+      "Планировка и комплектация согласуются при заказе"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 32.2,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": null,
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image51.png"
   },
   {
     "id": "bg-28",
@@ -408,7 +1714,59 @@
       545
     ],
     "source_image_sha256": "474d0a5c6628193ca11ec8e957798eb44f4fc831fc216195aeefe7104bc2cf11",
-    "route": "/banya/barn-premium"
+    "route": "/banya/barn-premium",
+    "model_slide": 55,
+    "model_asset": "images/catalog/bg-28/model.png",
+    "model_source_sha256": "a8cd1c1f0ef4fe5f813943551a5d23340225c83759872ac10c93189f8e24ee05",
+    "model_dimensions": [
+      1664,
+      928
+    ],
+    "article": "БГ-28",
+    "size": "8 × 2,4 м",
+    "priceFrom": 1380000,
+    "description": "Гостиная, душевая, парная и крытое крыльцо. Флагманское исполнение для загородного отдыха.",
+    "features": [
+      "Чугунная печь ЭТНА 18 и бак 30 л",
+      "Душевая кабина и бойлер 50 л",
+      "Скрытая электрика и сантехника",
+      "Утепление 100 мм",
+      "Масло на полках и полах парной"
+    ],
+    "construction": "Представленное исполнение",
+    "price_variants": [],
+    "area": 19.2,
+    "additional_model_images": [
+      {
+        "source": "D:\\Максим\\Бани\\Изображение ChatGPT 30 сент. 2026 г., 15_00_31.png",
+        "asset": "images/catalog/bg-28/owner-render.png",
+        "sha256": "d9833e89aa1b9457164e50f9372ae1712f5ac46f9f9ff13e6f2de7ad9a9a0f2c",
+        "approval": "Owner confirmed: gallery only; main remains PPTX slide55, 2026-10-05"
+      }
+    ],
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media",
+    "additional_gallery_files": [
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image1.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image2.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image3.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image4.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image5.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image6.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image7.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image8.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image9.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image10.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image11.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image12.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image13.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image14.jpeg",
+      "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image15.jpeg"
+    ],
+    "model_embedded_media": "ppt/media/image52.png",
+    "plan_embedded_media": "ppt/media/image53.png"
   },
   {
     "id": "bg-29",
@@ -423,7 +1781,42 @@
       938
     ],
     "source_image_sha256": "bf4a853dcc3c993439436c3b4ee8e6b1799f58ce6cf8e942de30313241d70f8f",
-    "route": "/dom/usadba-uyt-5"
+    "route": "/dom/usadba-uyt-5",
+    "model_slide": 57,
+    "model_asset": "images/catalog/bg-29/model.png",
+    "model_source_sha256": "836fce3762b05c5cbc80871e550b94a9093bf8affcd111d100a39cb4d4995e55",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-29",
+    "size": "4,5 × 5 м",
+    "priceFrom": 1196000,
+    "description": "Компактная баня широкого формата. Площадь застройки 22,5 м²",
+    "features": [
+      "Парная, моечная и санузел",
+      "Комната отдыха"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Каркас 150 мм: 1 235 000 ₽",
+      "Брус: 1 235 000 ₽"
+    ],
+    "area": 22.5,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image54.png",
+    "plan_embedded_media": "ppt/media/image.jpeg"
   },
   {
     "id": "bg-30",
@@ -438,7 +1831,41 @@
       1007
     ],
     "source_image_sha256": "0d507f3878644ea1834c641e228bef30201363b69d99f29315d648029422a6ff",
-    "route": "/dom/usadba-semejnaya-6"
+    "route": "/dom/usadba-semejnaya-6",
+    "model_slide": 59,
+    "model_asset": "images/catalog/bg-30/model.png",
+    "model_source_sha256": "13420b733036292ff0b44cfcada1343b6712467b3109474645f1b0f964431b22",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-30",
+    "size": "4,5 × 6 м",
+    "priceFrom": 1345500,
+    "description": "Больше места для отдыха после парной. Площадь застройки 27 м²",
+    "features": [
+      "Парная, моечная и санузел",
+      "Комната отдыха"
+    ],
+    "construction": "Каркас 100 мм",
+    "price_variants": [
+      "Брус: 1 384 500 ₽"
+    ],
+    "area": 27.0,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image55.png",
+    "plan_embedded_media": "ppt/media/image2.jpeg"
   },
   {
     "id": "bg-31",
@@ -453,6 +1880,40 @@
       923
     ],
     "source_image_sha256": "26b993426fc218b0387cd609c7387410eb855f90cfdda5c35d9f0615e0ea5b22",
-    "route": "/dom/usadba-terra-7"
+    "route": "/dom/usadba-terra-7",
+    "model_slide": 61,
+    "model_asset": "images/catalog/bg-31/model.png",
+    "model_source_sha256": "5029aebbf782f4847362f5e624b89eb4dcc56afeabc7d39ac4c158bf158b3c01",
+    "model_dimensions": [
+      1536,
+      1024
+    ],
+    "article": "БГ-31",
+    "size": "4,5 × 7 м",
+    "priceFrom": 1436500,
+    "description": "Крытая терраса для отдыха на воздухе. Площадь застройки 31,5 м² с террасой",
+    "features": [
+      "Парная, моечная и санузел",
+      "Комната отдыха"
+    ],
+    "construction": "Исполнение из бруса",
+    "price_variants": [
+      "Каркас 150 мм: 1 449 500 ₽"
+    ],
+    "area": 31.5,
+    "verified": "PASS: slide relationship, SHA256, visual source/site, 1440/390 DAY/NIGHT",
+    "main_model_source": "Бани Герасимов — Каталог(1).pptx",
+    "plan_source": "Бани Герасимов — Каталог(1).pptx",
+    "additional_gallery_source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+    "additional_gallery_files": [
+      "Визуал гостинной 1.jpg",
+      "Визуал гостинной 2.jpg",
+      "Визуал гостинной 3.jpg",
+      "Визуал гостинной 4.jpg",
+      "Визуал гостинной 5.jpg",
+      "Заводская мебель + рундук.jpg"
+    ],
+    "model_embedded_media": "ppt/media/image56.png",
+    "plan_embedded_media": "ppt/media/image3.jpeg"
   }
 ]

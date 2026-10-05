@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Check, Phone } from 'lucide-react'
 import { saunas, formatPrice, siteSettings } from '@/data'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
+import { saunaInteriorExamples, barnInteriorExamples } from '@/data/interior-examples'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
@@ -39,7 +40,7 @@ export default function SaunaPage({ params }: Props) {
   const sauna = saunas.find((s) => s.slug === params.slug)
   if (!sauna) notFound()
 
-  const interiorImages = sauna.interiorImages?.length ? sauna.interiorImages : saunas.find((s) => s.id === 'bg-01')?.interiorImages || []
+  const interiorImages = sauna.slug === 'barn-premium' && barnInteriorExamples.length ? barnInteriorExamples : saunaInteriorExamples
 
   const related = saunas.filter((s) => s.series === sauna.series && s.id !== sauna.id).slice(0, 3)
 
@@ -55,12 +56,14 @@ export default function SaunaPage({ params }: Props) {
           <span className="text-cream">{sauna.name}</span>
         </div>
 
+        <div className="text-sm text-gold-400 mb-2">{sauna.article}</div>
+        <h1 className="text-4xl font-extrabold text-cream mb-6">{sauna.name}</h1>
+
         {/* Hero grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <div className="relative">
+        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 mb-16">
+          <div className="relative w-full max-w-[320px]">
             <ProductGallery compact items={[
               { src: sauna.image, type: 'MAIN', alt: sauna.name },
-              ...sauna.images.filter((img) => img !== sauna.image).map((img, i) => ({ src: img, type: 'MODEL_PHOTO' as const, alt: `${sauna.name} — фото ${i + 1}` })),
             ]} />
             <div className="absolute top-4 left-4 flex gap-2 pointer-events-none">
               {sauna.tags.map((tag) => (
@@ -72,7 +75,6 @@ export default function SaunaPage({ params }: Props) {
           {/* Info */}
           <div className="flex flex-col">
             <div className="text-xs font-bold tracking-widest uppercase text-gold-400/80 mb-2">{sauna.series}</div>
-            <h1 className="text-4xl font-extrabold text-cream mb-2">{sauna.name}</h1>
             <p className="text-lg text-cream/60 mb-6">{sauna.subtitle}</p>
 
             {/* Key specs */}
@@ -80,7 +82,7 @@ export default function SaunaPage({ params }: Props) {
               {[
                 { label: 'Размер', value: sauna.size },
                 { label: 'Площадь', value: `${sauna.area} м²` },
-                { label: 'Помещений', value: sauna.rooms },
+                { label: 'Артикул', value: sauna.article },
               ].map((s) => (
                 <div key={s.label} className="glass rounded-2xl p-4 text-center">
                   <div className="text-xs text-cream/40 mb-1">{s.label}</div>
@@ -93,7 +95,7 @@ export default function SaunaPage({ params }: Props) {
             <div className="glass rounded-2xl p-5 mb-6">
               <div className="text-sm text-cream/50 mb-1">Стоимость</div>
               <div className="text-3xl font-extrabold text-cream">
-                от {formatPrice(sauna.priceFrom)}
+                {sauna.id !== 'bg-28' && 'от '}{formatPrice(sauna.priceFrom)}
               </div>
               <div className="text-xs text-cream/40 mt-1">
                 Окончательная цена зависит от комплектации и региона доставки
@@ -131,10 +133,11 @@ export default function SaunaPage({ params }: Props) {
           </div>
         </div>
 
-        {sauna.floorPlan && <ProductGallery
-          title="Планировка модели"
-          items={[{ src: sauna.floorPlan, type: 'PLAN', alt: `${sauna.name} — планировка`, label: 'Планировка модели' }]}
-        />}
+        <ProductGallery title="Галерея модели" items={[
+          { src: sauna.image, type: 'MAIN', alt: sauna.name },
+          ...(sauna.floorPlan ? [{ src: sauna.floorPlan, type: 'PLAN' as const, alt: `${sauna.name} — планировка`, label: 'Планировка модели' }] : []),
+          ...sauna.images.filter((img) => img !== sauna.image).map((src, i) => ({ src, type: 'MODEL_PHOTO' as const, alt: `${sauna.name} — фото ${i + 1}` })),
+        ]} />
 
         {!!interiorImages.length && <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Варианты внутреннего исполнения на наших фотографиях. Фактический интерьер зависит от выбранной модели и комплектации.</p>

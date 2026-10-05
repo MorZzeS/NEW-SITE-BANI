@@ -76,7 +76,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
   }
 
   return (
-    <div className={compact ? "" : "mb-16"}>
+    <div role="region" aria-label={compact ? "Фото модели" : title || "Галерея"} className={compact ? "" : "mb-16"}>
       {!compact && <h2 className="text-2xl font-bold text-cream mb-6">{title || 'Галерея'}</h2>}
 
       {/* Main image viewer */}
@@ -85,7 +85,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           <button
             onClick={() => go(-1)}
             aria-label="Назад"
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-graphite-950/60 text-cream flex items-center justify-center hover:bg-graphite-950/80 transition-colors"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
           >
           <ChevronLeft className="w-5 h-5" />
           </button>
@@ -94,7 +94,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           <button
             onClick={() => go(1)}
             aria-label="Вперёд"
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-graphite-950/60 text-cream flex items-center justify-center hover:bg-graphite-950/80 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -114,16 +114,16 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
             fill
             priority={current === 0}
             loading={current === 0 ? 'eager' : 'lazy'}
-            className={currentItem.type === 'PLAN' ? 'object-contain' : 'object-cover'}
+            className={['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(currentItem.type) ? 'object-contain' : 'object-cover'}
             sizes="(max-width: 768px) 100vw, 80vw"
           />
           {currentItem.label && (
-            <div className="absolute bottom-3 left-3 bg-graphite-950/70 backdrop-blur px-3 py-1 rounded-xl text-xs text-cream/90 border border-white/10">
+            <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur px-3 py-1 rounded-xl text-xs text-white/90 border border-white/10">
               {currentItem.label}
             </div>
           )}
           {!single && (
-            <div className="absolute top-3 right-3 bg-graphite-950/70 backdrop-blur px-2.5 py-1 rounded-lg text-xs text-cream/80 border border-white/10">
+            <div className="absolute top-3 right-3 bg-black/70 backdrop-blur px-2.5 py-1 rounded-lg text-xs text-white/80 border border-white/10">
               {current + 1} / {items.length}
             </div>
           )}
@@ -141,7 +141,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
               i === current ? 'border-gold-400 ring-2 ring-gold-400/30' : 'border-transparent opacity-60 hover:opacity-100'
             }`}
           >
-            <Image src={item.src} alt={item.alt} fill className={item.type === 'PLAN' ? 'object-contain' : 'object-cover'} loading="lazy" />
+            <Image src={item.src} alt={item.alt} fill className={['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(item.type) ? 'object-contain' : 'object-cover'} loading="lazy" />
           </button>
         ))}
       </div>}

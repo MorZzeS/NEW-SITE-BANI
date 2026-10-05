@@ -1,0 +1,146 @@
+[
+  {
+    "width": 1440,
+    "mode": "light",
+    "route": "/banya/istok-4",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "light",
+    "route": "/banya/barn-premium",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "light",
+    "route": "/dom/usadba-praktik",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "light",
+    "route": "/dom/usadba-uyt-5",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "light",
+    "route": "/katalog/doma",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "light",
+    "route": "/planirovki",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "dark",
+    "route": "/banya/istok-4",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "dark",
+    "route": "/banya/barn-premium",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "dark",
+    "route": "/dom/usadba-praktik",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "dark",
+    "route": "/dom/usadba-uyt-5",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "dark",
+    "route": "/katalog/doma",
+    "overflow": []
+  },
+  {
+    "width": 1440,
+    "mode": "dark",
+    "route": "/planirovki",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "light",
+    "route": "/banya/istok-4",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "light",
+    "route": "/banya/barn-premium",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "light",
+    "route": "/dom/usadba-praktik",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "light",
+    "route": "/dom/usadba-uyt-5",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "light",
+    "route": "/katalog/doma",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "light",
+    "route": "/planirovki",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "dark",
+    "route": "/banya/istok-4",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "dark",
+    "route": "/banya/barn-premium",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "dark",
+    "route": "/dom/usadba-praktik",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "dark",
+    "route": "/dom/usadba-uyt-5",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "dark",
+    "route": "/katalog/doma",
+    "overflow": []
+  },
+  {
+    "width": 390,
+    "mode": "dark",
+    "route": "/planirovki",
+    "overflow": []
+  }
+]

@@ -26,7 +26,7 @@ export function HomeCard({ home }: Props) {
             src={home.image}
             alt={home.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-contain transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
           />
           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
@@ -61,7 +61,7 @@ export function HomeCard({ home }: Props) {
             {[
               { label: 'Размер', value: home.size },
               { label: 'Площадь', value: `${home.area} м²` },
-              { label: 'Спальных мест', value: home.sleepingPlaces },
+              { label: 'Артикул', value: home.article },
             ].map((s) => (
               <div key={s.label} className="glass rounded-xl p-2.5 text-center">
                 <div className="text-xs text-cream/40 mb-0.5">{s.label}</div>

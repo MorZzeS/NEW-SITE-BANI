@@ -1,0 +1,295 @@
+[
+  {
+    "source": "Визуал гостинной 1.jpg",
+    "asset": "images/interiors/vizual-gostinnaya-1.jpg",
+    "sha256": "763675c101dd31d7668818265bb2321451c3343453406475cd473bf37ebb66f1",
+    "groups": [
+      "home",
+      "sauna"
+    ]
+  },
+  {
+    "source": "Визуал гостинной 2.jpg",
+    "asset": "images/interiors/vizual-gostinnaya-2.jpg",
+    "sha256": "45e09675809d79a794af396c77a920e2ce6d50084a1468f845ca579ef52c31f0",
+    "groups": [
+      "home",
+      "sauna"
+    ]
+  },
+  {
+    "source": "Визуал гостинной 3.jpg",
+    "asset": "images/interiors/vizual-gostinnaya-3.jpg",
+    "sha256": "e6bafb5135b362429ddb3031f41c50f4a50b1b72cf35204a85393fd5eec0866f",
+    "groups": [
+      "home",
+      "sauna"
+    ]
+  },
+  {
+    "source": "Визуал гостинной 4.jpg",
+    "asset": "images/interiors/vizual-gostinnaya-4.jpg",
+    "sha256": "cfaa5d8a4bc3b51eb63964be391bc3ad0b7f529b57ef23cf047ba748afd8f1b2",
+    "groups": [
+      "home",
+      "sauna"
+    ]
+  },
+  {
+    "source": "Визуал гостинной 5.jpg",
+    "asset": "images/interiors/vizual-gostinnaya-5.jpg",
+    "sha256": "eb1cd44316c284626c0f5059f2efe5170eade55d21e1e19057f17fce73ea0687",
+    "groups": [
+      "home",
+      "sauna"
+    ]
+  },
+  {
+    "source": "Парная 2 фото.jpg",
+    "asset": "images/interiors/parnaya-2-.jpg",
+    "sha256": "ba5b2767972440589d16d21a37e73d98b245692f40071479d3a5ccc7c16b383a",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Парная 3 фото.jpg",
+    "asset": "images/interiors/parnaya-3-.jpg",
+    "sha256": "70eae38d4ccbf9ae9623593e5af8899b9bebcd9a172899380d67800c9126527e",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Парная 4 фото.jpg",
+    "asset": "images/interiors/parnaya-4-.jpg",
+    "sha256": "d6a1e04f1185f8949b4d0acc4840e10d867679fc721c66ddfe9a5a1b4434fec0",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Парная 5 фото.jpg",
+    "asset": "images/interiors/parnaya-5-.jpg",
+    "sha256": "7c3a04570e6807a812dc8029b86051a513a4db7397908c29b00d5cdccba776d3",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Парная 6 фото.jpg",
+    "asset": "images/interiors/parnaya-6-.jpg",
+    "sha256": "a7333a4af7d872b86f3fe3238366613755cbf13ba1167992237490c2270244d7",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Парная 7 фото.jpg",
+    "asset": "images/interiors/parnaya-7-.jpg",
+    "sha256": "8902ca628771b9178e6c74426e167824be8bc5e5c2c97e2fa85a4cd06cf67106",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Парная фото.jpg",
+    "asset": "images/interiors/parnaya-.jpg",
+    "sha256": "5cc8422c3e1d035aa2817b2840f6b6d2d1d7e6c7f001111ba38aa2e3eb86726e",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Помоывочная с обливным устройством.jpg",
+    "asset": "images/interiors/source-interior-27.jpg",
+    "sha256": "4265650e9c31dc4a4ae9f5395a8a08aaedb8c3fb17fab4714a8a2a8c9c32a607",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Помывочная без душа фото.jpg",
+    "asset": "images/interiors/source-interior-28.jpg",
+    "sha256": "309432abe6cd0e5e4230fd8bc266f03664a6103146adae1bade9a201a58063df",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Помывочная душ фото 2.jpg",
+    "asset": "images/interiors/source-interior-29.jpg",
+    "sha256": "63093163693e67652de3c514fea8cd2e710d896335e247e55fe13ea42a645abc",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Помывочная душ фото 3.jpg",
+    "asset": "images/interiors/pomiv-3.jpg",
+    "sha256": "1de9d8c34d024498e17704ee36f2a7461750745bbe2ed7797e5c1272af23af6a",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Помывочная душ фото.jpg",
+    "asset": "images/interiors/pomiv-.jpg",
+    "sha256": "0365fbd3fee799666d9361163088e41cbe1a7dff4f8e9907a4efff7289926a44",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Помывочная с обливным устройством 2.jpg",
+    "asset": "images/interiors/pomiv-2.jpg",
+    "sha256": "dd529ec081a27d7fc98a797a0ea9dac1212a8778e6e01ae0c55efca61c3485d7",
+    "groups": [
+      "sauna"
+    ]
+  },
+  {
+    "source": "Заводская мебель + рундук.jpg",
+    "asset": "images/interiors/source-interior-14.jpg",
+    "sha256": "43ed42ae02550bcf88bb44a8d6fb40e4a6e5cd6fc97fbee93c2f057ae464c78a",
+    "groups": [
+      "home",
+      "sauna"
+    ]
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image1.jpeg",
+    "asset": "images/gallery/barn-premium/image1.jpeg",
+    "sha256": "617055ea2512f8c69066dbf7eff0ad2ba0e9439a5e22b72698d23e379c4db186",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image2.jpeg",
+    "asset": "images/gallery/barn-premium/image2.jpeg",
+    "sha256": "f10409faeffb3a9ab166af87e4985770d88705f18532829d96bf1be56716ac85",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image3.jpeg",
+    "asset": "images/gallery/barn-premium/image3.jpeg",
+    "sha256": "18985030a0ce03c8b5ef916a95da5466b1cd5d28f59f928b5020dacb4a0d0faa",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image4.jpeg",
+    "asset": "images/gallery/barn-premium/image4.jpeg",
+    "sha256": "925c2d4324e87548a3c211c16c82f296779e07dba620e864f6d2f6853c89bc93",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image5.jpeg",
+    "asset": "images/gallery/barn-premium/image5.jpeg",
+    "sha256": "29ac3e5ea5088044d5d2c1cc9e839cd1191d87576d8605d41ec6a6a68326fa7d",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image6.jpeg",
+    "asset": "images/gallery/barn-premium/image6.jpeg",
+    "sha256": "deb599b8df303a9cf0c53d6e5e627a616fc91573767cbffa5194603b76343613",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image7.jpeg",
+    "asset": "images/gallery/barn-premium/image7.jpeg",
+    "sha256": "acd44bd8419c66685e718ef782c47f1d9c177b3eac744970be550786d77365ae",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image8.jpeg",
+    "asset": "images/gallery/barn-premium/image8.jpeg",
+    "sha256": "e8978c1da02205e68d328eeef000ec911e4b4da956810df113d586a0aa90cad0",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image9.jpeg",
+    "asset": "images/gallery/barn-premium/image9.jpeg",
+    "sha256": "66b7802ce190749c8e15c7ceb577224b6bf14e96b9fd319672ac94b96d81296d",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image10.jpeg",
+    "asset": "images/gallery/barn-premium/image10.jpeg",
+    "sha256": "dcf1c766f1fe09ebcb42f894dad65d05feaf04fc104c411dae43fa5e67d7bcb9",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image11.jpeg",
+    "asset": "images/gallery/barn-premium/image11.jpeg",
+    "sha256": "310c09fdb214a6d7fa1aa3a905e747c578f4fa3737664a3a5af39d0f3b481831",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image12.jpeg",
+    "asset": "images/gallery/barn-premium/image12.jpeg",
+    "sha256": "e4fe5ec637407cc72eb55b8318ff85e16c696bbf915b465103e7568578f5f06e",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image13.jpeg",
+    "asset": "images/gallery/barn-premium/image13.jpeg",
+    "sha256": "3730e1e6aca894eb0cbf8632caafe9ad30dae56a3e74ee90bf64fe986089eecc",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image14.jpeg",
+    "asset": "images/gallery/barn-premium/image14.jpeg",
+    "sha256": "44d060cab00d85626a01c794cabaec01a8f5fcda03bf009c7520e09e893af0cb",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image15.jpeg",
+    "asset": "images/gallery/barn-premium/image15.jpeg",
+    "sha256": "c2438cae6dc4f33f69bba9fa93e513b7cb4c337d529ea6af997b7b138df22ded",
+    "groups": [
+      "barn"
+    ],
+    "source_status": "Current owner-cleaned folder confirmed 2026-10-05"
+  }
+]
