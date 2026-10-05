@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Play, Shield, Truck, Factory } from 'lucide-react'
+import { ArrowRight, Play, Shield, Truck, Factory, Wrench } from 'lucide-react'
 
 const features = [
   { icon: Factory, label: 'Собственное\nпроизводство' },
@@ -14,6 +14,13 @@ const sideCards = [
   { label: 'Настоящая\nрусская парная', bg: 'from-wood-900/80 to-wood-800/60' },
   { label: 'Уютная\nкомната отдыха', bg: 'from-graphite-900/80 to-graphite-800/60' },
   { label: 'Надёжные\nпечные решения', bg: 'from-graphite-950/80 to-wood-900/60' },
+]
+
+const trustItems = [
+  { icon: Factory, title: 'Производство', caption: 'Собственное производство' },
+  { icon: Truck, title: 'Доставка', caption: 'Москва и Московская область' },
+  { icon: Wrench, title: 'Установка', caption: 'Подготовка и монтаж' },
+  { icon: Shield, title: 'Гарантия', caption: 'По договору' },
 ]
 
 export function HeroSection() {
@@ -114,22 +121,20 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Bottom: stat bar */}
+        {/* Bottom: non-interactive trust strip */}
         <div className="relative z-10 pb-6">
           <div className="site-container">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[
-                { label: 'Экологичные\nматериалы' },
-                { label: 'Комфорт круглый\nгод' },
-                { label: 'Индивидуальные\nпланировки' },
-                { label: 'Быстрые сроки\nизготовления' },
-              ].map((item) => (
-                <div key={item.label} className="glass flex items-center gap-3 px-4 py-3.5 rounded-2xl">
-                  <span className="text-xl shrink-0">✓</span>
-                  <span className="text-xs text-cream/80 font-medium leading-tight whitespace-pre-line">{item.label}</span>
-                </div>
+            <ul className="hero-trust-strip grid auto-rows-fr grid-cols-2 md:grid-cols-4 cursor-default" aria-label="Производство, доставка, установка и гарантия">
+              {trustItems.map(({ icon: Icon, title, caption }) => (
+                <li key={title} className="flex items-start gap-2.5 px-3 py-4 sm:px-5">
+                  <Icon aria-hidden="true" className="hero-trust-icon w-4 h-4 mt-0.5 shrink-0" strokeWidth={1.5} />
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold leading-5">{title}</p>
+                    <p className="hero-trust-caption text-xs leading-5 mt-1">{caption}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </div>
