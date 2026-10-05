@@ -100,9 +100,10 @@ export function HeroSection() {
                 {sideCards.map((card, i) => (
                   <div
                     key={card.label}
-                    className="glass-card animate-fade-up"
+                    className="glass relative overflow-hidden rounded-xl cursor-default shadow-none animate-fade-up"
                     style={{ animationDelay: `${0.3 + i * 0.1}s` }}
                   >
+                    <span aria-hidden="true" className="absolute top-4 left-4 w-6 h-px bg-gold-400/70" />
                     <div className={`h-28 bg-gradient-to-br ${card.bg} flex items-end p-4`}>
                       <p className="text-sm font-semibold text-cream leading-tight whitespace-pre-line">{card.label}</p>
                     </div>
