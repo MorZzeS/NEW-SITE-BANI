@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowLeft, Check, Phone } from 'lucide-react'
 import { saunas, formatPrice, siteSettings } from '@/data'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
+import { ProductGallery } from '@/components/catalog/ProductGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
 
@@ -135,6 +136,27 @@ export default function SaunaPage({ params }: Props) {
               {siteSettings.phoneDisplay} — консультация без обязательств
             </p>
           </div>
+        </div>
+
+        {/* Product Gallery */}
+        <div className="mb-16">
+          <ProductGallery
+            title="Галерея модели"
+            items={[
+              { src: sauna.image, type: 'MAIN', alt: sauna.name },
+              ...(sauna.floorPlan ? [{ src: sauna.floorPlan, type: 'PLAN', alt: `${sauna.name} — планировка`, label: 'Планировка' }] : []),
+              ...sauna.images.filter((img: string) => img !== sauna.image).map((img: string, i: number) => ({ src: img, type: i === 0 ? 'MODEL_PHOTO' : 'MODEL_PHOTO', alt: `${sauna.name} — фото ${i + 1}` })),
+              ...((sauna as any).interiorImages || []).map((img: string, i: number) => {
+                const isReal = sauna.slug === 'barn-premium'
+                return {
+                  src: img,
+                  type: 'INTERIOR_REAL' as const,
+                  alt: `${sauna.name} — интерьер ${i + 1}`,
+                  label: isReal ? `Интерьер ${sauna.name}` : 'Пример интерьера — так может выглядеть баня внутри. Фактический интерьер зависит от выбранной модели и комплектации.',
+                }
+              }),
+            ]}
+          />
         </div>
 
         {/* Description */}

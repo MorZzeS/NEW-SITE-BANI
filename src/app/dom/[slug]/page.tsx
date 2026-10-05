@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Phone, Check } from 'lucide-react'
 import { homes, formatPrice, siteSettings } from '@/data'
 import { HomeCard } from '@/components/catalog/HomeCard'
+import { ProductGallery } from '@/components/catalog/ProductGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
 
@@ -125,6 +126,27 @@ export default function HomePage({ params }: Props) {
               {siteSettings.phoneDisplay} — консультация
             </a>
           </div>
+        </div>
+
+        {/* Product Gallery */}
+        <div className="mb-16">
+          <ProductGallery
+            title="Галерея модели"
+            items={[
+              { src: home.image, type: 'MAIN', alt: home.name },
+              ...(home.floorPlan ? [{ src: home.floorPlan, type: 'PLAN', alt: `${home.name} — планировка`, label: 'Планировка' }] : []),
+              ...home.images.filter((img: string) => img !== home.image).map((img: string, i: number) => ({ src: img, type: 'MODEL_PHOTO', alt: `${home.name} — фото ${i + 1}` })),
+              ...((home as any).interiorImages || []).map((img: string, i: number) => {
+                const isReal = home.slug === 'barn-premium'
+                return {
+                  src: img,
+                  type: 'INTERIOR_REAL' as const,
+                  alt: `${home.name} — интерьер ${i + 1}`,
+                  label: isReal ? `Интерьер ${home.name}` : `Пример интерьера. Так может выглядеть дом внутри. Фактический интерьер зависит от выбранной модели и комплектации.`,
+                }
+              }),
+            ]}
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
