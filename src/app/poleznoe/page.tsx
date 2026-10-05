@@ -16,7 +16,7 @@ export default function PoleznoeePage() {
       <div className="site-container">
         <div className="mb-12">
           <div className="section-tag mb-4">Полезное</div>
-          <h1 className="text-5xl font-extrabold text-cream mb-3">Советы и статьи</h1>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-cream mb-3">Советы и статьи</h1>
           <p className="text-cream/60 max-w-lg">
             Всё, что нужно знать о мобильных банях: выбор, эксплуатация, уход и обслуживание
           </p>
@@ -24,7 +24,7 @@ export default function PoleznoeePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {articles.map((article) => (
-            <Link href={`/poleznoe/${article.slug}`} key={article.id} className="group block">
+            <Link href={`/poleznoe/${article.slug}/`} key={article.id} className="group block">
               <div className="glass-card p-6 h-full flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="section-tag text-[10px] px-3 py-1">{article.category}</span>
@@ -38,9 +38,6 @@ export default function PoleznoeePage() {
                 <p className="text-sm text-cream/60 leading-relaxed mb-4 line-clamp-3">
                   {article.excerpt}
                 </p>
-                <div className="text-xs text-cream/30 mb-3">
-                  {new Date(article.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
-                </div>
                 <div className="flex items-center gap-1.5 text-gold-400 text-sm font-semibold group-hover:gap-3 transition-all mt-auto">
                   Читать <ArrowRight className="w-3.5 h-3.5" />
                 </div>

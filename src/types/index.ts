@@ -62,6 +62,12 @@ export interface Article {
   readTime: number
   image?: string
   content: string
+  seoTitle?: string
+  metaDescription?: string
+  toc?: { id: string; title: string; level: number }[]
+  photoBrief?: string
+  relatedSlugs?: string[]
+  resourceLinks?: { href: string; label: string }[]
 }
 
 export interface Project {
