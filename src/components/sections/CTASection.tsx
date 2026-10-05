@@ -9,7 +9,7 @@ export function CTASection() {
   return (
     <section className="py-20">
       <div className="site-container">
-        <div className="relative overflow-hidden rounded-4xl">
+        <div className="theme-cta relative overflow-hidden rounded-4xl">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-wood-900/60 via-graphite-900/80 to-graphite-950/90" />
           <div className="absolute inset-0" style={{

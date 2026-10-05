@@ -1,0 +1,456 @@
+{
+  "baseline_commit": "c314539e9547dac926a8d670157a8450364675e2",
+  "local_rollback_tag": "checkpoint-no1",
+  "backup_bundle": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-version-no1.bundle",
+  "bundle_sha256": "dcc37767fcb31f075bd90e0ce4c82bb71bae3c4cfe0fc303e6fd63ddd6fa3e8c",
+  "main": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "actualTheme": "light",
+      "actualWidth": 1440,
+      "overflow": false,
+      "toggle": "true",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 43,
+        "tested": 205
+      }
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "actualTheme": "dark",
+      "actualWidth": 1440,
+      "overflow": false,
+      "toggle": "false",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 43,
+        "tested": 205
+      }
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "actualTheme": "light",
+      "actualWidth": 390,
+      "overflow": false,
+      "toggle": "true",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 39,
+        "tested": 197
+      }
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "actualTheme": "dark",
+      "actualWidth": 390,
+      "overflow": false,
+      "toggle": "false",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 39,
+        "tested": 197
+      }
+    }
+  ],
+  "menus": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 43,
+        "tested": 211
+      }
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 43,
+        "tested": 211
+      }
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 39,
+        "tested": 208
+      }
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "contrast": {
+        "failures": [],
+        "imageContexts": 39,
+        "tested": 208
+      }
+    }
+  ],
+  "shared_theme_regression": [
+    {
+      "path": "/katalog/bani",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 353
+      }
+    },
+    {
+      "path": "/banya/barn-premium",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 84
+      }
+    },
+    {
+      "path": "/dom/usadba-praktik",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 118
+      }
+    },
+    {
+      "path": "/kontakty",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 56
+      }
+    },
+    {
+      "path": "/privacy",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 40
+      }
+    },
+    {
+      "path": "/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 119
+      }
+    },
+    {
+      "path": "/komplektaciya",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 74
+      }
+    },
+    {
+      "path": "/katalog/bani",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 353
+      }
+    },
+    {
+      "path": "/banya/barn-premium",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 84
+      }
+    },
+    {
+      "path": "/dom/usadba-praktik",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 118
+      }
+    },
+    {
+      "path": "/kontakty",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 56
+      }
+    },
+    {
+      "path": "/privacy",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 40
+      }
+    },
+    {
+      "path": "/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 119
+      }
+    },
+    {
+      "path": "/komplektaciya",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 1440,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 74
+      }
+    },
+    {
+      "path": "/katalog/bani",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 345
+      }
+    },
+    {
+      "path": "/banya/barn-premium",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 76
+      }
+    },
+    {
+      "path": "/dom/usadba-praktik",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 110
+      }
+    },
+    {
+      "path": "/kontakty",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 48
+      }
+    },
+    {
+      "path": "/privacy",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 32
+      }
+    },
+    {
+      "path": "/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 111
+      }
+    },
+    {
+      "path": "/komplektaciya",
+      "theme": "light",
+      "actualTheme": "light",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 66
+      }
+    },
+    {
+      "path": "/katalog/bani",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 345
+      }
+    },
+    {
+      "path": "/banya/barn-premium",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 76
+      }
+    },
+    {
+      "path": "/dom/usadba-praktik",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 110
+      }
+    },
+    {
+      "path": "/kontakty",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 48
+      }
+    },
+    {
+      "path": "/privacy",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 32
+      }
+    },
+    {
+      "path": "/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 111
+      }
+    },
+    {
+      "path": "/komplektaciya",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "overflow": false,
+      "width": 390,
+      "contrast": {
+        "failures": [],
+        "imageContexts": 0,
+        "tested": 66
+      }
+    }
+  ],
+  "keyboard": [
+    "Enter PASS",
+    "Space PASS",
+    "focus-visible PASS"
+  ],
+  "persisted_reload": "PASS",
+  "console_errors": [],
+  "source_data_and_assets": "unchanged",
+  "build": "PASS",
+  "static": {
+    "pages": 105,
+    "localUrls": 249,
+    "models": 31,
+    "plans": 28,
+    "errors": []
+  },
+  "article_texts_word": "20/20 PASS",
+  "article_covers": "21/21 PASS",
+  "prepaint_cases": "12/12 PASS",
+  "screenshots_folder": "C:\\Users\\maxto\\.codex\\tmp\\banger-day-night-stage1"
+}

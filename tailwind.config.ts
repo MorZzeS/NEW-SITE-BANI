@@ -40,7 +40,7 @@ const config: Config = {
           400: '#d4a843',
           500: '#c49430',
         },
-        cream: '#f5f0e8',
+        cream: 'rgb(var(--color-text-rgb) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],

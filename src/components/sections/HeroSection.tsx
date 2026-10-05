@@ -18,7 +18,7 @@ const sideCards = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
+    <section className="theme-hero relative min-h-screen flex flex-col overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image

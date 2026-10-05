@@ -6,6 +6,7 @@ import { PageTransition } from '@/components/ui/PageTransition'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { siteSettings } from '@/data'
+import { themeScript } from '@/lib/theme'
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -42,20 +43,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
-// Anti-flash: применяем тему до гидратации React
-const themeScript = `
-(function(){
-  try{
-    var s=localStorage.getItem('banger-theme');
-    var p=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';
-    document.documentElement.setAttribute('data-theme',s||p);
-  }catch(e){}
-})();
-`
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={inter.variable}>
+    <html lang="ru" className={inter.variable} suppressHydrationWarning>
       <head>
         {/* Anti-flash theme script — runs before paint */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

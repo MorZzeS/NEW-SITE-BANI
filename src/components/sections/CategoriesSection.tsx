@@ -28,7 +28,7 @@ export function CategoriesSection() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/90 via-graphite-950/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-7">
+              <div className="theme-on-image absolute bottom-0 left-0 right-0 p-7">
                 <div className="section-tag mb-3 text-[10px]">{saunas.length} моделей</div>
                 <h3 className="text-2xl font-bold text-cream mb-2">Мобильные бани</h3>
                 <p className="text-cream/70 text-sm mb-5">
@@ -53,7 +53,7 @@ export function CategoriesSection() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/90 via-graphite-950/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-7">
+              <div className="theme-on-image absolute bottom-0 left-0 right-0 p-7">
                 <div className="section-tag mb-3 text-[10px]">6 моделей</div>
                 <h3 className="text-2xl font-bold text-cream mb-2">Мобильные дома</h3>
                 <p className="text-cream/70 text-sm mb-5">

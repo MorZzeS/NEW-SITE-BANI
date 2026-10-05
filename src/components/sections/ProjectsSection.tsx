@@ -33,7 +33,7 @@ export function ProjectsSection() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/80 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
+                  <div className="theme-on-image absolute bottom-4 left-4 right-4">
                     <div className="flex items-center gap-3 text-xs text-cream/70">
                       <span className="flex items-center gap-1">
                         <MapPin className="w-3 h-3" /> {project.region}
