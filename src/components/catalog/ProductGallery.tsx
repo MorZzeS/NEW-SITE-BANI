@@ -19,6 +19,8 @@ export function ProductGallery({ items, title }: Props) {
   const [current, setCurrent] = useState(0)
   const [lightbox, setLightbox] = useState(false)
 
+  const single = items.length <= 1
+
   const go = useCallback((dir: number) => {
     setCurrent((c) => {
       const next = (c + dir + items.length) % items.length
@@ -46,22 +48,35 @@ export function ProductGallery({ items, title }: Props) {
 
       {/* Main image viewer */}
       <div className="relative rounded-3xl overflow-hidden glass-card mb-4">
-        <button
-          onClick={() => go(-1)}
-          aria-label="Назад"
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-graphite-950/60 text-cream flex items-center justify-center hover:bg-graphite-950/80 transition-colors"
-        >
+        {!single && (
+          <button
+            onClick={() => go(-1)}
+            aria-label="Назад"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-graphite-950/60 text-cream flex items-center justify-center hover:bg-graphite-950/80 transition-colors"
+          >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <button
-          onClick={() => go(1)}
-          aria-label="Вперёд"
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-graphite-950/60 text-cream flex items-center justify-center hover:bg-graphite-950/80 transition-colors"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
+        {!single && (
+          <button
+            onClick={() => go(1)}
+            aria-label="Вперёд"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-graphite-950/60 text-cream flex items-center justify-center hover:bg-graphite-950/80 transition-colors"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        )}
 
-        <div className="relative aspect-[4/3] md:aspect-[16/10] cursor-pointer" onClick={() => setLightbox(true)}>
+        <div
+          className="relative aspect-[4/3] md:aspect-[16/10] cursor-pointer select-none"
+          onClick={() => setLightbox(true)}
+          onTouchStart={(e) => { (window as any)._swipeStart = e.touches[0].clientX }}
+          onTouchEnd={(e) => {
+            const start = (window as any)._swipeStart || 0
+            const end = e.changedTouches[0].clientX
+            const diff = start - end
+            if (Math.abs(diff) > 40) go(diff > 0 ? 1 : -1)
+          }}
+        >
           <Image
             src={currentItem.src}
             alt={currentItem.alt}
@@ -76,9 +91,11 @@ export function ProductGallery({ items, title }: Props) {
               {currentItem.label}
             </div>
           )}
-          <div className="absolute top-3 right-3 bg-graphite-950/70 backdrop-blur px-2.5 py-1 rounded-lg text-xs text-cream/80 border border-white/10">
-            {current + 1} / {items.length}
-          </div>
+          {!single && (
+            <div className="absolute top-3 right-3 bg-graphite-950/70 backdrop-blur px-2.5 py-1 rounded-lg text-xs text-cream/80 border border-white/10">
+              {current + 1} / {items.length}
+            </div>
+          )}
         </div>
       </div>
 
