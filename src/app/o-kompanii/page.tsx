@@ -3,14 +3,26 @@ import Image from 'next/image'
 import { Factory, Award, Users, Truck } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'О компании — Бани Герасимов',
+  title: 'О нас — Бани Герасимов',
   description: 'Производитель мобильных бань с 2026 года. Собственное производство в Московской области, доставка и установка по Москве и Московской области.',
   alternates: { canonical: 'https://banger.su/o-kompanii' },
   openGraph: {
     url: 'https://banger.su/o-kompanii',
-    title: 'О компании — Бани Герасимов',
+    title: 'О нас — Бани Герасимов',
     description: 'Производитель мобильных бань с 2026 года. Собственное производство в Московской области, доставка и установка по Москве и Московской области.',
   },
+}
+
+// Факты о компании — вынесены в единый объект.
+// Цифры (модели, сотрудники, год основания) подтверждены владельцем.
+// Не генерировать и не менять без согласия владельца.
+export const companyFacts = {
+  founded: '2026',
+  saunas: 24,
+  homes: 7,
+  team: 8,
+  region: 'Москва и Московская область',
+  city: 'Раменское',
 }
 
 const stats = [
@@ -32,10 +44,10 @@ export default function OKompaniiPage() {
     <div className="pt-28 pb-20">
       <div className="site-container">
         <div className="text-center mb-16">
-          <div className="section-tag mb-4">О компании</div>
+          <div className="section-tag mb-4">О нас</div>
           <h1 className="text-5xl font-extrabold text-cream mb-4">Бани Герасимов</h1>
           <p className="text-xl text-cream/60 max-w-2xl mx-auto leading-relaxed">
-            Производитель мобильных бань с 2026 года. Делаем бани, которые греют, радуют и служат десятилетиями.
+            Производитель мобильных бань с {companyFacts.founded} года. Делаем бани, которые греют, радуют и служат десятилетиями.
           </p>
         </div>
 

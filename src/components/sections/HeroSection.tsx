@@ -55,7 +55,7 @@ export function HeroSection() {
                 >
                   <span className="text-cream">Мобильные бани</span>
                   <br />
-                  <span className="text-gradient">и дома под ключ</span>
+                  <span className="text-gold-400">и дома под ключ</span>
                 </h1>
 
                 {/* Subheading */}
@@ -95,21 +95,16 @@ export function HeroSection() {
                 </div>
               </div>
 
-              {/* Right: Mini cards */}
+              {/* Right: Info cards — NOT buttons */}
               <div className="hidden xl:flex flex-col gap-3 w-56 shrink-0 mt-8">
                 {sideCards.map((card, i) => (
                   <div
                     key={card.label}
-                    className="glass-card group cursor-pointer animate-fade-up"
+                    className="glass-card animate-fade-up"
                     style={{ animationDelay: `${0.3 + i * 0.1}s` }}
                   >
                     <div className={`h-28 bg-gradient-to-br ${card.bg} flex items-end p-4`}>
-                      <div className="flex items-center justify-between w-full">
-                        <p className="text-sm font-semibold text-cream leading-tight whitespace-pre-line">{card.label}</p>
-                        <div className="w-7 h-7 glass rounded-full flex items-center justify-center shrink-0">
-                          <ArrowRight className="w-3.5 h-3.5 text-cream" />
-                        </div>
-                      </div>
+                      <p className="text-sm font-semibold text-cream leading-tight whitespace-pre-line">{card.label}</p>
                     </div>
                   </div>
                 ))}

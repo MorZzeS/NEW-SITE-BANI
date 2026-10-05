@@ -14,9 +14,8 @@ const footerLinks = {
     { label: 'Комплектация', href: '/komplektaciya' },
   ],
   info: [
-    { label: 'Как устроено', href: '/kak-ustroeno' },
     { label: 'Доставка и установка', href: '/dostavka-i-ustanovka' },
-    { label: 'О компании', href: '/o-kompanii' },
+    { label: 'О нас', href: '/o-kompanii' },
     { label: 'Наши работы', href: '/nashi-raboty' },
     { label: 'Полезное', href: '/poleznoe' },
     { label: 'Контакты', href: '/kontakty' },

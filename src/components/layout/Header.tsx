@@ -14,16 +14,16 @@ interface Props {
 const navItems = [
   {
     label: 'Каталог',
-    href: '/katalog',
+    href: '/katalog/bani',
     children: [
       { label: 'Мобильные бани', href: '/katalog/bani', desc: 'Серии Исток, Север, Скандинавия' },
       { label: 'Мобильные дома', href: '/katalog/doma', desc: 'Серия Усадьба' },
+      { label: 'Планировки', href: '/planirovki', desc: 'Готовые варианты' },
     ],
   },
   { label: 'Комплектация', href: '/komplektaciya' },
-  { label: 'Доставка и установка', href: '/dostavka-i-ustanovka' },
   { label: 'Полезное', href: '/poleznoe' },
-  { label: 'О компании', href: '/o-kompanii' },
+  { label: 'О нас', href: '/o-kompanii' },
 ]
 
 export function Header({ settings }: Props) {
