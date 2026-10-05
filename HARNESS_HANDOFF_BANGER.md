@@ -4,7 +4,7 @@ GitHub Pages: /NEW-SITE-BANI (basePath)
 Stack: Next.js 14 + Tailwind + TypeScript + Framer Motion + lucide-react
 
 ## GIT STATE
-Branch: main | HEAD: e789985 | Msg: GATE-2/3/4: bg-28 moved to saunas (was homes), series expanded, build PASS | Clean working tree | PUSH DONE | Previous green Actions: 62b329a (run #22, success) | Waiting Actions for e789985
+Branch: main | HEAD: 30c360a | Msg: GATE-5: ProductGallery swipe+lightbox fix, bg-28 in saunas only, build PASS | PUSH DONE | Previous green Actions: 62b329a (run #23, success) | e789985 run #23 also SUCCESS | Waiting Actions for 30c360a (not yet appeared)
 
 ## DONE
 Header: Catalog / Komplektaciya / Dostavka / Poleznoe / O-kompaniya; MAX + Telegram + phone links; NO WhatsApp anywhere
