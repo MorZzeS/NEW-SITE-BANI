@@ -103,6 +103,8 @@ manifest = json.loads((root / 'docs/articles-word-source.json').read_text(encodi
 assert manifest['sha256'] == hashlib.sha256(source.read_bytes()).hexdigest()
 sitemap = (root / 'dist/sitemap.xml').read_text(encoding='utf-8')
 listing = (root / 'dist/poleznoe.html').read_text(encoding='utf-8')
+visual_manifest = root / 'docs/article-visual-sources.json'
+visuals = {v['slug']: v for v in json.loads(visual_manifest.read_text(encoding='utf-8'))['visuals']} if visual_manifest.exists() else {}
 for a in articles:
     slug = a['URL'].strip('/').split('/')[-1]
     html = (root / f'dist/poleznoe/{slug}.html').read_text(encoding='utf-8')
@@ -115,10 +117,16 @@ for a in articles:
     assert (root / f'dist/poleznoe/{slug}/index.html').read_text(encoding='utf-8') == html, slug + ': slash alias'
     assert normalized(''.join(page.body)) == normalized(' '.join(a['blocks'][1:])), slug + ': body'
     assert a['blocks'][0] in html, slug + ': lead'
-    assert a['photoBrief'] in html, slug + ': photo brief'
-    assert page.images == 0, slug + ': unexpected image'
+    assert page.images == 1, slug + ': approved hero image'
+    cover = '/images/articles/' + slug + '-cover.webp'
+    assert cover in html and cover in listing, slug + ': cover'
+    assert 'https://banger.su' + cover in html, slug + ': production OG image'
+    if slug in visuals:
+        assert '3D-визуал' in html, slug + ': 3D label'
+        for output in visuals[slug]['outputs']:
+            assert output['file'].removeprefix('public') in html, slug + ': approved hero'
     assert '<loc>' + canonical + '</loc>' in sitemap, slug + ': sitemap'
     assert '<loc>' + canonical + '/</loc>' not in sitemap, slug + ': duplicate sitemap'
     assert '/poleznoe/' + slug + '"' in listing, slug + ': listing'
     assert '/poleznoe/' + slug + '/"' not in listing, slug + ': noncanonical listing'
-print('PASS: 20/20 approved Word articles; exact body, H1/title, description, canonical, sitemap, photo briefs; no images.')
+print('PASS: 20/20 approved Word articles; exact body, H1/title, description, canonical, sitemap, photo briefs or owner-approved hero visuals.')

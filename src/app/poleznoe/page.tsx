@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Clock, ArrowRight } from 'lucide-react'
 import { articles } from '@/data'
+import { withBasePath } from '@/lib/site-path'
 
 export const metadata = {
   title: 'Полезное — советы и статьи о банях',
@@ -25,8 +26,10 @@ export default function PoleznoeePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {articles.map((article) => (
             <Link href={`/poleznoe/${article.slug}`} key={article.id} className="group block">
-              <div className="glass-card p-6 h-full flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
+              <div className="glass-card overflow-hidden h-full flex flex-col">
+                {article.coverImage && <img src={withBasePath(article.coverImage)} alt={article.coverAlt || article.title} width={1600} height={900} loading="lazy" className="w-full aspect-video object-cover" />}
+                <div className="p-6 flex flex-col flex-1">
+                <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <span className="section-tag text-[10px] px-3 py-1">{article.category}</span>
                   <span className="flex items-center gap-1 text-xs text-cream/40">
                     <Clock className="w-3 h-3" /> {article.readTime} мин
@@ -40,6 +43,7 @@ export default function PoleznoeePage() {
                 </p>
                 <div className="flex items-center gap-1.5 text-gold-400 text-sm font-semibold group-hover:gap-3 transition-all mt-auto">
                   Читать <ArrowRight className="w-3.5 h-3.5" />
+                </div>
                 </div>
               </div>
             </Link>

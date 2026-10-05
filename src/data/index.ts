@@ -54,6 +54,8 @@ export const articles: Article[] = [
 {
   "id": "research-sauna-body",
   "slug": "chto-proishodit-s-organizmom-v-bane",
+    "coverImage": "/images/articles/chto-proishodit-s-organizmom-v-bane-cover.webp",
+    "coverAlt": "Парная, тепло и физиология",
   "title": "Что происходит с организмом, когда вы ходите в баню",
   "seoTitle": "Польза бани для организма: что говорят исследования | Бани Герасимов",
   "metaDescription": "Как баня влияет на сердце, кровообращение и самочувствие. Разбираем научные исследования без мифов и громких медицинских обещаний.",
@@ -117,6 +119,8 @@ export const articles: Article[] = [
   {
     "id": "word-01",
     "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+    "coverImage": "/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.webp",
+    "coverAlt": "Древесина и отделка парной",
     "title": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
     "seoTitle": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
     "metaDescription": "Какую древесину использовать для каркаса мобильной бани: почему важны камерная сушка и строгание, какая влажность нужна, как оценивать сучки, геометрию и сечение доски.",
@@ -177,6 +181,15 @@ export const articles: Article[] = [
   {
     "id": "word-02",
     "slug": "obrabotka-drevesiny-neomid-v-bane",
+    "coverImage": "/images/articles/obrabotka-drevesiny-neomid-v-bane-cover.webp",
+    "coverAlt": "Защита древесины",
+    "image": "/NEW-SITE-BANI/images/articles/wood-treatment-3d.webp",
+    "imageAvif": "/NEW-SITE-BANI/images/articles/wood-treatment-3d.avif",
+    "imageAlt": "3D-визуал обработки древесины в бане: кисть и защитные составы",
+    "imageCaption": "3D-визуал: обработка древесины в бане. Иллюстрация не заменяет инструкцию к конкретному составу.",
+    "imageWidth": 1600,
+    "imageHeight": 893,
+
     "title": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
     "seoTitle": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
     "metaDescription": "Разбираем антисептики и огнебиозащиту NEOMID для мобильной бани: что применять в парной, каркасе, лагах и снаружи, как наносить и почему цвет не доказывает качество обработки.",
@@ -248,6 +261,8 @@ export const articles: Article[] = [
   {
     "id": "word-03",
     "slug": "materialy-dlya-mobilnoy-bani",
+    "coverImage": "/images/articles/materialy-dlya-mobilnoy-bani-cover.webp",
+    "coverAlt": "Слои и материалы конструкции",
     "title": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
     "seoTitle": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
     "metaDescription": "Подробно о материалах мобильной бани: каркас, утеплитель, пароизоляция, ветрозащита, фольга, крепеж, кровля, окна, двери и внутренняя отделка.",
@@ -309,6 +324,8 @@ export const articles: Article[] = [
   {
     "id": "word-04",
     "slug": "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+    "coverImage": "/images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.webp",
+    "coverAlt": "Площадка, подъезд и монтажная зона",
     "title": "Как подготовить площадку под мобильную баню: участок, подъезд, дренаж и место для монтажа",
     "seoTitle": "Как подготовить площадку под мобильную баню: участок, подъезд, дренаж и место для монтажа",
     "metaDescription": "Пошаговая подготовка участка к доставке мобильной бани: выбор места, подъезд техники, перепад высот, дренаж, фундамент и коммуникации.",
@@ -366,6 +383,8 @@ export const articles: Article[] = [
   {
     "id": "word-05",
     "slug": "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+    "coverImage": "/images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.webp",
+    "coverAlt": "Схема опор и фундамента",
     "title": "Блоки или винтовые сваи под мобильную баню: как выбирать и почему нельзя считать «по длине»",
     "seoTitle": "Блоки или винтовые сваи под мобильную баню: как выбирать и почему нельзя считать «по длине»",
     "metaDescription": "Как выбрать фундамент для мобильной бани: блоки и винтовые сваи, расчет нагрузки, грунт, схема опор и типичные ошибки.",
@@ -426,6 +445,8 @@ export const articles: Article[] = [
   {
     "id": "word-06",
     "slug": "karkas-ili-brus-dlya-bani",
+    "coverImage": "/images/articles/karkas-ili-brus-dlya-bani-cover.webp",
+    "coverAlt": "Сравнение конструктивных систем",
     "title": "Каркасная баня или баня из бруса: что отличается в реальной эксплуатации",
     "seoTitle": "Каркасная баня или баня из бруса: что отличается в реальной эксплуатации",
     "metaDescription": "Сравнение мобильной бани из каркаса и бруса: вес, усадка, утепление, скорость прогрева, ремонт и особенности эксплуатации.",
@@ -477,6 +498,8 @@ export const articles: Article[] = [
   {
     "id": "word-07",
     "slug": "pirog-steny-mobilnoy-bani",
+    "coverImage": "/images/articles/pirog-steny-mobilnoy-bani-cover.webp",
+    "coverAlt": "Слои стены и пароизоляция",
     "title": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
     "seoTitle": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
     "metaDescription": "Как устроена стена мобильной бани: утеплитель, пароизоляция, фольга, ветрозащита и вентзазор. Объясняем, как избежать конденсата.",
@@ -528,6 +551,8 @@ export const articles: Article[] = [
   {
     "id": "word-08",
     "slug": "uteplenie-mobilnoy-bani-dlya-zimy",
+    "coverImage": "/images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.webp",
+    "coverAlt": "Тепловой контур мобильной бани",
     "title": "Как утеплить мобильную баню для зимы: стены, пол, потолок и слабые места",
     "seoTitle": "Как утеплить мобильную баню для зимы: стены, пол, потолок и слабые места",
     "metaDescription": "Что влияет на зимнюю эксплуатацию мобильной бани: толщина утепления, потолок, пол, окна, двери, герметичность и вентиляция.",
@@ -579,6 +604,8 @@ export const articles: Article[] = [
   {
     "id": "word-09",
     "slug": "pol-i-sliv-v-bane",
+    "coverImage": "/images/articles/pol-i-sliv-v-bane-cover.webp",
+    "coverAlt": "Отвод воды и конструкция пола",
     "title": "Пол и слив в бане: как сделать мойку, чтобы вода уходила, а конструкция не гнила",
     "seoTitle": "Пол и слив в бане: как сделать мойку, чтобы вода уходила, а конструкция не гнила",
     "metaDescription": "Устройство пола и слива в мобильной бане: уклон, трап, гидроизоляция, проливной пол, защита лаг и зимняя эксплуатация.",
@@ -630,6 +657,8 @@ export const articles: Article[] = [
   {
     "id": "word-10",
     "slug": "ventilyatsiya-mobilnoy-bani",
+    "coverImage": "/images/articles/ventilyatsiya-mobilnoy-bani-cover.webp",
+    "coverAlt": "Приток, вытяжка и просушка",
     "title": "Вентиляция бани: как получить хороший пар и быстро высушить помещение после использования",
     "seoTitle": "Вентиляция бани: как получить хороший пар и быстро высушить помещение после использования",
     "metaDescription": "Зачем вентиляция в парной, мойке и комнате отдыха, где делать приток и вытяжку и почему сушить баню нужно после каждого использования.",
@@ -681,6 +710,8 @@ export const articles: Article[] = [
   {
     "id": "word-11",
     "slug": "kak-vybrat-pech-dlya-mobilnoy-bani",
+    "coverImage": "/images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.webp",
+    "coverAlt": "Печь в реальной парной",
     "title": "Как выбрать печь для мобильной бани: объем парной, мощность, камни и режим парения",
     "seoTitle": "Как выбрать печь для мобильной бани: объем парной, мощность, камни и режим парения",
     "metaDescription": "Подбор банной печи по объему парной, стеклянным поверхностям, утеплению и режиму использования. Что важнее паспортных киловатт.",
@@ -736,6 +767,8 @@ export const articles: Article[] = [
   {
     "id": "word-12",
     "slug": "dymohod-v-derevyannoy-bane",
+    "coverImage": "/images/articles/dymohod-v-derevyannoy-bane-cover.webp",
+    "coverAlt": "Печь, дымоход и проходные узлы",
     "title": "Дымоход в деревянной бане: проход через потолок и кровлю без опасных сокращений",
     "seoTitle": "Дымоход в деревянной бане: проход через потолок и кровлю без опасных сокращений",
     "metaDescription": "Как устроить дымоход в мобильной бане: проходные узлы, разделки, отступки, негорючие материалы и требования производителя печи.",
@@ -787,6 +820,8 @@ export const articles: Article[] = [
   {
     "id": "word-13",
     "slug": "elektrika-v-bane",
+    "coverImage": "/images/articles/elektrika-v-bane-cover.webp",
+    "coverAlt": "Электрощит и оборудование",
     "title": "Электрика в бане: кабель, свет, розетки и защита во влажных и горячих зонах",
     "seoTitle": "Электрика в бане: кабель, свет, розетки и защита во влажных и горячих зонах",
     "metaDescription": "Безопасная электрика в мобильной бане: скрытая проводка, термостойкий кабель в сауне, УЗО, зоны влажности и размещение оборудования.",
@@ -842,6 +877,8 @@ export const articles: Article[] = [
   {
     "id": "word-14",
     "slug": "voda-i-boyler-v-mobilnoy-bane",
+    "coverImage": "/images/articles/voda-i-boyler-v-mobilnoy-bane-cover.webp",
+    "coverAlt": "Душевая и бойлер",
     "title": "Вода, душ и бойлер в мобильной бане: как сделать систему удобной и пережить зиму",
     "seoTitle": "Вода, душ и бойлер в мобильной бане: как сделать систему удобной и пережить зиму",
     "metaDescription": "Водоснабжение мобильной бани: бойлер, душ, разводка труб, слив, замерзание и консервация системы зимой.",
@@ -893,6 +930,8 @@ export const articles: Article[] = [
   {
     "id": "word-15",
     "slug": "otdelka-parnoy-i-polki",
+    "coverImage": "/images/articles/otdelka-parnoy-i-polki-cover.webp",
+    "coverAlt": "Полки, вагонка и свет",
     "title": "Чем отделывать парную: осина, липа, хвойная древесина и правильные полки",
     "seoTitle": "Чем отделывать парную: осина, липа, хвойная древесина и правильные полки",
     "metaDescription": "Материалы для отделки парной и полков: осина, липа, хвойные породы, сучки, смола, крепеж и защитные масла.",
@@ -944,6 +983,8 @@ export const articles: Article[] = [
   {
     "id": "word-16",
     "slug": "okna-i-dveri-v-bane",
+    "coverImage": "/images/articles/okna-i-dveri-v-bane-cover.webp",
+    "coverAlt": "Стеклянные двери и оконные узлы",
     "title": "Окна и двери в бане: ПВХ, стекло, герметичность и теплопотери",
     "seoTitle": "Окна и двери в бане: ПВХ, стекло, герметичность и теплопотери",
     "metaDescription": "Как выбирать окна и двери для мобильной бани: ПВХ, панорамное остекление, стеклянная дверь в парную, монтаж и герметичность.",
@@ -995,6 +1036,8 @@ export const articles: Article[] = [
   {
     "id": "word-17",
     "slug": "fasad-mobilnoy-bani",
+    "coverImage": "/images/articles/fasad-mobilnoy-bani-cover.webp",
+    "coverAlt": "Цвет, планкен и защита фасада",
     "title": "Фасад мобильной бани: планкен, дерево, графитовые элементы и защита от солнца и дождя",
     "seoTitle": "Фасад мобильной бани: планкен, дерево, графитовые элементы и защита от солнца и дождя",
     "metaDescription": "Как устроить долговечный фасад мобильной бани: деревянная облицовка, планкен, вентзазор, антисептик, масло и обновление покрытия.",
@@ -1050,6 +1093,8 @@ export const articles: Article[] = [
   {
     "id": "word-18",
     "slug": "dostavka-i-ustanovka-mobilnoy-bani",
+    "coverImage": "/images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.webp",
+    "coverAlt": "Транспорт, кран и установка",
     "title": "Как доставляют и устанавливают готовую мобильную баню: что происходит в день монтажа",
     "seoTitle": "Как доставляют и устанавливают готовую мобильную баню: что происходит в день монтажа",
     "metaDescription": "Как проходит доставка мобильной бани: подготовка маршрута, манипулятор или кран, установка на фундамент, выверка и подключение.",
@@ -1101,6 +1146,8 @@ export const articles: Article[] = [
   {
     "id": "word-19",
     "slug": "kak-prinyat-mobilnuyu-banyu",
+    "coverImage": "/images/articles/kak-prinyat-mobilnuyu-banyu-cover.webp",
+    "coverAlt": "Приёмка по понятному чек-листу",
     "title": "Как принять готовую мобильную баню: чек-лист покупателя перед подписанием акта",
     "seoTitle": "Как принять готовую мобильную баню: чек-лист покупателя перед подписанием акта",
     "metaDescription": "Чек-лист приемки мобильной бани: геометрия, отделка, двери, окна, печь, дымоход, электрика, вода, слив и документы.",
@@ -1161,6 +1208,8 @@ export const articles: Article[] = [
   {
     "id": "word-20",
     "slug": "uhod-za-mobilnoy-baney",
+    "coverImage": "/images/articles/uhod-za-mobilnoy-baney-cover.webp",
+    "coverAlt": "Сушка, уход и обслуживание",
     "title": "Как ухаживать за мобильной баней после покупки: сушка, древесина, печь, дымоход и сезонное обслуживание",
     "seoTitle": "Как ухаживать за мобильной баней после покупки: сушка, древесина, печь, дымоход и сезонное обслуживание",
     "metaDescription": "Практический регламент ухода за мобильной баней: что делать после каждого парения, раз в сезон и перед зимой.",

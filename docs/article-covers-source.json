@@ -1,0 +1,216 @@
+{
+  "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\BANGER_SU_article_visuals_for_Codex.docx",
+  "source_sha256": "489a8a954aa2cfa43efb5ad60c01c58ad35b3087f1488b20595e2389a75810ad",
+  "covers": [
+    {
+      "slug": "chto-proishodit-s-organizmom-v-bane",
+      "alt": "Парная, тепло и физиология",
+      "source_member": "word/media/image1.png",
+      "source_sha256": "8626d9ceccfe7934157c12a197df4ca3f7200d7ddbb26446e1f931390bb2bd48",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/chto-proishodit-s-organizmom-v-bane-cover.webp",
+      "output_sha256": "c97ceb823e05f362333c61d7edb11fdfd96633c298149043a9f31d004caa5bce"
+    },
+    {
+      "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+      "alt": "Древесина и отделка парной",
+      "source_member": "word/media/image2.png",
+      "source_sha256": "ce59223ae0d96ba589e60899de30d4edbb737d610b136abdf96e84155b09fbdf",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.webp",
+      "output_sha256": "22a6b7d3a7c633d06c6ea5a99b3c00c0c0721c7919b7e6fc32ae319b145dc87a"
+    },
+    {
+      "slug": "obrabotka-drevesiny-neomid-v-bane",
+      "alt": "Защита древесины",
+      "source_member": "word/media/image3.png",
+      "source_sha256": "2713fa6b9bf51e19e9ab5be06bf5fce9a3d46760f98e8f8d9517cf1ea32005ff",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/obrabotka-drevesiny-neomid-v-bane-cover.webp",
+      "output_sha256": "fae310e1f0fafb2b4238edc09a9ce06d937b6016edbc915a8e2b1a0e55a5a904"
+    },
+    {
+      "slug": "materialy-dlya-mobilnoy-bani",
+      "alt": "Слои и материалы конструкции",
+      "source_member": "word/media/image4.png",
+      "source_sha256": "d7b61bc3c2eed680049dcbc95b1a145b3c58e13d77133fade9afa4f912912b9a",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/materialy-dlya-mobilnoy-bani-cover.webp",
+      "output_sha256": "b4b70093c72340086ee6718d794c593cfcb7ab3cf2b44c385960bbc0e1ae7e07"
+    },
+    {
+      "slug": "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+      "alt": "Площадка, подъезд и монтажная зона",
+      "source_member": "word/media/image5.png",
+      "source_sha256": "8abb639aa2c181d7ff116e91290940ce7d554d4cff2c4d38ca407adc68a33477",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.webp",
+      "output_sha256": "e82986721563ce4d9bf0ec721603dfd2de25f12d98b88639a24560ed61ac2f01"
+    },
+    {
+      "slug": "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+      "alt": "Схема опор и фундамента",
+      "source_member": "word/media/image6.png",
+      "source_sha256": "e051d6dfa4db4cc15e358c9d4f7b3bc2eb7f7108d471b2b20106971008f7de26",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.webp",
+      "output_sha256": "ea942692525e9eb1defd7ef02aa806a28fcf148b9f0601a3b4e210e6be265f54"
+    },
+    {
+      "slug": "karkas-ili-brus-dlya-bani",
+      "alt": "Сравнение конструктивных систем",
+      "source_member": "word/media/image7.png",
+      "source_sha256": "3c097c7d2d17605cb7195ecbd7094074f26679f6b5ba08e5b70407e763055eeb",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/karkas-ili-brus-dlya-bani-cover.webp",
+      "output_sha256": "0a3bb39f729abd4aa8723701bcb1c6a2cff6b9a5aeb3f5737de05afd52ad738b"
+    },
+    {
+      "slug": "pirog-steny-mobilnoy-bani",
+      "alt": "Слои стены и пароизоляция",
+      "source_member": "word/media/image8.png",
+      "source_sha256": "24ca56324ea796d03afbad2ba5f752f4c0b1cc442d05ff42235199249fe1d58e",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/pirog-steny-mobilnoy-bani-cover.webp",
+      "output_sha256": "59ca7cc74c8c44b70a3cf0f70346d328db6c3d69e32a183abb5a255e2a531dd4"
+    },
+    {
+      "slug": "uteplenie-mobilnoy-bani-dlya-zimy",
+      "alt": "Тепловой контур мобильной бани",
+      "source_member": "word/media/image9.png",
+      "source_sha256": "8509c18d7b38171e7943a0db4113e20b3eaed6acd4043a39b39334916db3ddf1",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.webp",
+      "output_sha256": "45f820adea59dc109b370b1518c5636588ff61ce311c2f94560c97c7ed16f500"
+    },
+    {
+      "slug": "pol-i-sliv-v-bane",
+      "alt": "Отвод воды и конструкция пола",
+      "source_member": "word/media/image10.png",
+      "source_sha256": "fc64bdcc358481864fbfff8bbb9a328c9549214c43fa703e0deb7ad5cb66aea3",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/pol-i-sliv-v-bane-cover.webp",
+      "output_sha256": "5d916aba486516eb7faf0cc2cf6ab42a97f712e3aef8260fe9df8a0a1cd9e900"
+    },
+    {
+      "slug": "ventilyatsiya-mobilnoy-bani",
+      "alt": "Приток, вытяжка и просушка",
+      "source_member": "word/media/image11.png",
+      "source_sha256": "8299f34d83d613e8bc8d823f2ef79a755a0df8c5c0a6d7f17ce1ccb81ed5875b",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/ventilyatsiya-mobilnoy-bani-cover.webp",
+      "output_sha256": "67247cdea628d5efc044d62d440ddbfbd734b288cd6bdde4b703353e44edbc3b"
+    },
+    {
+      "slug": "kak-vybrat-pech-dlya-mobilnoy-bani",
+      "alt": "Печь в реальной парной",
+      "source_member": "word/media/image12.png",
+      "source_sha256": "215570ee00460139869f6fca8172d4b66e422476ca1698f95350fd79da5e2c2f",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.webp",
+      "output_sha256": "c392248b89518fe9caa8028e06f80287bddf263345aed36e38d775fb7ccc7765"
+    },
+    {
+      "slug": "dymohod-v-derevyannoy-bane",
+      "alt": "Печь, дымоход и проходные узлы",
+      "source_member": "word/media/image13.png",
+      "source_sha256": "07ba3c884bfe333798761b707df3671747bb216088e0dfc1951045b065a9a9a3",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/dymohod-v-derevyannoy-bane-cover.webp",
+      "output_sha256": "4a59f3ac6d81472f163c7894aeb1fc38d87afc3d76788edf3ef1c4227a8be732"
+    },
+    {
+      "slug": "elektrika-v-bane",
+      "alt": "Электрощит и оборудование",
+      "source_member": "word/media/image14.png",
+      "source_sha256": "83716e5996861cb473b435a40061e02ac19fa46ad434ff08495960f828cbcbd5",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/elektrika-v-bane-cover.webp",
+      "output_sha256": "fc2e71ab14633e90dab94681fe38c47b203056bd5784b61f60a6b616ae712bb2"
+    },
+    {
+      "slug": "voda-i-boyler-v-mobilnoy-bane",
+      "alt": "Душевая и бойлер",
+      "source_member": "word/media/image15.png",
+      "source_sha256": "52ba592e9185d1e81eae92d21be1df6cdf98f749b7d0c3937a4e6faf684cf79d",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/voda-i-boyler-v-mobilnoy-bane-cover.webp",
+      "output_sha256": "cb84ea05791392e16e635ed57d402273cb23c0779a56e0af66ba20d5d16119f0"
+    },
+    {
+      "slug": "otdelka-parnoy-i-polki",
+      "alt": "Полки, вагонка и свет",
+      "source_member": "word/media/image16.png",
+      "source_sha256": "572240db588ed863adf69724b386dfd070713a8b8ee56dcde0f3b64054d758cb",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/otdelka-parnoy-i-polki-cover.webp",
+      "output_sha256": "7802059043db40e5d2a445c12306abd85cc7284939fcea51293e9f56c218a4d1"
+    },
+    {
+      "slug": "okna-i-dveri-v-bane",
+      "alt": "Стеклянные двери и оконные узлы",
+      "source_member": "word/media/image17.png",
+      "source_sha256": "c40cab8c9bc4cc2383399353a2ac9b56941ad1d14307f0cf98ebc7da1bc3f2d2",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/okna-i-dveri-v-bane-cover.webp",
+      "output_sha256": "6cfb1cf78ef51201a6865ba0b5d8e1eccdf7f197f29ec301c10e6ae64df0c77b"
+    },
+    {
+      "slug": "fasad-mobilnoy-bani",
+      "alt": "Цвет, планкен и защита фасада",
+      "source_member": "word/media/image18.png",
+      "source_sha256": "59796a4e40a86da957977fe19c464d3b005b4b0b64f35d9b88bb0edfb63f7bf1",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/fasad-mobilnoy-bani-cover.webp",
+      "output_sha256": "5662801b05d0c74f31991d1e4a5d0bab53e2e495fd54612ed15411db7263bbde"
+    },
+    {
+      "slug": "dostavka-i-ustanovka-mobilnoy-bani",
+      "alt": "Транспорт, кран и установка",
+      "source_member": "word/media/image19.png",
+      "source_sha256": "c5d515157316f591c6d4ea0c42cfb38ba2c2afe77d93ca8bc0e095d57ce1160b",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.webp",
+      "output_sha256": "62181a6534bae6352c00e9fff4d38b0e1596f0b42648fd110503fbfd19389d0c"
+    },
+    {
+      "slug": "kak-prinyat-mobilnuyu-banyu",
+      "alt": "Приёмка по понятному чек-листу",
+      "source_member": "word/media/image20.png",
+      "source_sha256": "ed16a545d996ff50d769e538e571d9e0fc006ed6f268b0243b225402f37314ad",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/kak-prinyat-mobilnuyu-banyu-cover.webp",
+      "output_sha256": "d7ecee40240c004c6a4dffab0b8fe679a0623c9c6e4ff8b98897355f61eb9171"
+    },
+    {
+      "slug": "uhod-za-mobilnoy-baney",
+      "alt": "Сушка, уход и обслуживание",
+      "source_member": "word/media/image21.png",
+      "source_sha256": "73441c5f4c6218d0113c16be079ad143af53869fd958d37d2bf0d05fe5147e82",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/uhod-za-mobilnoy-baney-cover.webp",
+      "output_sha256": "b84ee86dc3b2bf9f7cd33132431afc7c3e2cd66e661101707b6c6492602c9c8f"
+    }
+  ]
+}

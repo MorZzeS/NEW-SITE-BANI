@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Clock, ArrowLeft } from 'lucide-react'
 import { articles, homes } from '@/data'
-import { articleHtmlWithBasePath } from '@/lib/site-path'
+import { articleHtmlWithBasePath, withBasePath } from '@/lib/site-path'
 import { articleAliases } from '@/data/article-aliases'
 import type { Metadata } from 'next'
 
@@ -28,7 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: article.metaDescription || article.excerpt,
       siteName: 'Бани Герасимов',
       type: 'article',
+      images: article.coverImage ? [{ url: `https://banger.su${article.coverImage}`, width: 1600, height: 900, alt: article.coverAlt || article.title }] : [],
     },
+    twitter: { card: 'summary_large_image', title: article.title, description: article.metaDescription || article.excerpt, images: article.coverImage ? [`https://banger.su${article.coverImage}`] : [] },
   }
 }
 
@@ -38,6 +40,7 @@ export default function ArticlePage({ params }: Props) {
 
   if (articleAliases[params.slug]) return <div className="site-container pt-32 pb-20"><h1 className="text-3xl font-bold text-cream mb-6">Материал обновлён</h1><p className="text-cream/70 mb-6">Актуальная статья доступна по новому адресу.</p><Link href={`/poleznoe/${article.slug}`} className="btn-primary">{article.title}</Link></div>
 
+  const heroImage = article.image || article.coverImage
   const related = (article.relatedSlugs || []).map((slug) => articles.find((a) => a.slug === slug)).filter((a): a is NonNullable<typeof a> => Boolean(a))
 
   return (
@@ -66,10 +69,10 @@ export default function ArticlePage({ params }: Props) {
 
           <p className="text-xl text-cream/70 leading-relaxed mb-8 font-medium">{article.excerpt}</p>
 
-          {article.image && <figure className="mb-8">
+          {heroImage && <figure className="mb-8">
             <picture>
               {article.imageAvif && <source srcSet={article.imageAvif} type="image/avif" />}
-              <img src={article.image} alt={article.imageAlt || article.title} width={1440} height={810} fetchPriority="high" className="w-full h-auto rounded-3xl" />
+              <img src={withBasePath(heroImage)} alt={article.imageAlt || article.coverAlt || article.title} width={article.imageWidth || (article.image ? 1440 : 1600)} height={article.imageHeight || (article.image ? 810 : 900)} fetchPriority="high" className="w-full h-auto rounded-3xl" />
             </picture>
             {article.imageCaption && <figcaption className="text-sm text-cream/60 mt-3">{article.imageCaption}</figcaption>}
           </figure>}
@@ -84,7 +87,7 @@ export default function ArticlePage({ params }: Props) {
           </nav>}
           <article className="article-body glass rounded-3xl p-5 sm:p-8 text-cream/80"
             dangerouslySetInnerHTML={{ __html: articleHtmlWithBasePath(article.content, homes.map((home) => home.slug)) }} />
-          {article.photoBrief && <section aria-label="Место для иллюстраций" className="glass rounded-3xl p-5 sm:p-8 mt-8 border border-dashed border-cream/20">
+          {article.photoBrief && !heroImage && <section aria-label="Место для иллюстраций" className="glass rounded-3xl p-5 sm:p-8 mt-8 border border-dashed border-cream/20">
             <h2 className="text-xl font-bold text-cream mb-3">Иллюстрации к материалу</h2>
             <p className="text-cream/70 leading-relaxed">{article.photoBrief}</p>
             <p className="text-sm text-cream/50 mt-3">Фотографии и схемы будут добавлены после подтверждения исходников.</p>

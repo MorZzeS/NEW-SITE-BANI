@@ -1,0 +1,30 @@
+{
+  "source_folder": "C:/Users/maxto/Desktop/НОВЫЙ САЙТ/Фотодля статей",
+  "naming": "Article title + extension; short aliases explicitly mapped below",
+  "visuals": [
+    {
+      "slug": "obrabotka-drevesiny-neomid-v-bane",
+      "title": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
+      "filename_alias": "Чем обрабатывать древесину в бане",
+      "source": "C:/Users/maxto/Desktop/НОВЫЙ САЙТ/Фотодля статей/Чем обрабатывать древесину в бане.jfif",
+      "source_sha256": "4c04db98d20d75614195119f6f7f7a90f3f9170b7c0870894a3db5546a33b4e0",
+      "kind": "owner-approved-3d",
+      "outputs": [
+        {
+          "file": "public/images/articles/wood-treatment-3d.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 113730,
+          "sha256": "1301ecf974de411ef513d2da763b3bd878d3c3bbdc2923a91d903ed9fee49158"
+        },
+        {
+          "file": "public/images/articles/wood-treatment-3d.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 63380,
+          "sha256": "b946e5c67ef0d7cec721d63ad5ca8f4703328331298651bea35ff1bc24388d63"
+        }
+      ]
+    }
+  ]
+}

@@ -55,6 +55,8 @@ export interface Home {
 }
 
 export interface Article {
+  coverImage?: string
+  coverAlt?: string
   id: string
   slug: string
   title: string
@@ -66,6 +68,8 @@ export interface Article {
   imageAvif?: string
   imageAlt?: string
   imageCaption?: string
+  imageWidth?: number
+  imageHeight?: number
   content: string
   seoTitle?: string
   metaDescription?: string
