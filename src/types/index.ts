@@ -82,6 +82,6 @@ export interface SiteSettings {
   phone2?: string; phoneDisplay2?: string
   email: string
   address: string; addressShowroom?: string
-  telegram: string; whatsapp: string; vk: string; youtube: string
+  telegram: string; whatsapp?: string; max?: string; vk: string; youtube: string
   workingHours: string
 }
