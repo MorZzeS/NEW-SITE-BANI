@@ -55,7 +55,8 @@ export function ProductGallery({ items, title }: Props) {
             className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-graphite-950/60 text-cream flex items-center justify-center hover:bg-graphite-950/80 transition-colors"
           >
           <ChevronLeft className="w-5 h-5" />
-        </button>
+          </button>
+        )}
         {!single && (
           <button
             onClick={() => go(1)}
