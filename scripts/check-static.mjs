@@ -34,7 +34,7 @@ for (const file of htmlFiles) {
   const pagePath = relative === 'index.html' ? '/' : '/' + relative.replace(/\.html$/, '')
   const html = fs.readFileSync(file, 'utf8')
   for (const tag of html.matchAll(/<(?:a|link|img|script|source|iframe)\b[^>]*>/gi)) {
-    for (const attr of tag[0].matchAll(/\b(href|src)=["']([^"']+)["']/gi)) {
+    for (const attr of tag[0].matchAll(/\b(href|src|srcset)=["']([^"']+)["']/gi)) {
       const raw = attr[2].replaceAll('&amp;', '&')
       if (/^(?:#|tel:|mailto:|data:|javascript:)/i.test(raw)) continue
       const url = new URL(raw, origin + prefix + pagePath)
@@ -59,7 +59,7 @@ const dataExports = {}
 const dataJs = ts.transpileModule(fs.readFileSync(path.join(root, 'src/data/index.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText
 vm.runInNewContext(dataJs, { exports: dataExports })
 const models = [...dataExports.saunas, ...dataExports.homes]
-const articleRecords = JSON.parse(fs.readFileSync(path.join(root, 'docs/articles-word-source.json'), 'utf8')).articles
+const articleRecords = dataExports.articles
 const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8')
 for (const { slug } of articleRecords) {
   const articlePath = `/poleznoe/${slug}`

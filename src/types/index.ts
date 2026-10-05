@@ -63,6 +63,9 @@ export interface Article {
   date: string
   readTime: number
   image?: string
+  imageAvif?: string
+  imageAlt?: string
+  imageCaption?: string
   content: string
   seoTitle?: string
   metaDescription?: string

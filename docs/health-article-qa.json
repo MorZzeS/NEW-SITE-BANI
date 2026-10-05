@@ -1,0 +1,100 @@
+{
+  "status": "PASS",
+  "date": "2026-10-05",
+  "build": "PASS",
+  "static": {
+    "pages": 105,
+    "local_urls": 226,
+    "errors": []
+  },
+  "article_urls": {
+    "without_slash": 200,
+    "with_slash": 200,
+    "identical_html": true,
+    "canonical": "https://banger.su/poleznoe/chto-proishodit-s-organizmom-v-bane"
+  },
+  "existing_word_articles": "20/20 PASS; all objects unchanged",
+  "catalog": "31 models / 28 plans PASS; all objects unchanged",
+  "browser": [
+    {
+      "viewport": 1440,
+      "mode": "light",
+      "pass": true,
+      "canonical": "https://banger.su/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "description": "Как баня влияет на сердце, кровообращение и самочувствие. Разбираем научные исследования без мифов и громких медицинских обещаний.",
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-steam-room.avif"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-stove.avif"
+        }
+      ],
+      "overflow": false,
+      "theme": "light",
+      "title": "Польза бани для организма: что говорят исследования | Бани Герасимов"
+    },
+    {
+      "viewport": 1440,
+      "mode": "dark",
+      "pass": true,
+      "canonical": "https://banger.su/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "description": "Как баня влияет на сердце, кровообращение и самочувствие. Разбираем научные исследования без мифов и громких медицинских обещаний.",
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-steam-room.avif"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-stove.avif"
+        }
+      ],
+      "overflow": false,
+      "theme": "dark",
+      "title": "Польза бани для организма: что говорят исследования | Бани Герасимов"
+    },
+    {
+      "viewport": 390,
+      "mode": "light",
+      "pass": true,
+      "canonical": "https://banger.su/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "description": "Как баня влияет на сердце, кровообращение и самочувствие. Разбираем научные исследования без мифов и громких медицинских обещаний.",
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-steam-room.avif"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-stove.avif"
+        }
+      ],
+      "overflow": false,
+      "theme": "light",
+      "title": "Польза бани для организма: что говорят исследования | Бани Герасимов"
+    },
+    {
+      "viewport": 390,
+      "mode": "dark",
+      "pass": true,
+      "canonical": "https://banger.su/poleznoe/chto-proishodit-s-organizmom-v-bane",
+      "description": "Как баня влияет на сердце, кровообращение и самочувствие. Разбираем научные исследования без мифов и громких медицинских обещаний.",
+      "images": [
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-steam-room.avif"
+        },
+        {
+          "loaded": true,
+          "src": "http://127.0.0.1:56756/NEW-SITE-BANI/images/interiors/sauna-health-stove.avif"
+        }
+      ],
+      "overflow": false,
+      "theme": "dark",
+      "title": "Польза бани для организма: что говорят исследования | Бани Герасимов"
+    }
+  ]
+}

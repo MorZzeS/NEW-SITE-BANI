@@ -66,6 +66,14 @@ export default function ArticlePage({ params }: Props) {
 
           <p className="text-xl text-cream/70 leading-relaxed mb-8 font-medium">{article.excerpt}</p>
 
+          {article.image && <figure className="mb-8">
+            <picture>
+              {article.imageAvif && <source srcSet={article.imageAvif} type="image/avif" />}
+              <img src={article.image} alt={article.imageAlt || article.title} width={1440} height={810} fetchPriority="high" className="w-full h-auto rounded-3xl" />
+            </picture>
+            {article.imageCaption && <figcaption className="text-sm text-cream/60 mt-3">{article.imageCaption}</figcaption>}
+          </figure>}
+
           {article.toc && <nav aria-label="Содержание статьи" className="glass rounded-3xl p-5 sm:p-8 mb-8">
             <h2 className="text-xl font-bold text-cream mb-4">Содержание</h2>
             <ol className="space-y-2 text-cream/70">

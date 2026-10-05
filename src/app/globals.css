@@ -341,3 +341,29 @@ body {
 .article-body li + li { margin-top: .65rem; }
 .article-body a { text-decoration: underline; text-underline-offset: .2em; }
 @media (max-width: 640px) { .article-body h2 { font-size: 1.25rem; } }
+
+/* Original diagrams and research context, scoped to the new health article. */
+.health-article section + section { margin-top: 3rem; }
+.health-diagram { background: rgba(114,152,194,.09); border: 1px solid rgba(114,152,194,.25); border-radius: 1.5rem; padding: 1.25rem; margin: 1.75rem 0; }
+.health-diagram svg { width: 100%; height: auto; max-height: 340px; }
+.health-diagram figcaption, .health-photo figcaption, .health-caption { font-size: .875rem; line-height: 1.65; margin-top: .75rem; }
+.health-flow { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; margin-top: 1.5rem; }
+.health-flow > div { display: flex; flex-direction: column; gap: .5rem; padding: 1rem; border-radius: 1rem; border: 1px solid rgba(212,168,67,.3); background: rgba(212,168,67,.08); }
+.health-flow b { font-size: 1rem; }
+.health-flow span { font-size: .875rem; }
+.health-study { border: 1px solid rgba(212,168,67,.45); background: rgba(212,168,67,.09); border-radius: 1.5rem; padding: 1.5rem; margin: 1.5rem 0; }
+.health-study-label { font-size: .8rem; font-weight: 700; }
+.health-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; margin: 1.25rem 0; }
+.health-stats b { display: block; font-size: 1.5rem; }
+.health-stats span { display: block; font-size: .8rem; line-height: 1.6; }
+.health-photo { margin: 1.75rem 0; }
+.health-photo img { width: 100%; height: auto; border-radius: 1.5rem; }
+.health-safety { border-left: 3px solid #d4a843; padding: 1.25rem; background: rgba(212,168,67,.08); border-radius: 0 1rem 1rem 0; }
+.health-safety h2 { margin-top: 0; }
+@media (max-width: 640px) {
+ .health-study { padding: 1rem; }
+ .health-stats { grid-template-columns: 1fr; gap: .75rem; }
+ .health-stats > div { padding-bottom: .75rem; border-bottom: 1px solid rgba(212,168,67,.2); }
+ .health-diagram { padding: .75rem; }
+ .health-flow { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,48 @@
+{
+  "source_folder": "C:/Users/maxto/Desktop/НОВЫЙ САЙТ/Фото бани изнутри/v2_extracted/word/media",
+  "selected": [
+    {
+      "source": "C:/Users/maxto/Desktop/НОВЫЙ САЙТ/Фото бани изнутри/v2_extracted/word/media/image1.jpeg",
+      "source_sha256": "617055ea2512f8c69066dbf7eff0ad2ba0e9439a5e22b72698d23e379c4db186",
+      "selection": "Reviewed at full size: no people or children; different scenes; original source preserved",
+      "outputs": [
+        {
+          "file": "public/images/interiors/sauna-health-steam-room.webp",
+          "width": 1440,
+          "height": 810,
+          "bytes": 122948,
+          "sha256": "aaf6b537e31472b9244403f0f51ad282582676a5274cf3f33b1c0fdd6cd1963e"
+        },
+        {
+          "file": "public/images/interiors/sauna-health-steam-room.avif",
+          "width": 1440,
+          "height": 810,
+          "bytes": 60344,
+          "sha256": "3295dfe4cf674fbe7e6ba697a06035adf9e52489fc9b1b48d85007631fd393e3"
+        }
+      ]
+    },
+    {
+      "source": "C:/Users/maxto/Desktop/НОВЫЙ САЙТ/Фото бани изнутри/v2_extracted/word/media/image4.jpeg",
+      "source_sha256": "925c2d4324e87548a3c211c16c82f296779e07dba620e864f6d2f6853c89bc93",
+      "selection": "Reviewed at full size: no people or children; different scenes; original source preserved",
+      "outputs": [
+        {
+          "file": "public/images/interiors/sauna-health-stove.webp",
+          "width": 1112,
+          "height": 864,
+          "bytes": 109166,
+          "sha256": "07bc880158b8564c7c29a2c18c4bb371111beebcf9cdfbead18eb912fed3cd24"
+        },
+        {
+          "file": "public/images/interiors/sauna-health-stove.avif",
+          "width": 1112,
+          "height": 864,
+          "bytes": 61454,
+          "sha256": "924165d26bb85b1499bf1b7744eb8ff053a6a0df0d4d15dc359281bd9f41674f"
+        }
+      ]
+    }
+  ],
+  "duplicate_policy": "15 source files checked; near-identical views excluded from this article; no source files deleted"
+}
