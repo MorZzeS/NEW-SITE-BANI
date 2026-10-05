@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Clock, ArrowLeft } from 'lucide-react'
-import { articles } from '@/data'
+import { articles, homes } from '@/data'
+import { articleHtmlWithBasePath } from '@/lib/site-path'
 import type { Metadata } from 'next'
 
 interface Props {
@@ -65,7 +66,7 @@ export default function ArticlePage({ params }: Props) {
 
           <div className="glass rounded-3xl p-8 text-cream/70 leading-relaxed space-y-4">
             {article.content ? (
-              <div dangerouslySetInnerHTML={{ __html: article.content }} />
+              <div dangerouslySetInnerHTML={{ __html: articleHtmlWithBasePath(article.content, homes.map((home) => home.slug)) }} />
             ) : (
               <>
                 <p>Мобильные бани — это современное решение для тех, кто хочет иметь настоящую русскую баню на своём участке без дорогостоящего капитального строительства. Главное преимущество — готовая баня приезжает уже собранной и устанавливается за один день.</p>

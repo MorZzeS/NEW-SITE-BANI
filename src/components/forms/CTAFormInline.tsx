@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { useState } from 'react'
 import { Send, CheckCircle } from 'lucide-react'
 
@@ -78,7 +80,7 @@ export function CTAFormInline({ modelName }: Props) {
               <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center py-3.5"><span>Написать в MAX</span></a>
               <p className="text-[10px] text-cream/30 text-center">
                 Нажимая кнопку, вы соглашаетесь с{' '}
-                <a href="/privacy" className="underline">политикой конфиденциальности</a>
+                <Link href="/privacy" className="underline">политикой конфиденциальности</Link>
               </p>
             </form>
           </div>

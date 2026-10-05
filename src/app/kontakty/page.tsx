@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle } from 'lucide-react'
 import { siteSettings } from '@/data'
@@ -121,7 +123,7 @@ export default function KontaktyPage() {
                   </button>
                   <p className="text-[10px] text-cream/30 text-center">
                     Нажимая кнопку, вы соглашаетесь с{' '}
-                    <a href="/privacy" className="underline">политикой конфиденциальности</a>
+                    <Link href="/privacy" className="underline">политикой конфиденциальности</Link>
                   </p>
                 </form>
               </>

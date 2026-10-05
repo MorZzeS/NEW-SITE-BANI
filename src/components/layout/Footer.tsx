@@ -46,18 +46,18 @@ export function Footer({ settings }: Props) {
                 Собственное производство мобильных бань и домов. Доставка и установка по Москве и Московской области.
               </p>
               <div className="flex items-center gap-3">
-                <a href={settings.vk} target="_blank" rel="noopener noreferrer"
+                {settings.vk && settings.vk !== '#' && <a href={settings.vk} target="_blank" rel="noopener noreferrer"
                   className="w-9 h-9 glass rounded-xl flex items-center justify-center text-cream/70 hover:text-cream hover:bg-white/10 transition-all text-xs font-bold">
                   VK
-                </a>
+                </a>}
                 <a href={settings.telegram} target="_blank" rel="noopener noreferrer"
                   className="w-9 h-9 glass rounded-xl flex items-center justify-center text-cream/70 hover:text-cream hover:bg-white/10 transition-all">
                   <MessageCircle className="w-4 h-4" />
                 </a>
-                <a href={settings.youtube} target="_blank" rel="noopener noreferrer"
+                {settings.youtube && settings.youtube !== '#' && <a href={settings.youtube} target="_blank" rel="noopener noreferrer"
                   className="w-9 h-9 glass rounded-xl flex items-center justify-center text-cream/70 hover:text-cream hover:bg-white/10 transition-all text-xs font-bold">
                   YT
-                </a>
+                </a>}
               </div>
             </div>
 

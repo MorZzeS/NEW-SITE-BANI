@@ -1,6 +1,7 @@
 'use client'
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
+import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export type GalleryItem = {
@@ -15,33 +16,63 @@ interface Props {
   title?: string
 }
 
-export function ProductGallery({ items, title }: Props) {
+export function ProductGallery({ items: sourceItems, title }: Props) {
+  const items = useMemo(() => sourceItems.filter((item, i) => sourceItems.findIndex((other) => other.src === item.src) === i), [sourceItems])
   const [current, setCurrent] = useState(0)
-  const swipeRef = useRef<number>(0)
+  const swipeRef = useRef<number | null>(null)
+  const swipedRef = useRef(false)
+  const openerRef = useRef<HTMLButtonElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
   const [lightbox, setLightbox] = useState(false)
 
   const single = items.length <= 1
 
   const go = useCallback((dir: number) => {
     setCurrent((c) => {
-      const next = (c + dir + items.length) % items.length
+      const next = items.length ? (c + dir + items.length) % items.length : 0
       return next
     })
   }, [items.length])
 
   useEffect(() => {
+    if (!lightbox) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    closeRef.current?.focus()
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') go(-1)
-      if (e.key === 'ArrowRight') go(1)
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1) }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1) }
       if (e.key === 'Escape') setLightbox(false)
+      if (e.key === 'Tab') {
+        const buttons = dialogRef.current?.querySelectorAll<HTMLButtonElement>('button')
+        if (!buttons?.length) return
+        const first = buttons[0]
+        const last = buttons[buttons.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
     }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [go])
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = previousOverflow
+      openerRef.current?.focus({ preventScroll: true })
+    }
+  }, [go, lightbox])
 
   if (!items || items.length === 0) return null
 
-  const currentItem = items[current]
+  const currentItem = items[current % items.length]
+  const touchHandlers = {
+    onTouchStart: (e: React.TouchEvent) => { swipeRef.current = e.touches[0].clientX; swipedRef.current = false },
+    onTouchEnd: (e: React.TouchEvent) => {
+      if (swipeRef.current === null) return
+      const diff = swipeRef.current - e.changedTouches[0].clientX
+      swipeRef.current = null
+      if (Math.abs(diff) > 40 && !single) { swipedRef.current = true; go(diff > 0 ? 1 : -1) }
+    },
+  }
 
   return (
     <div className="mb-16">
@@ -68,16 +99,13 @@ export function ProductGallery({ items, title }: Props) {
           </button>
         )}
 
-        <div
-          className="relative aspect-[4/3] md:aspect-[16/10] cursor-pointer select-none"
-          onClick={() => setLightbox(true)}
-          onTouchStart={(e) => { swipeRef.current = e.touches[0].clientX }}
-          onTouchEnd={(e) => {
-            const start = swipeRef.current || 0
-            const end = e.changedTouches[0].clientX
-            const diff = start - end
-            if (Math.abs(diff) > 40) go(diff > 0 ? 1 : -1)
-          }}
+        <button
+          ref={openerRef}
+          type="button"
+          aria-label={`Открыть ${currentItem.type === 'PLAN' ? 'планировку' : 'фото'}: ${currentItem.alt}`}
+          className="block w-full relative aspect-[4/3] md:aspect-[16/10] cursor-pointer select-none"
+          onClick={() => { if (!swipedRef.current) setLightbox(true); swipedRef.current = false }}
+          {...touchHandlers}
         >
           <Image
             src={currentItem.src}
@@ -98,11 +126,11 @@ export function ProductGallery({ items, title }: Props) {
               {current + 1} / {items.length}
             </div>
           )}
-        </div>
+        </button>
       </div>
 
       {/* Thumbnails */}
-      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+      {!single && <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
         {items.map((item, i) => (
           <button
             key={i}
@@ -115,18 +143,20 @@ export function ProductGallery({ items, title }: Props) {
             <Image src={item.src} alt={item.alt} fill className={item.type === 'PLAN' ? 'object-contain' : 'object-cover'} loading="lazy" />
           </button>
         ))}
-      </div>
+      </div>}
 
       {/* Lightbox */}
-      {lightbox && (
-        <div className="fixed inset-0 z-[60] bg-graphite-950/95 flex items-center justify-center p-4" onClick={() => setLightbox(false)}>
-          <button onClick={() => setLightbox(false)} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 text-cream flex items-center justify-center hover:bg-white/20" aria-label="Закрыть">×</button>
-          <button onClick={(e) => { e.stopPropagation(); go(-1) }} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-cream flex items-center justify-center hover:bg-white/20">‹</button>
-          <button onClick={(e) => { e.stopPropagation(); go(1) }} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-cream flex items-center justify-center hover:bg-white/20">›</button>
-          <div className="relative w-[90vw] h-[85vh] flex items-center justify-center">
-            <Image src={currentItem.src} alt={currentItem.alt} fill={false} width={1200} height={800} className={currentItem.type === 'PLAN' ? 'object-contain max-w-full max-h-full' : 'object-contain max-w-full max-h-full'} sizes="100vw" onClick={(e) => e.stopPropagation()} />
+      {lightbox && createPortal(
+        <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={currentItem.alt} className="fixed inset-0 z-[100] bg-graphite-950/95 flex items-center justify-center p-4" onClick={() => setLightbox(false)} {...touchHandlers}>
+          <button ref={closeRef} onClick={() => setLightbox(false)} className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20" aria-label="Закрыть">×</button>
+          {!single && <>
+            <button aria-label="Предыдущее фото" onClick={(e) => { e.stopPropagation(); go(-1) }} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-graphite-950/70 text-white flex items-center justify-center hover:bg-white/20">‹</button>
+            <button aria-label="Следующее фото" onClick={(e) => { e.stopPropagation(); go(1) }} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-graphite-950/70 text-white flex items-center justify-center hover:bg-white/20">›</button>
+          </>}
+          <div className="relative w-[90vw] h-[85vh]" onClick={(e) => e.stopPropagation()}>
+            <Image src={currentItem.src} alt={currentItem.alt} fill className="object-contain" sizes="90vw" />
           </div>
-        </div>
+        </div>, document.body
       )}
     </div>
   )

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Layers, Shield, Wind, Droplets, Zap, Flame, Thermometer, ChevronRight } from 'lucide-react'
 
 export const metadata = {
@@ -71,10 +72,10 @@ export default function KakUstroenoPage() {
             <p className="text-cream/60 mb-6 max-w-md mx-auto">
               Мы покажем конструкцию вживую на выставке или пришлём подробные схемы.
             </p>
-            <a href="/kontakty#zayavka" className="btn-primary px-8 py-3.5 inline-flex">
+            <Link href="/kontakty#zayavka" className="btn-primary px-8 py-3.5 inline-flex">
               Получить схемы и расчёт
               <ChevronRight className="w-4 h-4" />
-            </a>
+            </Link>
           </div>
         </section>
       </div>

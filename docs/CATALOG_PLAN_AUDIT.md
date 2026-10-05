@@ -1,0 +1,63 @@
+# Аудит планировок — 2026-10-05
+
+Baseline: `088624b95e440aebcedda65be6c1a31a32671fbe`.
+
+PDF: `Бани Герасимов — Каталог.pdf`, SHA256 `b97818ea724f86b2790d06bbb077a7f48d0068dd88809055751e64a5b45d323b`.
+PPTX: `Бани Герасимов — Каталог.pptx`, SHA256 `3f32a9b1407d96dd74794fc238259775e87de2200c1ee39299354edc82132ff8`.
+
+Просмотрены все 66 отрендеренных страниц PDF; номера страниц и слайдов считаются с 1. Извлечены исходные изображения из соответствующих слайдов PPTX: без изменения геометрии, обрезки, увеличения и перерисовки. SHA256 каждого исходного изображения записан в catalog-plan-sources.json.
+
+**Результат: 31 модель проверена; 28 подтверждённых планов; у БГ-25, БГ-26 и БГ-27 планов нет в этих источниках.**
+
+Старая запись NO PLAN для БГ-28 ошибочна: страница/слайд 55 содержит рендер, а 56 — размерный чертёж с явным заголовком «ПЛАНИРОВКА / БГ-28». Он не создан заново, а извлечён из предоставленного PPTX. Также страница 15 относится к БГ-06, а не к БГ-05. Старые архивные отчёты сохранены как история.
+
+| БГ | Название | Страница PDF / слайд PPTX | План | Извлечённый файл | floorPlan / URL карточки | Статус |
+|---|---|---|---|---|---|---|
+| bg-01 | Исток 4 | 5 / 5 | YES | images/plans/bg-01.png | /NEW-SITE-BANI/images/plans/bg-01.png; /banya/istok-4 | Подключён, исходное изображение |
+| bg-02 | Исток Терра 5 | 7 / 7 | YES | images/plans/bg-02.png | /NEW-SITE-BANI/images/plans/bg-02.png; /banya/istok-terra-5 | Подключён, исходное изображение |
+| bg-03 | Исток 5 | 9 / 9 | YES | images/plans/bg-03.png | /NEW-SITE-BANI/images/plans/bg-03.png; /banya/istok-5 | Подключён, исходное изображение |
+| bg-04 | Исток 6 | 11 / 11 | YES | images/plans/bg-04.png | /NEW-SITE-BANI/images/plans/bg-04.png; /banya/istok-6 | Подключён, исходное изображение |
+| bg-05 | Исток Семейный 7 | 13 / 13 | YES | images/plans/bg-05.png | /NEW-SITE-BANI/images/plans/bg-05.png; /banya/istok-semeynyy-7 | Подключён, исходное изображение |
+| bg-06 | Исток Семейный 7R | 15 / 15 | YES | images/plans/bg-06.png | /NEW-SITE-BANI/images/plans/bg-06.png; /banya/istok-semeynyy-7r | Подключён, исходное изображение |
+| bg-07 | Исток Простор 7 | 17 / 17 | YES | images/plans/bg-07.png | /NEW-SITE-BANI/images/plans/bg-07.png; /banya/istok-prostor-7 | Подключён, исходное изображение |
+| bg-08 | Исток 8 | 19 / 19 | YES | images/plans/bg-08.png | /NEW-SITE-BANI/images/plans/bg-08.png; /banya/istok-8 | Подключён, исходное изображение |
+| bg-09 | Скандинавия Мини 4,5 | 21 / 21 | YES | images/plans/bg-09.png | /NEW-SITE-BANI/images/plans/bg-09.png; /banya/skandinaviya-mini-45 | Подключён, исходное изображение |
+| bg-10 | Скандинавия Старт+ 6 | 23 / 23 | YES | images/plans/bg-10.png | /NEW-SITE-BANI/images/plans/bg-10.png; /banya/skandinaviya-start-6 | Подключён, исходное изображение |
+| bg-11 | Скандинавия Старт+ 6,5 | 25 / 25 | YES | images/plans/bg-11.png | /NEW-SITE-BANI/images/plans/bg-11.png; /banya/skandinaviya-start-65 | Подключён, исходное изображение |
+| bg-12 | Скандинавия Стандарт 7 | 27 / 27 | YES | images/plans/bg-12.png | /NEW-SITE-BANI/images/plans/bg-12.png; /banya/skandinaviya-standart-7 | Подключён, исходное изображение |
+| bg-13 | Скандинавия Стандарт+ 7,5 | 29 / 29 | YES | images/plans/bg-13.png | /NEW-SITE-BANI/images/plans/bg-13.png; /banya/skandinaviya-standart-75 | Подключён, исходное изображение |
+| bg-14 | Скандинавия Комфорт 6 | 31 / 31 | YES | images/plans/bg-14.png | /NEW-SITE-BANI/images/plans/bg-14.png; /banya/skandinaviya-komfort-6 | Подключён, исходное изображение |
+| bg-15 | Скандинавия Комфорт 8 | 33 / 33 | YES | images/plans/bg-15.png | /NEW-SITE-BANI/images/plans/bg-15.png; /banya/skandinaviya-komfort-8 | Подключён, исходное изображение |
+| bg-16 | Скандинавия Комфорт+ 6 | 35 / 35 | YES | images/plans/bg-16.png | /NEW-SITE-BANI/images/plans/bg-16.png; /banya/skandinaviya-komfort-plus-6 | Подключён, исходное изображение |
+| bg-17 | Скандинавия Комфорт+ 7 | 37 / 37 | YES | images/plans/bg-17.png | /NEW-SITE-BANI/images/plans/bg-17.png; /banya/skandinaviya-komfort-plus-7 | Подключён, исходное изображение |
+| bg-18 | Север Лайт 4 | 39 / 39 | YES | images/plans/bg-18.png | /NEW-SITE-BANI/images/plans/bg-18.png; /banya/sever-layt-4 | Подключён, исходное изображение |
+| bg-19 | Север Терра 6,5 | 41 / 41 | YES | images/plans/bg-19.png | /NEW-SITE-BANI/images/plans/bg-19.png; /banya/sever-terra-65 | Подключён, исходное изображение |
+| bg-20 | Север Резиденс 7 | 43 / 43 | YES | images/plans/bg-20.png | /NEW-SITE-BANI/images/plans/bg-20.png; /banya/sever-rezidents-7 | Подключён, исходное изображение |
+| bg-21 | Север Панорама 8 | 45 / 45 | YES | images/plans/bg-21.png | /NEW-SITE-BANI/images/plans/bg-21.png; /banya/sever-panorama-8 | Подключён, исходное изображение |
+| bg-22 | Исток Графит 4 | 47 / 47 | YES | images/plans/bg-22.png | /NEW-SITE-BANI/images/plans/bg-22.png; /banya/istok-grafit-4 | Подключён, исходное изображение |
+| bg-23 | Исток Тепло 6 | 49 / 49 | YES | images/plans/bg-23.png | /NEW-SITE-BANI/images/plans/bg-23.png; /banya/istok-teplo-6 | Подключён, исходное изображение |
+| bg-24 | Исток Стиль 7 | 51 / 51 | YES | images/plans/bg-24.png | /NEW-SITE-BANI/images/plans/bg-24.png; /banya/istok-stil-7 | Подключён, исходное изображение |
+| bg-25 | Усадьба Практик | 52 / 52 | NO | — | отсутствует; /dom/usadba-praktik | Нет плана; согласуется при заказе |
+| bg-26 | Усадьба Простор | 53 / 53 | NO | — | отсутствует; /dom/usadba-prostor | Нет плана; согласуется при заказе |
+| bg-27 | Усадьба Веранда | 54 / 54 | NO | — | отсутствует; /dom/usadba-veranda | Нет плана; согласуется при заказе |
+| bg-28 | Барн Премиум | 56 / 56 | YES | images/plans/bg-28.png | /NEW-SITE-BANI/images/plans/bg-28.png; /banya/barn-premium | Подключён, исходное изображение |
+| bg-29 | Усадьба Уют 5 | 58 / 58 | YES | images/plans/bg-29.jpg | /NEW-SITE-BANI/images/plans/bg-29.jpg; /dom/usadba-uyt-5 | Подключён, исходное изображение |
+| bg-30 | Усадьба Семейная 6 | 60 / 60 | YES | images/plans/bg-30.jpg | /NEW-SITE-BANI/images/plans/bg-30.jpg; /dom/usadba-semejnaya-6 | Подключён, исходное изображение |
+| bg-31 | Усадьба Терра 7 | 62 / 62 | YES | images/plans/bg-31.jpg | /NEW-SITE-BANI/images/plans/bg-31.jpg; /dom/usadba-terra-7 | Подключён, исходное изображение |
+
+## Проверка цен по этому же источнику
+
+Каталог прямо задаёт значения: БГ-11 (стр.24) 585 000 ₽; БГ-13 (стр.28) 617 500 ₽; БГ-14 (стр.30) 591 500 ₽; БГ-15 (стр.32) 676 000 ₽; БГ-16 (стр.34) 585 000 ₽; БГ-17 (стр.36) 643 500 ₽. Исправлены priceFrom и соответствующая сумма в description. У БГ-22 (стр.46) priceFrom уже был 392 600 ₽; исправлено расходившееся описание 385 000 ₽ на 392 600 ₽. Остальные 24 значения priceFrom совпали с базовой ценой исходного PDF. Никакие размеры, материалы и комплектации в этом блоке не изменены.
+
+## Проверка реализации 2026-10-05
+
+- `npm ci`: PASS. `npm run build`: PASS, 67 статических маршрутов Next.js.
+- `npm run check:static -- --base-url http://127.0.0.1:56755`: PASS, 63 HTML-файла, 160 локальных URL, 31 модель, 28 планов; отсутствующих файлов, неверного basePath и якорей не найдено.
+- Проверка добавлена в GitHub Actions после сборки.
+- Browser QA: 96 сочетаний восьми маршрутов, light/dark и ширин 360, 375, 390, 393, 430, 1440 px; вылезаний за viewport не найдено. Горизонтальный скролл миниатюр учитывался как намеренный.
+- Lightbox: план открывается, изображение загружается полностью; стрелки, Escape, кнопка закрытия и возврат фокуса проверены. Tab/Shift+Tab остаются внутри диалога. Мобильное меню открывается.
+- Реальный touch-свайп на физическом устройстве не проверен: доступный браузер управляет размером viewport, но не эмулирует касания. Обработчики touch рассмотрены в коде.
+- Независимое ревью: блокирующих ошибок не найдено; происхождение всех 28 изображений проверено по relationships соответствующих слайдов PPTX и SHA256.
+- Пользовательские перемещения файлов в archive и удаления исходников, существовавшие до этого блока, исключены из коммита.
+
+Этот отчёт относится к первому блоку A–I. Общий прежний backlog не закрыт: раздел /planirovki пока показывает планы домов, остаются отдельные задачи редизайна hero и внешнего изображения БГ-28. Планы БГ-25–27 отсутствуют в каталоге и не созданы искусственно.

@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { Phone } from 'lucide-react'
 import { siteSettings } from '@/data'
 
@@ -80,7 +82,7 @@ export function CTASection() {
                   </a>
                   <p className="text-[10px] text-cream/30 text-center leading-relaxed pt-1">
                     Нажимая, вы соглашаетесь с{' '}
-                    <a href="/privacy" className="underline hover:text-cream/50">политикой конфиденциальности</a>
+                    <Link href="/privacy" className="underline hover:text-cream/50">политикой конфиденциальности</Link>
                   </p>
                 </div>
               </div>

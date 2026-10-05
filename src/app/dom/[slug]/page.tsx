@@ -134,8 +134,8 @@ export default function HomePage({ params }: Props) {
             title="Галерея модели"
             items={[
               { src: home.image, type: 'MAIN', alt: home.name },
-              ...(home.floorPlan ? [{ src: home.floorPlan, type: 'PLAN', alt: `${home.name} — планировка`, label: 'Планировка' }] : []),
-              ...home.images.filter((img: string) => img !== home.image).map((img: string, i: number) => ({ src: img, type: 'MODEL_PHOTO', alt: `${home.name} — фото ${i + 1}` })),
+              ...(home.floorPlan ? [{ src: home.floorPlan, type: 'PLAN' as const, alt: `${home.name} — планировка`, label: 'Планировка' }] : []),
+              ...home.images.filter((img: string) => img !== home.image).map((img: string, i: number) => ({ src: img, type: 'MODEL_PHOTO' as const, alt: `${home.name} — фото ${i + 1}` })),
               ...((home as any).interiorImages || []).map((img: string, i: number) => {
                 const isReal = home.slug === 'barn-premium'
                 return {

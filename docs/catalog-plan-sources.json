@@ -1,0 +1,458 @@
+[
+  {
+    "id": "bg-01",
+    "name": "Исток 4",
+    "slug": "istok-4",
+    "page": 5,
+    "slide": 5,
+    "plan": true,
+    "asset": "images/plans/bg-01.png",
+    "dimensions": [
+      526,
+      396
+    ],
+    "source_image_sha256": "196287e340d26a83186601453442b19a35ca45382916506cbaad978b562d75c4",
+    "route": "/banya/istok-4"
+  },
+  {
+    "id": "bg-02",
+    "name": "Исток Терра 5",
+    "slug": "istok-terra-5",
+    "page": 7,
+    "slide": 7,
+    "plan": true,
+    "asset": "images/plans/bg-02.png",
+    "dimensions": [
+      636,
+      316
+    ],
+    "source_image_sha256": "ffefd72ec95508f5204a0361f99baa601b3868abbd8c360b7c94feff7473b22e",
+    "route": "/banya/istok-terra-5"
+  },
+  {
+    "id": "bg-03",
+    "name": "Исток 5",
+    "slug": "istok-5",
+    "page": 9,
+    "slide": 9,
+    "plan": true,
+    "asset": "images/plans/bg-03.png",
+    "dimensions": [
+      641,
+      411
+    ],
+    "source_image_sha256": "4819bc480b0f2d929c24f6931f818ed47e4d8482ca0052205bf2c5dc4185e1aa",
+    "route": "/banya/istok-5"
+  },
+  {
+    "id": "bg-04",
+    "name": "Исток 6",
+    "slug": "istok-6",
+    "page": 11,
+    "slide": 11,
+    "plan": true,
+    "asset": "images/plans/bg-04.png",
+    "dimensions": [
+      611,
+      341
+    ],
+    "source_image_sha256": "e4e12e47a3a27891167f37dc7b70ffce8de903e1f96eabbff68ef3626fe60fa0",
+    "route": "/banya/istok-6"
+  },
+  {
+    "id": "bg-05",
+    "name": "Исток Семейный 7",
+    "slug": "istok-semeynyy-7",
+    "page": 13,
+    "slide": 13,
+    "plan": true,
+    "asset": "images/plans/bg-05.png",
+    "dimensions": [
+      661,
+      296
+    ],
+    "source_image_sha256": "92e74625e8a3337439276d4cd99c814a35208bb36972430881ef3be3752fe6a2",
+    "route": "/banya/istok-semeynyy-7"
+  },
+  {
+    "id": "bg-06",
+    "name": "Исток Семейный 7R",
+    "slug": "istok-semeynyy-7r",
+    "page": 15,
+    "slide": 15,
+    "plan": true,
+    "asset": "images/plans/bg-06.png",
+    "dimensions": [
+      661,
+      346
+    ],
+    "source_image_sha256": "a39252e2fcda7fd1da8c9031c14c08c6ab8d259cedb1d67e55077b0156a19066",
+    "route": "/banya/istok-semeynyy-7r"
+  },
+  {
+    "id": "bg-07",
+    "name": "Исток Простор 7",
+    "slug": "istok-prostor-7",
+    "page": 17,
+    "slide": 17,
+    "plan": true,
+    "asset": "images/plans/bg-07.png",
+    "dimensions": [
+      656,
+      336
+    ],
+    "source_image_sha256": "319c0b96ee5669ebe8a4a519b1c79631715d3f3c73bdd4d937c4277adf8d471f",
+    "route": "/banya/istok-prostor-7"
+  },
+  {
+    "id": "bg-08",
+    "name": "Исток 8",
+    "slug": "istok-8",
+    "page": 19,
+    "slide": 19,
+    "plan": true,
+    "asset": "images/plans/bg-08.png",
+    "dimensions": [
+      646,
+      316
+    ],
+    "source_image_sha256": "97a89de33aa6842fa10e028521aab4d55cbcda621d93909bbfb3f6430f3d5f53",
+    "route": "/banya/istok-8"
+  },
+  {
+    "id": "bg-09",
+    "name": "Скандинавия Мини 4,5",
+    "slug": "skandinaviya-mini-45",
+    "page": 21,
+    "slide": 21,
+    "plan": true,
+    "asset": "images/plans/bg-09.png",
+    "dimensions": [
+      950,
+      555
+    ],
+    "source_image_sha256": "c8255cf304f7a714fa5e4e9986b777c1bacc01482cf2a70914094a6610ed9711",
+    "route": "/banya/skandinaviya-mini-45"
+  },
+  {
+    "id": "bg-10",
+    "name": "Скандинавия Старт+ 6",
+    "slug": "skandinaviya-start-6",
+    "page": 23,
+    "slide": 23,
+    "plan": true,
+    "asset": "images/plans/bg-10.png",
+    "dimensions": [
+      1197,
+      571
+    ],
+    "source_image_sha256": "2f6ac655f665af1b755f7cb5ddf0c8470507c8feec9150b40106d0af051dfa9e",
+    "route": "/banya/skandinaviya-start-6"
+  },
+  {
+    "id": "bg-11",
+    "name": "Скандинавия Старт+ 6,5",
+    "slug": "skandinaviya-start-65",
+    "page": 25,
+    "slide": 25,
+    "plan": true,
+    "asset": "images/plans/bg-11.png",
+    "dimensions": [
+      1127,
+      496
+    ],
+    "source_image_sha256": "f8a9017ee31f6b97b700bdef1f4931a0650b161bd59d0446a3383598fde133cf",
+    "route": "/banya/skandinaviya-start-65"
+  },
+  {
+    "id": "bg-12",
+    "name": "Скандинавия Стандарт 7",
+    "slug": "skandinaviya-standart-7",
+    "page": 27,
+    "slide": 27,
+    "plan": true,
+    "asset": "images/plans/bg-12.png",
+    "dimensions": [
+      1253,
+      538
+    ],
+    "source_image_sha256": "eb04d47bb17d0de068dd205cd9f9bf9e72f8e981a4acbacd9adf196b58b3abca",
+    "route": "/banya/skandinaviya-standart-7"
+  },
+  {
+    "id": "bg-13",
+    "name": "Скандинавия Стандарт+ 7,5",
+    "slug": "skandinaviya-standart-75",
+    "page": 29,
+    "slide": 29,
+    "plan": true,
+    "asset": "images/plans/bg-13.png",
+    "dimensions": [
+      1287,
+      485
+    ],
+    "source_image_sha256": "6befb8dd05c08e51cfa318eaf408464021b61f039ff3c4862f6aca58956d9167",
+    "route": "/banya/skandinaviya-standart-75"
+  },
+  {
+    "id": "bg-14",
+    "name": "Скандинавия Комфорт 6",
+    "slug": "skandinaviya-komfort-6",
+    "page": 31,
+    "slide": 31,
+    "plan": true,
+    "asset": "images/plans/bg-14.png",
+    "dimensions": [
+      1227,
+      643
+    ],
+    "source_image_sha256": "9331f0fecad21dbd39cc045d17b327abb4ddffa0ff14b578a4fdfa1acf77d235",
+    "route": "/banya/skandinaviya-komfort-6"
+  },
+  {
+    "id": "bg-15",
+    "name": "Скандинавия Комфорт 8",
+    "slug": "skandinaviya-komfort-8",
+    "page": 33,
+    "slide": 33,
+    "plan": true,
+    "asset": "images/plans/bg-15.png",
+    "dimensions": [
+      1355,
+      518
+    ],
+    "source_image_sha256": "fe4e9e791f428db0bd281b4e17bc521547d61e9005b37c07c60ad77393edfa5c",
+    "route": "/banya/skandinaviya-komfort-8"
+  },
+  {
+    "id": "bg-16",
+    "name": "Скандинавия Комфорт+ 6",
+    "slug": "skandinaviya-komfort-plus-6",
+    "page": 35,
+    "slide": 35,
+    "plan": true,
+    "asset": "images/plans/bg-16.png",
+    "dimensions": [
+      1196,
+      603
+    ],
+    "source_image_sha256": "979ff03e858bc79fc5974de418e098dcecd386549cb0d7593f76a35b4cf0e796",
+    "route": "/banya/skandinaviya-komfort-plus-6"
+  },
+  {
+    "id": "bg-17",
+    "name": "Скандинавия Комфорт+ 7",
+    "slug": "skandinaviya-komfort-plus-7",
+    "page": 37,
+    "slide": 37,
+    "plan": true,
+    "asset": "images/plans/bg-17.png",
+    "dimensions": [
+      1363,
+      608
+    ],
+    "source_image_sha256": "830a30d4866beecdf6e5a684e58949b79871568db46793d87cbddfc8ef3a80e3",
+    "route": "/banya/skandinaviya-komfort-plus-7"
+  },
+  {
+    "id": "bg-18",
+    "name": "Север Лайт 4",
+    "slug": "sever-layt-4",
+    "page": 39,
+    "slide": 39,
+    "plan": true,
+    "asset": "images/plans/bg-18.png",
+    "dimensions": [
+      646,
+      381
+    ],
+    "source_image_sha256": "915d592fbae57debfc4341fbbb3c89c62a4fb2697aaf68a39b6cc477d62a2828",
+    "route": "/banya/sever-layt-4"
+  },
+  {
+    "id": "bg-19",
+    "name": "Север Терра 6,5",
+    "slug": "sever-terra-65",
+    "page": 41,
+    "slide": 41,
+    "plan": true,
+    "asset": "images/plans/bg-19.png",
+    "dimensions": [
+      666,
+      281
+    ],
+    "source_image_sha256": "80e4feaedc31a182fe5dc06679d0a8ae1380cba846cef676eb7e1aadec3741be",
+    "route": "/banya/sever-terra-65"
+  },
+  {
+    "id": "bg-20",
+    "name": "Север Резиденс 7",
+    "slug": "sever-rezidents-7",
+    "page": 43,
+    "slide": 43,
+    "plan": true,
+    "asset": "images/plans/bg-20.png",
+    "dimensions": [
+      681,
+      286
+    ],
+    "source_image_sha256": "1d8f75982fe896201e1078c6dcaef2c5c5b2ebff7e78e4ed69d72b713a623d2d",
+    "route": "/banya/sever-rezidents-7"
+  },
+  {
+    "id": "bg-21",
+    "name": "Север Панорама 8",
+    "slug": "sever-panorama-8",
+    "page": 45,
+    "slide": 45,
+    "plan": true,
+    "asset": "images/plans/bg-21.png",
+    "dimensions": [
+      636,
+      241
+    ],
+    "source_image_sha256": "c06c27e9d67a50c9bfa9fab232f1bac99f2b4cc9ba94a9864ab7cb33b58e6da2",
+    "route": "/banya/sever-panorama-8"
+  },
+  {
+    "id": "bg-22",
+    "name": "Исток Графит 4",
+    "slug": "istok-grafit-4",
+    "page": 47,
+    "slide": 47,
+    "plan": true,
+    "asset": "images/plans/bg-22.png",
+    "dimensions": [
+      521,
+      421
+    ],
+    "source_image_sha256": "da06125104e6dfe8cd3821c6fcad80450c4faf0b5d05d1e1c33eb5798e38d196",
+    "route": "/banya/istok-grafit-4"
+  },
+  {
+    "id": "bg-23",
+    "name": "Исток Тепло 6",
+    "slug": "istok-teplo-6",
+    "page": 49,
+    "slide": 49,
+    "plan": true,
+    "asset": "images/plans/bg-23.png",
+    "dimensions": [
+      551,
+      336
+    ],
+    "source_image_sha256": "589c30e87d88f4af849de04ce307667bffeb31379ed12481f263d52c8ee4d2c5",
+    "route": "/banya/istok-teplo-6"
+  },
+  {
+    "id": "bg-24",
+    "name": "Исток Стиль 7",
+    "slug": "istok-stil-7",
+    "page": 51,
+    "slide": 51,
+    "plan": true,
+    "asset": "images/plans/bg-24.png",
+    "dimensions": [
+      621,
+      321
+    ],
+    "source_image_sha256": "2e60972df08ec6cca3970b0c169cc62e3b2f8d4bf3360f0e4bf71dded97613c0",
+    "route": "/banya/istok-stil-7"
+  },
+  {
+    "id": "bg-25",
+    "name": "Усадьба Практик",
+    "slug": "usadba-praktik",
+    "page": 52,
+    "slide": 52,
+    "plan": false,
+    "asset": null,
+    "dimensions": null,
+    "source_image_sha256": null,
+    "route": "/dom/usadba-praktik"
+  },
+  {
+    "id": "bg-26",
+    "name": "Усадьба Простор",
+    "slug": "usadba-prostor",
+    "page": 53,
+    "slide": 53,
+    "plan": false,
+    "asset": null,
+    "dimensions": null,
+    "source_image_sha256": null,
+    "route": "/dom/usadba-prostor"
+  },
+  {
+    "id": "bg-27",
+    "name": "Усадьба Веранда",
+    "slug": "usadba-veranda",
+    "page": 54,
+    "slide": 54,
+    "plan": false,
+    "asset": null,
+    "dimensions": null,
+    "source_image_sha256": null,
+    "route": "/dom/usadba-veranda"
+  },
+  {
+    "id": "bg-28",
+    "name": "Барн Премиум",
+    "slug": "barn-premium",
+    "page": 56,
+    "slide": 56,
+    "plan": true,
+    "asset": "images/plans/bg-28.png",
+    "dimensions": [
+      1391,
+      545
+    ],
+    "source_image_sha256": "474d0a5c6628193ca11ec8e957798eb44f4fc831fc216195aeefe7104bc2cf11",
+    "route": "/banya/barn-premium"
+  },
+  {
+    "id": "bg-29",
+    "name": "Усадьба Уют 5",
+    "slug": "usadba-uyt-5",
+    "page": 58,
+    "slide": 58,
+    "plan": true,
+    "asset": "images/plans/bg-29.jpg",
+    "dimensions": [
+      1272,
+      938
+    ],
+    "source_image_sha256": "bf4a853dcc3c993439436c3b4ee8e6b1799f58ce6cf8e942de30313241d70f8f",
+    "route": "/dom/usadba-uyt-5"
+  },
+  {
+    "id": "bg-30",
+    "name": "Усадьба Семейная 6",
+    "slug": "usadba-semejnaya-6",
+    "page": 60,
+    "slide": 60,
+    "plan": true,
+    "asset": "images/plans/bg-30.jpg",
+    "dimensions": [
+      1280,
+      1007
+    ],
+    "source_image_sha256": "0d507f3878644ea1834c641e228bef30201363b69d99f29315d648029422a6ff",
+    "route": "/dom/usadba-semejnaya-6"
+  },
+  {
+    "id": "bg-31",
+    "name": "Усадьба Терра 7",
+    "slug": "usadba-terra-7",
+    "page": 62,
+    "slide": 62,
+    "plan": true,
+    "asset": "images/plans/bg-31.jpg",
+    "dimensions": [
+      1280,
+      923
+    ],
+    "source_image_sha256": "26b993426fc218b0387cd609c7387410eb855f90cfdda5c35d9f0615e0ea5b22",
+    "route": "/dom/usadba-terra-7"
+  }
+]
