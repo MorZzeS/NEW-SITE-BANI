@@ -19,6 +19,7 @@ export interface Sauna {
   area: number       // m²
   rooms?: number
   priceFrom: number
+  priceVariants?: string[]
   priceLabel?: string
   article?: string
   collection?: string
@@ -44,6 +45,7 @@ export interface Home {
   rooms?: number
   sleepingPlaces?: number
   priceFrom: number
+  priceVariants?: string[]
   priceLabel?: string
   tags: string[]
   article?: string

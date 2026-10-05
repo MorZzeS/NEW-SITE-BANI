@@ -66,6 +66,12 @@ for (const record of records) {
   if (!fs.existsSync(card)) { errors.push(`${record.id}: missing card`); continue }
   const html = fs.readFileSync(card, 'utf8')
   const model = models.find((m) => m.id === record.id)
+  if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(record.price_variants)) errors.push(`${record.id}: wrong alternative prices`)
+  const priceBlock = html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1]
+  if (!priceBlock) errors.push(`${record.id}: missing price section`)
+  for (const variant of record.price_variants) {
+    if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
+  }
   for (const field of ['name', 'article', 'size', 'description', 'priceFrom', 'area']) {
     if (model?.[field] !== record[field]) errors.push(`${record.id}: data differs from catalog: ${field}`)
   }
@@ -94,6 +100,13 @@ for (const record of records) {
   } else if (html.includes('/images/plans/' + record.id)) errors.push(`${record.id}: unexpected plan`)
 }
 const interiors = JSON.parse(fs.readFileSync(path.join(root, 'docs/interior-photo-sources.json'), 'utf8'))
+const filterSources = JSON.parse(fs.readFileSync(path.join(root, 'docs/catalog-filter-sources.json'), 'utf8'))
+for (const source of filterSources) {
+  const model = models.find((m) => m.id === source.id)
+  for (const field of ['hasShower', 'hasBathroom', 'hasTerrace']) {
+    if (model?.[field] !== source[field]) errors.push(`${source.id}: wrong filter flag ${field}`)
+  }
+}
 for (const item of interiors) {
   const asset = path.join(dist, item.asset)
   if (!fs.existsSync(asset)) errors.push(`missing interior ${item.asset}`)

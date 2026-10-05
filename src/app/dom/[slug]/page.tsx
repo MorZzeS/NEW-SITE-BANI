@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Phone, Check } from 'lucide-react'
-import { homes, formatPrice, siteSettings } from '@/data'
+import { homes, siteSettings } from '@/data'
 import { HomeCard } from '@/components/catalog/HomeCard'
 import { homeInteriorExamples } from '@/data/interior-examples'
+import { ModelPrices } from '@/components/catalog/ModelPrices'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
@@ -84,11 +85,7 @@ export default function HomePage({ params }: Props) {
               ))}
             </div>
 
-            <div className="glass rounded-2xl p-5 mb-6">
-              <div className="text-sm text-cream/50 mb-1">Стоимость</div>
-              <div className="text-3xl font-extrabold text-cream">от {formatPrice(home.priceFrom)}</div>
-              <div className="text-xs text-cream/40 mt-1">Зависит от комплектации и региона</div>
-            </div>
+            <ModelPrices model={home} />
 
             <div className="flex flex-wrap gap-3 mb-4">
               <a href={`tel:${siteSettings.phone}`} className="btn-primary flex-1 justify-center py-3.5">

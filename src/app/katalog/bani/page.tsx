@@ -3,10 +3,9 @@
 import { useState, useMemo } from 'react'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunas } from '@/data'
-import { Filter, ChevronDown } from 'lucide-react'
 import clsx from 'clsx'
 
-const series = ['Все', 'Исток', 'Север', 'Скандинавия']
+const series = ['Все', 'Исток', 'Север', 'Скандинавия', 'Барн']
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
 
 export default function BaniCatalogPage() {
@@ -14,7 +13,7 @@ export default function BaniCatalogPage() {
   const [activeLength, setActiveLength] = useState('Все')
   const [sort, setSort] = useState<'price_asc' | 'price_desc' | 'area'>('price_asc')
   const [minPrice, setMinPrice] = useState(0)
-  const [maxPrice, setMaxPrice] = useState(1000000)
+  const [maxPrice, setMaxPrice] = useState<number | ''>('')
   const [hasShowerFilter, setHasShowerFilter] = useState(false)
   const [hasTerraceFilter, setHasTerraceFilter] = useState(false)
 
@@ -36,7 +35,7 @@ export default function BaniCatalogPage() {
     }
 
     if (minPrice > 0) list = list.filter(s => s.priceFrom >= minPrice)
-    if (maxPrice < 1000000) list = list.filter(s => s.priceFrom <= maxPrice)
+    if (maxPrice !== '') list = list.filter(s => s.priceFrom <= maxPrice)
     if (hasShowerFilter) list = list.filter(s => s.hasShower)
     if (hasTerraceFilter) list = list.filter(s => s.hasTerrace)
 
@@ -45,7 +44,7 @@ export default function BaniCatalogPage() {
     if (sort === 'area') list.sort((a, b) => b.area - a.area)
 
     return list
-  }, [activeSeries, activeLength, sort])
+  }, [activeSeries, activeLength, sort, minPrice, maxPrice, hasShowerFilter, hasTerraceFilter])
 
   return (
     <div className="pt-28 pb-20">
@@ -68,6 +67,7 @@ export default function BaniCatalogPage() {
               {series.map((s) => (
                 <button
                   key={s}
+                  aria-pressed={activeSeries === s}
                   onClick={() => setActiveSeries(s)}
                   className={clsx(
                     'px-4 py-2 rounded-xl text-sm font-medium transition-all',
@@ -89,6 +89,7 @@ export default function BaniCatalogPage() {
               {lengths.map((l) => (
                 <button
                   key={l}
+                  aria-pressed={activeLength === l}
                   onClick={() => setActiveLength(l)}
                   className={clsx(
                     'px-4 py-2 rounded-xl text-sm font-medium transition-all',
@@ -107,8 +108,20 @@ export default function BaniCatalogPage() {
           <div>
             <div className="text-xs text-cream/50 mb-2 font-semibold">Особенности</div>
             <div className="flex flex-wrap gap-2">
-              <button onClick={() => setHasShowerFilter(!hasShowerFilter)} className={clsx('px-3 py-1.5 rounded-lg text-xs font-medium transition-all border', hasShowerFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Душ</button>
-              <button onClick={() => setHasTerraceFilter(!hasTerraceFilter)} className={clsx('px-3 py-1.5 rounded-lg text-xs font-medium transition-all border', hasTerraceFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Терраса</button>
+              <button aria-pressed={hasShowerFilter} onClick={() => setHasShowerFilter(!hasShowerFilter)} className={clsx('px-3 py-1.5 rounded-lg text-xs font-medium transition-all border', hasShowerFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Душ</button>
+              <button aria-pressed={hasTerraceFilter} onClick={() => setHasTerraceFilter(!hasTerraceFilter)} className={clsx('px-3 py-1.5 rounded-lg text-xs font-medium transition-all border', hasTerraceFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Терраса / крыльцо</button>
+            </div>
+          </div>
+
+          <div>
+            <div className="text-xs text-cream/50 mb-2 font-semibold">Цена, ₽</div>
+            <div className="flex gap-2">
+              <input aria-label="Цена от" type="number" min="0" value={minPrice || ''}
+                onChange={(e) => setMinPrice(Math.max(0, Number(e.target.value)))} placeholder="От"
+                className="input-glass rounded-xl px-3 py-2 text-sm w-32" />
+              <input aria-label="Цена до" type="number" min="0" value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))} placeholder="До"
+                className="input-glass rounded-xl px-3 py-2 text-sm w-32" />
             </div>
           </div>
 
@@ -116,6 +129,7 @@ export default function BaniCatalogPage() {
           <div className="ml-auto">
             <div className="text-xs text-cream/50 mb-2 font-semibold">Сортировка</div>
             <select
+              aria-label="Сортировка моделей"
               value={sort}
               onChange={(e) => setSort(e.target.value as typeof sort)}
               className="glass rounded-xl px-4 py-2 text-sm text-cream bg-transparent outline-none cursor-pointer"
@@ -143,7 +157,7 @@ export default function BaniCatalogPage() {
           <div className="glass rounded-3xl p-16 text-center">
             <p className="text-cream/50 text-lg">По выбранным фильтрам ничего не найдено</p>
             <button
-              onClick={() => { setActiveSeries('Все'); setActiveLength('Все') }}
+              onClick={() => { setActiveSeries('Все'); setActiveLength('Все'); setMinPrice(0); setMaxPrice(''); setHasShowerFilter(false); setHasTerraceFilter(false) }}
               className="btn-secondary mt-4 mx-auto"
             >
               Сбросить фильтры

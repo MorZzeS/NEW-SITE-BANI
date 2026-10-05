@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Phone } from 'lucide-react'
-import { saunas, formatPrice, siteSettings } from '@/data'
+import { saunas, siteSettings } from '@/data'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunaInteriorExamples, barnInteriorExamples } from '@/data/interior-examples'
+import { ModelPrices } from '@/components/catalog/ModelPrices'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
@@ -92,15 +93,7 @@ export default function SaunaPage({ params }: Props) {
             </div>
 
             {/* Price */}
-            <div className="glass rounded-2xl p-5 mb-6">
-              <div className="text-sm text-cream/50 mb-1">Стоимость</div>
-              <div className="text-3xl font-extrabold text-cream">
-                {sauna.id !== 'bg-28' && 'от '}{formatPrice(sauna.priceFrom)}
-              </div>
-              <div className="text-xs text-cream/40 mt-1">
-                Окончательная цена зависит от комплектации и региона доставки
-              </div>
-            </div>
+            <ModelPrices model={sauna} />
 
             {/* CTA buttons */}
             <div className="flex flex-wrap gap-3 mb-4">

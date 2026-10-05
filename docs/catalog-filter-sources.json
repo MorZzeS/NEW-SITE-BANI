@@ -1,0 +1,252 @@
+[
+  {
+    "id": "bg-01",
+    "plan_slide": 5,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-02",
+    "plan_slide": 7,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  {
+    "id": "bg-03",
+    "plan_slide": 9,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-04",
+    "plan_slide": 11,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-05",
+    "plan_slide": 13,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": true,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-06",
+    "plan_slide": 15,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": true,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-07",
+    "plan_slide": 17,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-08",
+    "plan_slide": 19,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-09",
+    "plan_slide": 21,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  {
+    "id": "bg-10",
+    "plan_slide": 23,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  {
+    "id": "bg-11",
+    "plan_slide": 25,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  {
+    "id": "bg-12",
+    "plan_slide": 27,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  {
+    "id": "bg-13",
+    "plan_slide": 29,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  {
+    "id": "bg-14",
+    "plan_slide": 31,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-15",
+    "plan_slide": 33,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  {
+    "id": "bg-16",
+    "plan_slide": 35,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": true,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-17",
+    "plan_slide": 37,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": true,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-18",
+    "plan_slide": 39,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-19",
+    "plan_slide": 41,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": true,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-20",
+    "plan_slide": 43,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": true,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-21",
+    "plan_slide": 45,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": true,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-22",
+    "plan_slide": 47,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-23",
+    "plan_slide": 49,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-24",
+    "plan_slide": 51,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": false,
+    "hasBathroom": false,
+    "hasTerrace": false
+  },
+  {
+    "id": "bg-28",
+    "plan_slide": 56,
+    "source": "Бани Герасимов — Каталог(1).pptx",
+    "verified_by": "Independent visual review of all plans and main images",
+    "terrace_definition": "Терраса / входное крыльцо",
+    "hasShower": true,
+    "hasBathroom": false,
+    "hasTerrace": true
+  }
+]
