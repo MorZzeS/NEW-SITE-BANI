@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "banger-leads",
+  "main": "backend/worker.mjs",
+  "compatibility_date": "2026-10-06",
+  "workers_dev": true,
+  "vars": {
+    "MAX_USER_ID": "2758798",
+    "ALLOWED_ORIGINS": "https://morzzes.github.io,https://banger.su"
+  },
+  "durable_objects": { "bindings": [{ "name": "LEAD_GATE", "class_name": "LeadGate" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["LeadGate"] }],
+  "observability": { "enabled": false }
+}

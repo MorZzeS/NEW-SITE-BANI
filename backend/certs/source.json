@@ -1,0 +1,13 @@
+{
+  "page": "https://www.gosuslugi.ru/crt",
+  "officialDownload": "https://gu-st.ru/content/Other/doc/russian_trusted_root_ca.cer",
+  "downloadedAt": "2026-10-06T19:09:59.822Z",
+  "subject": "C=RU\nO=The Ministry of Digital Development and Communications\nCN=Russian Trusted Root CA",
+  "issuer": "C=RU\nO=The Ministry of Digital Development and Communications\nCN=Russian Trusted Root CA",
+  "ca": true,
+  "validFrom": "Mar  1 21:04:15 2022 GMT",
+  "validTo": "Feb 27 21:04:15 2032 GMT",
+  "fingerprint256": "D2:6D:2D:02:31:B7:C3:9F:92:CC:73:85:12:BA:54:10:35:19:E4:40:5D:68:B5:BD:70:3E:97:88:CA:8E:CF:31",
+  "pemSHA256": "ea5cef7aa71bb049a2fb599c8776dfa682a6ed969acf309291601f6fc066df9d",
+  "conversion": "Node X509Certificate.toString(): same DER certificate, PEM encoding only"
+}

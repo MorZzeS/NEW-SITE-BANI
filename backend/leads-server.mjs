@@ -2,14 +2,8 @@ import { createServer } from 'node:http'
 import { pathToFileURL } from 'node:url'
 import { isIP } from 'node:net'
 
-export function validateLead(data, now = Date.now()) {
-  if (!data || typeof data !== 'object') return false
-  const bounded = (key, min, max) => typeof data[key] === 'string' && data[key].trim().length >= min && data[key].length <= max
-  return bounded('requestId', 16, 80) && /^[\w-]+$/.test(data.requestId) && bounded('name', 2, 80) &&
-    bounded('phone', 10, 30) && /^\+?[\d ()-]+$/.test(data.phone) && /^[78]\d{10}$/.test(data.phone.replace(/\D/g, '')) &&
-    bounded('model', 0, 160) && bounded('comment', 0, 1500) && bounded('page', 8, 600) && data.consent === true &&
-    data.website === '' && typeof data.startedAt === 'number' && now - data.startedAt >= 3000 && now - data.startedAt < 86400000
-}
+import { validateLead } from './lead-validation.mjs'
+export { validateLead } from './lead-validation.mjs'
 
 export function createLeadServer({ env = process.env, fetchImpl = fetch, now = Date.now } = {}) {
   const allowed = (env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean)
@@ -17,6 +11,7 @@ export function createLeadServer({ env = process.env, fetchImpl = fetch, now = D
   const server = createServer(async (req, res) => {
     const origin = req.headers.origin
     const reply = (status, value) => { res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(value)) }
+    if (req.method === 'GET' && req.url === '/health') return reply(200, { ok: true })
     if (!origin || !allowed.includes(origin)) return reply(403, { ok: false })
     res.setHeader('Access-Control-Allow-Origin', origin)
     res.setHeader('Vary', 'Origin')
@@ -42,23 +37,27 @@ export function createLeadServer({ env = process.env, fetchImpl = fetch, now = D
       const entry = rate.get(ip) || { count: 0, at: now() }
       if (++entry.count > 5 || rate.size > 10000 || requests.size > 10000) return reply(429, { ok: false })
       rate.set(ip, entry)
-      if (!env.MAX_BOT_TOKEN || !(env.MAX_CHAT_ID || env.MAX_USER_ID)) return reply(503, { ok: false })
+      if (!env.MAX_BOT_TOKEN || !/^\d+$/.test(env.MAX_USER_ID || '')) return reply(503, { ok: false })
       requests.set(data.requestId, { at: now(), done: false })
       const target = new URL('https://platform-api2.max.ru/messages')
-      target.searchParams.set(env.MAX_CHAT_ID ? 'chat_id' : 'user_id', env.MAX_CHAT_ID || env.MAX_USER_ID)
+      target.searchParams.set('user_id', env.MAX_USER_ID)
       const controller = new AbortController(), timeout = setTimeout(() => controller.abort(), 10000)
       try {
         const text = `Новая заявка BANGER.SU\nИмя: ${data.name.trim()}\nТелефон: ${data.phone}\nМодель: ${data.model || 'Не указана'}\nСтраница: ${data.page}\nКомментарий: ${data.comment || 'Нет'}\nДата: ${new Date(now()).toISOString()}\nID: ${data.requestId}`
         const response = await fetchImpl(target, { method: 'POST', headers: { Authorization: env.MAX_BOT_TOKEN, 'Content-Type': 'application/json' }, body: JSON.stringify({ text }), signal: controller.signal })
-        if (!response.ok) throw new Error('MAX delivery failed')
+        if (!response.ok) { console.error('MAX upstream HTTP status', response.status); throw new Error('MAX delivery failed') }
         const result = await response.json()
         if (!result.message) throw new Error('MAX delivery not confirmed')
         requests.set(data.requestId, { at: now(), done: true })
         reply(200, { ok: true, requestId: data.requestId })
-      } catch { reply(502, { ok: false }) } finally { clearTimeout(timeout) }
+      } catch (error) {
+        const code = error?.cause?.code || error?.code
+        console.error('MAX delivery failed', typeof code === 'string' && /^[A-Z0-9_]+$/.test(code) ? code : error?.name || 'Error')
+        reply(502, { ok: false })
+      } finally { clearTimeout(timeout) }
     } catch { reply(400, { ok: false }) }
   })
   server.requestTimeout = 20000
   return server
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) createLeadServer().listen(Number(process.env.PORT || 8787), '127.0.0.1')
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) createLeadServer().listen(Number(process.env.PORT || 8787), '0.0.0.0')

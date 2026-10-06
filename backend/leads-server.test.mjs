@@ -7,7 +7,7 @@ test('validation rejects honeypot, invalid phone and no consent', () => {
   for (const data of [{ ...lead, website: 'spam' }, { ...lead, phone: '123' }, { ...lead, consent: false }, { ...lead, startedAt: Date.now() }]) assert.equal(validateLead(data), false)
 })
 test('staging root and trusted proxy client IPs are supported', async () => {
-  const server = createLeadServer({ env: { ALLOWED_ORIGINS: 'https://morzzes.github.io', MAX_BOT_TOKEN: 'test-only', MAX_CHAT_ID: '1', TRUST_PROXY: '1' }, fetchImpl: async () => ({ ok: true, json: async () => ({ message: { body: { mid: 'test' } } }) }) })
+  const server = createLeadServer({ env: { ALLOWED_ORIGINS: 'https://morzzes.github.io', MAX_BOT_TOKEN: 'test-only', MAX_USER_ID: '2758798', MAX_CHAT_ID: 'ignored-chat', TRUST_PROXY: '1' }, fetchImpl: async () => ({ ok: true, json: async () => ({ message: { body: { mid: 'test' } } }) }) })
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))
   const url = `http://127.0.0.1:${server.address().port}/leads`
   try {
@@ -21,9 +21,11 @@ test('staging root and trusted proxy client IPs are supported', async () => {
 })
 test('HTTP contract, idempotency, CORS, rate limit and failed delivery', async () => {
   let calls = 0
-  const server = createLeadServer({ env: { ALLOWED_ORIGINS: 'https://banger.su', MAX_BOT_TOKEN: 'test-only-not-a-secret', MAX_CHAT_ID: '1' }, fetchImpl: async (url, init) => {
+  const server = createLeadServer({ env: { ALLOWED_ORIGINS: 'https://banger.su', MAX_BOT_TOKEN: 'test-only-not-a-secret', MAX_USER_ID: '2758798', MAX_CHAT_ID: 'ignored-chat' }, fetchImpl: async (url, init) => {
     calls++
     assert.equal(url.hostname, 'platform-api2.max.ru')
+    assert.equal(url.searchParams.get('user_id'), '2758798')
+    assert.equal(url.searchParams.has('chat_id'), false)
     assert.equal(init.headers.Authorization, 'test-only-not-a-secret')
     return { ok: true, json: async () => ({ message: { body: { mid: 'test' } } }) }
   } })
@@ -46,4 +48,32 @@ test('HTTP contract, idempotency, CORS, rate limit and failed delivery', async (
     assert.equal(response.status, 502)
     assert.equal((await response.json()).ok, false)
   } finally { await new Promise(resolve => failed.close(resolve)) }
+})
+
+test('user_id is required and upstream errors never return success', async () => {
+  for (const scenario of [
+    { env: { MAX_CHAT_ID: 'ignored' }, status: 503 },
+    { env: { MAX_USER_ID: '2758798' }, status: 502, result: { ok: false, json: async () => ({}) } },
+    { env: { MAX_USER_ID: '2758798' }, status: 502, result: { ok: true, json: async () => ({}) } }
+  ]) {
+    let calls = 0
+    const server = createLeadServer({ env: { ALLOWED_ORIGINS: 'https://banger.su', MAX_BOT_TOKEN: 'test-only', ...scenario.env }, fetchImpl: async () => { calls++; return scenario.result } })
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))
+    try {
+      const response = await fetch(`http://127.0.0.1:${server.address().port}/leads`, { method: 'POST', headers: { Origin: 'https://banger.su', 'Content-Type': 'application/json' }, body: JSON.stringify(lead) })
+      assert.equal(response.status, scenario.status)
+      assert.equal((await response.json()).ok, false)
+      assert.equal(calls, scenario.status === 503 ? 0 : 1)
+    } finally { await new Promise(resolve => server.close(resolve)) }
+  }
+})
+
+test('Render health is public and does not expose configuration', async () => {
+ const server = createLeadServer({env:{}})
+ await new Promise(resolve=>server.listen(0,'0.0.0.0',resolve))
+ try {
+  const response=await fetch(`http://127.0.0.1:${server.address().port}/health`)
+  assert.equal(response.status,200)
+  assert.deepEqual(await response.json(),{ok:true})
+ } finally { await new Promise(resolve=>server.close(resolve)) }
 })

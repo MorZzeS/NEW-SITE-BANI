@@ -27,7 +27,8 @@
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "qrcode": "^1.5.4",
-    "typescript": "5.5.3"
+    "typescript": "5.5.3",
+    "wrangler": "^4.147.0"
   },
   "engines": {
     "node": ">=18.0.0"
