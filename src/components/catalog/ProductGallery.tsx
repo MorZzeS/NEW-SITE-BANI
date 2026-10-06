@@ -21,6 +21,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
   const items = useMemo(() => sourceItems.filter((item, i) => sourceItems.findIndex((other) => other.src === item.src) === i), [sourceItems])
   const [current, setCurrent] = useState(0)
   const swipeRef = useRef<number | null>(null)
+  const swipeYRef = useRef(0)
   const swipedRef = useRef(false)
   const openerRef = useRef<HTMLButtonElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -66,26 +67,29 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
 
   const currentItem = items[current % items.length]
   const touchHandlers = {
-    onTouchStart: (e: React.TouchEvent) => { swipeRef.current = e.touches[0].clientX; swipedRef.current = false },
-    onTouchEnd: (e: React.TouchEvent) => {
+    onPointerDown: (e: React.PointerEvent) => { swipeRef.current = e.clientX; swipeYRef.current = e.clientY; swipedRef.current = false },
+    onPointerUp: (e: React.PointerEvent) => {
       if (swipeRef.current === null) return
-      const diff = swipeRef.current - e.changedTouches[0].clientX
+      const diff = swipeRef.current - e.clientX
+      const vertical = swipeYRef.current - e.clientY
       swipeRef.current = null
-      if (Math.abs(diff) > 40 && !single) { swipedRef.current = true; go(diff > 0 ? 1 : -1) }
+      if (Math.abs(diff) > 40 && Math.abs(diff) > Math.abs(vertical) * 1.5 && !single) { swipedRef.current = true; go(diff > 0 ? 1 : -1) }
     },
+    onPointerCancel: () => { swipeRef.current = null },
   }
 
   return (
     <div role="region" aria-label={compact ? "Фото модели" : title || "Галерея"} className={compact ? "" : "mb-16"}>
+      {compact && <h2 className="sr-only">Галерея модели</h2>}
       {!compact && <h2 className="text-2xl font-bold text-cream mb-6">{title || 'Галерея'}</h2>}
 
       {/* Main image viewer */}
-      <div className="relative rounded-3xl overflow-hidden glass-card mb-4">
+      <div className="relative rounded-xl overflow-hidden glass mb-4">
         {!single && (
           <button
             onClick={() => go(-1)}
             aria-label="Назад"
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
           >
           <ChevronLeft className="w-5 h-5" />
           </button>
@@ -94,7 +98,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           <button
             onClick={() => go(1)}
             aria-label="Вперёд"
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -104,11 +108,12 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           ref={openerRef}
           type="button"
           aria-label={`Открыть ${currentItem.type === 'PLAN' ? 'планировку' : 'фото'}: ${currentItem.alt}`}
-          className={`block w-full relative aspect-[4/3] ${compact ? '' : 'md:aspect-[16/10]'} cursor-pointer select-none`}
+          className={`block w-full relative aspect-[4/3] ${compact ? '' : 'md:aspect-[16/10]'} cursor-pointer select-none touch-pan-y`}
           onClick={() => { if (!swipedRef.current) setLightbox(true); swipedRef.current = false }}
           {...touchHandlers}
         >
           <Image
+            draggable={false}
             src={currentItem.src}
             alt={currentItem.alt}
             fill
@@ -122,11 +127,9 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
               {currentItem.label}
             </div>
           )}
-          {!single && (
-            <div className="absolute top-3 right-3 bg-black/70 backdrop-blur px-2.5 py-1 rounded-lg text-xs text-white/80 border border-white/10">
-              {current + 1} / {items.length}
-            </div>
-          )}
+          <div className="absolute top-3 right-3 bg-black/70 backdrop-blur px-2.5 py-1 rounded-lg text-xs text-white/80 border border-white/10">
+            {current + 1} / {items.length}
+          </div>
         </button>
       </div>
 
@@ -149,13 +152,14 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
       {/* Lightbox */}
       {lightbox && createPortal(
         <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={currentItem.alt} className="fixed inset-0 z-[100] bg-graphite-950/95 flex items-center justify-center p-4" onClick={() => setLightbox(false)} {...touchHandlers}>
-          <button ref={closeRef} onClick={() => setLightbox(false)} className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20" aria-label="Закрыть">×</button>
+          <button ref={closeRef} onClick={() => setLightbox(false)} className="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20" aria-label="Закрыть">×</button>
           {!single && <>
             <button aria-label="Предыдущее фото" onClick={(e) => { e.stopPropagation(); go(-1) }} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-graphite-950/70 text-white flex items-center justify-center hover:bg-white/20">‹</button>
             <button aria-label="Следующее фото" onClick={(e) => { e.stopPropagation(); go(1) }} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-graphite-950/70 text-white flex items-center justify-center hover:bg-white/20">›</button>
           </>}
-          <div className="relative w-[90vw] h-[85vh]" onClick={(e) => e.stopPropagation()}>
-            <Image src={currentItem.src} alt={currentItem.alt} fill className="object-contain" sizes="90vw" />
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">{current + 1} / {items.length}</div>
+          <div className="relative w-[90vw] h-[80vh]" onClick={(e) => e.stopPropagation()}>
+            <Image draggable={false} src={currentItem.src} alt={currentItem.alt} fill className="object-contain" sizes="90vw" />
           </div>
         </div>, document.body
       )}

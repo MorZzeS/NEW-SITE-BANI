@@ -1,6 +1,9 @@
 'use client'
+import { PhoneLinks } from '@/components/ui/PhoneLinks'
+
 
 import Link from 'next/link'
+import { CTAFormInline } from '@/components/forms/CTAFormInline'
 
 import { Phone } from 'lucide-react'
 import { siteSettings } from '@/data'
@@ -31,61 +34,12 @@ export function CTASection() {
                   подберём подходящую модель и рассчитаем стоимость с доставкой.
                 </p>
                 <div className="space-y-4">
-                  <a
-                    href={`tel:${siteSettings.phone}`}
-                    className="flex items-center gap-3 text-cream hover:text-[#d4a843] transition-colors group"
-                    aria-label={`Позвонить: ${siteSettings.phoneDisplay}`}
-                  >
-                    <div className="w-11 h-11 glass rounded-2xl flex items-center justify-center group-hover:bg-[#d4a843]/15 transition-colors">
-                      <Phone className="w-5 h-5 text-[#d4a843]" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-cream/50">Позвонить</div>
-                      <div className="font-semibold">{siteSettings.phoneDisplay}</div>
-                    </div>
-                  </a>
+                  <PhoneLinks />
                 </div>
               </div>
 
               {/* Right: contacts block — no fake form */}
-              <div className="glass-strong rounded-3xl p-8">
-                <h3 className="text-xl font-bold text-cream mb-2">Связаться с нами</h3>
-                <p className="text-sm text-cream/60 mb-6">
-                  Онлайн-отправка заявки пока недоступна — напишите или позвоните напрямую.
-                </p>
-                <div className="space-y-3">
-                  <a
-                    href={`tel:${siteSettings.phone}`}
-                    className="btn-primary w-full justify-center py-3.5"
-                    aria-label={`Позвонить ${siteSettings.phoneDisplay}`}
-                  >
-                    <Phone className="w-4 h-4" />
-                    {siteSettings.phoneDisplay}
-                  </a>
-                  <a
-                    href={siteSettings.telegram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-secondary w-full justify-center py-3.5"
-                    aria-label="Написать в Telegram"
-                  >
-                    Telegram
-                  </a>
-                  <a
-                    href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-secondary w-full justify-center py-3.5"
-                    aria-label="Написать в MAX"
-                  >
-                    MAX
-                  </a>
-                  <p className="text-[10px] text-cream/30 text-center leading-relaxed pt-1">
-                    Нажимая, вы соглашаетесь с{' '}
-                    <Link href="/privacy" className="underline hover:text-cream/50">политикой конфиденциальности</Link>
-                  </p>
-                </div>
-              </div>
+              <CTAFormInline />
             </div>
           </div>
         </div>

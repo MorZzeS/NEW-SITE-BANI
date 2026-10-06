@@ -1,9 +1,10 @@
 'use client'
+import { SocialBlock } from '@/components/ui/SocialBlock'
 
-import Image from 'next/image'
+
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { bathVideoAction } from '@/data/videos'
 import { ArrowRight, Play, Shield, Truck, Factory, Wrench } from 'lucide-react'
 
@@ -11,12 +12,6 @@ const features = [
   { icon: Factory, label: 'Собственное\nпроизводство' },
   { icon: Truck, label: 'Доставка\nи установка' },
   { icon: Shield, label: 'Гарантия\nна все бани' },
-]
-
-const sideCards = [
-  { label: 'Настоящая\nрусская парная', bg: 'from-wood-900/80 to-wood-800/60' },
-  { label: 'Уютная\nкомната отдыха', bg: 'from-graphite-900/80 to-graphite-800/60' },
-  { label: 'Надёжные\nпечные решения', bg: 'from-graphite-950/80 to-wood-900/60' },
 ]
 
 const trustItems = [
@@ -30,19 +25,20 @@ const BathVideoViewer = dynamic(() => import('@/components/ui/BathVideoViewer'),
 
 export function HeroSection() {
   const [videoOpen, setVideoOpen] = useState(false)
+  useEffect(() => {
+    const warm = () => {
+      const image = new window.Image()
+      image.fetchPriority = 'low'
+      image.src = `/NEW-SITE-BANI/images/hero/hero-${document.documentElement.dataset.theme === 'light' ? 'night' : 'day'}.webp`
+    }
+    const timer = setTimeout(warm, 3000)
+    return () => clearTimeout(timer)
+  }, [])
   return (
     <section className="theme-hero relative min-h-screen flex flex-col overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/NEW-SITE-BANI/images/hero/hero-bg.webp"
-          alt="Мобильная баня Герасимов на природе"
-          fill
-          priority
-          quality={90}
-          className="object-cover object-center"
-          sizes="100vw"
-        />
+        <div className="hero-theme-render absolute inset-0" role="img" aria-label="Визуализация нашей бани на природе" />
         {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-graphite-950/85 via-graphite-950/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/70 via-transparent to-graphite-950/30" />
@@ -53,7 +49,7 @@ export function HeroSection() {
         {/* Main hero content — pushed down from nav */}
         <div className="flex-1 flex items-center pt-28 pb-8 md:pb-10">
           <div className="site-container w-full">
-            <div className="flex items-start justify-between gap-8">
+            <div className="flex flex-col xl:flex-row items-start justify-between gap-8">
               {/* Left: Text content */}
               <div className="max-w-xl xl:max-w-2xl">
                 {/* Tag */}
@@ -107,21 +103,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              {/* Right: Info cards — NOT buttons */}
-              <div className="hidden xl:flex flex-col gap-4 w-52 shrink-0 mt-8">
-                {sideCards.map((card, i) => (
-                  <div
-                    key={card.label}
-                    className="glass relative overflow-hidden rounded-xl cursor-default shadow-none animate-fade-up"
-                    style={{ animationDelay: `${0.3 + i * 0.1}s` }}
-                  >
-                    <span aria-hidden="true" className="absolute top-4 left-4 w-6 h-px bg-gold-400/70" />
-                    <div className={`h-24 bg-gradient-to-br ${card.bg} flex items-end p-4`}>
-                      <p className="text-sm font-semibold text-cream leading-tight whitespace-pre-line">{card.label}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <SocialBlock compact />
             </div>
           </div>
         </div>

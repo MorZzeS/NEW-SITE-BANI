@@ -4,6 +4,7 @@ export const siteSettings: SiteSettings = {
   phone: '+79362000050',
   phoneDisplay: '8 (936) 200-00-50',
   phone2: '+79363000050',
+  phoneDisplay2: '8 (936) 300-00-50',
   email: 'info@banger.su',
   address: 'Раменское, ул. Михалевича, 143Е',
   addressShowroom: 'Раменское, ул. Михалевича, 118к1',

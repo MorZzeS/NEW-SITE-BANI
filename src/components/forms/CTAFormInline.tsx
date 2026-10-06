@@ -1,91 +1,49 @@
-'use client'
-
+"use client"
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
+import { siteSettings } from '@/data'
+import { leadEndpoint, sendLead } from '@/lib/leads'
 
-import { useState } from 'react'
-import { Send, CheckCircle } from 'lucide-react'
-
-interface Props {
-  modelName?: string
-}
-
-export function CTAFormInline({ modelName }: Props) {
-  const [submitted, setSubmitted] = useState(false)
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [comment, setComment] = useState(modelName ? `Интересует модель: ${modelName}` : '')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Form submitted:', { name, phone, comment, modelName })
-    setSubmitted(true)
+export function CTAFormInline({ modelName }: { modelName?: string }) {
+ const [status,setStatus]=useState<'idle'|'sending'|'success'|'error'>('idle')
+ const [error,setError]=useState('')
+ const [name,setName]=useState(''),[phone,setPhone]=useState(''),[model,setModel]=useState(modelName || ''),[comment,setComment]=useState('')
+ const [consent,setConsent]=useState(false)
+ const started=useRef(Date.now()), pending=useRef(false)
+ const request=useRef<{ id: string; body: string }>()
+ useEffect(() => { if (!modelName) setModel(new URLSearchParams(location.search).get('model')?.slice(0,160) || '') }, [modelName])
+ const configured=/^https:\/\//.test(leadEndpoint)
+ async function submit(event: React.FormEvent<HTMLFormElement>) {
+  event.preventDefault()
+  if(pending.current || status==='success')return
+  if(!/^[78]\d{10}$/.test(phone.replace(/\D/g,''))) {setError('Введите телефон в формате +7 900 000-00-00');setStatus('error');return}
+  if(!consent)return
+  const website=new FormData(event.currentTarget).get('website')?.toString() || ''
+  pending.current=true;setStatus('sending');setError('')
+  try {
+   const body=JSON.stringify([name.trim(),phone,model,comment])
+   if(!request.current || request.current.body!==body)request.current={id:crypto.randomUUID(),body}
+   await sendLead({requestId:request.current.id,name:name.trim(),phone,model,page:location.href,comment,createdAt:new Date().toISOString(),consent,website,startedAt:started.current});setStatus('success')
   }
-
-  return (
-    <div className="relative overflow-hidden rounded-3xl">
-      <div className="absolute inset-0 bg-gradient-to-br from-wood-900/40 via-graphite-900/70 to-graphite-950/80" />
-      <div className="absolute inset-0 border border-white/10 rounded-3xl" />
-      <div className="relative z-10 p-8 md:p-10">
-        {submitted ? (
-          <div className="flex flex-col items-center justify-center py-8 text-center">
-            <CheckCircle className="w-14 h-14 text-emerald-400 mb-4" />
-            <h3 className="text-2xl font-bold text-cream mb-2">Онлайн-отправка заявки пока недоступна</h3>
-            <p className="text-cream/60">Свяжитесь с нами удобным способом ниже.</p>
-            <div className="flex flex-wrap justify-center gap-3 mt-4">
-            <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer" className="btn-secondary px-6 py-3 rounded-xl text-sm font-medium"><span>Написать в MAX</span></a>
-            <a href="https://t.me/banigerasimov" target="_blank" rel="noopener noreferrer" className="btn-secondary px-6 py-3 rounded-xl text-sm font-medium"><span>Telegram</span></a>
-            <a href="tel:+79362000050" className="btn-primary px-6 py-3 rounded-xl text-sm font-medium"><span>Позвонить</span></a>
-          </div>
-        </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className="section-tag mb-4">Получить расчёт</div>
-              <h2 className="text-2xl font-bold text-cream mb-2">
-                {modelName ? `Узнать цену на ${modelName}` : 'Заказать звонок'}
-              </h2>
-              <p className="text-cream/60 text-sm leading-relaxed">
-                Оставьте контакт — менеджер свяжется с вами, уточнит детали
-                и рассчитает итоговую стоимость с доставкой в ваш регион.
-              </p>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ваше имя"
-                required
-                className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors"
-              />
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+7 900 000-00-00"
-                required
-                className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors"
-              />
-              <textarea
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                rows={2}
-                placeholder="Комментарий (необязательно)"
-                className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors resize-none"
-              />
-              <button type="submit" className="btn-primary w-full justify-center py-3.5">
-                <Send className="w-4 h-4" />
-                Получить расчёт
-              </button>
-              <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center py-3.5"><span>Написать в MAX</span></a>
-              <p className="text-[10px] text-cream/30 text-center">
-                Нажимая кнопку, вы соглашаетесь с{' '}
-                <Link href="/privacy" className="underline">политикой конфиденциальности</Link>
-              </p>
-            </form>
-          </div>
-        )}
-      </div>
-    </div>
-  )
+  catch(err){setError(err instanceof Error?err.message:'Не удалось отправить заявку. Свяжитесь напрямую.');setStatus('error')}
+  finally{pending.current=false}
+ }
+ return <section className="glass rounded-2xl p-5 sm:p-8" aria-label="Заявка на консультацию">
+  <h2 className="text-2xl font-bold text-cream mb-3">{modelName?`Узнать цену на ${modelName}`:'Оставить заявку'}</h2>
+  {!configured && <p className="text-sm text-cream/70 mb-4">Онлайн-отправка пока не настроена. Позвоните или напишите нам напрямую.</p>}
+  {status==='success'?<p role="status" className="text-cream">Заявка отправлена. Менеджер свяжется с вами.</p>:<form onSubmit={submit} className="space-y-3">
+   <label className="block text-sm text-cream">Имя<input aria-label="Ваше имя" autoComplete="name" value={name} onChange={e=>setName(e.target.value)} required minLength={2} maxLength={80} className="lead-input" /></label>
+   <label className="block text-sm text-cream">Телефон<input aria-label="Телефон для заявки" type="tel" autoComplete="tel" value={phone} onChange={e=>setPhone(e.target.value)} required maxLength={30} placeholder="+7 900 000-00-00" className="lead-input" /></label>
+   <label className="block text-sm text-cream">Модель<input value={model} onChange={e=>setModel(e.target.value)} maxLength={160} className="lead-input" /></label>
+   <label className="block text-sm text-cream">Комментарий<textarea value={comment} onChange={e=>setComment(e.target.value)} maxLength={1500} rows={3} className="lead-input" /></label>
+   <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
+   <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required className="mt-1" /><span>Согласен с <Link href="/privacy" className="underline">политикой конфиденциальности</Link> и обработкой данных для ответа на заявку.</span></label>
+   {error && <p role="alert" className="text-sm text-cream">{error}</p>}
+   <button type="submit" disabled={!configured || status==='sending'} className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-default">{status==='sending'?'Отправляем…':'Отправить заявку'}</button>
+  </form>}
+  <div className="flex flex-wrap gap-4 mt-5 text-sm text-gold-400">
+   <a href={`tel:${siteSettings.phone}`}>{siteSettings.phoneDisplay}</a><a href={`tel:${siteSettings.phone2}`}>{siteSettings.phoneDisplay2}</a>
+   <a href={siteSettings.max} target="_blank" rel="noopener noreferrer">MAX</a><a href={siteSettings.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
+  </div>
+ </section>
 }

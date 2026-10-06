@@ -12,14 +12,21 @@ class Page(HTMLParser):
         super().__init__()
         self.meta = {}
         self.images = []
+        self.main = False
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'main':
+            self.main = True
         if tag == 'meta':
             self.meta[attrs.get('property', attrs.get('name', ''))] = attrs.get('content', '')
-        if tag == 'img':
+        if tag == 'img' and self.main:
             self.images.append(attrs)
+
+    def handle_endtag(self, tag):
+        if tag == 'main':
+            self.main = False
 
 
 manifest = json.loads((root / 'docs/article-covers-source.json').read_text(encoding='utf-8'))

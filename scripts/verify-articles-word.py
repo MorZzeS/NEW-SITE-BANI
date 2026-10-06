@@ -22,10 +22,13 @@ class Page(HTMLParser):
         self.meta = {}
         self.canonical = None
         self.images = 0
+        self.main = False
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if tag == 'main':
+            self.main = True
         if tag == 'article' and 'article-body' in a.get('class', ''):
             self.active = True
         if tag == 'h1':
@@ -36,12 +39,14 @@ class Page(HTMLParser):
             self.meta[a.get('name', a.get('property'))] = a.get('content')
         if tag == 'link' and a.get('rel') == 'canonical':
             self.canonical = a.get('href')
-        if tag == 'img':
+        if tag == 'img' and self.main:
             self.images += 1
         if self.active and tag in ['p', 'h2', 'h3', 'li']:
             self.body.append('\n')
 
     def handle_endtag(self, tag):
+        if tag == 'main':
+            self.main = False
         if tag == 'article':
             self.active = False
         if tag == 'h1':

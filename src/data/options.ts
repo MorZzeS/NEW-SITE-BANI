@@ -1,0 +1,213 @@
+export const optionCategories = ["Общее по бане", "Внешний вид", "Комната отдыха", "Моечная", "Парная", "Печь и безопасность", "Электрика и освещение", "Окна и двери", "Кровля"]
+export const additionalOptions = [
+  {
+    "id": "boiler",
+    "image": "/NEW-SITE-BANI/images/options/boiler-50.webp",
+    "name": "Бойлер 50 л",
+    "salePrice": 32500,
+    "category": "Моечная",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "shower",
+    "name": "Тропический душ",
+    "salePrice": 19500,
+    "category": "Моечная",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "bucket",
+    "name": "Обливное устройство",
+    "salePrice": 13000,
+    "category": "Моечная",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "floor",
+    "name": "Проливной пол",
+    "salePrice": 15600,
+    "category": "Общее по бане",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "wc",
+    "name": "Санузел с проводкой воды",
+    "salePrice": 15600,
+    "category": "Моечная",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "guard",
+    "name": "Ограждение печи",
+    "salePrice": 6500,
+    "category": "Печь и безопасность",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "ermak",
+    "name": "Печь Ермак 12 ПС",
+    "salePrice": 19500,
+    "category": "Печь и безопасность",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "shade",
+    "name": "Абажур в парную",
+    "salePrice": 3900,
+    "category": "Парная",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "led",
+    "name": "Диодная подсветка",
+    "salePrice": 7800,
+    "category": "Электрика и освещение",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "bench-light",
+    "name": "Подсветка под пологом",
+    "salePrice": 2600,
+    "category": "Парная",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "furniture",
+    "name": "Заводская мебель",
+    "salePrice": 6500,
+    "category": "Комната отдыха",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "window-grid",
+    "name": "Шпросы",
+    "salePrice": 3900,
+    "category": "Окна и двери",
+    "priceUnit": "шт.",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "decor",
+    "name": "Декоративные решётки",
+    "salePrice": 7800,
+    "category": "Внешний вид",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "lamination",
+    "name": "Ламинация окна / двери",
+    "salePrice": 7800,
+    "category": "Окна и двери",
+    "priceUnit": "шт.",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "drain",
+    "name": "Дополнительный слив",
+    "salePrice": 3900,
+    "category": "Моечная",
+    "priceUnit": "опция",
+    "description": "Исполнение и совместимость согласуются для выбранной модели.",
+    "enabled": true,
+    "source": "catalog-v4",
+    "priceSource": "Бани Герасимов — Каталог.pptx, слайд 65"
+  },
+  {
+    "id": "roof",
+    "name": "Черепица / окрашенный профлист",
+    "salePrice": 28000,
+    "category": "Кровля",
+    "priceUnit": "опция",
+    "description": "Состав работ согласуется при заказе.",
+    "enabled": true,
+    "source": "fallback-x2",
+    "priceSource": "Утверждённое ТЗ владельца, известная исходная цена ×2"
+  },
+  {
+    "id": "external-light",
+    "name": "Скрытая электрика / уличная подсветка, вариант в крыше",
+    "salePrice": 24000,
+    "category": "Электрика и освещение",
+    "priceUnit": "опция",
+    "description": "Состав работ согласуется при заказе.",
+    "enabled": true,
+    "source": "fallback-x2",
+    "priceSource": "Утверждённое ТЗ владельца, известная исходная цена ×2"
+  },
+  {
+    "id": "wall-point",
+    "name": "Дополнительная точка / элемент в стене",
+    "salePrice": 4000,
+    "category": "Электрика и освещение",
+    "priceUnit": "шт.",
+    "description": "Состав работ согласуется при заказе.",
+    "enabled": true,
+    "source": "fallback-x2",
+    "priceSource": "Утверждённое ТЗ владельца, известная исходная цена ×2"
+  },
+  {
+    "id": "tray",
+    "name": "Душевой поддон",
+    "salePrice": null,
+    "category": "Моечная",
+    "priceUnit": "опция",
+    "description": "Вариант и стоимость согласуются при заказе.",
+    "enabled": true,
+    "source": "unconfirmed",
+    "priceSource": "В ТЗ указан без подтверждённой цены"
+  }
+]

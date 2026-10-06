@@ -1,0 +1,490 @@
+{
+  "pages": [
+    {
+      "h1": "Бани Герасимов",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/o-kompanii",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Мобильные бани",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/bani",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Мобильные дома",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/doma",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Исток 4",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/istok-4",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Барн Премиум",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/barn-premium",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Усадьба Практик",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/dom/usadba-praktik",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Исток 4",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/model-sheet/bg-01",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Комплектация бань",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/komplektaciya",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "h1": "Свяжитесь с нами",
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/kontakty",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/o-kompanii",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/bani",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/doma",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/istok-4",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/barn-premium",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/dom/usadba-praktik",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/model-sheet/bg-01",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/komplektaciya",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/kontakty",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/o-kompanii",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/bani",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/doma",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/istok-4",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/barn-premium",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/dom/usadba-praktik",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/model-sheet/bg-01",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/komplektaciya",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/kontakty",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/o-kompanii",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/bani",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/katalog/doma",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/istok-4",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/banya/barn-premium",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/dom/usadba-praktik",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/model-sheet/bg-01",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/komplektaciya",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "overflow": false,
+      "route": "/NEW-SITE-BANI/kontakty",
+      "theme": "dark",
+      "width": 1440
+    }
+  ],
+  "models": [
+    {
+      "h1": "Исток 4",
+      "id": "bg-01",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток Терра 5",
+      "id": "bg-02",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток 5",
+      "id": "bg-03",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток 6",
+      "id": "bg-04",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток Семейный 7",
+      "id": "bg-05",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток Семейный 7R",
+      "id": "bg-06",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток Простор 7",
+      "id": "bg-07",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток 8",
+      "id": "bg-08",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Мини 4,5",
+      "id": "bg-09",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Старт+ 6",
+      "id": "bg-10",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Старт+ 6,5",
+      "id": "bg-11",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Стандарт 7",
+      "id": "bg-12",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Стандарт+ 7,5",
+      "id": "bg-13",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Комфорт 6",
+      "id": "bg-14",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Комфорт 8",
+      "id": "bg-15",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Комфорт+ 6",
+      "id": "bg-16",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Скандинавия Комфорт+ 7",
+      "id": "bg-17",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Север Лайт 4",
+      "id": "bg-18",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Север Терра 6,5",
+      "id": "bg-19",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Север Резиденс 7",
+      "id": "bg-20",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Север Панорама 8",
+      "id": "bg-21",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток Графит 4",
+      "id": "bg-22",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток Тепло 6",
+      "id": "bg-23",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Исток Стиль 7",
+      "id": "bg-24",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Усадьба Практик",
+      "id": "bg-25",
+      "overflow": false,
+      "planExpected": false,
+      "planShown": false
+    },
+    {
+      "h1": "Усадьба Простор",
+      "id": "bg-26",
+      "overflow": false,
+      "planExpected": false,
+      "planShown": false
+    },
+    {
+      "h1": "Усадьба Веранда",
+      "id": "bg-27",
+      "overflow": false,
+      "planExpected": false,
+      "planShown": false
+    },
+    {
+      "h1": "Барн Премиум",
+      "id": "bg-28",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Усадьба Уют 5",
+      "id": "bg-29",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Усадьба Семейная 6",
+      "id": "bg-30",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    },
+    {
+      "h1": "Усадьба Терра 7",
+      "id": "bg-31",
+      "overflow": false,
+      "planExpected": true,
+      "planShown": true
+    }
+  ],
+  "home": [
+    {
+      "ctaBottom": 640.5,
+      "hero": "url(\"http://127.0.0.1:56756/NEW-SITE-BANI/images/hero/hero-day.webp\")",
+      "overflow": false,
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "ctaBottom": 640.5,
+      "hero": "url(\"http://127.0.0.1:56756/NEW-SITE-BANI/images/hero/hero-night.webp\")",
+      "overflow": false,
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "ctaBottom": 539.375,
+      "hero": "url(\"http://127.0.0.1:56756/NEW-SITE-BANI/images/hero/hero-day.webp\")",
+      "overflow": false,
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "ctaBottom": 539.375,
+      "hero": "url(\"http://127.0.0.1:56756/NEW-SITE-BANI/images/hero/hero-night.webp\")",
+      "overflow": false,
+      "theme": "dark",
+      "width": 390
+    }
+  ],
+  "static": {
+    "html": 136,
+    "urls": 284,
+    "models": 31,
+    "plans": 28,
+    "errors": []
+  },
+  "backend_delivery": "PENDING_OWNER_ENV_AND_HTTPS_ENDPOINT",
+  "missing_social": [
+    "vk",
+    "instagram"
+  ]
+}

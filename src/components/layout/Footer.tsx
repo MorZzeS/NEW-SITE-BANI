@@ -1,3 +1,5 @@
+import { PhoneLinks } from '@/components/ui/PhoneLinks'
+import { SocialBlock } from '@/components/ui/SocialBlock'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react'
 import type { SiteSettings } from '@/types'
@@ -27,6 +29,7 @@ export function Footer({ settings }: Props) {
     <footer className="border-t border-white/10 mt-20">
       <div className="glass-dark">
         <div className="site-container py-16">
+          <SocialBlock />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {/* Brand */}
             <div className="lg:col-span-1">
@@ -94,10 +97,7 @@ export function Footer({ settings }: Props) {
               <h4 className="text-sm font-semibold text-cream mb-4">Контакты</h4>
               <ul className="space-y-3">
                 <li>
-                  <a href={`tel:${settings.phone}`} className="flex items-center gap-2.5 text-sm text-cream/70 hover:text-cream transition-colors">
-                    <Phone className="w-4 h-4 text-gold-400 shrink-0" />
-                    {settings.phoneDisplay}
-                  </a>
+                  <PhoneLinks />
                 </li>
                 <li>
                   <a href={`mailto:${settings.email}`} className="flex items-center gap-2.5 text-sm text-cream/70 hover:text-cream transition-colors">

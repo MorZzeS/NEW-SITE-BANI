@@ -95,15 +95,18 @@ export default function BathVideoViewer({ onClose }: { onClose: () => void }) {
           <button ref={closeButton} type="button" className="bath-viewer-control" aria-label="Закрыть просмотр видео" onClick={onClose}><X aria-hidden="true" size={20} /></button>
         </header>
         <div className="bath-viewer-stage"
-          onTouchStart={(event) => { const t = event.touches[0]; swipeStart.current = { x: t.clientX, y: t.clientY } }}
-          onTouchEnd={(event) => {
-            const start = swipeStart.current, end = event.changedTouches[0]
+          onPointerDown={(event) => {
+            const bounds = event.currentTarget.getBoundingClientRect()
+            if (event.clientY < bounds.bottom - 48) swipeStart.current = { x: event.clientX, y: event.clientY }
+          }}
+          onPointerUp={(event) => {
+            const start = swipeStart.current, end = event
             swipeStart.current = null
             if (start && end) {
               const dx = end.clientX - start.x, dy = end.clientY - start.y
               if (Math.abs(dx) >= 60 && Math.abs(dx) > Math.abs(dy) * 1.5) move(dx < 0 ? 1 : -1)
             }
-          }} onTouchCancel={() => { swipeStart.current = null }}>
+          }} onPointerCancel={() => { swipeStart.current = null }} onPointerLeave={() => { swipeStart.current = null }}>
           {video ? <VideoPlayer key={video.id} video={video} muted={muted} onMutedChange={setMuted} /> :
             <div className="bath-viewer-empty">
               <Play aria-hidden="true" size={28} strokeWidth={1.5} />
@@ -117,6 +120,12 @@ export default function BathVideoViewer({ onClose }: { onClose: () => void }) {
           <button type="button" className="bath-viewer-control" aria-label="Следующее видео" disabled={videos.length < 2} onClick={() => move(1)}><ArrowRight aria-hidden="true" size={20} /></button>
           <button type="button" className="bath-viewer-control bath-viewer-sound" aria-label={muted ? 'Включить звук' : 'Выключить звук'} aria-pressed={!muted} disabled={!video} onClick={() => setMuted(!muted)}>{muted ? <VolumeX aria-hidden="true" size={20} /> : <Volume2 aria-hidden="true" size={20} />}</button>
         </footer>
+        {!!videos.length && <nav className="bath-viewer-playlist" aria-label="Выбрать видео">
+          {videos.map((item, itemIndex) => <button key={item.id} type="button" aria-current={itemIndex === index ? 'true' : undefined}
+            onClick={() => { setIndex(itemIndex); setMuted(true) }}>
+            <span>{itemIndex + 1}. {item.title}</span><span>{item.duration}</span>
+          </button>)}
+        </nav>}
       </div>
     </dialog>, document.body
   )

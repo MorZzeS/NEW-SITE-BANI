@@ -1,3 +1,4 @@
+import { siteSettings } from '@/data'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -69,9 +70,10 @@ export default function VystavkaPage() {
             <a href="https://t.me/banigerasimov" target="_blank" rel="noopener noreferrer" className="btn-secondary px-6 py-3 rounded-xl text-sm font-medium">
               <MessageCircle className="w-4 h-4" /> Telegram
             </a>
-            <a href="tel:+79362000050" className="btn-primary px-6 py-3 rounded-xl text-sm font-medium">
+            <a href={`tel:${siteSettings.phone}`} className="btn-primary px-6 py-3 rounded-xl text-sm font-medium">
               <Phone className="w-4 h-4" /> Позвонить
             </a>
+            <a href={`tel:${siteSettings.phone2}`} className="btn-secondary px-6 py-3 text-sm">{siteSettings.phoneDisplay2}</a>
           </div>
           <div className="mt-6 pt-6 border-t border-white/10 text-xs text-cream/40">
             <p>Адрес выставочного зала и режим работы будут опубликованы после подтверждения владельцем. Для записи на просмотр используйте кнопки связи выше.</p>

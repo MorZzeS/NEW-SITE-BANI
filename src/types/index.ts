@@ -94,7 +94,7 @@ export interface Project {
 
 export interface SiteSettings {
   phone: string; phoneDisplay: string
-  phone2?: string; phoneDisplay2?: string
+  phone2: string; phoneDisplay2: string
   email: string
   address: string; addressShowroom?: string
   telegram: string; whatsapp?: string; max?: string; vk: string; youtube: string

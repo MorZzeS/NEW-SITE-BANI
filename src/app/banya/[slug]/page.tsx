@@ -1,3 +1,4 @@
+import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Phone } from 'lucide-react'
@@ -57,83 +58,10 @@ export default function SaunaPage({ params }: Props) {
           <span className="text-cream">{sauna.name}</span>
         </div>
 
-        <div className="text-sm text-gold-400 mb-2">{sauna.article}</div>
-        <h1 className="text-4xl font-extrabold text-cream mb-6">{sauna.name}</h1>
-
-        {/* Hero grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 mb-16">
-          <div className="relative w-full max-w-[320px]">
-            <ProductGallery compact items={[
-              { src: sauna.image, type: 'MAIN', alt: sauna.name },
-            ]} />
-            <div className="absolute top-4 left-4 flex gap-2 pointer-events-none">
-              {sauna.tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-lg text-xs font-semibold bg-graphite-950/80 backdrop-blur text-gold-300 border border-gold-400/30">{tag}</span>
-              ))}
-            </div>
-          </div>
-
-          {/* Info */}
-          <div className="flex flex-col">
-            <div className="text-xs font-bold tracking-widest uppercase text-gold-400/80 mb-2">{sauna.series}</div>
-            <p className="text-lg text-cream/60 mb-6">{sauna.subtitle}</p>
-
-            {/* Key specs */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
-              {[
-                { label: 'Размер', value: sauna.size },
-                { label: 'Площадь', value: `${sauna.area} м²` },
-                { label: 'Артикул', value: sauna.article },
-              ].map((s) => (
-                <div key={s.label} className="glass rounded-2xl p-4 text-center">
-                  <div className="text-xs text-cream/40 mb-1">{s.label}</div>
-                  <div className="text-lg font-bold text-cream">{s.value}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Price */}
-            <ModelPrices model={sauna} />
-
-            {/* CTA buttons */}
-            <div className="flex flex-wrap gap-3 mb-4">
-              <a href={`tel:${siteSettings.phone}`} className="btn-primary flex-1 justify-center py-3.5">
-                <Phone className="w-4 h-4" />
-                Позвонить
-              </a>
-              <a href={siteSettings.telegram} target="_blank" rel="noopener noreferrer"
-                className="btn-secondary flex-1 justify-center py-3.5">
-                Telegram
-              </a>
-            </div>
-            <div className="flex flex-wrap gap-3 mb-6">
-              <a
-                href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary flex-1 justify-center py-3"
-              >
-                MAX
-              </a>
-              <Link href={`/kontakty?model=${encodeURIComponent(sauna.name)}`} className="btn-secondary flex-1 justify-center py-3">
-                Получить расчёт
-              </Link>
-            </div>
-
-            <p className="text-xs text-cream/40 leading-relaxed">
-              {siteSettings.phoneDisplay} — консультация без обязательств
-            </p>
-          </div>
-        </div>
-
-        <ProductGallery title="Галерея модели" items={[
-          { src: sauna.image, type: 'MAIN', alt: sauna.name },
-          ...(sauna.floorPlan ? [{ src: sauna.floorPlan, type: 'PLAN' as const, alt: `${sauna.name} — планировка`, label: 'Планировка модели' }] : []),
-          ...sauna.images.filter((img) => img !== sauna.image).map((src, i) => ({ src, type: 'MODEL_PHOTO' as const, alt: `${sauna.name} — фото ${i + 1}` })),
-        ]} />
-
+        <ModelOverview model={sauna} />
+        {!sauna.floorPlan && <p className="text-sm text-cream/60 mb-6">Нет подтверждённого исходника планировки. Планировка согласуется при заказе.</p>}
         {!!interiorImages.length && <div className="mb-16">
-          <p className="text-sm text-cream/60 mb-6">Варианты внутреннего исполнения на наших фотографиях. Фактический интерьер зависит от выбранной модели и комплектации.</p>
+          <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>
           <ProductGallery title="Варианты внутреннего исполнения" items={interiorImages.map((src, i) => ({
             src, type: 'INTERIOR_EXAMPLE' as const,
             alt: `Вариант внутреннего исполнения — фото ${i + 1}`,
@@ -148,14 +76,9 @@ export default function SaunaPage({ params }: Props) {
             <p className="text-cream/70 leading-relaxed text-base mb-6">{sauna.description}</p>
 
             {/* Features */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {sauna.features.map((f) => (
-                <div key={f} className="flex items-center gap-3 glass rounded-xl px-4 py-3">
-                  <Check className="w-4 h-4 text-gold-400 shrink-0" />
-                  <span className="text-sm text-cream/80">{f}</span>
-                </div>
-              ))}
-            </div>
+            <dl className="model-parameters">
+              {sauna.features.map((feature, i) => <div key={feature}><dt>Особенность {i + 1}</dt><dd>{feature}</dd></div>)}
+            </dl>
           </div>
 
           {/* Specs */}
@@ -164,9 +87,9 @@ export default function SaunaPage({ params }: Props) {
             <div className="glass rounded-2xl overflow-hidden">
               {sauna.specs.map((spec, i) => (
                 <div key={spec.label}
-                  className={`flex items-center justify-between px-5 py-3.5 ${i !== sauna.specs.length - 1 ? 'border-b border-white/8' : ''}`}>
+                  className={`grid grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] gap-4 px-5 py-3.5 ${i !== sauna.specs.length - 1 ? 'border-b border-white/8' : ''}`}>
                   <span className="text-sm text-cream/55">{spec.label}</span>
-                  <span className="text-sm font-semibold text-cream text-right max-w-[55%]">{spec.value}</span>
+                  <span className="text-sm font-semibold text-cream text-right break-words">{spec.value}</span>
                 </div>
               ))}
             </div>

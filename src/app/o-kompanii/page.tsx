@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import { saunas, homes } from '@/data'
 import { Factory, Award, Users, Truck } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -18,16 +19,16 @@ export const metadata: Metadata = {
 // Не генерировать и не менять без согласия владельца.
 const companyFacts = {
   founded: '2026',
-  saunas: 24,
-  homes: 7,
+  saunas: saunas.length,
+  homes: homes.length,
   team: 8,
   region: 'Москва и Московская область',
   city: 'Раменское',
 }
 
 const stats = [
-  { value: '24', label: 'Модели бань' },
-  { value: '7', label: 'Модели домов' },
+  { value: String(companyFacts.saunas), label: 'Модели бань' },
+  { value: String(companyFacts.homes), label: 'Модели домов' },
   { value: '8', label: 'Человек в команде' },
   { value: '2026', label: 'Основание' },
 ]
@@ -63,7 +64,7 @@ export default function OKompaniiPage() {
 
         {/* Hero image */}
         <div className="relative aspect-video rounded-3xl overflow-hidden mb-16">
-          <Image src="/NEW-SITE-BANI/images/renders/istok-semeynyy-7.webp" alt="Производство бань" fill className="object-cover" sizes="100vw" />
+          <Image src="/NEW-SITE-BANI/images/showroom/exhibition.webp" alt="Наша выставка бань в Раменском" fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 80vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 to-transparent" />
         </div>
 

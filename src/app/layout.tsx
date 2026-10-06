@@ -49,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Anti-flash theme script — runs before paint */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: "if(/^\\/NEW-SITE-BANI\\/?$/.test(location.pathname)){const l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href='/NEW-SITE-BANI/images/hero/hero-'+(document.documentElement.dataset.theme==='light'?'day':'night')+'.webp';document.head.appendChild(l)}" }} />
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>

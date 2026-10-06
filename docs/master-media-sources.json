@@ -1,0 +1,88 @@
+[
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото нашей выставки\\Общий вид фото.jfif",
+    "source_sha256": "5bc1417bcc9d6c2bfae8dd92d228849e0430c668064145827eb45724592993b1",
+    "outputs": [
+      {
+        "file": "public/images/showroom/exhibition.webp",
+        "sha256": "b59a41518c089da35df45f6b77fde84bb4b2144eadfbcdcb0c7a0bbaa6275c6e",
+        "bytes": 96954
+      }
+    ]
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото главная страница\\Главная страница фото день.jfif",
+    "source_sha256": "f3b2958bd78ba373c9c15b194a33eed85ad06e7718979ea3271211715346b08f",
+    "outputs": [
+      {
+        "file": "public/images/hero/hero-day.webp",
+        "sha256": "b1147631871ffaf6a554e73a249ceba3d6dbc0cae6dc19a5ce5b12dd4dde8f27",
+        "bytes": 423022
+      },
+      {
+        "file": "public/images/hero/hero-day.avif",
+        "sha256": "e97002a81defd1c6f7db27357476000d1587b5125c2df82a9fd1bc940f6a106e",
+        "bytes": 324515
+      }
+    ]
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото главная страница\\Главная страница фото ночь.jfif",
+    "source_sha256": "1a837e5db0d0641f464b1d1c70962ff45ac56b17b3c5571761f4d86e077fbdf3",
+    "outputs": [
+      {
+        "file": "public/images/hero/hero-night.webp",
+        "sha256": "87ecda0ae6cdee35369bcbd5c876487a48f4cff3faa308413de9ba010280d7d3",
+        "bytes": 336280
+      },
+      {
+        "file": "public/images/hero/hero-night.avif",
+        "sha256": "930a94d7c468df9a66f8e6e1bcc6542314c685dc4dbcd99c06c4ed313e8761c0",
+        "bytes": 253811
+      }
+    ]
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Видео для сайта\\Барн Премиум.mp4",
+    "source_sha256": "4c9c4df0d851da565bfb1f29b779471f04e53e172a0fdd50b5ff204c0fd5931b",
+    "outputs": [
+      {
+        "file": "public/videos/baths/banya-01.mp4",
+        "sha256": "7b34937d5f36922c75190a9a1d4398d53dd00d61df4fa2514b7e66905051fa51",
+        "bytes": 43181706
+      },
+      {
+        "file": "public/videos/baths/banya-01-poster.webp",
+        "sha256": "f027c91cbadd701756a081313d125a1c98fd3bd3b03c7c119b73e2e42876e9c4",
+        "bytes": 39748
+      }
+    ]
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Видео для сайта\\Скандинавия стандарт 7 м..mp4",
+    "source_sha256": "93c5a184c50c41b04c4daa18fbfb88bc05e779614522a3d48f4f6e742c9460e5",
+    "outputs": [
+      {
+        "file": "public/videos/baths/banya-02.mp4",
+        "sha256": "bb668fd4fdc5724e5845509074fa5003620ba47b1a5e338d7811342b060f6a10",
+        "bytes": 23313017
+      },
+      {
+        "file": "public/videos/baths/banya-02-poster.webp",
+        "sha256": "00d2c0e26872b1282fb136778016f596b56d00db7996a7943d6965498cb0f8c6",
+        "bytes": 21152
+      }
+    ]
+  },
+  {
+    "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-site\\NEW SITE BANI\\public\\images\\interiors\\boyler-50-.jpg",
+    "source_sha256": "14761c28c8966443c290b7f837d62e35eac41b2fd404a22da0ade88de64a2f6e",
+    "outputs": [
+      {
+        "file": "public/images/options/boiler-50.webp",
+        "sha256": "8194b1c0da1c0ddfe8d2f5b6c8c372e1b79412a3c4d01b293db16abb0578f51d",
+        "bytes": 76382
+      }
+    ]
+  }
+]

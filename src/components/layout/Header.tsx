@@ -1,4 +1,6 @@
 'use client'
+import { PhoneLinks } from '@/components/ui/PhoneLinks'
+
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
@@ -147,14 +149,7 @@ export function Header({ settings }: Props) {
 
           {/* Right controls */}
           <div className="flex items-center gap-2 shrink-0">
-            <a
-              href={`tel:${settings.phone}`}
-              className="hidden md:flex items-center gap-2 text-sm font-medium text-cream/90 hover:text-cream transition-colors px-2 py-1"
-              aria-label={`Позвонить: ${settings.phoneDisplay}`}
-            >
-              <Phone className="w-4 h-4 text-[#d4a843]" />
-              <span className="hidden xl:inline">{settings.phoneDisplay}</span>
-            </a>
+            <PhoneLinks className="hidden lg:flex shrink-0 text-xs gap-0 [&_a]:min-h-6" />
             <a
               href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
               target="_blank"
@@ -242,13 +237,7 @@ export function Header({ settings }: Props) {
 
             {/* Contacts block — NO WhatsApp */}
             <div className="mt-8 space-y-3 border-t border-white/10 pt-6">
-              <a
-                href={`tel:${settings.phone}`}
-                className="flex items-center gap-3 px-4 py-3 bg-white/8 border border-white/10 rounded-xl text-cream text-sm min-h-[52px] hover:bg-white/12 transition-colors"
-              >
-                <Phone className="w-4 h-4 text-[#d4a843] shrink-0" />
-                {settings.phoneDisplay}
-              </a>
+              <PhoneLinks />
               <a
                 href={settings.telegram}
                 target="_blank"

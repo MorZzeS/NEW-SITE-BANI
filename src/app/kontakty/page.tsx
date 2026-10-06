@@ -1,4 +1,5 @@
 'use client'
+import { CTAFormInline } from '@/components/forms/CTAFormInline'
 
 import Link from 'next/link'
 
@@ -7,14 +8,6 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle } from 'lu
 import { siteSettings } from '@/data'
 
 export default function KontaktyPage() {
-  const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState({ name: '', phone: '', email: '', message: '', model: '' })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Contact form:', form)
-    setSubmitted(true)
-  }
 
   return (
     <div className="pt-28 pb-20">
@@ -32,6 +25,7 @@ export default function KontaktyPage() {
           <div className="space-y-5">
             {[
               { icon: Phone, label: 'Телефон', value: siteSettings.phoneDisplay, href: `tel:${siteSettings.phone}` },
+              { icon: Phone, label: 'Второй телефон', value: siteSettings.phoneDisplay2!, href: `tel:${siteSettings.phone2}` },
               { icon: Mail, label: 'Email', value: siteSettings.email, href: `mailto:${siteSettings.email}` },
               { icon: Clock, label: 'Режим работы', value: siteSettings.workingHours, href: null },
               { icon: MapPin, label: 'Адрес', value: siteSettings.address, href: null },
@@ -67,68 +61,7 @@ export default function KontaktyPage() {
             </div>
           </div>
 
-          {/* Form */}
-          <div id="zayavka" className="glass-strong rounded-3xl p-8">
-            {submitted ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <CheckCircle className="w-16 h-16 text-emerald-400 mb-5" />
-                <h2 className="text-2xl font-bold text-cream mb-2">Онлайн-отправка заявки пока недоступна</h2>
-                <p className="text-cream/60">Свяжитесь с нами удобным способом ниже.</p>
-              </div>
-            ) : (
-              <>
-                <h2 className="text-2xl font-bold text-cream mb-2">Оставить заявку</h2>
-                <p className="text-sm text-cream/55 mb-6">Ответим в течение 15 минут в рабочее время</p>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs text-cream/60 mb-1.5">Имя *</label>
-                      <input type="text" required value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        placeholder="Иван"
-                        className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors" />
-                    </div>
-                    <div>
-                      <label className="block text-xs text-cream/60 mb-1.5">Телефон *</label>
-                      <input type="tel" required value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        placeholder="+7 900 000-00-00"
-                        className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-xs text-cream/60 mb-1.5">Email</label>
-                    <input type="email" value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="ivan@example.com"
-                      className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors" />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-cream/60 mb-1.5">Интересующая модель</label>
-                    <input type="text" value={form.model}
-                      onChange={(e) => setForm({ ...form, model: e.target.value })}
-                      placeholder="Например: Исток 6 или любая"
-                      className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors" />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-cream/60 mb-1.5">Сообщение</label>
-                    <textarea rows={3} value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      placeholder="Расскажите о вашем участке, задачах и вопросах..."
-                      className="w-full glass rounded-xl px-4 py-3 text-sm text-cream placeholder-cream/30 outline-none border border-transparent focus:border-gold-400/50 transition-colors resize-none" />
-                  </div>
-                  <button type="submit" className="btn-primary w-full justify-center py-3.5">
-                    <Send className="w-4 h-4" />
-                    Отправить заявку
-                  </button>
-                  <p className="text-[10px] text-cream/30 text-center">
-                    Нажимая кнопку, вы соглашаетесь с{' '}
-                    <Link href="/privacy" className="underline">политикой конфиденциальности</Link>
-                  </p>
-                </form>
-              </>
-            )}
-          </div>
+          <div id="zayavka"><CTAFormInline /></div>
         </div>
       </div>
     </div>
