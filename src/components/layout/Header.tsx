@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { Phone, Menu, X, ChevronDown } from 'lucide-react'
 import type { SiteSettings } from '@/types'
 import clsx from 'clsx'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
 interface Props {
@@ -33,6 +34,23 @@ export function Header({ settings }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdown, setDropdown] = useState<string | null>(null)
   const dropRef = useRef<HTMLDivElement>(null)
+  const mobileTrigger = useRef<HTMLButtonElement>(null)
+  const reducedMotion = useReducedMotion()
+  const menuTransition = { duration: reducedMotion ? 0 : .18, ease: [.22, 1, .36, 1] as [number, number, number, number] }
+
+  useEffect(() => {
+    if (!mobileOpen && !dropdown) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return
+      setDropdown(null); setMobileOpen(false)
+      if (mobileOpen) mobileTrigger.current?.focus()
+      else dropRef.current?.querySelector<HTMLButtonElement>("button")?.focus()
+    }
+    const overflow = document.body.style.overflow
+    if (mobileOpen) document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", onKey)
+    return () => { document.body.style.overflow = overflow; window.removeEventListener("keydown", onKey) }
+  }, [mobileOpen, dropdown])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -61,9 +79,9 @@ export function Header({ settings }: Props) {
     <>
       <header
         className={clsx(
-          'site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          'site-header fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,box-shadow] duration-200',
           scrolled
-            ? 'glass-dark-strong shadow-lg py-3'
+            ? 'glass-dark-strong shadow-lg py-4'
             : 'bg-graphite-950/30 backdrop-blur-sm border-b border-white/5 py-4'
         )}
       >
@@ -110,8 +128,8 @@ export function Header({ settings }: Props) {
                       dropdown === item.label ? 'rotate-180' : ''
                     )} />
                   </button>
-                  {dropdown === item.label && (
-                    <div className="absolute top-full left-0 mt-2 w-64 glass-dark-strong rounded-2xl p-2 z-20 shadow-xl border border-white/10">
+                  <AnimatePresence>{dropdown === item.label && (
+                    <motion.div initial={{ opacity: 0, y: reducedMotion ? 0 : -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reducedMotion ? 0 : -4 }} transition={menuTransition} className="absolute top-full left-0 mt-2 w-64 glass-dark-strong rounded-xl p-2 z-20 shadow-xl border border-white/10">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
@@ -128,8 +146,8 @@ export function Header({ settings }: Props) {
                           <span className="text-xs text-cream/50 mt-0.5">{child.desc}</span>
                         </Link>
                       ))}
-                    </div>
-                  )}
+                    </motion.div>
+                  )}</AnimatePresence>
                 </div>
               ) : (
                 <Link
@@ -168,6 +186,7 @@ export function Header({ settings }: Props) {
             <ThemeToggle />
             {/* Mobile burger */}
             <button
+              ref={mobileTrigger}
               onClick={() => setMobileOpen(!mobileOpen)}
               className={clsx(
                 'lg:hidden rounded-xl p-2 transition-all duration-200',
@@ -184,14 +203,14 @@ export function Header({ settings }: Props) {
       </header>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="theme-mobile-menu fixed inset-0 z-40 lg:hidden">
+      <AnimatePresence>{mobileOpen && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={menuTransition} className="theme-mobile-menu fixed inset-0 z-40 lg:hidden">
           <div
             className="absolute inset-0 bg-graphite-950/80 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
-          <nav
+          <motion.nav initial={{ x: reducedMotion ? 0 : 24 }} animate={{ x: 0 }} exit={{ x: reducedMotion ? 0 : 24 }} transition={menuTransition}
             className="absolute top-0 right-0 h-full w-80 max-w-[90vw] glass-dark-strong pt-20 pb-8 px-5 overflow-y-auto"
             aria-label="Мобильная навигация"
           >
@@ -262,9 +281,9 @@ export function Header({ settings }: Props) {
                 Заказать звонок
               </Link>
             </div>
-          </nav>
-        </div>
-      )}
+          </motion.nav>
+        </motion.div>
+      )}</AnimatePresence>
     </>
   )
 }

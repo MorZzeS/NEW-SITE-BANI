@@ -1,0 +1,187 @@
+{
+  "source_folder": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри",
+  "clean_v2_source_folder": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media",
+  "previous_provenance": "interior-photo-sources.json",
+  "photos": [
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-01.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-01.avif",
+      "caption": "Парная",
+      "alt": "Парная — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\parnaya-.jpg",
+      "source_sha256": "5cc8422c3e1d035aa2817b2840f6b6d2d1d7e6c7f001111ba38aa2e3eb86726e",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-02.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-02.avif",
+      "caption": "Полки и освещение",
+      "alt": "Полки и освещение — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\parnaya-2-.jpg",
+      "source_sha256": "ba5b2767972440589d16d21a37e73d98b245692f40071479d3a5ccc7c16b383a",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-03.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-03.avif",
+      "caption": "Отделка парной",
+      "alt": "Отделка парной — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\parnaya-4-.jpg",
+      "source_sha256": "d6a1e04f1185f8949b4d0acc4840e10d867679fc721c66ddfe9a5a1b4434fec0",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-04.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-04.avif",
+      "caption": "Тёплое освещение",
+      "alt": "Тёплое освещение — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\parnaya-6-.jpg",
+      "source_sha256": "a7333a4af7d872b86f3fe3238366613755cbf13ba1167992237490c2270244d7",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-05.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-05.avif",
+      "caption": "Детали парной",
+      "alt": "Детали парной — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\parnaya-7-.jpg",
+      "source_sha256": "8902ca628771b9178e6c74426e167824be8bc5e5c2c97e2fa85a4cd06cf67106",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-06.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-06.avif",
+      "caption": "Печная зона",
+      "alt": "Печная зона — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\pech-.jpg",
+      "source_sha256": "4468dc2c02fcc7f8bc08cd4860a94eea224efa8a0a7058bd98043880705e59db",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-07.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-07.avif",
+      "caption": "Печь и огнезащита",
+      "alt": "Печь и огнезащита — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\pech-2.jpg",
+      "source_sha256": "9eb30af6e4278a8a3b54a0bade5bfb869ad5efff06d830dfc4adbb29504ad6d7",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-08.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-08.avif",
+      "caption": "Моечная",
+      "alt": "Моечная — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\pomiv-.jpg",
+      "source_sha256": "0365fbd3fee799666d9361163088e41cbe1a7dff4f8e9907a4efff7289926a44",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-09.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-09.avif",
+      "caption": "Душевая зона",
+      "alt": "Душевая зона — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\pomiv-3.jpg",
+      "source_sha256": "1de9d8c34d024498e17704ee36f2a7461750745bbe2ed7797e5c1272af23af6a",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-10.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-10.avif",
+      "caption": "Комната отдыха",
+      "alt": "Комната отдыха — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\vizual-gostinnaya-1.jpg",
+      "source_sha256": "763675c101dd31d7668818265bb2321451c3343453406475cd473bf37ebb66f1",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-11.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-11.avif",
+      "caption": "Комната отдыха",
+      "alt": "Комната отдыха — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\vizual-gostinnaya-2.jpg",
+      "source_sha256": "45e09675809d79a794af396c77a920e2ce6d50084a1468f845ca579ef52c31f0",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-12.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-12.avif",
+      "caption": "Комната отдыха",
+      "alt": "Комната отдыха — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\vizual-gostinnaya-3.jpg",
+      "source_sha256": "e6bafb5135b362429ddb3031f41c50f4a50b1b72cf35204a85393fd5eec0866f",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-13.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-13.avif",
+      "caption": "Комната отдыха",
+      "alt": "Комната отдыха — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\vizual-gostinnaya-4.jpg",
+      "source_sha256": "cfaa5d8a4bc3b51eb63964be391bc3ad0b7f529b57ef23cf047ba748afd8f1b2",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-14.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-14.avif",
+      "caption": "Комната отдыха",
+      "alt": "Комната отдыха — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\vizual-gostinnaya-5.jpg",
+      "source_sha256": "eb1cd44316c284626c0f5059f2efe5170eade55d21e1e19057f17fce73ea0687",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-15.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-15.avif",
+      "caption": "Парная",
+      "alt": "Парная — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\barn-premium-1.jpg",
+      "source_sha256": "617055ea2512f8c69066dbf7eff0ad2ba0e9439a5e22b72698d23e379c4db186",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-16.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-16.avif",
+      "caption": "Печь-каменка",
+      "alt": "Печь-каменка — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\barn-premium-3.jpg",
+      "source_sha256": "18985030a0ce03c8b5ef916a95da5466b1cd5d28f59f928b5020dacb4a0d0faa",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-17.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-17.avif",
+      "caption": "Огнезащита печной зоны",
+      "alt": "Огнезащита печной зоны — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\barn-premium-6.jpg",
+      "source_sha256": "deb599b8df303a9cf0c53d6e5e627a616fc91573767cbffa5194603b76343613",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-18.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-18.avif",
+      "caption": "Душевая кабина",
+      "alt": "Душевая кабина — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\barn-premium-9.jpg",
+      "source_sha256": "66b7802ce190749c8e15c7ceb577224b6bf14e96b9fd319672ac94b96d81296d",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-19.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-19.avif",
+      "caption": "Зона отдыха",
+      "alt": "Зона отдыха — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\barn-premium-12.jpg",
+      "source_sha256": "e4fe5ec637407cc72eb55b8318ff85e16c696bbf915b465103e7568578f5f06e",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    },
+    {
+      "src": "/NEW-SITE-BANI/images/interiors/home/interior-20.webp",
+      "avif": "/NEW-SITE-BANI/images/interiors/home/interior-20.avif",
+      "caption": "Водоснабжение",
+      "alt": "Водоснабжение — реальное фото интерьера нашей бани",
+      "source": "public\\images\\interiors\\barn-premium-15.jpg",
+      "source_sha256": "c2438cae6dc4f33f69bba9fa93e513b7cb4c337d529ea6af997b7b138df22ded",
+      "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"
+    }
+  ]
+}

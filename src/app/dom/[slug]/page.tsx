@@ -1,3 +1,5 @@
+import { ModelBaseConfiguration } from '@/components/catalog/ModelBaseConfiguration'
+import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -71,7 +73,7 @@ export default function HomePage({ params }: Props) {
             <h2 className="text-2xl font-bold text-cream mb-4">О модели</h2>
             <p className="text-cream/70 leading-relaxed mb-6">{home.description}</p>
             <dl className="model-parameters">
-              {home.features.map((feature, i) => <div key={feature}><dt>Особенность {i + 1}</dt><dd>{feature}</dd></div>)}
+              {modelFeatures(home).map((feature, i) => <div key={feature}><dt>Особенность {i + 1}</dt><dd>{feature}</dd></div>)}
             </dl>
           </div>
           <div>
@@ -86,6 +88,8 @@ export default function HomePage({ params }: Props) {
             </div>
           </div>
         </div>
+
+        <ModelBaseConfiguration model={home} />
 
         <div className="mb-16"><CTAFormInline modelName={home.name} /></div>
 

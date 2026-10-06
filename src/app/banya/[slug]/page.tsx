@@ -1,3 +1,5 @@
+import { ModelBaseConfiguration } from '@/components/catalog/ModelBaseConfiguration'
+import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -77,7 +79,7 @@ export default function SaunaPage({ params }: Props) {
 
             {/* Features */}
             <dl className="model-parameters">
-              {sauna.features.map((feature, i) => <div key={feature}><dt>Особенность {i + 1}</dt><dd>{feature}</dd></div>)}
+              {modelFeatures(sauna).map((feature, i) => <div key={feature}><dt>Особенность {i + 1}</dt><dd>{feature}</dd></div>)}
             </dl>
           </div>
 
@@ -95,6 +97,8 @@ export default function SaunaPage({ params }: Props) {
             </div>
           </div>
         </div>
+
+        <ModelBaseConfiguration model={sauna} />
 
         {/* Inline form */}
         <div className="mb-16">

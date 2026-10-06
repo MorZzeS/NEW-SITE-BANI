@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-07",
+  "base_commit": "5d3dabf583478dc2f51d5d5d15f8508ab2fdb7fc",
+  "status": "PASS",
+  "models": 31,
+  "plans": 28,
+  "catalogue_prices": 52,
+  "model_browser_checks": 124,
+  "model_failures": [],
+  "home_widths": [
+    390,
+    1440,
+    1920,
+    2560
+  ],
+  "themes": [
+    "DAY",
+    "NIGHT"
+  ],
+  "home_overflow_failures": [],
+  "shared_page_checks": 8,
+  "interior_photos": 20,
+  "interior_sources_unchanged": true,
+  "additional_options": 19,
+  "option_prices_unchanged": true,
+  "floor_insulation_mm": 100,
+  "ceiling_insulation_mm": 100,
+  "word_articles_verified": 20,
+  "article_covers_verified": 21,
+  "static_pages": 136,
+  "static_internal_urls": 323,
+  "http": {
+    "urls_checked": 333,
+    "failures": [],
+    "unknown_route": 404
+  },
+  "backend_tests": 7,
+  "theme_initialization_cases": 12,
+  "console_errors": 0,
+  "push_performed": false,
+  "protected_paths_unchanged": [
+    "src/data/index.ts",
+    "src/data/options.ts",
+    "src/app/poleznoe",
+    "public/images/catalog",
+    "public/images/plans",
+    "public/images/hero",
+    "src/components/forms",
+    "src/lib/leads.ts",
+    "backend",
+    "src/components/ui/ThemeProvider.tsx",
+    "src/lib/theme.ts",
+    "src/components/ui/BathVideoViewer.tsx",
+    "src/data/videos.ts"
+  ],
+  "screenshots_folder": "C:\\Users\\maxto\\.codex\\tmp\\banger-additional-qa"
+}

@@ -1,4 +1,5 @@
 'use client'
+import { modelCountWord } from '@/lib/catalog-labels'
 
 import { useState, useMemo } from 'react'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
@@ -143,7 +144,7 @@ export default function BaniCatalogPage() {
 
         {/* Count */}
         <div className="text-sm text-cream/50 mb-6">
-          Найдено: <span className="text-cream font-semibold">{filtered.length}</span> моделей
+          Найдено: <span className="text-cream font-semibold">{filtered.length}</span> {modelCountWord(filtered.length)}
         </div>
 
         {/* Grid */}

@@ -1,3 +1,4 @@
+import { SocialBlock } from '@/components/ui/SocialBlock'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { saunas, homes } from '@/data'
@@ -51,6 +52,8 @@ export default function OKompaniiPage() {
             Производитель мобильных бань с {companyFacts.founded} года. Делаем бани, которые греют, радуют и служат десятилетиями.
           </p>
         </div>
+
+        <div className="mb-16"><SocialBlock /></div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16">

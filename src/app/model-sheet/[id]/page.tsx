@@ -1,3 +1,4 @@
+import { modelFeatures, modelBaseConfiguration } from '@/data/model-configuration'
 import { notFound } from 'next/navigation'
 import { saunas, homes, siteSettings } from '@/data'
 import { PrintModelButton } from '@/components/catalog/PrintModelButton'
@@ -22,7 +23,8 @@ export default function ModelSheet({ params }: { params: { id: string } }) {
     <h2>Характеристики</h2><dl className="model-parameters">
       <div><dt>Размер</dt><dd>{model.size}</dd></div><div><dt>Площадь</dt><dd>{model.area} м²</dd></div><div><dt>Артикул</dt><dd>{model.article}</dd></div>
       {model.specs.filter(s => !['Размер','Площадь застройки'].includes(s.label)).map(s => <div key={s.label}><dt>{s.label}</dt><dd>{s.value}</dd></div>)}</dl>
-    <h2>Комплектация и особенности по каталогу</h2><ul>{model.features.map(f => <li key={f}>{f}</li>)}</ul>
+    <h2>Комплектация и особенности по каталогу</h2><ul>{modelFeatures(model).map(f => <li key={f}>{f}</li>)}</ul>
+    <h2>Базовая комплектация</h2><dl className="model-parameters">{modelBaseConfiguration(model).map(row => <div key={row.label}><dt>{row.label}</dt><dd>{row.value}</dd></div>)}</dl>
     <p className="sheet-note">Окончательное исполнение, доставка и монтаж согласуются при заказе. Дополнительные опции рассчитываются отдельно.</p>
     <footer className="sheet-footer">BANGER.SU · <a href={`tel:${siteSettings.phone}`}>{siteSettings.phoneDisplay}</a> · <a href={`tel:${siteSettings.phone2}`}>{siteSettings.phoneDisplay2}</a><br />{siteSettings.email} · {siteSettings.addressShowroom}</footer>
   </article>

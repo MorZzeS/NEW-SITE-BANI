@@ -1,3 +1,4 @@
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { CategoriesSection } from '@/components/sections/CategoriesSection'
 import { PopularSaunasSection } from '@/components/sections/PopularSaunasSection'
@@ -12,14 +13,14 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <CategoriesSection />
-      <PopularSaunasSection />
-      <WhyUsSection />
-      <InteriorPhotosSection />
-      <HowItWorksSection />
-      <ProjectsSection />
-      <ArticlesSection />
-      <CTASection />
+      <ScrollReveal><CategoriesSection /></ScrollReveal>
+      <ScrollReveal><PopularSaunasSection /></ScrollReveal>
+      <ScrollReveal><WhyUsSection /></ScrollReveal>
+      <ScrollReveal><InteriorPhotosSection /></ScrollReveal>
+      <ScrollReveal><HowItWorksSection /></ScrollReveal>
+      <ScrollReveal><ProjectsSection /></ScrollReveal>
+      <ScrollReveal><ArticlesSection /></ScrollReveal>
+      <ScrollReveal><CTASection /></ScrollReveal>
     </>
   )
 }

@@ -1,4 +1,5 @@
 'use client'
+import { modelCountWord } from '@/lib/catalog-labels'
 
 import { useState, useMemo } from 'react'
 import { HomeCard } from '@/components/catalog/HomeCard'
@@ -46,7 +47,7 @@ export default function DomaCatalogPage() {
         </div>
 
         <div className="text-sm text-cream/50 mb-6">
-          Найдено: <span className="text-cream font-semibold">{filtered.length}</span> моделей
+          Найдено: <span className="text-cream font-semibold">{filtered.length}</span> {modelCountWord(filtered.length)}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

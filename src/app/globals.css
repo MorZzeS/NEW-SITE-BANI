@@ -486,7 +486,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
  .sheet-images { grid-template-columns: 1fr; }
  .sheet-heading { display: block; }
  .hero-theme-render { background-position: 58% center; }
- .hero-social details[open] { max-width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { .hero-theme-render { transition: none; } }
 @media print {
@@ -501,8 +500,99 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
  .sheet-images figure, .model-parameters > div, .model-sheet li, .sheet-footer { break-inside: avoid; }
 }
 
-.hero-social { padding: 16px; background: rgba(16,22,32,.76); border-left: 1px solid rgba(212,168,67,.45); }
+
 .bath-viewer-stage { touch-action: pan-y; }
-@media (min-width: 1280px) {
-  .hero-social:has(details[open]) { width: 368px; }
+
+/* Compact social panel: stable size, always-visible owner QR codes. */
+html { scrollbar-gutter: stable; }
+.hero-social { width: 300px; flex-shrink: 0; margin-top: 44px; padding: 16px; border: 1px solid rgba(232,201,122,.22); border-radius: 12px; background: rgba(20,24,32,.48); backdrop-filter: blur(8px); box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+.social-qr-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px 12px; }
+.social-qr-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; border-radius: 4px; }
+.social-qr-name { white-space: nowrap; font-size: 12px; }
+.social-qr-image { width: 96px; height: 96px; background: white; border-radius: 4px; }
+.hero-social .social-qr-name { color: #f5f0e8; }
+.hero-social > p { color: #d1d5dd; }
+[data-theme="light"] .hero-social { background: rgba(250,247,240,.83); border-color: rgba(128,80,24,.2); }
+[data-theme="light"] .hero-social .social-qr-name { color: #1e2330; }
+[data-theme="light"] .hero-social > p { color: #46505e; }
+@media (max-width: 1279px) {
+ .hero-social { margin-top: 0; width: min(100%,560px); }
+ .social-qr-item { flex-direction: row; justify-content: space-between; }
+ .social-qr-image { width: 80px; height: 80px; }
 }
+@media (max-width: 640px) {
+ .hero-social { padding: 12px; backdrop-filter: none; }
+ .social-qr-grid { gap: 10px; }
+ .social-qr-item { flex-direction: column; gap: 6px; }
+ .social-qr-image { width: 76px; height: 76px; }
+ .social-qr-name { font-size: 12px; }
+}
+/* Owner interiors: native horizontal scrolling and a separate accessible viewer. */
+.interior-carousel { display: flex; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding: 3px 2px 14px; scrollbar-width: thin; scrollbar-color: var(--glass-border) transparent; cursor: grab; }
+.interior-carousel.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.interior-carousel-card { flex: 0 0 clamp(280px,27vw,360px); min-width: 0; text-align: left; scroll-snap-align: start; border-radius: 10px; overflow: hidden; border: 1px solid var(--glass-border-subtle); background: var(--glass-bg); transition: border-color 180ms ease; }
+.interior-carousel-card:hover { border-color: var(--color-accent); }
+.interior-carousel-card picture { display: block; aspect-ratio: 4/3; overflow: hidden; }
+.interior-carousel-card img { width: 100%; height: 100%; object-fit: cover; }
+.interior-carousel-card > span { display: block; padding: 14px 16px; font-size: 14px; color: var(--color-text); }
+.gallery-control { display: inline-flex; justify-content: center; align-items: center; width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--color-text); border-radius: 8px; transition: border-color 180ms ease, background-color 180ms ease; }
+.gallery-control:hover { border-color: var(--color-accent); }
+.interior-lightbox { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 72px 24px 24px; background: rgba(12,16,23,.94); }
+.interior-lightbox-panel { width: min(1200px,94vw); border: 1px solid rgba(232,201,122,.2); border-radius: 12px; overflow: hidden; background: #191f29; color: #f5f0e8; }
+.interior-lightbox-image { height: min(72vh,800px); touch-action: pan-y pinch-zoom; }
+.interior-lightbox-image picture { display: block; width: 100%; height: 100%; animation: interior-fade 150ms ease both; }
+.interior-lightbox-image img { width: 100%; height: 100%; object-fit: contain; user-select: none; }
+.interior-lightbox-close { position: absolute; right: max(16px,env(safe-area-inset-right)); top: max(16px,env(safe-area-inset-top)); }
+.interior-lightbox .gallery-control { color: #f5f0e8; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); }
+.interior-lightbox-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,.1); }
+.interior-lightbox-toolbar > div { text-align: center; font-size: 14px; }
+.interior-lightbox-toolbar span { display: block; margin-top: 3px; color: #b8c0cb; font-size: 12px; }
+@keyframes interior-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 640px) {
+ .interior-carousel-card { flex-basis: 82%; }
+ .interior-lightbox { padding: 68px 12px 16px; }
+ .interior-lightbox-panel { width: 100%; }
+ .interior-lightbox-image { height: 65svh; }
+ .interior-lightbox-toolbar { padding: 10px; gap: 8px; }
+}
+/* Base specification and options share quiet architectural separators. */
+.base-equipment-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; text-align: left; }
+.base-equipment-table th, .base-equipment-table td { padding: 16px 20px; border-bottom: 1px solid var(--glass-border-subtle); vertical-align: top; }
+.base-equipment-table thead th { font-size: 12px; letter-spacing: .04em; color: var(--color-text-muted); background: var(--glass-bg); }
+.base-equipment-table tbody th { width: 25%; font-weight: 600; }
+.base-equipment-table tbody tr:nth-child(even) { background: var(--glass-bg); }
+.base-equipment-table td { color: var(--color-text-muted); }
+.extra-options { border: 1px solid var(--glass-border); border-radius: 10px; overflow: hidden; }
+.extra-options-group + .extra-options-group { border-top: 1px solid var(--glass-border-subtle); }
+.extra-options-group h3 button { width: 100%; min-height: 60px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 15px; font-weight: 600; text-align: left; }
+.extra-options-group h3 button[aria-expanded="true"] { background: var(--glass-bg); color: var(--color-accent); }
+.extra-options-group h3 svg { flex-shrink: 0; transition: transform 180ms ease; }
+.extra-options-content { padding: 0 20px; }
+.extra-option-row { padding: 18px 0; border-top: 1px solid var(--glass-border-subtle); }
+.model-base-configuration { padding-top: 28px; border-top: 1px solid var(--glass-border); }
+.model-base-configuration dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 32px; }
+.model-base-configuration dl > div { display: grid; grid-template-columns: 130px minmax(0,1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--glass-border-subtle); font-size: 14px; line-height: 1.6; }
+.model-base-configuration dt { color: var(--color-text-muted); }
+.model-base-configuration dd { color: var(--color-text); overflow-wrap: anywhere; }
+@media (max-width: 900px) { .model-base-configuration dl { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+ .base-equipment-table thead { display: none; }
+ .base-equipment-table tr, .base-equipment-table th, .base-equipment-table td { display: block; width: 100%; }
+ .base-equipment-table tbody th { width: 100%; padding: 14px 12px 4px; border-bottom: 0; }
+ .base-equipment-table td { padding: 0 12px 14px; }
+ .extra-options-group h3 button { padding: 16px; }
+ .extra-options-content { padding: 0 16px; }
+ .model-base-configuration dl > div { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .interior-lightbox, .interior-lightbox-image picture { animation: none; }
+ .interior-carousel { scroll-behavior: auto; }
+ .gallery-control, .interior-carousel-card, .extra-options-group h3 svg { transition: none; }
+}
+@media (max-width: 640px) {
+ .social-qr-item { flex-direction: row; justify-content: space-between; gap: 6px; }
+ .hero-social .social-qr-name { flex-direction: column; gap: 3px; }
+ .social-qr-image { width: 72px; height: 72px; }
+}
+.hero-social .social-qr-name svg { color: #e8c97a; }
+[data-theme="light"] .hero-social .social-qr-name svg { color: #805018; }
