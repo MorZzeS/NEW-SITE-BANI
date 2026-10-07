@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title: project.title,
       description: project.description,
-      images: [{ url: project.image.startsWith('http') ? project.image : `${BASE}${project.image.replace('/NEW-SITE-BANI', '')}`, alt: project.title }],
+      images: [{ url: project.image.startsWith('http') ? project.image : `${BASE}${project.image}`, alt: project.title }],
     },
   }
 }

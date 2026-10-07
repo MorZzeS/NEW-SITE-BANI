@@ -29,7 +29,7 @@ export function HeroSection() {
     const warm = () => {
       const image = new window.Image()
       image.fetchPriority = 'low'
-      image.src = `/NEW-SITE-BANI/images/hero/hero-${document.documentElement.dataset.theme === 'light' ? 'night' : 'day'}.webp`
+      image.src = `/images/hero/hero-${document.documentElement.dataset.theme === 'light' ? 'night' : 'day'}.webp`
     }
     const timer = setTimeout(warm, 3000)
     return () => clearTimeout(timer)

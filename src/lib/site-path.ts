@@ -1,6 +1,7 @@
-import nextConfig from '../../next.config'
 
-export const basePath = nextConfig.basePath || ''
+
+// Production is served from the root of banger.su.
+export const basePath = ''
 
 export function withBasePath(path: string): string {
   if (!path.startsWith('/') || path.startsWith('//')) return path

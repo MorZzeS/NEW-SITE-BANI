@@ -10,7 +10,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const config = require(path.join(root, 'next.config.js'))
 const prefix = config.basePath || ''
 const dist = path.join(root, config.distDir || 'dist')
-const origin = 'https://morzzes.github.io'
+const origin = 'https://banger.su'
 const errors = []
 const urls = new Set()
 const htmlFiles = []
@@ -33,8 +33,8 @@ for (const file of htmlFiles) {
   const relative = path.relative(dist, file).replaceAll(path.sep, '/')
   const pagePath = relative === 'index.html' ? '/' : '/' + relative.replace(/\.html$/, '')
   const html = fs.readFileSync(file, 'utf8')
-  for (const tag of html.matchAll(/<(?:a|link|img|script|source|iframe)\b[^>]*>/gi)) {
-    for (const attr of tag[0].matchAll(/\b(href|src|srcset)=["']([^"']+)["']/gi)) {
+  for (const tag of html.matchAll(/<(?:a|link|img|script|source|iframe|video)\b[^>]*>/gi)) {
+    for (const attr of tag[0].matchAll(/\b(href|src|srcset|poster)=["']([^"']+)["']/gi)) {
       const raw = attr[2].replaceAll('&amp;', '&')
       if (/^(?:#|tel:|mailto:|data:|javascript:)/i.test(raw)) continue
       const url = new URL(raw, origin + prefix + pagePath)
@@ -73,7 +73,7 @@ for (const { slug } of articleRecords) {
   urls.add(prefix + articlePath + '/')
 }
 for (const file of htmlFiles) {
-  if (/href="(?:\/NEW-SITE-BANI)?\/poleznoe\/[^"/?#]+\/(?=["?#])/.test(fs.readFileSync(file, 'utf8'))) errors.push(`${path.relative(dist, file)}: article link has trailing slash`)
+  if (/href="\/poleznoe\/[^"/?#]+\/(?=["?#])/.test(fs.readFileSync(file, 'utf8'))) errors.push(`${path.relative(dist, file)}: article link has trailing slash`)
 }
 const homepage = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 if (!homepage.includes(`>${dataExports.saunas.length}<!-- --> моделей</div>`) || !homepage.includes('>6 моделей</div>')) errors.push('homepage catalog counts do not match 25 saunas / 6 homes')
@@ -147,3 +147,5 @@ if (baseUrlIndex !== -1) {
 }
 console.log(JSON.stringify({ pages: htmlFiles.length, localUrls: urls.size, models: records.length, plans: records.filter((record) => record.plan).length, errors }, null, 2))
 process.exitCode = errors.length ? 1 : 0
+
+await import('./check-production-paths.mjs')

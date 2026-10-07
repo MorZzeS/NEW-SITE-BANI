@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const BASE = 'https://banger.su'
   const canonical = `${BASE}/banya/${sauna.slug}`
   // OG image: prefer full URL
-  const ogImage = sauna.image.startsWith('http') ? sauna.image : `${BASE}${sauna.image.replace('/NEW-SITE-BANI', '')}`
+  const ogImage = sauna.image.startsWith('http') ? sauna.image : `${BASE}${sauna.image}`
   return {
     title: `${sauna.name} — мобильная баня ${sauna.size} | Бани Герасимов`,
     description: `${sauna.name} (${sauna.article}): ${sauna.subtitle}. Размер ${sauna.size}, ${sauna.area} м². ${sauna.description} Доставка по Москве и МО.`,

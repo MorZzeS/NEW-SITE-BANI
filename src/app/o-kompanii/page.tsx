@@ -67,7 +67,7 @@ export default function OKompaniiPage() {
 
         {/* Hero image */}
         <div className="relative aspect-video rounded-3xl overflow-hidden mb-16">
-          <Image src="/NEW-SITE-BANI/images/showroom/exhibition.webp" alt="Наша выставка бань в Раменском" fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 80vw" />
+          <Image src="/images/showroom/exhibition.webp" alt="Наша выставка бань в Раменском" fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 80vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 to-transparent" />
         </div>
 

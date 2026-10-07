@@ -1,21 +1,21 @@
 import Image from 'next/image'
 
 const interiors = [
-  '/NEW-SITE-BANI/images/interiors/parnaya-2-.jpg',
-  '/NEW-SITE-BANI/images/interiors/parnaya-3-.jpg',
-  '/NEW-SITE-BANI/images/interiors/parnaya-4-.jpg',
-  '/NEW-SITE-BANI/images/interiors/parnaya-5-.jpg',
-  '/NEW-SITE-BANI/images/interiors/parnaya-6-.jpg',
-  '/NEW-SITE-BANI/images/interiors/vizual-gostinnaya-1.jpg',
-  '/NEW-SITE-BANI/images/interiors/vizual-gostinnaya-3.jpg',
-  '/NEW-SITE-BANI/images/interiors/boyler-50-.jpg',
-  '/NEW-SITE-BANI/images/interiors/dushevoy-plus-.jpg',
-  '/NEW-SITE-BANI/images/interiors/pech-2.jpg',
-  '/NEW-SITE-BANI/images/interiors/pomiv-2.jpg',
-  '/NEW-SITE-BANI/images/interiors/vizual-gostinnaya-5.jpg',
-  '/NEW-SITE-BANI/images/interiors/v2/image1.jpg',
-  '/NEW-SITE-BANI/images/interiors/v2/image6.jpg',
-  '/NEW-SITE-BANI/images/interiors/v2/image14.jpg',
+  '/images/interiors/parnaya-2-.jpg',
+  '/images/interiors/parnaya-3-.jpg',
+  '/images/interiors/parnaya-4-.jpg',
+  '/images/interiors/parnaya-5-.jpg',
+  '/images/interiors/parnaya-6-.jpg',
+  '/images/interiors/vizual-gostinnaya-1.jpg',
+  '/images/interiors/vizual-gostinnaya-3.jpg',
+  '/images/interiors/boyler-50-.jpg',
+  '/images/interiors/dushevoy-plus-.jpg',
+  '/images/interiors/pech-2.jpg',
+  '/images/interiors/pomiv-2.jpg',
+  '/images/interiors/vizual-gostinnaya-5.jpg',
+  '/images/interiors/v2/image1.jpg',
+  '/images/interiors/v2/image6.jpg',
+  '/images/interiors/v2/image14.jpg',
 ]
 
 export function InteriorGallery() {

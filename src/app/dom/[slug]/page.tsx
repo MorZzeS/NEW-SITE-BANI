@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!home) return {}
   const BASE = 'https://banger.su'
   const canonical = `${BASE}/dom/${home.slug}`
-  const ogImage = home.image.startsWith('http') ? home.image : `${BASE}${home.image.replace('/NEW-SITE-BANI', '')}`
+  const ogImage = home.image.startsWith('http') ? home.image : `${BASE}${home.image}`
   return {
     title: `${home.name} — ${home.size} | Бани Герасимов`,
     description: `${home.name} (${home.article}): ${home.subtitle}. Размер ${home.size}, ${home.area} м². ${home.description} Доставка по Москве и МО.`,

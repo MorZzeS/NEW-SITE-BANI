@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: 'Бани Герасимов — мобильные бани и дома под ключ',
     description: 'Производство и продажа мобильных бань и домов. Доставка и установка по Москве и Московской области.',
     images: [{
-      url: 'https://banger.su/NEW-SITE-BANI/images/hero/hero-bg.webp',
+      url: 'https://banger.su/images/hero/hero-bg.webp',
       width: 1671,
       height: 941,
       alt: 'Бани Герасимов — мобильные бани и дома',
@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Anti-flash theme script — runs before paint */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script dangerouslySetInnerHTML={{ __html: "if(/^\\/NEW-SITE-BANI\\/?$/.test(location.pathname)){const l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href='/NEW-SITE-BANI/images/hero/hero-'+(document.documentElement.dataset.theme==='light'?'day':'night')+'.webp';document.head.appendChild(l)}" }} />
+        <script dangerouslySetInnerHTML={{ __html: "if(location.pathname==='/'){const l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href='/images/hero/hero-'+(document.documentElement.dataset.theme==='light'?'day':'night')+'.webp';document.head.appendChild(l)}" }} />
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>

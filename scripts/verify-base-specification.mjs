@@ -37,5 +37,5 @@ for (const model of [...saunas,...homes]) {
 const photos = readData('src/data/home-interiors.ts').homeInteriors
 assert.equal(photos.length,20)
 assert.equal(new Set(photos.map(p=>p.src)).size,20)
-for (const p of photos) for (const file of [p.src,p.avif]) assert(fs.existsSync(path.join('public',file.replace('/NEW-SITE-BANI/',''))))
+for (const p of photos) for (const file of [p.src,p.avif]) assert(fs.existsSync(path.join('public',file.replace(/^\//,''))))
 console.log(JSON.stringify({ models:31, floor100:31, ceiling100:31, prices, printableSheets:31, realInteriors:20, status:'PASS' },null,2))

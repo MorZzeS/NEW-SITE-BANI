@@ -2,7 +2,7 @@ export const optionCategories = ["Общее по бане", "Внешний в�
 export const additionalOptions = [
   {
     "id": "boiler",
-    "image": "/NEW-SITE-BANI/images/options/boiler-50.webp",
+    "image": "/images/options/boiler-50.webp",
     "name": "Бойлер 50 л",
     "salePrice": 32500,
     "category": "Моечная",
