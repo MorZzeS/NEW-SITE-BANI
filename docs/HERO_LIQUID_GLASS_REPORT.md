@@ -41,3 +41,8 @@ Smoke: mobile-меню и оба телефона, desktop dropdown/Escape, ви
 
 - `hero-bg.webp`: `b31d4e037573014da0d0f8348719495e3b05e287f5c7ad668e2a0e23ef8efe37`
 - `hero-night.webp`: `87ecda0ae6cdee35369bcbd5c876487a48f4cff3faa308413de9ba010280d7d3`
+
+## Корректировка выбора изображений 2026-10-07
+По уточнению владельца восстановлен выбор Hero до liquid glass commit 4caf441: DAY — hero-day.webp, NIGHT — hero-night.webp. Восстановлены CSS background, первоначальный preload и отложенная загрузка противоположной темы. Это уточнение отменяет упомянутый выше выбор hero-bg.webp для DAY.
+Файлы изображений и источники не изменены. Все liquid glass стили, header, QR-панель, trust-strip, телефоны и удаление верхнего MAX сохранены.
+Повторные проверки: 1440/390 DAY/NIGHT PASS; горизонтального overflow нет; координаты H1/CTA прежние (desktop 327.5/644.5, mobile 162/431.375). Build PASS. check:static PASS: 136 страниц, 323 URL, 31 модель, 28 планировок, ошибок 0. Push не выполнялся.

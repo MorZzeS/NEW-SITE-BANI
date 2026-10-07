@@ -466,7 +466,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* Owner media and shared catalogue presentation. */
 .hero-theme-render { background-image: url('/NEW-SITE-BANI/images/hero/hero-night.webp'); background-size: cover; background-position: center; transition: opacity 220ms ease; }
-[data-theme="light"] .hero-theme-render { background-image: url('/NEW-SITE-BANI/images/hero/hero-bg.webp'); }
+[data-theme="light"] .hero-theme-render { background-image: url('/NEW-SITE-BANI/images/hero/hero-day.webp'); }
 .hero-tone { background: rgba(9,15,23,.12); }
 [data-theme="light"] .hero-tone { background: rgba(9,15,23,.09); }
 .theme-changing .hero-theme-render { opacity: .9; }
