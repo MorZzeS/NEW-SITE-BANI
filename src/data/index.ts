@@ -52,76 +52,78 @@ export const homes: Home[] = [
 ]
 
 export const articles: Article[] = [
-{
-  "id": "research-sauna-body",
-  "slug": "chto-proishodit-s-organizmom-v-bane",
+  {
+    "id": "research-sauna-body",
+    "slug": "chto-proishodit-s-organizmom-v-bane",
     "coverImage": "/images/articles/chto-proishodit-s-organizmom-v-bane-cover.webp",
-    "coverAlt": "Парная, тепло и физиология",
-  "title": "Что происходит с организмом, когда вы ходите в баню",
-  "seoTitle": "Польза бани для организма: что говорят исследования | Бани Герасимов",
-  "metaDescription": "Как баня влияет на сердце, кровообращение и самочувствие. Разбираем научные исследования без мифов и громких медицинских обещаний.",
-  "excerpt": "Тепло меняет работу сосудов и пульс, а банный ритуал помогает многим почувствовать отдых. Разбираемся, что можно объяснить физиологией, что показали исследования и где заканчиваются доказательства.",
-  "category": "Исследования и самочувствие",
-  "date": "2026-10-05",
-  "readTime": 6,
-  "image": "/NEW-SITE-BANI/images/interiors/sauna-health-steam-room.webp",
-  "imageAvif": "/NEW-SITE-BANI/images/interiors/sauna-health-steam-room.avif",
-  "imageAlt": "Полки и тёплая подсветка в парной Бани Герасимов",
-  "imageCaption": "Наша парная: полки, тёплая подсветка и натуральное дерево.",
-  "content": "<div class=\"health-article\">\n<section id=\"heart\"><h2>1. Сердце и кровообращение: как тело реагирует на тепло</h2>\n<p>В парной организм старается отдать лишнее тепло. Сосуды кожи расширяются, к поверхности тела поступает больше крови. Сердце может биться чаще, помогая поддерживать кровообращение. Это реакция на прогревание: её выраженность зависит от температуры, влажности, длительности пребывания и особенностей человека.</p>\n<figure class=\"health-diagram\"><svg viewBox=\"0 0 480 300\" role=\"img\" aria-labelledby=\"circulation-title circulation-desc\" xmlns=\"http://www.w3.org/2000/svg\"><title id=\"circulation-title\">Сердце и кровообращение во время прогревания</title><desc id=\"circulation-desc\">Условная схема: сердце поддерживает кровоток, а расширение сосудов кожи помогает отдавать тепло. Красные и синие линии обозначают направление движения крови, не точную анатомию.</desc><path d=\"M160 155 C60 155 50 55 145 55 L340 55 C435 55 425 240 335 240 L150 240 C65 240 75 165 160 165\" fill=\"none\" stroke=\"#7298c2\" stroke-width=\"15\"/><path d=\"M325 80 C380 95 393 120 390 150\" fill=\"none\" stroke=\"#e78073\" stroke-width=\"15\"/><path d=\"M242 240 C190 204 145 160 164 118 C177 86 218 90 242 117 C266 88 305 87 319 118 C340 159 291 206 242 240Z\" fill=\"#bb4e48\" stroke=\"#f3b5a3\" stroke-width=\"3\"/><path d=\"M178 160 H210 L221 143 L236 184 L250 139 L263 160 H303\" stroke=\"#fff5e7\" stroke-width=\"4\" fill=\"none\"/><path d=\"m343 49 14 7-15 7m-206 172-14 7 15 7\" stroke=\"#fff5e7\" stroke-width=\"4\" fill=\"none\"/><circle cx=\"390\" cy=\"155\" r=\"22\" fill=\"#edbe7a\"/><text x=\"240\" y=\"28\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"19\">Кровоток к коже усиливается</text><text x=\"240\" y=\"282\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"18\">Сердце может работать чаще</text></svg><figcaption>Авторская условная схема кровообращения. Она объясняет принцип реакции на тепло и не заменяет анатомический атлас.</figcaption></figure>\n<p>В эксперименте с 102 участниками исследователи измеряли показатели до и после одного посещения сауны и в период отдыха. Пульс после сеанса в среднем был выше исходного. Это кратковременная реакция, а не доказательство долгосрочной пользы для каждого человека. <a href=\"https://pubmed.ncbi.nlm.nih.gov/29048215/\">Исследование Lee и соавторов, 2018</a>.</p>\n<h3>Что происходит во время прогревания</h3>\n<div class=\"health-flow\" role=\"list\" aria-label=\"Тепло, сосуды, пульс и субъективное расслабление\"><div role=\"listitem\"><b>01 · Тепло</b><span>Тело получает тепловую нагрузку.</span></div><div role=\"listitem\"><b>02 · Сосуды</b><span>Сосуды кожи расширяются, отдача тепла увеличивается.</span></div><div role=\"listitem\"><b>03 · Пульс</b><span>Сердцебиение может учащаться.</span></div><div role=\"listitem\"><b>04 · Отдых</b><span>После бани возможно ощущение расслабления.</span></div></div>\n<p class=\"health-caption\">Тепло → расширение сосудов → учащение пульса → ощущение расслабления. Последний шаг — возможное субъективное ощущение, а не обязательный физиологический результат.</p></section>\n<section id=\"relax\"><h2>2. Расслабление и восстановление: время без спешки</h2>\n<p>Для многих баня — ритуал переключения: убрать телефон, побыть в тепле, выйти из парной и спокойно отдохнуть. Важен весь опыт, а не только температура: привычная обстановка, пауза между делами, общение или тишина.</p>\n<p>После такого отдыха человек может чувствовать меньше напряжения. Это личное впечатление, которое не стоит превращать в обещание одинакового эффекта для всех. Баня не лечит стресс и не заменяет медицинскую или психологическую помощь. Здесь под восстановлением понимается отдых и возвращение к комфортному самочувствию, а не лечение или гарантированное ускорение восстановления мышц.</p></section>\n<section id=\"long-term\"><h2>3. Что известно о долгосрочном здоровье</h2>\n<p>В наблюдательном исследовании среди финских мужчин посещение сауны 4–7 раз в неделю было связано примерно с 40% более низким риском общей смертности по сравнению с посещением один раз в неделю.</p>\n<p><strong>Это наблюдательная связь и она не доказывает, что сауна сама по себе снижает риск смерти на 40%. На результаты могут влиять образ жизни и другие факторы.</strong></p>\n<aside class=\"health-study\" aria-label=\"Контекст исследования JAMA Internal Medicine 2015\"><div class=\"health-study-label\">JAMA Internal Medicine · 2015 · наблюдательное исследование</div><div class=\"health-stats\"><div><b>2 315</b><span>мужчин 42–60 лет</span></div><div><b>20,7 года</b><span>медиана наблюдения</span></div><div><b>4–7 / 1</b><span>посещений в неделю: сравниваемые группы</span></div></div><p><b>Примерно на 40% ниже — относительная статистическая связь, не обещание.</b> Скорректированное отношение рисков общей смертности: 0,60; 95% доверительный интервал: 0,46–0,80. Это не означает снижение риска на 40 процентных пунктов и не задаёт рекомендуемую частоту посещений.</p><p><a href=\"https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2130724\">Открыть оригинальную публикацию</a></p></aside>\n<h3>Почему важны ограничения исследования</h3><p>Участников не распределяли случайным образом по режимам сауны. Даже учёт измеренных факторов не исключает всех различий между группами. Выборка состояла из мужчин из Финляндии; вывод нельзя автоматически переносить на женщин, другие возрастные группы или любые режимы русской бани. Финская сауна и влажная парная могут создавать разные условия прогревания.</p></section>\n<section id=\"cardiovascular\"><h2>4. Сердечно-сосудистая система: связь, которую продолжают изучать</h2>\n<p>В той же работе регулярное посещение сауны было связано с меньшей частотой некоторых смертельных сердечно-сосудистых исходов. Это повод для дальнейших исследований, а не основание обещать защиту конкретному посетителю.</p>\n<p>Кратковременные изменения пульса и сосудистой реакции и здоровье на протяжении многих лет — разные вопросы. Нельзя по ощущению тепла судить о состоянии сердца или считать баню заменой тренировкам, назначенному лечению и профилактике у врача.</p>\n<figure class=\"health-photo\"><picture><source srcset=\"/NEW-SITE-BANI/images/interiors/sauna-health-stove.avif\" type=\"image/avif\"><img src=\"/images/interiors/sauna-health-stove.webp\" width=\"1112\" height=\"864\" loading=\"lazy\" decoding=\"async\" alt=\"Печь и полки в парной Бани Герасимов\" /></picture><figcaption>Печь и полки в нашей парной. Фотография иллюстрирует банное пространство и не относится к медицинскому исследованию.</figcaption></figure></section>\n<section id=\"feelings\"><h2>5. Как чувствует себя человек после бани</h2><p>Комфортный банный ритуал часто описывают через простые ощущения:</p><ul><li>ощущение расслабления;</li><li>тепло и отдых;</li><li>субъективное снижение напряжения;</li><li>банный ритуал и восстановление.</li></ul><p>У каждого свой опыт. Хорошее самочувствие не требует «рекорда» по жару или длительности: желание выйти из парной не нужно игнорировать. Плохое самочувствие не является признаком того, что процедура «работает».</p><p>О самом пространстве для отдыха рассказываем в <a href=\"/katalog/bani\">каталоге бань</a>. Условия использования зависят от оснащения и выбранного режима, а не от обещаний здоровья.</p></section>\n<section id=\"safety\" class=\"health-safety\"><h2>6. Безопасность</h2><p>Баня подходит не всем. При сердечно-сосудистых заболеваниях, проблемах с давлением, беременности, острых заболеваниях или плохом самочувствии режим посещения лучше обсудить с врачом. Не употребляйте алкоголь перед баней и следите за самочувствием.</p><p><strong>Это информационная статья, а не медицинская рекомендация.</strong> При неприятных ощущениях прекратите прогревание. Результаты исследований не являются индивидуальным разрешением на посещение бани.</p></section>\n<section id=\"sources\"><h2>Источники</h2><ol><li>Laukkanen T. et al. <em>Association Between Sauna Bathing and Fatal Cardiovascular and All-Cause Mortality Events</em>. JAMA Internal Medicine, 2015;175(4):542–548. DOI: <a href=\"https://doi.org/10.1001/jamainternmed.2014.8187\">10.1001/jamainternmed.2014.8187</a>. Наблюдательное исследование долгосрочных исходов.</li><li>Lee E. et al. <em>Sauna exposure leads to improved arterial compliance: Findings from a non-randomised experimental study</em>. European Journal of Preventive Cardiology, 2018;25(2):130–138. <a href=\"https://pubmed.ncbi.nlm.nih.gov/29048215/\">PubMed</a>. Кратковременные изменения пульса и сосудистых показателей.</li><li>Roine R. et al. <em>Alcohol and sauna bathing: effects on cardiac rhythm, blood pressure, and serum electrolyte and cortisol concentrations</em>. Journal of Internal Medicine, 1992;231(4):333–338. <a href=\"https://pubmed.ncbi.nlm.nih.gov/1588256/\">PubMed</a>. Исследование сочетания сауны с алкоголем.</li></ol><p class=\"health-caption\">Фото: Бани Герасимов. Схемы созданы специально для этой статьи.</p></section>\n</div>",
-  "toc": [
-    {
-      "id": "heart",
-      "title": "Сердце и кровообращение",
-      "level": 2
-    },
-    {
-      "id": "relax",
-      "title": "Расслабление и восстановление",
-      "level": 2
-    },
-    {
-      "id": "long-term",
-      "title": "Долгосрочное здоровье",
-      "level": 2
-    },
-    {
-      "id": "cardiovascular",
-      "title": "Сердечно-сосудистая система",
-      "level": 2
-    },
-    {
-      "id": "feelings",
-      "title": "Самочувствие после бани",
-      "level": 2
-    },
-    {
-      "id": "safety",
-      "title": "Безопасность",
-      "level": 2
-    },
-    {
-      "id": "sources",
-      "title": "Источники",
-      "level": 2
-    }
-  ],
-  "relatedSlugs": [
-    "materialy-dlya-mobilnoy-bani",
-    "karkas-ili-brus-dlya-bani"
-  ],
-  "resourceLinks": [
-    {
-      "href": "/katalog/bani",
-      "label": "Каталог бань"
-    }
-  ]
-},
+    "coverAlt": "Полки и тёплое освещение нашей парной",
+    "title": "Что происходит с организмом, когда вы ходите в баню",
+    "seoTitle": "Польза бани для организма: что говорят исследования | Бани Герасимов",
+    "metaDescription": "Как баня влияет на сердце, кровообращение и самочувствие. Разбираем научные исследования без мифов и громких медицинских обещаний.",
+    "excerpt": "Тепло меняет работу сосудов и пульс, а банный ритуал помогает многим почувствовать отдых. Разбираемся, что можно объяснить физиологией, что показали исследования и где заканчиваются доказательства.",
+    "category": "Исследования и самочувствие",
+    "date": "2026-10-05",
+    "readTime": 6,
+    "image": "/images/articles/chto-proishodit-s-organizmom-v-bane-cover.webp",
+    "imageAvif": "/images/articles/chto-proishodit-s-organizmom-v-bane-cover.avif",
+    "imageAlt": "Полки и тёплое освещение нашей парной",
+    "imageCaption": "Реальная фотография нашей бани.",
+    "content": "<div class=\"health-article\">\n<section id=\"heart\"><h2>1. Сердце и кровообращение: как тело реагирует на тепло</h2>\n<p>В парной организм старается отдать лишнее тепло. Сосуды кожи расширяются, к поверхности тела поступает больше крови. Сердце может биться чаще, помогая поддерживать кровообращение. Это реакция на прогревание: её выраженность зависит от температуры, влажности, длительности пребывания и особенностей человека.</p>\n<figure class=\"health-diagram\"><svg viewBox=\"0 0 480 300\" role=\"img\" aria-labelledby=\"circulation-title circulation-desc\" xmlns=\"http://www.w3.org/2000/svg\"><title id=\"circulation-title\">Сердце и кровообращение во время прогревания</title><desc id=\"circulation-desc\">Условная схема: сердце поддерживает кровоток, а расширение сосудов кожи помогает отдавать тепло. Красные и синие линии обозначают направление движения крови, не точную анатомию.</desc><path d=\"M160 155 C60 155 50 55 145 55 L340 55 C435 55 425 240 335 240 L150 240 C65 240 75 165 160 165\" fill=\"none\" stroke=\"#7298c2\" stroke-width=\"15\"/><path d=\"M325 80 C380 95 393 120 390 150\" fill=\"none\" stroke=\"#e78073\" stroke-width=\"15\"/><path d=\"M242 240 C190 204 145 160 164 118 C177 86 218 90 242 117 C266 88 305 87 319 118 C340 159 291 206 242 240Z\" fill=\"#bb4e48\" stroke=\"#f3b5a3\" stroke-width=\"3\"/><path d=\"M178 160 H210 L221 143 L236 184 L250 139 L263 160 H303\" stroke=\"#fff5e7\" stroke-width=\"4\" fill=\"none\"/><path d=\"m343 49 14 7-15 7m-206 172-14 7 15 7\" stroke=\"#fff5e7\" stroke-width=\"4\" fill=\"none\"/><circle cx=\"390\" cy=\"155\" r=\"22\" fill=\"#edbe7a\"/><text x=\"240\" y=\"28\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"19\">Кровоток к коже усиливается</text><text x=\"240\" y=\"282\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"18\">Сердце может работать чаще</text></svg><figcaption>Авторская условная схема кровообращения. Она объясняет принцип реакции на тепло и не заменяет анатомический атлас.</figcaption></figure>\n<p>В эксперименте с 102 участниками исследователи измеряли показатели до и после одного посещения сауны и в период отдыха. Пульс после сеанса в среднем был выше исходного. Это кратковременная реакция, а не доказательство долгосрочной пользы для каждого человека. <a href=\"https://pubmed.ncbi.nlm.nih.gov/29048215/\">Исследование Lee и соавторов, 2018</a>.</p>\n<h3>Что происходит во время прогревания</h3>\n<div class=\"health-flow\" role=\"list\" aria-label=\"Тепло, сосуды, пульс и субъективное расслабление\"><div role=\"listitem\"><b>01 · Тепло</b><span>Тело получает тепловую нагрузку.</span></div><div role=\"listitem\"><b>02 · Сосуды</b><span>Сосуды кожи расширяются, отдача тепла увеличивается.</span></div><div role=\"listitem\"><b>03 · Пульс</b><span>Сердцебиение может учащаться.</span></div><div role=\"listitem\"><b>04 · Отдых</b><span>После бани возможно ощущение расслабления.</span></div></div>\n<p class=\"health-caption\">Тепло → расширение сосудов → учащение пульса → ощущение расслабления. Последний шаг — возможное субъективное ощущение, а не обязательный физиологический результат.</p></section>\n<section id=\"relax\"><h2>2. Расслабление и восстановление: время без спешки</h2>\n<p>Для многих баня — ритуал переключения: убрать телефон, побыть в тепле, выйти из парной и спокойно отдохнуть. Важен весь опыт, а не только температура: привычная обстановка, пауза между делами, общение или тишина.</p>\n<p>После такого отдыха человек может чувствовать меньше напряжения. Это личное впечатление, которое не стоит превращать в обещание одинакового эффекта для всех. Баня не лечит стресс и не заменяет медицинскую или психологическую помощь. Здесь под восстановлением понимается отдых и возвращение к комфортному самочувствию, а не лечение или гарантированное ускорение восстановления мышц.</p></section>\n<section id=\"long-term\"><h2>3. Что известно о долгосрочном здоровье</h2>\n<p>В наблюдательном исследовании среди финских мужчин посещение сауны 4–7 раз в неделю было связано примерно с 40% более низким риском общей смертности по сравнению с посещением один раз в неделю.</p>\n<p><strong>Это наблюдательная связь и она не доказывает, что сауна сама по себе снижает риск смерти на 40%. На результаты могут влиять образ жизни и другие факторы.</strong></p>\n<aside class=\"health-study\" aria-label=\"Контекст исследования JAMA Internal Medicine 2015\"><div class=\"health-study-label\">JAMA Internal Medicine · 2015 · наблюдательное исследование</div><div class=\"health-stats\"><div><b>2 315</b><span>мужчин 42–60 лет</span></div><div><b>20,7 года</b><span>медиана наблюдения</span></div><div><b>4–7 / 1</b><span>посещений в неделю: сравниваемые группы</span></div></div><p><b>Примерно на 40% ниже — относительная статистическая связь, не обещание.</b> Скорректированное отношение рисков общей смертности: 0,60; 95% доверительный интервал: 0,46–0,80. Это не означает снижение риска на 40 процентных пунктов и не задаёт рекомендуемую частоту посещений.</p><p><a href=\"https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2130724\">Открыть оригинальную публикацию</a></p></aside>\n<h3>Почему важны ограничения исследования</h3><p>Участников не распределяли случайным образом по режимам сауны. Даже учёт измеренных факторов не исключает всех различий между группами. Выборка состояла из мужчин из Финляндии; вывод нельзя автоматически переносить на женщин, другие возрастные группы или любые режимы русской бани. Финская сауна и влажная парная могут создавать разные условия прогревания.</p></section>\n<section id=\"cardiovascular\"><h2>4. Сердечно-сосудистая система: связь, которую продолжают изучать</h2>\n<p>В той же работе регулярное посещение сауны было связано с меньшей частотой некоторых смертельных сердечно-сосудистых исходов. Это повод для дальнейших исследований, а не основание обещать защиту конкретному посетителю.</p>\n<p>Кратковременные изменения пульса и сосудистой реакции и здоровье на протяжении многих лет — разные вопросы. Нельзя по ощущению тепла судить о состоянии сердца или считать баню заменой тренировкам, назначенному лечению и профилактике у врача.</p>\n<figure class=\"health-photo\"><picture><source srcset=\"/NEW-SITE-BANI/images/interiors/sauna-health-stove.avif\" type=\"image/avif\"><img src=\"/images/interiors/sauna-health-stove.webp\" width=\"1112\" height=\"864\" loading=\"lazy\" decoding=\"async\" alt=\"Печь и полки в парной Бани Герасимов\" /></picture><figcaption>Печь и полки в нашей парной. Фотография иллюстрирует банное пространство и не относится к медицинскому исследованию.</figcaption></figure></section>\n<section id=\"feelings\"><h2>5. Как чувствует себя человек после бани</h2><p>Комфортный банный ритуал часто описывают через простые ощущения:</p><ul><li>ощущение расслабления;</li><li>тепло и отдых;</li><li>субъективное снижение напряжения;</li><li>банный ритуал и восстановление.</li></ul><p>У каждого свой опыт. Хорошее самочувствие не требует «рекорда» по жару или длительности: желание выйти из парной не нужно игнорировать. Плохое самочувствие не является признаком того, что процедура «работает».</p><p>О самом пространстве для отдыха рассказываем в <a href=\"/katalog/bani\">каталоге бань</a>. Условия использования зависят от оснащения и выбранного режима, а не от обещаний здоровья.</p></section>\n<section id=\"safety\" class=\"health-safety\"><h2>6. Безопасность</h2><p>Баня подходит не всем. При сердечно-сосудистых заболеваниях, проблемах с давлением, беременности, острых заболеваниях или плохом самочувствии режим посещения лучше обсудить с врачом. Не употребляйте алкоголь перед баней и следите за самочувствием.</p><p><strong>Это информационная статья, а не медицинская рекомендация.</strong> При неприятных ощущениях прекратите прогревание. Результаты исследований не являются индивидуальным разрешением на посещение бани.</p></section>\n<section id=\"sources\"><h2>Источники</h2><ol><li>Laukkanen T. et al. <em>Association Between Sauna Bathing and Fatal Cardiovascular and All-Cause Mortality Events</em>. JAMA Internal Medicine, 2015;175(4):542–548. DOI: <a href=\"https://doi.org/10.1001/jamainternmed.2014.8187\">10.1001/jamainternmed.2014.8187</a>. Наблюдательное исследование долгосрочных исходов.</li><li>Lee E. et al. <em>Sauna exposure leads to improved arterial compliance: Findings from a non-randomised experimental study</em>. European Journal of Preventive Cardiology, 2018;25(2):130–138. <a href=\"https://pubmed.ncbi.nlm.nih.gov/29048215/\">PubMed</a>. Кратковременные изменения пульса и сосудистых показателей.</li><li>Roine R. et al. <em>Alcohol and sauna bathing: effects on cardiac rhythm, blood pressure, and serum electrolyte and cortisol concentrations</em>. Journal of Internal Medicine, 1992;231(4):333–338. <a href=\"https://pubmed.ncbi.nlm.nih.gov/1588256/\">PubMed</a>. Исследование сочетания сауны с алкоголем.</li></ol><p class=\"health-caption\">Фото: Бани Герасимов. Схемы созданы специально для этой статьи.</p></section>\n</div>",
+    "toc": [
+      {
+        "id": "heart",
+        "title": "Сердце и кровообращение",
+        "level": 2
+      },
+      {
+        "id": "relax",
+        "title": "Расслабление и восстановление",
+        "level": 2
+      },
+      {
+        "id": "long-term",
+        "title": "Долгосрочное здоровье",
+        "level": 2
+      },
+      {
+        "id": "cardiovascular",
+        "title": "Сердечно-сосудистая система",
+        "level": 2
+      },
+      {
+        "id": "feelings",
+        "title": "Самочувствие после бани",
+        "level": 2
+      },
+      {
+        "id": "safety",
+        "title": "Безопасность",
+        "level": 2
+      },
+      {
+        "id": "sources",
+        "title": "Источники",
+        "level": 2
+      }
+    ],
+    "relatedSlugs": [
+      "materialy-dlya-mobilnoy-bani",
+      "karkas-ili-brus-dlya-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Каталог бань"
+      }
+    ],
+    "imageWidth": 1536,
+    "imageHeight": 864
+  },
   {
     "id": "word-01",
     "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
     "coverImage": "/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.webp",
-    "coverAlt": "Древесина и отделка парной",
+    "coverAlt": "Сухие строганые доски на производственном участке",
     "title": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
     "seoTitle": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
     "metaDescription": "Какую древесину использовать для каркаса мобильной бани: почему важны камерная сушка и строгание, какая влажность нужна, как оценивать сучки, геометрию и сечение доски.",
@@ -177,20 +179,25 @@ export const articles: Article[] = [
         "href": "/katalog/bani",
         "label": "Каталог бань"
       }
-    ]
+    ],
+    "image": "/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.webp",
+    "imageAvif": "/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.avif",
+    "imageAlt": "Сухие строганые доски на производственном участке",
+    "imageWidth": 1600,
+    "imageHeight": 893,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-02",
     "slug": "obrabotka-drevesiny-neomid-v-bane",
     "coverImage": "/images/articles/obrabotka-drevesiny-neomid-v-bane-cover.webp",
-    "coverAlt": "Защита древесины",
-    "image": "/NEW-SITE-BANI/images/articles/wood-treatment-3d.webp",
-    "imageAvif": "/NEW-SITE-BANI/images/articles/wood-treatment-3d.avif",
-    "imageAlt": "3D-визуал обработки древесины в бане: кисть и защитные составы",
-    "imageCaption": "3D-визуал: обработка древесины в бане. Иллюстрация не заменяет инструкцию к конкретному составу.",
+    "coverAlt": "Обработка деревянного элемента в производственном цехе",
+    "image": "/images/articles/obrabotka-drevesiny-neomid-v-bane-cover.webp",
+    "imageAvif": "/images/articles/obrabotka-drevesiny-neomid-v-bane-cover.avif",
+    "imageAlt": "Обработка деревянного элемента в производственном цехе",
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели.",
     "imageWidth": 1600,
     "imageHeight": 893,
-
     "title": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
     "seoTitle": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
     "metaDescription": "Разбираем антисептики и огнебиозащиту NEOMID для мобильной бани: что применять в парной, каркасе, лагах и снаружи, как наносить и почему цвет не доказывает качество обработки.",
@@ -263,7 +270,7 @@ export const articles: Article[] = [
     "id": "word-03",
     "slug": "materialy-dlya-mobilnoy-bani",
     "coverImage": "/images/articles/materialy-dlya-mobilnoy-bani-cover.webp",
-    "coverAlt": "Слои и материалы конструкции",
+    "coverAlt": "Иллюстративный разбор слоёв каркасной стены",
     "title": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
     "seoTitle": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
     "metaDescription": "Подробно о материалах мобильной бани: каркас, утеплитель, пароизоляция, ветрозащита, фольга, крепеж, кровля, окна, двери и внутренняя отделка.",
@@ -320,13 +327,19 @@ export const articles: Article[] = [
         "href": "/komplektaciya",
         "label": "Комплектация и опции"
       }
-    ]
+    ],
+    "image": "/images/articles/materialy-dlya-mobilnoy-bani-cover.webp",
+    "imageAvif": "/images/articles/materialy-dlya-mobilnoy-bani-cover.avif",
+    "imageAlt": "Иллюстративный разбор слоёв каркасной стены",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-04",
     "slug": "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
     "coverImage": "/images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.webp",
-    "coverAlt": "Площадка, подъезд и монтажная зона",
+    "coverAlt": "Подготовленная площадка и свободный подъезд для монтажа",
     "title": "Как подготовить площадку под мобильную баню: участок, подъезд, дренаж и место для монтажа",
     "seoTitle": "Как подготовить площадку под мобильную баню: участок, подъезд, дренаж и место для монтажа",
     "metaDescription": "Пошаговая подготовка участка к доставке мобильной бани: выбор места, подъезд техники, перепад высот, дренаж, фундамент и коммуникации.",
@@ -379,13 +392,19 @@ export const articles: Article[] = [
       "voda-i-boyler-v-mobilnoy-bane",
       "elektrika-v-bane"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.webp",
+    "imageAvif": "/images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.avif",
+    "imageAlt": "Подготовленная площадка и свободный подъезд для монтажа",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-05",
     "slug": "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
     "coverImage": "/images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.webp",
-    "coverAlt": "Схема опор и фундамента",
+    "coverAlt": "Сравнение опоры из блока и винтовой сваи",
     "title": "Блоки или винтовые сваи под мобильную баню: как выбирать и почему нельзя считать «по длине»",
     "seoTitle": "Блоки или винтовые сваи под мобильную баню: как выбирать и почему нельзя считать «по длине»",
     "metaDescription": "Как выбрать фундамент для мобильной бани: блоки и винтовые сваи, расчет нагрузки, грунт, схема опор и типичные ошибки.",
@@ -441,13 +460,19 @@ export const articles: Article[] = [
         "href": "/katalog/bani",
         "label": "Каталог бань"
       }
-    ]
+    ],
+    "image": "/images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.webp",
+    "imageAvif": "/images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.avif",
+    "imageAlt": "Сравнение опоры из блока и винтовой сваи",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-06",
     "slug": "karkas-ili-brus-dlya-bani",
     "coverImage": "/images/articles/karkas-ili-brus-dlya-bani-cover.webp",
-    "coverAlt": "Сравнение конструктивных систем",
+    "coverAlt": "Две конструктивные системы: деревянный каркас и брус",
     "title": "Каркасная баня или баня из бруса: что отличается в реальной эксплуатации",
     "seoTitle": "Каркасная баня или баня из бруса: что отличается в реальной эксплуатации",
     "metaDescription": "Сравнение мобильной бани из каркаса и бруса: вес, усадка, утепление, скорость прогрева, ремонт и особенности эксплуатации.",
@@ -494,13 +519,19 @@ export const articles: Article[] = [
       "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
       "uteplenie-mobilnoy-bani-dlya-zimy"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/karkas-ili-brus-dlya-bani-cover.webp",
+    "imageAvif": "/images/articles/karkas-ili-brus-dlya-bani-cover.avif",
+    "imageAlt": "Две конструктивные системы: деревянный каркас и брус",
+    "imageWidth": 1600,
+    "imageHeight": 893,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-07",
     "slug": "pirog-steny-mobilnoy-bani",
     "coverImage": "/images/articles/pirog-steny-mobilnoy-bani-cover.webp",
-    "coverAlt": "Слои стены и пароизоляция",
+    "coverAlt": "Иллюстрация внутренней парозащиты и наружной защиты стены",
     "title": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
     "seoTitle": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
     "metaDescription": "Как устроена стена мобильной бани: утеплитель, пароизоляция, фольга, ветрозащита и вентзазор. Объясняем, как избежать конденсата.",
@@ -547,13 +578,19 @@ export const articles: Article[] = [
       "uteplenie-mobilnoy-bani-dlya-zimy",
       "ventilyatsiya-mobilnoy-bani"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/pirog-steny-mobilnoy-bani-cover.webp",
+    "imageAvif": "/images/articles/pirog-steny-mobilnoy-bani-cover.avif",
+    "imageAlt": "Иллюстрация внутренней парозащиты и наружной защиты стены",
+    "imageWidth": 1600,
+    "imageHeight": 1195,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-08",
     "slug": "uteplenie-mobilnoy-bani-dlya-zimy",
     "coverImage": "/images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.webp",
-    "coverAlt": "Тепловой контур мобильной бани",
+    "coverAlt": "Прямоугольная мобильная баня в зимнем окружении",
     "title": "Как утеплить мобильную баню для зимы: стены, пол, потолок и слабые места",
     "seoTitle": "Как утеплить мобильную баню для зимы: стены, пол, потолок и слабые места",
     "metaDescription": "Что влияет на зимнюю эксплуатацию мобильной бани: толщина утепления, потолок, пол, окна, двери, герметичность и вентиляция.",
@@ -600,13 +637,19 @@ export const articles: Article[] = [
       "ventilyatsiya-mobilnoy-bani",
       "okna-i-dveri-v-bane"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.webp",
+    "imageAvif": "/images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.avif",
+    "imageAlt": "Прямоугольная мобильная баня в зимнем окружении",
+    "imageWidth": 1600,
+    "imageHeight": 893,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-09",
     "slug": "pol-i-sliv-v-bane",
     "coverImage": "/images/articles/pol-i-sliv-v-bane-cover.webp",
-    "coverAlt": "Отвод воды и конструкция пола",
+    "coverAlt": "Разрез мокрой зоны с герметичным трапом и водоотводом",
     "title": "Пол и слив в бане: как сделать мойку, чтобы вода уходила, а конструкция не гнила",
     "seoTitle": "Пол и слив в бане: как сделать мойку, чтобы вода уходила, а конструкция не гнила",
     "metaDescription": "Устройство пола и слива в мобильной бане: уклон, трап, гидроизоляция, проливной пол, защита лаг и зимняя эксплуатация.",
@@ -653,13 +696,19 @@ export const articles: Article[] = [
       "voda-i-boyler-v-mobilnoy-bane",
       "uteplenie-mobilnoy-bani-dlya-zimy"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/pol-i-sliv-v-bane-cover.webp",
+    "imageAvif": "/images/articles/pol-i-sliv-v-bane-cover.avif",
+    "imageAlt": "Разрез мокрой зоны с герметичным трапом и водоотводом",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-10",
     "slug": "ventilyatsiya-mobilnoy-bani",
     "coverImage": "/images/articles/ventilyatsiya-mobilnoy-bani-cover.webp",
-    "coverAlt": "Приток, вытяжка и просушка",
+    "coverAlt": "Иллюстрация приточного и вытяжного отверстий в парной",
     "title": "Вентиляция бани: как получить хороший пар и быстро высушить помещение после использования",
     "seoTitle": "Вентиляция бани: как получить хороший пар и быстро высушить помещение после использования",
     "metaDescription": "Зачем вентиляция в парной, мойке и комнате отдыха, где делать приток и вытяжку и почему сушить баню нужно после каждого использования.",
@@ -706,13 +755,19 @@ export const articles: Article[] = [
       "uteplenie-mobilnoy-bani-dlya-zimy",
       "uhod-za-mobilnoy-baney"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/ventilyatsiya-mobilnoy-bani-cover.webp",
+    "imageAvif": "/images/articles/ventilyatsiya-mobilnoy-bani-cover.avif",
+    "imageAlt": "Иллюстрация приточного и вытяжного отверстий в парной",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-11",
     "slug": "kak-vybrat-pech-dlya-mobilnoy-bani",
     "coverImage": "/images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.webp",
-    "coverAlt": "Печь в реальной парной",
+    "coverAlt": "Топочная дверца печи и защитная облицовка",
     "title": "Как выбрать печь для мобильной бани: объем парной, мощность, камни и режим парения",
     "seoTitle": "Как выбрать печь для мобильной бани: объем парной, мощность, камни и режим парения",
     "metaDescription": "Подбор банной печи по объему парной, стеклянным поверхностям, утеплению и режиму использования. Что важнее паспортных киловатт.",
@@ -763,13 +818,19 @@ export const articles: Article[] = [
         "href": "/komplektaciya",
         "label": "Комплектация и опции"
       }
-    ]
+    ],
+    "image": "/images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.webp",
+    "imageAvif": "/images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.avif",
+    "imageAlt": "Топочная дверца печи и защитная облицовка",
+    "imageWidth": 864,
+    "imageHeight": 1536,
+    "imageCaption": "Реальная фотография нашей бани."
   },
   {
     "id": "word-12",
     "slug": "dymohod-v-derevyannoy-bane",
     "coverImage": "/images/articles/dymohod-v-derevyannoy-bane-cover.webp",
-    "coverAlt": "Печь, дымоход и проходные узлы",
+    "coverAlt": "Дымоход и защитная облицовка в нашей парной",
     "title": "Дымоход в деревянной бане: проход через потолок и кровлю без опасных сокращений",
     "seoTitle": "Дымоход в деревянной бане: проход через потолок и кровлю без опасных сокращений",
     "metaDescription": "Как устроить дымоход в мобильной бане: проходные узлы, разделки, отступки, негорючие материалы и требования производителя печи.",
@@ -816,13 +877,19 @@ export const articles: Article[] = [
       "obrabotka-drevesiny-neomid-v-bane",
       "uhod-za-mobilnoy-baney"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/dymohod-v-derevyannoy-bane-cover.webp",
+    "imageAvif": "/images/articles/dymohod-v-derevyannoy-bane-cover.avif",
+    "imageAlt": "Дымоход и защитная облицовка в нашей парной",
+    "imageWidth": 864,
+    "imageHeight": 1536,
+    "imageCaption": "Реальная фотография нашей бани."
   },
   {
     "id": "word-13",
     "slug": "elektrika-v-bane",
     "coverImage": "/images/articles/elektrika-v-bane-cover.webp",
-    "coverAlt": "Электрощит и оборудование",
+    "coverAlt": "Электрооборудование в отделанном деревом помещении",
     "title": "Электрика в бане: кабель, свет, розетки и защита во влажных и горячих зонах",
     "seoTitle": "Электрика в бане: кабель, свет, розетки и защита во влажных и горячих зонах",
     "metaDescription": "Безопасная электрика в мобильной бане: скрытая проводка, термостойкий кабель в сауне, УЗО, зоны влажности и размещение оборудования.",
@@ -873,13 +940,19 @@ export const articles: Article[] = [
         "href": "/komplektaciya",
         "label": "Комплектация и опции"
       }
-    ]
+    ],
+    "image": "/images/articles/elektrika-v-bane-cover.webp",
+    "imageAvif": "/images/articles/elektrika-v-bane-cover.avif",
+    "imageAlt": "Электрооборудование в отделанном деревом помещении",
+    "imageWidth": 864,
+    "imageHeight": 1536,
+    "imageCaption": "Реальная фотография нашей бани."
   },
   {
     "id": "word-14",
     "slug": "voda-i-boyler-v-mobilnoy-bane",
     "coverImage": "/images/articles/voda-i-boyler-v-mobilnoy-bane-cover.webp",
-    "coverAlt": "Душевая и бойлер",
+    "coverAlt": "Душевая кабина и бойлер в нашей бане",
     "title": "Вода, душ и бойлер в мобильной бане: как сделать систему удобной и пережить зиму",
     "seoTitle": "Вода, душ и бойлер в мобильной бане: как сделать систему удобной и пережить зиму",
     "metaDescription": "Водоснабжение мобильной бани: бойлер, душ, разводка труб, слив, замерзание и консервация системы зимой.",
@@ -926,13 +999,19 @@ export const articles: Article[] = [
       "elektrika-v-bane",
       "uteplenie-mobilnoy-bani-dlya-zimy"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/voda-i-boyler-v-mobilnoy-bane-cover.webp",
+    "imageAvif": "/images/articles/voda-i-boyler-v-mobilnoy-bane-cover.avif",
+    "imageAlt": "Душевая кабина и бойлер в нашей бане",
+    "imageWidth": 1536,
+    "imageHeight": 864,
+    "imageCaption": "Реальная фотография нашей бани."
   },
   {
     "id": "word-15",
     "slug": "otdelka-parnoy-i-polki",
     "coverImage": "/images/articles/otdelka-parnoy-i-polki-cover.webp",
-    "coverAlt": "Полки, вагонка и свет",
+    "coverAlt": "Деревянные полки и тёплый свет в компактной парной",
     "title": "Чем отделывать парную: осина, липа, хвойная древесина и правильные полки",
     "seoTitle": "Чем отделывать парную: осина, липа, хвойная древесина и правильные полки",
     "metaDescription": "Материалы для отделки парной и полков: осина, липа, хвойные породы, сучки, смола, крепеж и защитные масла.",
@@ -979,13 +1058,19 @@ export const articles: Article[] = [
       "ventilyatsiya-mobilnoy-bani",
       "uhod-za-mobilnoy-baney"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/otdelka-parnoy-i-polki-cover.webp",
+    "imageAvif": "/images/articles/otdelka-parnoy-i-polki-cover.avif",
+    "imageAlt": "Деревянные полки и тёплый свет в компактной парной",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-16",
     "slug": "okna-i-dveri-v-bane",
     "coverImage": "/images/articles/okna-i-dveri-v-bane-cover.webp",
-    "coverAlt": "Стеклянные двери и оконные узлы",
+    "coverAlt": "Стеклянная дверь парной и её деревянное обрамление",
     "title": "Окна и двери в бане: ПВХ, стекло, герметичность и теплопотери",
     "seoTitle": "Окна и двери в бане: ПВХ, стекло, герметичность и теплопотери",
     "metaDescription": "Как выбирать окна и двери для мобильной бани: ПВХ, панорамное остекление, стеклянная дверь в парную, монтаж и герметичность.",
@@ -1032,13 +1117,19 @@ export const articles: Article[] = [
       "kak-vybrat-pech-dlya-mobilnoy-bani",
       "kak-prinyat-mobilnuyu-banyu"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/okna-i-dveri-v-bane-cover.webp",
+    "imageAvif": "/images/articles/okna-i-dveri-v-bane-cover.avif",
+    "imageAlt": "Стеклянная дверь парной и её деревянное обрамление",
+    "imageWidth": 1536,
+    "imageHeight": 864,
+    "imageCaption": "Реальная фотография нашей бани."
   },
   {
     "id": "word-17",
     "slug": "fasad-mobilnoy-bani",
     "coverImage": "/images/articles/fasad-mobilnoy-bani-cover.webp",
-    "coverAlt": "Цвет, планкен и защита фасада",
+    "coverAlt": "Деревянный фасад и графитовый оконный узел",
     "title": "Фасад мобильной бани: планкен, дерево, графитовые элементы и защита от солнца и дождя",
     "seoTitle": "Фасад мобильной бани: планкен, дерево, графитовые элементы и защита от солнца и дождя",
     "metaDescription": "Как устроить долговечный фасад мобильной бани: деревянная облицовка, планкен, вентзазор, антисептик, масло и обновление покрытия.",
@@ -1089,13 +1180,19 @@ export const articles: Article[] = [
         "href": "/kontakty#zayavka",
         "label": "Обсудить цвет фасада"
       }
-    ]
+    ],
+    "image": "/images/articles/fasad-mobilnoy-bani-cover.webp",
+    "imageAvif": "/images/articles/fasad-mobilnoy-bani-cover.avif",
+    "imageAlt": "Деревянный фасад и графитовый оконный узел",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-18",
     "slug": "dostavka-i-ustanovka-mobilnoy-bani",
     "coverImage": "/images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.webp",
-    "coverAlt": "Транспорт, кран и установка",
+    "coverAlt": "Установка прямоугольного банного модуля краном",
     "title": "Как доставляют и устанавливают готовую мобильную баню: что происходит в день монтажа",
     "seoTitle": "Как доставляют и устанавливают готовую мобильную баню: что происходит в день монтажа",
     "metaDescription": "Как проходит доставка мобильной бани: подготовка маршрута, манипулятор или кран, установка на фундамент, выверка и подключение.",
@@ -1142,13 +1239,19 @@ export const articles: Article[] = [
       "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
       "kak-prinyat-mobilnuyu-banyu"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.webp",
+    "imageAvif": "/images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.avif",
+    "imageAlt": "Установка прямоугольного банного модуля краном",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-19",
     "slug": "kak-prinyat-mobilnuyu-banyu",
     "coverImage": "/images/articles/kak-prinyat-mobilnuyu-banyu-cover.webp",
-    "coverAlt": "Приёмка по понятному чек-листу",
+    "coverAlt": "Проверка окна и отделки при приёмке бани",
     "title": "Как принять готовую мобильную баню: чек-лист покупателя перед подписанием акта",
     "seoTitle": "Как принять готовую мобильную баню: чек-лист покупателя перед подписанием акта",
     "metaDescription": "Чек-лист приемки мобильной бани: геометрия, отделка, двери, окна, печь, дымоход, электрика, вода, слив и документы.",
@@ -1204,13 +1307,19 @@ export const articles: Article[] = [
         "href": "/usloviya-zakaza",
         "label": "Условия заказа"
       }
-    ]
+    ],
+    "image": "/images/articles/kak-prinyat-mobilnuyu-banyu-cover.webp",
+    "imageAvif": "/images/articles/kak-prinyat-mobilnuyu-banyu-cover.avif",
+    "imageAlt": "Проверка окна и отделки при приёмке бани",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   },
   {
     "id": "word-20",
     "slug": "uhod-za-mobilnoy-baney",
     "coverImage": "/images/articles/uhod-za-mobilnoy-baney-cover.webp",
-    "coverAlt": "Сушка, уход и обслуживание",
+    "coverAlt": "Просушка и очистка деревянных полков после использования",
     "title": "Как ухаживать за мобильной баней после покупки: сушка, древесина, печь, дымоход и сезонное обслуживание",
     "seoTitle": "Как ухаживать за мобильной баней после покупки: сушка, древесина, печь, дымоход и сезонное обслуживание",
     "metaDescription": "Практический регламент ухода за мобильной баней: что делать после каждого парения, раз в сезон и перед зимой.",
@@ -1263,7 +1372,13 @@ export const articles: Article[] = [
       "voda-i-boyler-v-mobilnoy-bane",
       "dymohod-v-derevyannoy-bane"
     ],
-    "resourceLinks": []
+    "resourceLinks": [],
+    "image": "/images/articles/uhod-za-mobilnoy-baney-cover.webp",
+    "imageAvif": "/images/articles/uhod-za-mobilnoy-baney-cover.avif",
+    "imageAlt": "Просушка и очистка деревянных полков после использования",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели."
   }
 ]
 

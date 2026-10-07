@@ -23,12 +23,15 @@ class Page(HTMLParser):
         self.canonical = None
         self.images = 0
         self.main = False
+        self.caption = False
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag == 'main':
             self.main = True
+        if tag == 'figcaption':
+            self.caption = True
         if tag == 'article' and 'article-body' in a.get('class', ''):
             self.active = True
         if tag == 'h1':
@@ -47,6 +50,8 @@ class Page(HTMLParser):
     def handle_endtag(self, tag):
         if tag == 'main':
             self.main = False
+        if tag == 'figcaption':
+            self.caption = False
         if tag == 'article':
             self.active = False
         if tag == 'h1':
@@ -55,7 +60,7 @@ class Page(HTMLParser):
             self.titling = False
 
     def handle_data(self, text):
-        if self.active:
+        if self.active and not self.caption:
             self.body.append(text)
         if self.heading:
             self.h1.append(text)
@@ -109,7 +114,8 @@ assert manifest['sha256'] == hashlib.sha256(source.read_bytes()).hexdigest()
 sitemap = (root / 'dist/sitemap.xml').read_text(encoding='utf-8')
 listing = (root / 'dist/poleznoe.html').read_text(encoding='utf-8')
 visual_manifest = root / 'docs/article-visual-sources.json'
-visuals = {v['slug']: v for v in json.loads(visual_manifest.read_text(encoding='utf-8'))['visuals']} if visual_manifest.exists() else {}
+visual_records = json.loads(visual_manifest.read_text(encoding='utf-8'))['visuals'] if visual_manifest.exists() else []
+visuals = {v['slug']: v for v in visual_records if v.get('role', 'cover') == 'cover'}
 for a in articles:
     slug = a['URL'].strip('/').split('/')[-1]
     html = (root / f'dist/poleznoe/{slug}.html').read_text(encoding='utf-8')
@@ -122,12 +128,13 @@ for a in articles:
     assert (root / f'dist/poleznoe/{slug}/index.html').read_text(encoding='utf-8') == html, slug + ': slash alias'
     assert normalized(''.join(page.body)) == normalized(' '.join(a['blocks'][1:])), slug + ': body'
     assert a['blocks'][0] in html, slug + ': lead'
-    assert page.images == 1, slug + ': approved hero image'
+    assert page.images == 1 + sum(v['slug'] == slug and v.get('role') == 'inline' for v in visual_records), slug + ': approved hero and inline images'
     cover = '/images/articles/' + slug + '-cover.webp'
     assert cover in html and cover in listing, slug + ': cover'
     assert 'https://banger.su' + cover in html, slug + ': production OG image'
     if slug in visuals:
-        assert '3D-визуал' in html, slug + ': 3D label'
+        if visuals[slug]['kind'] != 'owner-photo':
+            assert '3D-визуал' in html, slug + ': 3D label'
         for output in visuals[slug]['outputs']:
             assert output['file'].removeprefix('public') in html, slug + ': approved hero'
     assert '<loc>' + canonical + '</loc>' in sitemap, slug + ': sitemap'

@@ -1,28 +1,627 @@
 {
-  "source_folder": "C:/Users/maxto/Desktop/НОВЫЙ САЙТ/Фотодля статей",
-  "naming": "Article title + extension; short aliases explicitly mapped below",
+  "source_folder": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей",
   "visuals": [
+    {
+      "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+      "title": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Как выбираем пиломатериал для бани.jfif",
+      "source_sha256": "b482b87dba36ef8e183ed7ebbd8d437a97d4ab57992dd97e733d029d75775d50",
+      "kind": "owner-approved-3d",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 201380,
+          "sha256": "0fe86eefc6a2f83cfd7e27a9cb5cf7657738bea95006fb96c506bb0552253a9c"
+        },
+        {
+          "file": "public/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 111482,
+          "sha256": "36f143dab6ec62984e3d05d42d5b9562481041cfdc4a5bbf0d8d9f417ee84b1c"
+        }
+      ]
+    },
     {
       "slug": "obrabotka-drevesiny-neomid-v-bane",
       "title": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
-      "filename_alias": "Чем обрабатывать древесину в бане",
-      "source": "C:/Users/maxto/Desktop/НОВЫЙ САЙТ/Фотодля статей/Чем обрабатывать древесину в бане.jfif",
-      "source_sha256": "4c04db98d20d75614195119f6f7f7a90f3f9170b7c0870894a3db5546a33b4e0",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Чем обрабатывают древесину в бане.jfif",
+      "source_sha256": "4aa3e8b9aecba60450614e2573531e2e18834e5cb0e6f2db0b4fca2df0c96933",
       "kind": "owner-approved-3d",
+      "role": "cover",
       "outputs": [
         {
-          "file": "public/images/articles/wood-treatment-3d.webp",
+          "file": "public/images/articles/obrabotka-drevesiny-neomid-v-bane-cover.webp",
           "width": 1600,
           "height": 893,
-          "bytes": 113730,
-          "sha256": "1301ecf974de411ef513d2da763b3bd878d3c3bbdc2923a91d903ed9fee49158"
+          "bytes": 182982,
+          "sha256": "62c636e39e32f91d7fb78f50d5ab15fd9d118fe4189e062ec3dcf1c05dd9ff59"
         },
         {
-          "file": "public/images/articles/wood-treatment-3d.avif",
+          "file": "public/images/articles/obrabotka-drevesiny-neomid-v-bane-cover.avif",
           "width": 1600,
           "height": 893,
-          "bytes": 63380,
-          "sha256": "b946e5c67ef0d7cec721d63ad5ca8f4703328331298651bea35ff1bc24388d63"
+          "bytes": 103341,
+          "sha256": "1c1917cce9a4184a2c65fde7da19572020c8b256d9d21e00aade016ccbdec53e"
+        }
+      ]
+    },
+    {
+      "slug": "karkas-ili-brus-dlya-bani",
+      "title": "Каркасная баня или баня из бруса: что отличается в реальной эксплуатации",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Каркас или брус для бани.jfif",
+      "source_sha256": "bfd345e63f241088086b894209d2e78e52ba64ed0c12925f4ea19181aeffc8a5",
+      "kind": "owner-approved-3d",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/karkas-ili-brus-dlya-bani-cover.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 209092,
+          "sha256": "24186d2b4afd1737b3e4843f01ae6bc4d242c68d4122e65e0c06c018e6844991"
+        },
+        {
+          "file": "public/images/articles/karkas-ili-brus-dlya-bani-cover.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 124546,
+          "sha256": "7cd91ff66ec58440c8d071a62b9c26932386876be5183c652c8f227e5121c501"
+        }
+      ]
+    },
+    {
+      "slug": "pirog-steny-mobilnoy-bani",
+      "title": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Пароизоляция и ветровлагозащита — в чём разница.jfif",
+      "source_sha256": "83537a91ae50a4a0206db7e46a9b57a852550c19b9f4056ae5bcb63b7f06c3cc",
+      "kind": "owner-approved-3d",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/pirog-steny-mobilnoy-bani-cover.webp",
+          "width": 1600,
+          "height": 1195,
+          "bytes": 244794,
+          "sha256": "4c790342b476782d82951cee7653853fa71d969770864ef1b7c2cb609f573eac"
+        },
+        {
+          "file": "public/images/articles/pirog-steny-mobilnoy-bani-cover.avif",
+          "width": 1600,
+          "height": 1195,
+          "bytes": 166132,
+          "sha256": "caa41d7272608c6849d49ce8a416dd11d3794dbeffd47da8669e8bd9e49db825"
+        }
+      ]
+    },
+    {
+      "slug": "uteplenie-mobilnoy-bani-dlya-zimy",
+      "title": "Как утеплить мобильную баню для зимы: стены, пол, потолок и слабые места",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Утепление мобильной бани для зимы.jfif",
+      "source_sha256": "54aae87fdb3bbc6119c065782edcadde4bf985ff643843ae931d4c89ed8d98f5",
+      "kind": "owner-approved-3d",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 126780,
+          "sha256": "b147e5460237e5f4848349d3775648817d1d97285a2ffb5c8c8669f568e7c7ed"
+        },
+        {
+          "file": "public/images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 79275,
+          "sha256": "c1244de282449f2fd17dd84ddb868249e154a6a011f1da92aebaaf564e824a40"
+        }
+      ]
+    },
+    {
+      "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+      "title": "Как выбрать древесину для мобильной бани: сухая строганая доска, влажность, сорт и сечение",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Почему для бани используем сухую строганую доску.jfif",
+      "source_sha256": "6ec22e335703aa1d2ae4f2e3b7cbdd9a1105d3f1133a87b6d642a028c93a09b9",
+      "kind": "owner-approved-3d",
+      "role": "inline",
+      "outputs": [
+        {
+          "file": "public/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-timber.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 208036,
+          "sha256": "f30a652d9653d8079ebe595b7bea30a2d17885cd4f380aa3c473508715a1ab83"
+        },
+        {
+          "file": "public/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-timber.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 106951,
+          "sha256": "3c5089784bd3a3a58e3eae670935509f108c2ff1d781bcaab073b12667cac46d"
+        }
+      ]
+    },
+    {
+      "slug": "obrabotka-drevesiny-neomid-v-bane",
+      "title": "Чем обрабатывать древесину в бане: NEOMID 200, 400, 440, 430, 433, 445 и 450-1 без путаницы",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Огнебиозащита древесины в бане.jfif",
+      "source_sha256": "015ab4c3c0b33ef8d9a9efb4109bcdbd05992ac3cf1778688c26062871a8149c",
+      "kind": "owner-approved-3d",
+      "role": "inline",
+      "outputs": [
+        {
+          "file": "public/images/articles/obrabotka-drevesiny-neomid-v-bane-treatment.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 223494,
+          "sha256": "892d92c0779c78203687a88391b51c3f14f123f6bbc705e6f6b85e2df9d50706"
+        },
+        {
+          "file": "public/images/articles/obrabotka-drevesiny-neomid-v-bane-treatment.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 118811,
+          "sha256": "1d7d70a30025f41485d33c3d49fb411db092c9bb6607dddb08d6a2e9948caa04"
+        }
+      ]
+    },
+    {
+      "slug": "materialy-dlya-mobilnoy-bani",
+      "title": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Какой утеплитель используем в мобильных банях.jfif",
+      "source_sha256": "6285cffc6d7b40c504db1288e6b52568dd14eaabae1e665ffb555c60d1efff5f",
+      "kind": "owner-approved-3d",
+      "role": "inline",
+      "outputs": [
+        {
+          "file": "public/images/articles/materialy-dlya-mobilnoy-bani-insulation.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 297930,
+          "sha256": "9b4648f2d665f835317609c2644c13c0be35b78b332a6cc13618591e4f49db6c"
+        },
+        {
+          "file": "public/images/articles/materialy-dlya-mobilnoy-bani-insulation.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 157895,
+          "sha256": "12382f713cded0797fe06813977c3ac201c1935505f3896384a9d378c17fe24b"
+        }
+      ]
+    },
+    {
+      "slug": "pirog-steny-mobilnoy-bani",
+      "title": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Как устроены стены мобильной бани.jfif",
+      "source_sha256": "1a1fe78929cc6797f095efe25cb8fcf39d6d9aceb4929d0d8e53054d3b2e8b55",
+      "kind": "owner-approved-3d",
+      "role": "inline",
+      "outputs": [
+        {
+          "file": "public/images/articles/pirog-steny-mobilnoy-bani-wall.webp",
+          "width": 1600,
+          "height": 893,
+          "bytes": 117236,
+          "sha256": "f91cf53df1e912bfc517b3a98b5eb943fdab89cf7ed63ef2fadab4b8aa6d6a89"
+        },
+        {
+          "file": "public/images/articles/pirog-steny-mobilnoy-bani-wall.avif",
+          "width": 1600,
+          "height": 893,
+          "bytes": 63885,
+          "sha256": "d6579ed863af61b5ad93bf6d681db80f41f4a2733b42a6af248d2005f4b04e2c"
+        }
+      ]
+    },
+    {
+      "slug": "pirog-steny-mobilnoy-bani",
+      "title": "Правильный пирог стены мобильной бани: куда ставить утеплитель, пароизоляцию и вентзазор",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Пароизоляция и ветровлагозащита — в чём разница 2.jfif",
+      "source_sha256": "87ac4c03d1d4be7e6b4ad29599f28eadfddb9d4505d20558a8eca94df257d8fb",
+      "kind": "owner-approved-3d",
+      "role": "inline",
+      "outputs": [
+        {
+          "file": "public/images/articles/pirog-steny-mobilnoy-bani-membrane-instruction.webp",
+          "width": 1600,
+          "height": 1195,
+          "bytes": 225100,
+          "sha256": "b6ea6ea78db7f3b6e73f0284ce0ce5fd67a6ea633ff72e2910472bfca45cec08"
+        },
+        {
+          "file": "public/images/articles/pirog-steny-mobilnoy-bani-membrane-instruction.avif",
+          "width": 1600,
+          "height": 1195,
+          "bytes": 138394,
+          "sha256": "48317090f5b7e963d7e37434bd572d143a429bc8283ce7efb4cb4ea1951e719e"
+        }
+      ]
+    },
+    {
+      "slug": "chto-proishodit-s-organizmom-v-bane",
+      "title": "Что происходит с организмом, когда вы ходите в баню",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image1.jpeg",
+      "source_sha256": "617055ea2512f8c69066dbf7eff0ad2ba0e9439a5e22b72698d23e379c4db186",
+      "kind": "owner-photo",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/chto-proishodit-s-organizmom-v-bane-cover.webp",
+          "width": 1536,
+          "height": 864,
+          "bytes": 170744,
+          "sha256": "45d3a0472f1d7120983227fb557361a971c7b2473bf28c1a7924cae3bb5c7e9c"
+        },
+        {
+          "file": "public/images/articles/chto-proishodit-s-organizmom-v-bane-cover.avif",
+          "width": 1536,
+          "height": 864,
+          "bytes": 103607,
+          "sha256": "5649d1df410fa0d5afc9fad7a69813ae086d4d4deb0fa78650dc2bfd991a6f8d"
+        }
+      ]
+    },
+    {
+      "slug": "kak-vybrat-pech-dlya-mobilnoy-bani",
+      "title": "Как выбрать печь для мобильной бани: объем парной, мощность, камни и режим парения",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image6.jpeg",
+      "source_sha256": "deb599b8df303a9cf0c53d6e5e627a616fc91573767cbffa5194603b76343613",
+      "kind": "owner-photo",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.webp",
+          "width": 864,
+          "height": 1536,
+          "bytes": 185938,
+          "sha256": "49229d9af327da00393ffa4cc5192cb519a7f948320e7e823e3437bbc6ba98ac"
+        },
+        {
+          "file": "public/images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.avif",
+          "width": 864,
+          "height": 1536,
+          "bytes": 119767,
+          "sha256": "99ac001412692eb2c24e35ddb4e93b37c9b8e5a23aefdb41950d7b1c9dde4312"
+        }
+      ]
+    },
+    {
+      "slug": "dymohod-v-derevyannoy-bane",
+      "title": "Дымоход в деревянной бане: проход через потолок и кровлю без опасных сокращений",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image3.jpeg",
+      "source_sha256": "18985030a0ce03c8b5ef916a95da5466b1cd5d28f59f928b5020dacb4a0d0faa",
+      "kind": "owner-photo",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/dymohod-v-derevyannoy-bane-cover.webp",
+          "width": 864,
+          "height": 1536,
+          "bytes": 166760,
+          "sha256": "b5b018ef639f6e48921d32a4cd974f1028704ed917a3328f7ff9a4e4c7143b7b"
+        },
+        {
+          "file": "public/images/articles/dymohod-v-derevyannoy-bane-cover.avif",
+          "width": 864,
+          "height": 1536,
+          "bytes": 100732,
+          "sha256": "44563d2f3d8dbd1c0d1f80a2c4565161be69991b65df905ef08bca5ec159c4a7"
+        }
+      ]
+    },
+    {
+      "slug": "elektrika-v-bane",
+      "title": "Электрика в бане: кабель, свет, розетки и защита во влажных и горячих зонах",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image15.jpeg",
+      "source_sha256": "c2438cae6dc4f33f69bba9fa93e513b7cb4c337d529ea6af997b7b138df22ded",
+      "kind": "owner-photo",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/elektrika-v-bane-cover.webp",
+          "width": 864,
+          "height": 1536,
+          "bytes": 165468,
+          "sha256": "ee6fc65fe8fa77718b490d512420f037e33cada8c2e571d76311b42b2e54ab58"
+        },
+        {
+          "file": "public/images/articles/elektrika-v-bane-cover.avif",
+          "width": 864,
+          "height": 1536,
+          "bytes": 105375,
+          "sha256": "c5cf4a8c6d1a90f983bfa29756184308be050fb8457e1f7f12a83b3bcd230356"
+        }
+      ]
+    },
+    {
+      "slug": "voda-i-boyler-v-mobilnoy-bane",
+      "title": "Вода, душ и бойлер в мобильной бане: как сделать систему удобной и пережить зиму",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image11.jpeg",
+      "source_sha256": "310c09fdb214a6d7fa1aa3a905e747c578f4fa3737664a3a5af39d0f3b481831",
+      "kind": "owner-photo",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/voda-i-boyler-v-mobilnoy-bane-cover.webp",
+          "width": 1536,
+          "height": 864,
+          "bytes": 167448,
+          "sha256": "9aa254fef774ee279a6ed6b6fca6091aee731c4673c846dbb24035677adff315"
+        },
+        {
+          "file": "public/images/articles/voda-i-boyler-v-mobilnoy-bane-cover.avif",
+          "width": 1536,
+          "height": 864,
+          "bytes": 108215,
+          "sha256": "cff7af71c8076e0c82daece70cdce6eef52db3f6929adac0d1121a930c47d7b3"
+        }
+      ]
+    },
+    {
+      "slug": "okna-i-dveri-v-bane",
+      "title": "Окна и двери в бане: ПВХ, стекло, герметичность и теплопотери",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фото бани изнутри\\v2_extracted\\word\\media\\image7.jpeg",
+      "source_sha256": "acd44bd8419c66685e718ef782c47f1d9c177b3eac744970be550786d77365ae",
+      "kind": "owner-photo",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/okna-i-dveri-v-bane-cover.webp",
+          "width": 1536,
+          "height": 864,
+          "bytes": 162270,
+          "sha256": "7b24553f73d1487f6db2175ad90f31e3f0c6b0610e9c0a4f4e68b687b4cfd34c"
+        },
+        {
+          "file": "public/images/articles/okna-i-dveri-v-bane-cover.avif",
+          "width": 1536,
+          "height": 864,
+          "bytes": 103048,
+          "sha256": "59ffd7c74bc82cd5338eaac4df4ec629b59a18f1567896604ff89285db17249e"
+        }
+      ]
+    },
+    {
+      "slug": "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+      "title": "Как подготовить площадку под мобильную баню: участок, подъезд, дренаж и место для монтажа",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Как подготовить площадку под мобильную баню —  участок, подъезд, дренаж и место для монтажа.png",
+      "source_sha256": "31cd5a1d699eb7e684c09c0e78af69e3dd00915b7705d7294ee5113ea1d72fd4",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 475688,
+          "sha256": "6ac7883d29cbf92566dd8f3b1afc71703fd8f5e0be93ade826b7dcc7db5ad012"
+        },
+        {
+          "file": "public/images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 253123,
+          "sha256": "55532e4ca9b11a6465f13daa8adcd342d4ba3518ffb6e9c1b8caa217ab7c0e52"
+        }
+      ]
+    },
+    {
+      "slug": "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+      "title": "Блоки или винтовые сваи под мобильную баню: как выбирать и почему нельзя считать «по длине»",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Блоки или винтовые сваи под мобильную баню —  как выбирать и почему нельзя считать «по длине».png",
+      "source_sha256": "fd823649c4e6e0d0258548856b57a523c6729da4797153b129cea05564099e6f",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 279468,
+          "sha256": "d4d489d28a3fde2a7830e5b8026a42f7bdcf042fcc7197d5212e72195ec87ddb"
+        },
+        {
+          "file": "public/images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 158743,
+          "sha256": "ffe643a14a725f3d3ce643e04d8d418a8bef8037f9cc641323f45018bbe25b37"
+        }
+      ]
+    },
+    {
+      "slug": "pol-i-sliv-v-bane",
+      "title": "Пол и слив в бане: как сделать мойку, чтобы вода уходила, а конструкция не гнила",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Пол и слив в бане —  как сделать мойку, чтобы вода уходила, а конструкция не гнила.png",
+      "source_sha256": "9a26d75e6c2e3804a08bfa55a8e88f3ca0e6229e0f20101ce0c8b6e93a7982cb",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/pol-i-sliv-v-bane-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 273468,
+          "sha256": "a286add7c8eb5cd68fe962fd592807570b25b125441cf8c01706767c04e24c04"
+        },
+        {
+          "file": "public/images/articles/pol-i-sliv-v-bane-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 168315,
+          "sha256": "cfdde0a8f251188a81cfa6ec0fe942516808f2b3f562b16d18cb1d1c7d24fa7f"
+        }
+      ]
+    },
+    {
+      "slug": "ventilyatsiya-mobilnoy-bani",
+      "title": "Вентиляция бани: как получить хороший пар и быстро высушить помещение после использования",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Вентиляция бани —  как получить хороший пар и быстро высушить помещение после использования.png",
+      "source_sha256": "7a439eec710d0ea5cf27b322b7f93476468f0d2e03b4351725edeeed658b34d6",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/ventilyatsiya-mobilnoy-bani-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 127916,
+          "sha256": "587e0d0ec792953299be0f10129c9031170320aa5e968ba3852d824658fd8612"
+        },
+        {
+          "file": "public/images/articles/ventilyatsiya-mobilnoy-bani-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 86550,
+          "sha256": "056540d85ef015adfd54872ec857813470aad8d420817552241b1e83246f4622"
+        }
+      ]
+    },
+    {
+      "slug": "fasad-mobilnoy-bani",
+      "title": "Фасад мобильной бани: планкен, дерево, графитовые элементы и защита от солнца и дождя",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Фасад мобильной бани —  планкен, дерево, графитовые элементы и защита от солнца и дождя.png",
+      "source_sha256": "ff7b13cde1dc344b4118055a5e7cbc24b88b580b37ffe40bf334c6c88e29d821",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/fasad-mobilnoy-bani-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 275846,
+          "sha256": "0035fc461824f55cbfd2eda7e80b77fcd99a03a871c5be3e731cace219f2a672"
+        },
+        {
+          "file": "public/images/articles/fasad-mobilnoy-bani-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 167891,
+          "sha256": "69d58ae01610b150dd3b29992f36e95a15182f183edccfc71d901409c2076f9c"
+        }
+      ]
+    },
+    {
+      "slug": "dostavka-i-ustanovka-mobilnoy-bani",
+      "title": "Как доставляют и устанавливают готовую мобильную баню: что происходит в день монтажа",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Как доставляют и устанавливают готовую мобильную баню —  что происходит в день монтажа.png",
+      "source_sha256": "6e890856dbc982187506a36f8eea3ebc8e0b52fdfec6c64b4129c3aea0b5b9c3",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 317836,
+          "sha256": "802702160760b63f32519712de0e0efbb043365dc5e00f4757ab146a00b1ebfa"
+        },
+        {
+          "file": "public/images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 187280,
+          "sha256": "03a1b94c97f93b2c41203975652fee16162b820eec5fac5ef03ceb71077e3744"
+        }
+      ]
+    },
+    {
+      "slug": "kak-prinyat-mobilnuyu-banyu",
+      "title": "Как принять готовую мобильную баню: чек-лист покупателя перед подписанием акта",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Как принять готовую мобильную баню —  чек-лист покупателя перед подписанием акта.png",
+      "source_sha256": "cb2d391580567e328d5525f3b93f25374a5efddd6021adde3e18bdf135b330f1",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/kak-prinyat-mobilnuyu-banyu-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 126072,
+          "sha256": "6403e0fa8f86ff403c482939670e6894260e45755b14f5ab55edefa43fd04bd5"
+        },
+        {
+          "file": "public/images/articles/kak-prinyat-mobilnuyu-banyu-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 84567,
+          "sha256": "b988745852e3799df2383b46cdb63a0901d9a313de6cd02098d15e70670d72b7"
+        }
+      ]
+    },
+    {
+      "slug": "uhod-za-mobilnoy-baney",
+      "title": "Как ухаживать за мобильной баней после покупки: сушка, древесина, печь, дымоход и сезонное обслуживание",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Как ухаживать за мобильной баней после покупки —  сушка, древесина, печь, дымоход и сезонное обслуживание.png",
+      "source_sha256": "82e480e4921dd6fdf762d05be146a562b93c5aab41173e9b6c1394808ef81bcf",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/uhod-za-mobilnoy-baney-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 129196,
+          "sha256": "2d9200103a4445d42e2bd3df93af3073d82b77187433079e1ef830c7ded84b0e"
+        },
+        {
+          "file": "public/images/articles/uhod-za-mobilnoy-baney-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 83023,
+          "sha256": "ab29ea4a1d825ed57bda44f14016781d08c8c6c21d7c616d16e06808f05b487d"
+        }
+      ]
+    },
+    {
+      "slug": "otdelka-parnoy-i-polki",
+      "title": "Чем отделывать парную: осина, липа, хвойная древесина и правильные полки",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Чем отделывать парную —  осина, липа, хвойная древесина и правильные полки.png",
+      "source_sha256": "8540adc239b7cb5cf8266b875f9d8ece74771375658e7d77e6d8fcc35d5d32bc",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/otdelka-parnoy-i-polki-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 167956,
+          "sha256": "4f63fb4e063506f2a3b2d7e8463ef6f8e24578f17591e6a2bb8ed01951f2db45"
+        },
+        {
+          "file": "public/images/articles/otdelka-parnoy-i-polki-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 104994,
+          "sha256": "c0e64a56275f24494a4d090f931a832c39bb4de986bee783e3c526e39f2c120f"
+        }
+      ]
+    },
+    {
+      "slug": "materialy-dlya-mobilnoy-bani",
+      "title": "Из чего на самом деле состоит мобильная баня: утеплитель, мембраны, крепеж, кровля и отделка",
+      "source": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\Фотодля статей\\Из чего на самом деле состоит мобильная баня —  утеплитель, мембраны, крепеж, кровля и отделка.png",
+      "source_sha256": "e50f3458fd7720d03e6656f3cd036277e20826fc7dea09bb8697630bb0fb7ac1",
+      "kind": "generated-editorial",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/materialy-dlya-mobilnoy-bani-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "bytes": 188554,
+          "sha256": "5d2304fe6bef7d7dad98a3e2baa718c34f4fb0b96cb717be75af0fa007b75a8a"
+        },
+        {
+          "file": "public/images/articles/materialy-dlya-mobilnoy-bani-cover.avif",
+          "width": 1600,
+          "height": 900,
+          "bytes": 115917,
+          "sha256": "86242b650c9625c4bcd01647f1fc5904599a28f9ade0b9b18e0cd30347a38f72"
         }
       ]
     }

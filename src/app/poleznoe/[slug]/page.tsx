@@ -5,6 +5,15 @@ import { articles, homes } from '@/data'
 import { articleHtmlWithBasePath, withBasePath } from '@/lib/site-path'
 import { articleAliases } from '@/data/article-aliases'
 import type { Metadata } from 'next'
+import { articleInlineVisuals } from '@/data/article-visuals'
+
+function contentWithVisuals(slug: string, content: string) {
+  for (const visual of articleInlineVisuals[slug] || []) {
+    const figure = `<figure><picture><source srcset="${withBasePath(visual.avif)}" type="image/avif" /><img src="${withBasePath(visual.src)}" alt="${visual.alt}" width="${visual.width}" height="${visual.height}" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;border-radius:16px" /></picture><figcaption>${visual.caption}</figcaption></figure>`
+    content = content.replace(`<h2 id="${visual.beforeSection}">`, `${figure}<h2 id="${visual.beforeSection}">`)
+  }
+  return content
+}
 
 interface Props {
   params: { slug: string }
@@ -28,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: article.metaDescription || article.excerpt,
       siteName: 'Бани Герасимов',
       type: 'article',
-      images: article.coverImage ? [{ url: `https://banger.su${article.coverImage}`, width: 1600, height: 900, alt: article.coverAlt || article.title }] : [],
+      images: article.coverImage ? [{ url: `https://banger.su${article.coverImage}`, width: article.imageWidth || 1600, height: article.imageHeight || 900, alt: article.coverAlt || article.title }] : [],
     },
     twitter: { card: 'summary_large_image', title: article.title, description: article.metaDescription || article.excerpt, images: article.coverImage ? [`https://banger.su${article.coverImage}`] : [] },
   }
@@ -71,7 +80,7 @@ export default function ArticlePage({ params }: Props) {
 
           {heroImage && <figure className="mb-8">
             <picture>
-              {article.imageAvif && <source srcSet={article.imageAvif} type="image/avif" />}
+              {article.imageAvif && <source srcSet={withBasePath(article.imageAvif)} type="image/avif" />}
               <img src={withBasePath(heroImage)} alt={article.imageAlt || article.coverAlt || article.title} width={article.imageWidth || (article.image ? 1440 : 1600)} height={article.imageHeight || (article.image ? 810 : 900)} fetchPriority="high" className="w-full h-auto rounded-3xl" />
             </picture>
             {article.imageCaption && <figcaption className="text-sm text-cream/60 mt-3">{article.imageCaption}</figcaption>}
@@ -86,7 +95,7 @@ export default function ArticlePage({ params }: Props) {
             </ol>
           </nav>}
           <article className="article-body glass rounded-3xl p-5 sm:p-8 text-cream/80"
-            dangerouslySetInnerHTML={{ __html: articleHtmlWithBasePath(article.content, homes.map((home) => home.slug)) }} />
+            dangerouslySetInnerHTML={{ __html: articleHtmlWithBasePath(contentWithVisuals(article.slug, article.content), homes.map((home) => home.slug)) }} />
           {article.photoBrief && !heroImage && <section aria-label="Место для иллюстраций" className="glass rounded-3xl p-5 sm:p-8 mt-8 border border-dashed border-cream/20">
             <h2 className="text-xl font-bold text-cream mb-3">Иллюстрации к материалу</h2>
             <p className="text-cream/70 leading-relaxed">{article.photoBrief}</p>

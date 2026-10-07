@@ -41,7 +41,7 @@ for cover in manifest['covers']:
     assert any(image['src'].endswith(path) and image['alt'] == cover['alt'] for image in listing.images), slug
     assert page.meta['og:image'] == page.meta['twitter:image'] == 'https://banger.su' + path, slug
     assert page.meta['twitter:card'] == 'summary_large_image', slug
-    assert page.meta['og:image:width'] == '1600' and page.meta['og:image:height'] == '900', slug
+    assert page.meta['og:image:width'] == str(cover['width']) and page.meta['og:image:height'] == str(cover['height']), slug
 visuals = json.loads((root / 'docs/article-visual-sources.json').read_text(encoding='utf-8'))
 for visual in visuals['visuals']:
     assert hashlib.sha256(Path(visual['source']).read_bytes()).hexdigest() == visual['source_sha256']

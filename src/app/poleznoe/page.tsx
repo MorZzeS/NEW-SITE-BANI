@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Clock, ArrowRight } from 'lucide-react'
 import { articles } from '@/data'
 import { withBasePath } from '@/lib/site-path'
+import { articleCoverPositions } from '@/data/article-visuals'
 
 export const metadata = {
   title: 'Полезное — советы и статьи о банях',
@@ -27,7 +28,10 @@ export default function PoleznoeePage() {
           {articles.map((article) => (
             <Link href={`/poleznoe/${article.slug}`} key={article.id} className="group block">
               <div className="glass-card overflow-hidden h-full flex flex-col">
-                {article.coverImage && <img src={withBasePath(article.coverImage)} alt={article.coverAlt || article.title} width={1600} height={900} loading="lazy" className="w-full aspect-video object-cover" />}
+                {article.coverImage && <picture className="block aspect-video">
+                  {article.imageAvif && <source srcSet={withBasePath(article.imageAvif)} type="image/avif" />}
+                  <img src={withBasePath(article.coverImage)} alt={article.coverAlt || article.title} width={article.imageWidth || 1600} height={article.imageHeight || 900} loading="lazy" decoding="async" className="w-full aspect-video object-cover" style={{ objectPosition: articleCoverPositions[article.slug] || 'center' }} />
+                </picture>}
                 <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <span className="section-tag text-[10px] px-3 py-1">{article.category}</span>
