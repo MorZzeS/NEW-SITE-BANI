@@ -79,10 +79,8 @@ export function Header({ settings }: Props) {
     <>
       <header
         className={clsx(
-          'site-header fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,box-shadow] duration-200',
-          scrolled
-            ? 'glass-dark-strong shadow-lg py-4'
-            : 'bg-graphite-950/30 backdrop-blur-sm border-b border-white/5 py-4'
+          'site-header fixed top-0 inset-x-0 z-50 py-4 transition-[background-color,border-color,box-shadow] duration-200',
+          scrolled && 'is-scrolled'
         )}
       >
         <div className="site-container flex items-center justify-between gap-4">
@@ -168,15 +166,6 @@ export function Header({ settings }: Props) {
           {/* Right controls */}
           <div className="flex items-center gap-2 shrink-0">
             <PhoneLinks className="hidden lg:flex shrink-0 text-xs gap-0 [&_a]:min-h-6" />
-            <a
-              href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:flex items-center px-3 py-2 rounded-xl text-xs font-semibold text-cream/85 hover:text-cream bg-white/8 hover:bg-white/15 border border-white/12 hover:border-white/25 transition-all duration-200"
-              aria-label="MAX — написать сообщение"
-            >
-              MAX
-            </a>
             <Link
               href="/kontakty#zayavka"
               className="btn-primary px-4 py-2 text-xs hidden sm:flex rounded-xl"

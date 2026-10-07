@@ -29,7 +29,9 @@ export function HeroSection() {
     const warm = () => {
       const image = new window.Image()
       image.fetchPriority = 'low'
-      image.src = `/NEW-SITE-BANI/images/hero/hero-${document.documentElement.dataset.theme === 'light' ? 'night' : 'day'}.webp`
+      image.src = document.documentElement.dataset.theme === 'light'
+        ? '/NEW-SITE-BANI/images/hero/hero-night.webp'
+        : '/NEW-SITE-BANI/images/hero/hero-bg.webp'
     }
     const timer = setTimeout(warm, 3000)
     return () => clearTimeout(timer)
@@ -39,7 +41,8 @@ export function HeroSection() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <div className="hero-theme-render absolute inset-0" role="img" aria-label="Визуализация нашей бани на природе" />
-        {/* Gradient overlays */}
+        <div className="hero-tone absolute inset-0" aria-hidden="true" />
+        {/* Existing directional gradients retain the text contrast. */}
         <div className="absolute inset-0 bg-gradient-to-r from-graphite-950/85 via-graphite-950/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/70 via-transparent to-graphite-950/30" />
       </div>
