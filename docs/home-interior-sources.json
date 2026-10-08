@@ -177,8 +177,8 @@
     {
       "src": "/NEW-SITE-BANI/images/interiors/home/interior-20.webp",
       "avif": "/NEW-SITE-BANI/images/interiors/home/interior-20.avif",
-      "caption": "Водоснабжение",
-      "alt": "Водоснабжение — реальное фото интерьера нашей бани",
+      "caption": "Электрооборудование",
+      "alt": "Электрооборудование: электрощит, блок управления и коммутации, проводка и аккумуляторный блок",
       "source": "public\\images\\interiors\\barn-premium-15.jpg",
       "source_sha256": "c2438cae6dc4f33f69bba9fa93e513b7cb4c337d529ea6af997b7b138df22ded",
       "selection": "Owner interior sources; inspected, no people/children; distinct frames, duplicates omitted"

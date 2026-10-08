@@ -116,7 +116,7 @@ export const homeInteriors = [
   {
     "src": "/images/interiors/home/interior-20.webp",
     "avif": "/images/interiors/home/interior-20.avif",
-    "caption": "Водоснабжение",
-    "alt": "Водоснабжение — реальное фото интерьера нашей бани"
+    "caption": "Электрооборудование",
+    "alt": "Электрооборудование: электрощит, блок управления и коммутации, проводка и аккумуляторный блок"
   }
 ] as const

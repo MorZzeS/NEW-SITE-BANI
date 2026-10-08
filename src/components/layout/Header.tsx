@@ -70,7 +70,7 @@ export function Header({ settings }: Props) {
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false) }
+    const onResize = () => { if (window.innerWidth >= 1280) setMobileOpen(false) }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
@@ -83,7 +83,7 @@ export function Header({ settings }: Props) {
           scrolled && 'is-scrolled'
         )}
       >
-        <div className="site-container flex items-center justify-between gap-4">
+        <div className="site-container header-layout">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0 group min-w-0">
             <div className={clsx(
@@ -105,7 +105,7 @@ export function Header({ settings }: Props) {
           </Link>
 
           {/* Desktop nav */}
-          <nav ref={dropRef} className="hidden lg:flex items-center gap-0.5" aria-label="Основная навигация">
+          <nav ref={dropRef} className="header-desktop-nav items-center gap-0.5" aria-label="Основная навигация">
             {navItems.map((item) => (
               item.children ? (
                 <div key={item.label} className="relative">
@@ -114,7 +114,7 @@ export function Header({ settings }: Props) {
                     aria-expanded={dropdown === item.label}
                     aria-haspopup="true"
                     className={clsx(
-                      'flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+                      'flex items-center gap-1 px-3 py-2 rounded-lg header-nav-item transition-all duration-200',
                       'text-cream/80 hover:text-cream hover:bg-white/10',
                       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4a843]/60',
                       dropdown === item.label && 'text-cream bg-white/10'
@@ -152,7 +152,7 @@ export function Header({ settings }: Props) {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+                    'px-3 py-2 rounded-lg header-nav-item transition-all duration-200',
                     'text-cream/80 hover:text-cream hover:bg-white/10',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4a843]/60'
                   )}
@@ -163,9 +163,10 @@ export function Header({ settings }: Props) {
             ))}
           </nav>
 
+          <PhoneLinks className="header-phone-links" />
+
           {/* Right controls */}
-          <div className="flex items-center gap-2 shrink-0">
-            <PhoneLinks className="hidden lg:flex shrink-0 text-xs gap-0 [&_a]:min-h-6" />
+          <div className="header-controls flex items-center gap-2 shrink-0">
             <Link
               href="/kontakty#zayavka"
               className="btn-primary px-4 py-2 text-xs hidden sm:flex rounded-xl"
@@ -178,7 +179,7 @@ export function Header({ settings }: Props) {
               ref={mobileTrigger}
               onClick={() => setMobileOpen(!mobileOpen)}
               className={clsx(
-                'lg:hidden rounded-xl p-2 transition-all duration-200',
+                'header-menu-trigger rounded-xl p-2 transition-all duration-200',
                 'bg-white/10 hover:bg-white/18 border border-white/15 text-cream',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4a843]/60'
               )}
@@ -193,7 +194,7 @@ export function Header({ settings }: Props) {
 
       {/* Mobile menu */}
       <AnimatePresence>{mobileOpen && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={menuTransition} className="theme-mobile-menu fixed inset-0 z-40 lg:hidden">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={menuTransition} className="theme-mobile-menu fixed inset-0 z-40 header-mobile-panel">
           <div
             className="absolute inset-0 bg-graphite-950/80 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}

@@ -8,12 +8,6 @@ import { useEffect, useState } from 'react'
 import { bathVideoAction } from '@/data/videos'
 import { ArrowRight, Play, Shield, Truck, Factory, Wrench } from 'lucide-react'
 
-const features = [
-  { icon: Factory, label: 'Собственное\nпроизводство' },
-  { icon: Truck, label: 'Доставка\nи установка' },
-  { icon: Shield, label: 'Гарантия\nна все бани' },
-]
-
 const trustItems = [
   { icon: Factory, title: 'Производство', caption: 'Собственное производство' },
   { icon: Truck, title: 'Доставка', caption: 'Москва и Московская область' },
@@ -77,20 +71,8 @@ export function HeroSection() {
                   Доставим и установим по Москве и Московской области.
                 </p>
 
-                {/* Feature badges */}
-                <div className="flex flex-wrap gap-x-5 gap-y-3 mb-7 animate-fade-up" style={{ animationDelay: '0.4s', textShadow: '0 1px 3px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.7)' }}>
-                  {features.map(({ icon: Icon, label }) => (
-                    <div key={label} className="flex items-center gap-2.5 cursor-default">
-                      <div className="flex items-center justify-center shrink-0">
-                        <Icon className="w-4 h-4 text-cream/75" strokeWidth={1.5} />
-                      </div>
-                      <span className="text-xs text-cream font-medium whitespace-pre-line leading-snug">{label}</span>
-                    </div>
-                  ))}
-                </div>
-
                 {/* CTAs */}
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-4 animate-fade-up" style={{ animationDelay: '0.5s' }}>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-4 animate-fade-up" style={{ animationDelay: '0.4s' }}>
                   <Link href="/katalog/bani" className="btn-primary text-sm px-7 py-3.5">
                     Смотреть каталог
                     <ArrowRight className="w-4 h-4" />

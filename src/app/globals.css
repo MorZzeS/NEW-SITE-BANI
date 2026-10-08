@@ -608,3 +608,18 @@ html { scrollbar-gutter: stable; }
 }
 .hero-social .social-qr-name svg { color: #e8c97a; }
 [data-theme="light"] .hero-social .social-qr-name svg { color: #e8c97a; }
+
+/* Balanced desktop header: contacts occupy the free track between nav and actions. */
+.header-layout { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.header-desktop-nav, .header-phone-links { display:none; }
+.header-controls { justify-self:end; }
+.header-nav-item { font-size:1.05rem; font-weight:600; white-space:nowrap; }
+.header-phone-links { font-size:15px; font-weight:600; line-height:1.4; white-space:nowrap; gap:0; }
+.header-phone-links a { min-height:24px; justify-content:center; }
+@media (min-width:1280px) {
+ .header-layout { display:grid; grid-template-columns:auto auto minmax(156px,1fr) auto; column-gap:clamp(16px,1.5vw,24px); }
+ .header-desktop-nav { display:flex; }
+ .header-phone-links { display:flex; justify-self:center; }
+ .header-menu-trigger, .header-mobile-panel { display:none; }
+ .header-nav-item { padding-left:10px; padding-right:10px; }
+}
