@@ -15,6 +15,7 @@ const ids = source.additionalOptions.filter(o => o.enabled).map(o => o.id)
 assert.equal(ids.length, 19)
 assert.equal(selection.equipmentSelection([...ids, ...ids, 'invalid']).selected.length, 19)
 assert.equal(selection.equipmentSelection(ids).knownTotal, source.additionalOptions.filter(o => o.enabled).reduce((sum, o) => sum + (o.salePrice ?? 0), 0))
+const reportedCase=selection.equipmentSelection(['floor','decor','ermak']);assert.equal(reportedCase.selected.length,3);assert.equal(reportedCase.knownTotal,42900);for(const option of reportedCase.selected)assert(reportedCase.comment.includes(option.name));
 const pair = selection.equipmentSelection(['boiler', 'tray', 'boiler'])
 assert.equal(pair.selected.length, 2); assert.equal(pair.knownTotal, 32500); assert.equal(pair.unpricedCount, 1)
 assert.equal(selection.equipmentSelection([]).comment, '')
@@ -58,3 +59,24 @@ clock += 5000
 await findForm(tooLong).props.onSubmit({ preventDefault() {}, currentTarget: {} })
 assert.equal(sent.length, 2, 'overflow must not send or silently truncate')
 console.log(`PASS: 19/19 options, canonical prices, deduplication, unknown price, reset, comment limit; real form submit payload passes unchanged backend validation (${sent[0].comment.length}/1500 chars). No real requests sent.`)
+
+const baseData=load('src/data/equipment.ts');let uiHook=0;const uiState=[[],['Моечная']];
+const uiReact={useState: initial=>{const n=uiHook++;return [uiState[n]??initial,next=>{uiState[n]=typeof next==='function'?next(uiState[n]):next}]},useRef:value=>({current:value})};
+const ui=load('src/components/catalog/EquipmentConfigurator.tsx',id=>{
+ if(id==='react')return uiReact;
+ if(id==='react/jsx-runtime')return {jsx,jsxs:jsx};
+ if(id==='@/data/equipment')return baseData;
+ if(id==='@/data/options')return source;
+ if(id==='@/lib/equipment-selection')return selection;
+ if(id==='@/components/forms/CTAFormInline')return {CTAFormInline:'test-form'};
+ if(id.endsWith('.module.css'))return {default:new Proxy({},{get:(_,key)=>String(key)})};
+ throw new Error(id);
+});
+function nodes(node){if(!node||typeof node!=='object')return [];return [node,...[node.props?.children].flat(Infinity).flatMap(nodes)]}
+function renderUI(){uiHook=0;return nodes(ui.EquipmentConfigurator())}
+function snapshot(){const all=renderUI(),summary=all.find(n=>n.props?.['data-selected-count']!==undefined),form=all.find(n=>n.type==='test-form');return {all,summary,form}}
+for(const id of ['floor','decor','ermak']){const state=snapshot();const option=source.additionalOptions.find(o=>o.id===id);const input=state.all.find(n=>n.type==='input'&&n.props['aria-label']==='Добавить: '+option.name);input.props.onChange()}
+let rendered=snapshot();assert.equal(rendered.summary.props['data-selected-count'],3);assert.equal(rendered.summary.props['data-additional-total'],42900);assert(rendered.form.props.configurationNote.includes('Проливной пол'));
+const remove=rendered.all.find(n=>n.type==='button'&&n.props['aria-label']==='Убрать: Печь Ермак 12 ПС');remove.props.onClick();rendered=snapshot();assert.equal(rendered.summary.props['data-selected-count'],2);assert.equal(rendered.summary.props['data-additional-total'],23400);
+rendered.all.find(n=>n.type==='button'&&n.props.className==='clear').props.onClick();rendered=snapshot();assert.equal(rendered.summary.props['data-selected-count'],0);assert.equal(rendered.summary.props['data-additional-total'],0);assert.equal(rendered.form.props.configurationNote,'');
+console.log('PASS: component events from multiple categories + popular remove + reset update summary count/total and form from one canonical selection. Browser paint/translation still needs live verification.');
