@@ -3,8 +3,9 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { siteSettings } from '@/data'
 import { leadEndpoint, sendLead } from '@/lib/leads'
+import { mergeConfigurationComment } from '@/lib/equipment-selection'
 
-export function CTAFormInline({ modelName }: { modelName?: string }) {
+export function CTAFormInline({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
  const [status,setStatus]=useState<'idle'|'sending'|'success'|'error'>('idle')
  const [error,setError]=useState('')
  const [name,setName]=useState(''),[phone,setPhone]=useState(''),[model,setModel]=useState(modelName || ''),[comment,setComment]=useState('')
@@ -18,12 +19,15 @@ export function CTAFormInline({ modelName }: { modelName?: string }) {
   if(pending.current || status==='success')return
   if(!/^[78]\d{10}$/.test(phone.replace(/\D/g,''))) {setError('Введите телефон в формате +7 900 000-00-00');setStatus('error');return}
   if(!consent)return
+  let submittedComment: string
+  try { submittedComment=mergeConfigurationComment(comment,configurationNote) }
+  catch(err){setError(err instanceof Error?err.message:'Сократите комментарий.');setStatus('error');return}
   const website=new FormData(event.currentTarget).get('website')?.toString() || ''
   pending.current=true;setStatus('sending');setError('')
   try {
-   const body=JSON.stringify([name.trim(),phone,model,comment])
+   const body=JSON.stringify([name.trim(),phone,model,submittedComment])
    if(!request.current || request.current.body!==body)request.current={id:crypto.randomUUID(),body}
-   await sendLead({requestId:request.current.id,name:name.trim(),phone,model,page:location.href,comment,createdAt:new Date().toISOString(),consent,website,startedAt:started.current});setStatus('success')
+   await sendLead({requestId:request.current.id,name:name.trim(),phone,model,page:location.href,comment:submittedComment,createdAt:new Date().toISOString(),consent,website,startedAt:started.current});setStatus('success')
   }
   catch(err){setError(err instanceof Error?err.message:'Не удалось отправить заявку. Свяжитесь напрямую.');setStatus('error')}
   finally{pending.current=false}
@@ -35,6 +39,7 @@ export function CTAFormInline({ modelName }: { modelName?: string }) {
    <label className="block text-sm text-cream">Имя<input aria-label="Ваше имя" autoComplete="name" value={name} onChange={e=>setName(e.target.value)} required minLength={2} maxLength={80} className="lead-input" /></label>
    <label className="block text-sm text-cream">Телефон<input aria-label="Телефон для заявки" type="tel" autoComplete="tel" value={phone} onChange={e=>setPhone(e.target.value)} required maxLength={30} placeholder="+7 900 000-00-00" className="lead-input" /></label>
    <label className="block text-sm text-cream">Модель<input value={model} onChange={e=>setModel(e.target.value)} maxLength={160} className="lead-input" /></label>
+   {configurationNote && <div className="text-sm text-cream/70 border-l-2 border-gold-400 pl-4" aria-label="Выбранные опции для заявки"><p className="whitespace-pre-line">{configurationNote}</p><p className="text-xs mt-2">Этот список будет отправлен вместе с вашим комментарием.</p></div>}
    <label className="block text-sm text-cream">Комментарий<textarea value={comment} onChange={e=>setComment(e.target.value)} maxLength={1500} rows={3} className="lead-input" /></label>
    <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
    <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required className="mt-1" /><span>Согласен с <Link href="/privacy" className="underline">политикой конфиденциальности</Link> и обработкой данных для ответа на заявку.</span></label>
