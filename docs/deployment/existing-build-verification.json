@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "input": "C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\dist",
+  "inputFiles": 655,
+  "artifactFiles": 655,
+  "htmlPages": 136,
+  "preservedScriptTags": 2660,
+  "preservedFormOpenTags": 38,
+  "compiledAudit": {
+    "scripts": 49,
+    "inlineScripts": 1156,
+    "scriptReferences": 1504,
+    "endpointInitializers": 1,
+    "emptyConfiguredEndpoint": true,
+    "compiledEmptyFallback": true,
+    "httpGuard": true,
+    "renderReferences": 0,
+    "assurance": "Static recognized initializer and literal/reference audit; not arbitrary-code or dynamic-destination proof"
+  },
+  "checks": 928,
+  "sourceUnchanged": true,
+  "buildRun": false,
+  "network": false,
+  "artifact": "temporary owned-dir package verified and cleaned"
+}

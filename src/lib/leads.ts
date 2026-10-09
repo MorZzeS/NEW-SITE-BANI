@@ -1,4 +1,8 @@
+import { consentEvidenceReady } from './lead-consent'
 export type Lead = {
+  contractVersion?: number
+  consentVersion?: string
+  policyVersion?: string
   requestId: string
   name: string
   phone: string
@@ -12,6 +16,8 @@ export type Lead = {
 }
 export const leadEndpoint = process.env.NEXT_PUBLIC_LEADS_ENDPOINT || ''
 export async function sendLead(lead: Lead) {
+  if (typeof location !== 'undefined' && location.protocol !== 'https:') throw new Error('На HTTP-тестовом сайте отправка заявок отключена. Свяжитесь напрямую.')
+  if (!consentEvidenceReady) throw new Error('Документы для новой системы заявок ещё не утверждены.')
   if (!/^https:\/\//.test(leadEndpoint)) throw new Error('Онлайн-отправка пока не настроена. Позвоните или напишите нам напрямую.')
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), 75000)

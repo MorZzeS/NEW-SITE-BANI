@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-09",
+  "checks": {
+    "node --test backend/leads-server.test.mjs": {
+      "cmd": "node --test backend/leads-server.test.mjs",
+      "chunk_id": "643ee8",
+      "wall_time_seconds": 0.3042487,
+      "exit_code": 0,
+      "original_token_count": 150,
+      "output": "✔ validation rejects honeypot, invalid phone and no consent (0.6673ms)\n✔ staging root and trusted proxy client IPs are supported (36.3687ms)\nMAX delivery failed Error\n✔ HTTP contract, idempotency, CORS, rate limit and failed delivery (21.3887ms)\nMAX upstream HTTP status undefined\nMAX delivery failed Error\nMAX delivery failed Error\n✔ user_id is required and upstream errors never return success (10.282ms)\n✔ Render health is public and does not expose configuration (2.963ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 150.5746\n"
+    },
+    "node scripts/spaceweb/test-safety.mjs": {
+      "cmd": "node scripts/spaceweb/test-safety.mjs",
+      "chunk_id": "de3485",
+      "wall_time_seconds": 0.7602738,
+      "exit_code": 0,
+      "original_token_count": 13,
+      "output": "PASS 42 offline safety checks; no build or network\n"
+    },
+    "node scripts/spaceweb/test-existing-build.mjs dist": {
+      "cmd": "node scripts/spaceweb/test-existing-build.mjs dist",
+      "chunk_id": "d6fdc2",
+      "wall_time_seconds": 9.8058316,
+      "exit_code": 0,
+      "original_token_count": 195,
+      "output": "{\n  \"result\": \"PASS\",\n  \"input\": \"C:\\\\Users\\\\maxto\\\\Desktop\\\\НОВЫЙ САЙТ\\\\banger-unified-preparation\\\\dist\",\n  \"inputFiles\": 655,\n  \"artifactFiles\": 655,\n  \"htmlPages\": 136,\n  \"preservedScriptTags\": 2660,\n  \"preservedFormOpenTags\": 38,\n  \"compiledAudit\": {\n    \"scripts\": 49,\n    \"inlineScripts\": 1156,\n    \"scriptReferences\": 1504,\n    \"endpointInitializers\": 1,\n    \"emptyConfiguredEndpoint\": true,\n    \"compiledEmptyFallback\": true,\n    \"httpGuard\": true,\n    \"renderReferences\": 0,\n    \"assurance\": \"Static recognized initializer and literal/reference audit; not arbitrary-code or dynamic-destination proof\"\n  },\n  \"checks\": 928,\n  \"sourceUnchanged\": true,\n  \"buildRun\": false,\n  \"network\": false,\n  \"artifact\": \"temporary owned-dir package verified and cleaned\"\n}\n"
+    },
+    "php-lint": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; $filesQa = @(Get-ChildItem -LiteralPath backend/spaceweb -Filter '*.php' -Recurse -File); foreach ($fileQa in $filesQa) { & $phpQa -n -d \"extension_dir=$extQa\" -d extension=openssl -d extension=mbstring -d extension=curl -d extension=pdo_mysql -l $fileQa.FullName; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }; Write-Output \"PHP lint files: $($filesQa.Count)\"",
+      "chunk_id": "761bd0",
+      "wall_time_seconds": 1.0499217,
+      "exit_code": 0,
+      "original_token_count": 593,
+      "output": "No syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\backup.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\outbox.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\retention.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\backup-format.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\ca.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\config.production.example.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\config.test.example.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\notifier.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\readiness.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\validation.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\public_html\\health.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\public_html\\leads.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\backup-format.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\integration.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\notifier.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\operations.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\validation.php\nPHP lint files: 17\r\n"
+    },
+    "php-validation": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; & $phpQa -n -d \"extension_dir=$extQa\" -d extension=openssl -d extension=mbstring -d extension=curl -d extension=pdo_mysql backend/spaceweb/tests/validation.php",
+      "chunk_id": "8cb5a0",
+      "wall_time_seconds": 0.156193,
+      "exit_code": 0,
+      "original_token_count": 8,
+      "output": "Validation checks passed: 12\n"
+    },
+    "php-notifier": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; & $phpQa -n -d \"extension_dir=$extQa\" -d extension=openssl -d extension=mbstring -d extension=curl -d extension=pdo_mysql backend/spaceweb/tests/notifier.php",
+      "chunk_id": "c2e644",
+      "wall_time_seconds": 0.1585306,
+      "exit_code": 0,
+      "original_token_count": 7,
+      "output": "Offline outcome checks: 7\n"
+    },
+    "php-operations": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; & $phpQa -n -d \"extension_dir=$extQa\" -d extension=openssl -d extension=mbstring -d extension=curl -d extension=pdo_mysql backend/spaceweb/tests/operations.php",
+      "chunk_id": "eaf2ad",
+      "wall_time_seconds": 0.3159216,
+      "exit_code": 0,
+      "original_token_count": 11,
+      "output": "Readiness/operations/CA offline checks: 19\n"
+    },
+    "php-backup-format": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; & $phpQa -n -d \"extension_dir=$extQa\" -d extension=openssl -d extension=mbstring -d extension=curl -d extension=pdo_mysql backend/spaceweb/tests/backup-format.php",
+      "chunk_id": "78514f",
+      "wall_time_seconds": 0.1496808,
+      "exit_code": 0,
+      "original_token_count": 16,
+      "output": "Backup encryption/validation/write/isolation offline checks: 17\n"
+    },
+    "zip-inventory-write": {
+      "cmd": "$zipQa = 'C:/Users/maxto/Desktop/SpaceWeb-BANGER/unified-preview-20261009/BANGER-SPACEWEB-TEST.zip'; $hashQa = (Get-FileHash -LiteralPath $zipQa -Algorithm SHA256).Hash.ToLowerInvariant(); Add-Type -AssemblyName System.IO.Compression.FileSystem; $archiveQa = [System.IO.Compression.ZipFile]::OpenRead($zipQa); try { $membersQa = @($archiveQa.Entries | ForEach-Object { [pscustomobject]@{name=$_.FullName;bytes=$_.Length} }); $filesQa = @($membersQa | Where-Object { -not $_.name.EndsWith('/') }); $dirsQa = @($membersQa | Where-Object { $_.name.EndsWith('/') }); $badQa = @($membersQa | Where-Object { $_.name -match '(^/|(^|/)\\.\\.(/|$)|\\\\|(^|/)(backend|private|config|userdata|api)(/|$)|\\.(php\\d?|phtml|phar|env|ini|conf|config|sql|bak|log|key|pem)$)' }); [pscustomobject]@{sha256=$hashQa;expectedHashMatches=($hashQa -eq 'cc276ccdf505fbf0147430b4a8b6a458e60be4d1c71d33febae96124b1b54d94');files=$filesQa.Count;directories=$dirsQa.Count;emptyDirectoryNames=@($dirsQa.name);indexAtRoot=(@($filesQa | Where-Object name -eq 'index.html').Count -eq 1);forbiddenMembers=$badQa.Count;duplicateNames=(@($membersQa | Group-Object name | Where-Object Count -gt 1).Count);inventory=$membersQa} | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath output/qa-evidence/final-zip-inventory.json -Encoding utf8 } finally { $archiveQa.Dispose() }; $zipSummaryQa = Get-Content -Raw -LiteralPath output/qa-evidence/final-zip-inventory.json | ConvertFrom-Json; $zipSummaryQa | Select-Object sha256,expectedHashMatches,files,directories,indexAtRoot,forbiddenMembers,duplicateNames | ConvertTo-Json",
+      "chunk_id": "aea9ed",
+      "wall_time_seconds": 0.5319085,
+      "exit_code": 0,
+      "original_token_count": 58,
+      "output": "{\r\n  \"sha256\": \"cc276ccdf505fbf0147430b4a8b6a458e60be4d1c71d33febae96124b1b54d94\",\r\n  \"expectedHashMatches\": true,\r\n  \"files\": 655,\r\n  \"directories\": 1,\r\n  \"indexAtRoot\": true,\r\n  \"forbiddenMembers\": 0,\r\n  \"duplicateNames\": 0\r\n}\r\n"
+    },
+    "apache-summary": {
+      "cmd": "$apacheQa = Get-Content -Raw -LiteralPath '../banger-unified-role-runs/apache-http-results.json' | ConvertFrom-Json; [pscustomobject]@{classification='inherited coordinator evidence, not independently executed';source='../banger-unified-role-runs/apache-http-results.json';sha256=(Get-FileHash -LiteralPath '../banger-unified-role-runs/apache-http-results.json' -Algorithm SHA256).Hash;requests=$apacheQa.requests;results=$apacheQa.results.Count;pass=@($apacheQa.results | Where-Object pass -eq $true).Count;failures=$apacheQa.failures.Count} | ConvertTo-Json",
+      "chunk_id": "2dfdef",
+      "wall_time_seconds": 0.1367844,
+      "exit_code": 0,
+      "original_token_count": 78,
+      "output": "{\r\n  \"classification\": \"inherited coordinator evidence, not independently executed\",\r\n  \"source\": \"../banger-unified-role-runs/apache-http-results.json\",\r\n  \"sha256\": \"E33DCB74FB3054E75B07B75F2F1D1216CE7032D3BEF38317FB00775BC12FCA8C\",\r\n  \"requests\": 779,\r\n  \"results\": 779,\r\n  \"pass\": 779,\r\n  \"failures\": 0\r\n}\r\n"
+    }
+  },
+  "historicalEvidence": "offline-20261009.json; independent-checks.json",
+  "blocked": [
+    "SQL integration",
+    "independent UI",
+    "provider infrastructure",
+    "real MAX delivery"
+  ]
+}

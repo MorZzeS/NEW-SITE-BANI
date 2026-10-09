@@ -70,7 +70,7 @@ test('user_id is required and upstream errors never return success', async () =>
 
 test('Render health is public and does not expose configuration', async () => {
  const server = createLeadServer({env:{}})
- await new Promise(resolve=>server.listen(0,'0.0.0.0',resolve))
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve))
  try {
   const response=await fetch(`http://127.0.0.1:${server.address().port}/health`)
   assert.equal(response.status,200)

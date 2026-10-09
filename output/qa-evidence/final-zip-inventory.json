@@ -1,0 +1,2638 @@
+{
+  "sha256": "cc276ccdf505fbf0147430b4a8b6a458e60be4d1c71d33febae96124b1b54d94",
+  "expectedHashMatches": true,
+  "files": 655,
+  "directories": 1,
+  "emptyDirectoryNames": [
+    "_next/5s7HNKGvs7Dy33WQDAS_E/"
+  ],
+  "indexAtRoot": true,
+  "forbiddenMembers": 0,
+  "duplicateNames": 0,
+  "inventory": [
+    {
+      "name": ".htaccess",
+      "bytes": 1776
+    },
+    {
+      "name": "404.html",
+      "bytes": 43597
+    },
+    {
+      "name": "dostavka-i-ustanovka.html",
+      "bytes": 55386
+    },
+    {
+      "name": "dostavka-i-ustanovka.txt",
+      "bytes": 26545
+    },
+    {
+      "name": "index.html",
+      "bytes": 176483
+    },
+    {
+      "name": "index.txt",
+      "bytes": 72815
+    },
+    {
+      "name": "kak-ustroeno.html",
+      "bytes": 63311
+    },
+    {
+      "name": "kak-ustroeno.txt",
+      "bytes": 30739
+    },
+    {
+      "name": "katalog.html",
+      "bytes": 25320
+    },
+    {
+      "name": "katalog.txt",
+      "bytes": 19257
+    },
+    {
+      "name": "komplektaciya.html",
+      "bytes": 70509
+    },
+    {
+      "name": "komplektaciya.txt",
+      "bytes": 19651
+    },
+    {
+      "name": "kontakty.html",
+      "bytes": 46736
+    },
+    {
+      "name": "kontakty.txt",
+      "bytes": 18466
+    },
+    {
+      "name": "nashi-raboty.html",
+      "bytes": 63966
+    },
+    {
+      "name": "nashi-raboty.txt",
+      "bytes": 30972
+    },
+    {
+      "name": "o-kompanii.html",
+      "bytes": 65603
+    },
+    {
+      "name": "o-kompanii.txt",
+      "bytes": 31856
+    },
+    {
+      "name": "planirovki.html",
+      "bytes": 77910
+    },
+    {
+      "name": "planirovki.txt",
+      "bytes": 37551
+    },
+    {
+      "name": "poleznoe.html",
+      "bytes": 157362
+    },
+    {
+      "name": "poleznoe.txt",
+      "bytes": 79071
+    },
+    {
+      "name": "politika.html",
+      "bytes": 45527
+    },
+    {
+      "name": "politika.txt",
+      "bytes": 21358
+    },
+    {
+      "name": "privacy.html",
+      "bytes": 44178
+    },
+    {
+      "name": "privacy.txt",
+      "bytes": 20679
+    },
+    {
+      "name": "rekvizity.html",
+      "bytes": 45007
+    },
+    {
+      "name": "rekvizity.txt",
+      "bytes": 21159
+    },
+    {
+      "name": "robots.txt",
+      "bytes": 26
+    },
+    {
+      "name": "sitemap.xml",
+      "bytes": 12069
+    },
+    {
+      "name": "soglasie-pd.html",
+      "bytes": 42988
+    },
+    {
+      "name": "soglasie-pd.txt",
+      "bytes": 20037
+    },
+    {
+      "name": "soglasie-reklama.html",
+      "bytes": 42618
+    },
+    {
+      "name": "soglasie-reklama.txt",
+      "bytes": 19848
+    },
+    {
+      "name": "usloviya-zakaza.html",
+      "bytes": 42747
+    },
+    {
+      "name": "usloviya-zakaza.txt",
+      "bytes": 19918
+    },
+    {
+      "name": "vystavka.html",
+      "bytes": 56421
+    },
+    {
+      "name": "vystavka.txt",
+      "bytes": 26815
+    },
+    {
+      "name": "banya/barn-premium.html",
+      "bytes": 79273
+    },
+    {
+      "name": "banya/barn-premium.txt",
+      "bytes": 33689
+    },
+    {
+      "name": "banya/istok-4.html",
+      "bytes": 97158
+    },
+    {
+      "name": "banya/istok-4.txt",
+      "bytes": 43044
+    },
+    {
+      "name": "banya/istok-5.html",
+      "bytes": 97564
+    },
+    {
+      "name": "banya/istok-5.txt",
+      "bytes": 43247
+    },
+    {
+      "name": "banya/istok-6.html",
+      "bytes": 97114
+    },
+    {
+      "name": "banya/istok-6.txt",
+      "bytes": 43022
+    },
+    {
+      "name": "banya/istok-8.html",
+      "bytes": 97738
+    },
+    {
+      "name": "banya/istok-8.txt",
+      "bytes": 43334
+    },
+    {
+      "name": "banya/istok-grafit-4.html",
+      "bytes": 97142
+    },
+    {
+      "name": "banya/istok-grafit-4.txt",
+      "bytes": 42860
+    },
+    {
+      "name": "banya/istok-prostor-7.html",
+      "bytes": 97859
+    },
+    {
+      "name": "banya/istok-prostor-7.txt",
+      "bytes": 43384
+    },
+    {
+      "name": "banya/istok-semeynyy-7.html",
+      "bytes": 97962
+    },
+    {
+      "name": "banya/istok-semeynyy-7.txt",
+      "bytes": 43434
+    },
+    {
+      "name": "banya/istok-semeynyy-7r.html",
+      "bytes": 98382
+    },
+    {
+      "name": "banya/istok-semeynyy-7r.txt",
+      "bytes": 43644
+    },
+    {
+      "name": "banya/istok-stil-7.html",
+      "bytes": 97223
+    },
+    {
+      "name": "banya/istok-stil-7.txt",
+      "bytes": 42949
+    },
+    {
+      "name": "banya/istok-teplo-6.html",
+      "bytes": 97151
+    },
+    {
+      "name": "banya/istok-teplo-6.txt",
+      "bytes": 42877
+    },
+    {
+      "name": "banya/istok-terra-5.html",
+      "bytes": 98937
+    },
+    {
+      "name": "banya/istok-terra-5.txt",
+      "bytes": 43926
+    },
+    {
+      "name": "banya/sever-layt-4.html",
+      "bytes": 97030
+    },
+    {
+      "name": "banya/sever-layt-4.txt",
+      "bytes": 42792
+    },
+    {
+      "name": "banya/sever-panorama-8.html",
+      "bytes": 97689
+    },
+    {
+      "name": "banya/sever-panorama-8.txt",
+      "bytes": 43156
+    },
+    {
+      "name": "banya/sever-rezidents-7.html",
+      "bytes": 97684
+    },
+    {
+      "name": "banya/sever-rezidents-7.txt",
+      "bytes": 43153
+    },
+    {
+      "name": "banya/sever-terra-65.html",
+      "bytes": 97594
+    },
+    {
+      "name": "banya/sever-terra-65.txt",
+      "bytes": 43112
+    },
+    {
+      "name": "banya/skandinaviya-komfort-6.html",
+      "bytes": 98024
+    },
+    {
+      "name": "banya/skandinaviya-komfort-6.txt",
+      "bytes": 43431
+    },
+    {
+      "name": "banya/skandinaviya-komfort-8.html",
+      "bytes": 98136
+    },
+    {
+      "name": "banya/skandinaviya-komfort-8.txt",
+      "bytes": 43487
+    },
+    {
+      "name": "banya/skandinaviya-komfort-plus-6.html",
+      "bytes": 98484
+    },
+    {
+      "name": "banya/skandinaviya-komfort-plus-6.txt",
+      "bytes": 43667
+    },
+    {
+      "name": "banya/skandinaviya-komfort-plus-7.html",
+      "bytes": 98628
+    },
+    {
+      "name": "banya/skandinaviya-komfort-plus-7.txt",
+      "bytes": 43739
+    },
+    {
+      "name": "banya/skandinaviya-mini-45.html",
+      "bytes": 97958
+    },
+    {
+      "name": "banya/skandinaviya-mini-45.txt",
+      "bytes": 43401
+    },
+    {
+      "name": "banya/skandinaviya-standart-7.html",
+      "bytes": 98463
+    },
+    {
+      "name": "banya/skandinaviya-standart-7.txt",
+      "bytes": 43649
+    },
+    {
+      "name": "banya/skandinaviya-standart-75.html",
+      "bytes": 98537
+    },
+    {
+      "name": "banya/skandinaviya-standart-75.txt",
+      "bytes": 43683
+    },
+    {
+      "name": "banya/skandinaviya-start-6.html",
+      "bytes": 99473
+    },
+    {
+      "name": "banya/skandinaviya-start-6.txt",
+      "bytes": 44157
+    },
+    {
+      "name": "banya/skandinaviya-start-65.html",
+      "bytes": 98546
+    },
+    {
+      "name": "banya/skandinaviya-start-65.txt",
+      "bytes": 43692
+    },
+    {
+      "name": "dom/usadba-praktik.html",
+      "bytes": 83615
+    },
+    {
+      "name": "dom/usadba-praktik.txt",
+      "bytes": 38736
+    },
+    {
+      "name": "dom/usadba-prostor.html",
+      "bytes": 83419
+    },
+    {
+      "name": "dom/usadba-prostor.txt",
+      "bytes": 38638
+    },
+    {
+      "name": "dom/usadba-semejnaya-6.html",
+      "bytes": 86900
+    },
+    {
+      "name": "dom/usadba-semejnaya-6.txt",
+      "bytes": 39539
+    },
+    {
+      "name": "dom/usadba-terra-7.html",
+      "bytes": 87233
+    },
+    {
+      "name": "dom/usadba-terra-7.txt",
+      "bytes": 39715
+    },
+    {
+      "name": "dom/usadba-uyt-5.html",
+      "bytes": 86637
+    },
+    {
+      "name": "dom/usadba-uyt-5.txt",
+      "bytes": 39437
+    },
+    {
+      "name": "dom/usadba-veranda.html",
+      "bytes": 83657
+    },
+    {
+      "name": "dom/usadba-veranda.txt",
+      "bytes": 38757
+    },
+    {
+      "name": "katalog/bani.html",
+      "bytes": 99270
+    },
+    {
+      "name": "katalog/bani.txt",
+      "bytes": 19145
+    },
+    {
+      "name": "katalog/doma.html",
+      "bytes": 54585
+    },
+    {
+      "name": "katalog/doma.txt",
+      "bytes": 18993
+    },
+    {
+      "name": "model-sheet/bg-01.html",
+      "bytes": 51953
+    },
+    {
+      "name": "model-sheet/bg-01.txt",
+      "bytes": 25270
+    },
+    {
+      "name": "model-sheet/bg-02.html",
+      "bytes": 52359
+    },
+    {
+      "name": "model-sheet/bg-02.txt",
+      "bytes": 25473
+    },
+    {
+      "name": "model-sheet/bg-03.html",
+      "bytes": 52007
+    },
+    {
+      "name": "model-sheet/bg-03.txt",
+      "bytes": 25297
+    },
+    {
+      "name": "model-sheet/bg-04.html",
+      "bytes": 51957
+    },
+    {
+      "name": "model-sheet/bg-04.txt",
+      "bytes": 25272
+    },
+    {
+      "name": "model-sheet/bg-05.html",
+      "bytes": 52151
+    },
+    {
+      "name": "model-sheet/bg-05.txt",
+      "bytes": 25369
+    },
+    {
+      "name": "model-sheet/bg-06.html",
+      "bytes": 52207
+    },
+    {
+      "name": "model-sheet/bg-06.txt",
+      "bytes": 25397
+    },
+    {
+      "name": "model-sheet/bg-07.html",
+      "bytes": 52103
+    },
+    {
+      "name": "model-sheet/bg-07.txt",
+      "bytes": 25345
+    },
+    {
+      "name": "model-sheet/bg-08.html",
+      "bytes": 52035
+    },
+    {
+      "name": "model-sheet/bg-08.txt",
+      "bytes": 25311
+    },
+    {
+      "name": "model-sheet/bg-09.html",
+      "bytes": 51903
+    },
+    {
+      "name": "model-sheet/bg-09.txt",
+      "bytes": 25217
+    },
+    {
+      "name": "model-sheet/bg-10.html",
+      "bytes": 52143
+    },
+    {
+      "name": "model-sheet/bg-10.txt",
+      "bytes": 25337
+    },
+    {
+      "name": "model-sheet/bg-11.html",
+      "bytes": 52055
+    },
+    {
+      "name": "model-sheet/bg-11.txt",
+      "bytes": 25293
+    },
+    {
+      "name": "model-sheet/bg-12.html",
+      "bytes": 52049
+    },
+    {
+      "name": "model-sheet/bg-12.txt",
+      "bytes": 25290
+    },
+    {
+      "name": "model-sheet/bg-13.html",
+      "bytes": 52067
+    },
+    {
+      "name": "model-sheet/bg-13.txt",
+      "bytes": 25299
+    },
+    {
+      "name": "model-sheet/bg-14.html",
+      "bytes": 51903
+    },
+    {
+      "name": "model-sheet/bg-14.txt",
+      "bytes": 25217
+    },
+    {
+      "name": "model-sheet/bg-15.html",
+      "bytes": 52001
+    },
+    {
+      "name": "model-sheet/bg-15.txt",
+      "bytes": 25266
+    },
+    {
+      "name": "model-sheet/bg-16.html",
+      "bytes": 51987
+    },
+    {
+      "name": "model-sheet/bg-16.txt",
+      "bytes": 25259
+    },
+    {
+      "name": "model-sheet/bg-17.html",
+      "bytes": 52005
+    },
+    {
+      "name": "model-sheet/bg-17.txt",
+      "bytes": 25268
+    },
+    {
+      "name": "model-sheet/bg-18.html",
+      "bytes": 51598
+    },
+    {
+      "name": "model-sheet/bg-18.txt",
+      "bytes": 24975
+    },
+    {
+      "name": "model-sheet/bg-19.html",
+      "bytes": 51899
+    },
+    {
+      "name": "model-sheet/bg-19.txt",
+      "bytes": 25154
+    },
+    {
+      "name": "model-sheet/bg-20.html",
+      "bytes": 51908
+    },
+    {
+      "name": "model-sheet/bg-20.txt",
+      "bytes": 25156
+    },
+    {
+      "name": "model-sheet/bg-21.html",
+      "bytes": 51920
+    },
+    {
+      "name": "model-sheet/bg-21.txt",
+      "bytes": 25164
+    },
+    {
+      "name": "model-sheet/bg-22.html",
+      "bytes": 51691
+    },
+    {
+      "name": "model-sheet/bg-22.txt",
+      "bytes": 25024
+    },
+    {
+      "name": "model-sheet/bg-23.html",
+      "bytes": 51753
+    },
+    {
+      "name": "model-sheet/bg-23.txt",
+      "bytes": 25066
+    },
+    {
+      "name": "model-sheet/bg-24.html",
+      "bytes": 51677
+    },
+    {
+      "name": "model-sheet/bg-24.txt",
+      "bytes": 25053
+    },
+    {
+      "name": "model-sheet/bg-25.html",
+      "bytes": 50295
+    },
+    {
+      "name": "model-sheet/bg-25.txt",
+      "bytes": 24282
+    },
+    {
+      "name": "model-sheet/bg-26.html",
+      "bytes": 50267
+    },
+    {
+      "name": "model-sheet/bg-26.txt",
+      "bytes": 24268
+    },
+    {
+      "name": "model-sheet/bg-27.html",
+      "bytes": 50301
+    },
+    {
+      "name": "model-sheet/bg-27.txt",
+      "bytes": 24285
+    },
+    {
+      "name": "model-sheet/bg-28.html",
+      "bytes": 52422
+    },
+    {
+      "name": "model-sheet/bg-28.txt",
+      "bytes": 25478
+    },
+    {
+      "name": "model-sheet/bg-29.html",
+      "bytes": 51435
+    },
+    {
+      "name": "model-sheet/bg-29.txt",
+      "bytes": 24882
+    },
+    {
+      "name": "model-sheet/bg-30.html",
+      "bytes": 51361
+    },
+    {
+      "name": "model-sheet/bg-30.txt",
+      "bytes": 24821
+    },
+    {
+      "name": "model-sheet/bg-31.html",
+      "bytes": 51560
+    },
+    {
+      "name": "model-sheet/bg-31.txt",
+      "bytes": 24927
+    },
+    {
+      "name": "nashi-raboty/istok-8-podmoskovye.html",
+      "bytes": 50728
+    },
+    {
+      "name": "nashi-raboty/istok-8-podmoskovye.txt",
+      "bytes": 23452
+    },
+    {
+      "name": "nashi-raboty/sever-panorama-8-mos.html",
+      "bytes": 50981
+    },
+    {
+      "name": "nashi-raboty/sever-panorama-8-mos.txt",
+      "bytes": 23567
+    },
+    {
+      "name": "nashi-raboty/skandinaviya-komfort-plus-7-spb.html",
+      "bytes": 51083
+    },
+    {
+      "name": "nashi-raboty/skandinaviya-komfort-plus-7-spb.txt",
+      "bytes": 23617
+    },
+    {
+      "name": "nashi-raboty/usadba-terra-podmoskovye.html",
+      "bytes": 50859
+    },
+    {
+      "name": "nashi-raboty/usadba-terra-podmoskovye.txt",
+      "bytes": 23497
+    },
+    {
+      "name": "poleznoe/chto-proishodit-s-organizmom-v-bane.html",
+      "bytes": 82775
+    },
+    {
+      "name": "poleznoe/chto-proishodit-s-organizmom-v-bane.txt",
+      "bytes": 39454
+    },
+    {
+      "name": "poleznoe/dostavka-i-razgruzka.html",
+      "bytes": 43761
+    },
+    {
+      "name": "poleznoe/dostavka-i-razgruzka.txt",
+      "bytes": 20620
+    },
+    {
+      "name": "poleznoe/dostavka-i-ustanovka-mobilnoy-bani.html",
+      "bytes": 59445
+    },
+    {
+      "name": "poleznoe/dostavka-i-ustanovka-mobilnoy-bani.txt",
+      "bytes": 28717
+    },
+    {
+      "name": "poleznoe/drevsesina-dlya-bani.html",
+      "bytes": 44343
+    },
+    {
+      "name": "poleznoe/drevsesina-dlya-bani.txt",
+      "bytes": 20911
+    },
+    {
+      "name": "poleznoe/dymohod-v-derevyannoy-bane.html",
+      "bytes": 59832
+    },
+    {
+      "name": "poleznoe/dymohod-v-derevyannoy-bane.txt",
+      "bytes": 28877
+    },
+    {
+      "name": "poleznoe/elektrika-v-bane.html",
+      "bytes": 58946
+    },
+    {
+      "name": "poleznoe/elektrika-v-bane.txt",
+      "bytes": 28403
+    },
+    {
+      "name": "poleznoe/fasad-mobilnoy-bani.html",
+      "bytes": 58754
+    },
+    {
+      "name": "poleznoe/fasad-mobilnoy-bani.txt",
+      "bytes": 28313
+    },
+    {
+      "name": "poleznoe/fundament-dlya-mobilnoy-bani-bloki-ili-svai.html",
+      "bytes": 64681
+    },
+    {
+      "name": "poleznoe/fundament-dlya-mobilnoy-bani-bloki-ili-svai.txt",
+      "bytes": 31308
+    },
+    {
+      "name": "poleznoe/kak-prinyat-mobilnuyu-banyu.html",
+      "bytes": 59169
+    },
+    {
+      "name": "poleznoe/kak-prinyat-mobilnuyu-banyu.txt",
+      "bytes": 28529
+    },
+    {
+      "name": "poleznoe/kak-vybiraem-pilomaterial-dlya-bani.html",
+      "bytes": 44418
+    },
+    {
+      "name": "poleznoe/kak-vybiraem-pilomaterial-dlya-bani.txt",
+      "bytes": 20971
+    },
+    {
+      "name": "poleznoe/kak-vybrat-drevesinu-dlya-mobilnoy-bani.html",
+      "bytes": 69617
+    },
+    {
+      "name": "poleznoe/kak-vybrat-drevesinu-dlya-mobilnoy-bani.txt",
+      "bytes": 33721
+    },
+    {
+      "name": "poleznoe/kak-vybrat-mobilnuyu-banyu.html",
+      "bytes": 43469
+    },
+    {
+      "name": "poleznoe/kak-vybrat-mobilnuyu-banyu.txt",
+      "bytes": 20483
+    },
+    {
+      "name": "poleznoe/kak-vybrat-pech-dlya-mobilnoy-bani.html",
+      "bytes": 58637
+    },
+    {
+      "name": "poleznoe/kak-vybrat-pech-dlya-mobilnoy-bani.txt",
+      "bytes": 28297
+    },
+    {
+      "name": "poleznoe/karkas-ili-brus-dlya-bani.html",
+      "bytes": 60435
+    },
+    {
+      "name": "poleznoe/karkas-ili-brus-dlya-bani.txt",
+      "bytes": 29177
+    },
+    {
+      "name": "poleznoe/materialy-dlya-mobilnoy-bani.html",
+      "bytes": 65870
+    },
+    {
+      "name": "poleznoe/materialy-dlya-mobilnoy-bani.txt",
+      "bytes": 31866
+    },
+    {
+      "name": "poleznoe/obrabotka-drevesiny-neomid-v-bane.html",
+      "bytes": 73006
+    },
+    {
+      "name": "poleznoe/obrabotka-drevesiny-neomid-v-bane.txt",
+      "bytes": 35414
+    },
+    {
+      "name": "poleznoe/ognebiozashchita-drevesiny-zamachivanie-ili-opryskivanie.html",
+      "bytes": 44255
+    },
+    {
+      "name": "poleznoe/ognebiozashchita-drevesiny-zamachivanie-ili-opryskivanie.txt",
+      "bytes": 20921
+    },
+    {
+      "name": "poleznoe/okna-i-dveri-v-bane.html",
+      "bytes": 58607
+    },
+    {
+      "name": "poleznoe/okna-i-dveri-v-bane.txt",
+      "bytes": 28254
+    },
+    {
+      "name": "poleznoe/osnovanie-pod-banyu.html",
+      "bytes": 43786
+    },
+    {
+      "name": "poleznoe/osnovanie-pod-banyu.txt",
+      "bytes": 20631
+    },
+    {
+      "name": "poleznoe/otdelka-parnoy-i-polki.html",
+      "bytes": 59070
+    },
+    {
+      "name": "poleznoe/otdelka-parnoy-i-polki.txt",
+      "bytes": 28490
+    },
+    {
+      "name": "poleznoe/paroisolyaciya-i-ventilyaciya.html",
+      "bytes": 43906
+    },
+    {
+      "name": "poleznoe/paroisolyaciya-i-ventilyaciya.txt",
+      "bytes": 20706
+    },
+    {
+      "name": "poleznoe/pechi-dlya-bani.html",
+      "bytes": 43664
+    },
+    {
+      "name": "poleznoe/pechi-dlya-bani.txt",
+      "bytes": 20564
+    },
+    {
+      "name": "poleznoe/pirog-steny-mobilnoy-bani.html",
+      "bytes": 63331
+    },
+    {
+      "name": "poleznoe/pirog-steny-mobilnoy-bani.txt",
+      "bytes": 30527
+    },
+    {
+      "name": "poleznoe/podgotovka-ploshchadki-pod-mobilnuyu-banyu.html",
+      "bytes": 65159
+    },
+    {
+      "name": "poleznoe/podgotovka-ploshchadki-pod-mobilnuyu-banyu.txt",
+      "bytes": 31596
+    },
+    {
+      "name": "poleznoe/pol-i-sliv-v-bane.html",
+      "bytes": 59375
+    },
+    {
+      "name": "poleznoe/pol-i-sliv-v-bane.txt",
+      "bytes": 28635
+    },
+    {
+      "name": "poleznoe/uhod-za-mobilnoy-baney.html",
+      "bytes": 62541
+    },
+    {
+      "name": "poleznoe/uhod-za-mobilnoy-baney.txt",
+      "bytes": 30257
+    },
+    {
+      "name": "poleznoe/uteplenie-mobilnoy-bani-dlya-zimy.html",
+      "bytes": 58940
+    },
+    {
+      "name": "poleznoe/uteplenie-mobilnoy-bani-dlya-zimy.txt",
+      "bytes": 28463
+    },
+    {
+      "name": "poleznoe/ventilyatsiya-mobilnoy-bani.html",
+      "bytes": 60347
+    },
+    {
+      "name": "poleznoe/ventilyatsiya-mobilnoy-bani.txt",
+      "bytes": 29136
+    },
+    {
+      "name": "poleznoe/voda-i-boyler-v-mobilnoy-bane.html",
+      "bytes": 58983
+    },
+    {
+      "name": "poleznoe/voda-i-boyler-v-mobilnoy-bane.txt",
+      "bytes": 28457
+    },
+    {
+      "name": "_next/5s7HNKGvs7Dy33WQDAS_E/",
+      "bytes": 0
+    },
+    {
+      "name": "images/articles/chto-proishodit-s-organizmom-v-bane-cover.avif",
+      "bytes": 103607
+    },
+    {
+      "name": "images/articles/chto-proishodit-s-organizmom-v-bane-cover.webp",
+      "bytes": 170744
+    },
+    {
+      "name": "images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.avif",
+      "bytes": 187280
+    },
+    {
+      "name": "images/articles/dostavka-i-ustanovka-mobilnoy-bani-cover.webp",
+      "bytes": 317836
+    },
+    {
+      "name": "images/articles/dymohod-v-derevyannoy-bane-cover.avif",
+      "bytes": 100732
+    },
+    {
+      "name": "images/articles/dymohod-v-derevyannoy-bane-cover.webp",
+      "bytes": 166760
+    },
+    {
+      "name": "images/articles/elektrika-v-bane-cover.avif",
+      "bytes": 105375
+    },
+    {
+      "name": "images/articles/elektrika-v-bane-cover.webp",
+      "bytes": 165468
+    },
+    {
+      "name": "images/articles/fasad-mobilnoy-bani-cover.avif",
+      "bytes": 167891
+    },
+    {
+      "name": "images/articles/fasad-mobilnoy-bani-cover.webp",
+      "bytes": 275846
+    },
+    {
+      "name": "images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.avif",
+      "bytes": 158743
+    },
+    {
+      "name": "images/articles/fundament-dlya-mobilnoy-bani-bloki-ili-svai-cover.webp",
+      "bytes": 279468
+    },
+    {
+      "name": "images/articles/kak-prinyat-mobilnuyu-banyu-cover.avif",
+      "bytes": 84567
+    },
+    {
+      "name": "images/articles/kak-prinyat-mobilnuyu-banyu-cover.webp",
+      "bytes": 126072
+    },
+    {
+      "name": "images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.avif",
+      "bytes": 111482
+    },
+    {
+      "name": "images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-cover.webp",
+      "bytes": 201380
+    },
+    {
+      "name": "images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-timber.avif",
+      "bytes": 106951
+    },
+    {
+      "name": "images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-timber.webp",
+      "bytes": 208036
+    },
+    {
+      "name": "images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.avif",
+      "bytes": 119767
+    },
+    {
+      "name": "images/articles/kak-vybrat-pech-dlya-mobilnoy-bani-cover.webp",
+      "bytes": 185938
+    },
+    {
+      "name": "images/articles/karkas-ili-brus-dlya-bani-cover.avif",
+      "bytes": 124546
+    },
+    {
+      "name": "images/articles/karkas-ili-brus-dlya-bani-cover.webp",
+      "bytes": 209092
+    },
+    {
+      "name": "images/articles/materialy-dlya-mobilnoy-bani-cover.avif",
+      "bytes": 115917
+    },
+    {
+      "name": "images/articles/materialy-dlya-mobilnoy-bani-cover.webp",
+      "bytes": 188554
+    },
+    {
+      "name": "images/articles/materialy-dlya-mobilnoy-bani-insulation.avif",
+      "bytes": 157895
+    },
+    {
+      "name": "images/articles/materialy-dlya-mobilnoy-bani-insulation.webp",
+      "bytes": 297930
+    },
+    {
+      "name": "images/articles/obrabotka-drevesiny-neomid-v-bane-cover.avif",
+      "bytes": 103341
+    },
+    {
+      "name": "images/articles/obrabotka-drevesiny-neomid-v-bane-cover.webp",
+      "bytes": 182982
+    },
+    {
+      "name": "images/articles/obrabotka-drevesiny-neomid-v-bane-treatment.avif",
+      "bytes": 118811
+    },
+    {
+      "name": "images/articles/obrabotka-drevesiny-neomid-v-bane-treatment.webp",
+      "bytes": 223494
+    },
+    {
+      "name": "images/articles/okna-i-dveri-v-bane-cover.avif",
+      "bytes": 103048
+    },
+    {
+      "name": "images/articles/okna-i-dveri-v-bane-cover.webp",
+      "bytes": 162270
+    },
+    {
+      "name": "images/articles/otdelka-parnoy-i-polki-cover.avif",
+      "bytes": 104994
+    },
+    {
+      "name": "images/articles/otdelka-parnoy-i-polki-cover.webp",
+      "bytes": 167956
+    },
+    {
+      "name": "images/articles/pirog-steny-mobilnoy-bani-cover.avif",
+      "bytes": 166132
+    },
+    {
+      "name": "images/articles/pirog-steny-mobilnoy-bani-cover.webp",
+      "bytes": 244794
+    },
+    {
+      "name": "images/articles/pirog-steny-mobilnoy-bani-membrane-instruction.avif",
+      "bytes": 138394
+    },
+    {
+      "name": "images/articles/pirog-steny-mobilnoy-bani-membrane-instruction.webp",
+      "bytes": 225100
+    },
+    {
+      "name": "images/articles/pirog-steny-mobilnoy-bani-wall.avif",
+      "bytes": 63885
+    },
+    {
+      "name": "images/articles/pirog-steny-mobilnoy-bani-wall.webp",
+      "bytes": 117236
+    },
+    {
+      "name": "images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.avif",
+      "bytes": 253123
+    },
+    {
+      "name": "images/articles/podgotovka-ploshchadki-pod-mobilnuyu-banyu-cover.webp",
+      "bytes": 475688
+    },
+    {
+      "name": "images/articles/pol-i-sliv-v-bane-cover.avif",
+      "bytes": 168315
+    },
+    {
+      "name": "images/articles/pol-i-sliv-v-bane-cover.webp",
+      "bytes": 273468
+    },
+    {
+      "name": "images/articles/uhod-za-mobilnoy-baney-cover.avif",
+      "bytes": 83023
+    },
+    {
+      "name": "images/articles/uhod-za-mobilnoy-baney-cover.webp",
+      "bytes": 129196
+    },
+    {
+      "name": "images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.avif",
+      "bytes": 79275
+    },
+    {
+      "name": "images/articles/uteplenie-mobilnoy-bani-dlya-zimy-cover.webp",
+      "bytes": 126780
+    },
+    {
+      "name": "images/articles/ventilyatsiya-mobilnoy-bani-cover.avif",
+      "bytes": 86550
+    },
+    {
+      "name": "images/articles/ventilyatsiya-mobilnoy-bani-cover.webp",
+      "bytes": 127916
+    },
+    {
+      "name": "images/articles/voda-i-boyler-v-mobilnoy-bane-cover.avif",
+      "bytes": 108215
+    },
+    {
+      "name": "images/articles/voda-i-boyler-v-mobilnoy-bane-cover.webp",
+      "bytes": 167448
+    },
+    {
+      "name": "images/articles/wood-treatment-3d.avif",
+      "bytes": 63380
+    },
+    {
+      "name": "images/articles/wood-treatment-3d.webp",
+      "bytes": 113730
+    },
+    {
+      "name": "images/hero/hero-bg.webp",
+      "bytes": 356678
+    },
+    {
+      "name": "images/hero/hero-day.avif",
+      "bytes": 324515
+    },
+    {
+      "name": "images/hero/hero-day.webp",
+      "bytes": 423022
+    },
+    {
+      "name": "images/hero/hero-night.avif",
+      "bytes": 253811
+    },
+    {
+      "name": "images/hero/hero-night.webp",
+      "bytes": 336280
+    },
+    {
+      "name": "images/interiors/barn-premium-1.jpg",
+      "bytes": 448205
+    },
+    {
+      "name": "images/interiors/barn-premium-10.jpg",
+      "bytes": 447854
+    },
+    {
+      "name": "images/interiors/barn-premium-11.jpg",
+      "bytes": 440476
+    },
+    {
+      "name": "images/interiors/barn-premium-12.jpg",
+      "bytes": 511834
+    },
+    {
+      "name": "images/interiors/barn-premium-13.jpg",
+      "bytes": 467277
+    },
+    {
+      "name": "images/interiors/barn-premium-14.jpg",
+      "bytes": 460935
+    },
+    {
+      "name": "images/interiors/barn-premium-15.jpg",
+      "bytes": 432634
+    },
+    {
+      "name": "images/interiors/barn-premium-2.jpg",
+      "bytes": 460935
+    },
+    {
+      "name": "images/interiors/barn-premium-3.jpg",
+      "bytes": 435578
+    },
+    {
+      "name": "images/interiors/barn-premium-4.jpg",
+      "bytes": 461255
+    },
+    {
+      "name": "images/interiors/barn-premium-5.jpg",
+      "bytes": 460819
+    },
+    {
+      "name": "images/interiors/barn-premium-6.jpg",
+      "bytes": 468134
+    },
+    {
+      "name": "images/interiors/barn-premium-7.jpg",
+      "bytes": 422795
+    },
+    {
+      "name": "images/interiors/barn-premium-8.jpg",
+      "bytes": 452900
+    },
+    {
+      "name": "images/interiors/barn-premium-9.jpg",
+      "bytes": 471345
+    },
+    {
+      "name": "images/interiors/boyler-50-.jpg",
+      "bytes": 125243
+    },
+    {
+      "name": "images/interiors/dushevoy-plus-.jpg",
+      "bytes": 147416
+    },
+    {
+      "name": "images/interiors/parnaya-.jpg",
+      "bytes": 148512
+    },
+    {
+      "name": "images/interiors/parnaya-2-.jpg",
+      "bytes": 166700
+    },
+    {
+      "name": "images/interiors/parnaya-3-.jpg",
+      "bytes": 135111
+    },
+    {
+      "name": "images/interiors/parnaya-4-.jpg",
+      "bytes": 117680
+    },
+    {
+      "name": "images/interiors/parnaya-5-.jpg",
+      "bytes": 114386
+    },
+    {
+      "name": "images/interiors/parnaya-6-.jpg",
+      "bytes": 160198
+    },
+    {
+      "name": "images/interiors/parnaya-7-.jpg",
+      "bytes": 133233
+    },
+    {
+      "name": "images/interiors/pech-.jpg",
+      "bytes": 118826
+    },
+    {
+      "name": "images/interiors/pech-2.jpg",
+      "bytes": 148735
+    },
+    {
+      "name": "images/interiors/pomiv-.jpg",
+      "bytes": 120283
+    },
+    {
+      "name": "images/interiors/pomiv-2.jpg",
+      "bytes": 130022
+    },
+    {
+      "name": "images/interiors/pomiv-3.jpg",
+      "bytes": 135986
+    },
+    {
+      "name": "images/interiors/sauna-health-steam-room.avif",
+      "bytes": 60344
+    },
+    {
+      "name": "images/interiors/sauna-health-steam-room.webp",
+      "bytes": 122948
+    },
+    {
+      "name": "images/interiors/sauna-health-stove.avif",
+      "bytes": 61454
+    },
+    {
+      "name": "images/interiors/sauna-health-stove.webp",
+      "bytes": 109166
+    },
+    {
+      "name": "images/interiors/source-interior-14.jpg",
+      "bytes": 144030
+    },
+    {
+      "name": "images/interiors/source-interior-27.jpg",
+      "bytes": 112411
+    },
+    {
+      "name": "images/interiors/source-interior-28.jpg",
+      "bytes": 181380
+    },
+    {
+      "name": "images/interiors/source-interior-29.jpg",
+      "bytes": 182048
+    },
+    {
+      "name": "images/interiors/vizual-gostinnaya-1.jpg",
+      "bytes": 201211
+    },
+    {
+      "name": "images/interiors/vizual-gostinnaya-2.jpg",
+      "bytes": 178639
+    },
+    {
+      "name": "images/interiors/vizual-gostinnaya-3.jpg",
+      "bytes": 133226
+    },
+    {
+      "name": "images/interiors/vizual-gostinnaya-4.jpg",
+      "bytes": 152819
+    },
+    {
+      "name": "images/interiors/vizual-gostinnaya-5.jpg",
+      "bytes": 169972
+    },
+    {
+      "name": "images/options/boiler-50.webp",
+      "bytes": 76382
+    },
+    {
+      "name": "images/plans/bg-01.png",
+      "bytes": 163496
+    },
+    {
+      "name": "images/plans/bg-02.png",
+      "bytes": 153267
+    },
+    {
+      "name": "images/plans/bg-03.png",
+      "bytes": 170252
+    },
+    {
+      "name": "images/plans/bg-04.png",
+      "bytes": 152441
+    },
+    {
+      "name": "images/plans/bg-05.png",
+      "bytes": 164383
+    },
+    {
+      "name": "images/plans/bg-06.png",
+      "bytes": 167430
+    },
+    {
+      "name": "images/plans/bg-07.png",
+      "bytes": 153866
+    },
+    {
+      "name": "images/plans/bg-08.png",
+      "bytes": 137438
+    },
+    {
+      "name": "images/plans/bg-09.png",
+      "bytes": 345664
+    },
+    {
+      "name": "images/plans/bg-10.png",
+      "bytes": 368835
+    },
+    {
+      "name": "images/plans/bg-11.png",
+      "bytes": 361227
+    },
+    {
+      "name": "images/plans/bg-12.png",
+      "bytes": 379281
+    },
+    {
+      "name": "images/plans/bg-13.png",
+      "bytes": 378495
+    },
+    {
+      "name": "images/plans/bg-14.png",
+      "bytes": 479257
+    },
+    {
+      "name": "images/plans/bg-15.png",
+      "bytes": 387051
+    },
+    {
+      "name": "images/plans/bg-16.png",
+      "bytes": 470185
+    },
+    {
+      "name": "images/plans/bg-17.png",
+      "bytes": 500249
+    },
+    {
+      "name": "images/plans/bg-18.png",
+      "bytes": 177698
+    },
+    {
+      "name": "images/plans/bg-19.png",
+      "bytes": 158393
+    },
+    {
+      "name": "images/plans/bg-20.png",
+      "bytes": 141736
+    },
+    {
+      "name": "images/plans/bg-21.png",
+      "bytes": 118072
+    },
+    {
+      "name": "images/plans/bg-22.png",
+      "bytes": 155718
+    },
+    {
+      "name": "images/plans/bg-23.png",
+      "bytes": 68880
+    },
+    {
+      "name": "images/plans/bg-24.png",
+      "bytes": 140077
+    },
+    {
+      "name": "images/plans/bg-28.png",
+      "bytes": 386526
+    },
+    {
+      "name": "images/plans/bg-29.jpg",
+      "bytes": 51994
+    },
+    {
+      "name": "images/plans/bg-30.jpg",
+      "bytes": 60174
+    },
+    {
+      "name": "images/plans/bg-31.jpg",
+      "bytes": 49253
+    },
+    {
+      "name": "images/renders/istok-4.webp",
+      "bytes": 391196
+    },
+    {
+      "name": "images/renders/istok-5.webp",
+      "bytes": 412192
+    },
+    {
+      "name": "images/renders/istok-6.webp",
+      "bytes": 415104
+    },
+    {
+      "name": "images/renders/istok-8.webp",
+      "bytes": 398950
+    },
+    {
+      "name": "images/renders/istok-grafit-4.webp",
+      "bytes": 362212
+    },
+    {
+      "name": "images/renders/istok-prostor-7.webp",
+      "bytes": 433642
+    },
+    {
+      "name": "images/renders/istok-semeynyy-7.webp",
+      "bytes": 442194
+    },
+    {
+      "name": "images/renders/istok-semeynyy-7r.webp",
+      "bytes": 470990
+    },
+    {
+      "name": "images/renders/istok-stil-7.webp",
+      "bytes": 366870
+    },
+    {
+      "name": "images/renders/istok-teplo-6.webp",
+      "bytes": 383666
+    },
+    {
+      "name": "images/renders/istok-terra-5.webp",
+      "bytes": 363614
+    },
+    {
+      "name": "images/renders/mapping.txt",
+      "bytes": 2404
+    },
+    {
+      "name": "images/renders/sever-layt-4.webp",
+      "bytes": 318694
+    },
+    {
+      "name": "images/renders/sever-panorama-8.webp",
+      "bytes": 343020
+    },
+    {
+      "name": "images/renders/sever-rezidents-7.webp",
+      "bytes": 354078
+    },
+    {
+      "name": "images/renders/sever-terra-65.webp",
+      "bytes": 355204
+    },
+    {
+      "name": "images/renders/skandinaviya-komfort-6.webp",
+      "bytes": 394332
+    },
+    {
+      "name": "images/renders/skandinaviya-komfort-8.webp",
+      "bytes": 351954
+    },
+    {
+      "name": "images/renders/skandinaviya-komfort-plus-6.webp",
+      "bytes": 421264
+    },
+    {
+      "name": "images/renders/skandinaviya-komfort-plus-7.webp",
+      "bytes": 365112
+    },
+    {
+      "name": "images/renders/skandinaviya-mini-45.webp",
+      "bytes": 360270
+    },
+    {
+      "name": "images/renders/skandinaviya-standart-7.webp",
+      "bytes": 398866
+    },
+    {
+      "name": "images/renders/skandinaviya-standart-plus-75.webp",
+      "bytes": 463054
+    },
+    {
+      "name": "images/renders/skandinaviya-start-plus-6.webp",
+      "bytes": 469184
+    },
+    {
+      "name": "images/renders/skandinaviya-start-plus-65.webp",
+      "bytes": 472368
+    },
+    {
+      "name": "images/renders/usadba-praktik.webp",
+      "bytes": 414400
+    },
+    {
+      "name": "images/renders/usadba-prostor.webp",
+      "bytes": 291466
+    },
+    {
+      "name": "images/renders/usadba-semejnaya-6---plan.jpg",
+      "bytes": 60174
+    },
+    {
+      "name": "images/renders/usadba-semejnaya-6.webp",
+      "bytes": 442256
+    },
+    {
+      "name": "images/renders/usadba-terra-7---plan.jpg",
+      "bytes": 49253
+    },
+    {
+      "name": "images/renders/usadba-terra-7.webp",
+      "bytes": 452486
+    },
+    {
+      "name": "images/renders/usadba-uyt-5---plan.jpg",
+      "bytes": 51994
+    },
+    {
+      "name": "images/renders/usadba-uyt-5.webp",
+      "bytes": 409298
+    },
+    {
+      "name": "images/renders/usadba-veranda.webp",
+      "bytes": 390096
+    },
+    {
+      "name": "images/renders/Исток 4.webp",
+      "bytes": 391196
+    },
+    {
+      "name": "images/renders/Исток 5.webp",
+      "bytes": 412192
+    },
+    {
+      "name": "images/renders/Исток 6.webp",
+      "bytes": 415104
+    },
+    {
+      "name": "images/renders/Исток 8.webp",
+      "bytes": 398950
+    },
+    {
+      "name": "images/renders/Исток Графит 4.webp",
+      "bytes": 362212
+    },
+    {
+      "name": "images/renders/Исток Простор 7.webp",
+      "bytes": 433642
+    },
+    {
+      "name": "images/renders/Исток Семейный 7.webp",
+      "bytes": 442194
+    },
+    {
+      "name": "images/renders/Исток Семейный 7R.webp",
+      "bytes": 470990
+    },
+    {
+      "name": "images/renders/Исток Стиль 7.webp",
+      "bytes": 366870
+    },
+    {
+      "name": "images/renders/Исток Тепло 6.webp",
+      "bytes": 383666
+    },
+    {
+      "name": "images/renders/Исток Терра 5.webp",
+      "bytes": 363614
+    },
+    {
+      "name": "images/renders/исток-4.webp",
+      "bytes": 391196
+    },
+    {
+      "name": "images/renders/исток-5.webp",
+      "bytes": 412192
+    },
+    {
+      "name": "images/renders/исток-6.webp",
+      "bytes": 415104
+    },
+    {
+      "name": "images/renders/исток-8.webp",
+      "bytes": 398950
+    },
+    {
+      "name": "images/renders/исток-графит-4.webp",
+      "bytes": 362212
+    },
+    {
+      "name": "images/renders/исток-простор-7.webp",
+      "bytes": 433642
+    },
+    {
+      "name": "images/renders/исток-семейный-7.webp",
+      "bytes": 442194
+    },
+    {
+      "name": "images/renders/исток-семейный-7r.webp",
+      "bytes": 470990
+    },
+    {
+      "name": "images/renders/исток-стиль-7.webp",
+      "bytes": 366870
+    },
+    {
+      "name": "images/renders/исток-тепло-6.webp",
+      "bytes": 383666
+    },
+    {
+      "name": "images/renders/исток-терра-5.webp",
+      "bytes": 363614
+    },
+    {
+      "name": "images/renders/Север Лайт 4.webp",
+      "bytes": 318694
+    },
+    {
+      "name": "images/renders/Север Панорама 8.webp",
+      "bytes": 343020
+    },
+    {
+      "name": "images/renders/Север Резиденс 7.webp",
+      "bytes": 354078
+    },
+    {
+      "name": "images/renders/Север Терра 6,5.webp",
+      "bytes": 355204
+    },
+    {
+      "name": "images/renders/север-лайт-4.webp",
+      "bytes": 318694
+    },
+    {
+      "name": "images/renders/север-панорама-8.webp",
+      "bytes": 343020
+    },
+    {
+      "name": "images/renders/север-резиденс-7.webp",
+      "bytes": 354078
+    },
+    {
+      "name": "images/renders/север-терра-65.webp",
+      "bytes": 355204
+    },
+    {
+      "name": "images/renders/Скандинавия Комфорт 6.webp",
+      "bytes": 394332
+    },
+    {
+      "name": "images/renders/Скандинавия Комфорт 8.webp",
+      "bytes": 351954
+    },
+    {
+      "name": "images/renders/Скандинавия Комфорт+ 6.webp",
+      "bytes": 421264
+    },
+    {
+      "name": "images/renders/Скандинавия Комфорт+ 7.webp",
+      "bytes": 365112
+    },
+    {
+      "name": "images/renders/Скандинавия Мини 4,5.webp",
+      "bytes": 360270
+    },
+    {
+      "name": "images/renders/Скандинавия Стандарт 7.webp",
+      "bytes": 398866
+    },
+    {
+      "name": "images/renders/Скандинавия Стандарт+ 7,5.webp",
+      "bytes": 463054
+    },
+    {
+      "name": "images/renders/Скандинавия Старт+ 6,5.webp",
+      "bytes": 472368
+    },
+    {
+      "name": "images/renders/Скандинавия Старт+ 6.webp",
+      "bytes": 469184
+    },
+    {
+      "name": "images/renders/скандинавия-комфорт-6.webp",
+      "bytes": 394332
+    },
+    {
+      "name": "images/renders/скандинавия-комфорт-8.webp",
+      "bytes": 351954
+    },
+    {
+      "name": "images/renders/скандинавия-комфорт-plus-6.webp",
+      "bytes": 421264
+    },
+    {
+      "name": "images/renders/скандинавия-комфорт-plus-7.webp",
+      "bytes": 365112
+    },
+    {
+      "name": "images/renders/скандинавия-мини-45.webp",
+      "bytes": 360270
+    },
+    {
+      "name": "images/renders/скандинавия-стандарт-7.webp",
+      "bytes": 398866
+    },
+    {
+      "name": "images/renders/скандинавия-стандарт-plus-75.webp",
+      "bytes": 463054
+    },
+    {
+      "name": "images/renders/скандинавия-старт-plus-6.webp",
+      "bytes": 469184
+    },
+    {
+      "name": "images/renders/скандинавия-старт-plus-65.webp",
+      "bytes": 472368
+    },
+    {
+      "name": "images/renders/Усадьба Веранда.webp",
+      "bytes": 390096
+    },
+    {
+      "name": "images/renders/Усадьба Практик.webp",
+      "bytes": 414400
+    },
+    {
+      "name": "images/renders/Усадьба Простор.webp",
+      "bytes": 291466
+    },
+    {
+      "name": "images/renders/Усадьба Семейная 6 — план.jpg",
+      "bytes": 60174
+    },
+    {
+      "name": "images/renders/Усадьба Семейная 6.webp",
+      "bytes": 442256
+    },
+    {
+      "name": "images/renders/Усадьба Терра 7 — план.jpg",
+      "bytes": 49253
+    },
+    {
+      "name": "images/renders/Усадьба Терра 7.webp",
+      "bytes": 452486
+    },
+    {
+      "name": "images/renders/Усадьба Уют 5 — план.jpg",
+      "bytes": 51994
+    },
+    {
+      "name": "images/renders/Усадьба Уют 5.webp",
+      "bytes": 409298
+    },
+    {
+      "name": "images/renders/усадьба-веранда.webp",
+      "bytes": 390096
+    },
+    {
+      "name": "images/renders/усадьба-практик.webp",
+      "bytes": 414400
+    },
+    {
+      "name": "images/renders/усадьба-простор.webp",
+      "bytes": 291466
+    },
+    {
+      "name": "images/renders/усадьба-семейная-6---план.jpg",
+      "bytes": 60174
+    },
+    {
+      "name": "images/renders/усадьба-семейная-6.webp",
+      "bytes": 442256
+    },
+    {
+      "name": "images/renders/усадьба-терра-7---план.jpg",
+      "bytes": 49253
+    },
+    {
+      "name": "images/renders/усадьба-терра-7.webp",
+      "bytes": 452486
+    },
+    {
+      "name": "images/renders/усадьба-уют-5---план.jpg",
+      "bytes": 51994
+    },
+    {
+      "name": "images/renders/усадьба-уют-5.webp",
+      "bytes": 409298
+    },
+    {
+      "name": "images/showroom/exhibition.webp",
+      "bytes": 96954
+    },
+    {
+      "name": "images/social/instagram-qr.svg",
+      "bytes": 2427
+    },
+    {
+      "name": "images/social/max-qr.svg",
+      "bytes": 2440
+    },
+    {
+      "name": "images/social/telegram-qr.svg",
+      "bytes": 1215
+    },
+    {
+      "name": "images/social/vk-qr.svg",
+      "bytes": 1552
+    },
+    {
+      "name": "poleznoe/chto-proishodit-s-organizmom-v-bane/index.html",
+      "bytes": 82775
+    },
+    {
+      "name": "poleznoe/dostavka-i-ustanovka-mobilnoy-bani/index.html",
+      "bytes": 59445
+    },
+    {
+      "name": "poleznoe/dymohod-v-derevyannoy-bane/index.html",
+      "bytes": 59832
+    },
+    {
+      "name": "poleznoe/elektrika-v-bane/index.html",
+      "bytes": 58946
+    },
+    {
+      "name": "poleznoe/fasad-mobilnoy-bani/index.html",
+      "bytes": 58754
+    },
+    {
+      "name": "poleznoe/fundament-dlya-mobilnoy-bani-bloki-ili-svai/index.html",
+      "bytes": 64681
+    },
+    {
+      "name": "poleznoe/kak-prinyat-mobilnuyu-banyu/index.html",
+      "bytes": 59169
+    },
+    {
+      "name": "poleznoe/kak-vybrat-drevesinu-dlya-mobilnoy-bani/index.html",
+      "bytes": 69617
+    },
+    {
+      "name": "poleznoe/kak-vybrat-pech-dlya-mobilnoy-bani/index.html",
+      "bytes": 58637
+    },
+    {
+      "name": "poleznoe/karkas-ili-brus-dlya-bani/index.html",
+      "bytes": 60435
+    },
+    {
+      "name": "poleznoe/materialy-dlya-mobilnoy-bani/index.html",
+      "bytes": 65870
+    },
+    {
+      "name": "poleznoe/obrabotka-drevesiny-neomid-v-bane/index.html",
+      "bytes": 73006
+    },
+    {
+      "name": "poleznoe/okna-i-dveri-v-bane/index.html",
+      "bytes": 58607
+    },
+    {
+      "name": "poleznoe/otdelka-parnoy-i-polki/index.html",
+      "bytes": 59070
+    },
+    {
+      "name": "poleznoe/pirog-steny-mobilnoy-bani/index.html",
+      "bytes": 63331
+    },
+    {
+      "name": "poleznoe/podgotovka-ploshchadki-pod-mobilnuyu-banyu/index.html",
+      "bytes": 65159
+    },
+    {
+      "name": "poleznoe/pol-i-sliv-v-bane/index.html",
+      "bytes": 59375
+    },
+    {
+      "name": "poleznoe/uhod-za-mobilnoy-baney/index.html",
+      "bytes": 62541
+    },
+    {
+      "name": "poleznoe/uteplenie-mobilnoy-bani-dlya-zimy/index.html",
+      "bytes": 58940
+    },
+    {
+      "name": "poleznoe/ventilyatsiya-mobilnoy-bani/index.html",
+      "bytes": 60347
+    },
+    {
+      "name": "poleznoe/voda-i-boyler-v-mobilnoy-bane/index.html",
+      "bytes": 58983
+    },
+    {
+      "name": "videos/baths/banya-01-poster.webp",
+      "bytes": 39748
+    },
+    {
+      "name": "videos/baths/banya-01.mp4",
+      "bytes": 43181706
+    },
+    {
+      "name": "videos/baths/banya-02-poster.webp",
+      "bytes": 21152
+    },
+    {
+      "name": "videos/baths/banya-02.mp4",
+      "bytes": 23313017
+    },
+    {
+      "name": "images/catalog/bg-01/model.png",
+      "bytes": 3118936
+    },
+    {
+      "name": "images/catalog/bg-02/model.png",
+      "bytes": 2978507
+    },
+    {
+      "name": "images/catalog/bg-03/model.png",
+      "bytes": 3185866
+    },
+    {
+      "name": "images/catalog/bg-04/model.png",
+      "bytes": 3247341
+    },
+    {
+      "name": "images/catalog/bg-05/model.png",
+      "bytes": 3309023
+    },
+    {
+      "name": "images/catalog/bg-06/model.png",
+      "bytes": 3429786
+    },
+    {
+      "name": "images/catalog/bg-07/model.png",
+      "bytes": 3297126
+    },
+    {
+      "name": "images/catalog/bg-08/model.png",
+      "bytes": 3152713
+    },
+    {
+      "name": "images/catalog/bg-09/model.png",
+      "bytes": 2994981
+    },
+    {
+      "name": "images/catalog/bg-10/model.png",
+      "bytes": 3348761
+    },
+    {
+      "name": "images/catalog/bg-11/model.png",
+      "bytes": 3422123
+    },
+    {
+      "name": "images/catalog/bg-12/model.png",
+      "bytes": 3126761
+    },
+    {
+      "name": "images/catalog/bg-13/model.png",
+      "bytes": 3314351
+    },
+    {
+      "name": "images/catalog/bg-14/model.png",
+      "bytes": 3102554
+    },
+    {
+      "name": "images/catalog/bg-15/model.png",
+      "bytes": 2939331
+    },
+    {
+      "name": "images/catalog/bg-16/model.png",
+      "bytes": 3218519
+    },
+    {
+      "name": "images/catalog/bg-17/model.png",
+      "bytes": 3019840
+    },
+    {
+      "name": "images/catalog/bg-18/model.png",
+      "bytes": 2774073
+    },
+    {
+      "name": "images/catalog/bg-19/model.png",
+      "bytes": 3006726
+    },
+    {
+      "name": "images/catalog/bg-20/model.png",
+      "bytes": 2969086
+    },
+    {
+      "name": "images/catalog/bg-21/model.png",
+      "bytes": 2868242
+    },
+    {
+      "name": "images/catalog/bg-22/model.png",
+      "bytes": 3022227
+    },
+    {
+      "name": "images/catalog/bg-23/model.png",
+      "bytes": 3074148
+    },
+    {
+      "name": "images/catalog/bg-24/model.png",
+      "bytes": 3030726
+    },
+    {
+      "name": "images/catalog/bg-25/model.png",
+      "bytes": 3247263
+    },
+    {
+      "name": "images/catalog/bg-26/model.png",
+      "bytes": 2725021
+    },
+    {
+      "name": "images/catalog/bg-27/model.png",
+      "bytes": 3131255
+    },
+    {
+      "name": "images/catalog/bg-28/model.png",
+      "bytes": 2212881
+    },
+    {
+      "name": "images/catalog/bg-28/owner-render.png",
+      "bytes": 2710103
+    },
+    {
+      "name": "images/catalog/bg-29/model.png",
+      "bytes": 3238741
+    },
+    {
+      "name": "images/catalog/bg-30/model.png",
+      "bytes": 3285079
+    },
+    {
+      "name": "images/catalog/bg-31/model.png",
+      "bytes": 3358044
+    },
+    {
+      "name": "images/gallery/barn-premium/image1.jpeg",
+      "bytes": 448205
+    },
+    {
+      "name": "images/gallery/barn-premium/image10.jpeg",
+      "bytes": 181547
+    },
+    {
+      "name": "images/gallery/barn-premium/image11.jpeg",
+      "bytes": 440476
+    },
+    {
+      "name": "images/gallery/barn-premium/image12.jpeg",
+      "bytes": 511834
+    },
+    {
+      "name": "images/gallery/barn-premium/image13.jpeg",
+      "bytes": 467277
+    },
+    {
+      "name": "images/gallery/barn-premium/image14.jpeg",
+      "bytes": 460935
+    },
+    {
+      "name": "images/gallery/barn-premium/image15.jpeg",
+      "bytes": 432634
+    },
+    {
+      "name": "images/gallery/barn-premium/image2.jpeg",
+      "bytes": 460935
+    },
+    {
+      "name": "images/gallery/barn-premium/image3.jpeg",
+      "bytes": 435578
+    },
+    {
+      "name": "images/gallery/barn-premium/image4.jpeg",
+      "bytes": 237925
+    },
+    {
+      "name": "images/gallery/barn-premium/image5.jpeg",
+      "bytes": 460819
+    },
+    {
+      "name": "images/gallery/barn-premium/image6.jpeg",
+      "bytes": 468134
+    },
+    {
+      "name": "images/gallery/barn-premium/image7.jpeg",
+      "bytes": 422795
+    },
+    {
+      "name": "images/gallery/barn-premium/image8.jpeg",
+      "bytes": 452900
+    },
+    {
+      "name": "images/gallery/barn-premium/image9.jpeg",
+      "bytes": 471345
+    },
+    {
+      "name": "images/interiors/home/interior-01.avif",
+      "bytes": 101765
+    },
+    {
+      "name": "images/interiors/home/interior-01.webp",
+      "bytes": 129142
+    },
+    {
+      "name": "images/interiors/home/interior-02.avif",
+      "bytes": 83965
+    },
+    {
+      "name": "images/interiors/home/interior-02.webp",
+      "bytes": 107262
+    },
+    {
+      "name": "images/interiors/home/interior-03.avif",
+      "bytes": 78189
+    },
+    {
+      "name": "images/interiors/home/interior-03.webp",
+      "bytes": 84982
+    },
+    {
+      "name": "images/interiors/home/interior-04.avif",
+      "bytes": 111665
+    },
+    {
+      "name": "images/interiors/home/interior-04.webp",
+      "bytes": 140466
+    },
+    {
+      "name": "images/interiors/home/interior-05.avif",
+      "bytes": 89815
+    },
+    {
+      "name": "images/interiors/home/interior-05.webp",
+      "bytes": 104014
+    },
+    {
+      "name": "images/interiors/home/interior-06.avif",
+      "bytes": 83090
+    },
+    {
+      "name": "images/interiors/home/interior-06.webp",
+      "bytes": 93430
+    },
+    {
+      "name": "images/interiors/home/interior-07.avif",
+      "bytes": 109893
+    },
+    {
+      "name": "images/interiors/home/interior-07.webp",
+      "bytes": 132806
+    },
+    {
+      "name": "images/interiors/home/interior-08.avif",
+      "bytes": 85028
+    },
+    {
+      "name": "images/interiors/home/interior-08.webp",
+      "bytes": 91318
+    },
+    {
+      "name": "images/interiors/home/interior-09.avif",
+      "bytes": 94324
+    },
+    {
+      "name": "images/interiors/home/interior-09.webp",
+      "bytes": 119530
+    },
+    {
+      "name": "images/interiors/home/interior-10.avif",
+      "bytes": 147400
+    },
+    {
+      "name": "images/interiors/home/interior-10.webp",
+      "bytes": 206126
+    },
+    {
+      "name": "images/interiors/home/interior-11.avif",
+      "bytes": 131629
+    },
+    {
+      "name": "images/interiors/home/interior-11.webp",
+      "bytes": 173682
+    },
+    {
+      "name": "images/interiors/home/interior-12.avif",
+      "bytes": 94248
+    },
+    {
+      "name": "images/interiors/home/interior-12.webp",
+      "bytes": 111464
+    },
+    {
+      "name": "images/interiors/home/interior-13.avif",
+      "bytes": 110462
+    },
+    {
+      "name": "images/interiors/home/interior-13.webp",
+      "bytes": 135528
+    },
+    {
+      "name": "images/interiors/home/interior-14.avif",
+      "bytes": 121600
+    },
+    {
+      "name": "images/interiors/home/interior-14.webp",
+      "bytes": 153734
+    },
+    {
+      "name": "images/interiors/home/interior-15.avif",
+      "bytes": 82094
+    },
+    {
+      "name": "images/interiors/home/interior-15.webp",
+      "bytes": 123820
+    },
+    {
+      "name": "images/interiors/home/interior-16.avif",
+      "bytes": 86020
+    },
+    {
+      "name": "images/interiors/home/interior-16.webp",
+      "bytes": 133810
+    },
+    {
+      "name": "images/interiors/home/interior-17.avif",
+      "bytes": 96673
+    },
+    {
+      "name": "images/interiors/home/interior-17.webp",
+      "bytes": 138612
+    },
+    {
+      "name": "images/interiors/home/interior-18.avif",
+      "bytes": 96683
+    },
+    {
+      "name": "images/interiors/home/interior-18.webp",
+      "bytes": 136344
+    },
+    {
+      "name": "images/interiors/home/interior-19.avif",
+      "bytes": 112553
+    },
+    {
+      "name": "images/interiors/home/interior-19.webp",
+      "bytes": 167034
+    },
+    {
+      "name": "images/interiors/home/interior-20.avif",
+      "bytes": 84714
+    },
+    {
+      "name": "images/interiors/home/interior-20.webp",
+      "bytes": 121556
+    },
+    {
+      "name": "images/interiors/v2/image1.jpg",
+      "bytes": 448205
+    },
+    {
+      "name": "images/interiors/v2/image10.jpg",
+      "bytes": 447854
+    },
+    {
+      "name": "images/interiors/v2/image11.jpg",
+      "bytes": 440476
+    },
+    {
+      "name": "images/interiors/v2/image12.jpg",
+      "bytes": 511834
+    },
+    {
+      "name": "images/interiors/v2/image13.jpg",
+      "bytes": 467277
+    },
+    {
+      "name": "images/interiors/v2/image14.jpg",
+      "bytes": 460935
+    },
+    {
+      "name": "images/interiors/v2/image15.jpg",
+      "bytes": 432634
+    },
+    {
+      "name": "images/interiors/v2/image16.jpg",
+      "bytes": 497273
+    },
+    {
+      "name": "images/interiors/v2/image17.jpg",
+      "bytes": 452250
+    },
+    {
+      "name": "images/interiors/v2/image18.jpg",
+      "bytes": 499413
+    },
+    {
+      "name": "images/interiors/v2/image2.jpg",
+      "bytes": 460935
+    },
+    {
+      "name": "images/interiors/v2/image3.jpg",
+      "bytes": 435578
+    },
+    {
+      "name": "images/interiors/v2/image4.jpg",
+      "bytes": 461255
+    },
+    {
+      "name": "images/interiors/v2/image5.jpg",
+      "bytes": 460819
+    },
+    {
+      "name": "images/interiors/v2/image6.jpg",
+      "bytes": 468134
+    },
+    {
+      "name": "images/interiors/v2/image7.jpg",
+      "bytes": 422795
+    },
+    {
+      "name": "images/interiors/v2/image8.jpg",
+      "bytes": 452900
+    },
+    {
+      "name": "images/interiors/v2/image9.jpg",
+      "bytes": 471345
+    },
+    {
+      "name": "_next/static/5s7HNKGvs7Dy33WQDAS_E/_buildManifest.js",
+      "bytes": 224
+    },
+    {
+      "name": "_next/static/5s7HNKGvs7Dy33WQDAS_E/_ssgManifest.js",
+      "bytes": 221
+    },
+    {
+      "name": "_next/static/chunks/330-38bc9a953dd582e3.js",
+      "bytes": 13036
+    },
+    {
+      "name": "_next/static/chunks/374-f721c2f9a0e115d5.js",
+      "bytes": 10863
+    },
+    {
+      "name": "_next/static/chunks/503.b61a156f1defd162.js",
+      "bytes": 5766
+    },
+    {
+      "name": "_next/static/chunks/578-c77cd3fd6148b975.js",
+      "bytes": 121434
+    },
+    {
+      "name": "_next/static/chunks/61-24e25fca7524ada5.js",
+      "bytes": 13034
+    },
+    {
+      "name": "_next/static/chunks/634-b2422a58224ad649.js",
+      "bytes": 15246
+    },
+    {
+      "name": "_next/static/chunks/706-454fb1877f40cb50.js",
+      "bytes": 123584
+    },
+    {
+      "name": "_next/static/chunks/739-32c21494a10280e3.js",
+      "bytes": 37678
+    },
+    {
+      "name": "_next/static/chunks/967-8cf24c503271ed34.js",
+      "bytes": 20541
+    },
+    {
+      "name": "_next/static/chunks/f78c2a1c-6b9816ee139c8e5e.js",
+      "bytes": 172831
+    },
+    {
+      "name": "_next/static/chunks/framework-5d4a733f6050ff02.js",
+      "bytes": 140940
+    },
+    {
+      "name": "_next/static/chunks/main-82302256dde65cee.js",
+      "bytes": 110806
+    },
+    {
+      "name": "_next/static/chunks/main-app-9576e25736095bfe.js",
+      "bytes": 463
+    },
+    {
+      "name": "_next/static/chunks/polyfills-78c92fac7aa8fdd8.js",
+      "bytes": 91381
+    },
+    {
+      "name": "_next/static/chunks/webpack-38ac4b9240287fa6.js",
+      "bytes": 3774
+    },
+    {
+      "name": "_next/static/css/3dd1c7cc5aee5b53.css",
+      "bytes": 59622
+    },
+    {
+      "name": "_next/static/css/916d05e8940c0179.css",
+      "bytes": 11049
+    },
+    {
+      "name": "_next/static/media/19cfc7226ec3afaa-s.woff2",
+      "bytes": 19044
+    },
+    {
+      "name": "_next/static/media/21350d82a1f187e9-s.p.woff2",
+      "bytes": 18744
+    },
+    {
+      "name": "_next/static/media/8e9860b6e62d6359-s.woff2",
+      "bytes": 85272
+    },
+    {
+      "name": "_next/static/media/ba9851c3c22cd980-s.woff2",
+      "bytes": 25844
+    },
+    {
+      "name": "_next/static/media/c5fe6dc8356a8c31-s.woff2",
+      "bytes": 11272
+    },
+    {
+      "name": "_next/static/media/df0a9ae256c0569c-s.woff2",
+      "bytes": 10280
+    },
+    {
+      "name": "_next/static/media/e4af272ccee01ff0-s.p.woff2",
+      "bytes": 48432
+    },
+    {
+      "name": "_next/static/chunks/app/layout-b85981e0c6f2c473.js",
+      "bytes": 14610
+    },
+    {
+      "name": "_next/static/chunks/app/not-found-6edead2bce88a64a.js",
+      "bytes": 228
+    },
+    {
+      "name": "_next/static/chunks/app/page-e1b33a262d802d49.js",
+      "bytes": 23770
+    },
+    {
+      "name": "_next/static/chunks/pages/_app-3d1ee95a64f11249.js",
+      "bytes": 280
+    },
+    {
+      "name": "_next/static/chunks/pages/_error-78101e02a0520be7.js",
+      "bytes": 247
+    },
+    {
+      "name": "_next/static/chunks/app/dostavka-i-ustanovka/page-438c85f5355a4218.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/kak-ustroeno/page-5c159db54c6d155f.js",
+      "bytes": 228
+    },
+    {
+      "name": "_next/static/chunks/app/katalog/page-cb6949fb07b7ee9a.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/komplektaciya/page-2e8fa55e595096b8.js",
+      "bytes": 14645
+    },
+    {
+      "name": "_next/static/chunks/app/kontakty/layout-a1fe1d0618394f1c.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/kontakty/page-c92683c205c9eb0d.js",
+      "bytes": 7851
+    },
+    {
+      "name": "_next/static/chunks/app/nashi-raboty/page-9e1f548d0f858863.js",
+      "bytes": 257
+    },
+    {
+      "name": "_next/static/chunks/app/o-kompanii/page-a563545c2ca3179f.js",
+      "bytes": 434
+    },
+    {
+      "name": "_next/static/chunks/app/planirovki/page-ee3c5891b369e58f.js",
+      "bytes": 228
+    },
+    {
+      "name": "_next/static/chunks/app/poleznoe/page-ea985b30d0af872d.js",
+      "bytes": 228
+    },
+    {
+      "name": "_next/static/chunks/app/politika/page-fe466523f9dc2616.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/privacy/page-2df998d4da3fb5cd.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/rekvizity/page-90e8fd767d3f9cba.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/soglasie-pd/page-d447b06671de1541.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/soglasie-reklama/page-d070c7073de08272.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/usloviya-zakaza/page-8e01d9c601ed7e7b.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/vystavka/page-9dc8d92771f56b35.js",
+      "bytes": 434
+    },
+    {
+      "name": "_next/static/chunks/app/_not-found/page-c65917b303457746.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/banya/[slug]/page-e2aa5b58fea48144.js",
+      "bytes": 162
+    },
+    {
+      "name": "_next/static/chunks/app/dom/[slug]/page-f57d513ef29b3b50.js",
+      "bytes": 162
+    },
+    {
+      "name": "_next/static/chunks/app/katalog/bani/layout-0ba2cbdb264bde9a.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/katalog/bani/page-3dcc94a15af124c6.js",
+      "bytes": 11543
+    },
+    {
+      "name": "_next/static/chunks/app/katalog/doma/layout-4de18482f084da4b.js",
+      "bytes": 201
+    },
+    {
+      "name": "_next/static/chunks/app/katalog/doma/page-1b914be10c1bc4ca.js",
+      "bytes": 7783
+    },
+    {
+      "name": "_next/static/chunks/app/model-sheet/[id]/page-319677729a34ef14.js",
+      "bytes": 1248
+    },
+    {
+      "name": "_next/static/chunks/app/nashi-raboty/[slug]/page-e2187721d468ab96.js",
+      "bytes": 2459
+    },
+    {
+      "name": "_next/static/chunks/app/poleznoe/[slug]/page-f5b70827547083f4.js",
+      "bytes": 228
+    }
+  ]
+}

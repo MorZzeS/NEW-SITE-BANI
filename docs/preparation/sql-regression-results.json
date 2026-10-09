@@ -1,0 +1,17 @@
+{
+    "result": "PASS",
+    "mysql": "8.4.11",
+    "checks": [
+        "atomic_rollback",
+        "atomic_commit_three_tables",
+        "request_unique",
+        "outbox_unique",
+        "foreign_key",
+        "durable_rate_upsert",
+        "expired_claim_quarantined",
+        "backup_actual_sql_rows_valid",
+        "synthetic_snapshot_restore"
+    ],
+    "externalCalls": 0,
+    "scope": "Isolated synthetic SQL and memory snapshot; not operational backup\/hosting\/MAX\/API proof"
+}

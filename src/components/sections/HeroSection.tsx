@@ -5,8 +5,8 @@ import { SocialBlock } from '@/components/ui/SocialBlock'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
-import { bathVideoAction } from '@/data/videos'
-import { ArrowRight, Play, Shield, Truck, Factory, Wrench } from 'lucide-react'
+import { HeroVideoAction } from '@/components/ui/HeroVideoAction'
+import { ArrowRight, Shield, Truck, Factory, Wrench } from 'lucide-react'
 
 const trustItems = [
   { icon: Factory, title: 'Производство', caption: 'Собственное производство' },
@@ -77,12 +77,7 @@ export function HeroSection() {
                     Смотреть каталог
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <button type="button" aria-haspopup="dialog" onClick={() => setVideoOpen(true)} className="flex items-center gap-3 text-sm text-cream/80 hover:text-cream transition-colors group min-h-11 text-left">
-                    <div className="w-11 h-11 glass rounded-full flex items-center justify-center group-hover:bg-white/15 transition-colors">
-                      <Play className="w-4 h-4 text-cream fill-current ml-0.5" />
-                    </div>
-                    <span><span className="block font-medium">{bathVideoAction.title}</span><span className="block text-xs text-cream/75 mt-0.5">{bathVideoAction.caption}</span></span>
-                  </button>
+                  <HeroVideoAction onClick={() => setVideoOpen(true)} />
                 </div>
               </div>
 

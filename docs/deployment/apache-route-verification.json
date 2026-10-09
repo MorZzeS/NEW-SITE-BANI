@@ -1,0 +1,115 @@
+{
+  "result": "PASS",
+  "checks": 17,
+  "baseline": [
+    {
+      "route": "/",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/katalog/bani",
+      "status": 200,
+      "location": null
+    },
+    {
+      "route": "/katalog/bani/",
+      "status": 200,
+      "location": null
+    }
+  ],
+  "fixture": [
+    {
+      "route": "/",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "location": null
+    },
+    {
+      "route": "/katalog/bani",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "location": null
+    },
+    {
+      "route": "/katalog/bani/",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "location": null
+    },
+    {
+      "route": "/poleznoe/example",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "location": null
+    },
+    {
+      "route": "/poleznoe/example/",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "location": null
+    },
+    {
+      "route": "/missing",
+      "status": 404,
+      "type": "text/html; charset=utf-8",
+      "location": null
+    },
+    {
+      "route": "/private/data.txt",
+      "status": 403,
+      "type": "text/html; charset=iso-8859-1",
+      "location": null
+    },
+    {
+      "route": "/config/data.txt",
+      "status": 403,
+      "type": "text/html; charset=iso-8859-1",
+      "location": null
+    },
+    {
+      "route": "/userdata/data.txt",
+      "status": 403,
+      "type": "text/html; charset=iso-8859-1",
+      "location": null
+    },
+    {
+      "route": "/test.php",
+      "status": 403,
+      "type": "text/html; charset=iso-8859-1",
+      "location": null
+    },
+    {
+      "route": "/.htaccess",
+      "status": 403,
+      "type": "text/html; charset=iso-8859-1",
+      "location": null
+    },
+    {
+      "route": "/pic.webp",
+      "status": 200,
+      "type": "image/webp",
+      "location": null
+    },
+    {
+      "route": "/pic.avif",
+      "status": 200,
+      "type": "image/avif",
+      "location": null
+    },
+    {
+      "route": "/video.mp4",
+      "status": 200,
+      "type": "video/mp4",
+      "location": null
+    }
+  ],
+  "sourceConfigModified": false,
+  "sourceDistModified": false,
+  "liveHostContacted": false,
+  "loopbackPorts": [
+    18779,
+    18789
+  ],
+  "scope": "Isolated Apache 2.4 fixture; not hosting-provider proof"
+}

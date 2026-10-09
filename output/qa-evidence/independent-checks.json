@@ -1,0 +1,72 @@
+{
+  "npm run check:static": {
+    "chunk_id": "8f28e2",
+    "wall_time_seconds": 1.8226496,
+    "exit_code": 0,
+    "original_token_count": 56,
+    "output": "\n> banger-site@0.1.0 check:static\n> node scripts/check-static.mjs\n\n{\n  \"pages\": 136,\n  \"localUrls\": 355,\n  \"models\": 31,\n  \"plans\": 28,\n  \"errors\": []\n}\n{\n  \"productionPathAudit\": \"PASS\",\n  \"files\": 388,\n  \"errors\": []\n}\n"
+  },
+  "node scripts/verify-equipment-configurator.mjs": {
+    "chunk_id": "c537ee",
+    "wall_time_seconds": 0.4207475,
+    "exit_code": 0,
+    "original_token_count": 98,
+    "output": "PASS: 19/19 options, canonical prices, deduplication, unknown price, reset, comment limit; real form submit payload passes unchanged backend validation (512/1500 chars). No real requests sent.\nPASS: component events from multiple categories + popular remove + reset update summary count/total and form from one canonical selection. Browser paint/translation still needs live verification.\n"
+  },
+  "node scripts/verify-lead-consent.mjs": {
+    "chunk_id": "c1baf5",
+    "wall_time_seconds": 0.3132011,
+    "exit_code": 0,
+    "original_token_count": 42,
+    "output": "PASS: legacy contract unchanged, v2 pending failclosed, approved synthetic evidence, URL minimization, HTTP blocked before fetch, matching receipt. No real network.\n"
+  },
+  "node --test backend/leads-server.test.mjs": {
+    "chunk_id": "3ea9d1",
+    "wall_time_seconds": 0.2867592,
+    "exit_code": 0,
+    "original_token_count": 151,
+    "output": "✔ validation rejects honeypot, invalid phone and no consent (0.6578ms)\n✔ staging root and trusted proxy client IPs are supported (36.2413ms)\nMAX delivery failed Error\n✔ HTTP contract, idempotency, CORS, rate limit and failed delivery (19.3336ms)\nMAX upstream HTTP status undefined\nMAX delivery failed Error\nMAX delivery failed Error\n✔ user_id is required and upstream errors never return success (10.9393ms)\n✔ Render health is public and does not expose configuration (3.225ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 149.8777\n"
+  },
+  "php-lint": {
+    "chunk_id": "e7a36c",
+    "wall_time_seconds": 0.9710711,
+    "exit_code": 0,
+    "original_token_count": 593,
+    "output": "No syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\backup.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\outbox.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\retention.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\backup-format.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\ca.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\config.production.example.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\config.test.example.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\notifier.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\readiness.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\validation.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\public_html\\health.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\public_html\\leads.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\backup-format.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\integration.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\notifier.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\operations.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\validation.php\nPHP lint files: 17\r\n"
+  },
+  "php-offline": {
+    "chunk_id": "8c626f",
+    "wall_time_seconds": 0.3323491,
+    "exit_code": 255,
+    "original_token_count": 158,
+    "output": "Validation checks passed: 12\nOffline outcome checks: 7\nReadiness/operations/CA offline checks: 13\n\nFatal error: Uncaught Error: Call to undefined function openssl_encrypt() in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\backup-format.php:8\nStack trace:\n#0 C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\backup-format.php(5): sealBackup(Array, '\\xE6b\\xBC\\xE7{L\\xCA\\x93\\x9C\\x821\\n7w\\xE3...')\n#1 {main}\n  thrown in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\backup-format.php on line 8\n"
+  },
+  "php-backup-retry": {
+    "chunk_id": "0d6062",
+    "wall_time_seconds": 0.20415,
+    "exit_code": 0,
+    "original_token_count": 9,
+    "output": "Backup encryption offline checks: 3\n"
+  },
+  "http-routes": {
+    "chunk_id": "3c2ae3",
+    "wall_time_seconds": 0.2312745,
+    "exit_code": 0,
+    "original_token_count": 220,
+    "output": "{\"route\":\"/\",\"status\":200,\"type\":[\"text/html; charset=utf-8\"],\"location\":null,\"robots\":[\"noindex, nofollow, noarchive\"],\"utf8\":true,\"length\":176469}\r\n{\"route\":\"/katalog/bani\",\"status\":200,\"type\":[\"text/html; charset=utf-8\"],\"location\":null,\"robots\":[\"noindex, nofollow, noarchive\"],\"utf8\":true,\"length\":99256}\r\n{\"route\":\"/katalog/bani/\",\"status\":200,\"type\":[\"text/html; charset=utf-8\"],\"location\":null,\"robots\":[\"noindex, nofollow, noarchive\"],\"utf8\":true,\"length\":99256}\r\n{\"route\":\"/poleznoe\",\"status\":301,\"error\":\"Response status code does not indicate success: 301 (Moved Permanently).\",\"location\":null}\r\n{\"route\":\"/__qa_missing_20261008\",\"status\":404,\"error\":\"Response status code does not indicate success: 404 (Not Found).\",\"location\":null}\r\n{\"route\":\"/NEW-SITE-BANI\",\"status\":404,\"error\":\"Response status code does not indicate success: 404 (Not Found).\",\"location\":null}\r\n"
+  },
+  "http-resources": {
+    "chunk_id": "af89c3",
+    "wall_time_seconds": 0.2596247,
+    "exit_code": 0,
+    "original_token_count": 553,
+    "output": "{\"route\":\"/poleznoe\",\"status\":200,\"type\":\"text/html; charset=utf-8\",\"location\":null,\"bytes\":157348,\"replacement\":false}\n{\"route\":\"/poleznoe/\",\"status\":200,\"type\":\"text/html; charset=utf-8\",\"location\":null,\"bytes\":157348,\"replacement\":false}\n{\"route\":\"/_next/static/css/3dd1c7cc5aee5b53.css\",\"status\":200,\"type\":\"text/css; charset=utf-8\",\"location\":null,\"bytes\":59622,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/webpack-38ac4b9240287fa6.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":3774,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/f78c2a1c-6b9816ee139c8e5e.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":172831,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/706-454fb1877f40cb50.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":123584,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/main-app-9576e25736095bfe.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":463,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/967-8cf24c503271ed34.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":20541,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/61-24e25fca7524ada5.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":13034,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/578-c77cd3fd6148b975.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":121434,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/330-38bc9a953dd582e3.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":13036,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/739-32c21494a10280e3.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":37678,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/634-b2422a58224ad649.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":15246,\"replacement\":false}\n{\"route\":\"/_next/static/chunks/app/page-e1b33a262d802d49.js\",\"status\":200,\"type\":\"text/javascript; charset=utf-8\",\"location\":null,\"bytes\":23770,\"replacement\":false}\n{\"articleHtml\":29,\"articleDirectories\":21}\n"
+  },
+  "http-media": {
+    "chunk_id": "bba904",
+    "wall_time_seconds": 0.1642636,
+    "exit_code": 0,
+    "original_token_count": 112,
+    "output": "{\"route\":\"/images/social/max-qr.svg\",\"status\":200,\"type\":\"image/svg+xml\",\"bytes\":2440}\n{\"route\":\"/images/social/vk-qr.svg\",\"status\":200,\"type\":\"image/svg+xml\",\"bytes\":1552}\n{\"route\":\"/images/social/telegram-qr.svg\",\"status\":200,\"type\":\"image/svg+xml\",\"bytes\":1215}\n{\"route\":\"/images/social/instagram-qr.svg\",\"status\":200,\"type\":\"image/svg+xml\",\"bytes\":2427}\n{\"route\":\"/images/renders/istok-8.webp\",\"status\":200,\"type\":\"image/webp\",\"bytes\":398950}\n"
+  }
+}

@@ -26,12 +26,14 @@ const states = ['idle', '', 'Тест', '+79000000000', 'БГ-01', 'Мои по�
 const react = { useState: value => [states[stateIndex++] ?? value, () => {}], useEffect: () => {}, useRef: value => ({ current: value }) }
 const jsx = (type, props) => ({ type, props })
 class TestDate extends Date { static now() { return clock } }
+const consentModule = load('src/lib/lead-consent.ts', undefined, { process: { env: {} }, URL })
 const formModule = load('src/components/forms/CTAFormInline.tsx', id => {
   if (id === 'react') return react
   if (id === 'react/jsx-runtime') return { jsx, jsxs: jsx }
   if (id === 'next/link') return { default: 'a' }
   if (id === '@/data') return { siteSettings: {} }
   if (id === '@/lib/equipment-selection') return selection
+  if (id === '@/lib/lead-consent') return consentModule
   if (id === '@/lib/leads') return { leadEndpoint: 'https://test.invalid/leads', sendLead: async lead => { sent.push(lead) } }
   throw new Error(id)
 }, { Date: TestDate, location: { href: 'https://banger.su/komplektaciya', search: '' }, crypto: { randomUUID: () => 'equipment-test-request-01' }, FormData: class { get() { return '' } } })

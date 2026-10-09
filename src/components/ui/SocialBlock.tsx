@@ -9,6 +9,6 @@ export function SocialBlock({ compact = false }: { compact?: boolean }) {
       {!compact && <span className="text-sm text-gold-400">Написать в {item.name}</span>}
     </a>})}
   </div>
-  if (compact) return <aside aria-label="Наши социальные сети" className="hero-social"><p className="text-xs text-cream/75 mb-3">Мы на связи</p>{content}</aside>
+  if (compact) return <aside aria-label="Наши социальные сети" className="hero-social"><p className="text-xs text-cream/75 mb-2">Мы на связи</p>{content}</aside>
   return <section aria-label="Наши социальные сети" className="py-10 border-t border-white/10">{content}</section>
 }

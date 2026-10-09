@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-09",
+  "scope": "offline only; no real requests; source read-only",
+  "checks": {
+    "npm run check:static": {
+      "cmd": "npm run check:static",
+      "chunk_id": "52bdc0",
+      "wall_time_seconds": 2.8309631,
+      "exit_code": 0,
+      "original_token_count": 56,
+      "output": "\n> banger-site@0.1.0 check:static\n> node scripts/check-static.mjs\n\n{\n  \"pages\": 136,\n  \"localUrls\": 355,\n  \"models\": 31,\n  \"plans\": 28,\n  \"errors\": []\n}\n{\n  \"productionPathAudit\": \"PASS\",\n  \"files\": 388,\n  \"errors\": []\n}\n"
+    },
+    "node scripts/verify-equipment-configurator.mjs": {
+      "cmd": "node scripts/verify-equipment-configurator.mjs",
+      "chunk_id": "a5a6c6",
+      "wall_time_seconds": 0.3884806,
+      "exit_code": 0,
+      "original_token_count": 98,
+      "output": "PASS: 19/19 options, canonical prices, deduplication, unknown price, reset, comment limit; real form submit payload passes unchanged backend validation (512/1500 chars). No real requests sent.\nPASS: component events from multiple categories + popular remove + reset update summary count/total and form from one canonical selection. Browser paint/translation still needs live verification.\n"
+    },
+    "node scripts/verify-lead-consent.mjs": {
+      "cmd": "node scripts/verify-lead-consent.mjs",
+      "chunk_id": "99b01d",
+      "wall_time_seconds": 0.3392315,
+      "exit_code": 0,
+      "original_token_count": 42,
+      "output": "PASS: legacy contract unchanged, v2 pending failclosed, approved synthetic evidence, URL minimization, HTTP blocked before fetch, matching receipt. No real network.\n"
+    },
+    "php-lint": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; $filesQa = @(Get-ChildItem -LiteralPath backend/spaceweb -Filter '*.php' -Recurse -File); foreach ($fileQa in $filesQa) { & $phpQa -n -d \"extension_dir=$extQa\" -d extension=mbstring -d extension=curl -d extension=pdo_mysql -d extension=openssl -l $fileQa.FullName; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }; Write-Output \"PHP lint files: $($filesQa.Count)\"",
+      "chunk_id": "26ff2f",
+      "wall_time_seconds": 1.2509191,
+      "exit_code": 0,
+      "original_token_count": 593,
+      "output": "No syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\backup.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\outbox.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\bin\\retention.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\backup-format.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\ca.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\config.production.example.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\config.test.example.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\notifier.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\readiness.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\private\\validation.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\public_html\\health.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\public_html\\leads.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\backup-format.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\integration.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\notifier.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\operations.php\nNo syntax errors detected in C:\\Users\\maxto\\Desktop\\НОВЫЙ САЙТ\\banger-unified-preparation\\backend\\spaceweb\\tests\\validation.php\nPHP lint files: 17\r\n"
+    },
+    "php-validation": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; & $phpQa -n -d \"extension_dir=$extQa\" -d extension=mbstring -d extension=curl -d extension=pdo_mysql -d extension=openssl backend/spaceweb/tests/validation.php",
+      "chunk_id": "7b69f1",
+      "wall_time_seconds": 0.1646681,
+      "exit_code": 0,
+      "original_token_count": 8,
+      "output": "Validation checks passed: 12\n"
+    },
+    "php-notifier": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; & $phpQa -n -d \"extension_dir=$extQa\" -d extension=mbstring -d extension=curl -d extension=pdo_mysql -d extension=openssl backend/spaceweb/tests/notifier.php",
+      "chunk_id": "8cc2cc",
+      "wall_time_seconds": 0.1727986,
+      "exit_code": 0,
+      "original_token_count": 7,
+      "output": "Offline outcome checks: 7\n"
+    },
+    "php-backup-format": {
+      "cmd": "$phpQa = Join-Path (Split-Path (Get-Location) -Parent) 'banger-unified-role-runs/runtime/php84/php.exe'; $extQa = Join-Path (Split-Path $phpQa -Parent) 'ext'; & $phpQa -n -d \"extension_dir=$extQa\" -d extension=mbstring -d extension=curl -d extension=pdo_mysql -d extension=openssl backend/spaceweb/tests/backup-format.php",
+      "chunk_id": "81d65c",
+      "wall_time_seconds": 0.1688518,
+      "exit_code": 0,
+      "original_token_count": 9,
+      "output": "Backup encryption offline checks: 3\n"
+    },
+    "artifact": {
+      "cmd": "@'\nimport fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import {verify,inventory} from './scripts/spaceweb/safety.mjs';import {auditCompiled} from './scripts/spaceweb/audit-compiled.mjs';const root=path.resolve('../banger-unified-role-runs/staging-artifact');const manifestPath=root+'.manifest.json';const files=verify(root);const records=inventory(root);const forbidden=records.filter(f=>/(^|\\/)(backend|private|config|userdata|api)(\\/|$)|\\.(?:php\\d?|phtml|phar|env|ini|conf|config|sql|bak|log|key|pem)$/i.test(f.path));let suspicious=0;for(const f of records.filter(f=>/\\.(?:html|js|json|txt|xml|css|svg)$/i.test(f.path))){const s=fs.readFileSync(path.join(root,f.path),'utf8');if(/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|MAX_BOT_TOKEN\\s*[=:]\\s*[\"'][^\"']+|SPACEWEB_TEST_PASSWORD\\s*[=:]\\s*[\"'][^\"']+/i.test(s))suspicious++;}console.log(JSON.stringify({result:'PASS',root,files,manifestSha256:crypto.createHash('sha256').update(fs.readFileSync(manifestPath)).digest('hex'),inventorySha256:crypto.createHash('sha256').update(JSON.stringify(records)).digest('hex'),manifestMatches:true,forbiddenFileCount:forbidden.length,suspiciousSecretPatternFiles:suspicious,compiledAudit:auditCompiled(root,''),network:false,write:false,limitation:'Recognized filename and secret-pattern audit; cannot prove absence of every unknown secret.'},null,2));if(forbidden.length||suspicious)process.exitCode=1;\n'@ | node --input-type=module",
+      "chunk_id": "1b95d0",
+      "wall_time_seconds": 1.7675726,
+      "exit_code": 0,
+      "original_token_count": 236,
+      "output": "{\n  \"result\": \"PASS\",\n  \"root\": \"C:\\\\Users\\\\maxto\\\\Desktop\\\\НОВЫЙ САЙТ\\\\banger-unified-role-runs\\\\staging-artifact\",\n  \"files\": 655,\n  \"manifestSha256\": \"af4b30428e744c5f747d0824c053d9ea561f21dafe09ffc71d7402b0a9bb1d07\",\n  \"inventorySha256\": \"949c39ca383297cef8cc072eb2e9a94af9b16f94acade7127c29029e8508f87f\",\n  \"manifestMatches\": true,\n  \"forbiddenFileCount\": 0,\n  \"suspiciousSecretPatternFiles\": 0,\n  \"compiledAudit\": {\n    \"scripts\": 49,\n    \"inlineScripts\": 1156,\n    \"scriptReferences\": 1504,\n    \"endpointInitializers\": 1,\n    \"emptyConfiguredEndpoint\": true,\n    \"compiledEmptyFallback\": true,\n    \"httpGuard\": true,\n    \"renderReferences\": 0,\n    \"assurance\": \"Static recognized initializer and literal/reference audit; not arbitrary-code or dynamic-destination proof\"\n  },\n  \"network\": false,\n  \"write\": false,\n  \"limitation\": \"Recognized filename and secret-pattern audit; cannot prove absence of every unknown secret.\"\n}\n"
+    }
+  },
+  "blocked": {
+    "node --test backend/leads-server.test.mjs": "Health test listen(0,'0.0.0.0'); exact script conflicts with loopback-only boundary.",
+    "node scripts/spaceweb/test-safety.mjs": "Creates/deletes scripts/spaceweb/spaceweb-safety-* fixtures outside assigned output ownership.",
+    "node scripts/spaceweb/test-existing-build.mjs": "Creates/deletes scripts/spaceweb/spaceweb-review-*; writes docs/deployment/existing-build-verification.json outside ownership.",
+    "PHP operations.php": "tempnam(sys_get_temp_dir(),'spaceweb-ca-test-') writes/deletes outside output ownership."
+  }
+}

@@ -163,6 +163,10 @@ export function Header({ settings }: Props) {
             ))}
           </nav>
 
+          <a href={'tel:' + settings.phone} className="header-primary-phone" aria-label={'Позвонить: ' + settings.phoneDisplay}>
+            <Phone aria-hidden="true" className="w-4 h-4 shrink-0" />
+            {settings.phoneDisplay}
+          </a>
           <PhoneLinks className="header-phone-links" />
 
           {/* Right controls */}

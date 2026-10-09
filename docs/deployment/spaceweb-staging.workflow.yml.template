@@ -1,0 +1,73 @@
+# INACTIVE: outside .github/workflows. Activation requires coordinator review.
+name: SpaceWeb staging preparation
+on:
+  push:
+    branches: [spaceweb-staging]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: spaceweb-staging
+  cancel-in-progress: false
+env:
+  NEXT_PUBLIC_LEADS_ENDPOINT: ''
+  NEXT_PUBLIC_LEADS_CONTRACT: '1'
+  NEXT_PUBLIC_CONSENT_VERSION: ''
+  NEXT_PUBLIC_POLICY_VERSION: ''
+  SPACEWEB_BRANCH: spaceweb-staging
+  SPACEWEB_HOST: banger.ru.swtest.ru
+  SPACEWEB_DOCROOT: /home/b/bangerramb/bangersu/public_html
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/spaceweb-staging'
+    runs-on: ubuntu-latest
+    environment: spaceweb-staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Guard staging scope
+        run: node scripts/spaceweb/safety.mjs guard
+      - run: npm ci
+      - name: Static root export (single build)
+        run: |
+          node -e "const c=require('./next.config.js');if(c.output!=='export'||c.basePath)throw Error('Root static export required')"
+          npm run build
+          npm run check:static
+      - name: Prepare isolated noindex artifact
+        run: node scripts/spaceweb/prepare.mjs dist staging-artifact
+      - run: node scripts/spaceweb/safety.mjs verify staging-artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spaceweb-staging-review
+          path: |
+            staging-artifact/
+            staging-artifact.manifest.json
+          include-hidden-files: true
+          retention-days: 7
+# Deliberately no transfer job. Activation does not authorize an upload.
+# Configure environment required reviewers and branch rule spaceweb-staging first.
+# Only staging secrets: SPACEWEB_STAGING_SSH_KEY, SPACEWEB_STAGING_KNOWN_HOSTS,
+# SPACEWEB_STAGING_SSH_HOST, SPACEWEB_STAGING_SSH_USER, SPACEWEB_STAGING_SSH_PORT.
+# SSH server hostname is provider-confirmed separately from the HTTP virtual host.
+
+
+
+# DISABLED TRANSFER SKELETON — review contract only, no executable upload step.
+# transfer:
+#   if: false
+#   needs: prepare
+#   environment: spaceweb-staging-owner-approved
+#   # Configure required owner reviewers, prevent self approval and restrict branch.
+#   # Gate 1: exact owner Ed25519 approval of bundle/owned manifests/plan.
+#   # Gate 2: provider SFTP, rename-overwrite and same-directory rename evidence.
+#   # Gate 3: existing HTTP protection + absent unique temp paths independently verified.
+#   # Gate 4: verified private timestamped backup receipt and restore test.
+#   # Gate 5: isolated strict hostkey-pinned staging SSH configuration.
+#   # Offline review command ONLY (not a transfer):
+#   # node scripts/spaceweb/dry-run-transfer.mjs bundle.json approval.json trusted-owner-public-key.pem
+#   # Future upload implementation is BLOCKED; no connection is provided here.
+#   # After staged-file download/hash + live drift check, owner approves commit batch.
+#   # Per-file rename only; root index LAST; no blanket delete or atomic-site promise.

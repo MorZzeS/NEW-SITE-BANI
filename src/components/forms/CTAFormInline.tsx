@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { siteSettings } from '@/data'
 import { leadEndpoint, sendLead } from '@/lib/leads'
+import { consentEvidence, consentEvidenceReady, leadPageUrl } from '@/lib/lead-consent'
 import { mergeConfigurationComment } from '@/lib/equipment-selection'
 
 export function CTAFormInline({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
@@ -13,7 +14,9 @@ export function CTAFormInline({ modelName, configurationNote }: { modelName?: st
  const started=useRef(Date.now()), pending=useRef(false)
  const request=useRef<{ id: string; body: string }>()
  useEffect(() => { if (!modelName) setModel(new URLSearchParams(location.search).get('model')?.slice(0,160) || '') }, [modelName])
- const configured=/^https:\/\//.test(leadEndpoint)
+ const [secureContext,setSecureContext]=useState(false)
+ useEffect(() => setSecureContext(location.protocol==='https:'), [])
+ const configured=/^https:\/\//.test(leadEndpoint) && secureContext && consentEvidenceReady
  async function submit(event: React.FormEvent<HTMLFormElement>) {
   event.preventDefault()
   if(pending.current || status==='success')return
@@ -27,7 +30,7 @@ export function CTAFormInline({ modelName, configurationNote }: { modelName?: st
   try {
    const body=JSON.stringify([name.trim(),phone,model,submittedComment])
    if(!request.current || request.current.body!==body)request.current={id:crypto.randomUUID(),body}
-   await sendLead({requestId:request.current.id,name:name.trim(),phone,model,page:location.href,comment:submittedComment,createdAt:new Date().toISOString(),consent,website,startedAt:started.current});setStatus('success')
+   await sendLead({requestId:request.current.id,name:name.trim(),phone,model,...consentEvidence(),page:leadPageUrl(location.href),comment:submittedComment,createdAt:new Date().toISOString(),consent,website,startedAt:started.current});setStatus('success')
   }
   catch(err){setError(err instanceof Error?err.message:'Не удалось отправить заявку. Свяжитесь напрямую.');setStatus('error')}
   finally{pending.current=false}
@@ -42,7 +45,7 @@ export function CTAFormInline({ modelName, configurationNote }: { modelName?: st
    {configurationNote && <div className="text-sm text-cream/70 border-l-2 border-gold-400 pl-4" aria-label="Выбранные опции для заявки"><p className="whitespace-pre-line">{configurationNote}</p><p className="text-xs mt-2">Этот список будет отправлен вместе с вашим комментарием.</p></div>}
    <label className="block text-sm text-cream">Комментарий<textarea value={comment} onChange={e=>setComment(e.target.value)} maxLength={1500} rows={3} className="lead-input" /></label>
    <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
-   <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required className="mt-1" /><span>Согласен с <Link href="/privacy" className="underline">политикой конфиденциальности</Link> и обработкой данных для ответа на заявку.</span></label>
+   <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required className="mt-1" /><span>Даю <Link href="/soglasie-pd" className="underline">согласие на обработку персональных данных</Link> для ответа на заявку. <Link href="/politika" className="underline">Политика обработки данных</Link>.</span></label>
    {error && <p role="alert" className="text-sm text-cream">{error}</p>}
    <button type="submit" disabled={!configured || status==='sending'} className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-default">{status==='sending'?'Отправляем…':'Отправить заявку'}</button>
   </form>}
