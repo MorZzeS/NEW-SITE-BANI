@@ -43,7 +43,6 @@ Image WebP conversion: PNG renders are 3+ MB each; conversion blocked by static 
 ## LEGAL DATA (confirmed by owner — do NOT invent)
 Seller / PD operator: ИП Лещенко Максим Витальевич
 INN: 504810391201 | OGRNIP: 319507400024020
-Address: 142300, Московская обл., г. Чехов, ул. Московская, д. 110, кв. 56
 Phone: +7 (936) 200-00-50 | Email: info@banger.su
 MAX: https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs
 Bank details: NOT PUBLIC (only for contracts/invoices/internal CRM)
