@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { siteSettings } from '@/data'
 import { leadEndpoint, sendLead } from '@/lib/leads'
-import { consentEvidence, consentEvidenceReady, leadPageUrl } from '@/lib/lead-consent'
+import { consentEvidence, consentEvidenceReady, leadContract, leadPageUrl } from '@/lib/lead-consent'
 import { mergeConfigurationComment } from '@/lib/equipment-selection'
 
 export function CTAFormInline({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
@@ -45,7 +45,7 @@ export function CTAFormInline({ modelName, configurationNote }: { modelName?: st
    {configurationNote && <div className="text-sm text-cream/70 border-l-2 border-gold-400 pl-4" aria-label="Выбранные опции для заявки"><p className="whitespace-pre-line">{configurationNote}</p><p className="text-xs mt-2">Этот список будет отправлен вместе с вашим комментарием.</p></div>}
    <label className="block text-sm text-cream">Комментарий<textarea value={comment} onChange={e=>setComment(e.target.value)} maxLength={1500} rows={3} className="lead-input" /></label>
    <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
-   <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required className="mt-1" /><span>Даю <Link href="/soglasie-pd" className="underline">согласие на обработку персональных данных</Link> для ответа на заявку. <Link href="/politika" className="underline">Политика обработки данных</Link>.</span></label>
+   <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required className="mt-1" />{leadContract===2?<span>Даю <Link href="/soglasie-pd" className="underline">согласие на обработку персональных данных</Link> для ответа на заявку. <Link href="/politika" className="underline">Политика обработки данных</Link>.</span>:<span>Согласен с <Link href="/privacy" className="underline">политикой конфиденциальности</Link> и обработкой данных для ответа на заявку.</span>}</label>
    {error && <p role="alert" className="text-sm text-cream">{error}</p>}
    <button type="submit" disabled={!configured || status==='sending'} className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-default">{status==='sending'?'Отправляем…':'Отправить заявку'}</button>
   </form>}
