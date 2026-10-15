@@ -1,6 +1,6 @@
 // Photos verified against provided source files; general examples are not model-specific.
 export const saunaInteriorExamples = [
-  "/images/interiors/vizual-gostinnaya-1.jpg",
+  
   "/images/interiors/vizual-gostinnaya-2.jpg",
   "/images/interiors/vizual-gostinnaya-3.jpg",
   "/images/interiors/vizual-gostinnaya-4.jpg",
@@ -22,7 +22,7 @@ export const saunaInteriorExamples = [
 ]
 
 export const homeInteriorExamples = [
-  "/images/interiors/vizual-gostinnaya-1.jpg",
+  
   "/images/interiors/vizual-gostinnaya-2.jpg",
   "/images/interiors/vizual-gostinnaya-3.jpg",
   "/images/interiors/vizual-gostinnaya-4.jpg",

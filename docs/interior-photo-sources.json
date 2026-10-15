@@ -1,14 +1,5 @@
 [
   {
-    "source": "Визуал гостинной 1.jpg",
-    "asset": "images/interiors/vizual-gostinnaya-1.jpg",
-    "sha256": "763675c101dd31d7668818265bb2321451c3343453406475cd473bf37ebb66f1",
-    "groups": [
-      "home",
-      "sauna"
-    ]
-  },
-  {
     "source": "Визуал гостинной 2.jpg",
     "asset": "images/interiors/vizual-gostinnaya-2.jpg",
     "sha256": "45e09675809d79a794af396c77a920e2ce6d50084a1468f845ca579ef52c31f0",

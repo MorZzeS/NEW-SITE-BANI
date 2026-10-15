@@ -54,12 +54,6 @@ export const homeInteriors = [
     "alt": "Душевая зона — реальное фото интерьера нашей бани"
   },
   {
-    "src": "/images/interiors/home/interior-10.webp",
-    "avif": "/images/interiors/home/interior-10.avif",
-    "caption": "Комната отдыха",
-    "alt": "Комната отдыха — реальное фото интерьера нашей бани"
-  },
-  {
     "src": "/images/interiors/home/interior-11.webp",
     "avif": "/images/interiors/home/interior-11.avif",
     "caption": "Комната отдыха",

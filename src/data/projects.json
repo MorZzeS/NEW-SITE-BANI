@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "homepageModelSlugs": [
+    "skandinaviya-komfort-plus-7",
+    "sever-panorama-8"
+  ],
+  "items": [
+    {
+      "id": "1",
+      "slug": "istok-8-podmoskovye",
+      "title": "Исток 8",
+      "model": "Исток 8",
+      "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
+      "order": 1,
+      "visible": true,
+      "evidence": "illustrative",
+      "coverMediaId": "1-cover",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "1-cover",
+          "src": "/images/renders/istok-8.webp",
+          "alt": "Визуализация: Исток 8",
+          "caption": "Каталожная визуализация; не фотография подтверждённого завершённого объекта.",
+          "kind": "catalog-render",
+          "order": 1,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "legacyUnverified": {
+        "title": "Исток 8 в Подмосковье",
+        "description": "Полная комплектация с дополнительной верандой.",
+        "region": "Московская область",
+        "date": "2026-08",
+        "model": "Исток 8 (БГ-08)",
+        "tags": [
+          "На участке",
+          "Полная комплектация"
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "slug": "sever-panorama-8-mos",
+      "title": "Север Панорама 8",
+      "model": "Север Панорама 8",
+      "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
+      "order": 2,
+      "visible": true,
+      "evidence": "illustrative",
+      "coverMediaId": "2-cover",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "2-cover",
+          "src": "/images/renders/sever-panorama-8.webp",
+          "alt": "Визуализация: Север Панорама 8",
+          "caption": "Каталожная визуализация; не фотография подтверждённого завершённого объекта.",
+          "kind": "catalog-render",
+          "order": 1,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "legacyUnverified": {
+        "title": "Север Панорама 8",
+        "description": "Доставка и установка в Московской области. Обливное устройство.",
+        "region": "Московская область",
+        "date": "2026-07",
+        "model": "Север Панорама 8 (БГ-21)",
+        "tags": [
+          "На участке",
+          "Обливное устройство"
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "slug": "usadba-terra-podmoskovye",
+      "title": "Усадьба Терра 7",
+      "model": "Усадьба Терра 7",
+      "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
+      "order": 3,
+      "visible": true,
+      "evidence": "illustrative",
+      "coverMediaId": "3-cover",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "3-cover",
+          "src": "/images/renders/usadba-terra-7.webp",
+          "alt": "Визуализация: Усадьба Терра 7",
+          "caption": "Каталожная визуализация; не фотография подтверждённого завершённого объекта.",
+          "kind": "catalog-render",
+          "order": 1,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "legacyUnverified": {
+        "title": "Усадьба Терра 7 в Раменском",
+        "description": "Широкоформатная баня с крытой террасой.",
+        "region": "Московская область",
+        "date": "2026-06",
+        "model": "Усадьба Терра 7 (БГ-31)",
+        "tags": [
+          "Терраса",
+          "Брус"
+        ]
+      }
+    },
+    {
+      "id": "4",
+      "slug": "skandinaviya-komfort-plus-7-spb",
+      "title": "Скандинавия Комфорт+ 7",
+      "model": "Скандинавия Комфорт+ 7",
+      "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
+      "order": 4,
+      "visible": true,
+      "evidence": "illustrative",
+      "coverMediaId": "4-cover",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "4-cover",
+          "src": "/images/renders/skandinaviya-komfort-plus-7.webp",
+          "alt": "Визуализация: Скандинавия Комфорт+ 7",
+          "caption": "Каталожная визуализация; не фотография подтверждённого завершённого объекта.",
+          "kind": "catalog-render",
+          "order": 1,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "legacyUnverified": {
+        "title": "Скандинавия Комфорт+ 7",
+        "description": "Баня с санузлом, бойлером и тропическим душем.",
+        "region": "Ленинградская обл.",
+        "date": "2026-05",
+        "model": "Скандинавия Комфорт+ 7 (БГ-17)",
+        "tags": [
+          "Санузел",
+          "Тропический душ"
+        ]
+      }
+    }
+  ]
+}

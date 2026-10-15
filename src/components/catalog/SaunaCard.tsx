@@ -8,6 +8,7 @@ import clsx from 'clsx'
 interface Props {
   sauna: Sauna
   featured?: boolean
+  bestSeller?: boolean
 }
 
 const tagColors: Record<string, string> = {
@@ -17,9 +18,9 @@ const tagColors: Record<string, string> = {
   'Под заказ': 'bg-cream/10 text-cream/60 border-cream/20',
 }
 
-export function SaunaCard({ sauna, featured }: Props) {
+export function SaunaCard({ sauna, featured, bestSeller = false }: Props) {
   return (
-    <Link href={`/banya/${sauna.slug}`} className="group block">
+    <Link href={`/banya/${sauna.slug}`} className={clsx("group block", bestSeller && "homepage-best-seller-card")}>
       <div className={clsx(
         'glass-card h-full flex flex-col overflow-hidden',
         featured && 'md:flex-row md:h-72'
@@ -94,6 +95,7 @@ export function SaunaCard({ sauna, featured }: Props) {
           </div>
         </div>
       </div>
+      {bestSeller && <span className="homepage-best-seller"><img src="/images/decor/bestseller-bow-a.svg" className="homepage-best-seller-bow" alt="Хит продаж" width="180" height="145" /></span>}
     </Link>
   )
 }

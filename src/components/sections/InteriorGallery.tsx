@@ -6,7 +6,7 @@ const interiors = [
   '/images/interiors/parnaya-4-.jpg',
   '/images/interiors/parnaya-5-.jpg',
   '/images/interiors/parnaya-6-.jpg',
-  '/images/interiors/vizual-gostinnaya-1.jpg',
+  
   '/images/interiors/vizual-gostinnaya-3.jpg',
   '/images/interiors/boyler-50-.jpg',
   '/images/interiors/dushevoy-plus-.jpg',

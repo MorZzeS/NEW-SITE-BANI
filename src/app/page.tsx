@@ -1,5 +1,6 @@
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { HeroSection } from '@/components/sections/HeroSection'
+import { WeatherWide } from '@/components/sections/WeatherWide'
 import { CategoriesSection } from '@/components/sections/CategoriesSection'
 import { PopularSaunasSection } from '@/components/sections/PopularSaunasSection'
 import { WhyUsSection } from '@/components/sections/WhyUsSection'
@@ -12,6 +13,7 @@ import { CTASection } from '@/components/sections/CTASection'
 export default function HomePage() {
   return (
     <>
+      <WeatherWide />
       <HeroSection />
       <ScrollReveal><CategoriesSection /></ScrollReveal>
       <ScrollReveal><PopularSaunasSection /></ScrollReveal>

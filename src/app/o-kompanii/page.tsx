@@ -1,4 +1,3 @@
-import { SocialBlock } from '@/components/ui/SocialBlock'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { saunas, homes } from '@/data'
@@ -43,9 +42,9 @@ const values = [
 
 export default function OKompaniiPage() {
   return (
-    <div className="pt-28 pb-20">
+    <div className="about-page pt-28 pb-12">
       <div className="site-container">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <div className="section-tag mb-4">О нас</div>
           <h1 className="text-5xl font-extrabold text-cream mb-4">Бани Герасимов</h1>
           <p className="text-xl text-cream/60 max-w-2xl mx-auto leading-relaxed">
@@ -53,48 +52,18 @@ export default function OKompaniiPage() {
           </p>
         </div>
 
-        <div className="mb-16"><SocialBlock /></div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
-          {stats.map((stat) => (
-            <div key={stat.label} className="glass-card p-6 text-center">
-              <div className="text-4xl font-black text-gradient mb-2">{stat.value}</div>
-              <div className="text-sm text-cream/60">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-
         {/* Hero image */}
-        <div className="relative aspect-video rounded-3xl overflow-hidden mb-16">
+        <div className="about-photo relative aspect-video rounded-3xl overflow-hidden mb-5">
           <Image src="/images/showroom/exhibition.webp" alt="Наша выставка бань в Раменском" fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 80vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 to-transparent" />
         </div>
 
-        {/* Values */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-16">
-          {values.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="glass-card p-7">
-              <div className="flex items-start gap-5">
-                <div className="w-14 h-14 rounded-2xl bg-gold-400/15 flex items-center justify-center shrink-0">
-                  <Icon className="w-7 h-7 text-gold-400" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-cream mb-2">{title}</h2>
-                  <p className="text-cream/65 leading-relaxed">{desc}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
         {/* Story */}
-        <div className="prose-column">
-          <div className="glass rounded-3xl p-8 md:p-12">
-            <h2 className="text-3xl font-bold text-cream mb-6">Наша история</h2>
-            <div className="space-y-5 text-cream/70 leading-relaxed">
+        <div className="about-story glass rounded-3xl p-6 md:p-8 mb-5">
+            <h2 className="text-3xl font-bold text-cream mb-4">Наша история</h2>
+            <div className="space-y-4 text-cream/70 leading-relaxed">
               <p>
-                Компания «Бани Герасимов» основана в 2026 году. Начали с небольшой мастерской в Раменском и одной модели — Исток 4. Сегодня в нашем каталоге 24 модели мобильных бань и 7 моделей домов серии Усадьба, собственное производство и команда из 8 специалистов.
+                Компания «Бани Герасимов» основана в 2026 году. Начали с небольшой мастерской в Раменском и одной модели — Исток 4. Сегодня в нашем каталоге {companyFacts.saunas} моделей мобильных бань и {companyFacts.homes} моделей домов серии Усадьба, собственное производство и команда из 8 специалистов.
               </p>
               <p>
                 Мы работаем только с натуральной древесиной, сертифицированными утеплителями и проверенной фурнитурой. Каждая баня собирается вручную с контролем качества на каждом этапе — от распиловки до финальной отделки.
@@ -103,7 +72,24 @@ export default function OKompaniiPage() {
                 География работы на текущий момент: Москва и Московская область. Мы доставляем и устанавливаем бани на участках любой сложности — от ровных площадок до склонов и ограниченных подъездов.
               </p>
             </div>
-          </div>
+        </div>
+
+        <div className="about-values grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[values[0], values[2], values[1], values[3]].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="glass-card p-5">
+              <Icon aria-hidden="true" className="w-6 h-6 text-gold-400 mb-3" />
+              <h2 className="text-lg font-bold text-cream mb-2">{title}</h2>
+              <p className="text-sm text-cream/65 leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          {stats.map((stat) => (
+            <div key={stat.label} className="glass-card p-5 text-center">
+              <div className="text-3xl font-black text-gradient mb-2">{stat.value}</div>
+              <div className="text-sm text-cream/60">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

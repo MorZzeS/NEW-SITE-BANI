@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { MapPin, Calendar } from 'lucide-react'
-import { projects } from '@/data'
+import { projects, projectMediaStyle } from '@/data/projects'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
 
@@ -50,12 +49,14 @@ export default function ProjectPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           <div className="lg:col-span-2">
             <div className="relative aspect-video rounded-3xl overflow-hidden mb-4">
-              <Image src={project.image} alt={project.title} fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" />
+              <Image src={project.image} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" />
             </div>
-            {project.images.slice(1).map((img, i) => (
-              <div key={i} className="relative aspect-video rounded-2xl overflow-hidden mb-4">
-                <Image src={img} alt={`${project.title} - фото ${i + 2}`} fill className="object-cover" sizes="66vw" />
-              </div>
+            <p className="text-sm text-cream/60 mb-5">{project.cover.caption}</p>
+            {project.gallery.map((media) => (
+              <figure key={media.id} className="mb-4">
+                <div className="relative aspect-video rounded-2xl overflow-hidden"><Image src={media.src} alt={media.alt} style={projectMediaStyle(media)} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" /></div>
+                <figcaption className="text-sm text-cream/60 mt-2">{media.caption}</figcaption>
+              </figure>
             ))}
           </div>
 
@@ -68,18 +69,11 @@ export default function ProjectPage({ params }: Props) {
                   <span className="text-cream/50 w-24">Модель</span>
                   <span className="text-cream font-medium">{project.model}</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <MapPin className="w-4 h-4 text-gold-400 shrink-0" />
-                  <span className="text-cream">{project.region}</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <Calendar className="w-4 h-4 text-gold-400 shrink-0" />
-                  <span className="text-cream">{project.date}</span>
-                </div>
+                <p className="text-sm text-cream/60">{project.evidence === 'illustrative' ? 'Каталожная визуализация. Сведения об объекте ожидают подтверждения.' : 'Материалы подтверждены владельцем.'}</p>
               </div>
               <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 glass rounded-xl text-xs text-cream/60">{tag}</span>
+                {project.characteristics.map((item) => (
+                  <span key={item.label} className="px-3 py-1 glass rounded-xl text-xs text-cream/60">{item.label}: {item.value}</span>
                 ))}
               </div>
             </div>
