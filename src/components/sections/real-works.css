@@ -1,7 +1,7 @@
 .real-works-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
 .real-works-card{display:block;width:100%;padding:0;overflow:hidden;text-align:left;color:inherit;cursor:pointer}
-.real-works-image{display:block;position:relative;aspect-ratio:4/3;overflow:hidden;background:rgba(255,255,255,.04)}
-.real-works-image img{object-fit:cover;transition:transform .35s ease}
+.real-works-image{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;background:rgba(255,255,255,.04)}
+.real-works-image img{object-fit:contain;transition:transform .35s ease}
 .real-works-card:hover .real-works-image img{transform:scale(1.035)}
 .real-works-open{position:absolute;bottom:1rem;right:1rem;padding:.5rem .75rem;border:1px solid rgba(255,255,255,.22);border-radius:1rem;background:rgba(20,20,20,.65);color:#fff;font-size:.75rem;backdrop-filter:blur(12px)}
 .real-works-caption{display:block;padding:1rem 1.25rem;font-size:.875rem;line-height:1.5}

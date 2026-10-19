@@ -18,9 +18,9 @@ export default function HomePage() {
       <ScrollReveal><CategoriesSection /></ScrollReveal>
       <ScrollReveal><PopularSaunasSection /></ScrollReveal>
       <ScrollReveal><WhyUsSection /></ScrollReveal>
-      <ScrollReveal><InteriorPhotosSection /></ScrollReveal>
       <ScrollReveal><HowItWorksSection /></ScrollReveal>
       <ScrollReveal><ProjectsSection /></ScrollReveal>
+      <ScrollReveal><InteriorPhotosSection /></ScrollReveal>
       <ScrollReveal><ArticlesSection /></ScrollReveal>
       <ScrollReveal><CTASection /></ScrollReveal>
     </>
