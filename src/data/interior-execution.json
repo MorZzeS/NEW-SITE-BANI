@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "description": "Дополнительные фотографии показывают варианты интерьера и оборудования и не приписываются конкретным моделям.",
+  "items": [
+    {
+      "id": "work-6196",
+      "src": "/images/works/work-6196.webp",
+      "thumbnail": "/images/works/work-6196-thumb.webp",
+      "alt": "Парная с деревянными полками",
+      "caption": "Парная с деревянными полками",
+      "width": 1920,
+      "height": 1080,
+      "order": 1,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6198",
+      "src": "/images/works/work-6198.webp",
+      "thumbnail": "/images/works/work-6198-thumb.webp",
+      "alt": "Печь и дымоход в парной",
+      "caption": "Печь и дымоход в парной",
+      "width": 1080,
+      "height": 1920,
+      "order": 2,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6200",
+      "src": "/images/works/work-6200.webp",
+      "thumbnail": "/images/works/work-6200-thumb.webp",
+      "alt": "Парная и печное решение",
+      "caption": "Парная и печное решение",
+      "width": 1920,
+      "height": 1080,
+      "order": 3,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6202",
+      "src": "/images/works/work-6202.webp",
+      "thumbnail": "/images/works/work-6202-thumb.webp",
+      "alt": "Печь и отделка парной",
+      "caption": "Печь и отделка парной",
+      "width": 1920,
+      "height": 1080,
+      "order": 4,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6204",
+      "src": "/images/works/work-6204.webp",
+      "thumbnail": "/images/works/work-6204-thumb.webp",
+      "alt": "Душевая зона",
+      "caption": "Душевая зона",
+      "width": 1080,
+      "height": 1920,
+      "order": 5,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6209",
+      "src": "/images/works/work-6209.webp",
+      "thumbnail": "/images/works/work-6209-thumb.webp",
+      "alt": "Комната отдыха",
+      "caption": "Комната отдыха",
+      "width": 1920,
+      "height": 1080,
+      "order": 6,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6210",
+      "src": "/images/works/work-6210.webp",
+      "thumbnail": "/images/works/work-6210-thumb.webp",
+      "alt": "Инженерное оборудование",
+      "caption": "Инженерное оборудование",
+      "width": 1080,
+      "height": 1920,
+      "order": 7,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6214",
+      "src": "/images/works/work-6214.webp",
+      "thumbnail": "/images/works/work-6214-thumb.webp",
+      "alt": "Печь и защитная отделка",
+      "caption": "Печь и защитная отделка",
+      "width": 1080,
+      "height": 1920,
+      "order": 8,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6216",
+      "src": "/images/works/work-6216.webp",
+      "thumbnail": "/images/works/work-6216-thumb.webp",
+      "alt": "Парная с подсветкой полков",
+      "caption": "Парная с подсветкой полков",
+      "width": 1920,
+      "height": 1080,
+      "order": 9,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    },
+    {
+      "id": "work-6217",
+      "src": "/images/works/work-6217.webp",
+      "thumbnail": "/images/works/work-6217-thumb.webp",
+      "alt": "Комната отдыха с деревянной отделкой",
+      "caption": "Комната отдыха с деревянной отделкой",
+      "width": 1920,
+      "height": 1080,
+      "order": 10,
+      "visible": true,
+      "focalPoint": {
+        "x": 50,
+        "y": 50
+      }
+    }
+  ]
+}

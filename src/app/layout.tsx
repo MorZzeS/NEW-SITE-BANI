@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import '@/components/sections/real-works.css'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'
 import { PageTransition } from '@/components/ui/PageTransition'
 import { Header } from '@/components/layout/Header'

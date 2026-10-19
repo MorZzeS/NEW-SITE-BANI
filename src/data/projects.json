@@ -12,7 +12,7 @@
       "model": "Исток 8",
       "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
       "order": 1,
-      "visible": true,
+      "visible": false,
       "evidence": "illustrative",
       "coverMediaId": "1-cover",
       "characteristics": [],
@@ -49,7 +49,7 @@
       "model": "Север Панорама 8",
       "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
       "order": 2,
-      "visible": true,
+      "visible": false,
       "evidence": "illustrative",
       "coverMediaId": "2-cover",
       "characteristics": [],
@@ -86,7 +86,7 @@
       "model": "Усадьба Терра 7",
       "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
       "order": 3,
-      "visible": true,
+      "visible": false,
       "evidence": "illustrative",
       "coverMediaId": "3-cover",
       "characteristics": [],
@@ -123,7 +123,7 @@
       "model": "Скандинавия Комфорт+ 7",
       "description": "Каталожная визуализация модели. Фотографии объекта и сведения о выполненных работах ожидают подтверждения владельца.",
       "order": 4,
-      "visible": true,
+      "visible": false,
       "evidence": "illustrative",
       "coverMediaId": "4-cover",
       "characteristics": [],
@@ -152,6 +152,229 @@
           "Тропический душ"
         ]
       }
+    },
+    {
+      "id": "client-8x24",
+      "slug": "banya-8x24-u-klienta",
+      "title": "Баня 8 × 2,4 м — у клиента",
+      "pageHeading": "Баня 8 × 2,4 м — реальная история нашего клиента",
+      "description": "Баня размером 8 × 2,4 м выполнена в базовой комплектации. Дополнительно установлены бойлер и освещение под полками. По информации владельца компании, баня эксплуатируется уже два года, и клиент доволен баней.",
+      "order": 1,
+      "visible": true,
+      "evidence": "owner-confirmed",
+      "caseType": "client-case",
+      "coverMediaId": "client-8x24-01",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "client-8x24-01",
+          "src": "/images/works/client-8x24/client-8x24-01.webp",
+          "alt": "Баня 8 × 2,4 м — фото 1: Общий вид бани",
+          "caption": "Общий вид бани",
+          "kind": "photo",
+          "order": 1,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-01-thumb.webp"
+        },
+        {
+          "id": "client-8x24-02",
+          "src": "/images/works/client-8x24/client-8x24-02.webp",
+          "alt": "Баня 8 × 2,4 м — фото 2: Внешний вид бани с другого ракурса",
+          "caption": "Внешний вид бани с другого ракурса",
+          "kind": "photo",
+          "order": 2,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-02-thumb.webp"
+        },
+        {
+          "id": "client-8x24-03",
+          "src": "/images/works/client-8x24/client-8x24-03.webp",
+          "alt": "Баня 8 × 2,4 м — фото 3: Комната отдыха",
+          "caption": "Комната отдыха",
+          "kind": "photo",
+          "order": 3,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-03-thumb.webp"
+        },
+        {
+          "id": "client-8x24-04",
+          "src": "/images/works/client-8x24/client-8x24-04.webp",
+          "alt": "Баня 8 × 2,4 м — фото 4: Комната отдыха и проход",
+          "caption": "Комната отдыха и проход",
+          "kind": "photo",
+          "order": 4,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-04-thumb.webp"
+        },
+        {
+          "id": "client-8x24-05",
+          "src": "/images/works/client-8x24/client-8x24-05.webp",
+          "alt": "Баня 8 × 2,4 м — фото 5: Интерьер с печным оборудованием",
+          "caption": "Интерьер с печным оборудованием",
+          "kind": "photo",
+          "order": 5,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-05-thumb.webp"
+        },
+        {
+          "id": "client-8x24-06",
+          "src": "/images/works/client-8x24/client-8x24-06.webp",
+          "alt": "Баня 8 × 2,4 м — фото 6: Интерьер бани",
+          "caption": "Интерьер бани",
+          "kind": "photo",
+          "order": 6,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-06-thumb.webp"
+        },
+        {
+          "id": "client-8x24-07",
+          "src": "/images/works/client-8x24/client-8x24-07.webp",
+          "alt": "Баня 8 × 2,4 м — фото 7: Интерьер бани",
+          "caption": "Интерьер бани",
+          "kind": "photo",
+          "order": 7,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-07-thumb.webp"
+        },
+        {
+          "id": "client-8x24-08",
+          "src": "/images/works/client-8x24/client-8x24-08.webp",
+          "alt": "Баня 8 × 2,4 м — фото 8: Зона печи и отделка",
+          "caption": "Зона печи и отделка",
+          "kind": "photo",
+          "order": 8,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-08-thumb.webp"
+        },
+        {
+          "id": "client-8x24-09",
+          "src": "/images/works/client-8x24/client-8x24-09.webp",
+          "alt": "Баня 8 × 2,4 м — фото 9: Парная с подсветкой полков",
+          "caption": "Парная с подсветкой полков",
+          "kind": "photo",
+          "order": 9,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-09-thumb.webp"
+        },
+        {
+          "id": "client-8x24-10",
+          "src": "/images/works/client-8x24/client-8x24-10.webp",
+          "alt": "Баня 8 × 2,4 м — фото 10: Интерьер бани",
+          "caption": "Интерьер бани",
+          "kind": "photo",
+          "order": 10,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 2400,
+          "height": 1350,
+          "thumbnail": "/images/works/client-8x24/client-8x24-10-thumb.webp"
+        },
+        {
+          "id": "client-8x24-11",
+          "src": "/images/works/client-8x24/client-8x24-11.webp",
+          "alt": "Баня 8 × 2,4 м — фото 11: Внутреннее исполнение",
+          "caption": "Внутреннее исполнение",
+          "kind": "photo",
+          "order": 11,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          },
+          "width": 900,
+          "height": 1600,
+          "thumbnail": "/images/works/client-8x24/client-8x24-11-thumb.webp"
+        }
+      ],
+      "clientCase": {
+        "size": "8 × 2,4 м",
+        "base": "Базовая комплектация",
+        "duration": "Эксплуатируется два года",
+        "selectedExtras": [
+          "Бойлер",
+          "Освещение под полками"
+        ],
+        "ownerFeedback": "По информации владельца компании, клиент доволен баней."
+      },
+      "cardDescription": "Базовая комплектация, бойлер и подсветка под полками. Баня эксплуатируется два года."
+    },
+    {
+      "id": "terrace-evening-temp",
+      "slug": "banya-s-terrasoi-vecherniy-svet",
+      "title": "Баня с террасой в вечернем освещении",
+      "pageHeading": "Баня с террасой в вечернем освещении",
+      "description": "Временная демонстрационная карточка. На фотографии показан выставочный образец. Сведения о конкретном клиентском объекте и его комплектации не указаны.",
+      "order": 2,
+      "visible": true,
+      "evidence": "illustrative",
+      "caseType": "showroom-example",
+      "temporaryNote": "Временная демонстрационная карточка. История клиента и характеристики объекта не указаны.",
+      "coverMediaId": "work-6211",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "work-6211",
+          "src": "/images/works/work-6211.webp",
+          "thumbnail": "/images/works/work-6211-thumb.webp",
+          "alt": "Баня с террасой в вечернем освещении",
+          "caption": "Фотография выставочного образца. Информация о клиенте и характеристиках объекта не указана.",
+          "kind": "photo",
+          "order": 1,
+          "width": 1920,
+          "height": 1080,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "cardDescription": "Временная карточка выставочного образца. Сведения о клиенте и комплектации не указаны."
     }
   ]
 }

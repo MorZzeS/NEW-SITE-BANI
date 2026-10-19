@@ -1,91 +1,99 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { projects, projectMediaStyle } from '@/data/projects'
-import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
+import { allProjects, findProject, projectMediaStyle } from '@/data/projects'
+import { baseEquipmentRows } from '@/data/equipment'
+import { InteractivePhotoGallery } from '@/components/ui/InteractivePhotoGallery'
+import { CTAFormInline } from '@/components/forms/CTAFormInline'
 
-interface Props {
-  params: { slug: string }
-}
+interface Props { params: { slug: string } }
 
 export async function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
+  return allProjects.map(project => ({ slug: project.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = projects.find((p) => p.slug === params.slug)
+  const project = findProject(params.slug)
   if (!project) return {}
-  const BASE = 'https://banger.su'
-  const canonical = `${BASE}/nashi-raboty/${project.slug}`
+  const canonical = `https://banger.su/nashi-raboty/${project.slug}`
   return {
-    title: `${project.title} — наши работы | Бани Герасимов`,
+    title: `${project.pageHeading || project.title} | Бани Герасимов`,
     description: project.description,
     alternates: { canonical },
-    openGraph: {
-      url: canonical,
-      title: project.title,
-      description: project.description,
-      images: [{ url: project.image.startsWith('http') ? project.image : `${BASE}${project.image}`, alt: project.title }],
-    },
+    openGraph: { url: canonical, title: project.pageHeading || project.title, description: project.description, images: [{ url: `https://banger.su${project.image}`, alt: project.cover.alt }] },
   }
 }
 
 export default function ProjectPage({ params }: Props) {
-  const project = projects.find((p) => p.slug === params.slug)
+  const project = findProject(params.slug)
   if (!project) notFound()
+  const clientCase = project.caseType === 'client-case' && project.clientCase
 
   return (
     <div className="pt-24 pb-20">
       <div className="site-container">
-        <div className="flex items-center gap-2 text-sm text-cream/50 mb-8">
-          <Link href="/" className="hover:text-cream transition-colors">Главная</Link>
-          <span>/</span>
-          <Link href="/nashi-raboty" className="hover:text-cream transition-colors">Наши работы</Link>
-          <span>/</span>
+        <nav className="mb-6 flex items-center gap-2 text-sm text-cream/50" aria-label="Хлебные крошки">
+          <Link href="/" className="hover:text-cream transition-colors">Главная</Link><span>/</span>
+          <Link href="/nashi-raboty" className="hover:text-cream transition-colors">Наши работы</Link><span>/</span>
           <span className="text-cream">{project.title}</span>
+        </nav>
+
+        <header className="mb-7 max-w-4xl">
+          <div className="section-tag mb-3">{clientCase ? 'Клиентский объект' : project.caseType === 'showroom-example' ? 'Временный выставочный пример' : 'Каталожная визуализация'}</div>
+          <h1 className="mb-4 text-3xl font-extrabold text-cream sm:text-4xl">{project.pageHeading || project.title}</h1>
+          <p className="project-intro">{project.description}</p>
+        </header>
+
+        <div className="project-story-grid">
+          <figure className="m-0">
+            <div className="relative aspect-video overflow-hidden rounded-3xl">
+              <Image src={project.image} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 760px) 100vw, 66vw" />
+            </div>
+            <figcaption className="mt-2 text-sm text-cream/55">{project.cover.caption}</figcaption>
+          </figure>
+
+          {clientCase ? (
+            <section className="project-case-summary" aria-labelledby="client-case-summary">
+              <h2 id="client-case-summary">Кратко об объекте</h2>
+              <dl className="project-case-facts">
+                <div><dt>Размер</dt><dd>{clientCase.size}</dd></div>
+                <div><dt>Комплектация</dt><dd>{clientCase.base}</dd></div>
+                <div><dt>Эксплуатация</dt><dd>{clientCase.duration}</dd></div>
+              </dl>
+              <p className="mt-4 text-sm leading-relaxed text-cream/75">{clientCase.ownerFeedback}</p>
+            </section>
+          ) : (
+            <section className="project-case-summary" aria-labelledby="project-note-title">
+              <h2 id="project-note-title">О фотографии</h2>
+              <p className="m-0 text-sm leading-relaxed text-cream/70">{project.temporaryNote || (project.evidence === 'illustrative' ? 'Каталожная визуализация. Сведения о подтверждённом объекте ожидают уточнения.' : project.cover.caption)}</p>
+              {project.model && <p className="mt-4 text-sm text-cream/60">Модель: {project.model}</p>}
+              {project.characteristics.length > 0 && <ul className="mt-4 space-y-2 text-sm text-cream/70">{project.characteristics.map(item => <li key={item.label}>{item.label}: {item.value}</li>)}</ul>}
+            </section>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-2">
-            <div className="relative aspect-video rounded-3xl overflow-hidden mb-4">
-              <Image src={project.image} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" />
-            </div>
-            <p className="text-sm text-cream/60 mb-5">{project.cover.caption}</p>
-            {project.gallery.map((media) => (
-              <figure key={media.id} className="mb-4">
-                <div className="relative aspect-video rounded-2xl overflow-hidden"><Image src={media.src} alt={media.alt} style={projectMediaStyle(media)} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" /></div>
-                <figcaption className="text-sm text-cream/60 mt-2">{media.caption}</figcaption>
-              </figure>
-            ))}
-          </div>
+        {clientCase && (
+          <>
+            <section className="project-extras" aria-label="Дополнительно выбранные опции">
+              {clientCase.selectedExtras.map(extra => <article className="project-extra" key={extra}><h2>{extra}</h2><p>Установлено дополнительно к базовой комплектации.</p></article>)}
+            </section>
 
-          <div>
-            <div className="glass rounded-3xl p-6 mb-5">
-              <div className="text-xs text-gold-400/80 font-semibold tracking-widest uppercase mb-3">Проект</div>
-              <h1 className="text-2xl font-bold text-cream mb-5">{project.title}</h1>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm">
-                  <span className="text-cream/50 w-24">Модель</span>
-                  <span className="text-cream font-medium">{project.model}</span>
-                </div>
-                <p className="text-sm text-cream/60">{project.evidence === 'illustrative' ? 'Каталожная визуализация. Сведения об объекте ожидают подтверждения.' : 'Материалы подтверждены владельцем.'}</p>
-              </div>
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
-                {project.characteristics.map((item) => (
-                  <span key={item.label} className="px-3 py-1 glass rounded-xl text-xs text-cream/60">{item.label}: {item.value}</span>
-                ))}
-              </div>
-            </div>
+            <section className="project-base" aria-labelledby="project-base-title">
+              <h2 className="project-section-title" id="project-base-title">Что входит в базовую комплектацию</h2>
+              <p className="mb-4 text-sm text-cream/60">Состав показывается из актуальных данных раздела комплектации. Для этой бани подтверждена базовая комплектация.</p>
+              <table className="base-equipment-table"><caption className="sr-only">Состав базовой комплектации</caption><thead><tr><th scope="col">Параметр</th><th scope="col">Состав</th></tr></thead><tbody>{baseEquipmentRows.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td>{row.value}</td></tr>)}</tbody></table>
+            </section>
+          </>
+        )}
 
-            <div className="glass rounded-3xl p-6">
-              <h2 className="text-lg font-bold text-cream mb-3">Описание</h2>
-              <p className="text-sm text-cream/70 leading-relaxed">{project.description}</p>
-            </div>
-          </div>
-        </div>
+        <section className="project-photo-gallery" aria-labelledby="project-gallery-title">
+          <h2 className="project-section-title" id="project-gallery-title">{clientCase ? 'Фотографии объекта' : 'Фотография'}</h2>
+          {clientCase && <p className="mb-4 text-sm text-cream/60">11 фотографий, расположенных в исходной нумерации от 1 до 11.</p>}
+          <InteractivePhotoGallery photos={project.media} ariaLabel={`Фотогалерея: ${project.title}`} />
+        </section>
 
-        <CTAFormInline modelName={project.model} />
+        {clientCase && <CTAFormInline modelName="Баня 8 × 2,4 м" />}
       </div>
     </div>
   )

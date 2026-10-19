@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { saunas, homes, articles } from '@/data'
+import { projects } from '@/data/projects'
 
 const BASE_URL = 'https://banger.su'
 
@@ -54,5 +55,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticPages, ...saunaPages, ...homePages, ...articlePages]
+  // Public portfolio detail pages.
+  const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
+    url: `${BASE_URL}/nashi-raboty/${project.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.55,
+  }))
+
+  return [...staticPages, ...saunaPages, ...homePages, ...articlePages, ...projectPages]
 }
