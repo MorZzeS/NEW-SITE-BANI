@@ -5,6 +5,7 @@ import { useState, useMemo } from 'react'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunas } from '@/data'
 import clsx from 'clsx'
+import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 
 const series = ['Все', 'Исток', 'Север', 'Скандинавия', 'Барн']
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
@@ -17,6 +18,11 @@ export default function BaniCatalogPage() {
   const [maxPrice, setMaxPrice] = useState<number | ''>('')
   const [hasShowerFilter, setHasShowerFilter] = useState(false)
   const [hasTerraceFilter, setHasTerraceFilter] = useState(false)
+  const [compareIds, setCompareIds] = useState<string[]>([])
+
+  const toggleCompare = (id: string) => setCompareIds((current) => current.includes(id)
+    ? current.filter((item) => item !== id)
+    : current.length < 3 ? [...current, id] : current)
 
   const filtered = useMemo(() => {
     let list = [...saunas]
@@ -58,6 +64,8 @@ export default function BaniCatalogPage() {
             {saunas.length} моделей собственного производства. Доставка и установка по Москве и Московской области.
           </p>
         </div>
+
+        <ProductDecisionTools kind="bani" products={saunas} selectedIds={compareIds} onToggleCompare={toggleCompare} />
 
         {/* Filters */}
         <div className="glass rounded-2xl p-5 mb-8 flex flex-wrap items-center gap-6">
@@ -151,7 +159,7 @@ export default function BaniCatalogPage() {
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {filtered.map((sauna) => (
-              <SaunaCard key={sauna.id} sauna={sauna} />
+              <SaunaCard key={sauna.id} sauna={sauna} compareSelected={compareIds.includes(sauna.id)} compareDisabled={compareIds.length >= 3} onCompare={toggleCompare} />
             ))}
           </div>
         ) : (

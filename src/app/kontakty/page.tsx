@@ -16,7 +16,7 @@ export default function KontaktyPage() {
           <div className="section-tag mb-4">Контакты</div>
           <h1 className="text-5xl font-extrabold text-cream mb-3">Свяжитесь с нами</h1>
           <p className="text-cream/60 max-w-lg">
-            Звоните, пишите или оставьте заявку — ответим на все вопросы и рассчитаем стоимость
+            Звоните или пишите нам напрямую — ответим на все вопросы и рассчитаем стоимость
           </p>
         </div>
 

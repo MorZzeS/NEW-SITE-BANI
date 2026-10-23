@@ -1,0 +1,181 @@
+.section {
+  position: relative;
+  padding: clamp(4.5rem, 9vw, 7.5rem) 0;
+  overflow: hidden;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 15% 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border-subtle), transparent);
+  pointer-events: none;
+}
+
+.intro {
+  max-width: 38rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+
+.title {
+  margin-top: 0.8rem;
+  color: var(--color-text);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.lead {
+  max-width: 31rem;
+  margin: 1rem auto 0;
+  color: var(--color-text-muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  right: 8.3%;
+  left: 8.3%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.step {
+  position: relative;
+  min-width: 0;
+  padding: 0 clamp(0.6rem, 1.5vw, 1.25rem);
+}
+
+.step + .step {
+  border-left: 1px solid var(--glass-border-subtle);
+}
+
+.stepMarker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 58%, var(--glass-border));
+  border-radius: 50%;
+  background: var(--glass-bg);
+  color: var(--color-gold);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stepMarker span {
+  position: absolute;
+  top: -0.7rem;
+  right: -0.45rem;
+  color: var(--color-text-subtle);
+  font-size: 0.58rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.copy {
+  text-align: center;
+}
+
+.copy h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.copy p {
+  margin: 0.6rem auto 0;
+  color: var(--color-text-muted);
+  font-size: 0.77rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1023px) {
+  .timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 2.6rem;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .step:nth-child(4) {
+    border-left: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .section {
+    padding: 4rem 0;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .step,
+  .step + .step,
+  .step:nth-child(4) {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+    padding: 1.25rem 0;
+    border-left: 0;
+    border-top: 1px solid var(--glass-border-subtle);
+  }
+
+  .step:first-child {
+    border-top: 0;
+  }
+
+  .stepMarker {
+    margin: 0;
+  }
+
+  .copy {
+    padding-top: 0.25rem;
+    text-align: left;
+  }
+
+  .copy p {
+    max-width: 32rem;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section::before,
+  .timeline::before {
+    opacity: 0.35;
+  }
+}

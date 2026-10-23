@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/ui/ThemeProvider'
 import { PageTransition } from '@/components/ui/PageTransition'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import CookieConsent from '@/components/privacy/CookieConsent'
 import { siteSettings } from '@/data'
 import { themeScript } from '@/lib/theme'
 
@@ -52,13 +53,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: "if(location.pathname==='/'){const l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href='/images/hero/hero-'+(document.documentElement.dataset.theme==='light'?'day':'night')+'.webp';document.head.appendChild(l)}" }} />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col" data-release-profile="visual-contacts">
         <ThemeProvider>
           <Header settings={siteSettings} />
           <main className="flex-1">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer settings={siteSettings} />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>

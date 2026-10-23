@@ -16,7 +16,7 @@ function contentWithVisuals(slug: string, content: string) {
 }
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -24,7 +24,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = articles.find((a) => a.slug === (articleAliases[params.slug] || params.slug))
+  const { slug } = await params
+  const article = articles.find((a) => a.slug === (articleAliases[slug] || slug))
   if (!article) return {}
   const canonical = `https://banger.su/poleznoe/${article.slug}`
   return {
@@ -43,11 +44,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function ArticlePage({ params }: Props) {
-  const article = articles.find((a) => a.slug === (articleAliases[params.slug] || params.slug))
+export default async function ArticlePage({ params }: Props) {
+  const { slug } = await params
+  const article = articles.find((a) => a.slug === (articleAliases[slug] || slug))
   if (!article) notFound()
 
-  if (articleAliases[params.slug]) return <div className="site-container pt-32 pb-20"><h1 className="text-3xl font-bold text-cream mb-6">Материал обновлён</h1><p className="text-cream/70 mb-6">Актуальная статья доступна по новому адресу.</p><Link href={`/poleznoe/${article.slug}`} className="btn-primary">{article.title}</Link></div>
+  if (articleAliases[slug]) return <div className="site-container pt-32 pb-20"><h1 className="text-3xl font-bold text-cream mb-6">Материал обновлён</h1><p className="text-cream/70 mb-6">Актуальная статья доступна по новому адресу.</p><Link href={`/poleznoe/${article.slug}`} className="btn-primary">{article.title}</Link></div>
 
   const heroImage = article.image || article.coverImage
   const related = (article.relatedSlugs || []).map((slug) => articles.find((a) => a.slug === slug)).filter((a): a is NonNullable<typeof a> => Boolean(a))

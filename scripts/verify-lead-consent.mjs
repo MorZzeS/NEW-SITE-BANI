@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import ts from 'typescript'
 function load(file, env, requireModule, scope={}) {
  const exports={}; const source=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText
- vm.runInNewContext(source,{exports,process:{env},URL,require:requireModule,...scope}); return exports
+ vm.runInNewContext(source,{exports,process:{env},URL,require:id=>id==='../data/lead-documents'?{leadDocumentBundle:{approved:false,documents:null}}:id==='./lead-attempt'?{}:requireModule(id),...scope}); return exports
 }
 const legacy=load('src/lib/lead-consent.ts',{})
 assert.equal(legacy.leadContract,1);assert.deepEqual(JSON.parse(JSON.stringify(legacy.consentEvidence())),{})

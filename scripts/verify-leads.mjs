@@ -5,7 +5,20 @@ import ts from 'typescript'
 const code = ts.transpileModule(fs.readFileSync('src/lib/leads.ts', 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText
 function api(endpoint, fetchImpl) {
   const exports = {}
-  vm.runInNewContext(code, { exports, process: { env: { NEXT_PUBLIC_LEADS_ENDPOINT: endpoint } }, fetch: fetchImpl, AbortController, setTimeout, clearTimeout })
+  vm.runInNewContext(code, {
+    exports,
+    require: id => {
+      if(id === './lead-consent') return { consentEvidenceReady: true }
+      assert.equal(id, './lead-attempt')
+      return {}
+    },
+    location: { protocol: 'https:' },
+    process: { env: { NEXT_PUBLIC_LEADS_ENDPOINT: endpoint } },
+    fetch: fetchImpl,
+    AbortController,
+    setTimeout,
+    clearTimeout,
+  })
   return exports
 }
 const lead = { requestId: 'test-id' }

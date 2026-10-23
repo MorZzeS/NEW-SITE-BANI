@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next'
 import { saunas, homes, articles } from '@/data'
 import { projects } from '@/data/projects'
 
+export const dynamic = 'force-static'
+
 const BASE_URL = 'https://banger.su'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -10,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${BASE_URL}/katalog`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/katalog/bani`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/katalog/doma`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/komplektaciya`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
@@ -24,7 +25,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/kak-ustroeno`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     // Legal — low priority, do not exclude
     { url: `${BASE_URL}/politika`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
-    { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE_URL}/rekvizity`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE_URL}/soglasie-pd`, lastModified: now, changeFrequency: 'yearly', priority: 0.1 },
     { url: `${BASE_URL}/soglasie-reklama`, lastModified: now, changeFrequency: 'yearly', priority: 0.1 },

@@ -35,7 +35,8 @@ for (const model of [...saunas,...homes]) {
   assert(sheet.includes('Базовая комплектация'))
 }
 const photos = readData('src/data/home-interiors.ts').homeInteriors
-assert.equal(photos.length,20)
-assert.equal(new Set(photos.map(p=>p.src)).size,20)
+assert.equal(photos.length,19, 'approved home gallery excludes the rejected construction-site image')
+assert.equal(new Set(photos.map(p=>p.src)).size,photos.length)
+assert(!photos.some(p => /\/interior-10\.(?:webp|avif)$/.test(p.src) || /\/interior-10\.(?:webp|avif)$/.test(p.avif)), 'rejected interior-10 must not reappear')
 for (const p of photos) for (const file of [p.src,p.avif]) assert(fs.existsSync(path.join('public',file.replace(/^\//,''))))
-console.log(JSON.stringify({ models:31, floor100:31, ceiling100:31, prices, printableSheets:31, realInteriors:20, status:'PASS' },null,2))
+console.log(JSON.stringify({ models:31, floor100:31, ceiling100:31, prices, printableSheets:31, realInteriors:photos.length, status:'PASS' },null,2))

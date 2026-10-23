@@ -4,12 +4,18 @@ import { saunas, homes, siteSettings } from '@/data'
 import { PrintModelButton } from '@/components/catalog/PrintModelButton'
 const models = [...saunas, ...homes]
 export function generateStaticParams() { return models.map(model => ({ id: model.id })) }
-export function generateMetadata({ params }: { params: { id: string } }) {
-  const model = models.find(m => m.id === params.id)
-  return { title: `${model?.name ?? 'Модель'} — информация для клиента`, robots: { index: false, follow: false } }
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const model = models.find(m => m.id === id)
+  return {
+    title: `${model?.name ?? 'Модель'} — информация для клиента`,
+    alternates: { canonical: `https://banger.su/model-sheet/${id}` },
+    robots: { index: false, follow: false },
+  }
 }
-export default function ModelSheet({ params }: { params: { id: string } }) {
-  const model = models.find(m => m.id === params.id)
+export default async function ModelSheet({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const model = models.find(m => m.id === id)
   if (!model) notFound()
   return <article className="model-sheet">
     <div className="print-model-action mb-6"><PrintModelButton /><p className="text-sm mt-3">В диалоге печати выберите «Сохранить в PDF». Изображения включены в документ.</p></div>

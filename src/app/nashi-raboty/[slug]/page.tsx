@@ -7,26 +7,28 @@ import { baseEquipmentRows } from '@/data/equipment'
 import { InteractivePhotoGallery } from '@/components/ui/InteractivePhotoGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 
-interface Props { params: { slug: string } }
+interface Props { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
   return allProjects.map(project => ({ slug: project.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = findProject(params.slug)
+  const { slug } = await params
+  const project = findProject(slug)
   if (!project) return {}
   const canonical = `https://banger.su/nashi-raboty/${project.slug}`
   return {
-    title: `${project.pageHeading || project.title} | Бани Герасимов`,
+    title: project.pageHeading || project.title,
     description: project.description,
     alternates: { canonical },
     openGraph: { url: canonical, title: project.pageHeading || project.title, description: project.description, images: [{ url: `https://banger.su${project.image}`, alt: project.cover.alt }] },
   }
 }
 
-export default function ProjectPage({ params }: Props) {
-  const project = findProject(params.slug)
+export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params
+  const project = findProject(slug)
   if (!project) notFound()
   const clientCase = project.caseType === 'client-case' && project.clientCase
 

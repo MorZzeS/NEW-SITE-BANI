@@ -1,7 +1,5 @@
-export const metadata = { title: 'Согласие на обработку ПДн', description: 'Согласие на обработку персональных данных для BANGER.SU / Бани Герасимов.' }
+import Link from 'next/link'
+export const metadata = { title: 'Обращение через контакты', description: 'В текущей версии сайта формы отправки обращений отсутствуют.', alternates: { canonical: 'https://banger.su/soglasie-pd' } }
 export default function SoglasiePdPage() {
-  return (
-    <div className="pt-28 pb-20 site-container"><h1 className="text-4xl font-extrabold text-cream mb-6">Согласие на обработку ПДн</h1>
-    <div className="glass rounded-3xl p-8 text-cream/70 space-y-3 text-sm"><p>Оператор: ИП Лещенко Максим Витальевич (ИНН 504810391201, ОГРНИП 319507400024020). Согласие даётся явно — checkbox не проставляется заранее. Версия текста хранится вместе с заявкой.</p><p>Согласие даётся явно — checkbox не проставляется заранее. Версия текста хранится вместе с заявкой.</p></div></div>
-  )
+  return <div className="pt-28 pb-20 site-container"><h1 className="text-4xl font-bold text-cream mb-6">Обращение через контакты</h1><div className="glass rounded-3xl p-8 text-cream/70 space-y-4 text-sm"><p>В текущей версии сайта формы отправки обращений отсутствуют. Согласие через эту страницу не запрашивается.</p><Link href="/privacy" className="inline-block underline">Информация о работе сайта</Link><br /><Link href="/kontakty" className="inline-block underline">Связаться с нами</Link></div></div>
 }

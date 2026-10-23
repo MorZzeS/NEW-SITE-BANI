@@ -13,7 +13,7 @@ import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -21,13 +21,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const home = homes.find((h) => h.slug === params.slug)
+  const { slug } = await params
+  const home = homes.find((h) => h.slug === slug)
   if (!home) return {}
   const BASE = 'https://banger.su'
   const canonical = `${BASE}/dom/${home.slug}`
   const ogImage = home.image.startsWith('http') ? home.image : `${BASE}${home.image}`
   return {
-    title: `${home.name} — ${home.size} | Бани Герасимов`,
+    title: `${home.name} — ${home.size}`,
     description: `${home.name} (${home.article}): ${home.subtitle}. Размер ${home.size}, ${home.area} м². ${home.description} Доставка по Москве и МО.`,
     alternates: { canonical },
     openGraph: {
@@ -39,8 +40,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function HomePage({ params }: Props) {
-  const home = homes.find((h) => h.slug === params.slug)
+export default async function HomePage({ params }: Props) {
+  const { slug } = await params
+  const home = homes.find((h) => h.slug === slug)
   if (!home) notFound()
 
   const related = homes.filter((h) => h.id !== home.id).slice(0, 3)

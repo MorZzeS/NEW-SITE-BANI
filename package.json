@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test": "npm test --prefix backend",
     "dev": "next dev",
     "build": "node scripts/create-social-qr.mjs && next build && node scripts/create-article-url-aliases.mjs",
     "start": "next start",
@@ -13,24 +14,27 @@
     "clsx": "2.1.1",
     "framer-motion": "11.3.2",
     "lucide-react": "0.400.0",
-    "next": "14.2.5",
-    "postcss": "8.4.39",
+    "next": "15.5.28",
+    "postcss": "8.5.31",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "7.52.1",
-    "sharp": "0.33.4",
-    "swiper": "11.1.5",
-    "tailwindcss": "3.4.4"
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.3"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "20.14.11",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "qrcode": "^1.5.4",
     "typescript": "5.5.3",
-    "wrangler": "^4.147.0"
+    "wrangler": "4.151.2"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.9.0"
+  },
+  "overrides": {
+    "postcss": "8.5.31"
   }
 }

@@ -1,25 +1,3 @@
-import type { Metadata } from 'next'
-export const metadata: Metadata = {
-  title: 'Политика обработки персональных данных',
-  description: 'Политика в отношении обработки персональных данных для сайта BANGER.SU / Бани Герасимов.',
-  alternates: { canonical: 'https://banger.su/politika' },
-}
-
-export default function PolicyPage() {
-  return (
-    <div className="pt-28 pb-20">
-      <div className="prose-column">
-        <h1 className="text-4xl font-bold text-cream mb-8">Политика обработки персональных данных</h1>
-        <div className="glass rounded-3xl p-8 md:p-10 text-cream/70 leading-relaxed space-y-5 text-sm">
-          <p><strong>Оператор персональных данных (продавец):</strong> Индивидуальный предприниматель Лещенко Максим Витальевич (ИНН 504810391201, ОГРНИП 319507400024020). Сайт BANGER.SU — бренд, юридический продавец — ИП Лещенко М.В.</p>
-          <p>Персональные данные собираются через формы на сайте: имя, телефон, email. Используются только для обратной связи.</p>
-          <p>Согласие на обработку данных требуется явно — checkbox не проставляется заранее. Версия текста согласия хранится вместе с заявкой.</p>
-          <p>База данных и обработка данных граждан РФ выполняются на территории РФ (соответствует ст. 18 152-ФЗ).</p>
-          <p>Cookie и аналитика запускаются только после принятия решения по юридической модели. Баннер согласия реально управляет скриптами.</p>
-          <h2 className="text-xl font-bold text-cream mt-6">Контакты по ПДн</h2>
-          <p>info@banger.su · телефон: 8 (936) 200-00-50</p>
-        </div>
-      </div>
-    </div>
-  )
-}
+import { SiteDataNotice } from '@/components/privacy/SiteDataNotice'
+export const metadata = { title: 'Данные и обращение к владельцу', description: 'Информация о работе текущей версии BANGER.SU и контакте владельца по вопросам данных.', alternates: { canonical: 'https://banger.su/politika' } }
+export default function PolitikaPage() { return <SiteDataNotice title="Данные и обращение к владельцу" /> }

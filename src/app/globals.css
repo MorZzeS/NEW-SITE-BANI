@@ -1,8 +1,7 @@
 /* Inter загружается через next/font/google в layout.tsx — @import не нужен */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 /* ─── Design Tokens: тёмная тема (по умолчанию) ─── */
 :root,

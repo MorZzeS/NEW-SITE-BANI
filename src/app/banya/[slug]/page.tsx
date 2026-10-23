@@ -13,7 +13,7 @@ import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -21,14 +21,15 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const sauna = saunas.find((s) => s.slug === params.slug)
+  const { slug } = await params
+  const sauna = saunas.find((s) => s.slug === slug)
   if (!sauna) return {}
   const BASE = 'https://banger.su'
   const canonical = `${BASE}/banya/${sauna.slug}`
   // OG image: prefer full URL
   const ogImage = sauna.image.startsWith('http') ? sauna.image : `${BASE}${sauna.image}`
   return {
-    title: `${sauna.name} — мобильная баня ${sauna.size} | Бани Герасимов`,
+    title: `${sauna.name} — мобильная баня ${sauna.size}`,
     description: `${sauna.name} (${sauna.article}): ${sauna.subtitle}. Размер ${sauna.size}, ${sauna.area} м². ${sauna.description} Доставка по Москве и МО.`,
     alternates: { canonical },
     openGraph: {
@@ -40,8 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function SaunaPage({ params }: Props) {
-  const sauna = saunas.find((s) => s.slug === params.slug)
+export default async function SaunaPage({ params }: Props) {
+  const { slug } = await params
+  const sauna = saunas.find((s) => s.slug === slug)
   if (!sauna) notFound()
 
   const interiorImages = sauna.slug === 'barn-premium' && barnInteriorExamples.length ? barnInteriorExamples : saunaInteriorExamples

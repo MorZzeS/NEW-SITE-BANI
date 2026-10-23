@@ -1,14 +1,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Tag } from 'lucide-react'
+import { ArrowRight, GitCompareArrows } from 'lucide-react'
 import type { Sauna } from '@/types'
 import { formatPrice } from '@/data'
 import clsx from 'clsx'
+import { catalogCardImage } from '@/lib/catalog-image'
 
 interface Props {
   sauna: Sauna
   featured?: boolean
   bestSeller?: boolean
+  compareSelected?: boolean
+  compareDisabled?: boolean
+  onCompare?: (id: string) => void
 }
 
 const tagColors: Record<string, string> = {
@@ -18,9 +22,20 @@ const tagColors: Record<string, string> = {
   'Под заказ': 'bg-cream/10 text-cream/60 border-cream/20',
 }
 
-export function SaunaCard({ sauna, featured, bestSeller = false }: Props) {
+export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected = false, compareDisabled = false, onCompare }: Props) {
   return (
-    <Link href={`/banya/${sauna.slug}`} className={clsx("group block", bestSeller && "homepage-best-seller-card")}>
+    <div className={clsx('relative', bestSeller && 'homepage-best-seller-card')}>
+      {onCompare && <button
+        type="button"
+        aria-label={`${compareSelected ? 'Убрать из' : 'Добавить в'} сравнение: ${sauna.name}`}
+        aria-pressed={compareSelected}
+        disabled={compareDisabled && !compareSelected}
+        onClick={() => onCompare(sauna.id)}
+        className={clsx('absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-semibold backdrop-blur-sm transition-colors', compareSelected ? 'border-gold-300/70 bg-gold-400/25 text-gold-200' : 'border-cream/20 bg-graphite-950/60 text-cream/80 hover:border-gold-300/50', compareDisabled && !compareSelected && 'cursor-not-allowed opacity-50')}
+      >
+        <GitCompareArrows className="h-3.5 w-3.5" /> {compareSelected ? 'В сравнении' : 'Сравнить'}
+      </button>}
+      <Link href={`/banya/${sauna.slug}`} className="group block">
       <div className={clsx(
         'glass-card h-full flex flex-col overflow-hidden',
         featured && 'md:flex-row md:h-72'
@@ -30,15 +45,18 @@ export function SaunaCard({ sauna, featured, bestSeller = false }: Props) {
           'relative overflow-hidden bg-graphite-900',
           featured ? 'md:w-1/2 h-52 md:h-full' : 'h-52'
         )}>
-          <Image
-            src={sauna.image}
-            alt={sauna.name}
-            fill
-            loading="lazy"
-            quality={85}
-            className="object-contain transition-transform duration-500 group-hover:scale-105"
-            sizes={featured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw'}
-          />
+          <picture className="absolute inset-0 block">
+            <source type="image/avif" srcSet={catalogCardImage(sauna.image, 'avif')} />
+            <Image
+              src={catalogCardImage(sauna.image)}
+              alt={sauna.name}
+              fill
+              loading="lazy"
+              quality={85}
+              className="object-contain transition-transform duration-500 group-hover:scale-105"
+              sizes={featured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw'}
+            />
+          </picture>
           {/* Tags overlay */}
           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
             {sauna.tags.map((tag) => (
@@ -95,7 +113,8 @@ export function SaunaCard({ sauna, featured, bestSeller = false }: Props) {
           </div>
         </div>
       </div>
+      </Link>
       {bestSeller && <span className="homepage-best-seller"><img src="/images/decor/bestseller-bow-a.svg" className="homepage-best-seller-bow" alt="Хит продаж" width="180" height="145" /></span>}
-    </Link>
+    </div>
   )
 }

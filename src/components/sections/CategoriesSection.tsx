@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { saunas } from '@/data'
+import { catalogCardImage } from '@/lib/catalog-image'
 
 export function CategoriesSection() {
   return (
@@ -19,14 +20,17 @@ export function CategoriesSection() {
           {/* Saunas */}
           <Link href="/katalog/bani" className="group block">
             <div className="relative overflow-hidden rounded-3xl h-80 glass-card border-0">
-              <Image
-                src="/images/catalog/bg-21/model.png"
-                alt="Мобильная баня — серии Исток, Север, Скандинавия"
-                fill
-                loading="lazy"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <picture className="absolute inset-0 block">
+                <source type="image/avif" srcSet={catalogCardImage('/images/catalog/bg-21/model.png', 'avif')} />
+                <Image
+                  src={catalogCardImage('/images/catalog/bg-21/model.png')}
+                  alt="Мобильная баня — серии Исток, Север, Скандинавия"
+                  fill
+                  loading="lazy"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </picture>
               <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/90 via-graphite-950/30 to-transparent" />
               <div className="theme-on-image absolute bottom-0 left-0 right-0 p-7">
                 <div className="section-tag mb-3 text-[10px]">{saunas.length} моделей</div>
@@ -44,14 +48,17 @@ export function CategoriesSection() {
           {/* Homes */}
           <Link href="/katalog/doma" className="group block">
             <div className="relative overflow-hidden rounded-3xl h-80 glass-card border-0">
-              <Image
-                src="/images/catalog/bg-25/model.png"
-                alt="Мобильный дом — серия Усадьба"
-                fill
-                loading="lazy"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <picture className="absolute inset-0 block">
+                <source type="image/avif" srcSet={catalogCardImage('/images/catalog/bg-25/model.png', 'avif')} />
+                <Image
+                  src={catalogCardImage('/images/catalog/bg-25/model.png')}
+                  alt="Мобильный дом — серия Усадьба"
+                  fill
+                  loading="lazy"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </picture>
               <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/90 via-graphite-950/30 to-transparent" />
               <div className="theme-on-image absolute bottom-0 left-0 right-0 p-7">
                 <div className="section-tag mb-3 text-[10px]">6 моделей</div>

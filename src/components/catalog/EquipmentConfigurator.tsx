@@ -5,6 +5,7 @@ import { optionCategories } from '@/data/options'
 import { enabledEquipmentOptions, equipmentSelection, optionCountLabel } from '@/lib/equipment-selection'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { InteriorExecutionGallery } from './InteriorExecutionGallery'
+import { trackGoal } from '@/lib/analytics'
 import styles from './EquipmentConfigurator.module.css'
 
 const popular = ['lamination', 'ermak', 'shower', 'boiler', 'led'].map(id => enabledEquipmentOptions.find(option => option.id === id)!)
@@ -18,10 +19,18 @@ export function EquipmentConfigurator() {
   const selection = equipmentSelection(selectedIds)
   const { selected, knownTotal, unpricedCount, comment } = selection
   const selectedOptionIds = new Set(selected.map(option => option.id))
-  const toggle = (id: string) => setSelectedIds(previous => previous.includes(id) ? previous.filter(value => value !== id) : [...previous, id])
+  const toggle = (id: string) => {
+    setSelectedIds(previous => previous.includes(id) ? previous.filter(value => value !== id) : [...previous, id])
+    trackGoal('configure_option')
+  }
+  function resetSelection() {
+    setSelectedIds([])
+    trackGoal('configure_reset')
+  }
   function calculate() {
+    trackGoal('configure_request')
     formRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' })
-    formRef.current?.querySelector<HTMLInputElement>('input[aria-label="Ваше имя"]')?.focus({ preventScroll: true })
+    formRef.current?.querySelector<HTMLElement>('[data-release-profile="visual-contacts"]')?.focus({ preventScroll: true })
   }
   return <div className={styles.page}>
     <div className={styles.shell}>
@@ -35,7 +44,7 @@ export function EquipmentConfigurator() {
         const group = enabledEquipmentOptions.filter(option => option.category === category), expanded = opened.includes(category), id = `equipment-category-${index}`
         return <section key={category} className={styles.category}><h3><button type="button" className={styles.categoryButton} aria-expanded={expanded} aria-controls={id} onClick={() => setOpened(previous => expanded ? previous.filter(value => value !== category) : [...previous, category])}><span>{category}</span><span className={styles.count}>{optionCountLabel(group.length)}</span><span className={styles.plus} aria-hidden="true">{expanded ? '×' : '+'}</span></button></h3><div id={id} hidden={!expanded} className={styles.categoryBody}>{group.map(option => <label key={option.id} className={styles.optionRow}><input type="checkbox" checked={selectedOptionIds.has(option.id)} onChange={() => toggle(option.id)} aria-label={`Добавить: ${option.name}`} /><span className={styles.optionContent}><span className={styles.optionLine}><strong>{option.name}</strong><span className={styles.price}>{price(option)}</span></span><span className={styles.description}>{option.description}</span>{option.priceUnit === 'шт.' && <span className={styles.unitNote}>В расчёте выбран один элемент: 1 шт.</span>}</span></label>)}</div></section>
       })}</div>
-      <aside className={styles.summary} aria-label="Выбранные дополнительные опции"><p className={styles.eyebrow}>Ваши пожелания</p><div key={selected.map(option => option.id).join("|") || "empty"} role="status" aria-live="polite" aria-atomic="true" translate="no" data-selected-count={selected.length} data-additional-total={knownTotal}><h3>{`Выбрано: ${optionCountLabel(selected.length)}`}</h3><p className={styles.sumLabel}>Дополнительные опции:</p><p className={styles.sum}>{`+${knownTotal.toLocaleString('ru-RU')} ₽`}</p>{unpricedCount > 0 && <p className={styles.note}>Ещё {optionCountLabel(unpricedCount)} без подтверждённой цены — уточняются отдельно.</p>}</div><p className={styles.note}>Сумма только выбранных дополнительных опций. Основная цена модели не меняется.</p><p className={styles.note}>Финальная стоимость зависит от выбранной модели и совместимости опций.</p><button type="button" className={styles.calculate} onClick={calculate}>Получить расчёт с выбранными опциями</button><button className={styles.clear} type="button" onClick={() => setSelectedIds([])}>Сбросить выбор</button></aside></div>
+      <aside className={styles.summary} aria-label="Выбранные дополнительные опции"><p className={styles.eyebrow}>Ваши пожелания</p><div key={selected.map(option => option.id).join("|") || "empty"} role="status" aria-live="polite" aria-atomic="true" translate="no" data-selected-count={selected.length} data-additional-total={knownTotal}><h3>{`Выбрано: ${optionCountLabel(selected.length)}`}</h3><p className={styles.sumLabel}>Дополнительные опции:</p><p className={styles.sum}>{`+${knownTotal.toLocaleString('ru-RU')} ₽`}</p>{unpricedCount > 0 && <p className={styles.note}>Ещё {optionCountLabel(unpricedCount)} без подтверждённой цены — уточняются отдельно.</p>}</div><p className={styles.note}>Сумма только выбранных дополнительных опций. Основная цена модели не меняется.</p><p className={styles.note}>Финальная стоимость зависит от выбранной модели и совместимости опций.</p><button type="button" className={styles.calculate} onClick={calculate}>Получить расчёт с выбранными опциями</button><button className={styles.clear} type="button" onClick={resetSelection}>Сбросить выбор</button></aside></div>
     </div></section>
     <div className={styles.shell}><section className={styles.cta}><div><p className={styles.eyebrow}>Следующий шаг</p><h2>Нужна комплектация<br />под ваши задачи?</h2><p className={styles.note}>Поможем подобрать опции и рассчитать итоговую стоимость.</p></div><button type="button" className={styles.calculate} onClick={calculate}>Получить расчёт с выбранными опциями</button></section><div ref={formRef} id="equipment-request" className={styles.form}><CTAFormInline configurationNote={comment} /></div></div>
   </div>

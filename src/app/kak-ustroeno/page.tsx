@@ -4,6 +4,7 @@ import { Layers, Shield, Wind, Droplets, Zap, Flame, Thermometer, ChevronRight }
 export const metadata = {
   title: 'Как устроена мобильная баня',
   description: 'Конструкция стены, слои, утепление, пароизоляция, вентиляция, печь и пол бани Герасимов.',
+  alternates: { canonical: 'https://banger.su/kak-ustroeno' },
 }
 
 const layers = [

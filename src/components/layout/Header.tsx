@@ -175,7 +175,7 @@ export function Header({ settings }: Props) {
               href="/kontakty#zayavka"
               className="btn-primary px-4 py-2 text-xs hidden sm:flex rounded-xl"
             >
-              Заказать звонок
+              Связаться с нами
             </Link>
             <ThemeToggle />
             {/* Mobile burger */}
@@ -272,7 +272,7 @@ export function Header({ settings }: Props) {
                 onClick={() => setMobileOpen(false)}
                 className="btn-primary w-full justify-center min-h-[52px]"
               >
-                Заказать звонок
+                Связаться с нами
               </Link>
             </div>
           </motion.nav>

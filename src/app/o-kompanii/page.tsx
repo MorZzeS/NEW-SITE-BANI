@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { saunas, homes } from '@/data'
 import { Factory, Award, Users, Truck } from 'lucide-react'
+import { YandexReviewsWidget } from '@/components/integrations/YandexReviewsWidget'
+import { YandexMapEmbed } from '@/components/integrations/YandexMapEmbed'
 
 export const metadata: Metadata = {
   title: 'О нас — Бани Герасимов',
@@ -90,6 +92,20 @@ export default function OKompaniiPage() {
               <div className="text-sm text-cream/60">{stat.label}</div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <YandexReviewsWidget
+            embedUrl="https://yandex.ru/maps-reviews-widget/68540156780?comments"
+            businessUrl="https://yandex.ru/maps/-/CXRRzYpj"
+            description="Откройте карточку компании на Яндекс Картах и ознакомьтесь с отзывами клиентов."
+          />
+          <YandexMapEmbed
+            embedUrl="https://yandex.ru/map-widget/v1/?ol=biz&oid=68540156780&z=16"
+            routeUrl="https://yandex.ru/maps/?rtext=~55.555417%2C38.273997&rtt=auto"
+            mapUrl="https://yandex.ru/maps/-/CXRRzYpj"
+            title="Выставка и производство на карте"
+          />
         </div>
       </div>
     </div>

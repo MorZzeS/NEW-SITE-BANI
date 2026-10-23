@@ -26,7 +26,9 @@ const states = ['idle', '', 'Тест', '+79000000000', 'БГ-01', 'Мои по�
 const react = { useState: value => [states[stateIndex++] ?? value, () => {}], useEffect: () => {}, useRef: value => ({ current: value }) }
 const jsx = (type, props) => ({ type, props })
 class TestDate extends Date { static now() { return clock } }
-const consentModule = load('src/lib/lead-consent.ts', undefined, { process: { env: {} }, URL })
+const documentModule = load('src/data/lead-documents.ts')
+const attemptModule = load('src/lib/lead-attempt.ts')
+const consentModule = load('src/lib/lead-consent.ts', id => { assert.equal(id, '../data/lead-documents'); return documentModule }, { process: { env: {} }, URL })
 const formModule = load('src/components/forms/CTAFormInline.tsx', id => {
   if (id === 'react') return react
   if (id === 'react/jsx-runtime') return { jsx, jsxs: jsx }
@@ -34,6 +36,8 @@ const formModule = load('src/components/forms/CTAFormInline.tsx', id => {
   if (id === '@/data') return { siteSettings: {} }
   if (id === '@/lib/equipment-selection') return selection
   if (id === '@/lib/lead-consent') return consentModule
+  if (id === '@/lib/lead-attempt') return attemptModule
+  if (id === '@/lib/analytics') return { trackGoal: () => {} }
   if (id === '@/lib/leads') return { leadEndpoint: 'https://test.invalid/leads', sendLead: async lead => { sent.push(lead) } }
   throw new Error(id)
 }, { Date: TestDate, location: { href: 'https://banger.su/komplektaciya', search: '' }, crypto: { randomUUID: () => 'equipment-test-request-01' }, FormData: class { get() { return '' } } })
@@ -70,7 +74,9 @@ const ui=load('src/components/catalog/EquipmentConfigurator.tsx',id=>{
  if(id==='@/data/equipment')return baseData;
  if(id==='@/data/options')return source;
  if(id==='@/lib/equipment-selection')return selection;
+ if(id==='@/lib/analytics')return {trackGoal:()=>{}};
  if(id==='@/components/forms/CTAFormInline')return {CTAFormInline:'test-form'};
+ if(id==='./InteriorExecutionGallery')return {InteriorExecutionGallery:'test-interior-gallery'};
  if(id.endsWith('.module.css'))return {default:new Proxy({},{get:(_,key)=>String(key)})};
  throw new Error(id);
 });

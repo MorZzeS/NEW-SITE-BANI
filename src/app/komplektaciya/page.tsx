@@ -3,6 +3,7 @@ import { EquipmentConfigurator } from '@/components/catalog/EquipmentConfigurato
 export const metadata = {
   title: 'Комплектация мобильных бань',
   description: 'Базовая и дополнительная комплектация мобильных бань. Что входит в стоимость и что можно добавить.',
+  alternates: { canonical: 'https://banger.su/komplektaciya' },
 }
 
 export default function KomplektaciyaPage() {

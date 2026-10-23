@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: 'https://banger.su/kontakty',
     title: 'Контакты — Бани Герасимов',
-    description: 'Позвоните, напишите или оставьте заявку на расчёт мобильной бани.',
+    description: 'Позвоните или напишите нам напрямую для расчёта мобильной бани.',
   },
 }
 

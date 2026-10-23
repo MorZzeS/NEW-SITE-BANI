@@ -4,10 +4,16 @@ import { modelCountWord } from '@/lib/catalog-labels'
 import { useState, useMemo } from 'react'
 import { HomeCard } from '@/components/catalog/HomeCard'
 import { homes } from '@/data'
+import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 
 
 export default function DomaCatalogPage() {
   const [sort, setSort] = useState<'price_asc' | 'price_desc'>('price_asc')
+  const [compareIds, setCompareIds] = useState<string[]>([])
+
+  const toggleCompare = (id: string) => setCompareIds((current) => current.includes(id)
+    ? current.filter((item) => item !== id)
+    : current.length < 3 ? [...current, id] : current)
 
   const filtered = useMemo(() => {
     let list = [...homes]
@@ -31,6 +37,8 @@ export default function DomaCatalogPage() {
           </p>
         </div>
 
+        <ProductDecisionTools kind="doma" products={homes} selectedIds={compareIds} onToggleCompare={toggleCompare} />
+
         {/* Filters */}
         <div className="glass rounded-2xl p-5 mb-8 flex flex-wrap items-center gap-6">
           <div className="ml-auto">
@@ -52,7 +60,7 @@ export default function DomaCatalogPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((home) => (
-            <HomeCard key={home.id} home={home} />
+            <HomeCard key={home.id} home={home} compareSelected={compareIds.includes(home.id)} compareDisabled={compareIds.length >= 3} onCompare={toggleCompare} />
           ))}
         </div>
       </div>

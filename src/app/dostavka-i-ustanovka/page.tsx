@@ -3,6 +3,7 @@ import { CheckCircle, Truck, Home, Settings, Check } from 'lucide-react'
 export const metadata = {
   title: 'Доставка и установка мобильной бани',
   description: 'Как происходит доставка, разгрузка манипулятором и установка бани на участке. Пошаговая визуализация.',
+  alternates: { canonical: 'https://banger.su/dostavka-i-ustanovka' },
 }
 
 const steps = [

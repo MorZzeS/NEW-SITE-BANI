@@ -124,8 +124,10 @@ export function Footer({ settings }: Props) {
             <p>© {new Date().getFullYear()} Бани Герасимов. Все права защищены.</p>
             <div className="flex items-center gap-5">
               <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer" className="text-xs text-cream/40 hover:text-cream/70 transition-colors">MAX</a>
-              <Link href="/politika" className="hover:text-cream/70 transition-colors">Политика ПДн</Link>
+              <Link href="/politika" className="hover:text-cream/70 transition-colors">Данные и контакты</Link>
               <Link href="/privacy" className="hover:text-cream/70 transition-colors">Конфиденциальность</Link>
+              <Link href="/cookie" className="hover:text-cream/70 transition-colors">Cookie</Link>
+              <Link href="/soglasie-pd" className="hover:text-cream/70 transition-colors">Согласие ПДн</Link>
             </div>
           </div>
         </div>
