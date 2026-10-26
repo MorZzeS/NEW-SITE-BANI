@@ -4,6 +4,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { allProjects, findProject, projectMediaStyle } from '@/data/projects'
 import { baseEquipmentRows } from '@/data/equipment'
+import { additionalOptions } from '@/data/options'
+import { formatPrice } from '@/data'
 import { InteractivePhotoGallery } from '@/components/ui/InteractivePhotoGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 
@@ -31,6 +33,7 @@ export default async function ProjectPage({ params }: Props) {
   const project = findProject(slug)
   if (!project) notFound()
   const clientCase = project.caseType === 'client-case' && project.clientCase
+  const clientExtras = [{ id: 'boiler', label: 'Бойлер' }, { id: 'bench-light', label: 'Подсветка полков' }].map(extra => ({ ...extra, option: additionalOptions.find(option => option.id === extra.id && option.enabled) }))
 
   return (
     <div className="pt-24 pb-20">
@@ -42,12 +45,12 @@ export default async function ProjectPage({ params }: Props) {
         </nav>
 
         <header className="mb-7 max-w-4xl">
-          <div className="section-tag mb-3">{clientCase ? 'Клиентский объект' : project.caseType === 'showroom-example' ? 'Временный выставочный пример' : 'Каталожная визуализация'}</div>
+          <div className="section-tag mb-3">{clientCase ? 'Клиентский объект' : project.caseType === 'showroom-example' ? 'Выставочный образец' : 'Каталожная визуализация'}</div>
           <h1 className="mb-4 text-3xl font-extrabold text-cream sm:text-4xl">{project.pageHeading || project.title}</h1>
           <p className="project-intro">{project.description}</p>
         </header>
 
-        <div className="project-story-grid">
+        <div className={clientCase ? "project-story-grid" : "project-showroom-photo"}>
           <figure className="m-0">
             <div className="relative aspect-video overflow-hidden rounded-3xl">
               <Image src={project.image} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 760px) 100vw, 66vw" />
@@ -65,20 +68,20 @@ export default async function ProjectPage({ params }: Props) {
               </dl>
               <p className="mt-4 text-sm leading-relaxed text-cream/75">{clientCase.ownerFeedback}</p>
             </section>
-          ) : (
+          ) : project.caseType !== 'showroom-example' ? (
             <section className="project-case-summary" aria-labelledby="project-note-title">
               <h2 id="project-note-title">О фотографии</h2>
               <p className="m-0 text-sm leading-relaxed text-cream/70">{project.temporaryNote || (project.evidence === 'illustrative' ? 'Каталожная визуализация. Сведения о подтверждённом объекте ожидают уточнения.' : project.cover.caption)}</p>
               {project.model && <p className="mt-4 text-sm text-cream/60">Модель: {project.model}</p>}
               {project.characteristics.length > 0 && <ul className="mt-4 space-y-2 text-sm text-cream/70">{project.characteristics.map(item => <li key={item.label}>{item.label}: {item.value}</li>)}</ul>}
             </section>
-          )}
+          ) : null}
         </div>
 
         {clientCase && (
           <>
             <section className="project-extras" aria-label="Дополнительно выбранные опции">
-              {clientCase.selectedExtras.map(extra => <article className="project-extra" key={extra}><h2>{extra}</h2><p>Установлено дополнительно к базовой комплектации.</p></article>)}
+              {clientExtras.map(({ id, label, option }) => <article className="project-extra" key={id}><span className="project-extra-chip">{label}</span><h2 className="project-extra-price">{option?.salePrice != null ? formatPrice(option.salePrice) : 'Стоимость уточняется'}</h2><p>Дополнительная опция к базовой комплектации.</p></article>)}
             </section>
 
             <section className="project-base" aria-labelledby="project-base-title">

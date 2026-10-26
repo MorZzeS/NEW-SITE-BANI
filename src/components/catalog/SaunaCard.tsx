@@ -75,6 +75,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
 
         {/* Content */}
         <div className="flex flex-col flex-1 p-5">
+          {bestSeller && <span className="homepage-best-seller">Хит продаж</span>}
           <div className="text-[10px] font-semibold tracking-widest uppercase text-gold-400/80 mb-1">
             {sauna.series}
           </div>
@@ -114,7 +115,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
         </div>
       </div>
       </Link>
-      {bestSeller && <span className="homepage-best-seller"><img src="/images/decor/bestseller-bow-a.svg" className="homepage-best-seller-bow" alt="Хит продаж" width="180" height="145" /></span>}
+
     </div>
   )
 }

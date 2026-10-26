@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ArrowRight, X } from 'lucide-react'
 import styles from './ExitIntentOffer.module.css'
 
@@ -31,8 +32,10 @@ export function ExitIntentOffer({
   cooldownMs = DEFAULT_COOLDOWN,
 }: ExitIntentOfferProps) {
   const [open, setOpen] = useState(false)
+  const [rememberWeek, setRememberWeek] = useState(false)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
+  const shownThisVisit = useRef(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -42,10 +45,15 @@ export function ExitIntentOffer({
     let moved = false
 
     const canShow = () => {
-      if (!eligible || open) return false
+      if (!eligible || open || shownThisVisit.current || document.querySelector('dialog[open], [aria-modal="true"]')) return false
       try {
-        const lastShown = Number(window.localStorage.getItem(storageKey) ?? 0)
-        return !lastShown || Date.now() - lastShown >= cooldownMs
+        const saved = window.localStorage.getItem(storageKey)
+        if (saved === null) return true
+        const lastShown = Number(saved)
+        const elapsed = Date.now() - lastShown
+        if (Number.isFinite(lastShown) && lastShown > 0 && elapsed >= 0 && elapsed < cooldownMs) return false
+        window.localStorage.removeItem(storageKey)
+        return true
       } catch {
         // A blocked storage context should not prevent the regular site flow.
         return true
@@ -55,7 +63,7 @@ export function ExitIntentOffer({
     const onPointerMove = () => { moved = true }
     const onPointerLeave = (event: MouseEvent) => {
       if (isTouchDevice() || !moved || event.relatedTarget !== null || event.clientY > 8 || !canShow()) return
-      try { window.localStorage.setItem(storageKey, String(Date.now())) } catch { /* ignore */ }
+      shownThisVisit.current = true
       previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
       setOpen(true)
     }
@@ -79,6 +87,8 @@ export function ExitIntentOffer({
       previousFocusRef.current?.focus?.()
       return
     }
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     closeButtonRef.current?.focus()
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setOpen(false)
@@ -101,16 +111,19 @@ export function ExitIntentOffer({
       }
     }
     document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', onKeyDown)
+    }
   }, [open])
 
   if (!open) return null
 
-  return (
+  return createPortal(
     <div className={styles.backdrop} role="presentation" onMouseDown={(event) => {
       if (event.currentTarget === event.target) setOpen(false)
     }}>
-      <section className={styles.panel} role="dialog" aria-modal="true" aria-labelledby="exit-intent-title">
+      <section className={styles.panel} role="dialog" aria-modal="true" aria-labelledby="exit-intent-title" aria-describedby="exit-intent-description exit-intent-note">
         <button
           ref={closeButtonRef}
           type="button"
@@ -122,17 +135,28 @@ export function ExitIntentOffer({
         </button>
         <p className={styles.eyebrow}>Персональный расчёт</p>
         <h2 id="exit-intent-title">{title}</h2>
-        <p className={styles.description}>{description}</p>
-        <p className={styles.note}>Условия уточняются при обращении.</p>
+        <p id="exit-intent-description" className={styles.description}>{description}</p>
+        <p id="exit-intent-note" className={styles.note}>Обсудите условия предложения с менеджером при обращении.</p>
+        <label className={styles.remember}>
+          <input type="checkbox" checked={rememberWeek} onChange={(event) => {
+            const checked = event.target.checked
+            setRememberWeek(checked)
+            try {
+              if (checked) window.localStorage.setItem(storageKey, String(Date.now()))
+              else window.localStorage.removeItem(storageKey)
+            } catch { /* The in-memory once-per-visit guard still applies. */ }
+          }} />
+          <span>Не показывать неделю</span>
+        </label>
         <button type="button" className={styles.action} onClick={() => {
           setOpen(false)
           if (onRequest) onRequest()
-          else window.location.assign('/kontakty#zayavka')
+          else window.location.assign('/kontakty')
         }}>
           {label}
           <ArrowRight aria-hidden="true" size={17} strokeWidth={1.7} />
         </button>
       </section>
-    </div>
+    </div>, document.body
   )
 }

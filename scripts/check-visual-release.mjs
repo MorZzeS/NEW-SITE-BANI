@@ -7,23 +7,35 @@ const files = fs.readdirSync(root, { recursive: true }).filter(name => fs.statSy
 const htmlFiles = files.filter(name => name.endsWith('.html'))
 if (!htmlFiles.length) throw new Error('Visual release export is missing')
 const policy = fs.readFileSync('src/lib/release-policy.ts', 'utf8')
-for (const flag of ['onlineLeads', 'analytics', 'weather', 'embeddedYandex', 'promotionalOffer']) {
+for (const flag of ['onlineLeads', 'analytics', 'embeddedYandex']) {
   if (!new RegExp(`\\b${flag}:\\s*false\\b`).test(policy)) throw new Error(`Unsafe release policy: ${flag}`)
 }
+if (!/\bweather:\s*'on-request'/.test(policy) || !/\bpromotionalOffer:\s*true\b/.test(policy)) throw new Error('Owner-approved interactive features must remain available')
+const homeSource = fs.readFileSync('src/app/page.tsx', 'utf8')
+if (!homeSource.includes('<WeatherWide') || !homeSource.includes('<ExitIntentOffer')) throw new Error('Missing requested weather or exit-intent entry point')
+const weatherSource = fs.readFileSync('src/components/sections/WeatherWide.tsx', 'utf8')
+if (!weatherSource.includes('fetch(`/weather/${city.id}.json`') || weatherSource.includes('fetch(`https:') || !weatherSource.includes("mode: 'same-origin'")) throw new Error('Weather must use same-origin static snapshots without a foreign fallback')
+for (const city of ['ramenskoe', 'moscow']) {
+  const snapshot = JSON.parse(fs.readFileSync(path.join(root, 'weather', `${city}.json`), 'utf8'))
+  if (snapshot.schema !== 1 || snapshot.cityId !== city || typeof snapshot.available !== 'boolean') throw new Error(`Invalid weather snapshot: ${city}`)
+}
+const forbiddenCopy = /Сведения о конкретном клиентском объекте и его комплектации не указаны|Информация о клиенте и характеристиках объекта не указана|История клиента и характеристики объекта не указаны|Работаем с труднодоступными участками|Базальтовая теплоизоляция без вредных смол|Подключаем коммуникации/iu
 for (const name of files) {
   const normalized = name.replaceAll('\\', '/')
   if (/(^|\/)(?:docs|backend|node_modules|\.git)(\/|$)|(^|\/)\.env(?:\.|$)|\.map$/i.test(normalized)) throw new Error(`Private deployment file: ${name}`)
   if (!/\.(?:html|js|json|txt|xml|svg)$/i.test(name)) continue
   const content = fs.readFileSync(path.join(root, name), 'utf8')
   if (/(?:MAX_BOT_TOKEN|MAX_USER_ID|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----)/.test(content)) throw new Error(`Unexpected server-only material: ${name}`)
-  if (/mc\.yandex\.(?:ru|com)\/|api\.met\.no\/|api\.open-meteo\.com\/|banger-leads\.onrender\.com|platform-api2\.max\.ru/.test(content)) throw new Error(`Disabled service shipped: ${name}`)
+  if (/mc\.yandex\.(?:ru|com)\/|api\.met\.no\/weatherapi|api\.open-meteo\.com\/|banger-leads\.onrender\.com|platform-api2\.max\.ru/.test(content)) throw new Error(`Disabled service shipped: ${name}`)
+  if (forbiddenCopy.test(content) || /bestseller-bow-a\.svg/.test(content)) throw new Error(`Superseded owner copy or bow reference: ${name}`)
 }
 for (const name of htmlFiles) {
   const html = fs.readFileSync(path.join(root, name), 'utf8')
   if (/<form\b|<iframe\b/i.test(html)) throw new Error(`Unexpected collection or embed surface: ${name}`)
   const catalogRedirect = name === 'katalog.html' && html.includes('NEXT_REDIRECT;replace;/katalog/bani;307;') && html.includes('href="https://banger.su/katalog/bani"')
   if (!html.includes('data-release-profile="visual-contacts"') && !catalogRedirect) throw new Error(`Wrong release profile: ${name}`)
-  if (/скидку 25\s*000|Получить предложение|Заявка отправлена\./u.test(html)) throw new Error(`Inactive offer or submission copy: ${name}`)
+  if (/Заявка отправлена\./u.test(html)) throw new Error(`False submission confirmation: ${name}`)
+  if (/<(?:script|iframe)[^>]+src=["']https?:\/\/|<link[^>]+rel=["'](?:preconnect|dns-prefetch)["'][^>]+href=["']https?:\/\//i.test(html)) throw new Error(`Automatic external resource: ${name}`)
   if (/(?:MAX_BOT_TOKEN|MAX_USER_ID|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----)/.test(html)) throw new Error(`Unexpected server-only material: ${name}`)
 }
 for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-reklama']) {
@@ -34,5 +46,5 @@ for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-r
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')
-fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: 'visual-contacts', sha, onlineLeads: false, analytics: false, weather: false, embeddedYandex: false, promotionalOffer: false }) + '\n')
-console.log(`Visual contacts release PASS: ${htmlFiles.length} HTML, no forms/iframes, public release manifest written`)
+fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: 'visual-contacts', sha, onlineLeads: false, analytics: false, weather: 'on-request', weatherTransport: 'same-origin-snapshot', embeddedYandex: false, promotionalOffer: true }) + '\n')
+console.log(`Owner acceptance export PASS: ${htmlFiles.length} HTML, contacts only, on-request weather and desktop offer retained; browser and legal acceptance required separately`)

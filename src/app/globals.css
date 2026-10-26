@@ -729,16 +729,16 @@ html { scrollbar-gutter: stable; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
  .glass-surface > .glass-surface-target::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: var(--glass-reflection-opacity,0); background: radial-gradient(110px circle at var(--glass-reflection-x,50%) var(--glass-reflection-y,50%),rgba(255,240,212,.13),rgba(255,255,255,.035) 45%,transparent 75%); box-shadow: inset 0 1px 0 rgba(255,245,222,.14); transition: opacity 240ms ease; }
 }
-.homepage-best-seller-card { position: relative; overflow: visible; isolation: isolate; }
-.homepage-best-seller { position: absolute; top: -44px; right: -8px; z-index: 3; width: 176px; height: 142px; pointer-events: none; filter: drop-shadow(0 4px 4px rgba(44,4,13,.32)); }
-.homepage-best-seller-bow { display: block; width: 100%; height: 100%; }
-@media(max-width:639px) { .homepage-best-seller { width: 182px; height: 147px; right: -6px; } .homepage-popular .homepage-best-seller-card { margin-top: 32px; } }
+.homepage-best-seller-card { position: relative; }
+.homepage-best-seller { display: inline-flex; align-self: flex-start; align-items: center; min-height: 30px; margin-bottom: 12px; padding: 5px 12px; border-radius: 7px; background: #c91820; color: #fff; font-size: 12px; line-height: 20px; font-weight: 750; letter-spacing: .01em; }
+
+@media(max-width:639px) { .homepage-best-seller { min-height: 32px; padding: 6px 12px; } }
 @media (hover: hover) and (pointer: fine) {
  .homepage-popular .glass-card:hover { transform: translateY(-2px); border-color: var(--color-accent); box-shadow: 0 10px 30px rgba(0,0,0,.14), inset 0 1px 0 var(--glass-border); }
- .homepage-popular .group:hover img:not(.homepage-best-seller-bow) { transform: scale(1.025); }
+ .homepage-popular .group:hover img { transform: scale(1.025); }
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
- .homepage-popular .glass-card:hover, .homepage-popular .group:hover img:not(.homepage-best-seller-bow) { transform: none; }
+ .homepage-popular .glass-card:hover, .homepage-popular .group:hover img { transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
  .homepage-popular .glass-card, .homepage-popular img { transition: none; }
@@ -759,3 +759,9 @@ html { scrollbar-gutter: stable; }
 }
 
 
+
+.weather-request-notice { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px; margin-top: 20px; padding: 16px; border: 1px solid var(--glass-border); border-radius: 10px; color: var(--color-text-muted); font-size: 12px; line-height: 1.65; }
+.weather-request-notice p { flex: 1 1 420px; max-width: 780px; }
+.weather-request-notice a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+.weather-retry:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 3px; }
+.weather-retry:disabled { opacity: .65; cursor: wait; }

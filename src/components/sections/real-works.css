@@ -39,7 +39,7 @@
 .project-case-facts dd{margin:0;color:var(--color-text);font-size:.9rem;font-weight:600}
 .project-extras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:0 0 3rem}
 .project-extra{padding:1.2rem 1.3rem;border-left:2px solid var(--color-accent);border-radius:.65rem;background:var(--glass-bg)}
-.project-extra h3{margin:0 0 .4rem;color:var(--color-text);font-size:1rem;font-weight:700}
+.project-extra-chip{display:inline-flex;align-items:center;min-height:34px;margin-bottom:.8rem;padding:.4rem .8rem;border-radius:.5rem;background:#f28b25;color:#291607;font-size:.9rem;line-height:1.4;font-weight:750}.project-extra .project-extra-price{margin:0 0 .4rem;color:var(--color-text);font-size:1.25rem;font-weight:750}.project-showroom-photo{max-width:1000px;margin:2rem 0 3rem}
 .project-extra p{margin:0;color:var(--color-text-muted);font-size:.875rem;line-height:1.55}
 .project-base{margin:0 0 3rem}
 .project-photo-gallery{margin:0 0 3rem}

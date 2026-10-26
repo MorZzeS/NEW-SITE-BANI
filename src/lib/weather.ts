@@ -15,6 +15,7 @@ export type WeatherSnapshot = {
   forecastTime: string
   updatedAt: string
   fetchedAt: string
+  sourceCheckedAt?: string
 }
 
 export const weatherCities: WeatherCity[] = [
@@ -29,10 +30,19 @@ export const weatherSource = {
   license: 'https://creativecommons.org/licenses/by/4.0/',
 }
 
+/** Static common forecast; the browser never contacts its upstream provider. */
+export function readWeatherSnapshot(raw: any, city: WeatherCity, now = Date.now()): WeatherSnapshot {
+  const checked = Date.parse(raw?.checkedAt)
+  const updated = Date.parse(raw?.forecast?.properties?.meta?.updated_at)
+  if (raw?.schema !== 1 || raw?.available !== true || raw.cityId !== city.id || !Number.isFinite(checked) || !Number.isFinite(updated) || now - checked > 2 * 60 * 60_000 || checked - now > 5 * 60_000 || now - updated > 12 * 60 * 60_000 || updated - now > 5 * 60_000) throw new Error('Weather snapshot is unavailable or stale')
+  return { ...nearestForecast(raw.forecast, city, now), sourceCheckedAt: raw.checkedAt }
+}
+
 export function nearestForecast(raw: any, city: WeatherCity, now = Date.now()): WeatherSnapshot {
   const series = raw?.properties?.timeseries
   if (!Array.isArray(series) || !series.length) throw new Error('Forecast is unavailable')
   const valid = series.filter((item: any) => Number.isFinite(Date.parse(item?.time)))
+  if (!valid.length) throw new Error('Forecast is unavailable')
   const point = valid.reduce((best: any, item: any) => Math.abs(Date.parse(item.time) - now) < Math.abs(Date.parse(best.time) - now) ? item : best)
   const forecastMs = Date.parse(point.time)
   if (Math.abs(forecastMs - now) > 90 * 60_000) throw new Error('Forecast is stale')

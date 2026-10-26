@@ -1,9 +1,10 @@
-/** Reviewed visual release: enabling collection requires a separate release. */
+/** Contacts stay local; weather requires an explicit, informed request. */
 export const releasePolicy = Object.freeze({
   profile: 'visual-contacts',
   onlineLeads: false,
   analytics: false,
-  weather: false,
+  weather: 'on-request',
+  weatherTransport: 'same-origin-snapshot',
   embeddedYandex: false,
-  promotionalOffer: false,
+  promotionalOffer: true,
 } as const)

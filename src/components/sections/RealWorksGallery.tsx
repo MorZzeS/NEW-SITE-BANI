@@ -19,7 +19,7 @@ export function RealWorksGallery({ limit = 2 }: { limit?: number }) {
             <span className="real-works-open" aria-hidden="true">Подробнее ↗</span>
           </span>
           <span className="portfolio-project-copy">
-            <span className="portfolio-project-label">{project.caseType === 'client-case' ? 'Клиентский объект' : 'Временный пример'}</span>
+            <span className="portfolio-project-label">{project.caseType === 'client-case' ? 'Клиентский объект' : 'Выставочный образец'}</span>
             <strong className="real-works-caption">{project.title}</strong>
             <span className="portfolio-project-description">{project.cardDescription}</span>
           </span>

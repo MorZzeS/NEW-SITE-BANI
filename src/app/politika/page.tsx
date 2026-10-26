@@ -1,3 +1,3 @@
-import { SiteDataNotice } from '@/components/privacy/SiteDataNotice'
-export const metadata = { title: 'Данные и обращение к владельцу', description: 'Информация о работе текущей версии BANGER.SU и контакте владельца по вопросам данных.', alternates: { canonical: 'https://banger.su/politika' } }
-export default function PolitikaPage() { return <SiteDataNotice title="Данные и обращение к владельцу" /> }
+import { LegalDocument } from '@/components/privacy/LegalDocument'
+export const metadata = { title: 'Политика обработки персональных данных', description: 'Единая редакция политики BANGER.SU.', alternates: { canonical: 'https://banger.su/privacy' } }
+export default function PolitikaPage() { return <LegalDocument kind="policy" /> }
