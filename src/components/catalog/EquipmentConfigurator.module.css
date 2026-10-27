@@ -49,8 +49,20 @@
 .plus{color:var(--color-accent);font-size:24px;font-weight:400;width:24px;text-align:center}
 .categoryBody{padding:0 24px 24px;animation:reveal .2s ease}
 .categoryBody[hidden]{display:none}
-.optionRow{display:flex;gap:16px;cursor:pointer;padding:23px 0;border-bottom:1px solid var(--glass-border);min-height:64px}
-.optionRow:last-child{border:0}
+.optionItem{padding:0 0 18px;border-bottom:1px solid var(--glass-border)}
+.optionItem:last-child{border:0}
+.optionRow{display:flex;gap:16px;cursor:pointer;padding:23px 0 10px;min-height:64px}
+.help{margin:0 0 0 38px;min-width:0}
+.help summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;min-height:44px;padding:8px 0;color:var(--color-accent);font-size:12px;cursor:pointer;border-bottom:1px solid var(--glass-border);font-weight:650}
+.help summary::-webkit-details-marker{display:none}
+.help summary:focus-visible{outline:2px solid var(--focus-color);outline-offset:4px}
+.help[open] summary{margin-bottom:16px}
+.helpBody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.helpBody figure{margin:0;min-width:0}.helpBody img{display:block;width:100%;height:auto;border-radius:8px}.helpBody figcaption{font-size:11px;line-height:1.5;color:var(--color-text-subtle);margin-top:8px}
+.helpBody h4{font-size:15px;font-weight:700;line-height:1.5;margin:0 0 8px}.helpBody p{font-size:13px;line-height:1.65;margin:0 0 10px;overflow-wrap:anywhere}.helpBody .helpNote{font-size:12px;color:var(--color-text-subtle)}
+.popularGrid .help{margin:0}.popularGrid .helpBody{grid-template-columns:1fr}.popularGrid .helpBody .price{min-height:0}
+@media(max-width:760px){.helpBody{grid-template-columns:1fr}.help{margin-left:0}.popularGrid article>.help{grid-column:1/-1;width:100%}.popularGrid .helpBody{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:440px){.popularGrid .helpBody{grid-template-columns:1fr}}
 .optionRow input{width:22px;height:22px;accent-color:var(--color-gold);flex-shrink:0;margin-top:3px;cursor:pointer}
 .optionContent{flex:1;min-width:0}
 .optionLine{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}

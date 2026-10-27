@@ -1,8 +1,13 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
+import { createPortal } from 'react-dom'
+import { catalogCardImage } from '@/lib/catalog-image'
+import { modelBaseConfiguration, modelFeatures } from '@/data/model-configuration'
+import styles from './ProductDecisionTools.module.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowRight, Check, GitCompareArrows, SlidersHorizontal, X } from 'lucide-react'
+import { ArrowRight, GitCompareArrows, SlidersHorizontal, X } from 'lucide-react'
 import type { Home, Sauna } from '@/types'
 import { formatPrice } from '@/data'
 
@@ -42,6 +47,7 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
   const [budget, setBudget] = useState<'any' | 'under600' | 'under800'>('any')
   const [feature, setFeature] = useState<'any' | 'terrace' | 'shower'>('any')
   const compareTriggerRef = useRef<HTMLButtonElement>(null)
+  const compareReturnRef = useRef<HTMLElement>(null)
   const closeCompareRef = useRef<HTMLButtonElement>(null)
   const compareDialogRef = useRef<HTMLDivElement>(null)
 
@@ -59,15 +65,28 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
     return true
   }).slice(0, 4), [budget, feature, length, products])
 
+  const comparisonRows: { label: string; value: (product: DecisionProduct) => string | string[] }[] = [
+    { label: 'Габариты', value: product => product.size },
+    { label: 'Площадь застройки', value: product => `${product.area} м²` },
+    { label: 'Планировка / назначение', value: product => product.subtitle },
+    ...Array.from(new Set(selected.flatMap(product => modelBaseConfiguration(product).map(row => row.label)))).map(label => ({ label, value: (product: DecisionProduct) => modelBaseConfiguration(product).find(row => row.label === label)?.value ?? 'Не указано в комплектации модели' })),
+    ...Array.from(new Set(selected.flatMap(product => product.specs.map(row => row.label)))).filter(label => !['Размер', 'Площадь', 'Площадь застройки', ...selected.flatMap(product => modelBaseConfiguration(product).map(row => row.label))].includes(label)).map(label => ({ label, value: (product: DecisionProduct) => product.specs.find(row => row.label === label)?.value ?? 'Не указано в каталоге' })),
+    { label: 'Особенности модели', value: modelFeatures },
+  ]
   const hrefFor = (product: DecisionProduct) => `/${kind === 'bani' ? 'banya' : 'dom'}/${product.slug}`
 
   const closeCompare = () => {
     setCompareOpen(false)
-    requestAnimationFrame(() => compareTriggerRef.current?.focus())
+    requestAnimationFrame(() => {
+      if (compareTriggerRef.current?.disabled) compareReturnRef.current?.focus()
+      else compareTriggerRef.current?.focus()
+    })
   }
 
   useEffect(() => {
     if (!compareOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     closeCompareRef.current?.focus()
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -84,18 +103,18 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus() }
     }
     document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
+    return () => { document.removeEventListener('keydown', onKeyDown); document.body.style.overflow = previousOverflow }
   }, [compareOpen])
 
   return (
-    <section className="mb-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]" aria-label="Помощь с выбором модели">
+    <section ref={compareReturnRef} tabIndex={-1} className="mb-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]" aria-label="Помощь с выбором модели">
       <div className="glass rounded-2xl p-5 md:p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="section-tag mb-2">Помощь с выбором</p>
             <h2 className="text-2xl font-bold text-cream">Сравните модели по фактам</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-cream/60">
-              Выберите до трёх вариантов. В сравнении используются только размеры, площадь, цена и заявленные особенности каталога.
+              Выберите до четырёх вариантов. Сравните размеры, площадь, стоимость и подтверждённую комплектацию.
             </p>
           </div>
           <button type="button" className="btn-secondary inline-flex items-center gap-2" onClick={() => setPickerOpen((open) => !open)} aria-expanded={pickerOpen}>
@@ -137,31 +156,33 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
         <div className="flex items-center gap-2 text-gold-300"><GitCompareArrows className="h-4 w-4" /><span className="text-sm font-semibold">Сравнение</span></div>
         <p className="mt-2 text-sm text-cream/60">Отметьте модели в каталоге, чтобы сопоставить их рядом.</p>
         <button ref={compareTriggerRef} type="button" className="btn-primary mt-4 inline-flex w-full items-center justify-center gap-2" disabled={selected.length < 2} onClick={() => setCompareOpen(true)}>
-          Сравнить выбранные ({selected.length}/3)
+          Сравнить выбранные ({selected.length}/4)
         </button>
         {selected.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{selected.map((product) => <button key={product.id} type="button" className="inline-flex items-center gap-1 rounded-lg border border-cream/15 px-2.5 py-1.5 text-xs text-cream/80" onClick={() => onToggleCompare(product.id)}>{product.name}<X className="h-3 w-3" /></button>)}</div>}
       </div>
 
-      {compareOpen && <div className="fixed inset-0 z-50 flex items-end justify-center bg-graphite-950/80 p-3 backdrop-blur-sm md:items-center md:p-8" role="dialog" aria-modal="true" aria-labelledby="compare-title" onClick={closeCompare}>
-        <div ref={compareDialogRef} tabIndex={-1} className="glass max-h-[90vh] w-full max-w-5xl overflow-auto rounded-2xl border border-gold-400/20 p-5 md:p-7" onClick={(event) => event.stopPropagation()}>
-          <div className="flex items-center justify-between gap-4"><div><p className="section-tag mb-2">Сопоставление</p><h2 id="compare-title" className="text-2xl font-bold text-cream">Выбранные модели</h2></div><button ref={closeCompareRef} type="button" className="btn-secondary min-h-11 min-w-11 p-0" aria-label="Закрыть сравнение" onClick={closeCompare}><X className="mx-auto h-5 w-5" /></button></div>
-          <div className="mt-6 grid min-w-[620px] grid-cols-[150px_repeat(3,minmax(150px,1fr))] gap-px overflow-hidden rounded-xl border border-cream/10 bg-cream/10">
-            <div className="bg-[var(--color-surface-2)] p-3 text-xs font-semibold uppercase tracking-wide text-cream/50">Параметр</div>
-            {Array.from({ length: 3 }).map((_, index) => <div key={`head-${index}`} className="bg-[var(--color-surface-2)] p-3 text-sm font-semibold text-cream">{selected[index]?.name ?? '—'}</div>)}
-            <div className="bg-[var(--color-surface)] p-3 text-xs text-cream/50">Ссылка</div>
-            {Array.from({ length: 3 }).map((_, index) => <div key={`link-${index}`} className="bg-[var(--color-surface)] p-3 text-sm text-cream">{selected[index] ? <Link className="text-gold-300 hover:text-gold-200" href={hrefFor(selected[index])}>Открыть модель <ArrowRight className="inline h-3 w-3" /></Link> : '—'}</div>)}
-            <div className="bg-[var(--color-surface)] p-3 text-xs text-cream/50">Размер</div>
-            {Array.from({ length: 3 }).map((_, index) => <div key={`size-${index}`} className="bg-[var(--color-surface)] p-3 text-sm text-cream">{selected[index]?.size ?? '—'}</div>)}
-            <div className="bg-[var(--color-surface)] p-3 text-xs text-cream/50">Площадь</div>
-            {Array.from({ length: 3 }).map((_, index) => <div key={`area-${index}`} className="bg-[var(--color-surface)] p-3 text-sm text-cream">{selected[index] ? `${selected[index].area} м²` : '—'}</div>)}
-            <div className="bg-[var(--color-surface)] p-3 text-xs text-cream/50">Цена от</div>
-            {Array.from({ length: 3 }).map((_, index) => <div key={`price-${index}`} className="bg-[var(--color-surface)] p-3 text-sm font-semibold text-cream">{selected[index] ? formatPrice(selected[index].priceFrom) : '—'}</div>)}
-            <div className="bg-[var(--color-surface)] p-3 text-xs text-cream/50">Особенности</div>
-            {Array.from({ length: 3 }).map((_, index) => <div key={`features-${index}`} className="bg-[var(--color-surface)] p-3 text-sm text-cream/70">{selected[index] ? <ul className="space-y-1">{selected[index].features.slice(0, 3).map((item) => <li key={item} className="flex gap-1"><Check className="mt-0.5 h-3 w-3 shrink-0 text-gold-300" />{item}</li>)}</ul> : '—'}</div>)}
-          </div>
-          <p className="mt-4 text-xs text-cream/45">Цена указана как «от» и зависит от выбранного исполнения и согласованной комплектации.</p>
+      {compareOpen && createPortal(<div className={styles.overlay} onClick={closeCompare}>
+        <div ref={compareDialogRef} tabIndex={-1} className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="compare-title" onClick={(event) => event.stopPropagation()}>
+          <div className={styles.heading}><div><p className="section-tag mb-2">Сопоставление</p><h2 id="compare-title">Выбранные модели ({selected.length}/4)</h2></div><button ref={closeCompareRef} type="button" className={styles.close} aria-label="Закрыть сравнение" onClick={closeCompare}><X className="mx-auto h-5 w-5" /></button></div>
+          {selected.length ? <div className={styles.scroll} role="region" aria-label="Таблица сравнения — прокручивается по горизонтали" tabIndex={0}>
+            <table className={styles.table} style={{ minWidth: `calc(var(--compare-label-width, 144px) + ${selected.length * 176}px)` }}>
+              <caption className="sr-only">Сравнение характеристик выбранных моделей. Строки с отличиями выделены фоном.</caption>
+              <colgroup><col className={styles.parameter} />{selected.map(product => <col key={product.id} className={styles.model} />)}</colgroup>
+              <thead><tr><th scope="col">Модель</th>{selected.map(product => <th scope="col" key={product.id}>
+                <div className={styles.image}><Image src={catalogCardImage(product.image)} alt={product.name} fill sizes="220px" /></div>
+                <span className={styles.name}>{product.name}</span><span className={styles.priceLabel}>{product.id === 'bg-28' ? 'Представленное исполнение' : 'Цена от'}</span><span className={styles.price}>{formatPrice(product.priceFrom)}</span>
+                <button className={styles.remove} type="button" aria-label={`Убрать из сравнения: ${product.name}`} onClick={() => { closeCompareRef.current?.focus(); onToggleCompare(product.id) }}><X size={14} aria-hidden="true" />Убрать</button>
+              </th>)}</tr></thead>
+              <tbody>{comparisonRows.map(row => {
+                const values = selected.map(row.value)
+                const different = selected.length > 1 && new Set(values.map(value => JSON.stringify(value))).size > 1
+                return <tr key={row.label}><th scope="row">{row.label}</th>{values.map((value, index) => <td key={selected[index].id} className={different ? styles.different : undefined}>{Array.isArray(value) ? <ul className={styles.list}>{value.map(item => <li key={item}>{item}</li>)}</ul> : value}</td>)}</tr>
+              })}<tr><th scope="row">Подробнее</th>{selected.map(product => <td key={product.id}><Link className={styles.link} href={hrefFor(product)}>Открыть модель <ArrowRight size={14} /></Link></td>)}</tr></tbody>
+            </table>
+          </div> : <p>В сравнении пока нет моделей. Закройте окно и отметьте варианты в каталоге.</p>}
+          <p className={styles.note}>Выделены строки, значения которых отличаются. Стоимость и комплектация зависят от выбранного исполнения; параметры с пометкой «согласуется» уточняются при заказе.</p>
         </div>
-      </div>}
+      </div>, document.body)}
     </section>
   )
 }

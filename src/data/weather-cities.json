@@ -1,0 +1,442 @@
+[
+  {
+    "id": "balashikha",
+    "name": "Балашиха",
+    "latitude": 55.79479,
+    "longitude": 37.94794,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 579464,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/579464/"
+  },
+  {
+    "id": "belgorod",
+    "name": "Белгород",
+    "latitude": 50.60343,
+    "longitude": 36.58091,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 578072,
+    "region": "Белгородская Область",
+    "sourceUrl": "https://www.geonames.org/578072/"
+  },
+  {
+    "id": "bryansk",
+    "name": "Брянск",
+    "latitude": 53.27096,
+    "longitude": 34.32143,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 571476,
+    "region": "Брянская Область",
+    "sourceUrl": "https://www.geonames.org/571476/"
+  },
+  {
+    "id": "vladimir",
+    "name": "Владимир",
+    "latitude": 56.13854,
+    "longitude": 40.39976,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 473247,
+    "region": "Владимирская область",
+    "sourceUrl": "https://www.geonames.org/473247/"
+  },
+  {
+    "id": "voronezh",
+    "name": "Воронеж",
+    "latitude": 51.66833,
+    "longitude": 39.19204,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 472045,
+    "region": "Воронежская Область",
+    "sourceUrl": "https://www.geonames.org/472045/"
+  },
+  {
+    "id": "voskresensk",
+    "name": "Воскресенск",
+    "latitude": 55.313,
+    "longitude": 38.691,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 471656,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/471656/"
+  },
+  {
+    "id": "dmitrov",
+    "name": "Дмитров",
+    "latitude": 56.34485,
+    "longitude": 37.52041,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 565955,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/565955/"
+  },
+  {
+    "id": "dolgoprudny",
+    "name": "Долгопрудный",
+    "latitude": 55.94958,
+    "longitude": 37.50183,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 565614,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/565614/"
+  },
+  {
+    "id": "domodedovo",
+    "name": "Домодедово",
+    "latitude": 55.44223,
+    "longitude": 37.75372,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 565381,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/565381/"
+  },
+  {
+    "id": "zhukovsky",
+    "name": "Жуковский",
+    "latitude": 55.59528,
+    "longitude": 38.12028,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 462755,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/462755/"
+  },
+  {
+    "id": "ivanovo",
+    "name": "Иваново",
+    "latitude": 56.99988,
+    "longitude": 40.97257,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 555312,
+    "region": "Ивановская Область",
+    "sourceUrl": "https://www.geonames.org/555312/"
+  },
+  {
+    "id": "kaluga",
+    "name": "Калуга",
+    "latitude": 54.53063,
+    "longitude": 36.27,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 553915,
+    "region": "Калужская Область",
+    "sourceUrl": "https://www.geonames.org/553915/"
+  },
+  {
+    "id": "klin",
+    "name": "Клин",
+    "latitude": 56.33169,
+    "longitude": 36.7292,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 547523,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/547523/"
+  },
+  {
+    "id": "kolomna",
+    "name": "Коломна",
+    "latitude": 55.07108,
+    "longitude": 38.78399,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 546230,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/546230/"
+  },
+  {
+    "id": "korolev",
+    "name": "Королёв",
+    "latitude": 55.91417,
+    "longitude": 37.82556,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 554233,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/554233/"
+  },
+  {
+    "id": "kostroma",
+    "name": "Кострома",
+    "latitude": 57.76638,
+    "longitude": 40.92828,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 543878,
+    "region": "Костромская Область",
+    "sourceUrl": "https://www.geonames.org/543878/"
+  },
+  {
+    "id": "krasnogorsk",
+    "name": "Красногорск",
+    "latitude": 55.81904,
+    "longitude": 37.32984,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 542374,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/542374/"
+  },
+  {
+    "id": "kursk",
+    "name": "Курск",
+    "latitude": 51.72689,
+    "longitude": 36.18457,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 538560,
+    "region": "Курская Область",
+    "sourceUrl": "https://www.geonames.org/538560/"
+  },
+  {
+    "id": "lipetsk",
+    "name": "Липецк",
+    "latitude": 52.5876,
+    "longitude": 39.55151,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 535121,
+    "region": "Липецкая Область",
+    "sourceUrl": "https://www.geonames.org/535121/"
+  },
+  {
+    "id": "lyubertsy",
+    "name": "Люберцы",
+    "latitude": 55.67719,
+    "longitude": 37.89322,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 532615,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/532615/"
+  },
+  {
+    "id": "moscow",
+    "name": "Москва",
+    "latitude": 55.75204,
+    "longitude": 37.61781,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 524901,
+    "region": "Москва",
+    "sourceUrl": "https://www.geonames.org/524901/"
+  },
+  {
+    "id": "mytishchi",
+    "name": "Мытищи",
+    "latitude": 55.91099,
+    "longitude": 37.72964,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 523812,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/523812/"
+  },
+  {
+    "id": "naro-fominsk",
+    "name": "Наро-Фоминск",
+    "latitude": 55.38752,
+    "longitude": 36.73307,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 523426,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/523426/"
+  },
+  {
+    "id": "noginsk",
+    "name": "Ногинск",
+    "latitude": 55.86486,
+    "longitude": 38.44853,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 520068,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/520068/"
+  },
+  {
+    "id": "odintsovo",
+    "name": "Одинцово",
+    "latitude": 55.66977,
+    "longitude": 37.27716,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 516215,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/516215/"
+  },
+  {
+    "id": "oryol",
+    "name": "Орёл",
+    "latitude": 52.96879,
+    "longitude": 36.0791,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 515012,
+    "region": "Орловская Область",
+    "sourceUrl": "https://www.geonames.org/515012/"
+  },
+  {
+    "id": "orekhovo-zuevo",
+    "name": "Орехово-Зуево",
+    "latitude": 55.81242,
+    "longitude": 38.99155,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 515024,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/515024/"
+  },
+  {
+    "id": "podolsk",
+    "name": "Подольск",
+    "latitude": 55.42419,
+    "longitude": 37.55472,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 508101,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/508101/"
+  },
+  {
+    "id": "pushkino",
+    "name": "Пушкино",
+    "latitude": 55.99456,
+    "longitude": 37.82897,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 503977,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/503977/"
+  },
+  {
+    "id": "ramenskoe",
+    "name": "Раменское",
+    "latitude": 55.56341,
+    "longitude": 38.24152,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 502965,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/502965/"
+  },
+  {
+    "id": "reutov",
+    "name": "Реутов",
+    "latitude": 55.76273,
+    "longitude": 37.86303,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 502018,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/502018/"
+  },
+  {
+    "id": "ryazan",
+    "name": "Рязань",
+    "latitude": 54.62696,
+    "longitude": 39.70415,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 500096,
+    "region": "Рязанская Область",
+    "sourceUrl": "https://www.geonames.org/500096/"
+  },
+  {
+    "id": "sergiev-posad",
+    "name": "Сергиев Посад",
+    "latitude": 56.31204,
+    "longitude": 38.13869,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 496638,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/496638/"
+  },
+  {
+    "id": "serpukhov",
+    "name": "Серпухов",
+    "latitude": 54.9198,
+    "longitude": 37.41618,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 496527,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/496527/"
+  },
+  {
+    "id": "smolensk",
+    "name": "Смоленск",
+    "latitude": 54.77826,
+    "longitude": 32.05088,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 491687,
+    "region": "Смоленская Область",
+    "sourceUrl": "https://www.geonames.org/491687/"
+  },
+  {
+    "id": "solnechnogorsk",
+    "name": "Солнечногорск",
+    "latitude": 56.17527,
+    "longitude": 36.97082,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 490996,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/490996/"
+  },
+  {
+    "id": "tambov",
+    "name": "Тамбов",
+    "latitude": 52.73632,
+    "longitude": 41.44102,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 484646,
+    "region": "Тамбовская Область",
+    "sourceUrl": "https://www.geonames.org/484646/"
+  },
+  {
+    "id": "tver",
+    "name": "Тверь",
+    "latitude": 56.85836,
+    "longitude": 35.90057,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 480060,
+    "region": "Тверская Область",
+    "sourceUrl": "https://www.geonames.org/480060/"
+  },
+  {
+    "id": "tula",
+    "name": "Тула",
+    "latitude": 54.19609,
+    "longitude": 37.61822,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 480562,
+    "region": "Тульская Область",
+    "sourceUrl": "https://www.geonames.org/480562/"
+  },
+  {
+    "id": "khimki",
+    "name": "Химки",
+    "latitude": 55.9001,
+    "longitude": 37.42848,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 550280,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/550280/"
+  },
+  {
+    "id": "chekhov",
+    "name": "Чехов",
+    "latitude": 55.14552,
+    "longitude": 37.46193,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 569591,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/569591/"
+  },
+  {
+    "id": "shchyolkovo",
+    "name": "Щёлково",
+    "latitude": 55.92497,
+    "longitude": 37.97218,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 495344,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/495344/"
+  },
+  {
+    "id": "elektrostal",
+    "name": "Электросталь",
+    "latitude": 55.78647,
+    "longitude": 38.45713,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 563523,
+    "region": "Московская область",
+    "sourceUrl": "https://www.geonames.org/563523/"
+  },
+  {
+    "id": "yaroslavl",
+    "name": "Ярославль",
+    "latitude": 57.62987,
+    "longitude": 39.87368,
+    "timezone": "Europe/Moscow",
+    "geonamesId": 468902,
+    "region": "Ярославская Область",
+    "sourceUrl": "https://www.geonames.org/468902/"
+  }
+]

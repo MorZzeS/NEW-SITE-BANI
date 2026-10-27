@@ -3,17 +3,17 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 // Build-time collection only. Never accepts a visitor request, city or headers.
-export const cities = Object.freeze([
-  { id: 'ramenskoe', latitude: 55.5675, longitude: 38.225 },
-  { id: 'moscow', latitude: 55.7558, longitude: 37.6173 },
-])
-const USER_AGENT = 'BANGER.SU/1.0 https://banger.su/ banger.su@bk.ru'
+export const cities = Object.freeze(JSON.parse(await fs.readFile(new URL('../src/data/weather-cities.json', import.meta.url), 'utf8')))
+const USER_AGENT = 'BANGER.SU/1.0 https://banger.su/ banger.ram@bk.ru'
 const MAX_MODEL_AGE = 12 * 60 * 60_000
+const truncate = value => Math.trunc(value * 10_000) / 10_000
 
-export async function refreshWeather({ output = 'dist/weather', cache = '.next/cache/weather', fetchImpl = fetch, now = Date.now() } = {}) {
+export async function refreshWeather({ output = 'dist/weather', cache = '.next/cache/weather', fetchImpl = fetch, now = Date.now(), pause = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds)) } = {}) {
   await fs.mkdir(output, { recursive: true })
   await fs.mkdir(cache, { recursive: true })
   const results = []
+  let requested = false
+  let rateLimitedUntil = 0
   for (const city of cities) {
     const cachePath = path.join(cache, `${city.id}.json`)
     let previous
@@ -21,22 +21,32 @@ export async function refreshWeather({ output = 'dist/weather', cache = '.next/c
     let snapshot
     let nextAllowed = 0
     try {
-      if (previous?.schema === 1 && Date.parse(previous.expiresAt) > now) {
+      if (previous?.schema === 1 && previous.cityId === city.id && Date.parse(previous.expiresAt) > now) {
         snapshot = previous
       } else {
+        if (rateLimitedUntil > now) { nextAllowed = rateLimitedUntil; throw new Error('Provider rate limited') }
+        // Serial requests, at most ten per second across this collector.
+        if (requested) await pause(100)
+        requested = true
         const headers = { 'User-Agent': USER_AGENT, Accept: 'application/json' }
         if (previous?.lastModified) headers['If-Modified-Since'] = previous.lastModified
-        const url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${city.latitude}&lon=${city.longitude}`
+        const url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${truncate(city.latitude)}&lon=${truncate(city.longitude)}`
         const response = await fetchImpl(url, { headers, signal: AbortSignal.timeout(10_000), redirect: 'error' })
         const expiry = Date.parse(response.headers.get('expires') || '')
         nextAllowed = Number.isFinite(expiry) && expiry > now ? expiry : now + 60 * 60_000
+        if (response.status === 429) {
+          const retry = response.headers.get('retry-after')
+          const seconds = retry && /^\d+$/.test(retry) ? Number(retry) * 1000 : Date.parse(retry || '') - now
+          rateLimitedUntil = now + Math.max(60_000, Number.isFinite(seconds) ? seconds : 60 * 60_000)
+          nextAllowed = Math.max(nextAllowed, rateLimitedUntil)
+        }
         let forecast
         if (response.status === 304 && previous?.forecast) forecast = previous.forecast
         else if (response.status === 200) forecast = await response.json()
         else throw new Error('Provider unavailable')
         const updated = Date.parse(forecast?.properties?.meta?.updated_at)
         if (!Number.isFinite(updated) || now - updated > MAX_MODEL_AGE || updated - now > 5 * 60_000 || !forecast?.properties?.timeseries?.length) throw new Error('Invalid or stale model')
-        snapshot = { schema: 1, available: true, cityId: city.id, checkedAt: new Date(now).toISOString(), expiresAt: new Date(nextAllowed).toISOString(), lastModified: response.headers.get('last-modified') || previous?.lastModified || new Date(updated).toUTCString(), forecast }
+        snapshot = { schema: 1, available: true, cityId: city.id, checkedAt: new Date(now).toISOString(), expiresAt: new Date(nextAllowed).toISOString(), lastModified: response.headers.get('last-modified') || (response.status === 304 ? previous?.lastModified : undefined), forecast }
         await fs.writeFile(cachePath, JSON.stringify(snapshot))
       }
       const modelAge = now - Date.parse(snapshot.forecast?.properties?.meta?.updated_at)

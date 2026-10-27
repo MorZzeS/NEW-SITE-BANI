@@ -1,5 +1,7 @@
+import cityData from '@/data/weather-cities.json'
+
 export type WeatherCity = {
-  id: 'ramenskoe' | 'moscow'
+  id: string
   name: string
   latitude: number
   longitude: number
@@ -11,6 +13,7 @@ export type WeatherSnapshot = {
   temperature: number
   wind: number
   precipitation?: number
+  forecastHours?: number
   symbol: string
   forecastTime: string
   updatedAt: string
@@ -18,10 +21,35 @@ export type WeatherSnapshot = {
   sourceCheckedAt?: string
 }
 
-export const weatherCities: WeatherCity[] = [
-  { id: 'ramenskoe', name: 'Раменское', latitude: 55.5675, longitude: 38.225, timezone: 'Europe/Moscow' },
-  { id: 'moscow', name: 'Москва', latitude: 55.7558, longitude: 37.6173, timezone: 'Europe/Moscow' },
-]
+export const weatherCities: WeatherCity[] = [...cityData].sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+export const defaultWeatherCity = weatherCities.find(city => city.id === 'moscow')!
+export const WEATHER_CITY_STORAGE_KEY = 'banger:weather-city'
+export const WEATHER_COVERAGE_KM = 35
+
+/** Only centroid matching, never an address or a claim about municipal boundaries. */
+export function nearestSupportedCity(latitude: number, longitude: number, accuracy = 0): WeatherCity | null {
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180 || !Number.isFinite(accuracy) || accuracy < 0 || accuracy > 10_000) return null
+  const radians = (value: number) => value * Math.PI / 180
+  let nearest: WeatherCity | null = null
+  let shortest = Infinity
+  for (const city of weatherCities) {
+    const deltaLat = radians(city.latitude - latitude), deltaLon = radians(city.longitude - longitude)
+    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(radians(latitude)) * Math.cos(radians(city.latitude)) * Math.sin(deltaLon / 2) ** 2
+    const distance = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(Math.max(0, 1 - a)))
+    if (distance < shortest) { shortest = distance; nearest = city }
+  }
+  return shortest + accuracy / 1000 <= WEATHER_COVERAGE_KM ? nearest : null
+}
+
+export type WeatherVisualState = 'sun' | 'partcloud' | 'cloud' | 'rain' | 'snow' | 'night'
+export function weatherVisualState(symbol: string): WeatherVisualState {
+  if (symbol.includes('snow') || symbol.includes('sleet')) return 'snow'
+  if (symbol.includes('rain') || symbol.includes('drizzle') || symbol.includes('thunder')) return 'rain'
+  if (symbol.includes('clearsky') && symbol.includes('_night')) return 'night'
+  if (symbol.includes('clearsky')) return 'sun'
+  if (symbol.includes('fair') || symbol.includes('partlycloudy')) return 'partcloud'
+  return 'cloud'
+}
 
 export const weatherSource = {
   name: 'MET Norway',
@@ -54,7 +82,7 @@ export function nearestForecast(raw: any, city: WeatherCity, now = Date.now()): 
   const precipitation = details?.precipitation_amount
   const symbol = String(next?.summary?.symbol_code ?? '')
   if (typeof temperature !== 'number' || !Number.isFinite(temperature) || typeof wind !== 'number' || !Number.isFinite(wind) || (precipitation !== undefined && (typeof precipitation !== 'number' || !Number.isFinite(precipitation))) || !symbol) throw new Error('Forecast is incomplete')
-  return { cityId: city.id, temperature, wind, precipitation, symbol, forecastTime: point.time, updatedAt: raw.properties?.meta?.updated_at ?? point.time, fetchedAt: new Date(now).toISOString() }
+  return { cityId: city.id, temperature, wind, precipitation, forecastHours: point.data?.next_1_hours ? 1 : point.data?.next_6_hours ? 6 : 12, symbol, forecastTime: point.time, updatedAt: raw.properties?.meta?.updated_at ?? point.time, fetchedAt: new Date(now).toISOString() }
 }
 
 export function weatherLabel(symbol: string) {

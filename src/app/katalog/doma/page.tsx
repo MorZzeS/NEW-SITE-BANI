@@ -13,7 +13,7 @@ export default function DomaCatalogPage() {
 
   const toggleCompare = (id: string) => setCompareIds((current) => current.includes(id)
     ? current.filter((item) => item !== id)
-    : current.length < 3 ? [...current, id] : current)
+    : current.length < 4 ? [...current, id] : current)
 
   const filtered = useMemo(() => {
     let list = [...homes]
@@ -58,9 +58,9 @@ export default function DomaCatalogPage() {
           Найдено: <span className="text-cream font-semibold">{filtered.length}</span> {modelCountWord(filtered.length)}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((home) => (
-            <HomeCard key={home.id} home={home} compareSelected={compareIds.includes(home.id)} compareDisabled={compareIds.length >= 3} onCompare={toggleCompare} />
+            <HomeCard key={home.id} home={home} compareSelected={compareIds.includes(home.id)} compareDisabled={compareIds.length >= 4} onCompare={toggleCompare} />
           ))}
         </div>
       </div>

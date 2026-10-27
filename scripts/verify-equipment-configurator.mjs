@@ -58,6 +58,8 @@ const uiReact={useState: initial=>{const n=uiHook++;return [uiState[n]??initial,
 const ui=load('src/components/catalog/EquipmentConfigurator.tsx',id=>{
  if(id==='react')return uiReact;
  if(id==='react/jsx-runtime')return {jsx,jsxs:jsx};
+ if(id==='next/image')return {default:'test-image'};
+ if(id==='@/data/option-guidance')return load('src/data/option-guidance.ts');
  if(id==='@/data/equipment')return baseData;
  if(id==='@/data/options')return source;
  if(id==='@/lib/equipment-selection')return selection;

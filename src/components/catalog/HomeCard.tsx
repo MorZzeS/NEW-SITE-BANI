@@ -5,6 +5,7 @@ import type { Home } from '@/types'
 import { formatPrice } from '@/data'
 import clsx from 'clsx'
 import { catalogCardImage } from '@/lib/catalog-image'
+import styles from './CatalogCard.module.css'
 
 interface Props {
   home: Home
@@ -22,7 +23,7 @@ const tagColors: Record<string, string> = {
 
 export function HomeCard({ home, compareSelected = false, compareDisabled = false, onCompare }: Props) {
   return (
-    <div className="relative">
+    <div className={styles.wrapper}>
       {onCompare && <button
         type="button"
         aria-label={`${compareSelected ? 'Убрать из' : 'Добавить в'} сравнение: ${home.name}`}
@@ -31,10 +32,10 @@ export function HomeCard({ home, compareSelected = false, compareDisabled = fals
         onClick={() => onCompare(home.id)}
         className={clsx('absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-semibold backdrop-blur-sm transition-colors', compareSelected ? 'border-gold-300/70 bg-gold-400/25 text-gold-200' : 'border-cream/20 bg-graphite-950/60 text-cream/80 hover:border-gold-300/50', compareDisabled && !compareSelected && 'cursor-not-allowed opacity-50')}
       ><GitCompareArrows className="h-3.5 w-3.5" /> {compareSelected ? 'В сравнении' : 'Сравнить'}</button>}
-      <Link href={`/dom/${home.slug}`} className="group block">
-      <div className="glass-card h-full flex flex-col overflow-hidden">
+      <Link href={`/dom/${home.slug}`} className={clsx("group", styles.link)}>
+      <div className={clsx("glass-card", styles.card)}>
         {/* Image */}
-        <div className="relative overflow-hidden bg-graphite-900 h-52">
+        <div className={styles.image}>
           <picture className="absolute inset-0 block">
             <source type="image/avif" srcSet={catalogCardImage(home.image, 'avif')} />
             <Image
@@ -46,7 +47,7 @@ export function HomeCard({ home, compareSelected = false, compareDisabled = fals
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
             />
           </picture>
-          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+          <div className={styles.tags}>
             {home.tags.map((tag) => (
               <span
                 key={tag}
@@ -62,19 +63,19 @@ export function HomeCard({ home, compareSelected = false, compareDisabled = fals
         </div>
 
         {/* Content */}
-        <div className="flex flex-col flex-1 p-5">
+        <div className={styles.content}>
           <div className="text-[10px] font-semibold tracking-widest uppercase text-gold-400/80 mb-1">
             Усадьба
           </div>
-          <h3 className="text-lg font-bold text-cream mb-1 group-hover:text-gold-300 transition-colors">
+          <h3 className={clsx(styles.title, "text-lg font-bold text-cream mb-1 group-hover:text-gold-300 transition-colors")}>
             {home.name}
           </h3>
-          <p className="text-sm text-cream/60 leading-relaxed mb-4 flex-1">
+          <p className={clsx(styles.description, "text-sm text-cream/60 leading-relaxed mb-4")}>
             {home.subtitle}
           </p>
 
           {/* Specs */}
-          <div className="grid grid-cols-3 gap-2 mb-4">
+          <div className={clsx(styles.specs, "grid grid-cols-3 gap-2")}>
             {[
               { label: 'Размер', value: home.size },
               { label: 'Площадь', value: `${home.area} м²` },
@@ -88,14 +89,14 @@ export function HomeCard({ home, compareSelected = false, compareDisabled = fals
           </div>
 
           {/* Price + CTA */}
-          <div className="flex items-center justify-between">
+          <div className={styles.footer}>
             <div>
               <div className="text-[10px] text-cream/40 mb-0.5">от</div>
               <div className="text-xl font-bold text-cream">
                 {formatPrice(home.priceFrom)}
               </div>
             </div>
-            <div className="flex items-center gap-1.5 text-gold-400 text-sm font-semibold group-hover:gap-3 transition-all">
+            <div className={clsx(styles.cta, "flex items-center gap-1.5 text-gold-400 text-sm font-semibold group-hover:gap-3 transition-all")}>
               Подробнее <ArrowRight className="w-4 h-4" />
             </div>
           </div>

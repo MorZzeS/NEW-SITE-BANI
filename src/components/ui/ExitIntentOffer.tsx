@@ -45,7 +45,7 @@ export function ExitIntentOffer({
     let moved = false
 
     const canShow = () => {
-      if (!eligible || open || shownThisVisit.current || document.querySelector('dialog[open], [aria-modal="true"]')) return false
+      if (!eligible || open || shownThisVisit.current || document.querySelector('[data-site-preferences-notice], dialog[open], [aria-modal="true"]')) return false
       try {
         const saved = window.localStorage.getItem(storageKey)
         if (saved === null) return true

@@ -68,7 +68,13 @@ export function auditPriceUpdate(root = defaultRoot) {
     })
     return data
   }
-  check(equal(restoreModels(plain(newData), beforeModels), oldData), 'Other catalog exports or nonprice data changed')
+  const restoredData = restoreModels(plain(newData), beforeModels)
+  // A subsequent explicit owner correction changes only the public email.
+  if (restoredData.siteSettings.email !== oldData.siteSettings.email) {
+    check(restoredData.siteSettings.email === 'banger.ram@bk.ru', 'Unapproved public email change')
+    restoredData.siteSettings.email = oldData.siteSettings.email
+  }
+  check(equal(restoredData, oldData), 'Other catalog exports or nonprice data changed')
   check(equal(newOptions.optionCategories, oldOptions.optionCategories), 'Option categories changed')
   check(equal(newOptions.additionalOptions.map(o => o.id), oldOptions.additionalOptions.map(o => o.id)), 'Option IDs/order changed')
   const options = oldOptions.additionalOptions.map(before => {
@@ -86,7 +92,7 @@ export function auditPriceUpdate(root = defaultRoot) {
   check(options.filter(o => !o.paid).length === 1 && options.find(o => o.id === 'tray')?.currentPrice === null, 'Unconfirmed tray must remain unpriced')
   // A text-level comparison also catches edits to helpers/comments outside data.
   const normalise = source => source.replaceAll('\r\n', '\n')
-  const scrubModels = source => normalise(source).replace(/priceFrom: \d+/g, 'priceFrom: PRICE').replace(/priceVariants: \[[^\]]*\]/g, 'priceVariants: VARIANTS')
+  const scrubModels = source => normalise(source).replace("email: 'banger.ram@bk.ru'", "email: 'banger.su@bk.ru'").replace(/priceFrom: \d+/g, 'priceFrom: PRICE').replace(/priceVariants: \[[^\]]*\]/g, 'priceVariants: VARIANTS')
   const scrubOptions = source => normalise(source).replace(/"salePrice": (?:\d+|null)/g, '"salePrice": PRICE').replace(/"priceSource": "[^"]*"/g, '"priceSource": SOURCE')
   check(scrubModels(currentText[sourceFiles[0]]) === scrubModels(baselineText[sourceFiles[0]]), 'Catalog source changed outside price literals')
   check(scrubOptions(currentText[sourceFiles[1]]) === scrubOptions(baselineText[sourceFiles[1]]), 'Option source changed outside prices/provenance')

@@ -10,12 +10,13 @@ const policy = fs.readFileSync('src/lib/release-policy.ts', 'utf8')
 for (const flag of ['onlineLeads', 'analytics', 'embeddedYandex']) {
   if (!new RegExp(`\\b${flag}:\\s*false\\b`).test(policy)) throw new Error(`Unsafe release policy: ${flag}`)
 }
-if (!/\bweather:\s*'on-request'/.test(policy) || !/\bpromotionalOffer:\s*true\b/.test(policy)) throw new Error('Owner-approved interactive features must remain available')
+if (!/\bweather:\s*'same-origin'/.test(policy) || !/\bpromotionalOffer:\s*true\b/.test(policy)) throw new Error('Owner-approved interactive features must remain available')
 const homeSource = fs.readFileSync('src/app/page.tsx', 'utf8')
 if (!homeSource.includes('<WeatherWide') || !homeSource.includes('<ExitIntentOffer')) throw new Error('Missing requested weather or exit-intent entry point')
 const weatherSource = fs.readFileSync('src/components/sections/WeatherWide.tsx', 'utf8')
 if (!weatherSource.includes('fetch(`/weather/${city.id}.json`') || weatherSource.includes('fetch(`https:') || !weatherSource.includes("mode: 'same-origin'")) throw new Error('Weather must use same-origin static snapshots without a foreign fallback')
-for (const city of ['ramenskoe', 'moscow']) {
+const weatherCities = JSON.parse(fs.readFileSync('src/data/weather-cities.json', 'utf8'))
+for (const { id: city } of weatherCities) {
   const snapshot = JSON.parse(fs.readFileSync(path.join(root, 'weather', `${city}.json`), 'utf8'))
   if (snapshot.schema !== 1 || snapshot.cityId !== city || typeof snapshot.available !== 'boolean') throw new Error(`Invalid weather snapshot: ${city}`)
 }
@@ -46,5 +47,5 @@ for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-r
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')
-fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: 'visual-contacts', sha, onlineLeads: false, analytics: false, weather: 'on-request', weatherTransport: 'same-origin-snapshot', embeddedYandex: false, promotionalOffer: true }) + '\n')
-console.log(`Owner acceptance export PASS: ${htmlFiles.length} HTML, contacts only, on-request weather and desktop offer retained; browser and legal acceptance required separately`)
+fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: 'visual-contacts', sha, onlineLeads: false, analytics: false, weather: 'same-origin', weatherTransport: 'same-origin-snapshot', embeddedYandex: false, promotionalOffer: true }) + '\n')
+console.log(`Owner acceptance export PASS: ${htmlFiles.length} HTML, contacts only, same-origin city forecasts and desktop offer retained; browser and legal acceptance required separately`)

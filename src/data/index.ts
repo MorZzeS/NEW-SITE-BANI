@@ -5,7 +5,7 @@ export const siteSettings: SiteSettings = {
   phoneDisplay: '8 (936) 200-00-50',
   phone2: '+79363000050',
   phoneDisplay2: '8 (936) 300-00-50',
-  email: 'banger.su@bk.ru',
+  email: 'banger.ram@bk.ru',
   address: 'Раменское, ул. Михалевича, 143Е',
   addressShowroom: 'Раменское, ул. Михалевича, 118к1',
   telegram: 'https://t.me/banigerasimov',

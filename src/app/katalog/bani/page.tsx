@@ -22,7 +22,7 @@ export default function BaniCatalogPage() {
 
   const toggleCompare = (id: string) => setCompareIds((current) => current.includes(id)
     ? current.filter((item) => item !== id)
-    : current.length < 3 ? [...current, id] : current)
+    : current.length < 4 ? [...current, id] : current)
 
   const filtered = useMemo(() => {
     let list = [...saunas]
@@ -157,9 +157,9 @@ export default function BaniCatalogPage() {
 
         {/* Grid */}
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {filtered.map((sauna) => (
-              <SaunaCard key={sauna.id} sauna={sauna} compareSelected={compareIds.includes(sauna.id)} compareDisabled={compareIds.length >= 3} onCompare={toggleCompare} />
+              <SaunaCard key={sauna.id} sauna={sauna} compareSelected={compareIds.includes(sauna.id)} compareDisabled={compareIds.length >= 4} onCompare={toggleCompare} />
             ))}
           </div>
         ) : (
