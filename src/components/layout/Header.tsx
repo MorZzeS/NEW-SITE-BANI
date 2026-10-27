@@ -9,6 +9,7 @@ import type { SiteSettings } from '@/types'
 import clsx from 'clsx'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { WeatherWide } from '@/components/sections/WeatherWide'
 
 interface Props {
   settings: SiteSettings
@@ -33,6 +34,7 @@ export function Header({ settings }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdown, setDropdown] = useState<string | null>(null)
+  const [weatherLayoutOffset, setWeatherLayoutOffset] = useState(0)
   const dropRef = useRef<HTMLDivElement>(null)
   const mobileTrigger = useRef<HTMLButtonElement>(null)
   const reducedMotion = useReducedMotion()
@@ -79,7 +81,7 @@ export function Header({ settings }: Props) {
     <>
       <header
         className={clsx(
-          'site-header fixed top-0 inset-x-0 z-50 py-4 transition-[background-color,border-color,box-shadow] duration-200',
+          'site-header fixed top-0 inset-x-0 z-50 py-1.5 transition-[background-color,border-color,box-shadow] duration-200',
           scrolled && 'is-scrolled'
         )}
       >
@@ -194,7 +196,10 @@ export function Header({ settings }: Props) {
             </button>
           </div>
         </div>
+        <WeatherWide layoutOffset={weatherLayoutOffset} onExpandedOffsetChange={setWeatherLayoutOffset} />
       </header>
+
+      <div className="weather-expanded-spacer" style={{ height: `${weatherLayoutOffset}px` }} aria-hidden="true" />
 
       {/* Mobile menu */}
       <AnimatePresence>{mobileOpen && (

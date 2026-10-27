@@ -10,7 +10,12 @@ import { WeatherVisual } from './WeatherVisual'
 type Status = 'idle' | 'loading' | 'ready' | 'error'
 const normalize = (value: string) => value.toLocaleLowerCase('ru').replaceAll('ё', 'е').trim()
 
-export function WeatherWide() {
+type WeatherWideProps = {
+  layoutOffset: number
+  onExpandedOffsetChange: (offset: number) => void
+}
+
+export function WeatherWide({ layoutOffset, onExpandedOffsetChange }: WeatherWideProps) {
   const [cityId, setCityId] = useState(defaultWeatherCity.id)
   const [hydrated, setHydrated] = useState(false)
   const [remember, setRemember] = useState(false)
@@ -24,15 +29,74 @@ export function WeatherWide() {
   const [query, setQuery] = useState('')
   const [listOpen, setListOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
-  const sectionRef = useRef<HTMLElement>(null)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
+  const overlapAnchorRef = useRef<Element | null>(null)
   const reducedMotion = useReducedMotion()
   const requestVersion = useRef(0)
   const geoVersion = useRef(0)
   const activeRequest = useRef<AbortController | null>(null)
   const city = useMemo(() => weatherCities.find(item => item.id === cityId) ?? defaultWeatherCity, [cityId])
   const matches = useMemo(() => weatherCities.filter(item => normalize(item.name).startsWith(normalize(query))), [query])
+
+  const updateExpandedOffset = useCallback(() => {
+    if (!document.querySelector('.weather-wide[data-open="true"]')) return
+    const panel = document.querySelector<HTMLElement>('.weather-details-inner')
+    const main = document.querySelector<HTMLElement>('main')
+    if (!panel || !main) return
+
+    const panelRect = panel.getBoundingClientRect()
+    let anchor = overlapAnchorRef.current
+    if (!anchor || !main.contains(anchor)) {
+      anchor = [...main.querySelectorAll('h1,h2,p,a,button,[role="button"]')].find(element => {
+        const rect = element.getBoundingClientRect()
+        return rect.width > 0 && rect.height > 0 && rect.top < panelRect.bottom && rect.bottom > panelRect.top
+      }) ?? main.querySelector('h1') ?? main.firstElementChild
+      overlapAnchorRef.current = anchor
+    }
+    if (!anchor) return
+
+    const naturalTop = anchor.getBoundingClientRect().top - layoutOffset
+    onExpandedOffsetChange(Math.max(0, Math.ceil(panelRect.bottom - naturalTop + 20)))
+  }, [layoutOffset, onExpandedOffsetChange])
+
+  const closeDetails = useCallback(() => {
+    overlapAnchorRef.current = null
+    setOpen(false)
+    onExpandedOffsetChange(0)
+  }, [onExpandedOffsetChange])
+
+  const toggleDetails = useCallback(() => {
+    if (open) {
+      closeDetails()
+      return
+    }
+    overlapAnchorRef.current = null
+    setOpen(true)
+    window.requestAnimationFrame(() => window.requestAnimationFrame(updateExpandedOffset))
+  }, [closeDetails, open, updateExpandedOffset])
+
+  useEffect(() => {
+    if (!open) return
+    let frame = 0
+    const scheduleUpdate = () => {
+      window.cancelAnimationFrame(frame)
+      frame = window.requestAnimationFrame(updateExpandedOffset)
+    }
+    scheduleUpdate()
+    const panel = document.querySelector<HTMLElement>('.weather-details-inner')
+    const observer = panel ? new ResizeObserver(scheduleUpdate) : null
+    if (panel) observer?.observe(panel)
+    window.addEventListener('resize', scheduleUpdate)
+    const closeOnPageScroll = () => { if (window.scrollY > 40) closeDetails() }
+    window.addEventListener('scroll', closeOnPageScroll, { passive: true })
+    return () => {
+      window.cancelAnimationFrame(frame)
+      observer?.disconnect()
+      window.removeEventListener('resize', scheduleUpdate)
+      window.removeEventListener('scroll', closeOnPageScroll)
+    }
+  }, [closeDetails, open, updateExpandedOffset])
 
   useEffect(() => {
     const allowed = getSitePreferences()?.rememberWeatherCity === true
@@ -121,13 +185,6 @@ export function WeatherWide() {
     return () => window.clearInterval(timer)
   }, [])
   useEffect(() => {
-    const header = document.querySelector('header.site-header')
-    if (!header) return
-    const update = () => sectionRef.current?.style.setProperty('--weather-header-height', `${header.getBoundingClientRect().height}px`)
-    update(); const observer = new ResizeObserver(update); observer.observe(header)
-    return () => observer.disconnect()
-  }, [])
-  useEffect(() => {
     if (!snapshot || status !== 'ready') return
     const remaining = Math.max(0, Math.min(Date.parse(snapshot.forecastTime) + 90 * 60_000, Date.parse(snapshot.sourceCheckedAt!) + 2 * 60 * 60_000, Date.parse(snapshot.updatedAt) + 12 * 60 * 60_000) - Date.now())
     const timer = window.setTimeout(() => { setSnapshot(null); setStatus('error'); setRequestError('Прогноз устарел. Обновите данные, чтобы увидеть свежую погоду.') }, remaining)
@@ -142,11 +199,11 @@ export function WeatherWide() {
   const hour = now ? Number(new Intl.DateTimeFormat('en-GB', { timeZone: city.timezone, hour: '2-digit', hourCycle: 'h23' }).format(now)) : 12
   const symbol = snapshot?.symbol ?? ''
 
-  return <section ref={sectionRef} className="weather-wide-section weather-strip-section" aria-label="Погода для загородного отдыха" onKeyDown={event => {
-    if (event.key === 'Escape' && !listOpen && open) { setOpen(false); toggleRef.current?.focus() }
+  return <section className="weather-wide-section weather-strip-section" aria-label="Погода для загородного отдыха" onKeyDown={event => {
+    if (event.key === 'Escape' && !listOpen && open) { closeDetails(); toggleRef.current?.focus() }
   }}>
     <div className="site-container"><div className="weather-wide weather-strip glass" data-open={open}>
-      <button ref={toggleRef} type="button" className="weather-strip-toggle" aria-expanded={open} aria-controls="weather-details" onClick={() => setOpen(value => !value)}>
+      <button ref={toggleRef} type="button" className="weather-strip-toggle" aria-expanded={open} aria-controls="weather-details" onClick={toggleDetails}>
         {snapshot && <WeatherVisual symbol={symbol} compact />}
         <span className="weather-strip-city">{city.name}</span>
         <span className="weather-strip-temperature">{status === 'ready' && snapshot ? `${snapshot.temperature > 0 ? '+' : ''}${Math.round(snapshot.temperature)}°` : status === 'loading' ? 'Загрузка…' : 'Нет данных'}</span>
@@ -168,8 +225,9 @@ export function WeatherWide() {
             }} />Запомнить город</label>
           </div>
         </div>
+        <p className="weather-location-summary">После вашего разрешения браузеру сайт выберет ближайший город; прогноз будет показан для него.</p>
         <div className="weather-actions"><button type="button" className="weather-retry" disabled={locating} onClick={locate}><LocateFixed size={16} aria-hidden="true" />{locating ? 'Определяем местоположение…' : 'Определить моё местоположение'}</button><button type="button" className="weather-retry" disabled={status === 'loading'} onClick={() => void load()}><RefreshCw aria-hidden="true" size={15} />{status === 'loading' ? 'Загрузка прогноза…' : status === 'error' ? 'Повторить запрос' : 'Обновить прогноз'}</button></div>
-        <p className="weather-location-note">По местоположению выберем ближайший город из списка. Код сайта использует координаты только на устройстве и не отправляет их на свой сервер или поставщику погоды. Работа служб геолокации зависит от настроек браузера и устройства.</p>
+        <details className="weather-location-disclosure"><summary>Как используется местоположение</summary><p className="weather-location-note">По разрешению браузера сайт выберет ближайший город из списка. Координаты обрабатываются на устройстве; работа служб геолокации также зависит от настроек браузера и устройства.</p></details>
         {locationMessage && <p className="weather-location-message" role="status">{locationMessage}</p>}
         <div className="weather-wide-body" aria-live="polite" aria-busy={status === 'loading'}><div className="weather-time">{clock}</div>
           {status === 'loading' && <div className="weather-state"><span className="weather-loader" aria-hidden="true" />Загружаем погоду: {city.name}…</div>}

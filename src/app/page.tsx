@@ -1,4 +1,3 @@
-import { WeatherWide } from '@/components/sections/WeatherWide'
 import { ExitIntentOffer } from '@/components/ui/ExitIntentOffer'
 import { releasePolicy } from '@/lib/release-policy'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
@@ -16,7 +15,6 @@ import { ProcessStorySection } from '@/components/sections/ProcessStorySection'
 export default function HomePage() {
   return (
     <>
-      <WeatherWide />
       <HeroSection />
       {releasePolicy.promotionalOffer && <ExitIntentOffer />}
       <ScrollReveal><CategoriesSection /></ScrollReveal>
