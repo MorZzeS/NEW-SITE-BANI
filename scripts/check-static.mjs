@@ -4,6 +4,7 @@ import crypto from 'node:crypto'
 import vm from 'node:vm'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
+import { MODEL_INCREASE, increasedVariant } from './verify-price-update.mjs'
 
 const require = createRequire(import.meta.url)
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -84,13 +85,19 @@ for (const record of records) {
   if (!fs.existsSync(card)) { errors.push(`${record.id}: missing card`); continue }
   const html = fs.readFileSync(card, 'utf8')
   const model = models.find((m) => m.id === record.id)
-  if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(record.price_variants)) errors.push(`${record.id}: wrong alternative prices`)
+  // Source records retain historical PPT prices; selling prices use the owner's increase.
+  // Avoid a git-history dependency here: CI checkouts can contain just one commit.
+  const expectedVariants = record.price_variants.map(increasedVariant)
+  if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(expectedVariants)) errors.push(`${record.id}: alternative prices differ from owner increase`)
+  if (model?.priceFrom !== record.priceFrom + MODEL_INCREASE) errors.push(`${record.id}: base price differs from owner increase`)
   const priceBlock = html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1]
   if (!priceBlock) errors.push(`${record.id}: missing price section`)
-  for (const variant of record.price_variants) {
+  const visiblePrice = model && dataExports.formatPrice(model.priceFrom).replace(/\s/g, ' ')
+  if (!priceBlock?.replace(/\s/g, ' ').includes(visiblePrice)) errors.push(`${record.id}: current base price not displayed`)
+  for (const variant of expectedVariants) {
     if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
   }
-  for (const field of ['name', 'article', 'size', 'description', 'priceFrom', 'area']) {
+  for (const field of ['name', 'article', 'size', 'description', 'area']) {
     if (model?.[field] !== record[field]) errors.push(`${record.id}: data differs from catalog: ${field}`)
   }
   if (JSON.stringify(model?.features) !== JSON.stringify(record.features)) errors.push(`${record.id}: features differ from catalog`)
