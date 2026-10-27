@@ -12,7 +12,8 @@ for (const flag of ['onlineLeads', 'analytics', 'embeddedYandex']) {
 }
 if (!/\bweather:\s*'same-origin'/.test(policy) || !/\bpromotionalOffer:\s*true\b/.test(policy)) throw new Error('Owner-approved interactive features must remain available')
 const homeSource = fs.readFileSync('src/app/page.tsx', 'utf8')
-if (!homeSource.includes('<WeatherWide') || !homeSource.includes('<ExitIntentOffer')) throw new Error('Missing requested weather or exit-intent entry point')
+const headerSource = fs.readFileSync('src/components/layout/Header.tsx', 'utf8')
+if (!headerSource.includes('<WeatherWide') || !homeSource.includes('<ExitIntentOffer')) throw new Error('Missing requested global weather or homepage exit-intent entry point')
 const weatherSource = fs.readFileSync('src/components/sections/WeatherWide.tsx', 'utf8')
 if (!weatherSource.includes('fetch(`/weather/${city.id}.json`') || weatherSource.includes('fetch(`https:') || !weatherSource.includes("mode: 'same-origin'")) throw new Error('Weather must use same-origin static snapshots without a foreign fallback')
 const weatherCities = JSON.parse(fs.readFileSync('src/data/weather-cities.json', 'utf8'))
