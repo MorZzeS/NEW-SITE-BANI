@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ArrowRight, X } from 'lucide-react'
 import styles from './ExitIntentOffer.module.css'
+import { releasePolicy } from '@/lib/release-policy'
 
 type ExitIntentOfferProps = {
   /** Called when the visitor chooses to continue to the contact flow. */
@@ -151,7 +152,7 @@ export function ExitIntentOffer({
         <button type="button" className={styles.action} onClick={() => {
           setOpen(false)
           if (onRequest) onRequest()
-          else window.location.assign('/kontakty')
+          else window.location.assign(releasePolicy.onlineLeads ? '/kontakty?source=exit-intent&from=' + encodeURIComponent(location.pathname) + '#zayavka' : '/kontakty')
         }}>
           {label}
           <ArrowRight aria-hidden="true" size={17} strokeWidth={1.7} />

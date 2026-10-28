@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { siteSettings } from '@/data'
+import { releasePolicy } from '@/lib/release-policy'
+import { OnlineLeadForm } from './OnlineLeadForm'
 
 /** Contact-only surface; the complete consent form stays in the working branch. */
-export function CTAFormInline({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
+function ContactFallback({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
   const [model, setModel] = useState(modelName || '')
   const [copyStatus, setCopyStatus] = useState('')
   const panel = useRef<HTMLElement>(null)
@@ -42,4 +44,8 @@ export function CTAFormInline({ modelName, configurationNote }: { modelName?: st
     </div>
     <p className="mt-4 text-xs text-cream/60">Мессенджеры открываются отдельно. Сообщение отправляете вы в выбранном приложении.</p>
   </section>
+}
+
+export function CTAFormInline(props: { modelName?: string; configurationNote?: string }) {
+  return releasePolicy.onlineLeads ? <OnlineLeadForm {...props} /> : <ContactFallback {...props} />
 }

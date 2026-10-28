@@ -2,6 +2,11 @@ import { consentEvidenceReady, consentEvidence, verifyLeadDocumentBundle, leadCo
 import { beginLeadAttempt, settleLeadAttempt } from './lead-attempt'
 import { releasePolicy } from './release-policy'
 export type Lead = {
+  source?: 'Карточка модели' | 'Получить консультацию' | 'Контакты' | 'Конфигуратор' | 'Exit-intent'
+  article?: string
+  configuration?: string
+  promotion?: '' | 'Скидка 15 000 ₽'
+  modelKind?: '' | 'bath' | 'house'
   contractVersion?: number
   consentVersion?: string
   policyVersion?: string
@@ -51,7 +56,7 @@ export async function sendLead(lead: Lead) {
     const result = await response.json()
     if (v3) {
       if (!exactKeys(result, ['ok', 'contractVersion', 'requestId', 'status', 'admitted', 'retryable', ...(result?.receipt ? ['receipt'] : [])]) || result.contractVersion !== 3 || result.requestId !== lead.requestId) throw new Error('Invalid acknowledgement')
-      if (response.status===200 && response.ok && result.ok === true && result.status === 'sent' && result.admitted===true && result.retryable===false && matchingReceipt(result, lead)) { settleLeadAttempt('sent'); return }
+      if (((response.status===200 && result.status==='sent') || (response.status===202 && result.status==='accepted')) && result.ok===true && result.admitted===true && result.retryable===false && matchingReceipt(result, lead)) { settleLeadAttempt(result.status as 'sent' | 'accepted'); return { status: result.status as 'sent' | 'accepted', requestId: lead.requestId } }
       const definitiveRejection = (result.status==='storage_unavailable' && response.status===503 && result.retryable===true) || (result.status==='rejected' && ((response.status===400 && result.retryable===false) || (response.status===429 && result.retryable===true)))
       if (!response.ok && result.ok === false && result.admitted === false && definitiveRejection && !result.receipt) {
         settleLeadAttempt('rejected')

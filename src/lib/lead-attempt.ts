@@ -4,7 +4,7 @@ import type { Lead } from './leads'
 // A pending marker becomes unresolved on reload. There is deliberately no automatic expiry
 // or UI reset for ambiguous delivery: the operator must reconcile using this request ID.
 const storageKey = 'banger:lead-v3-attempt'
-export type AttemptMarker = { requestId: string; state: 'pending' | 'unknown' | 'claimed' | 'conflict' | 'sent' }
+export type AttemptMarker = { requestId: string; state: 'pending' | 'unknown' | 'claimed' | 'conflict' | 'sent' | 'accepted' }
 let frozen: Readonly<Lead> | undefined
 let memoryMarker: AttemptMarker | undefined
 let rejected = false
@@ -16,7 +16,7 @@ export function leadAttemptMarker(): AttemptMarker | undefined {
     const raw = sessionStorage.getItem(storageKey)
     if (!raw) return undefined
     const marker = JSON.parse(raw)
-    if (typeof marker.requestId !== 'string' || !/^[A-Za-z0-9_-]{16,80}$/.test(marker.requestId) || !['pending', 'unknown', 'claimed', 'conflict', 'sent'].includes(marker.state)) throw new Error('Invalid marker')
+    if (typeof marker.requestId !== 'string' || !/^[A-Za-z0-9_-]{16,80}$/.test(marker.requestId) || !['pending', 'unknown', 'claimed', 'conflict', 'sent', 'accepted'].includes(marker.state)) throw new Error('Invalid marker')
     return { requestId: marker.requestId, state: marker.state === 'pending' ? 'unknown' : marker.state }
   } catch { return { requestId: '', state: 'unknown' } }
 }
