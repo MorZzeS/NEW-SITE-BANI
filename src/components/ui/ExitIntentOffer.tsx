@@ -26,8 +26,8 @@ const DEFAULT_COOLDOWN = 7 * 24 * 60 * 60 * 1000
 export function ExitIntentOffer({
   onRequest,
   title = 'Постой, не уходи!',
-  description = 'Получите скидку 25 000 ₽ на покупку любой бани BANGER',
-  label = 'Связаться с нами',
+  description = 'Получите скидку 15 000 ₽ на покупку любой бани BANGER',
+  label = 'Получить скидку 15 000 ₽',
   storageKey = DEFAULT_STORAGE_KEY,
   cooldownMs = DEFAULT_COOLDOWN,
 }: ExitIntentOfferProps) {
@@ -136,7 +136,7 @@ export function ExitIntentOffer({
         <p className={styles.eyebrow}>Персональный расчёт</p>
         <h2 id="exit-intent-title">{title}</h2>
         <p id="exit-intent-description" className={styles.description}>{description}</p>
-        <p id="exit-intent-note" className={styles.note}>На дома скидка не распространяется. Уточните применение предложения при обращении.</p>
+        <p id="exit-intent-note" className={styles.note}>Предложение действует на бани BANGER. Дома в акцию не входят.</p>
         <label className={styles.remember}>
           <input type="checkbox" checked={rememberWeek} onChange={(event) => {
             const checked = event.target.checked
