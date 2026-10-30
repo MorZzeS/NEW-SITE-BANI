@@ -1,0 +1,47 @@
+name: Build and Deploy BANGER.SU Test Pages
+
+on:
+  push:
+    branches:
+      - work/github-pages-test-20261030
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/work/github-pages-test-20261030'
+    runs-on: ubuntu-latest
+    env:
+      BANGER_GITHUB_PAGES: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run check:static
+      - run: node scripts/check-visual-release.mjs
+      - name: Upload test Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist-pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy test Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

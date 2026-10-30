@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { withBasePath } from '@/lib/site-path'
 
 interface Props {
   images: string[]
@@ -37,7 +38,7 @@ export function ImageLightbox({ images, alt = '' }: Props) {
           className="group block relative aspect-[4/3] rounded-2xl overflow-hidden cursor-zoom-in"
           aria-label={`Открыть фото ${i + 1}`}
         >
-          <img src={src} alt={`${alt} — фото ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+          <img src={withBasePath(src)} alt={`${alt} — фото ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 via-transparent to-transparent pointer-events-none" />
         </button>
       ))}
@@ -46,7 +47,7 @@ export function ImageLightbox({ images, alt = '' }: Props) {
           <button className="absolute top-5 right-5 text-cream hover:text-gold-300 z-10" onClick={close} aria-label="Закрыть"><X size={32} /></button>
           <button className="absolute left-5 top-1/2 -translate-y-1/2 text-cream hover:text-gold-300 z-10" onClick={(e) => { e.stopPropagation(); prev() }} aria-label="Назад"><ChevronLeft size={48} /></button>
           <button className="absolute right-5 top-1/2 -translate-y-1/2 text-cream hover:text-gold-300 z-10" onClick={(e) => { e.stopPropagation(); next() }} aria-label="Вперёд"><ChevronRight size={48} /></button>
-          <img src={images[index]} alt={`${alt} — фото ${index + 1}`} className="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl" onClick={(e) => e.stopPropagation()} />
+          <img src={withBasePath(images[index])} alt={`${alt} — фото ${index + 1}`} className="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl" onClick={(e) => e.stopPropagation()} />
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-xs text-cream/60 bg-graphite-900/60 px-3 py-1 rounded-full">{index + 1} / {images.length}</div>
         </div>
       )}

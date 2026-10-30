@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { withBasePath } from '@/lib/site-path'
 import { ArrowLeft } from 'lucide-react'
 
 export const metadata = {
@@ -14,10 +15,10 @@ export default function NotFound() {
         <p className="text-cream/60 mb-8 max-w-sm mx-auto">
           Такой страницы не существует или она была перемещена
         </p>
-        <Link href="/" className="btn-primary px-8 py-3.5">
+        <a href={withBasePath('/')} className="btn-primary px-8 py-3.5">
           <ArrowLeft className="w-4 h-4" />
           На главную
-        </Link>
+        </a>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { saunas, homes } from '@/data'
+import { withBasePath } from '@/lib/site-path'
 
 export const metadata: Metadata = {
   title: 'Планировки мобильных бань',
@@ -34,7 +35,7 @@ export default function PlanirovkiPage() {
                 {layout.models.map((model) => (
                   <Link href={`${layout.route}/${model.slug}`} key={model.id} className="glass rounded-3xl p-5 hover:bg-white/10 transition-all group">
                     <div className="relative h-48 rounded-2xl mb-4 overflow-hidden bg-graphite-900">
-                      <img src={model.floorPlan} alt={`${model.name} — планировка`} className="w-full h-full object-contain" />
+                      <img src={withBasePath(model.floorPlan!)} alt={`${model.name} — планировка`} className="w-full h-full object-contain" />
                     </div>
                     <div className="font-bold text-cream mb-1 group-hover:text-gold-300 transition-colors">{model.name}</div>
                     <div className="text-xs text-cream/60">{model.article} · {model.size}</div>

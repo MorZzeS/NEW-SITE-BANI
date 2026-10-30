@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { withBasePath } from '@/lib/site-path'
 
 const interiors = [
   '/images/interiors/parnaya-2-.jpg',
@@ -30,7 +31,7 @@ export function InteriorGallery() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {interiors.map((src, i) => (
             <a key={i} href="#" className="group block relative aspect-[4/3] rounded-3xl overflow-hidden glass-card">
-              <Image src={src} alt={`Интерьер бани ${i + 1}`} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <Image src={withBasePath(src)} alt={`Интерьер бани ${i + 1}`} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 via-transparent to-transparent" />
             </a>
           ))}

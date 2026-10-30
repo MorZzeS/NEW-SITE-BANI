@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { homeInteriors } from '@/data/home-interiors'
+import { withBasePath } from '@/lib/site-path'
 import { InteriorLightbox } from '@/components/ui/InteriorLightbox'
 
 export function InteriorPhotosSection() {
@@ -41,7 +42,7 @@ export function InteriorPhotosSection() {
         onPointerCancel={event => { drag.current = null; event.currentTarget.classList.remove('is-dragging') }}
         onClickCapture={event => { if (dragged.current) { event.preventDefault(); event.stopPropagation(); dragged.current = false } }}>
         {homeInteriors.map((photo, index) => <button key={photo.src} type="button" className="interior-carousel-card" aria-label={`Открыть фото интерьера: ${photo.caption}, ${index + 1} из ${homeInteriors.length}`} onClick={() => setCurrent(index)}>
-          <picture><source srcSet={photo.avif} type="image/avif" /><img src={photo.src} alt={photo.alt} width={1400} height={1050} loading="lazy" draggable={false} /></picture>
+          <picture><source srcSet={withBasePath(photo.avif)} type="image/avif" /><img src={withBasePath(photo.src)} alt={photo.alt} width={1400} height={1050} loading="lazy" draggable={false} /></picture>
           <span>{photo.caption}</span>
         </button>)}
       </div>

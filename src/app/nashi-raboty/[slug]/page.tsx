@@ -8,6 +8,7 @@ import { additionalOptions } from '@/data/options'
 import { formatPrice } from '@/data'
 import { InteractivePhotoGallery } from '@/components/ui/InteractivePhotoGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
+import { withBasePath } from '@/lib/site-path'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -39,7 +40,7 @@ export default async function ProjectPage({ params }: Props) {
     <div className="pt-24 pb-20">
       <div className="site-container">
         <nav className="mb-6 flex items-center gap-2 text-sm text-cream/50" aria-label="Хлебные крошки">
-          <Link href="/" className="hover:text-cream transition-colors">Главная</Link><span>/</span>
+          <a href={withBasePath('/')} className="hover:text-cream transition-colors">Главная</a><span>/</span>
           <Link href="/nashi-raboty" className="hover:text-cream transition-colors">Наши работы</Link><span>/</span>
           <span className="text-cream">{project.title}</span>
         </nav>
@@ -53,7 +54,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className={clientCase ? "project-story-grid" : "project-showroom-photo"}>
           <figure className="m-0">
             <div className="relative aspect-video overflow-hidden rounded-3xl">
-              <Image src={project.image} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 760px) 100vw, 66vw" />
+              <Image src={withBasePath(project.image)} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 760px) 100vw, 66vw" />
             </div>
             <figcaption className="mt-2 text-sm text-cream/55">{project.cover.caption}</figcaption>
           </figure>

@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { withBasePath } from '@/lib/site-path'
 
 export type GalleryItem = {
   src: string
@@ -20,7 +21,7 @@ interface Props {
 function GalleryImage({ item, priority = false, full = false }: { item: GalleryItem; priority?: boolean; full?: boolean }) {
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   return <>
-    <Image draggable={false} src={item.src} alt={item.alt} fill priority={priority}
+    <Image draggable={false} src={withBasePath(item.src)} alt={item.alt} fill priority={priority}
       loading="eager" sizes={full ? '90vw' : '(max-width: 768px) 100vw, 80vw'}
       onLoad={() => setStatus('ready')} onError={() => setStatus('error')}
       className={`${full || ['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(item.type) ? 'object-contain' : 'object-cover'} ${status === 'error' ? 'invisible' : ''}`} />
@@ -148,7 +149,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
               i === current ? 'border-gold-400 ring-2 ring-gold-400/30' : 'border-transparent opacity-60 hover:opacity-100'
             }`}
           >
-            <Image src={item.src} alt={item.alt} fill className={['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(item.type) ? 'object-contain' : 'object-cover'} loading="lazy" />
+            <Image src={withBasePath(item.src)} alt={item.alt} fill className={['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(item.type) ? 'object-contain' : 'object-cover'} loading="lazy" />
           </button>
         ))}
       </div>}

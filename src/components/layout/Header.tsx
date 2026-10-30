@@ -9,6 +9,7 @@ import type { SiteSettings } from '@/types'
 import clsx from 'clsx'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { withBasePath } from '@/lib/site-path'
 
 interface Props {
   settings: SiteSettings
@@ -85,7 +86,7 @@ export function Header({ settings }: Props) {
       >
         <div className="site-container header-layout">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group min-w-0">
+          <a href={withBasePath('/')} className="flex items-center gap-3 shrink-0 group min-w-0">
             <div className={clsx(
               'w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 shrink-0',
               'bg-gradient-to-br from-[#d4a843] to-[#c4762e] shadow-[0_4px_14px_rgba(196,118,46,0.4)]',
@@ -102,7 +103,7 @@ export function Header({ settings }: Props) {
               <div className="text-sm font-bold text-cream tracking-wide truncate">БАНИ ГЕРАСИМОВ</div>
               <div className="text-[10px] text-cream/50 uppercase tracking-widest hidden sm:block">Производство мобильных бань</div>
             </div>
-          </Link>
+          </a>
 
           {/* Desktop nav */}
           <nav ref={dropRef} className="header-desktop-nav items-center gap-0.5" aria-label="Основная навигация">

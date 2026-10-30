@@ -545,8 +545,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* Owner media and shared catalogue presentation. */
 .theme-hero .hero-scene { bottom: auto; height: var(--hero-scene-height,100%); }
-.hero-theme-render { background-image: url('/images/hero/hero-night.webp'); background-size: cover; background-position: center; }
-[data-theme="light"] .hero-theme-render { background-image: url('/images/hero/hero-day.webp'); }
+.hero-theme-render { background-image: var(--hero-night-image); background-size: cover; background-position: center; }
+[data-theme="light"] .hero-theme-render { background-image: var(--hero-day-image); }
 .theme-hero .hero-theme-alternate { background-size: cover; background-position: center; opacity: 0; transition: opacity 480ms cubic-bezier(.22,1,.36,1); }
 .theme-hero .hero-theme-alternate[data-visible="true"] { opacity: 1; }
 .bath-viewer-playlist { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }

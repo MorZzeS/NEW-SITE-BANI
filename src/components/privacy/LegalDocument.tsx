@@ -1,5 +1,6 @@
 import { Fragment, type ReactNode } from 'react'
 import documents from '@/data/site-legal.json'
+import { withBasePath } from '@/lib/site-path'
 
 type Block = { type: string; text?: string; headers?: string[]; rows?: string[][] }
 
@@ -8,7 +9,7 @@ function inline(text: string): ReactNode[] {
     if (part.startsWith('`') && part.endsWith('`')) return <code key={index} className="text-[0.9em] [overflow-wrap:anywhere]">{part.slice(1, -1)}</code>
     if (part.startsWith('**') && part.endsWith('**')) return <strong key={index} className="font-semibold text-cream">{part.slice(2, -2)}</strong>
     const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
-    if (link && /^(?:https?:\/\/|mailto:|\/)/.test(link[2])) return <a key={index} href={link[2]} className="underline underline-offset-4 text-gold-400" {...(link[2].startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{link[1]}</a>
+    if (link && /^(?:https?:\/\/|mailto:|\/)/.test(link[2])) return <a key={index} href={withBasePath(link[2])} className="underline underline-offset-4 text-gold-400" {...(link[2].startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{link[1]}</a>
     return <Fragment key={index}>{part}</Fragment>
   })
 }

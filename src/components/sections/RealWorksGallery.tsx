@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { projects, projectMediaStyle } from '@/data/projects'
+import { withBasePath } from '@/lib/site-path'
 
 export function RealWorksGallery({ limit = 2 }: { limit?: number }) {
   return (
@@ -9,7 +10,7 @@ export function RealWorksGallery({ limit = 2 }: { limit?: number }) {
         <Link key={project.id} href={`/nashi-raboty/${project.slug}`} className="real-works-card portfolio-project-card glass-card">
           <span className="real-works-image">
             <Image
-              src={project.cover.thumbnail}
+              src={withBasePath(project.cover.thumbnail)}
               alt={project.cover.alt}
               fill
               loading="lazy"

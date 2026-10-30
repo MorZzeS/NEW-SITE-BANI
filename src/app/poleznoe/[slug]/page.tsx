@@ -59,7 +59,7 @@ export default async function ArticlePage({ params }: Props) {
       <div className="site-container">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-cream/50 mb-8">
-          <Link href="/" className="hover:text-cream transition-colors">Главная</Link>
+          <a href={withBasePath('/')} className="hover:text-cream transition-colors">Главная</a>
           <span>/</span>
           <Link href="/poleznoe" className="hover:text-cream transition-colors">Полезное</Link>
           <span>/</span>

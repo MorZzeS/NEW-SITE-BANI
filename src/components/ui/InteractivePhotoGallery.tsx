@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useCallback, useState } from 'react'
 import { WorksLightbox, type WorksPhoto } from './WorksLightbox'
+import { withBasePath } from '@/lib/site-path'
 
 export function InteractivePhotoGallery({ photos, compact = false, ariaLabel }: { photos: WorksPhoto[]; compact?: boolean; ariaLabel: string }) {
   const [active, setActive] = useState<number | null>(null)
@@ -22,7 +23,7 @@ export function InteractivePhotoGallery({ photos, compact = false, ariaLabel }: 
             onClick={() => setActive(index)}
           >
             <Image
-              src={photo.thumbnail}
+              src={withBasePath(photo.thumbnail)}
               alt={photo.alt}
               fill
               loading="lazy"

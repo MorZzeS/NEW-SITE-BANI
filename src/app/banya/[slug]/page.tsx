@@ -11,6 +11,7 @@ import { ModelPrices } from '@/components/catalog/ModelPrices'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
+import { withBasePath } from '@/lib/site-path'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -55,7 +56,7 @@ export default async function SaunaPage({ params }: Props) {
       <div className="site-container">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-cream/50 mb-8">
-          <Link href="/" className="hover:text-cream transition-colors">Главная</Link>
+          <a href={withBasePath('/')} className="hover:text-cream transition-colors">Главная</a>
           <span>/</span>
           <Link href="/katalog/bani" className="hover:text-cream transition-colors">Мобильные бани</Link>
           <span>/</span>

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -9,6 +10,16 @@ import { Footer } from '@/components/layout/Footer'
 import CookieConsent from '@/components/privacy/CookieConsent'
 import { siteSettings } from '@/data'
 import { themeScript } from '@/lib/theme'
+import { basePath, withBasePath } from '@/lib/site-path'
+
+const isGitHubPagesProject = basePath === '/NEW-SITE-BANI'
+const homepagePath = isGitHubPagesProject ? `${basePath}/` : '/'
+const heroPreloadPrefix = withBasePath('/images/hero/hero-')
+const heroPreloadScript = `if(location.pathname===${JSON.stringify(homepagePath)}){const l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href=${JSON.stringify(heroPreloadPrefix)}+(document.documentElement.dataset.theme==='light'?'day':'night')+'.webp';document.head.appendChild(l)}`
+const heroImageVariables = {
+  '--hero-night-image': `url("${withBasePath('/images/hero/hero-night.webp')}")`,
+  '--hero-day-image': `url("${withBasePath('/images/hero/hero-day.webp')}")`,
+} as CSSProperties
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -27,12 +38,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://banger.su'),
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/icon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: withBasePath('/favicon.ico'), sizes: '32x32', type: 'image/x-icon' },
+      { url: withBasePath('/icon.svg'), type: 'image/svg+xml' },
+      { url: withBasePath('/icon-32.png'), sizes: '32x32', type: 'image/png' },
+      { url: withBasePath('/icon-192.png'), sizes: '192x192', type: 'image/png' },
     ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    apple: [{ url: withBasePath('/apple-touch-icon.png'), sizes: '180x180', type: 'image/png' }],
   },
   alternates: {
     canonical: 'https://banger.su',
@@ -51,16 +62,16 @@ export const metadata: Metadata = {
       alt: 'Бани Герасимов — мобильные бани и дома',
     }],
   },
-  robots: { index: true, follow: true },
+  robots: { index: !isGitHubPagesProject, follow: !isGitHubPagesProject },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={inter.variable} suppressHydrationWarning>
+    <html lang="ru" className={inter.variable} style={heroImageVariables} suppressHydrationWarning>
       <head>
         {/* Anti-flash theme script — runs before paint */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script dangerouslySetInnerHTML={{ __html: "if(location.pathname==='/'){const l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href='/images/hero/hero-'+(document.documentElement.dataset.theme==='light'?'day':'night')+'.webp';document.head.appendChild(l)}" }} />
+        <script dangerouslySetInnerHTML={{ __html: heroPreloadScript }} />
       </head>
       <body className="min-h-screen flex flex-col" data-release-profile="visual-contacts">
         <ThemeProvider>

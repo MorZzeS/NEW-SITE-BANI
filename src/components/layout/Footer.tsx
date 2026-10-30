@@ -3,6 +3,7 @@ import { SocialBlock } from '@/components/ui/SocialBlock'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react'
 import type { SiteSettings } from '@/types'
+import { withBasePath } from '@/lib/site-path'
 
 interface Props {
   settings: SiteSettings
@@ -33,7 +34,7 @@ export function Footer({ settings }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {/* Brand */}
             <div className="lg:col-span-1">
-              <Link href="/" className="flex items-center gap-3 mb-5">
+              <a href={withBasePath('/')} className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-wood-600 flex items-center justify-center">
                   <svg viewBox="0 0 32 32" fill="none" className="w-6 h-6">
                     <path d="M4 14L16 4L28 14V28H4V14Z" stroke="white" strokeWidth="2" fill="rgba(255,255,255,0.15)"/>
@@ -44,7 +45,7 @@ export function Footer({ settings }: Props) {
                   <div className="text-sm font-bold text-cream">БАНИ ГЕРАСИМОВ</div>
                   <div className="text-[10px] text-cream/50 uppercase tracking-widest">Производство мобильных бань</div>
                 </div>
-              </Link>
+              </a>
               <p className="text-cream/60 text-sm leading-relaxed mb-6">
                 Собственное производство мобильных бань и домов. Доставка и установка по Москве и регионам Центральной России.
               </p>

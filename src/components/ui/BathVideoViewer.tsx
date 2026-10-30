@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ArrowLeft, ArrowRight, Play, Volume2, VolumeX, X } from 'lucide-react'
 import { bathVideos, bathVideoAction, type BathVideo } from '@/data/videos'
+import { withBasePath } from '@/lib/site-path'
 
 const videos = [...bathVideos].sort((a, b) => a.order - b.order)
 
@@ -26,7 +27,7 @@ function VideoPlayer({ video, muted, onMutedChange }: {
     }
   }, [])
   return <>
-    <video ref={player} src={video.src} poster={video.poster} muted={muted}
+    <video ref={player} src={withBasePath(video.src)} poster={withBasePath(video.poster)} muted={muted}
       controls playsInline preload="metadata" aria-label={video.title}
       onVolumeChange={(event) => onMutedChange(event.currentTarget.muted)}
       onError={() => setFailed(true)} />

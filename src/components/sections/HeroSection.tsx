@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { HeroVideoAction } from '@/components/ui/HeroVideoAction'
 import { HeroTrustReveal } from '@/components/ui/HeroTrustReveal'
 import { homepageHeroImages } from '@/data/homepage'
+import { withBasePath } from '@/lib/site-path'
 import { ArrowRight } from 'lucide-react'
 
 const BathVideoViewer = dynamic(() => import('@/components/ui/BathVideoViewer'), { ssr: false })
@@ -32,7 +33,7 @@ export function HeroSection() {
       if (!alternateLoad) {
         const image = new window.Image()
         image.fetchPriority = priority
-        image.src = homepageHeroImages[alternate]
+        image.src = withBasePath(homepageHeroImages[alternate])
         alternateLoad = image.decode().catch((error) => {
           alternateLoad = null
           throw error
@@ -74,13 +75,13 @@ export function HeroSection() {
           className="hero-theme-render absolute inset-0"
           role="img"
           aria-label="Визуализация нашей бани на природе"
-          style={heroTheme ? { backgroundImage: `url('${homepageHeroImages[heroTheme.initial]}')` } : undefined}
+          style={heroTheme ? { backgroundImage: `url('${withBasePath(homepageHeroImages[heroTheme.initial])}')` } : undefined}
         />
         <div
           className="hero-theme-alternate absolute inset-0"
           aria-hidden="true"
           data-visible={heroTheme !== null && heroTheme.active !== heroTheme.initial}
-          style={heroTheme?.alternateReady ? { backgroundImage: `url('${homepageHeroImages[heroTheme.initial === 'light' ? 'dark' : 'light']}')` } : undefined}
+          style={heroTheme?.alternateReady ? { backgroundImage: `url('${withBasePath(homepageHeroImages[heroTheme.initial === 'light' ? 'dark' : 'light'])}')` } : undefined}
         />
       </div>
 

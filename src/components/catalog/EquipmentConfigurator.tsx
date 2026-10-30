@@ -8,6 +8,7 @@ import { enabledEquipmentOptions, equipmentSelection, optionCountLabel } from '@
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { InteriorExecutionGallery } from './InteriorExecutionGallery'
 import { trackGoal } from '@/lib/analytics'
+import { withBasePath } from '@/lib/site-path'
 import styles from './EquipmentConfigurator.module.css'
 
 const popular = ['lamination', 'ermak', 'shower', 'boiler', 'led'].map(id => enabledEquipmentOptions.find(option => option.id === id)!)
@@ -20,7 +21,7 @@ function optionHelp(option: typeof enabledEquipmentOptions[number]) {
   return <details className={styles.help}>
     <summary aria-label={`Как это устроено: ${option.name}`}>Как это устроено <span aria-hidden="true">↗</span></summary>
     <div className={styles.helpBody}>
-      <figure><Image src={guidance.image} alt={option.id === 'boiler' ? 'Бойлер 50 л в интерьере бани — фото из каталога' : `Условная схема: ${option.name}`} width={450} height={option.id === 'boiler' ? 316 : 220} sizes="(max-width: 760px) 100vw, 380px" /><figcaption>{guidance.caption}</figcaption></figure>
+      <figure><Image src={withBasePath(guidance.image)} alt={option.id === 'boiler' ? 'Бойлер 50 л в интерьере бани — фото из каталога' : `Условная схема: ${option.name}`} width={450} height={option.id === 'boiler' ? 316 : 220} sizes="(max-width: 760px) 100vw, 380px" /><figcaption>{guidance.caption}</figcaption></figure>
       <div><h4>{option.name}</h4><p>{guidance.explanation}</p><p className={styles.price}>{price(option)}</p><p className={styles.helpNote}>{guidance.notes}</p></div>
     </div>
   </details>

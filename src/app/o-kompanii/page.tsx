@@ -4,6 +4,7 @@ import { saunas, homes } from '@/data'
 import { Factory, Award, Users, Truck } from 'lucide-react'
 import { YandexReviewsWidget } from '@/components/integrations/YandexReviewsWidget'
 import { YandexMapEmbed } from '@/components/integrations/YandexMapEmbed'
+import { withBasePath } from '@/lib/site-path'
 
 export const metadata: Metadata = {
   title: 'О нас — Бани Герасимов',
@@ -56,7 +57,7 @@ export default function OKompaniiPage() {
 
         {/* Hero image */}
         <div className="about-photo relative aspect-video rounded-3xl overflow-hidden mb-5">
-          <Image src="/images/showroom/exhibition.webp" alt="Наша выставка бань в Раменском" fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 80vw" />
+          <Image src={withBasePath('/images/showroom/exhibition.webp')} alt="Наша выставка бань в Раменском" fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 80vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 to-transparent" />
         </div>
 

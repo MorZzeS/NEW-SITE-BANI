@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { homeInteriors } from '@/data/home-interiors'
+import { withBasePath } from '@/lib/site-path'
 
 export function InteriorLightbox({ index, onChange, onClose }: { index: number; onChange: (index: number) => void; onClose: () => void }) {
   const reducedMotion = useReducedMotion()
@@ -43,7 +44,7 @@ export function InteriorLightbox({ index, onChange, onClose }: { index: number; 
         pointer.current = null
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx > 0 ? 1 : -1)
       }}>
-        <picture key={photo.src}><source srcSet={photo.avif} type="image/avif" /><img src={photo.src} alt={photo.alt} draggable={false} /></picture>
+        <picture key={photo.src}><source srcSet={withBasePath(photo.avif)} type="image/avif" /><img src={withBasePath(photo.src)} alt={photo.alt} draggable={false} /></picture>
       </div>
       <div className="interior-lightbox-toolbar">
         <button className="gallery-control" aria-label="Предыдущее фото интерьера" onClick={() => go(-1)}><ChevronLeft size={22} /></button>

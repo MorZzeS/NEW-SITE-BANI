@@ -4,5 +4,6 @@
  * detail pages and galleries.
  */
 export function catalogCardImage(source: string, format: 'webp' | 'avif' = 'webp') {
-  return source.replace(/\/model\.(?:png|jpe?g)$/i, `/model-card.${format}`)
+  return withBasePath(source.replace(/\/model\.(?:png|jpe?g)$/i, `/model-card.${format}`))
 }
+import { withBasePath } from '@/lib/site-path'

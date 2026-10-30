@@ -2,6 +2,7 @@ import { siteSettings } from '@/data'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { withBasePath } from '@/lib/site-path'
 import { Phone, MessageCircle, Send, CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -39,7 +40,7 @@ export default function VystavkaPage() {
             </ul>
           </div>
           <div className="relative aspect-[4/3] rounded-3xl overflow-hidden glass-card">
-            <Image src="/images/interiors/vizual-gostinnaya-5.jpg" alt="Выставочный образец — интерьер" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+            <Image src={withBasePath('/images/interiors/vizual-gostinnaya-5.jpg')} alt="Выставочный образец — интерьер" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             <div className="absolute bottom-4 left-4 right-4">
               <div className="glass-dark rounded-2xl px-4 py-3 text-sm text-cream/80">
                 <strong>Выставочный образец</strong> — модель в сборе под контролем мастера
@@ -50,13 +51,13 @@ export default function VystavkaPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
           <div className="glass rounded-3xl overflow-hidden relative aspect-[4/3]">
-            <Image src="/images/interiors/parnaya-2-.jpg" alt="Парная выставка" fill className="object-cover" sizes="33vw" />
+            <Image src={withBasePath('/images/interiors/parnaya-2-.jpg')} alt="Парная выставка" fill className="object-cover" sizes="33vw" />
           </div>
           <div className="glass rounded-3xl overflow-hidden relative aspect-[4/3]">
-            <Image src="/images/interiors/pech-2.jpg" alt="Печь выставка" fill className="object-cover" sizes="33vw" />
+            <Image src={withBasePath('/images/interiors/pech-2.jpg')} alt="Печь выставка" fill className="object-cover" sizes="33vw" />
           </div>
           <div className="glass rounded-3xl overflow-hidden relative aspect-[4/3]">
-            <Image src="/images/interiors/dushevoy-plus-.jpg" alt="Душ выставка" fill className="object-cover" sizes="33vw" />
+            <Image src={withBasePath('/images/interiors/dushevoy-plus-.jpg')} alt="Душ выставка" fill className="object-cover" sizes="33vw" />
           </div>
         </div>
 

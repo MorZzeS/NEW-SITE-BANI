@@ -35,6 +35,9 @@ for (const file of htmlFiles) {
   const pagePath = relative === 'index.html' ? '/' : '/' + relative.replace(/\.html$/, '')
   const html = fs.readFileSync(file, 'utf8')
   for (const tag of html.matchAll(/<(?:a|link|img|script|source|iframe|video)\b[^>]*>/gi)) {
+    // Canonical metadata intentionally points to the public production domain,
+    // while every navigable or loadable local URL in this build uses basePath.
+    if (/^<link\b/i.test(tag[0]) && /\brel=["']canonical["']/i.test(tag[0])) continue
     for (const attr of tag[0].matchAll(/\b(href|src|srcset|poster)=["']([^"']+)["']/gi)) {
       const raw = attr[2].replaceAll('&amp;', '&')
       if (/^(?:#|tel:|mailto:|data:|javascript:)/i.test(raw)) continue
@@ -114,8 +117,8 @@ for (const record of records) {
   const mainAsset = path.join(dist, record.model_asset)
   if (!fs.existsSync(mainAsset)) errors.push(`${record.id}: missing main model asset`)
   else if (crypto.createHash('sha256').update(fs.readFileSync(mainAsset)).digest('hex') !== record.model_source_sha256) errors.push(`${record.id}: main image differs from source slide`)
-  if (model?.image !== prefix + '/' + record.model_asset || !html.includes(prefix + '/' + record.model_asset)) errors.push(`${record.id}: wrong main model image`)
-  if (record.plan && model?.floorPlan !== prefix + '/' + record.asset) errors.push(`${record.id}: wrong floorPlan`)
+  if (model?.image !== '/' + record.model_asset || !html.includes(prefix + '/' + record.model_asset)) errors.push(`${record.id}: wrong main model image`)
+  if (record.plan && (model?.floorPlan !== '/' + record.asset || !html.includes(prefix + '/' + record.asset))) errors.push(`${record.id}: wrong floorPlan`)
   if (!record.plan && model?.floorPlan) errors.push(`${record.id}: artificial plan`)
   for (const item of record.additional_model_images || []) {
     const asset = path.join(dist, item.asset)
