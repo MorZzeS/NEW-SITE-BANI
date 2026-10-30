@@ -94,12 +94,10 @@ export function HeroSection() {
               <div className="max-w-xl xl:max-w-2xl">
                 {/* Headline */}
                 <h1
-                  className="hero-headline hero-reveal text-[40px] sm:text-5xl xl:text-[64px] font-bold leading-[1.08] tracking-tight mb-5"
+                  className="hero-headline hero-reveal text-[34px] sm:text-[42px] xl:text-[52px] font-bold leading-[1.08] tracking-tight mb-5"
                   style={{ animationDelay: '0.12s' }}
                 >
-                  <span>Мобильные бани</span>
-                  <br />
-                  <span>и дома под ключ</span>
+                  Бани и дачные домики под ключ производства город Раменское
                 </h1>
 
                 {/* Subheading */}
@@ -108,7 +106,7 @@ export function HeroSection() {
                   style={{ animationDelay: '0.22s' }}
                 >
                   Современные, тёплые, надёжные.<br />
-                  Доставим и установим по Москве и регионам Центральной России.
+                  География работы: Москва и центральные регионы.
                 </p>
 
                 {/* CTAs */}

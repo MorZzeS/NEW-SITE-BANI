@@ -1,14 +1,24 @@
 'use client'
 import { modelCountWord } from '@/lib/catalog-labels'
 
-import { useState, useMemo } from 'react'
+import { Suspense, useEffect, useState, useMemo } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunas } from '@/data'
 import clsx from 'clsx'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 
-const series = ['Все', 'Исток', 'Север', 'Скандинавия', 'Барн']
+const series = ['Все', 'Исток', 'Скандинавия', 'Барн']
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
+
+function SeriesQuery({ onChange }: { onChange: (value: string) => void }) {
+  const searchParams = useSearchParams()
+  const requested = searchParams.get('series')
+  const normalized = requested === 'Север' ? 'Скандинавия' : requested
+  const initialSeries = normalized && series.includes(normalized) ? normalized : 'Все'
+  useEffect(() => { onChange(initialSeries) }, [initialSeries, onChange])
+  return null
+}
 
 export default function BaniCatalogPage() {
   const [activeSeries, setActiveSeries] = useState('Все')
@@ -28,7 +38,9 @@ export default function BaniCatalogPage() {
     let list = [...saunas]
 
     if (activeSeries !== 'Все') {
-      list = list.filter((s) => s.series === activeSeries)
+      list = list.filter((s) => activeSeries === 'Скандинавия'
+        ? s.series === 'Скандинавия' || s.series === 'Север'
+        : s.series === activeSeries)
     }
 
     if (activeLength !== 'Все') {
@@ -55,6 +67,7 @@ export default function BaniCatalogPage() {
 
   return (
     <div className="pt-28 pb-20">
+      <Suspense fallback={null}><SeriesQuery onChange={setActiveSeries} /></Suspense>
       <div className="site-container">
         {/* Header */}
         <div className="mb-10">
@@ -65,13 +78,15 @@ export default function BaniCatalogPage() {
           </p>
         </div>
 
+        <p className="text-sm text-cream/60 mb-6">Направление Скандинавия включает модели серий Скандинавия и Север.</p>
+
         <ProductDecisionTools kind="bani" products={saunas} selectedIds={compareIds} onToggleCompare={toggleCompare} />
 
         {/* Filters */}
         <div className="glass rounded-2xl p-5 mb-8 flex flex-wrap items-center gap-6">
           {/* Series filter */}
           <div>
-            <div className="text-xs text-cream/50 mb-2 font-semibold">Серия</div>
+            <div className="text-xs text-cream/50 mb-2 font-semibold">Направление</div>
             <div className="flex flex-wrap gap-2">
               {series.map((s) => (
                 <button

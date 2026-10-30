@@ -77,7 +77,17 @@ for (const file of htmlFiles) {
   if (/href="\/poleznoe\/[^"/?#]+\/(?=["?#])/.test(fs.readFileSync(file, 'utf8'))) errors.push(`${path.relative(dist, file)}: article link has trailing slash`)
 }
 const homepage = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
-if (!homepage.includes(`>${dataExports.saunas.length}<!-- --> моделей</div>`) || !homepage.includes('>6 моделей</div>')) errors.push('homepage catalog counts do not match 25 saunas / 6 homes')
+const directionCounts = [
+  ['Исток', dataExports.saunas.filter(model => model.series === 'Исток').length],
+  ['Скандинавия', dataExports.saunas.filter(model => ['Скандинавия', 'Север'].includes(model.series)).length],
+  ['Барн', dataExports.saunas.filter(model => model.series === 'Барн').length],
+  ['Усадьба', dataExports.homes.length],
+]
+for (const [name, count] of directionCounts) {
+  const plain = homepage.replaceAll('<!-- -->', '')
+  if (!new RegExp(`>${count} (?:модель|модели|моделей)</div><h3[^>]*>${name}</h3>`).test(plain)) errors.push(`homepage direction count mismatch: ${name}`)
+}
+if (directionCounts.reduce((sum, [, count]) => sum + count, 0) !== models.length) errors.push('catalog directions do not cover all models')
 if (models.length !== 31 || new Set(models.map((m) => m.id)).size !== 31 || new Set(models.map((m) => m.slug)).size !== 31) errors.push('model IDs/slugs are not unique 31/31')
 if (new Set(records.map((r) => r.model_source_sha256)).size !== 31) errors.push('duplicate catalog main image')
 for (const record of records) {

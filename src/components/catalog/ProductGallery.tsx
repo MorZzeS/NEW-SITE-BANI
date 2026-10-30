@@ -17,6 +17,19 @@ interface Props {
   compact?: boolean
 }
 
+function GalleryImage({ item, priority = false, full = false }: { item: GalleryItem; priority?: boolean; full?: boolean }) {
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+  return <>
+    <Image draggable={false} src={item.src} alt={item.alt} fill priority={priority}
+      loading="eager" sizes={full ? '90vw' : '(max-width: 768px) 100vw, 80vw'}
+      onLoad={() => setStatus('ready')} onError={() => setStatus('error')}
+      className={`${full || ['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(item.type) ? 'object-contain' : 'object-cover'} ${status === 'error' ? 'invisible' : ''}`} />
+    {status !== 'ready' && <span role="status" className="theme-on-image absolute inset-0 flex items-center justify-center px-16 text-center text-sm text-white bg-graphite-950/60 pointer-events-none">
+      {status === 'error' ? 'Изображение недоступно. Выберите другой кадр или обновите страницу.' : item.type === 'PLAN' ? 'Загружаем планировку…' : 'Загружаем изображение…'}
+    </span>}
+  </>
+}
+
 export function ProductGallery({ items: sourceItems, title, compact = false }: Props) {
   const items = useMemo(() => sourceItems.filter((item, i) => sourceItems.findIndex((other) => other.src === item.src) === i), [sourceItems])
   const [current, setCurrent] = useState(0)
@@ -112,16 +125,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           onClick={() => { if (!swipedRef.current) setLightbox(true); swipedRef.current = false }}
           {...touchHandlers}
         >
-          <Image
-            draggable={false}
-            src={currentItem.src}
-            alt={currentItem.alt}
-            fill
-            priority={current === 0}
-            loading={current === 0 ? 'eager' : 'lazy'}
-            className={['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(currentItem.type) ? 'object-contain' : 'object-cover'}
-            sizes="(max-width: 768px) 100vw, 80vw"
-          />
+          <GalleryImage key={currentItem.src} item={currentItem} priority={current === 0} />
           {currentItem.label && (
             <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur px-3 py-1 rounded-xl text-xs text-white/90 border border-white/10">
               {currentItem.label}
@@ -159,7 +163,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           </>}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">{current + 1} / {items.length}</div>
           <div className="relative w-[90vw] h-[80vh]" onClick={(e) => e.stopPropagation()}>
-            <Image draggable={false} src={currentItem.src} alt={currentItem.alt} fill className="object-contain" sizes="90vw" />
+            <GalleryImage key={currentItem.src} item={currentItem} full />
           </div>
         </div>, document.body
       )}
