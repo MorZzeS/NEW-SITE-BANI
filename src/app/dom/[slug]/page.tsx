@@ -9,7 +9,6 @@ import { HomeCard } from '@/components/catalog/HomeCard'
 import { homeInteriorExamples } from '@/data/interior-examples'
 import { ModelPrices } from '@/components/catalog/ModelPrices'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
-import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
 import { withBasePath } from '@/lib/site-path'
 
@@ -92,9 +91,7 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
 
-        <ModelBaseConfiguration model={home} />
-
-        <div className="mb-16"><CTAFormInline modelName={home.name} /></div>
+        <ModelBaseConfiguration key={home.id} model={home} />
 
         {related.length > 0 && (
           <div>

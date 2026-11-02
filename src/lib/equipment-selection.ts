@@ -1,7 +1,8 @@
 import { additionalOptions } from '@/data/options'
 export const enabledEquipmentOptions = additionalOptions.filter(option => option.enabled)
 export function equipmentSelection(ids: readonly string[]) {
-  const selected = enabledEquipmentOptions.filter(option => ids.includes(option.id))
+  const uniqueIds = new Set(ids)
+  const selected = enabledEquipmentOptions.filter(option => uniqueIds.has(option.id))
   return { selected, knownTotal: selected.reduce((sum, option) => sum + (option.salePrice ?? 0), 0), unpricedCount: selected.filter(option => option.salePrice === null).length,
     comment: selected.length ? ['Выбранные дополнительные опции:', ...selected.map(option => `• ${option.name}${option.priceUnit === 'шт.' ? ' — 1 шт.' : ''}`)].join('\n') : '' }
 }

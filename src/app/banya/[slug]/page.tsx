@@ -9,7 +9,6 @@ import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunaInteriorExamples, barnInteriorExamples } from '@/data/interior-examples'
 import { ModelPrices } from '@/components/catalog/ModelPrices'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
-import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import type { Metadata } from 'next'
 import { withBasePath } from '@/lib/site-path'
 
@@ -101,12 +100,7 @@ export default async function SaunaPage({ params }: Props) {
           </div>
         </div>
 
-        <ModelBaseConfiguration model={sauna} />
-
-        {/* Inline form */}
-        <div className="mb-16">
-          <CTAFormInline modelName={sauna.name} />
-        </div>
+        <ModelBaseConfiguration key={sauna.id} model={sauna} />
 
         {/* Related */}
         {related.length > 0 && (
