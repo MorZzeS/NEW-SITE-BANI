@@ -83,11 +83,11 @@
 
 ## 6. Публикация тестовой ветки и реальная доставка
 
-**Публикация.** Ветка `work/github-pages-test-20261030`, коммит `956d5bcf8f2cd0512494ec4ca2adc7ff277a2bfc` отправлен в GitHub. Actions run [41439340503](https://github.com/MorZzeS/NEW-SITE-BANI/actions/runs/41439340503): build — success, deploy — success (02.11.2026).
+**Публикация.** Ветка `work/github-pages-test-20261030`. Кодовая реализация: коммит `956d5bcf8f2cd0512494ec4ca2adc7ff277a2bfc`, Actions run [41439340503](https://github.com/MorZzeS/NEW-SITE-BANI/actions/runs/41439340503) — build/deploy success. Финальный коммит с live-доказательствами и UX-полировкой: `156b37783038c198c54fad1bc038c99ebb37905d`, Actions run [41441333832](https://github.com/MorZzeS/NEW-SITE-BANI/actions/runs/41441333832) — build/deploy success. Итоговый SHA опубликованной сборки смотрите в `https://morzzes.github.io/NEW-SITE-BANI/release.json` (после этого отчёта в ветку может попасть только обновление документации, не меняющее сайт).
 
 **Live-сайт.** `https://morzzes.github.io/NEW-SITE-BANI/`; `release.json` подтвердил SHA `956d5bc…`, `basePath:/NEW-SITE-BANI`, `onlineLeads:true`, `analytics:false`, `weather:disabled`. Прямые маршруты вернули 200: `/`, `/katalog`, `/katalog/bani`, `/katalog/doma`, `/komplektaciya`, `/planirovki`, `/model-sheet/bg-01`, `/banya/istok-4`, `/banya/sever-terra-65`, `/banya/skandinaviya-standart-75`, `/dom/usadba-praktik`, `/kontakty`, `/soglasie-pd`, `/politika`, `/test-leads`.
 
-**Live-калькулятор.** Проверены 3 модели (Исток 4, Скандинавия Стандарт+ 7,5, Север Панорама 8) на 1440/390 в DAY/NIGHT: счётчики матрицы совпадают с локальной (15/1/3, 16/1/2, 12/5/2), суммы и итоги пересчитываются верно (Исток 4: 397 500 + 50 300 = 447 800 ₽), переполнения нет, ошибок консоли/сети нет. Скриншоты: `screenshots-live/`.
+**Live-калькулятор.** Проверены 3 модели (Исток 4, Скандинавия Стандарт+ 7,5, Север Панорама 8) на 1440/390 в DAY/NIGHT: счётчики матрицы совпадают с локальной (15/1/3, 16/1/2, 12/5/2), суммы и итоги пересчитываются верно (Исток 4: 397 500 + 50 300 = 447 800 ₽), переполнения нет, ошибок консоли/сети нет. Скриншоты: `screenshots-live/`. После финального деплоя дополнительно проверено: у Север Панорама 8 раскрыта именно первая доступная категория «Комната отдыха» с чекбоксом, форма на месте — `screenshots-live/bg-21-1440-light-final.png`.
 
 **Live-PDF.** На странице Исток 4 выбраны 2 опции, скачан PDF с текущей комплектацией: `pdfs-live/istok-4-live-configuration.pdf` (785 013 байт, совпадает с расчётом 447 800 ₽).
 
