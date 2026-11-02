@@ -47,6 +47,9 @@ export function calculateModelConfiguration(model: Sauna | Home, ids: readonly s
 
 const money = (value: number) => `${value.toLocaleString('ru-RU')} ₽`
 
+/** Server-side comment limit for the lead contract. */
+export const MANAGER_COMMENT_LIMIT = 1500
+
 /** Compact plain-text configuration for the manager notification (fits the 1500-character comment limit). */
 export function configurationManagerText(configuration: ModelConfigurationCalculation) {
   return [
@@ -60,4 +63,16 @@ export function configurationManagerText(configuration: ModelConfigurationCalcul
     `Итого: ${money(configuration.total)}`,
     'Предварительный расчёт: совместимость и окончательная стоимость подтверждаются при заказе.',
   ].join('\n')
+}
+
+/**
+ * The legacy lead contract has a single bounded `comment` field, so the manager message carries the
+ * configuration there. The configuration summary is never truncated away; only the user comment is trimmed.
+ */
+export function mergeManagerComment(userComment: string, configurationText: string, limit = MANAGER_COMMENT_LIMIT) {
+  const tail = configurationText.slice(0, Math.min(900, limit))
+  if (!tail) return userComment.slice(0, limit)
+  const room = Math.max(0, limit - tail.length - 2)
+  const head = userComment.length > room ? userComment.slice(0, room).trimEnd() : userComment
+  return [head, tail].filter(Boolean).join('\n\n')
 }

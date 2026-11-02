@@ -131,6 +131,13 @@ const managerText = calculation.configurationManagerText(calculation.calculateMo
 for (const expected of ['Комплектация: Исток 4', 'Базовая стоимость: 397 500 ₽', 'Бойлер 50 л', 'Декоративные решётки', 'Итого:'])
   assert.ok(managerText.includes(expected), `manager configuration text is missing ${expected}`)
 assert.ok(calculation.configurationManagerText(calculation.calculateModelConfiguration(models.find(model => model.id === 'bg-01'), [])).includes('не выбраны'))
+const managerConfiguration = calculation.configurationManagerText(calculation.calculateModelConfiguration(models.find(model => model.id === 'bg-01'), ['boiler', 'decor', 'led']))
+const merged = calculation.mergeManagerComment('Перезвоните после 18:00', managerConfiguration)
+assert.ok(merged.length <= 1500, 'manager comment must fit the server limit')
+assert.ok(merged.includes('Перезвоните после 18:00') && merged.includes('Комплектация: Исток 4') && merged.includes('Бойлер 50 л') && merged.includes('Итого:'), 'manager comment must keep both the client text and the configuration')
+const longMerged = calculation.mergeManagerComment('Я'.repeat(2000), managerConfiguration)
+assert.ok(longMerged.length <= 1500 && longMerged.includes('Комплектация: Исток 4') && longMerged.includes('Итого:'), 'long client text must not push the configuration out of the manager message')
+assert.equal(calculation.mergeManagerComment('', managerConfiguration), managerConfiguration)
 
 if (process.argv.includes('--write-matrix')) {
   fs.mkdirSync(path.join(root, 'docs'), { recursive: true })

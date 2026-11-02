@@ -5,21 +5,11 @@ import { saunas, homes, siteSettings } from '@/data'
 import { leadContract, leadDocumentBundle, verifyLeadDocumentBundle, consentEvidence } from '@/lib/lead-consent'
 import { leadEndpoint, sendLead, LeadSubmissionError, type Lead } from '@/lib/leads'
 import { leadAttemptMarker, discardRejectedLeadAttempt } from '@/lib/lead-attempt'
-import { configurationManagerText, type ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
+import { configurationManagerText, mergeManagerComment, type ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { resolveLeadContext } from '@/lib/lead-context'
 import { withBasePath } from '@/lib/site-path'
 
-const COMMENT_LIMIT = 1500
 const LEGAL_CONSENT_TEXT = 'Я согласен на обработку персональных данных в соответствии с Согласием на обработку персональных данных и Политикой обработки персональных данных.'
-
-/** The legacy contract has a single comment field, so the manager message carries the configuration there. */
-function deliveryComment(userComment: string, configurationText: string) {
-  const tail = configurationText.slice(0, 900)
-  if (!tail) return userComment.slice(0, COMMENT_LIMIT)
-  const room = Math.max(0, COMMENT_LIMIT - tail.length - 2)
-  const head = userComment.length > room ? userComment.slice(0, room).trimEnd() : userComment
-  return [head, tail].filter(Boolean).join('\n\n')
-}
 
 export function OnlineLeadForm({ modelName, configurationNote, configurationDetails }: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation }) {
   const [name, setName] = useState(''), [phone, setPhone] = useState(''), [comment, setComment] = useState('')
@@ -54,7 +44,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
       const verified = leadContract === 3 ? await verifyLeadDocumentBundle() : undefined
       if (!attempt.current) {
         const managerConfiguration = configurationDetails ? configurationManagerText(configurationDetails) : configurationNote || ''
-        const finalComment = leadContract === 3 ? comment.trim() : deliveryComment(comment.trim(), managerConfiguration)
+        const finalComment = leadContract === 3 ? comment.trim() : mergeManagerComment(comment.trim(), managerConfiguration)
         attempt.current = {
           ...context,
           ...(verified ? consentEvidence(verified) : {}),
@@ -81,7 +71,12 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     } finally { pending.current = false; setBusy(false) }
   }
   const displayed = attempt.current || context
-  const selection = [displayed.model && `Модель: ${displayed.model}`, displayed.article && `Артикул: ${displayed.article}`, attempt.current ? attempt.current.configuration : configurationNote, displayed.promotion].filter(Boolean).join('\n')
+  const selection = [
+    attempt.current ? attempt.current.configuration : configurationNote,
+    !configurationNote && displayed.model ? `Модель: ${displayed.model}` : '',
+    !configurationNote && displayed.article ? `Артикул: ${displayed.article}` : '',
+    displayed.promotion,
+  ].filter(Boolean).join('\n')
   return <section className="glass rounded-2xl p-5 sm:p-8" tabIndex={-1} aria-label="Заявка на консультацию" data-release-profile="online-leads">
     <h2 className="text-2xl font-bold text-cream mb-3">Свяжитесь с нами</h2>
     <p className="text-sm text-cream/70 mb-4">Оставьте заявку — менеджер подтвердит комплектацию, совместимость опций и итоговую стоимость.</p>

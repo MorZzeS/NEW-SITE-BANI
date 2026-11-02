@@ -1,0 +1,193 @@
+{
+ "startedAt": "2026-11-02T11:48:55.610Z",
+ "baseUrl": "https://morzzes.github.io/NEW-SITE-BANI",
+ "pages": [
+  {
+   "id": "bg-01",
+   "route": "/banya/istok-4",
+   "counts": {
+    "available": 15,
+    "included": 1,
+    "unavailable": 0,
+    "unknown": 3
+   },
+   "plain": {
+    "modelId": "bg-01",
+    "base": 397500,
+    "discount": 0,
+    "available": 15,
+    "included": 1,
+    "unknown": 3,
+    "selected": 0,
+    "known": 0,
+    "total": 397500,
+    "rows": 19,
+    "scrollWidth": 1435,
+    "innerWidth": 1440,
+    "overflow": false,
+    "pdfButton": true
+   },
+   "selected": {
+    "modelId": "bg-01",
+    "base": 397500,
+    "discount": 0,
+    "available": 15,
+    "included": 1,
+    "unknown": 3,
+    "selected": 2,
+    "known": 50300,
+    "total": 447800,
+    "rows": 19,
+    "scrollWidth": 1435,
+    "innerWidth": 1440,
+    "overflow": false,
+    "pdfButton": true
+   },
+   "errors": []
+  },
+  {
+   "id": "bg-13",
+   "route": "/banya/skandinaviya-standart-75",
+   "counts": {
+    "available": 16,
+    "included": 1,
+    "unavailable": 0,
+    "unknown": 2
+   },
+   "plain": {
+    "modelId": "bg-13",
+    "base": 657500,
+    "discount": 0,
+    "available": 16,
+    "included": 1,
+    "unknown": 2,
+    "selected": 0,
+    "known": 0,
+    "total": 657500,
+    "rows": 19,
+    "scrollWidth": 1435,
+    "innerWidth": 1440,
+    "overflow": false,
+    "pdfButton": true
+   },
+   "selected": {
+    "modelId": "bg-13",
+    "base": 657500,
+    "discount": 0,
+    "available": 16,
+    "included": 1,
+    "unknown": 2,
+    "selected": 3,
+    "known": 46200,
+    "total": 703700,
+    "rows": 19,
+    "scrollWidth": 1435,
+    "innerWidth": 1440,
+    "overflow": false,
+    "pdfButton": true
+   },
+   "errors": []
+  },
+  {
+   "id": "bg-21",
+   "route": "/banya/sever-panorama-8",
+   "counts": {
+    "available": 12,
+    "included": 5,
+    "unavailable": 0,
+    "unknown": 2
+   },
+   "plain": {
+    "modelId": "bg-21",
+    "base": 861600,
+    "discount": 0,
+    "available": 12,
+    "included": 5,
+    "unknown": 2,
+    "selected": 0,
+    "known": 0,
+    "total": 861600,
+    "rows": 19,
+    "scrollWidth": 1435,
+    "innerWidth": 1440,
+    "overflow": false,
+    "pdfButton": true
+   },
+   "selected": {
+    "modelId": "bg-21",
+    "base": 861600,
+    "discount": 0,
+    "available": 12,
+    "included": 5,
+    "unknown": 2,
+    "selected": 3,
+    "known": 29400,
+    "total": 891000,
+    "rows": 19,
+    "scrollWidth": 1435,
+    "innerWidth": 1440,
+    "overflow": false,
+    "pdfButton": true
+   },
+   "errors": []
+  }
+ ],
+ "screenshots": [
+  "screenshots-live/bg-01-1440-light.png",
+  "screenshots-live/bg-01-390-light.png",
+  "screenshots-live/bg-01-1440-dark.png",
+  "screenshots-live/bg-01-390-dark.png",
+  "screenshots-live/bg-13-1440-light.png",
+  "screenshots-live/bg-13-390-light.png",
+  "screenshots-live/bg-13-1440-dark.png",
+  "screenshots-live/bg-13-390-dark.png",
+  "screenshots-live/bg-21-1440-light.png",
+  "screenshots-live/bg-21-390-light.png",
+  "screenshots-live/bg-21-1440-dark.png",
+  "screenshots-live/bg-21-390-dark.png",
+  "screenshots-live/form-1440-light.png",
+  "screenshots-live/form-submission-1.png",
+  "screenshots-live/form-submission-2.png"
+ ],
+ "pdf": {
+  "file": "docs\\calculator-pdf-forms-2026-11-02\\pdfs-live\\istok-4-live-configuration.pdf",
+  "bytes": 785013,
+  "selected": 2,
+  "known": 50300,
+  "total": 447800
+ },
+ "submissions": [
+  {
+   "network": "response",
+   "status": 204,
+   "url": "https://banger-leads.onrender.com/leads"
+  },
+  {
+   "network": "response",
+   "status": 200,
+   "url": "https://banger-leads.onrender.com/leads"
+  },
+  {
+   "case": "model-page-with-configuration",
+   "ok": false,
+   "status": null,
+   "alert": null,
+   "error": null
+  },
+  {
+   "case": "service-form-base-configuration",
+   "ok": false,
+   "status": null,
+   "alert": "Не удалось отправить заявку. Попробуйте позже или свяжитесь напрямую. Номер: 21b65ff6-7ed9-4cf9-84eb-16d6d47f03b8",
+   "requestIds": [
+    "21b65ff6-7ed9-4cf9-84eb-16d6d47f03b8"
+   ]
+  }
+ ],
+ "errors": [
+  "real MAX submission (model page) not confirmed: no result",
+  "real MAX submission (base form) not confirmed: Не удалось отправить заявку. Попробуйте позже или свяжитесь напрямую. Номер: 21b65ff6-7ed9-4cf9-84eb-16d6d47f03b8",
+  "live test-leads form errors [{\"kind\":\"network\",\"text\":\"net::ERR_CONNECTION_RESET Preflight\"},{\"kind\":\"network\",\"text\":\"net::ERR_CONNECTION_RESET Fetch\"},{\"kind\":\"log\",\"text\":\"Failed to load resource: net::ERR_CONNECTION_RESET\"}]"
+ ],
+ "finishedAt": "2026-11-02T11:52:19.004Z"
+}

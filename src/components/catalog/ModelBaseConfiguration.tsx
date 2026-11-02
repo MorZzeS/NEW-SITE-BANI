@@ -62,10 +62,11 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   }
 
   function renderAvailableCategories() {
-    return optionCategories.map((category, index) => {
+    const firstAvailableCategory = optionCategories.find(category => available.some(row => row.option.category === category))
+    return optionCategories.map(category => {
       const items = available.filter(row => row.option.category === category)
       if (!items.length) return null
-      return <details className={styles.optionCategory} key={category} open={index === 0}>
+      return <details className={styles.optionCategory} key={category} open={category === firstAvailableCategory}>
         <summary><span>{category}</span><span className={styles.categoryCount}>{optionCountLabel(items.length)}</span></summary>
         <div className={styles.optionList}>
           {items.map(({ option, reason, status }) => {

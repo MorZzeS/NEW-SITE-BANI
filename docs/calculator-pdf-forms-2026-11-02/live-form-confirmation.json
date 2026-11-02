@@ -1,0 +1,80 @@
+{
+ "startedAt": "2026-11-02T11:56:48.642Z",
+ "url": "https://morzzes.github.io/NEW-SITE-BANI/banya/istok-4",
+ "before": {
+  "section": true,
+  "status": [],
+  "alert": [],
+  "submitLabel": "Отправить заявку",
+  "submitDisabled": true,
+  "success": false,
+  "formPresent": true
+ },
+ "ready": {
+  "section": true,
+  "status": [],
+  "alert": [],
+  "submitLabel": "Отправить заявку",
+  "submitDisabled": false,
+  "success": false,
+  "formPresent": true
+ },
+ "configSummary": "Модель: Исток 4\nАртикул: БГ-01\nМодель: Исток 4 (БГ-01)\nБазовая стоимость: от 397 500 ₽\nВыбранные дополнения:\n• Бойлер 50 л — +37 500 ₽\n• Декоративные решётки — +12 800 ₽\nСтоимость дополнений: +50 300 ₽\nПредварительный итог: от 447 800 ₽\nСтраница модели: https://morzzes.github.io/NEW-SITE-BANI/banya/istok-4\nСовместимость и итоговый состав работ подтверждаются перед оформлением.Скопировать комплектацию",
+ "final": {
+  "section": true,
+  "status": [
+   "Заявка отправлена и доставлена менеджеру в MAX. Номер: 5438da8c-d9ce-4ca2-ab3e-c6c9ee0dea04"
+  ],
+  "alert": [],
+  "submitLabel": "",
+  "submitDisabled": null,
+  "success": true,
+  "formPresent": false
+ },
+ "timeline": [
+  {
+   "seconds": 0,
+   "status": [],
+   "alert": [],
+   "submitLabel": "Отправляем заявку…"
+  },
+  {
+   "seconds": 2,
+   "status": [
+    "Заявка отправлена и доставлена менеджеру в MAX. Номер: 5438da8c-d9ce-4ca2-ab3e-c6c9ee0dea04"
+   ],
+   "alert": [],
+   "submitLabel": ""
+  }
+ ],
+ "responses": [
+  {
+   "requestId": "D75BCC81BC358D14EC9677E04A7FFAC8",
+   "status": 204,
+   "url": "https://banger-leads.onrender.com/leads",
+   "at": "2026-11-02T11:56:49.149Z"
+  },
+  {
+   "requestId": "624.146",
+   "status": 200,
+   "url": "https://banger-leads.onrender.com/leads",
+   "at": "2026-11-02T11:56:50.630Z"
+  }
+ ],
+ "bodies": [
+  {
+   "status": 204,
+   "body": null,
+   "at": "2026-11-02T11:56:49.149Z"
+  },
+  {
+   "status": 200,
+   "body": "{\"ok\":true,\"requestId\":\"5438da8c-d9ce-4ca2-ab3e-c6c9ee0dea04\"}",
+   "at": "2026-11-02T11:56:50.630Z"
+  }
+ ],
+ "reportedIds": [
+  "5438da8c-d9ce-4ca2-ab3e-c6c9ee0dea04"
+ ],
+ "durationSeconds": 2
+}
