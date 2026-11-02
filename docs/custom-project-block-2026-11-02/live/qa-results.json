@@ -1,0 +1,345 @@
+{
+ "startedAt": "2026-11-02T14:06:31.266Z",
+ "baseUrl": "https://morzzes.github.io/NEW-SITE-BANI",
+ "checks": [
+  {
+   "name": "block present on homepage",
+   "ok": true
+  },
+  {
+   "name": "block is directly below the category cards",
+   "ok": true,
+   "detail": {
+    "bandTop": 90,
+    "gridBottom": 50
+   }
+  },
+  {
+   "name": "block spans the section width",
+   "ok": true,
+   "detail": {
+    "band": 1216,
+    "grid": 1216
+   }
+  },
+  {
+   "name": "eyebrow text",
+   "ok": true,
+   "detail": "Индивидуальные решения"
+  },
+  {
+   "name": "heading text",
+   "ok": true,
+   "detail": "Баня по вашему проекту"
+  },
+  {
+   "name": "paragraph present: Не нашли подходящий вариант сред…",
+   "ok": true
+  },
+  {
+   "name": "paragraph present: Мы предлагаем изготовление мобил…",
+   "ok": true
+  },
+  {
+   "name": "paragraph present: Каждый проект рассчитывается инд…",
+   "ok": true
+  },
+  {
+   "name": "button text",
+   "ok": true,
+   "detail": "Обсудить свой проект →"
+  },
+  {
+   "name": "four existing category cards unchanged",
+   "ok": true,
+   "detail": [
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Исток",
+     "title": "Мобильные бани Исток"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Скандинавия",
+     "title": "Бани Скандинавия"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Барн",
+     "title": "Бани Барн"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/doma",
+     "title": "Бани и дома Усадьба"
+    }
+   ]
+  },
+  {
+   "name": "no horizontal overflow at 1440",
+   "ok": true,
+   "detail": 1435
+  },
+  {
+   "name": "button scrolls to the existing contact form",
+   "ok": true,
+   "detail": {
+    "scrolledIntoView": true,
+    "targetTop": 112.140625,
+    "activeTag": "INPUT",
+    "activeName": "name",
+    "formPresent": true,
+    "heading": "Свяжитесь с нами",
+    "modelTopic": "Индивидуальный проект бани",
+    "selectedSummary": "Модель: Индивидуальный проект баниСкопировать комплектацию"
+   }
+  },
+  {
+   "name": "first form field receives focus",
+   "ok": true,
+   "detail": "name"
+  },
+  {
+   "name": "existing form heading \"Свяжитесь с нами\"",
+   "ok": true,
+   "detail": "Свяжитесь с нами"
+  },
+  {
+   "name": "request topic passed to the form",
+   "ok": true,
+   "detail": "Индивидуальный проект бани"
+  },
+  {
+   "name": "topic shown in the request summary",
+   "ok": true,
+   "detail": "Модель: Индивидуальный проект баниСкопировать комплектацию"
+  },
+  {
+   "name": "no request was sent by merely opening the form",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "name": "dark theme keeps the block and correct copy",
+   "ok": true,
+   "detail": "Баня по вашему проекту"
+  },
+  {
+   "name": "dark theme keeps text colours readable (computed contrast baseline)",
+   "ok": true,
+   "detail": "computed heading colour"
+  },
+  {
+   "name": "no horizontal overflow at 390",
+   "ok": true,
+   "detail": 390
+  },
+  {
+   "name": "touch target >= 48px",
+   "ok": true,
+   "detail": 48
+  },
+  {
+   "name": "button uses the available mobile width",
+   "ok": true,
+   "detail": 310
+  },
+  {
+   "name": "mobile order: text then button",
+   "ok": true,
+   "detail": {
+    "headingTop": 145.9375,
+    "buttonTop": 475.4375,
+    "paragraphTop": 375.1875
+   }
+  },
+  {
+   "name": "mobile button scrolls to the form and keeps the topic",
+   "ok": true,
+   "detail": {
+    "scrolled": true,
+    "modelTopic": "Индивидуальный проект бани",
+    "heading": "Свяжитесь с нами"
+   }
+  },
+  {
+   "name": "model page calculator and PDF button still present",
+   "ok": true,
+   "detail": {
+    "calculator": true,
+    "pdfButton": true,
+    "title": "Исток 4 — мобильная баня 4 × 2,4 м | Бани Герасимов"
+   }
+  },
+  {
+   "name": "no browser errors on the homepage or model page",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no accidental lead requests (form was only opened)",
+   "ok": true,
+   "detail": 0
+  }
+ ],
+ "failures": [],
+ "screenshots": [
+  "custom-project-1440-light.png",
+  "custom-project-form-topic-1440-light.png",
+  "custom-project-1440-dark.png",
+  "custom-project-390-light.png",
+  "custom-project-390-dark.png",
+  "custom-project-390-form-topic.png"
+ ],
+ "measurements": {
+  "desktopLight": {
+   "band": true,
+   "bandTop": 90,
+   "bandBottom": 470.5,
+   "bandWidth": 1216,
+   "gridBottom": 50,
+   "gridWidth": 1216,
+   "bandBelowCards": true,
+   "eyebrow": "Индивидуальные решения",
+   "heading": "Баня по вашему проекту",
+   "paragraphs": [
+    "Не нашли подходящий вариант среди готовых моделей?",
+    "Мы предлагаем изготовление мобильных бань по индивидуальному заказу. Разработаем планировку с учётом ваших пожеланий, подберём комплектацию и дополнительные опции.",
+    "Каждый проект рассчитывается индивидуально — с учётом размеров, планировки и выбранного оснащения.",
+    "Планировка, комплектация и стоимость — после обсуждения проекта."
+   ],
+   "buttonText": "Обсудить свой проект →",
+   "buttonHeight": 48,
+   "buttonWidth": 256.96875,
+   "cards": [
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Исток",
+     "title": "Мобильные бани Исток"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Скандинавия",
+     "title": "Бани Скандинавия"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Барн",
+     "title": "Бани Барн"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/doma",
+     "title": "Бани и дома Усадьба"
+    }
+   ],
+   "documentWidth": 1435,
+   "viewportWidth": 1440,
+   "overflow": false,
+   "theme": "light"
+  },
+  "desktopDark": {
+   "band": true,
+   "bandTop": 90,
+   "bandBottom": 470.5,
+   "bandWidth": 1216,
+   "gridBottom": 50,
+   "gridWidth": 1216,
+   "bandBelowCards": true,
+   "eyebrow": "Индивидуальные решения",
+   "heading": "Баня по вашему проекту",
+   "paragraphs": [
+    "Не нашли подходящий вариант среди готовых моделей?",
+    "Мы предлагаем изготовление мобильных бань по индивидуальному заказу. Разработаем планировку с учётом ваших пожеланий, подберём комплектацию и дополнительные опции.",
+    "Каждый проект рассчитывается индивидуально — с учётом размеров, планировки и выбранного оснащения.",
+    "Планировка, комплектация и стоимость — после обсуждения проекта."
+   ],
+   "buttonText": "Обсудить свой проект →",
+   "buttonHeight": 48,
+   "buttonWidth": 256.96875,
+   "cards": [
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Исток",
+     "title": "Мобильные бани Исток"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Скандинавия",
+     "title": "Бани Скандинавия"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Барн",
+     "title": "Бани Барн"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/doma",
+     "title": "Бани и дома Усадьба"
+    }
+   ],
+   "documentWidth": 1435,
+   "viewportWidth": 1440,
+   "overflow": false,
+   "theme": "dark"
+  },
+  "mobileLight": {
+   "band": true,
+   "bandTop": 75.9375,
+   "bandBottom": 598.4375,
+   "bandWidth": 358,
+   "gridBottom": 43.9375,
+   "gridWidth": 358,
+   "bandBelowCards": true,
+   "eyebrow": "Индивидуальные решения",
+   "heading": "Баня по вашему проекту",
+   "paragraphs": [
+    "Не нашли подходящий вариант среди готовых моделей?",
+    "Мы предлагаем изготовление мобильных бань по индивидуальному заказу. Разработаем планировку с учётом ваших пожеланий, подберём комплектацию и дополнительные опции.",
+    "Каждый проект рассчитывается индивидуально — с учётом размеров, планировки и выбранного оснащения.",
+    "Планировка, комплектация и стоимость — после обсуждения проекта."
+   ],
+   "buttonText": "Обсудить свой проект →",
+   "buttonHeight": 48,
+   "buttonWidth": 310,
+   "cards": [
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Исток",
+     "title": "Мобильные бани Исток"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Скандинавия",
+     "title": "Бани Скандинавия"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/bani?series=Барн",
+     "title": "Бани Барн"
+    },
+    {
+     "href": "/NEW-SITE-BANI/katalog/doma",
+     "title": "Бани и дома Усадьба"
+    }
+   ],
+   "documentWidth": 390,
+   "viewportWidth": 390,
+   "overflow": false,
+   "theme": "light"
+  },
+  "clickResult": {
+   "scrolledIntoView": true,
+   "targetTop": 112.140625,
+   "activeTag": "INPUT",
+   "activeName": "name",
+   "formPresent": true,
+   "heading": "Свяжитесь с нами",
+   "modelTopic": "Индивидуальный проект бани",
+   "selectedSummary": "Модель: Индивидуальный проект баниСкопировать комплектацию"
+  },
+  "mobileClick": {
+   "scrolled": true,
+   "modelTopic": "Индивидуальный проект бани",
+   "heading": "Свяжитесь с нами"
+  },
+  "mobileOrder": {
+   "headingTop": 145.9375,
+   "buttonTop": 475.4375,
+   "paragraphTop": 375.1875
+  },
+  "modelPage": {
+   "calculator": true,
+   "pdfButton": true,
+   "title": "Исток 4 — мобильная баня 4 × 2,4 м | Бани Герасимов"
+  }
+ },
+ "finishedAt": "2026-11-02T14:06:49.229Z",
+ "ok": true
+}
