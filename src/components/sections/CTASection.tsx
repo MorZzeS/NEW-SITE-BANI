@@ -38,8 +38,10 @@ export function CTASection() {
                 </div>
               </div>
 
-              {/* Right: contacts block — no fake form */}
-              <CTAFormInline />
+              {/* Right: the existing "Свяжитесь с нами" form / contacts fallback. */}
+              <div id="zayavka" data-home-lead-form tabIndex={-1} className="scroll-mt-28">
+                <CTAFormInline />
+              </div>
             </div>
           </div>
         </div>

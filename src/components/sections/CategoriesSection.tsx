@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { saunas, homes } from '@/data'
+import { CustomProjectBand } from '@/components/sections/CustomProjectBand'
 import { catalogCardImage } from '@/lib/catalog-image'
 import { modelCountWord } from '@/lib/catalog-labels'
 
@@ -79,6 +80,7 @@ export function CategoriesSection() {
             </Link>
           ))}
         </div>
+        <CustomProjectBand />
       </div>
     </section>
   )

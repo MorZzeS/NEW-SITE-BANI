@@ -7,6 +7,7 @@ import { leadEndpoint, sendLead, LeadSubmissionError, type Lead } from '@/lib/le
 import { leadAttemptMarker, discardRejectedLeadAttempt } from '@/lib/lead-attempt'
 import { configurationManagerText, mergeManagerComment, type ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { resolveLeadContext } from '@/lib/lead-context'
+import { LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
 import { withBasePath } from '@/lib/site-path'
 
 const LEGAL_CONSENT_TEXT = 'Я согласен на обработку персональных данных в соответствии с Согласием на обработку персональных данных и Политикой обработки персональных данных.'
@@ -32,6 +33,19 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     }
     return () => { cancelled = true }
   }, [modelName, configurationNote])
+
+  // A topic from an on-page offer (for example the custom-project band) becomes the request subject.
+  // It never assigns a ready model or a price; existing model/configuration props always win.
+  useEffect(() => {
+    function onLeadTopic(event: Event) {
+      const detail = (event as CustomEvent<unknown>).detail
+      const topic = typeof detail === 'string' ? detail.trim().slice(0, 160) : ''
+      if (!topic || attempt.current || configurationDetails) return
+      setContext(current => ({ ...current, model: topic, article: '', modelKind: '', promotion: '' }))
+    }
+    window.addEventListener(LEAD_TOPIC_EVENT, onLeadTopic)
+    return () => window.removeEventListener(LEAD_TOPIC_EVENT, onLeadTopic)
+  }, [configurationDetails])
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

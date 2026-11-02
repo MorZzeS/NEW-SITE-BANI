@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { siteSettings } from '@/data'
 import { releasePolicy } from '@/lib/release-policy'
 import type { ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
+import { LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
 import { OnlineLeadForm } from './OnlineLeadForm'
 
 /** Contact-only fallback for builds without an approved HTTPS lead endpoint; the working form is mounted when configured. */
@@ -16,6 +17,15 @@ function ContactFallback({ modelName, configurationNote }: { modelName?: string;
     setCopyStatus('')
     if (location.hash === '#zayavka') panel.current?.focus({ preventScroll: true })
   }, [modelName, configurationNote])
+  useEffect(() => {
+    function onLeadTopic(event: Event) {
+      const detail = (event as CustomEvent<unknown>).detail
+      const topic = typeof detail === 'string' ? detail.trim().slice(0, 160) : ''
+      if (topic) setModel(topic)
+    }
+    window.addEventListener(LEAD_TOPIC_EVENT, onLeadTopic)
+    return () => window.removeEventListener(LEAD_TOPIC_EVENT, onLeadTopic)
+  }, [])
   const selection = [model && `Модель: ${model}`, configurationNote].filter(Boolean).join('\n\n')
   async function copySelection() {
     try {
