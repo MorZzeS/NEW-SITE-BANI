@@ -98,7 +98,7 @@ export function HeroSection() {
                   className="hero-headline hero-reveal text-[34px] sm:text-[42px] xl:text-[52px] font-bold leading-[1.08] tracking-tight mb-5"
                   style={{ animationDelay: '0.12s' }}
                 >
-                  Бани и дачные домики под ключ производства город Раменское
+                  Бани и дачные домики под ключ
                 </h1>
 
                 {/* Subheading */}
@@ -106,6 +106,7 @@ export function HeroSection() {
                   className="hero-subheading hero-reveal text-base sm:text-lg leading-relaxed mb-6 max-w-md"
                   style={{ animationDelay: '0.22s' }}
                 >
+                  Собственное производство — город Раменское<br />
                   Современные, тёплые, надёжные.<br />
                   География работы: Москва и центральные регионы.
                 </p>
