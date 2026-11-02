@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { KatalogRedirect } from './redirect'
 
 export const metadata: Metadata = {
   title: 'Каталог мобильных бань',
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 }
 
 export default function KatalogPage() {
-  redirect('/katalog/bani')
+  return <KatalogRedirect />
 }

@@ -29,7 +29,7 @@
     "@types/react-dom": "18.3.0",
     "qrcode": "^1.5.4",
     "typescript": "5.5.3",
-    "wrangler": "4.151.2"
+    "wrangler": "4.156.1"
   },
   "engines": {
     "node": ">=20.9.0"

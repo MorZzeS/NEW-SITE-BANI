@@ -7,15 +7,15 @@ import { modelCountWord } from '@/lib/catalog-labels'
 
 const directions = [
   {
-    name: 'Исток',
+    name: 'Мобильные бани Исток',
     href: '/katalog/bani?series=Исток',
     image: '/images/catalog/bg-05/model.png',
     alt: 'Исток Семейный 7',
     count: saunas.filter(model => model.series === 'Исток').length,
-    description: 'Мобильные бани серии Исток. Выберите размер и планировку.',
+    description: 'Мобильные бани серии Исток. Выберите модель, размер и планировку.',
   },
   {
-    name: 'Скандинавия',
+    name: 'Бани Скандинавия',
     href: '/katalog/bani?series=Скандинавия',
     image: '/images/catalog/bg-21/model.png',
     alt: 'Север Панорама 8 — направление Скандинавия',
@@ -23,7 +23,7 @@ const directions = [
     description: 'Бани серий Скандинавия и Север в одном направлении.',
   },
   {
-    name: 'Барн',
+    name: 'Бани Барн',
     href: '/katalog/bani?series=Барн',
     image: '/images/catalog/bg-28/model.png',
     alt: 'Барн Премиум',
@@ -31,12 +31,12 @@ const directions = [
     description: 'Баня Барн Премиум. Планировка и комплектация модели.',
   },
   {
-    name: 'Усадьба',
+    name: 'Бани и дома Усадьба',
     href: '/katalog/doma',
     image: '/images/catalog/bg-25/model.png',
     alt: 'Усадьба Практик',
     count: homes.length,
-    description: 'Модели серии Усадьба. Планировки, размеры и комплектации.',
+    description: 'Дома отдыха и бани серии Усадьба. Планировки, размеры и комплектации.',
   },
 ]
 

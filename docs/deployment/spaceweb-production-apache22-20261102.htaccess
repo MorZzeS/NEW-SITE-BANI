@@ -1,0 +1,53 @@
+# Prepared for the supplied SpaceWeb Apache 2.2 configuration.
+# Do not upload until the owner confirms document root, SSL and account capacity.
+# HTTPS/www canonical redirects are intentionally omitted until the live certificate is verified.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+DirectorySlash Off
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .html .css .js .json .txt .xml
+AddType image/webp .webp
+AddType image/avif .avif
+AddType video/mp4 .mp4
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<FilesMatch "(?i)(^\.|\.(php[0-9]?|phtml|phar|env|ini|conf|config|sql|bak|log|key|pem)$)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+<Files ".htaccess">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # The package is static: private folders and server-side scripts are never exposed.
+    RewriteRule (^|/)(private|config|userdata|backend|api|\.git|\.env)(/|$) - [F,L,NC]
+    RewriteRule \.(php[0-9]?|phtml|phar)(/|$) - [F,L,NC]
+
+    # Keep real files such as _next assets, images, video and favicons.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Preserve the generated article slash aliases backed by index.html.
+    RewriteCond %{REQUEST_FILENAME}/index.html -f
+    RewriteRule ^poleznoe/[a-z0-9-]+/?$ - [L]
+
+    # Next static export stores extensionless routes as .html. Resolve them before
+    # checking colliding route directories such as /katalog and /katalog/bani.
+    RewriteCond %{REQUEST_URI} ^/(.+?)/?$
+    RewriteCond %{DOCUMENT_ROOT}/%1.html -f
+    RewriteRule ^(.+?)/?$ $1.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+</IfModule>
+
+ErrorDocument 404 /404.html

@@ -10,14 +10,12 @@ export default function CookieConsent() {
   const dialog = useRef<HTMLDialogElement>(null)
   const previousFocus = useRef<HTMLElement | null>(null)
   const [bannerOpen, setBannerOpen] = useState(false)
-  const [rememberCity, setRememberCity] = useState(false)
   const [status, setStatus] = useState('')
   const [storageBlocked, setStorageBlocked] = useState(false)
 
   useEffect(() => {
     const sync = () => {
       const preference = getSitePreferences()
-      setRememberCity(preference?.rememberWeatherCity === true)
       setBannerOpen(preference === null)
     }
     sync()
@@ -27,20 +25,19 @@ export default function CookieConsent() {
     return () => { window.removeEventListener(PREFERENCES_EVENT, sync); window.removeEventListener('storage', storage) }
   }, [])
 
-  function choose(remember: boolean) {
-    if (!setSitePreferences(remember)) {
+  function choose() {
+    if (!setSitePreferences(false)) {
       setStorageBlocked(true)
-      setStatus('Браузер не разрешил сохранить выбор. Необязательные настройки сохраняться не будут.')
+      setStatus('Браузер не разрешил сохранить настройки. Погодный виджет и необязательные функции остаются выключенными.')
       return
     }
-    setStatus(remember ? 'Разрешено запоминать выбранный город. Аналитика остаётся выключенной.' : 'Необязательное сохранение города отключено.')
+    setStatus('Сохранены только необходимые настройки. Погодный виджет и аналитика выключены.')
     setStorageBlocked(false)
     setBannerOpen(false)
     dialog.current?.close()
   }
   function showSettings() {
     previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
-    setRememberCity(getSitePreferences()?.rememberWeatherCity === true)
     dialog.current?.showModal()
   }
   function clearSetting(key: string, label: string) {
@@ -49,8 +46,8 @@ export default function CookieConsent() {
   }
   return <>
     {bannerOpen && <section className={styles.notice} aria-labelledby="site-preferences-notice-title" data-site-preferences-notice>
-      <div><p className={styles.eyebrow}>Ваши настройки</p><h2 id="site-preferences-notice-title">Удобство без лишних cookie</h2><p>Аналитика и рекламные cookie отключены. С вашего разрешения запомним выбранный город для погоды. <Link href="/cookie">Подробнее</Link></p></div>
-      <div className={styles.actions}><button type="button" className="btn-primary" onClick={() => choose(true)}>Разрешить сохранение города</button><button type="button" className="btn-secondary" onClick={() => choose(false)}>Только необходимые</button><button type="button" className={styles.settings} onClick={showSettings}>Настроить параметры</button></div>
+      <div><p className={styles.eyebrow}>Ваши настройки</p><h2 id="site-preferences-notice-title">Настройки сайта</h2><p>Погодный виджет, аналитика, Webvisor и рекламные cookie сейчас отключены. Сайт не запрашивает геолокацию. <Link href="/cookie">Подробнее</Link></p></div>
+      <div className={styles.actions}><button type="button" className="btn-primary" onClick={choose}>Продолжить без дополнительных настроек</button><button type="button" className={styles.settings} onClick={showSettings}>Настройки сайта</button></div>
       {storageBlocked && <div className={styles.storageError}><p role="status">{status}</p><button type="button" onClick={() => setBannerOpen(false)}>Продолжить без сохранения</button></div>}
     </section>}
     {!bannerOpen && <div className={styles.trigger}><button type="button" className="btn-secondary px-3 py-2 text-xs" data-site-settings-trigger aria-haspopup="dialog" onClick={showSettings}>Настройки сайта</button></div>}
@@ -62,9 +59,8 @@ export default function CookieConsent() {
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
     }} className={styles.dialog}>
       <h2 id="site-settings-title">Локальные настройки</h2>
-      <p>Необходимые настройки помогают сайту работать. Тема сохраняется при её переключении; отметка «Не показывать неделю» — только по отдельному выбору в предложении.</p>
-      <p>Аналитика, Webvisor и рекламные cookie отключены. Разрешение ниже не включает их и не запускает прогноз.</p>
-      <label className={styles.preference}><input type="checkbox" checked={rememberCity} onChange={event => setRememberCity(event.target.checked)} /><span><strong>Запоминать выбранный город</strong><small>Только название города из списка. Точные координаты не сохраняются.</small></span></label>
+      <p>Тема, избранное и отметка о скрытии предложения хранятся только в браузере для работы выбранных функций.</p>
+      <p>Погодный виджет, аналитика, Webvisor и рекламные cookie сейчас отключены. Сайт не запрашивает геолокацию и не загружает прогноз.</p>
       <div className={styles.clearActions}>
         <button type="button" onClick={() => clearSetting(WEATHER_CITY_KEY, 'Город погоды')}>Удалить сохранённый город</button>
         <button type="button" onClick={() => clearSetting('banger:exit-intent:last-shown', 'Ограничение показа предложения')}>Удалить отметку «Не показывать неделю»</button>
@@ -73,7 +69,7 @@ export default function CookieConsent() {
       </div>
       {status && <p role="status" className={styles.status}>{status}</p>}
       <Link href="/cookie" onClick={() => dialog.current?.close()} className={styles.more}>Подробнее о хранении настроек</Link>
-      <div className={styles.dialogActions}><button type="button" className="btn-primary" onClick={() => choose(rememberCity)}>Сохранить настройки</button><button type="button" className="btn-secondary" onClick={() => dialog.current?.close()}>Закрыть</button></div>
+      <div className={styles.dialogActions}><button type="button" className="btn-primary" onClick={choose}>Сохранить необходимые настройки</button><button type="button" className="btn-secondary" onClick={() => dialog.current?.close()}>Закрыть</button></div>
     </dialog>
   </>
 }

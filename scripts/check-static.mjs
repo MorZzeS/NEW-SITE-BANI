@@ -81,10 +81,10 @@ for (const file of htmlFiles) {
 }
 const homepage = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 const directionCounts = [
-  ['Исток', dataExports.saunas.filter(model => model.series === 'Исток').length],
-  ['Скандинавия', dataExports.saunas.filter(model => ['Скандинавия', 'Север'].includes(model.series)).length],
-  ['Барн', dataExports.saunas.filter(model => model.series === 'Барн').length],
-  ['Усадьба', dataExports.homes.length],
+  ['Мобильные бани Исток', dataExports.saunas.filter(model => model.series === 'Исток').length],
+  ['Бани Скандинавия', dataExports.saunas.filter(model => ['Скандинавия', 'Север'].includes(model.series)).length],
+  ['Бани Барн', dataExports.saunas.filter(model => model.series === 'Барн').length],
+  ['Бани и дома Усадьба', dataExports.homes.length],
 ]
 for (const [name, count] of directionCounts) {
   const plain = homepage.replaceAll('<!-- -->', '')

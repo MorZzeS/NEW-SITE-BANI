@@ -95,21 +95,17 @@ export function HeroSection() {
               <div className="max-w-xl xl:max-w-2xl">
                 {/* Headline */}
                 <h1
-                  className="hero-headline hero-reveal text-[34px] sm:text-[42px] xl:text-[52px] font-bold leading-[1.08] tracking-tight mb-5"
+                  className="hero-headline hero-reveal text-[40px] sm:text-[52px] xl:text-[64px] font-bold leading-[1.04] tracking-tight mb-5"
                   style={{ animationDelay: '0.12s' }}
                 >
                   Бани и дачные домики под ключ
                 </h1>
 
                 {/* Subheading */}
-                <p
-                  className="hero-subheading hero-reveal text-base sm:text-lg leading-relaxed mb-6 max-w-md"
-                  style={{ animationDelay: '0.22s' }}
-                >
-                  Собственное производство — город Раменское<br />
-                  Современные, тёплые, надёжные.<br />
-                  География работы: Москва и центральные регионы.
-                </p>
+                <div className="hero-subheading hero-reveal mb-6 max-w-md" style={{ animationDelay: '0.22s' }}>
+                  <p className="text-lg sm:text-xl font-semibold leading-snug mb-2">Собственное производство — город Раменское</p>
+                  <p className="text-sm sm:text-base leading-relaxed">Современные, тёплые, надёжные.<br />География работы: Москва и центральные регионы.</p>
+                </div>
 
                 {/* CTAs */}
                 <div className="hero-actions hero-reveal flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
