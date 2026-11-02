@@ -1,4 +1,4 @@
-.configuration {
+﻿.configuration {
   padding-top: 28px;
   border-top: 1px solid var(--glass-border);
 }
@@ -58,7 +58,7 @@
 .optionCategory:last-child { border-bottom: 1px solid var(--glass-border); }
 .optionCategory > summary { display: flex; align-items: center; gap: 16px; min-height: 58px; padding: 12px 4px; color: var(--color-text); font-size: 16px; font-weight: 650; cursor: pointer; list-style: none; }
 .optionCategory > summary::-webkit-details-marker { display: none; }
-.optionCategory > summary::after { content: '+'; margin-left: auto; color: var(--color-accent); font-size: 23px; font-weight: 400; }
+.optionCategory > summary::after { content: '−'; margin-left: auto; color: var(--color-accent); font-size: 23px; font-weight: 400; }
 .optionCategory[open] > summary::after { content: '−'; }
 .optionCategory > summary:focus-visible,.optionToggle:focus-within,.optionInfo h3 label:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 3px; }
 .categoryCount { margin-left: auto; color: var(--color-text-subtle); font-size: 12px; font-weight: 500; white-space: nowrap; }
@@ -99,12 +99,32 @@
 .requestButton:hover { filter: brightness(1.06); }
 .resetButton { display: block; min-height: 44px; margin: 5px auto 0; padding: 10px 8px; border: 0; border-bottom: 1px solid var(--glass-border); background: transparent; color: var(--color-text-muted); font-size: 12px; cursor: pointer; }
 .contacts { margin-top: 48px; scroll-margin-top: 120px; }
+
+/* Compatibility matrix: available options above; included / confirmation-needed positions below. */
+.availableGroup { min-width: 0; }
+.statusSection { margin-top: 22px; border-top: 1px solid var(--glass-border); }
+.statusSection:last-child { border-bottom: 1px solid var(--glass-border); }
+.statusSection > summary { display: flex; align-items: center; gap: 16px; min-height: 54px; padding: 12px 4px; color: var(--color-text); font-size: 15px; font-weight: 650; cursor: pointer; list-style: none; }
+.statusSection > summary::-webkit-details-marker { display: none; }
+.statusSection > summary::after { content: '−'; margin-left: auto; color: var(--color-accent); font-size: 22px; font-weight: 400; }
+.statusSection[open] > summary::after { content: '−'; }
+.statusSection > summary:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 3px; }
+.statusTitle { min-width: 0; }
+.statusNote { margin: 0 4px 12px; color: var(--color-text-muted); font-size: 12px; line-height: 1.6; }
+.statusList { display: grid; gap: 2px; margin: 0; padding: 0 2px 16px; list-style: none; }
+.statusRow { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--glass-border-subtle); align-items: start; }
+.statusIcon { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid var(--glass-border); border-radius: 7px; color: var(--color-accent); font-size: 13px; line-height: 1; }
+.statusRow[data-option-status="unknown"] .statusIcon { border-style: dashed; color: var(--color-text-subtle); }
+.statusBody { min-width: 0; }
+.statusName { margin: 0; color: var(--color-text); font-size: 13px; font-weight: 650; line-height: 1.45; overflow-wrap: anywhere; }
+.statusReason { margin: 4px 0 0; color: var(--color-text-muted); font-size: 12px; line-height: 1.55; }
+.statusSource { margin: 3px 0 0; color: var(--color-text-subtle); font-size: 10px; line-height: 1.45; }
 @media (max-width: 900px) { .calculatorGrid { grid-template-columns: minmax(0, 1fr) 260px; gap: 26px; } }
 @media (max-width: 760px) {
   .calculator { margin-top: 36px; padding: 18px 14px; border-radius: 17px; }
   .calculatorGrid { display: flex; flex-direction: column; gap: 16px; }
-  .summary { position: static; order: -1; width: 100%; padding: 18px 0; }
-  .optionGroups { order: 1; width: 100%; }
+  .summary { position: static; order: 1; width: 100%; padding: 18px 0; }
+  .optionGroups { order: 0; width: 100%; }
   .optionMain { grid-template-columns: 40px 78px minmax(0, 1fr); gap: 9px; }
   .optionToggle { width: 40px; }
   .optionImage img { width: 78px; height: 60px; }
@@ -127,6 +147,4 @@
 
 .modelName { color: var(--color-text); font-weight: 650; margin: 0 0 18px; }
 .requestButton:focus-visible,.resetButton:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 4px; }
-.optionItem[data-option-status="included"] .checkVisual { color: var(--color-accent); }
-@media (max-width: 760px) { .summary { order: 1; } .optionGroups { order: 0; } }
 

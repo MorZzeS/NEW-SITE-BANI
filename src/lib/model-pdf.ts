@@ -3,6 +3,7 @@ import type { Sauna, Home } from '@/types'
 import { modelBaseConfiguration, modelFeatures } from '@/data/model-configuration'
 import { additionalOptions } from '@/data/options'
 import { optionGuidance } from '@/data/option-guidance'
+import { siteSettings } from '@/data'
 import type { ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { withBasePath } from '@/lib/site-path'
 
@@ -90,10 +91,18 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   heading('Стоимость комплектации')
   text(`Базовая цена: ${money(configuration.basePrice)}`)
   text(`Дополнительные опции: ${money(configuration.optionsSubtotal)}`)
-  text('Скидка: 0 ₽ (не применена)')
-  text(`Итого${configuration.unpricedCount ? ' по позициям с известной ценой' : ''}: ${money(configuration.total)}`, 14)
+  text(configuration.discount ? `${configuration.discountLabel} (акция): -${money(configuration.discount)}` : 'Скидка: 0 ₽ (не применена)')
+  text(`${configuration.discount ? 'Итого с учётом скидки' : 'Итого'}${configuration.unpricedCount ? ' по позициям с известной ценой' : ''}: ${money(configuration.total)}`, 14)
   if (configuration.unpricedCount) text(`Опции без подтверждённой цены: ${configuration.unpricedCount}. Их стоимость не включена в итог.`, 9)
-  text('Предварительный расчёт. Окончательное исполнение, совместимость опций, доставка и монтаж согласуются при заказе.', 9)
+  text('Предварительный расчёт. Совместимость опций, окончательная стоимость, доставка и монтаж согласуются при заказе.', 9)
+  ensure(40)
+  heading('Связаться с нами')
+  text(`Телефоны: ${siteSettings.phoneDisplay}, ${siteSettings.phoneDisplay2}`)
+  text(`Email: ${siteSettings.email}`)
+  text(`Сайт: https://banger.su`)
+  text(`Офис: ${siteSettings.address}`)
+  if (siteSettings.addressShowroom) text(`Выставка: ${siteSettings.addressShowroom}`)
+  text('Бани Герасимов · собственное производство, город Раменское.')
   for (let page = 1; page <= doc.getNumberOfPages(); page++) {
     doc.setPage(page); doc.setFontSize(8); doc.setTextColor(100)
     doc.text(`BANGER.SU · ${page} / ${doc.getNumberOfPages()}`, 18, 287)

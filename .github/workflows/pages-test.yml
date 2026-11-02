@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BANGER_GITHUB_PAGES: 'true'
+      # Owner-approved public lead endpoint; no secrets. The form is mounted only when this is set.
+      NEXT_PUBLIC_LEADS_ENDPOINT: 'https://banger-leads.onrender.com/leads'
+      NEXT_PUBLIC_LEADS_CONTRACT: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

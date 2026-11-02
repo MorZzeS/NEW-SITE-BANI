@@ -4,24 +4,145 @@ import { enabledEquipmentOptions } from '@/lib/equipment-selection'
 
 export type ModelOptionStatus = 'available' | 'included' | 'unavailable' | 'unknown'
 export type ModelOptionEvidence = { status: ModelOptionStatus; reason: string; source: string }
-// Prices are not compatibility evidence. Add only confirmed model-specific records.
-export const confirmedModelOptionMatrix: Readonly<Record<string, Readonly<Record<string, ModelOptionEvidence>>>> = {}
-export function modelOptionAvailability(model: Sauna | Home) {
+
+type ConfirmedFeature = { pattern: RegExp; feature: string }
+
+/**
+ * Confirmed catalogue features that already include a paid option in the model.
+ * Only the published model feature list (extracted from the owner's catalogue slides into
+ * `src/data/index.ts`) is used. A price is never treated as compatibility evidence.
+ */
+export const includedOptionFeatures: Readonly<Record<string, ConfirmedFeature>> = {
+  boiler: { pattern: /бойлер\s*50\s*л/i, feature: 'Бойлер 50 л' },
+  shower: { pattern: /тропический душ/i, feature: 'Тропический душ' },
+  bucket: { pattern: /обливное устройство/i, feature: 'Обливное устройство' },
+  floor: { pattern: /проливной пол/i, feature: 'Проливной пол' },
+  wc: { pattern: /санузел/i, feature: 'Санузел' },
+  guard: { pattern: /ограждение печи/i, feature: 'Ограждение печи' },
+  ermak: { pattern: /печь ермак 12/i, feature: 'Печь Ермак 12' },
+  shade: { pattern: /абажур/i, feature: 'Абажур в парную' },
+  furniture: { pattern: /стол и две лавки/i, feature: 'Стол и две лавки' },
+  'window-grid': { pattern: /шпросы/i, feature: 'Шпросы' },
+  decor: { pattern: /декоративн[а-яё]*\s+ре[йш]/i, feature: 'Декоративные рейки' },
+  lamination: { pattern: /ламинация/i, feature: 'Ламинация окон и двери' },
+  roof: { pattern: /профлист в цвете/i, feature: 'Профлист в цвете' },
+  'external-light': { pattern: /скрытая электрика/i, feature: 'Скрытая электрика' },
+}
+
+type Zone = 'steam' | 'wash' | 'bathroom' | 'lounge' | 'stove' | 'windows' | 'electrics' | 'building'
+type Requirement = { zone: Zone; label: string }
+
+/**
+ * Installable options require a structural zone that is confirmed by the published base
+ * configuration of the model. Compatibility of a specific execution is still confirmed at order.
+ */
+const optionRequirements: Readonly<Record<string, Requirement>> = {
+  boiler: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
+  shower: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
+  bucket: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
+  floor: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
+  drain: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
+  wc: { zone: 'bathroom', label: 'санузел в подтверждённой планировке' },
+  shade: { zone: 'steam', label: 'парная' },
+  'bench-light': { zone: 'steam', label: 'парная с полками' },
+  guard: { zone: 'stove', label: 'печь в базовой комплектации' },
+  furniture: { zone: 'lounge', label: 'комната отдыха' },
+  led: { zone: 'electrics', label: 'базовое освещение' },
+  'external-light': { zone: 'electrics', label: 'базовая электрика' },
+  'wall-point': { zone: 'electrics', label: 'базовая электрика' },
+  'window-grid': { zone: 'windows', label: 'окна и двери по проекту модели' },
+  lamination: { zone: 'windows', label: 'окна и двери по проекту модели' },
+  decor: { zone: 'building', label: 'подтверждённая внешняя отделка модели' },
+  roof: { zone: 'building', label: 'подтверждённая кровля модели' },
+}
+
+/** Options whose compatibility is a replacement or an unconfirmed engineering decision. */
+const replacementOptions: Readonly<Record<string, string>> = {
+  ermak: 'Замена базовой печи на Ермак 12 ПС не подтверждена каталогом: совместимость, состав замены и цена требуют согласования.',
+  tray: 'Душевой поддон указан без подтверждённой цены и совместимости: вариант, размещение и стоимость согласуются при заказе.',
+}
+
+export const availabilitySources = Object.freeze({
+  feature: 'Каталог BANGER.SU — опубликованные особенности модели',
+  base: 'Базовая комплектация модели — src/data/model-configuration.ts (планировки каталога)',
+  options: 'Каталог BANGER.SU, слайд «Дополнительные возможности»',
+  noPlan: 'Каталог BANGER.SU: «Планировка и комплектация согласуются при заказе»',
+  unconfirmed: 'Опубликованный перечень опций: цена и совместимость не подтверждены',
+})
+
+function confirmedZones(model: Sauna | Home) {
   const rows = modelBaseConfiguration(model)
   const value = (label: string) => rows.find(row => row.label === label)?.value ?? ''
+  const rooms = value('Помещения')
+  const plan = Boolean(model.floorPlan)
+  return {
+    plan,
+    steam: plan && /парная/i.test(rooms),
+    wash: plan && /моечн|душев/i.test(rooms),
+    bathroom: plan && /санузел/i.test(rooms),
+    lounge: plan && /комната отдыха/i.test(rooms),
+    stove: plan && /печь/i.test(value('Печное решение')),
+    windows: plan && Boolean(value('Окна и двери')),
+    electrics: plan && Boolean(value('Освещение')),
+    building: plan,
+  } satisfies Record<Zone | 'plan', boolean>
+}
+
+function includedEvidence(model: Sauna | Home) {
+  const features = model.features.join(' | ')
+  return (optionId: string) => {
+    const confirmed = includedOptionFeatures[optionId]
+    return confirmed && confirmed.pattern.test(features) ? confirmed : undefined
+  }
+}
+
+export type ModelOptionRow = {
+  option: typeof enabledEquipmentOptions[number]
+  status: ModelOptionStatus
+  reason: string
+  source: string
+  /** Kept for the existing calculator/checker contract: defined for every non-available row. */
+  blockedReason: string | undefined
+}
+
+/**
+ * Honest per-model compatibility matrix:
+ * - `included`  — the paid option is already part of the model per published catalogue features;
+ * - `available` — the option is installable because its structural zone is confirmed in the base configuration;
+ * - `unknown`   — no confirmed planning/compatibility (never offered as guaranteed);
+ * - `unavailable` — reserved for confirmed incompatibility; no such row exists in the current sources.
+ */
+export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
+  const zones = confirmedZones(model)
+  const included = includedEvidence(model)
   return enabledEquipmentOptions.map(option => {
-    let evidence: ModelOptionEvidence = confirmedModelOptionMatrix[model.id]?.[option.id] ?? {
-      status: 'unknown', reason: 'Требует согласования: совместимость с этой моделью не подтверждена.', source: 'Нет подтверждённых данных',
+    const row = (status: ModelOptionStatus, reason: string, source: string): ModelOptionRow => ({
+      option, status, reason, source, blockedReason: status === 'available' ? undefined : reason,
+    })
+    const inBase = included(option.id)
+    if (inBase) {
+      return row('included', `Уже входит в базовую комплектацию модели: «${inBase.feature}». Повторно не оплачивается.`, availabilitySources.feature)
     }
-    const included = option.id === 'boiler' && /бойлер\s*50\s*л/i.test(value('Оборудование'))
-      || option.id === 'furniture' && /стол и две лавки/i.test(value('Комната отдыха'))
-    if (included) evidence = { status: 'included', reason: 'Уже включено в базовую комплектацию.', source: 'src/data/model-configuration.ts' }
-    if (option.id === 'wc' && /санузел/i.test(value('Помещения'))) evidence = {
-      status: 'unknown', reason: 'Санузел предусмотрен планировкой. Состав сантехники и проводки воды требует согласования.', source: 'src/data/model-configuration.ts',
+    if (!zones.plan) {
+      return row('unknown', 'Планировка и комплектация модели не подтверждены: совместимость опции требует согласования.', availabilitySources.noPlan)
     }
-    if (option.id === 'ermak' && /печь/i.test(value('Печное решение'))) evidence = {
-      status: 'unknown', reason: 'Печь уже предусмотрена. Совместимость и стоимость замены на Ермак 12 ПС требуют согласования.', source: 'src/data/model-configuration.ts',
+    const replacement = replacementOptions[option.id]
+    if (replacement) return row('unknown', replacement, availabilitySources.unconfirmed)
+    const requirement = optionRequirements[option.id]
+    if (!requirement) return row('unknown', 'Совместимость с этой моделью не подтверждена: уточните у менеджера.', availabilitySources.unconfirmed)
+    if (!zones[requirement.zone]) {
+      return row('unknown', `Требует согласования: в подтверждённой комплектации модели не указана ${requirement.label}.`, availabilitySources.base)
     }
-    return { option, ...evidence, blockedReason: evidence.status === 'available' ? undefined : evidence.reason }
+    return row('available', `Доступно для модели: ${requirement.label} подтверждена базовой комплектацией. Точное исполнение и состав работ согласуются при заказе.`, availabilitySources.base)
   })
+}
+
+export function modelOptionStatusCounts(model: Sauna | Home) {
+  const rows = modelOptionAvailability(model)
+  return {
+    available: rows.filter(row => row.status === 'available').length,
+    included: rows.filter(row => row.status === 'included').length,
+    unavailable: rows.filter(row => row.status === 'unavailable').length,
+    unknown: rows.filter(row => row.status === 'unknown').length,
+  }
 }

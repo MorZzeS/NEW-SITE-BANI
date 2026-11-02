@@ -125,8 +125,8 @@ test('multiline comment and configuration preserve LF CR tab; other control char
  for(const name of ['Имя\n','Имя\r','Имя\t']) assert.equal(f.store.admit({...lead,requestId:'synthetic-request-002',name},origin,'ip').http,400)
 })
 
-function calculation(lead) {
- return {modelId:'synthetic-model',modelName:lead.model,modelType:'sauna',basePrice:100000,selectedOptionIds:['window','delivery'],options:[{id:'window',name:'Окно',price:10000,quantity:1},{id:'delivery',name:'Доставка',price:null,quantity:1}],optionsSubtotal:10000,total:110000,unpricedCount:1,currency:'RUB',calculatedAt:new Date().toISOString()}
+function calculation(lead, overrides = {}) {
+ return {modelId:'synthetic-model',modelName:lead.model,modelType:'sauna',basePrice:100000,selectedOptionIds:['window','delivery'],options:[{id:'window',name:'Окно',price:10000,quantity:1},{id:'delivery',name:'Доставка',price:null,quantity:1}],optionsSubtotal:10000,discount:0,discountLabel:'',total:110000,unpricedCount:1,currency:'RUB',calculatedAt:new Date().toISOString(),...overrides}
 }
 test('structured calculation persists, validates arithmetic and detects nested conflicts',t=>{
  const f=fixture(t), details=calculation(f.lead),lead={...f.lead,configurationDetails:details}
@@ -134,16 +134,19 @@ test('structured calculation persists, validates arithmetic and detects nested c
  assert.deepEqual(JSON.parse(f.store.db.prepare('SELECT payload FROM leads').get().payload).configurationDetails,details)
  assert.equal(f.restart().admit(lead,origin,'ip').http,202)
  assert.equal(f.store.admit({...lead,configurationDetails:{...details,options:details.options.map(o=>({...o,name:o.name+' changed'}))}},origin,'ip').http,409)
- for(const delta of [{total:1},{optionsSubtotal:-1},{modelName:'Other'},{unpricedCount:0},{currency:'USD'},{calculatedAt:'bad'},{selectedOptionIds:['window','window']},{options:[{...details.options[0],quantity:2},details.options[1]]}]) {
+ for(const delta of [{total:1},{optionsSubtotal:-1},{modelName:'Other'},{unpricedCount:0},{currency:'USD'},{calculatedAt:'bad'},{selectedOptionIds:['window','window']},{options:[{...details.options[0],quantity:2},details.options[1]]},{discount:1},{discount:0,discountLabel:'Акция'},{discount:200000,discountLabel:'Акция'},{discount:-1,discountLabel:'Акция'}]) {
    assert.equal(f.store.admit({...lead,requestId:'synthetic-rejected-002',configurationDetails:{...details,...delta}},origin,'ip').http,400)
  }
+ const discounted=calculation(f.lead,{discount:15000,discountLabel:'Скидка по акции',total:95000})
+ assert.equal(f.store.admit({...lead,requestId:'synthetic-discount-001',configurationDetails:discounted},origin,'ip').http,202)
+ assert.equal(f.store.admit({...lead,requestId:'synthetic-discount-002',configurationDetails:{...discounted,total:110000}},origin,'ip').http,400)
 })
 test('structured MAX notification includes prices and safe persistent delivery journal',async t=>{
- const f=fixture(t),lead={...f.lead,configurationDetails:calculation(f.lead)};f.store.admit(lead,origin,'ip')
+ const f=fixture(t),lead={...f.lead,configurationDetails:calculation(f.lead,{discount:15000,discountLabel:'Скидка по акции',total:95000})};f.store.admit(lead,origin,'ip')
  let body
  const notify=createMaxNotifier({TEST_MODE:'1',TEST_MAX_USER_ID:'456',MAX_USER_ID:'123',MAX_BOT_TOKEN:'synthetic'},async(url,opts)=>{body=JSON.parse(opts.body);return {status:200,json:async()=>({message:{body:{mid:'synthetic'}}})}})
  await f.store.work(notify)
- for(const value of ['100000 RUB','110000 RUB','Окно [window]: 10000 RUB','Доставка [delivery]: по запросу',lead.configurationDetails.calculatedAt]) assert.ok(body.text.includes(value))
+ for(const value of ['100000 RUB','95000 RUB','Окно [window]: 10000 RUB','Доставка [delivery]: по запросу','Скидка по акции -15000 RUB',lead.configurationDetails.calculatedAt]) assert.ok(body.text.includes(value))
  const events=f.restart().db.prepare('SELECT request_id,code FROM events ORDER BY sequence').all()
  assert.deepEqual(events.map(e=>e.code),['accepted','delivery_sent']);assert.ok(events.every(e=>e.request_id===lead.requestId))
  assert.throws(()=>createMaxNotifier({TEST_MODE:'1',TEST_MAX_USER_ID:'123',MAX_USER_ID:'123',MAX_BOT_TOKEN:'synthetic'}),/differ/)

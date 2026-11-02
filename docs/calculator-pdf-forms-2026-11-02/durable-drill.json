@@ -1,0 +1,172 @@
+{
+ "startedAt": "2026-11-02T11:41:44.694Z",
+ "endpoint": "http://127.0.0.1:51745/leads",
+ "steps": [
+  {
+   "name": "health 200",
+   "ok": true,
+   "detail": 200
+  },
+  {
+   "name": "first real HTTP admission 202 accepted",
+   "ok": true,
+   "detail": {
+    "status": 202,
+    "body": {
+     "ok": true,
+     "contractVersion": 3,
+     "requestId": "48d179c0-e09a-4f21-8863-354b072469c8",
+     "status": "accepted",
+     "admitted": true,
+     "retryable": false,
+     "receipt": {
+      "contractVersion": 3,
+      "receiptId": "5d4c0147-3acb-4c1d-83f0-ca2576318396",
+      "requestId": "48d179c0-e09a-4f21-8863-354b072469c8",
+      "receivedAt": "2026-11-02T11:41:44.709Z",
+      "purposeCode": "inquiry_response",
+      "consent": true,
+      "action": "unchecked_checkbox_then_submit",
+      "page": "https://morzzes.github.io/NEW-SITE-BANI/banya/istok-4",
+      "consentVersion": "drill-consent-v1",
+      "policyVersion": "drill-policy-v1",
+      "consentTextSha256": "23d3a4f2620d2a660ec270eb7c9882d49b9a8a4f9470987fdff4a9ce72f400bf",
+      "checkboxTextSha256": "2d222fc72318b57db0c500d79d3ea93d4261bcdbe7ca4f2b921f422cb35cd81c",
+      "policyTextSha256": "4be31f441015bae720fba47bc9b434ccc8211e03df0155f102bfd97c8af6b7dc"
+     }
+    }
+   }
+  },
+  {
+   "name": "receipt returned for admitted lead",
+   "ok": true,
+   "detail": {
+    "contractVersion": 3,
+    "receiptId": "5d4c0147-3acb-4c1d-83f0-ca2576318396",
+    "requestId": "48d179c0-e09a-4f21-8863-354b072469c8",
+    "receivedAt": "2026-11-02T11:41:44.709Z",
+    "purposeCode": "inquiry_response",
+    "consent": true,
+    "action": "unchecked_checkbox_then_submit",
+    "page": "https://morzzes.github.io/NEW-SITE-BANI/banya/istok-4",
+    "consentVersion": "drill-consent-v1",
+    "policyVersion": "drill-policy-v1",
+    "consentTextSha256": "23d3a4f2620d2a660ec270eb7c9882d49b9a8a4f9470987fdff4a9ce72f400bf",
+    "checkboxTextSha256": "2d222fc72318b57db0c500d79d3ea93d4261bcdbe7ca4f2b921f422cb35cd81c",
+    "policyTextSha256": "4be31f441015bae720fba47bc9b434ccc8211e03df0155f102bfd97c8af6b7dc"
+   }
+  },
+  {
+   "name": "outbox delivered exactly once",
+   "ok": true,
+   "detail": [
+    {
+     "id": "48d179c0-e09a-4f21-8863-354b072469c8",
+     "status": "sent",
+     "message_id": "drill-mid-1"
+    }
+   ]
+  },
+  {
+   "name": "synthetic MAX notifier called once (no live MAX request)",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "name": "delivery journal records accepted and sent without raw error text",
+   "ok": true,
+   "detail": [
+    "accepted",
+    "delivery_sent"
+   ]
+  },
+  {
+   "name": "duplicate POST returns original receipt without resend",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "receipt": "5d4c0147-3acb-4c1d-83f0-ca2576318396"
+   }
+  },
+  {
+   "name": "duplicate did not create a second delivery",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "name": "changed payload for accepted requestId returns 409",
+   "ok": true,
+   "detail": 409
+  },
+  {
+   "name": "invalid consent rejected before storage",
+   "ok": true,
+   "detail": 400
+  },
+  {
+   "name": "unauthorized origin rejected with 403",
+   "ok": true,
+   "detail": 403
+  },
+  {
+   "name": "durable restart keeps admission and returns the same receipt",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "receipt": "5d4c0147-3acb-4c1d-83f0-ca2576318396",
+    "expected": "5d4c0147-3acb-4c1d-83f0-ca2576318396"
+   }
+  },
+  {
+   "name": "structured configuration persisted in SQLite",
+   "ok": true,
+   "detail": 435000
+  },
+  {
+   "name": "rate limiter blocks further requests in the window",
+   "ok": true,
+   "detail": [
+    202,
+    202,
+    202,
+    202,
+    429,
+    429
+   ]
+  },
+  {
+   "name": "online backup produced a checksum",
+   "ok": true,
+   "detail": {
+    "operation": "backup",
+    "sha256": "aacbff866ef570f1e0eecdd212bc8d0a96149b2e2a033e7c33e4788730bb4a90"
+   }
+  },
+  {
+   "name": "restore verifies checksum and integrity into a new path",
+   "ok": true,
+   "detail": {
+    "operation": "restore",
+    "sha256": "3488287c83835d7b9feb5bff5516eb147b9bb1eb80499395d64acace33c55e04"
+   }
+  },
+  {
+   "name": "restored database keeps leads, sent receipts and document hashes",
+   "ok": true,
+   "detail": {
+    "leads": 5,
+    "sent": 1,
+    "quarantined": 4,
+    "docs": 3
+   }
+  },
+  {
+   "name": "no secrets or token text in the drilled files",
+   "ok": true,
+   "detail": "binary scan"
+  }
+ ],
+ "failures": [],
+ "finishedAt": "2026-11-02T11:41:47.812Z",
+ "ok": true
+}

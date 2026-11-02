@@ -70,6 +70,7 @@ export async function sendLead(lead: Lead) {
       throw new LeadSubmissionError('Доставка заявки не подтверждена. Повторная отправка отключена. Свяжитесь с нами и назовите номер попытки.', state, lead.requestId)
     }
     if (!response.ok || result.ok !== true || result.requestId !== lead.requestId) throw new Error('Не удалось отправить заявку. Попробуйте позже или свяжитесь напрямую.')
+    return { status: 'sent' as const, requestId: lead.requestId }
   } catch (error) {
     if (v3) {
       if (error instanceof LeadSubmissionError) throw error

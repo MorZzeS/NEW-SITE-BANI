@@ -65,4 +65,24 @@ No automatic retries after uncertain delivery; repeats within 24h return 409 unt
 See ../docs/CLOUDFLARE_WORKER_DEPLOYMENT.md: current deployment is blocked by MAX upstream TLS 526. Do not activate frontend forms until a real delivery succeeds.
 
 ## Render (active hosting)
+
 Use npm start in backend; render-start.mjs resolves the official additional CA and launches Node with NODE_EXTRA_CA_CERTS. See ../docs/RENDER_BACKEND_DEPLOYMENT.md. Rotated MAX token remains in Render private environment. No push.
+
+Live service on 2026-11-02: `https://banger-leads.onrender.com` returns `/health` 200, browser preflight 204 for `https://morzzes.github.io`, rejects invalid payloads with 400, and keeps the MAX token only in the Render environment. It still runs the legacy single-file contract from the 2026-10-06 snapshot: in-memory request-ID dedupe and rate limits, no persistent lead store.
+
+The test Pages build (`.github/workflows/pages-test.yml`) mounts the real online form only when `NEXT_PUBLIC_LEADS_ENDPOINT=https://banger-leads.onrender.com/leads` is supplied at build time. The form submits the legacy contract (1) and puts the configuration summary into the bounded `comment` field, so the manager receives the selected options and total in the MAX message. The durable contract (3) is not active because approved consent documents are not published yet.
+
+## Durable backend status (implemented, not deployed)
+
+`durable-server.mjs` + `durable-store.mjs` implement SQLite/WAL persistent storage, atomic lead+consent+outbox admission, durable request-ID dedupe, HMAC-pseudonymised rate limits, a delivery journal without raw errors, bounded MAX 429 retry and explicit unknown-outcome handling, plus online backup/restore (`durable-backup.mjs`). The local HTTP drill in `docs/calculator-pdf-forms-2026-11-02/durable-drill.json` covers admission, restart dedupe, 409 conflict, origin/consent rejection, rate limit, backup and restore.
+
+It is deliberately not started on Render free: that plan has no persistent disk, and the backend refuses to start without an absolute persistent path and operator attestations. To activate it, the owner must provide:
+
+1. A persistent disk or a Russian-hosted private volume mounted at an absolute path, with ACLs that exclude other users and encrypted backups.
+2. `LEADS_DB_PATH` (absolute, on that volume) and `LEAD_DOCUMENT_BUNDLE` (approved documents JSON with exact SHA-256 texts/versions).
+3. `ALLOWED_ORIGINS`, `MAX_BOT_TOKEN` (server-only) and numeric `MAX_USER_ID`, plus `RATE_HMAC_KEY` of at least 32 random characters stored only in server secrets.
+4. `RU_STORAGE_ATTESTED=1`, `LEGAL_APPROVAL_ATTESTED=1`, `BACKUP_RESTORE_ATTESTED=1` after the actual storage/legal/restore facts are verified by the owner (flags are not evidence by themselves).
+5. A scheduled encrypted backup/retention policy and one real restore drill on the hosting volume.
+6. A separately confirmed test MAX recipient for `TEST_MODE=1` (production recipient is never a fallback).
+
+The CLI/Git deployment of `durable-server.mjs` on Render also requires the Render service to be updated (auto-deploy is off; this session has no Render dashboard/API credentials and must not use the leaked historical token). Until those conditions are met, the live form keeps using the legacy endpoint and MAX delivery is real, while long-term lead storage is not yet durable.

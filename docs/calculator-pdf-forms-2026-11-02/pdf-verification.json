@@ -1,0 +1,83 @@
+{
+ "pdfs": [
+  {
+   "id": "bg-01",
+   "file": "docs\\calculator-pdf-forms-2026-11-02\\pdfs\\istok-4-base.pdf",
+   "bytes": 637930,
+   "pages": 3,
+   "images": 6,
+   "textSample": "БАНИ ГЕРАСИМОВ · BANGER.SU | Исток 4 | Дата расчёта: 02.11.2026 | БГ-01 · 4 × 2,4 м · 9.6 м² | Визуализация модели | Компактный формат с парной и комнатой отдыха. | Характеристики | Размер: 4 × 2,4 м | Площадь застройки: 9,6 м² | Исполнение: Каркас 100 мм | BANGER.SU · 1 / 3 | Планировка модели | Базовая комплектация | Конструкция: Каркас 100 мм | Пол: Утепление 100 мм | Потолок: Утепление 100 мм | Помещения: Парная с моечной зо",
+   "checks": {
+    "model_name": true,
+    "base_configuration": true,
+    "specs": true,
+    "totals": true,
+    "company": true,
+    "contract_info": true,
+    "options_heading": true,
+    "options_listed": true,
+    "images_embedded": true,
+    "cyrillic_readable": true,
+    "pages": true,
+    "base_price_matches_calculator": true,
+    "options_subtotal_matches_calculator": true,
+    "total_matches_calculator": true,
+    "base_only_total": true
+   },
+   "ok": true
+  },
+  {
+   "id": "bg-04",
+   "file": "docs\\calculator-pdf-forms-2026-11-02\\pdfs\\istok-6-one-option.pdf",
+   "bytes": 660749,
+   "pages": 3,
+   "images": 9,
+   "textSample": "БАНИ ГЕРАСИМОВ · BANGER.SU | Исток 6 | Дата расчёта: 02.11.2026 | БГ-04 · 6 × 2,4 м · 14.4 м² | Визуализация модели | Увеличенный модуль с парной и зоной отдыха. | Характеристики | Размер: 6 × 2,4 м | Площадь застройки: 14,4 м² | Исполнение: Каркас 100 мм | BANGER.SU · 1 / 3 | Планировка модели | Базовая комплектация | Конструкция: Каркас 100 мм | Пол: Утепление 100 мм | Потолок: Утепление 100 мм | Помещения: Парная, моечная / д",
+   "checks": {
+    "model_name": true,
+    "base_configuration": true,
+    "specs": true,
+    "totals": true,
+    "company": true,
+    "contract_info": true,
+    "options_heading": true,
+    "options_listed": true,
+    "images_embedded": true,
+    "cyrillic_readable": true,
+    "pages": true,
+    "base_price_matches_calculator": true,
+    "options_subtotal_matches_calculator": true,
+    "total_matches_calculator": true,
+    "no_empty_statement": true
+   },
+   "ok": true
+  },
+  {
+   "id": "bg-19",
+   "file": "docs\\calculator-pdf-forms-2026-11-02\\pdfs\\sever-terra-6-5-multi.pdf",
+   "bytes": 634800,
+   "pages": 5,
+   "images": 35,
+   "textSample": "БАНИ ГЕРАСИМОВ · BANGER.SU | Север Терра 6,5 | Дата расчёта: 02.11.2026 | БГ-19 · 6,5 × 2,4 м · 15.6 м² | Визуализация модели | Вариант индивидуального исполнения. Внешний вид показан в визуализации. | Характеристики | Размер: 6,5 × 2,4 м | Площадь застройки: 15,6 м² | Исполнение: Представленное исполнение | BANGER.SU · 1 / 5 | Планировка модели | Базовая комплектация | Конструкция: Согласуется при заказе | Пол: Утепление 10",
+   "checks": {
+    "model_name": true,
+    "base_configuration": true,
+    "specs": true,
+    "totals": true,
+    "company": true,
+    "contract_info": true,
+    "options_heading": true,
+    "options_listed": true,
+    "images_embedded": true,
+    "cyrillic_readable": true,
+    "pages": true,
+    "base_price_matches_calculator": true,
+    "options_subtotal_matches_calculator": true,
+    "total_matches_calculator": true,
+    "no_empty_statement": true
+   },
+   "ok": true
+  }
+ ],
+ "ok": true
+}

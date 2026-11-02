@@ -6,7 +6,7 @@ import { releasePolicy } from '@/lib/release-policy'
 import type { ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { OnlineLeadForm } from './OnlineLeadForm'
 
-/** Contact-only surface; the complete consent form stays in the working branch. */
+/** Contact-only fallback for builds without an approved HTTPS lead endpoint; the working form is mounted when configured. */
 function ContactFallback({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
   const [model, setModel] = useState(modelName || '')
   const [copyStatus, setCopyStatus] = useState('')
@@ -27,7 +27,7 @@ function ContactFallback({ modelName, configurationNote }: { modelName?: string;
   }
   return <section ref={panel} tabIndex={-1} className="glass rounded-2xl p-5 sm:p-8" aria-label="Контакты для консультации" data-release-profile="visual-contacts">
     <h2 className="text-2xl font-bold text-cream mb-3">Свяжитесь с нами</h2>
-    <p className="text-sm text-cream/70 mb-5">Онлайн-форма временно недоступна. Позвоните или напишите нам напрямую — так вы сможете получить консультацию и расчёт.</p>
+    <p className="text-sm text-cream/70 mb-5">Позвоните или напишите нам напрямую — поможем с выбором, комплектацией и расчётом стоимости.</p>
     {selection && <div className="mb-5 border-l-2 border-gold-400 pl-4" aria-label="Выбранные модель и опции">
       <p className="whitespace-pre-wrap break-words text-sm text-cream/80 select-text">{selection}</p>
       <p className="mt-3 text-xs text-cream/70">Выбор не отправлен. Скопируйте его и передайте нам удобным способом.</p>

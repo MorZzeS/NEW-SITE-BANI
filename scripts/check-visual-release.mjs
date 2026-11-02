@@ -8,8 +8,17 @@ const root = path.resolve(isGitHubPagesProject ? 'dist-pages' : 'dist')
 const files = fs.readdirSync(root, { recursive: true }).filter(name => fs.statSync(path.join(root, name)).isFile())
 const htmlFiles = files.filter(name => name.endsWith('.html'))
 if (!htmlFiles.length) throw new Error('Visual release export is missing')
+const leadsEndpoint = process.env.NEXT_PUBLIC_LEADS_ENDPOINT || ''
+const leadsEnabled = /^https:\/\//.test(leadsEndpoint)
+if (leadsEnabled && leadsEndpoint !== 'https://banger-leads.onrender.com/leads') throw new Error('Lead endpoint is not the owner-approved Render endpoint')
+const releaseProfiles = leadsEnabled ? ['visual-contacts', 'online-leads'] : ['visual-contacts']
 const policy = fs.readFileSync('src/lib/release-policy.ts', 'utf8')
-for (const flag of ['onlineLeads', 'analytics', 'embeddedYandex']) {
+if (leadsEnabled) {
+  if (!/onlineLeads:\s*leadsEndpointConfigured/.test(policy)) throw new Error('Lead form must be gated by the build-time HTTPS endpoint')
+} else {
+  if (!/const leadsEndpointConfigured = \/\^https:\\\/\\\/\//.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy)) throw new Error('Unsafe release policy: onlineLeads')
+}
+for (const flag of ['analytics', 'embeddedYandex']) {
   if (!new RegExp(`\\b${flag}:\\s*false\\b`).test(policy)) throw new Error(`Unsafe release policy: ${flag}`)
 }
 if (!/\bweather:\s*'disabled'/.test(policy) || !/\bweatherTransport:\s*'none'/.test(policy) || !/\bpromotionalOffer:\s*true\b/.test(policy)) throw new Error('Owner-approved release policy changed')
@@ -26,15 +35,17 @@ for (const name of files) {
   if (!/\.(?:html|js|json|txt|xml|svg)$/i.test(name)) continue
   const content = fs.readFileSync(path.join(root, name), 'utf8')
   if (/(?:MAX_BOT_TOKEN|MAX_USER_ID|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----)/.test(content)) throw new Error(`Unexpected server-only material: ${name}`)
-  if (/mc\.yandex\.(?:ru|com)\/|api\.met\.no\/weatherapi|api\.open-meteo\.com\/|banger-leads\.onrender\.com|platform-api2\.max\.ru/.test(content)) throw new Error(`Disabled service shipped: ${name}`)
+  if (/mc\.yandex\.(?:ru|com)\/|api\.met\.no\/weatherapi|api\.open-meteo\.com\/|platform-api2\.max\.ru/.test(content)) throw new Error(`Disabled service shipped: ${name}`)
+  if (!leadsEnabled && /banger-leads\.onrender\.com/.test(content)) throw new Error(`Lead endpoint shipped without the approved build flag: ${name}`)
   if (forbiddenCopy.test(content) || /bestseller-bow-a\.svg/.test(content)) throw new Error(`Superseded owner copy or bow reference: ${name}`)
 }
 for (const name of htmlFiles) {
   const html = fs.readFileSync(path.join(root, name), 'utf8')
   if (/weather-strip-section|weather-strip-toggle|Погода для загородного отдыха/u.test(html)) throw new Error(`Temporarily disabled weather UI leaked into ${name}`)
-  if (/<form\b|<iframe\b/i.test(html)) throw new Error(`Unexpected collection or embed surface: ${name}`)
+  if (!leadsEnabled && /<form\b|<iframe\b/i.test(html)) throw new Error(`Unexpected collection or embed surface: ${name}`)
+  if (leadsEnabled && /<iframe\b/i.test(html)) throw new Error(`Unexpected embed surface: ${name}`)
   const catalogRedirect = name === 'katalog.html' && html.includes('NEXT_REDIRECT;replace;/katalog/bani;307;') && html.includes('href="https://banger.su/katalog/bani"')
-  if (!html.includes('data-release-profile="visual-contacts"') && !catalogRedirect) throw new Error(`Wrong release profile: ${name}`)
+  if (!releaseProfiles.some(profile => html.includes(`data-release-profile="${profile}"`)) && !catalogRedirect) throw new Error(`Wrong release profile: ${name}`)
   if (isGitHubPagesProject && !/<meta name="robots" content="noindex, (?:no)?follow"/.test(html)) throw new Error(`Test Pages build must be noindex: ${name}`)
   if (isGitHubPagesProject && /(?:src|href|srcset|poster)=["']\/(?:_next|images|videos|favicon|icon|apple-touch)/i.test(html)) throw new Error(`Unprefixed root asset in test Pages HTML: ${name}`)
   if (isGitHubPagesProject) {
@@ -60,5 +71,5 @@ for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-r
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')
-fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: 'visual-contacts', sha, basePath, onlineLeads: false, analytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: false, promotionalOffer: true }) + '\n')
-console.log(`Owner acceptance export PASS: ${htmlFiles.length} HTML, contacts only, weather UI and snapshots disabled, city component/source data retained in the repository for redesign, desktop offer retained; browser and legal acceptance required separately`)
+fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: false, promotionalOffer: true }) + '\n')
+console.log(`Release export PASS: ${htmlFiles.length} HTML, ${leadsEnabled ? `online lead form enabled through ${leadsEndpoint}` : 'contacts only'}, weather UI and snapshots disabled, city component/source data retained in the repository for redesign, desktop offer retained; browser and legal acceptance required separately`)

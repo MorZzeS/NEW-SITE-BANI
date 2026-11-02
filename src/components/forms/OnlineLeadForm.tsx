@@ -5,10 +5,22 @@ import { saunas, homes, siteSettings } from '@/data'
 import { leadContract, leadDocumentBundle, verifyLeadDocumentBundle, consentEvidence } from '@/lib/lead-consent'
 import { leadEndpoint, sendLead, LeadSubmissionError, type Lead } from '@/lib/leads'
 import { leadAttemptMarker, discardRejectedLeadAttempt } from '@/lib/lead-attempt'
-import type { ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
+import { configurationManagerText, type ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { resolveLeadContext } from '@/lib/lead-context'
+import { withBasePath } from '@/lib/site-path'
 
-/** Only mounted by the existing release gate. No approval or endpoint is invented here. */
+const COMMENT_LIMIT = 1500
+const LEGAL_CONSENT_TEXT = 'Я согласен на обработку персональных данных в соответствии с Согласием на обработку персональных данных и Политикой обработки персональных данных.'
+
+/** The legacy contract has a single comment field, so the manager message carries the configuration there. */
+function deliveryComment(userComment: string, configurationText: string) {
+  const tail = configurationText.slice(0, 900)
+  if (!tail) return userComment.slice(0, COMMENT_LIMIT)
+  const room = Math.max(0, COMMENT_LIMIT - tail.length - 2)
+  const head = userComment.length > room ? userComment.slice(0, room).trimEnd() : userComment
+  return [head, tail].filter(Boolean).join('\n\n')
+}
+
 export function OnlineLeadForm({ modelName, configurationNote, configurationDetails }: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation }) {
   const [name, setName] = useState(''), [phone, setPhone] = useState(''), [comment, setComment] = useState('')
   const [consent, setConsent] = useState(false), [ready, setReady] = useState(false)
@@ -17,7 +29,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
   const started = useRef(Date.now()), pending = useRef(false), attempt = useRef<Lead | null>(null)
   const [locked, setLocked] = useState(false)
   const [rejected, setRejected] = useState(false)
-  const documents = leadDocumentBundle.documents
+  const documents = leadContract === 3 ? leadDocumentBundle.documents : null
   useEffect(() => {
     setContext(resolveLeadContext(location.href, modelName, saunas, homes))
     const marker = leadAttemptMarker()
@@ -25,6 +37,8 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     let cancelled = false
     if (leadContract === 3 && location.protocol === 'https:' && /^https:\/\//.test(leadEndpoint)) {
       void verifyLeadDocumentBundle().then(() => { if (!cancelled) setReady(true) }).catch(() => { if (!cancelled) setReady(false) })
+    } else if (leadContract !== 3) {
+      setReady(location.protocol === 'https:' && /^https:\/\//.test(leadEndpoint))
     }
     return () => { cancelled = true }
   }, [modelName, configurationNote])
@@ -37,11 +51,28 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     const website = new FormData(event.currentTarget).get('website')?.toString() || ''
     pending.current = true; setBusy(true); setError('')
     try {
-      const verified = await verifyLeadDocumentBundle()
-      if (!attempt.current) attempt.current = { ...context, ...consentEvidence(verified), requestId: crypto.randomUUID(), name: name.trim(), phone, comment: comment.trim(), configuration: configurationNote || '', ...(configurationDetails ? { configurationDetails: { ...structuredClone(configurationDetails), calculatedAt: new Date().toISOString() } } : {}), createdAt: new Date().toISOString(), consent: true, website, startedAt: started.current }
+      const verified = leadContract === 3 ? await verifyLeadDocumentBundle() : undefined
+      if (!attempt.current) {
+        const managerConfiguration = configurationDetails ? configurationManagerText(configurationDetails) : configurationNote || ''
+        const finalComment = leadContract === 3 ? comment.trim() : deliveryComment(comment.trim(), managerConfiguration)
+        attempt.current = {
+          ...context,
+          ...(verified ? consentEvidence(verified) : {}),
+          requestId: crypto.randomUUID(),
+          name: name.trim(),
+          phone,
+          comment: finalComment,
+          configuration: (configurationNote || '').slice(0, 2000),
+          ...(configurationDetails ? { configurationDetails: { ...structuredClone(configurationDetails), calculatedAt: new Date().toISOString() } } : {}),
+          createdAt: new Date().toISOString(),
+          consent: true,
+          website,
+          startedAt: started.current,
+        }
+      }
       const response = await sendLead(attempt.current)
       if (!response) throw new Error('Сервер не подтвердил сохранение заявки.')
-      setResult(response.status === 'sent' ? 'Заявка сохранена. Уведомление доставлено менеджеру.' : 'Заявка сохранена сервером. Уведомление менеджеру ожидает доставки.')
+      setResult(response.status === 'sent' ? 'Заявка отправлена и доставлена менеджеру в MAX.' : 'Заявка сохранена сервером. Уведомление менеджеру ожидает доставки.')
       setLocked(true)
     } catch (cause) {
       setRejected(cause instanceof LeadSubmissionError && cause.state === 'rejected')
@@ -51,21 +82,21 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
   }
   const displayed = attempt.current || context
   const selection = [displayed.model && `Модель: ${displayed.model}`, displayed.article && `Артикул: ${displayed.article}`, attempt.current ? attempt.current.configuration : configurationNote, displayed.promotion].filter(Boolean).join('\n')
-  return <section className="glass rounded-2xl p-5 sm:p-8" tabIndex={-1} aria-label="Заявка на консультацию">
-    <h2 className="text-2xl font-bold text-cream mb-3">{context.source === 'Карточка модели' ? context.modelKind === 'house' ? 'Оставить заявку на этот дом' : 'Оставить заявку на эту баню' : 'Оставить заявку'}</h2>
-    {selection && <div className="mb-5 text-sm text-cream/80"><p className="whitespace-pre-wrap">{selection}</p><button type="button" className="btn-secondary mt-3" onClick={() => { void navigator.clipboard.writeText(selection).catch(() => setError('Выделите и скопируйте текст выбора вручную.')) }}>Скопировать выбор</button></div>}
-    {!ready && <p className="text-sm text-cream/70 mb-4">Онлайн-отправка пока недоступна. Свяжитесь с нами напрямую.</p>}
-    {result ? <p role="status">{result} Номер: {attempt.current?.requestId}</p> : <form onSubmit={submit} className="space-y-3">
+  return <section className="glass rounded-2xl p-5 sm:p-8" tabIndex={-1} aria-label="Заявка на консультацию" data-release-profile="online-leads">
+    <h2 className="text-2xl font-bold text-cream mb-3">Свяжитесь с нами</h2>
+    <p className="text-sm text-cream/70 mb-4">Оставьте заявку — менеджер подтвердит комплектацию, совместимость опций и итоговую стоимость.</p>
+    {selection && <div className="mb-5 text-sm text-cream/80" data-configuration-summary><p className="whitespace-pre-wrap break-words">{selection}</p><button type="button" className="btn-secondary mt-3" onClick={() => { void navigator.clipboard.writeText(selection).catch(() => setError('Выделите и скопируйте текст выбора вручную.')) }}>Скопировать комплектацию</button></div>}
+    {!ready && <p className="text-sm text-cream/70 mb-4">Онлайн-отправка пока недоступна на этом адресе. Свяжитесь с нами напрямую.</p>}
+    {result ? <p role="status" className="text-cream">{result} Номер: {attempt.current?.requestId}</p> : <form onSubmit={submit} className="space-y-3" noValidate>
       <fieldset disabled={!ready || busy || locked || Boolean(attempt.current)} className="space-y-3">
         <label className="block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input" value={name} onChange={e => setName(e.target.value)} /></label>
         <label className="block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
         <label className="block text-sm text-cream">Модель<input className="lead-input" maxLength={160} value={context.model} readOnly={Boolean(configurationDetails)} onChange={e => setContext(resolveLeadContext(location.href, e.target.value, saunas, homes))} /></label>
-        <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input" value={comment} onChange={e => setComment(e.target.value)} /></label>
+        <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input" value={comment} onChange={e => setComment(e.target.value)} placeholder="Пожелания, сроки, вопросы" /></label>
         <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
-        {!documents && <label className="flex gap-3 text-xs text-cream/70"><input type="checkbox" checked={false} disabled readOnly /><span>Согласие на обработку данных — текст ожидает утверждения.</span></label>}
-        {documents && <><label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{documents.checkbox.text}</span></label><details><summary>Согласие на обработку данных</summary><p className="whitespace-pre-wrap text-sm">{documents.consent.text}</p></details><details><summary>Политика обработки данных</summary><p className="whitespace-pre-wrap text-sm">{documents.policy.text}</p></details></>}
+        {documents ? <><label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{documents.checkbox.text}</span></label><details><summary>Согласие на обработку данных</summary><p className="whitespace-pre-wrap text-sm">{documents.consent.text}</p></details><details><summary>Политика обработки данных</summary><p className="whitespace-pre-wrap text-sm">{documents.policy.text}</p></details></> : <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{LEGAL_CONSENT_TEXT} <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/soglasie-pd')} target="_blank" rel="noopener noreferrer">Согласие</a> · <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/politika')} target="_blank" rel="noopener noreferrer">Политика</a></span></label>}
       </fieldset>
-      <button type="submit" disabled={!ready || !consent || busy || locked} className="btn-primary w-full justify-center disabled:opacity-60">{busy ? 'Сохраняем заявку…' : attempt.current ? 'Повторить исходную заявку' : 'Отправить заявку'}</button>
+      <button type="submit" disabled={!ready || !consent || busy || locked} className="btn-primary w-full justify-center disabled:opacity-60">{busy ? 'Отправляем заявку…' : attempt.current ? 'Повторить исходную заявку' : 'Отправить заявку'}</button>
     </form>}
     {error && <p role="alert" className="mt-3 text-sm text-cream">{error}{attempt.current && ` Номер: ${attempt.current.requestId}`}</p>}
     {rejected && <button type="button" className="btn-secondary mt-3" onClick={() => { if (discardRejectedLeadAttempt()) { attempt.current = null; started.current = Date.now(); setRejected(false); setError('') } }}>Изменить данные непринятой заявки</button>}

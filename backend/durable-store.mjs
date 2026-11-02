@@ -17,18 +17,19 @@ export function readBundle(path) {
   return bundle
 }
 export function validateConfiguration(value, lead) {
-  if (!keys(value,['modelId','modelName','modelType','basePrice','selectedOptionIds','options','optionsSubtotal','total','unpricedCount','currency','calculatedAt'])) return false
+  if (!keys(value,['modelId','modelName','modelType','basePrice','selectedOptionIds','options','optionsSubtotal','discount','discountLabel','total','unpricedCount','currency','calculatedAt'])) return false
   const text = (v,max) => typeof v === 'string' && v.trim().length > 0 && v.length <= max && !/[\x00-\x1f\x7f]/.test(v)
   const money = v => Number.isSafeInteger(v) && v >= 0 && v <= 1000000000
   if (!text(value.modelId,80) || !text(value.modelName,160) || value.modelName !== lead.model || !['sauna','home'].includes(value.modelType) || value.modelType !== (lead.modelKind === 'bath' ? 'sauna' : lead.modelKind === 'house' ? 'home' : '') || value.currency !== 'RUB') return false
-  if (!money(value.basePrice) || !money(value.optionsSubtotal) || !money(value.total) || !Array.isArray(value.options) || value.options.length > 40 || !Array.isArray(value.selectedOptionIds) || value.selectedOptionIds.length !== value.options.length) return false
+  if (!money(value.basePrice) || !money(value.optionsSubtotal) || !money(value.discount) || !money(value.total) || typeof value.discountLabel !== 'string' || value.discountLabel.length > 120 || /[\x00-\x1f\x7f]/.test(value.discountLabel) || !Array.isArray(value.options) || value.options.length > 40 || !Array.isArray(value.selectedOptionIds) || value.selectedOptionIds.length !== value.options.length) return false
+  if (value.discount > 0 ? !value.discountLabel.trim() || value.discount > value.basePrice + value.optionsSubtotal : value.discountLabel !== '') return false
   if (new Set(value.selectedOptionIds).size !== value.selectedOptionIds.length) return false
   let subtotal = 0, unpriced = 0
   for (const [index,option] of value.options.entries()) {
     if (!keys(option,['id','name','price','quantity']) || !text(option.id,80) || !text(option.name,160) || option.quantity !== 1 || option.id !== value.selectedOptionIds[index] || (option.price !== null && !money(option.price))) return false
     subtotal += option.price || 0; if (option.price === null) unpriced++
   }
-  if (subtotal !== value.optionsSubtotal || value.total !== value.basePrice + subtotal || value.unpricedCount !== unpriced) return false
+  if (subtotal !== value.optionsSubtotal || value.total !== value.basePrice + subtotal - value.discount || value.unpricedCount !== unpriced) return false
   return typeof value.calculatedAt === 'string' && value.calculatedAt.length === 24 && Number.isFinite(Date.parse(value.calculatedAt)) && new Date(value.calculatedAt).toISOString() === value.calculatedAt
 }
 export function validateV3(data, bundle, origin, now) {
