@@ -8,11 +8,14 @@ import { DurableStore } from './durable-store.mjs'
 
 export function createMaxNotifier(env, fetchImpl = fetch) {
   const recipient = env.TEST_MODE === '1' ? env.TEST_MAX_USER_ID : env.MAX_USER_ID
+  if (env.TEST_MODE === '1' && recipient === env.MAX_USER_ID) throw new Error('TEST recipient must differ from production')
   if (!env.MAX_BOT_TOKEN || !/^\d+$/.test(recipient || '')) throw new Error('Explicit MAX token and recipient required')
   return async (lead, signal) => {
     const target = new URL('https://platform-api2.max.ru/messages'); target.searchParams.set('user_id',recipient)
     const text = `Новая заявка BANGER.SU\nИмя: ${lead.name}\nТелефон: ${lead.phone}\nМодель: ${lead.model}\nАртикул: ${lead.article}\nТип: ${lead.modelKind}\nИсточник: ${lead.source}\nКонфигурация: ${lead.configuration}\nАкция: ${lead.promotion}\nКомментарий: ${lead.comment}\nСтраница: ${lead.page}\nID: ${lead.requestId}`
-    const result = await fetchImpl(target,{method:'POST',headers:{Authorization:env.MAX_BOT_TOKEN,'Content-Type':'application/json'},body:JSON.stringify({text:text+`\nПринято сервером: ${lead.receivedAt}`}),signal})
+    const calculation = lead.configurationDetails
+    const details = calculation ? `\nРасчёт клиента (цены требуют подтверждения): ${calculation.modelName} [${calculation.modelId}]\nБаза: ${calculation.basePrice} RUB\n${calculation.options.map(option => `${option.name} [${option.id}]: ${option.price === null ? 'по запросу' : option.price+' RUB'} × ${option.quantity}`).join('\n')}\nОпции: ${calculation.optionsSubtotal} RUB\nИтого по известным ценам: ${calculation.total} RUB\nБез цены: ${calculation.unpricedCount}\nДата расчёта: ${calculation.calculatedAt}` : ''
+    const result = await fetchImpl(target,{method:'POST',headers:{Authorization:env.MAX_BOT_TOKEN,'Content-Type':'application/json'},body:JSON.stringify({text:text+details+`\nПринято сервером: ${lead.receivedAt}`}),signal})
     if (result.status === 429) {
       const value = result.headers.get('retry-after')
       const retryAfterMs = /^\d+$/.test(value || '') ? Number(value)*1000 : Date.parse(value)-Date.now()

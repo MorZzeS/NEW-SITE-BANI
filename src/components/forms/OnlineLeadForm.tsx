@@ -5,10 +5,11 @@ import { saunas, homes, siteSettings } from '@/data'
 import { leadContract, leadDocumentBundle, verifyLeadDocumentBundle, consentEvidence } from '@/lib/lead-consent'
 import { leadEndpoint, sendLead, LeadSubmissionError, type Lead } from '@/lib/leads'
 import { leadAttemptMarker, discardRejectedLeadAttempt } from '@/lib/lead-attempt'
+import type { ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { resolveLeadContext } from '@/lib/lead-context'
 
 /** Only mounted by the existing release gate. No approval or endpoint is invented here. */
-export function OnlineLeadForm({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
+export function OnlineLeadForm({ modelName, configurationNote, configurationDetails }: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation }) {
   const [name, setName] = useState(''), [phone, setPhone] = useState(''), [comment, setComment] = useState('')
   const [consent, setConsent] = useState(false), [ready, setReady] = useState(false)
   const [error, setError] = useState(''), [result, setResult] = useState(''), [busy, setBusy] = useState(false)
@@ -37,7 +38,7 @@ export function OnlineLeadForm({ modelName, configurationNote }: { modelName?: s
     pending.current = true; setBusy(true); setError('')
     try {
       const verified = await verifyLeadDocumentBundle()
-      if (!attempt.current) attempt.current = { ...context, ...consentEvidence(verified), requestId: crypto.randomUUID(), name: name.trim(), phone, comment: comment.trim(), configuration: configurationNote || '', createdAt: new Date().toISOString(), consent: true, website, startedAt: started.current }
+      if (!attempt.current) attempt.current = { ...context, ...consentEvidence(verified), requestId: crypto.randomUUID(), name: name.trim(), phone, comment: comment.trim(), configuration: configurationNote || '', ...(configurationDetails ? { configurationDetails: { ...structuredClone(configurationDetails), calculatedAt: new Date().toISOString() } } : {}), createdAt: new Date().toISOString(), consent: true, website, startedAt: started.current }
       const response = await sendLead(attempt.current)
       if (!response) throw new Error('Сервер не подтвердил сохранение заявки.')
       setResult(response.status === 'sent' ? 'Заявка сохранена. Уведомление доставлено менеджеру.' : 'Заявка сохранена сервером. Уведомление менеджеру ожидает доставки.')
@@ -58,8 +59,10 @@ export function OnlineLeadForm({ modelName, configurationNote }: { modelName?: s
       <fieldset disabled={!ready || busy || locked || Boolean(attempt.current)} className="space-y-3">
         <label className="block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input" value={name} onChange={e => setName(e.target.value)} /></label>
         <label className="block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
+        <label className="block text-sm text-cream">Модель<input className="lead-input" maxLength={160} value={context.model} readOnly={Boolean(configurationDetails)} onChange={e => setContext(resolveLeadContext(location.href, e.target.value, saunas, homes))} /></label>
         <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input" value={comment} onChange={e => setComment(e.target.value)} /></label>
         <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
+        {!documents && <label className="flex gap-3 text-xs text-cream/70"><input type="checkbox" checked={false} disabled readOnly /><span>Согласие на обработку данных — текст ожидает утверждения.</span></label>}
         {documents && <><label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{documents.checkbox.text}</span></label><details><summary>Согласие на обработку данных</summary><p className="whitespace-pre-wrap text-sm">{documents.consent.text}</p></details><details><summary>Политика обработки данных</summary><p className="whitespace-pre-wrap text-sm">{documents.policy.text}</p></details></>}
       </fieldset>
       <button type="submit" disabled={!ready || !consent || busy || locked} className="btn-primary w-full justify-center disabled:opacity-60">{busy ? 'Сохраняем заявку…' : attempt.current ? 'Повторить исходную заявку' : 'Отправить заявку'}</button>

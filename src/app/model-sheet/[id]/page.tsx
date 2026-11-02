@@ -1,6 +1,8 @@
 import { modelFeatures, modelBaseConfiguration } from '@/data/model-configuration'
 import { notFound } from 'next/navigation'
 import { saunas, homes, siteSettings } from '@/data'
+import { DownloadModelPdfButton } from '@/components/catalog/DownloadModelPdfButton'
+import { ModelConfigurationProvider } from '@/components/catalog/ModelConfigurationContext'
 import { PrintModelButton } from '@/components/catalog/PrintModelButton'
 import { withBasePath } from '@/lib/site-path'
 const models = [...saunas, ...homes]
@@ -19,7 +21,7 @@ export default async function ModelSheet({ params }: { params: Promise<{ id: str
   const model = models.find(m => m.id === id)
   if (!model) notFound()
   return <article className="model-sheet">
-    <div className="print-model-action mb-6"><PrintModelButton /><p className="text-sm mt-3">В диалоге печати выберите «Сохранить в PDF». Изображения включены в документ.</p></div>
+    <div className="print-model-action mb-6"><ModelConfigurationProvider model={model}><DownloadModelPdfButton model={model} /></ModelConfigurationProvider><PrintModelButton /><p className="text-sm mt-3">PDF содержит базовую комплектацию. PDF с выбранными опциями можно скачать на странице модели.</p></div>
     <header className="sheet-heading"><span>БАНИ ГЕРАСИМОВ · BANGER.SU</span><p>Информация о модели</p></header>
     <h1>{model.name}</h1><p>{model.article} · {model.size} · {model.area} м²</p>
     <div className="sheet-images"><figure><img src={withBasePath(model.image)} alt={model.name} /><figcaption>Визуализация модели</figcaption></figure>
@@ -36,3 +38,4 @@ export default async function ModelSheet({ params }: { params: Promise<{ id: str
     <footer className="sheet-footer">BANGER.SU · <a href={`tel:${siteSettings.phone}`}>{siteSettings.phoneDisplay}</a> · <a href={`tel:${siteSettings.phone2}`}>{siteSettings.phoneDisplay2}</a><br />{siteSettings.email} · {siteSettings.addressShowroom}</footer>
   </article>
 }
+

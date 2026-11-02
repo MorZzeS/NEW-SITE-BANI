@@ -124,3 +124,9 @@
   .optionInfo .optionPrice { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .requestButton { transition: none; } }
+
+.modelName { color: var(--color-text); font-weight: 650; margin: 0 0 18px; }
+.requestButton:focus-visible,.resetButton:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 4px; }
+.optionItem[data-option-status="included"] .checkVisual { color: var(--color-accent); }
+@media (max-width: 760px) { .summary { order: 1; } .optionGroups { order: 0; } }
+

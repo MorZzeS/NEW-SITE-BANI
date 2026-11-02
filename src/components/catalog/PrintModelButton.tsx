@@ -17,5 +17,6 @@ export function PrintModelButton() {
     } catch { setError('Не удалось подготовить изображения для печати. Дождитесь загрузки страницы и попробуйте снова.') }
     finally { busy.current = false; setPreparing(false) }
   }
-  return <><button type="button" disabled={preparing} className="btn-primary print-model-action disabled:opacity-60" onClick={print}>{preparing ? 'Готовим документ…' : 'Сохранить в PDF / печать'}</button>{error && <p role="alert" className="mt-3 text-sm">{error}</p>}</>
+  return <><button type="button" disabled={preparing} className="btn-primary print-model-action disabled:opacity-60" onClick={print}>{preparing ? 'Готовим документ…' : 'Печать модели'}</button>{error && <p role="alert" className="mt-3 text-sm">{error}</p>}</>
 }
+

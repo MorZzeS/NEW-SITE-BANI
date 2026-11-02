@@ -1,3 +1,4 @@
+import type { ModelConfigurationCalculation } from './model-configuration-selection'
 import { consentEvidenceReady, consentEvidence, verifyLeadDocumentBundle, leadContract } from './lead-consent'
 import { beginLeadAttempt, settleLeadAttempt } from './lead-attempt'
 import { releasePolicy } from './release-policy'
@@ -5,6 +6,7 @@ export type Lead = {
   source?: 'Карточка модели' | 'Получить консультацию' | 'Контакты' | 'Конфигуратор' | 'Exit-intent'
   article?: string
   configuration?: string
+  configurationDetails?: ModelConfigurationCalculation & { calculatedAt: string }
   promotion?: '' | 'Скидка 15 000 ₽'
   modelKind?: '' | 'bath' | 'house'
   contractVersion?: number

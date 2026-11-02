@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { DownloadModelPdfButton } from './DownloadModelPdfButton'
 import type { Sauna, Home } from '@/types'
 import { ProductGallery } from './ProductGallery'
 import { ModelPrices } from './ModelPrices'
@@ -26,7 +27,7 @@ export function ModelOverview({ model }: { model: Sauna | Home }) {
         <Link href={`/kontakty?model=${encodeURIComponent(model.name)}`} className="btn-primary">Получить расчёт</Link>
         <a href={siteSettings.max} className="btn-secondary" target="_blank" rel="noopener noreferrer">MAX</a>
       </div>
-      <Link href={`/model-sheet/${model.id}`} target="_blank" className="inline-flex min-h-11 items-center text-sm text-gold-400 underline underline-offset-4">Скачать информацию о модели</Link>
+      <DownloadModelPdfButton model={model} />
       <div className="flex flex-wrap gap-x-4 text-sm mt-3">
         <a href={`tel:${siteSettings.phone}`}>{siteSettings.phoneDisplay}</a>
         <a href={`tel:${siteSettings.phone2}`}>{siteSettings.phoneDisplay2}</a>
@@ -34,3 +35,4 @@ export function ModelOverview({ model }: { model: Sauna | Home }) {
     </div>
   </section>
 }
+

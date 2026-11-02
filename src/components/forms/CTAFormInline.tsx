@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { siteSettings } from '@/data'
 import { releasePolicy } from '@/lib/release-policy'
+import type { ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { OnlineLeadForm } from './OnlineLeadForm'
 
 /** Contact-only surface; the complete consent form stays in the working branch. */
@@ -46,6 +47,6 @@ function ContactFallback({ modelName, configurationNote }: { modelName?: string;
   </section>
 }
 
-export function CTAFormInline(props: { modelName?: string; configurationNote?: string }) {
+export function CTAFormInline(props: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation }) {
   return releasePolicy.onlineLeads ? <OnlineLeadForm {...props} /> : <ContactFallback {...props} />
 }

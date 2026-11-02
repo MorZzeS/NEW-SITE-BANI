@@ -1,3 +1,4 @@
+import { ModelConfigurationProvider } from '@/components/catalog/ModelConfigurationContext'
 import { ModelBaseConfiguration } from '@/components/catalog/ModelBaseConfiguration'
 import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
@@ -51,7 +52,7 @@ export default async function SaunaPage({ params }: Props) {
   const related = saunas.filter((s) => s.series === sauna.series && s.id !== sauna.id).slice(0, 3)
 
   return (
-    <div className="pt-24 pb-20">
+    <ModelConfigurationProvider key={sauna.id} model={sauna}><div className="pt-24 pb-20">
       <div className="site-container">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-cream/50 mb-8">
@@ -112,6 +113,6 @@ export default async function SaunaPage({ params }: Props) {
           </div>
         )}
       </div>
-    </div>
+    </div></ModelConfigurationProvider>
   )
 }

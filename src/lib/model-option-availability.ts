@@ -2,24 +2,26 @@ import type { Home, Sauna } from '@/types'
 import { modelBaseConfiguration } from '@/data/model-configuration'
 import { enabledEquipmentOptions } from '@/lib/equipment-selection'
 
+export type ModelOptionStatus = 'available' | 'included' | 'unavailable' | 'unknown'
+export type ModelOptionEvidence = { status: ModelOptionStatus; reason: string; source: string }
+// Prices are not compatibility evidence. Add only confirmed model-specific records.
+export const confirmedModelOptionMatrix: Readonly<Record<string, Readonly<Record<string, ModelOptionEvidence>>>> = {}
 export function modelOptionAvailability(model: Sauna | Home) {
-  const baseRows = modelBaseConfiguration(model)
-  const rooms = baseRows.find(row => row.label === 'Помещения')?.value ?? ''
-  const equipment = baseRows.find(row => row.label === 'Оборудование')?.value ?? ''
-  const lounge = baseRows.find(row => row.label === 'Комната отдыха')?.value ?? ''
-  const stove = baseRows.find(row => row.label === 'Печное решение')?.value ?? ''
-
+  const rows = modelBaseConfiguration(model)
+  const value = (label: string) => rows.find(row => row.label === label)?.value ?? ''
   return enabledEquipmentOptions.map(option => {
-    let blockedReason: string | undefined
-    if (option.id === 'boiler' && /бойлер\s*50\s*л/i.test(equipment)) {
-      blockedReason = 'Бойлер 50 л уже указан в базовой комплектации этой модели.'
-    } else if (option.id === 'furniture' && /стол и две лавки/i.test(lounge)) {
-      blockedReason = 'Стол и две лавки уже указаны в базовой комплектации этой модели.'
-    } else if (option.id === 'wc' && /санузел/i.test(rooms)) {
-      blockedReason = 'Санузел уже предусмотрен базовой комплектацией этой модели.'
-    } else if (option.id === 'ermak' && /печь/i.test(stove)) {
-      blockedReason = 'Печь уже входит в базовую комплектацию. Цена замены на Ермак 12 ПС не подтверждена, поэтому повторная стоимость в калькулятор не добавляется.'
+    let evidence: ModelOptionEvidence = confirmedModelOptionMatrix[model.id]?.[option.id] ?? {
+      status: 'unknown', reason: 'Требует согласования: совместимость с этой моделью не подтверждена.', source: 'Нет подтверждённых данных',
     }
-    return { option, blockedReason }
+    const included = option.id === 'boiler' && /бойлер\s*50\s*л/i.test(value('Оборудование'))
+      || option.id === 'furniture' && /стол и две лавки/i.test(value('Комната отдыха'))
+    if (included) evidence = { status: 'included', reason: 'Уже включено в базовую комплектацию.', source: 'src/data/model-configuration.ts' }
+    if (option.id === 'wc' && /санузел/i.test(value('Помещения'))) evidence = {
+      status: 'unknown', reason: 'Санузел предусмотрен планировкой. Состав сантехники и проводки воды требует согласования.', source: 'src/data/model-configuration.ts',
+    }
+    if (option.id === 'ermak' && /печь/i.test(value('Печное решение'))) evidence = {
+      status: 'unknown', reason: 'Печь уже предусмотрена. Совместимость и стоимость замены на Ермак 12 ПС требуют согласования.', source: 'src/data/model-configuration.ts',
+    }
+    return { option, ...evidence, blockedReason: evidence.status === 'available' ? undefined : evidence.reason }
   })
 }

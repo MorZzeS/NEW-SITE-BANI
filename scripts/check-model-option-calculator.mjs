@@ -32,6 +32,8 @@ const availability = compile('src/lib/model-option-availability.ts', {
   '@/data/model-configuration': modelConfig,
   '@/lib/equipment-selection': selection,
 })
+const calculation = compile('src/lib/model-configuration-selection.ts', { '@/lib/model-option-availability': availability })
+const unitOnly = process.argv.includes('--unit')
 const guidance = compile('src/data/option-guidance.ts')
 const models = [...data.saunas, ...data.homes]
 const enabled = optionsData.additionalOptions.filter(option => option.enabled)
@@ -51,19 +53,30 @@ for (const model of models) {
   const isHome = data.homes.some(item => item.id === model.id)
   const relative = `${isHome ? 'dom' : 'banya'}/${model.slug}.html`
   const htmlPath = path.join(dist, relative)
-  assert.ok(fs.existsSync(htmlPath), `missing exported model page ${relative}`)
-  const html = fs.readFileSync(htmlPath, 'utf8')
-  assert.ok(html.includes(`data-model-option-calculator="${model.id}"`), `${model.id}: calculator is not rendered`)
+  if (!unitOnly) assert.ok(fs.existsSync(htmlPath), `missing exported model page ${relative}`)
+  const html = unitOnly ? '' : fs.readFileSync(htmlPath, 'utf8')
+  if (!unitOnly) assert.ok(html.includes(`data-model-option-calculator="${model.id}"`), `${model.id}: calculator is not rendered`)
   assert.ok(html.includes(`data-base-price="${model.priceFrom}"`), `${model.id}: base price differs from model data`)
   const items = availability.modelOptionAvailability(model)
   assert.equal(items.length, enabled.length, `${model.id}: option list length mismatch`)
   const renderedIds = [...html.matchAll(/data-option-id="([^"]+)"/g)].map(match => match[1])
-  assert.equal(renderedIds.length, items.length, `${model.id}: not all options rendered`)
+  if (!unitOnly) assert.equal(renderedIds.length, items.length, `${model.id}: not all options rendered`)
   assert.equal(new Set(renderedIds).size, renderedIds.length, `${model.id}: duplicate option row`)
   for (const item of items) {
     const image = guidance.optionGuidance[item.option.id]?.image
     assert.ok(image && fs.existsSync(path.join(root, 'public', image.replace(/^\//, ''))), `${model.id}/${item.option.id}: missing option photo or diagram`)
-    if (item.blockedReason) assert.ok(html.includes(item.blockedReason), `${model.id}/${item.option.id}: base-duplicate warning missing`)
+    if (!unitOnly && item.blockedReason) assert.ok(html.includes(item.blockedReason), `${model.id}/${item.option.id}: base-duplicate warning missing`)
+  }
+  const calculated = calculation.calculateModelConfiguration(model, [...enabled.map(option => option.id), 'unknown', 'boiler'])
+  assert.equal(calculated.basePrice, model.priceFrom)
+  assert.equal(calculated.total, model.priceFrom + calculated.optionsSubtotal)
+  assert.equal(calculated.selectedOptionIds.length, new Set(calculated.selectedOptionIds).size)
+  assert.ok(calculated.selectedOptionIds.every(id => items.find(item => item.option.id === id)?.status === 'available'))
+  assert.equal(calculation.calculateModelConfiguration(model, []).total, model.priceFrom)
+  for (const item of items) {
+    assert.ok(['available', 'included', 'unavailable', 'unknown'].includes(item.status))
+    assert.ok(item.source && item.reason)
+    if (item.status !== 'available') assert.ok(!calculated.selectedOptionIds.includes(item.option.id))
   }
   checkedPages++
 }
@@ -78,7 +91,8 @@ console.log(JSON.stringify({
   status: 'PASS',
   models: checkedPages,
   optionsPerModel: enabled.length,
-  modelPages: checkedPages,
+  modelPages: unitOnly ? 'not checked (--unit)' : checkedPages,
+  compatibilityStates: Object.fromEntries(['available', 'included', 'unavailable', 'unknown'].map(status => [status, models.flatMap(availability.modelOptionAvailability).filter(item => item.status === status).length])),
   basePriceSource: 'model.priceFrom, unchanged',
   duplicateSelection: 'counted once',
   unpricedOption: 'excluded from total and disclosed',

@@ -5,7 +5,8 @@ import { isAbsolute, dirname } from 'node:path'
 import { validateLead } from './lead-validation.mjs'
 
 export const hash = value => createHash('sha256').update(value).digest('hex')
-const canonical = value => JSON.stringify(value, Object.keys(value).sort())
+const canonical = value => JSON.stringify(sortValue(value))
+const sortValue = value => Array.isArray(value) ? value.map(sortValue) : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(key => [key, sortValue(value[key])])) : value
 const keys = (o, names) => o && typeof o === 'object' && !Array.isArray(o) && Object.keys(o).sort().join() === [...names].sort().join()
 export function readBundle(path) {
   const bundle = JSON.parse(readFileSync(path, 'utf8'))
@@ -15,9 +16,25 @@ export function readBundle(path) {
   }
   return bundle
 }
+export function validateConfiguration(value, lead) {
+  if (!keys(value,['modelId','modelName','modelType','basePrice','selectedOptionIds','options','optionsSubtotal','total','unpricedCount','currency','calculatedAt'])) return false
+  const text = (v,max) => typeof v === 'string' && v.trim().length > 0 && v.length <= max && !/[\x00-\x1f\x7f]/.test(v)
+  const money = v => Number.isSafeInteger(v) && v >= 0 && v <= 1000000000
+  if (!text(value.modelId,80) || !text(value.modelName,160) || value.modelName !== lead.model || !['sauna','home'].includes(value.modelType) || value.modelType !== (lead.modelKind === 'bath' ? 'sauna' : lead.modelKind === 'house' ? 'home' : '') || value.currency !== 'RUB') return false
+  if (!money(value.basePrice) || !money(value.optionsSubtotal) || !money(value.total) || !Array.isArray(value.options) || value.options.length > 40 || !Array.isArray(value.selectedOptionIds) || value.selectedOptionIds.length !== value.options.length) return false
+  if (new Set(value.selectedOptionIds).size !== value.selectedOptionIds.length) return false
+  let subtotal = 0, unpriced = 0
+  for (const [index,option] of value.options.entries()) {
+    if (!keys(option,['id','name','price','quantity']) || !text(option.id,80) || !text(option.name,160) || option.quantity !== 1 || option.id !== value.selectedOptionIds[index] || (option.price !== null && !money(option.price))) return false
+    subtotal += option.price || 0; if (option.price === null) unpriced++
+  }
+  if (subtotal !== value.optionsSubtotal || value.total !== value.basePrice + subtotal || value.unpricedCount !== unpriced) return false
+  return typeof value.calculatedAt === 'string' && value.calculatedAt.length === 24 && Number.isFinite(Date.parse(value.calculatedAt)) && new Date(value.calculatedAt).toISOString() === value.calculatedAt
+}
 export function validateV3(data, bundle, origin, now) {
   if (!validateLead(data, now) || data.contractVersion !== 3 || data.purposeCode !== 'inquiry_response' || data.action !== 'unchecked_checkbox_then_submit') return false
   const fields = ['contractVersion','consentVersion','policyVersion','checkboxVersion','purposeCode','action','consentTextSha256','checkboxTextSha256','policyTextSha256','requestId','name','phone','model','page','comment','createdAt','consent','website','startedAt','source','article','configuration','promotion','modelKind']
+  if (Object.hasOwn(data, 'configurationDetails')) { fields.push('configurationDetails'); if (!validateConfiguration(data.configurationDetails, data)) return false }
   if (!keys(data, fields) || !['Карточка модели','Получить консультацию','Контакты','Конфигуратор','Exit-intent'].includes(data.source) || typeof data.article !== 'string' || data.article.length > 80 || typeof data.configuration !== 'string' || data.configuration.length > 2000 || !['','bath','house'].includes(data.modelKind) || !['','Скидка 15 000 ₽'].includes(data.promotion) || (data.promotion && (data.modelKind !== 'bath' || data.source !== 'Exit-intent'))) return false
   if (Object.entries(data).some(([key, value]) => typeof value === 'string' && (['comment','configuration'].includes(key) ? /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/ : /[\x00-\x1f\x7f]/).test(value))) return false
   if (typeof data.createdAt !== 'string' || !Number.isFinite(Date.parse(data.createdAt))) return false
@@ -38,6 +55,7 @@ export class DurableStore {
       CREATE TABLE IF NOT EXISTS leads(id TEXT PRIMARY KEY,fingerprint TEXT NOT NULL,payload TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS consents(id TEXT PRIMARY KEY REFERENCES leads(id),receipt TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS outbox(id TEXT PRIMARY KEY REFERENCES leads(id),status TEXT NOT NULL CHECK(status IN ('accepted','claimed','sent','unknown')),due INTEGER NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,message_id TEXT);
+      CREATE TABLE IF NOT EXISTS events(sequence INTEGER PRIMARY KEY AUTOINCREMENT,request_id TEXT NOT NULL,code TEXT NOT NULL,created_at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS rates(key TEXT PRIMARY KEY,count INTEGER NOT NULL,expires INTEGER NOT NULL);`)
     this.db.exec('BEGIN IMMEDIATE')
     try {
@@ -50,6 +68,10 @@ export class DurableStore {
       // Single process owns this disk. A previous claim may already have reached MAX.
       this.db.exec("UPDATE outbox SET status='unknown' WHERE status='claimed'; COMMIT")
     } catch (error) { this.db.exec('ROLLBACK'); this.db.close(); throw error }
+  }
+  recordEvent(id, code) {
+    // No exception messages, tokens or contact data in this journal.
+    try { this.db.prepare('INSERT INTO events(request_id,code,created_at) VALUES(?,?,?)').run(/^[A-Za-z0-9_-]{16,80}$/.test(id) ? id : '',code,this.now()) } catch { console.error('Durable event journal unavailable') }
   }
   admit(data, origin, ip) {
     const id = typeof data?.requestId === 'string' ? data.requestId.slice(0,80) : ''
@@ -72,11 +94,13 @@ export class DurableStore {
       this.db.prepare('INSERT INTO consents VALUES(?,?)').run(id,JSON.stringify(receipt))
       this.fault('before_outbox')
       this.db.prepare("INSERT INTO outbox(id,status,due) VALUES(?,'accepted',?)").run(id,now)
+      this.recordEvent(id,'accepted')
       this.db.exec('COMMIT'); began = false; this.fault('after_commit')
       return response(id,'accepted',true,receipt)
     } catch {
       let rolledBack = false
       if (began) { try { this.db.exec('ROLLBACK'); rolledBack = true } catch {} }
+      this.recordEvent(id,rolledBack ? 'admission_rolled_back' : 'admission_unknown')
       // A successful rollback proves non-admission even if COMMIT failed while transaction remained active.
       return rolledBack ? response(id,'storage_unavailable',false,undefined,true) : response(id,'unknown',null)
     }
@@ -98,6 +122,7 @@ export class DurableStore {
     const status = result?.status === 'sent' && typeof result.messageId === 'string' && result.messageId.trim() ? 'sent' : result?.status === 'retry429' ? 'accepted' : 'unknown'
     const delay = Math.min(3600000,Math.max(1000,Number(result?.retryAfterMs) || 60000))
     this.db.prepare('UPDATE outbox SET status=?,due=?,message_id=? WHERE id=? AND status=\'claimed\'').run(status,this.now()+delay,status === 'sent' ? result.messageId : null,row.id)
+    this.recordEvent(row.id,status === 'accepted' ? 'max_rate_limited' : 'delivery_'+status)
     return true
   }
   close() { this.db.close() }
