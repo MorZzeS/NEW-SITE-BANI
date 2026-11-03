@@ -10,7 +10,7 @@ export type ModelConfigurationCalculation = {
   modelType: 'sauna' | 'home'
   basePrice: number
   selectedOptionIds: string[]
-  options: { id: string; name: string; price: number | null; quantity: 1 }[]
+  options: { id: string; name: string; price: number | null; quantity: number }[]
   optionsSubtotal: number
   discount: number
   discountLabel: string
@@ -19,14 +19,14 @@ export type ModelConfigurationCalculation = {
   currency: 'RUB'
 }
 
-type CalculationInput = { promotionalDiscount?: boolean }
+type CalculationInput = { promotionalDiscount?: boolean; quantities?: Record<string, number> }
 
 export function calculateModelConfiguration(model: Sauna | Home, ids: readonly string[], input: CalculationInput = {}): ModelConfigurationCalculation {
   const unique = new Set(ids)
   const options = modelOptionAvailability(model)
     .filter(item => item.status === 'available' && unique.has(item.option.id))
-    .map(({ option }) => ({ id: option.id, name: option.name, price: option.salePrice, quantity: 1 as const }))
-  const optionsSubtotal = options.reduce((sum, option) => sum + (option.price ?? 0), 0)
+    .map(({ option }) => ({ id: option.id, name: option.name, price: option.salePrice, quantity: option.id === 'ceiling-height' ? Math.max(1, Math.min(20, Math.floor(input.quantities?.[option.id] || 1))) : 1 }))
+  const optionsSubtotal = options.reduce((sum, option) => sum + (option.price ?? 0) * option.quantity, 0)
   const isBath = 'series' in model
   const discount = input.promotionalDiscount && isBath ? Math.min(PROMOTIONAL_DISCOUNT_RUB, model.priceFrom + optionsSubtotal) : 0
   return {
@@ -56,7 +56,7 @@ export function configurationManagerText(configuration: ModelConfigurationCalcul
     `Комплектация: ${configuration.modelName} [${configuration.modelId}]`,
     `Базовая стоимость: ${money(configuration.basePrice)}`,
     ...(configuration.options.length
-      ? configuration.options.map(option => `+ ${option.name} — ${option.price === null ? 'цена по запросу' : money(option.price)}`)
+      ? configuration.options.map(option => `+ ${option.name}${option.quantity > 1 ? ` (${option.quantity} × 10 см)` : ''} — ${option.price === null ? 'цена по запросу' : money(option.price * option.quantity)}`)
       : ['Дополнительные опции не выбраны.']),
     `Стоимость дополнений: ${money(configuration.optionsSubtotal)}`,
     ...(configuration.discount ? [`${configuration.discountLabel}: −${money(configuration.discount)}`] : []),
