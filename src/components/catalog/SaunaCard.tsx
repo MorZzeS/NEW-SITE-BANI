@@ -103,7 +103,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
           {/* Price + CTA */}
           <div className={styles.footer}>
             <div>
-              <div className="text-[10px] text-cream/40 mb-0.5">{sauna.id === 'bg-28' ? 'Представленное исполнение' : 'от'}</div>
+              <div className="text-[10px] text-cream/40 mb-0.5">{sauna.id === 'bg-28' ? 'Представленное исполнение' : 'Базовая комплектация'}</div>
               <div className="text-xl font-bold text-cream">
                 {formatPrice(sauna.priceFrom)}
               </div>
