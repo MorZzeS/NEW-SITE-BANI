@@ -91,7 +91,7 @@ export function HomeCard({ home, compareSelected = false, compareDisabled = fals
           {/* Price + CTA */}
           <div className={styles.footer}>
             <div>
-              <div className="text-[10px] text-cream/40 mb-0.5">от</div>
+              <div className="text-[10px] text-cream/40 mb-0.5">Базовая комплектация</div>
               <div className="text-xl font-bold text-cream">
                 {formatPrice(home.priceFrom)}
               </div>
