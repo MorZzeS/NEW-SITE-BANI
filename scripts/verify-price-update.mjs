@@ -5,10 +5,13 @@ import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 
-// This audit intentionally freezes the owner's 27 October increase against one
-// pre-increase commit. It only reads prices: running it cannot apply an increase.
+// This audit verifies cumulative price changes against the fixed pre-increase baseline.
+// Saunas received +40,000 ₽ on 27 Oct and a further +15,000 ₽ on 3 Nov; homes retain +40,000 ₽.
+// It only reads prices: running it cannot apply an increase.
 export const PRICE_BASELINE = '0e18849ddb891cae04d596babf8537cedd453cfe'
-export const MODEL_INCREASE = 40000
+export const MODEL_INCREASE = 55000
+export const HOME_MODEL_INCREASE = 40000
+export const ADDITIONAL_SAUNA_INCREASE = 15000
 export const OPTION_INCREASE = 5000
 export const OPTION_PRICE_PROVENANCE = '; повышение владельца от 27.10.2026: +5 000 ₽ к цене на 0e18849'
 const scriptPath = fileURLToPath(import.meta.url)
@@ -26,11 +29,11 @@ function loadData(source) {
   return plain(exports)
 }
 
-export function increasedVariant(variant) {
+export function increasedVariant(variant, increase = MODEL_INCREASE) {
   // The colon anchors the price so dimensions such as "Каркас 150 мм" stay intact.
   const match = variant.match(/^(.*: )([\d \u00a0\u202f]+)( ₽)$/u)
   if (!match) throw new Error(`Unrecognised variant price: ${variant}`)
-  return match[1] + rubles(Number(match[2].replace(/\s/g, '')) + MODEL_INCREASE) + match[3]
+  return match[1] + rubles(Number(match[2].replace(/\s/g, '')) + increase) + match[3]
 }
 
 export function auditPriceUpdate(root = defaultRoot) {
@@ -51,12 +54,14 @@ export function auditPriceUpdate(root = defaultRoot) {
   check(equal(beforeModels.map(m => m.id), afterModels.map(m => m.id)), 'Model IDs/order changed')
   const models = beforeModels.map(before => {
     const after = afterModels.find(model => model.id === before.id)
-    const expectedVariants = (before.priceVariants ?? []).map(increasedVariant)
-    const expected = { ...before, priceFrom: before.priceFrom + MODEL_INCREASE }
+    const category = oldData.saunas.some(m => m.id === before.id) ? 'sauna' : 'home'
+    const expectedIncrease = category === 'sauna' ? MODEL_INCREASE : HOME_MODEL_INCREASE
+    const expectedVariants = (before.priceVariants ?? []).map(variant => increasedVariant(variant, expectedIncrease))
+    const expected = { ...before, priceFrom: before.priceFrom + expectedIncrease }
     if (before.priceVariants) expected.priceVariants = expectedVariants
-    check(equal(after, expected), `${before.id}: model differs from baseline +40,000 or nonprice data changed`)
-    return { id: before.id, name: before.name, category: oldData.saunas.some(m => m.id === before.id) ? 'sauna' : 'home', baselinePrice: before.priceFrom, expectedPrice: expected.priceFrom, currentPrice: after?.priceFrom, delta: after?.priceFrom - before.priceFrom,
-      variants: (before.priceVariants ?? []).map((variant, index) => ({ baseline: variant, expected: expectedVariants[index], current: after?.priceVariants?.[index], baselinePrice: variantAmount(variant), currentPrice: variantAmount(after?.priceVariants?.[index]), delta: variantAmount(after?.priceVariants?.[index]) - variantAmount(variant) })) }
+    check(equal(after, expected), `${before.id}: model differs from its authorised cumulative increase or nonprice data changed`)
+    return { id: before.id, name: before.name, category, expectedIncrease, baselinePrice: before.priceFrom, expectedPrice: expected.priceFrom, currentPrice: after?.priceFrom, delta: after?.priceFrom - before.priceFrom,
+      variants: (before.priceVariants ?? []).map((variant, index) => ({ baseline: variant, expected: expectedVariants[index], current: after?.priceVariants?.[index], baselinePrice: variantAmount(variant), currentPrice: variantAmount(after?.priceVariants?.[index]), delta: variantAmount(after?.priceVariants?.[index]) - variantAmount(variant), expectedIncrease })) }
   })
   const restoreModels = (data, originals) => {
     for (const collection of ['saunas', 'homes']) data[collection] = data[collection].map(model => {
@@ -96,18 +101,18 @@ export function auditPriceUpdate(root = defaultRoot) {
   const scrubOptions = source => normalise(source).replace(/"salePrice": (?:\d+|null)/g, '"salePrice": PRICE').replace(/"priceSource": "[^"]*"/g, '"priceSource": SOURCE')
   check(scrubModels(currentText[sourceFiles[0]]) === scrubModels(baselineText[sourceFiles[0]]), 'Catalog source changed outside price literals')
   check(scrubOptions(currentText[sourceFiles[1]]) === scrubOptions(baselineText[sourceFiles[1]]), 'Option source changed outside prices/provenance')
-  return { status: errors.length ? 'FAIL' : 'PASS', baseline: PRICE_BASELINE, modelIncrease: MODEL_INCREASE, optionIncrease: OPTION_INCREASE, counts: { saunas: newData.saunas.length, homes: newData.homes.length, models: models.length, alternativePrices: models.reduce((n, m) => n + m.variants.length, 0), paidOptions: options.filter(o => o.paid).length, unpricedOptions: options.filter(o => !o.paid).length }, sourceFiles, errors, models, options }
+  return { status: errors.length ? 'FAIL' : 'PASS', baseline: PRICE_BASELINE, modelIncrease: MODEL_INCREASE, homeModelIncrease: HOME_MODEL_INCREASE, additionalSaunaIncrease: ADDITIONAL_SAUNA_INCREASE, optionIncrease: OPTION_INCREASE, counts: { saunas: newData.saunas.length, homes: newData.homes.length, models: models.length, alternativePrices: models.reduce((n, m) => n + m.variants.length, 0), paidOptions: options.filter(o => o.paid).length, unpricedOptions: options.filter(o => !o.paid).length }, sourceFiles, errors, models, options }
 }
 
 export function writePriceReport(report, directory) {
   fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(path.join(directory, 'pricing-audit.json'), JSON.stringify(report, null, 2) + '\n')
-  const lines = [`# Изменение цен 27.10.2026 — ${report.status}`, '', `База: \`${report.baseline}\`. Модели и альтернативные исполнения: +40 000 ₽; подтверждённые платные опции: +5 000 ₽. Повторный аудит не меняет цены.`, '', '| Модель / исполнение | До, ₽ | После, ₽ | Изменение, ₽ | Проверка |', '| --- | ---: | ---: | ---: | --- |']
+  const lines = [`# Изменение цен по состоянию на 03.11.2026 — ${report.status}`, '', `База: \`${report.baseline}\`. Мобильные бани: +55 000 ₽ суммарно от базы (+40 000 ₽ ранее и ещё +15 000 ₽ 03.11.2026); дома: +40 000 ₽; подтверждённые платные опции: +5 000 ₽. Повторный аудит не меняет цены.`, '', '| Модель / исполнение | До, ₽ | После, ₽ | Изменение, ₽ | Проверка |', '| --- | ---: | ---: | ---: | --- |']
   for (const model of report.models) {
-    const status = model.currentPrice === model.expectedPrice && model.delta === MODEL_INCREASE && !report.errors.some(error => error.startsWith(`${model.id}:`)) ? 'PASS' : 'FAIL'
+    const status = model.currentPrice === model.expectedPrice && model.delta === model.expectedIncrease && !report.errors.some(error => error.startsWith(`${model.id}:`)) ? 'PASS' : 'FAIL'
     lines.push(`| ${model.id} — ${model.name} | ${rubles(model.baselinePrice)} | ${rubles(model.currentPrice)} | ${rubles(model.delta)} | ${status} |`)
     for (const variant of model.variants) {
-      const variantStatus = variant.current === variant.expected && variant.delta === MODEL_INCREASE ? 'PASS' : 'FAIL'
+      const variantStatus = variant.current === variant.expected && variant.delta === variant.expectedIncrease ? 'PASS' : 'FAIL'
       lines.push(`| ↳ ${variant.baseline.split(': ')[0]} | ${rubles(variant.baselinePrice)} | ${rubles(variant.currentPrice)} | ${rubles(variant.delta)} | ${variantStatus} |`)
     }
   }
