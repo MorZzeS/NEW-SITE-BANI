@@ -47,9 +47,13 @@ function nodes(node){if(!node||typeof node!=='object')return [];const component=
 let district = 'unknown', address = ''
 const deliveryFields = load('src/components/catalog/DeliveryFields.tsx', id => {
   if (id === 'react/jsx-runtime') return { jsx, jsxs: jsx }
+  if (id === './DeliveryFields.module.css') return { default: { deliveryFields: 'deliveryFields', heading: 'heading', fields: 'fields', field: 'field', label: 'label', note: 'note' } }
   throw new Error('Unexpected delivery fields dependency: ' + id)
 })
 const deliveryNodes = nodes(deliveryFields.DeliveryFields({ id: 'audit', district, address, onDistrict: value => { district = value }, onAddress: value => { address = value } }))
+assert(deliveryNodes.some(node => node.type === 'section' && node.props['data-delivery-fields']), 'delivery fields must use a simple section inside the logistics accordion')
+assert(deliveryNodes.some(node => node.type === 'h3' && node.props.id === 'audit-delivery-heading'), 'logistics heading must stay in normal document flow')
+assert(!deliveryNodes.some(node => node.type === 'fieldset' || node.type === 'legend'), 'nested fieldset borders must not intersect the logistics heading')
 const districtSelect = deliveryNodes.find(node => node.type === 'select')
 assert.deepEqual(JSON.parse(JSON.stringify(districtSelect.props.children.map(option => option.props.value))), ['unknown', 'ramenskoe', 'outside'])
 districtSelect.props.onChange({ target: { value: 'outside' } })

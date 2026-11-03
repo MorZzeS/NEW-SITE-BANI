@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
-import { Building2, Check, CircleHelp, DoorOpen, Flame, Gift, House, Layers, Lightbulb, PlugZap, Ruler, ShieldCheck, Sofa } from 'lucide-react'
 import { DownloadModelPdfButton } from './DownloadModelPdfButton'
 import { formatPrice } from '@/data'
 import { modelBaseConfiguration, requiresBaseConfigurationConfirmation } from '@/data/model-configuration'
@@ -21,52 +20,14 @@ import { withBasePath } from '@/lib/site-path'
 
 type Option = ReturnType<typeof modelOptionAvailability>[number]['option']
 
-const baseRowGroups = [
-  { id: 'structure', title: 'Основание и конструкция', Icon: Building2 },
-  { id: 'protection', title: 'Защита и утепление', Icon: ShieldCheck },
-  { id: 'appearance', title: 'Наружная отделка и кровля', Icon: House },
-  { id: 'windows', title: 'Окна и двери', Icon: DoorOpen },
-  { id: 'layout', title: 'Помещения и планировка', Icon: Ruler },
-  { id: 'interior', title: 'Внутренняя отделка', Icon: Layers },
-  { id: 'engineering', title: 'Электрика и инженерные решения', Icon: PlugZap },
-  { id: 'lighting', title: 'Освещение', Icon: Lightbulb },
-  { id: 'stove', title: 'Печь', Icon: Flame },
-  { id: 'furniture', title: 'Мебель', Icon: Sofa },
-  { id: 'gifts', title: 'Подарки к комплектации', Icon: Gift },
-  { id: 'other', title: 'Дополнительные сведения', Icon: Check },
-] as const
-
-const baseRowGroupByLabel: Record<string, string> = {
-  'Конструкция': 'structure',
-  'Основание': 'structure',
-  'Формат': 'layout',
-  'Пароизоляция и ветровлагозащита': 'protection',
-  'Утепление': 'protection',
-  'Утепление пола и потолка': 'protection',
-  'Утепление стен': 'protection',
-  'Пол': 'protection',
-  'Наружная отделка': 'appearance',
-  'Кровля': 'appearance',
-  'Окна и двери': 'windows',
-  'Помещения': 'layout',
-  'Планировка и комплектация': 'layout',
-  'Внутренняя отделка': 'interior',
-  'Парная': 'interior',
-  'Печное решение': 'stove',
-  'Душевая и бойлер': 'engineering',
-  'Электрика и сантехника': 'engineering',
-  'Представленное исполнение': 'other',
-  'Особенности модели': 'other',
-  'Обработка парной': 'interior',
-  'Электрика': 'engineering',
-  'Инженерные системы': 'engineering',
-  'Освещение': 'lighting',
-  'Подарки к печи': 'gifts',
-  'Мебель': 'furniture',
-  'Входные ступени': 'gifts',
-}
-
 const isIncludedGift = (value: string) => /(?:^|[\s—])в подарок(?:$|[\s.,;—])/i.test(value)
+const visibleBaseValue = (value: string) => {
+  const visible = value
+    .replace(/\s*[—–-]\s*в подарок(?=$|[\s.,;—–-])/gi, '')
+    .replace(/^\s*[;,.—–-]\s*|\s*[;,.—–-]\s*$/g, '')
+    .trim()
+  return /^в подарок$/i.test(visible) ? '' : visible
+}
 
 function optionPrice(option: Option) {
   return option.salePrice === null ? 'Стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : option.id === 'ceiling-height' ? ' / 10 см' : ''}`
@@ -136,41 +97,37 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   }
 
   return <section className={`${styles.configuration} mb-16`} data-model-config={model.id} aria-label="Базовая комплектация и калькулятор опций">
-    <header className={styles.baseHeader}>
-      <div>
-        <p className={styles.eyebrow}>Комплектация модели {model.article ?? model.id}</p>
-        <h2>Базовая комплектация</h2>
-        <p className={styles.baseLead}>{pendingBaseRows.length ? 'Подтверждённые позиции входят в базовую стоимость. Параметры для согласования указаны отдельно ниже.' : 'Всё перечисленное входит в базовую стоимость модели.'}</p>
-      </div>
-      <span className={styles.includedBadge}><Check size={15} aria-hidden="true" /> {pendingBaseRows.length ? 'Подтверждённое — уже включено' : 'Уже включено в стоимость'}</span>
-    </header>
-    <div className={styles.baseGroups}>
-      {baseRowGroups.map(({ id, title, Icon }) => {
-        const rows = includedBaseRows.filter(row => (baseRowGroupByLabel[row.label] ?? 'other') === id)
-        if (!rows.length) return null
-        return <section className={styles.baseGroup} key={id} aria-label={title}>
-          <h3><span aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>{title}</h3>
-          <dl className={styles.baseCards}>{rows.map(row => <div className={styles.baseCard} data-base-label={row.label} data-base-included="true" data-base-gift={isIncludedGift(row.value) ? 'true' : undefined} key={row.label}>
-            <dt><span>{row.label}</span>{isIncludedGift(row.value)
-              ? <span className={styles.giftBadge}><Gift size={12} aria-hidden="true" /> В подарок</span>
-              : <span className={styles.includedRowBadge} aria-label="Включено в базовую комплектацию"><Check size={11} aria-hidden="true" />Включено в базовую комплектацию</span>}</dt>
-            <dd>{row.value}</dd>
-          </div>)}</dl>
-        </section>
-      })}
-      {pendingBaseRows.length > 0 && <details className={`${styles.baseGroup} ${styles.pendingGroup}`} aria-label="Параметры для согласования">
-        <summary className={styles.pendingSummary}>
-          <span className={styles.pendingIcon} aria-hidden="true"><CircleHelp size={17} strokeWidth={1.8} /></span>
-          <span className={styles.pendingTitle}>Параметры для согласования</span>
-          <span className={styles.pendingCount}>{pendingBaseRows.length} {pendingBaseRows.length === 1 ? 'позиция' : 'позиций'}</span>
-        </summary>
-        <p className={styles.pendingIntro}>Эти характеристики не заявлены как гарантированная комплектация. Разверните список, чтобы посмотреть, что уточняется с менеджером.</p>
-        <dl className={styles.baseCards}>{pendingBaseRows.map(row => <div className={styles.baseCard} data-base-label={row.label} data-base-included="false" key={row.label}>
-          <dt><span>{row.label}</span><span className={styles.pendingBadge}>Уточнить</span></dt>
-          <dd>{row.value}</dd>
-        </div>)}</dl>
-      </details>}
-    </div>
+    <section className={styles.baseSpecification} aria-label="Базовая комплектация модели">
+      <header className={styles.baseHeader}>
+        <div>
+          <p className={styles.eyebrow}>Комплектация модели {model.article ?? model.id}</p>
+          <h2>Базовая комплектация</h2>
+          <p className={styles.baseLead}>{pendingBaseRows.length ? 'В таблице перечислены подтверждённые позиции. Остальные параметры указаны отдельно ниже.' : 'Всё перечисленное входит в базовую стоимость модели.'}</p>
+        </div>
+        <span className={styles.includedBadge}>Включено в стоимость</span>
+      </header>
+      <dl className={styles.baseTable}>
+        {includedBaseRows.map(row => {
+          const gift = isIncludedGift(row.value)
+          const value = visibleBaseValue(row.value)
+          return <div className={styles.baseSpecRow} data-base-label={row.label} data-base-value={row.value} data-base-included="true" data-base-gift={gift ? 'true' : undefined} key={row.label}>
+            <dt>{row.label}</dt>
+            <dd>{value && <span>{value}</span>}{gift && <span className={styles.giftBadge}>В подарок</span>}</dd>
+          </div>
+        })}
+      </dl>
+    </section>
+    {pendingBaseRows.length > 0 && <details className={styles.pendingDetails} aria-label="Параметры для согласования">
+      <summary className={styles.pendingSummary}>
+        <span>Параметры для согласования</span>
+        <span className={styles.pendingCount}>{pendingBaseRows.length} {pendingBaseRows.length === 1 ? 'позиция' : 'позиций'}</span>
+      </summary>
+      <p className={styles.pendingIntro}>Эти характеристики уточняются с менеджером и не входят в подтверждённую спецификацию.</p>
+      <dl className={`${styles.baseTable} ${styles.pendingTable}`}>{pendingBaseRows.map(row => <div className={styles.baseSpecRow} data-base-label={row.label} data-base-value={row.value} data-base-included="false" key={row.label}>
+        <dt>{row.label}</dt>
+        <dd><span>{row.value}</span><span className={styles.pendingBadge}>Уточнить</span></dd>
+      </div>)}</dl>
+    </details>}
 
     <section className={styles.calculator} data-model-option-calculator={model.id} data-base-price={model.priceFrom} data-discount={discount} data-promotion={promotionalDiscount ? 'exit-intent' : ''} data-available-count={available.length} data-included-count={included.length} data-unknown-count={unknown.length} aria-labelledby={`model-options-title-${model.id}`}>
       <div className={styles.calculatorGrid}>

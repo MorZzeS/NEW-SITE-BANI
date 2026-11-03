@@ -23,7 +23,10 @@ function scan(dir) {
         // production export must still contain no test deployment path.
         withoutExpectedPrefix = text.replace("const isGitHubPagesProject = basePath === '/NEW-SITE-BANI'", '')
       }
-      if (/NEW-SITE-BANI|morzzes\.github\.io/.test(withoutExpectedPrefix)) errors.push(`${file}: legacy staging path`)
+      // Check public URL/path references, not absolute build-tool diagnostics
+      // that can contain the local checkout folder name in generated chunks.
+      const legacyTestUrl = /morzzes\.github\.io|(?:https?:\/\/[^\"'`\s<>]*)?\/NEW-SITE-BANI(?:\/|[\"'?#\s])/i.test(withoutExpectedPrefix)
+      if (legacyTestUrl) errors.push(`${file}: legacy staging path`)
       if (dir.startsWith(config.distDir) && entry.name.endsWith('.css')) {
         for (const match of text.matchAll(/url\((['"]?)([^)'"\s]+)\1\)/g)) {
           const url = match[2]

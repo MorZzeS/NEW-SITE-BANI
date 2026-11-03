@@ -34,20 +34,26 @@ for (const model of [...saunas,...homes]) {
     assert(card, `${model.id}: base row missing: ${row.label}`)
     const description = card[1].match(/<dd[^>]*>([\s\S]*?)<\/dd>/)?.[1]
     assert(description, `${model.id}: base row value missing: ${row.label}`)
-    assert.equal(clean(description), clean(row.value), `${model.id}: base row value changed: ${row.label}`)
+    const visibleValue = row.value.replace(/\s*[—–-]\s*в подарок(?=$|[\s.,;—–-])/gi, '').replace(/^\s*[;,.—–-]\s*|\s*[;,.—–-]\s*$/g, '').trim().replace(/^в подарок$/i, '')
+    if (visibleValue) assert(clean(description).includes(clean(visibleValue)), `${model.id}: base row value changed: ${row.label}`)
     const requiresConfirmation = requiresBaseConfigurationConfirmation(row.value)
     assert(card[0].includes(`data-base-included="${requiresConfirmation ? 'false' : 'true'}"`), `${model.id}: incorrect inclusion status: ${row.label}`)
     const isGift = /(?:^|[\s—])в подарок(?:$|[\s.,;—])/i.test(row.value)
     assert.equal(card[0].includes('data-base-gift="true"'), isGift, `${model.id}: gift status differs from source: ${row.label}`)
+    const visibleGiftCount = (clean(description).match(/в подарок/gi) ?? []).length
+    assert.equal(visibleGiftCount, isGift ? 1 : 0, `${model.id}: visible gift wording must be represented by exactly one compact label: ${row.label}`)
     if (requiresConfirmation) assert.match(clean(card[0]), /Уточнить/, `${model.id}: pending row must be labelled`)
     else if (isGift) assert.match(clean(card[0]), /В подарок/, `${model.id}: gift row must be labelled separately`)
-    else assert.match(clean(card[0]), /Включено в базовую комплектацию/, `${model.id}: included row must be labelled`)
+    else assert(!clean(card[0]).includes('Включено в стоимость'), `${model.id}: included rows must not repeat the global badge`)
   }
   const hasPendingRows = expectedRows.some(row => requiresBaseConfigurationConfirmation(row.value))
   const baseLead = clean(block.match(/<p[^>]*class="[^"]*baseLead[^"]*"[^>]*>([\s\S]*?)<\/p>/)?.[1] ?? '')
   assert.equal(baseLead, hasPendingRows
-    ? 'Подтверждённые позиции входят в базовую стоимость. Параметры для согласования указаны отдельно ниже.'
+    ? 'В таблице перечислены подтверждённые позиции. Остальные параметры указаны отдельно ниже.'
     : 'Всё перечисленное входит в базовую стоимость модели.', `${model.id}: base-price disclosure must match the verified row set`)
+  assert.equal((clean(block).match(/Включено в стоимость/g) ?? []).length, 1, `${model.id}: show only one included badge`)
+  assert.match(block, /class="[^"]*baseSpecification[^"]*"/, `${model.id}: compact specification container missing`)
+  assert.match(block, /class="[^"]*baseTable[^"]*"/, `${model.id}: compact specification table missing`)
   const n = Number(model.id.slice(3))
   if (homes.includes(model)) {
     const row = (label) => expectedRows.find(item => item.label === label)?.value ?? ''
@@ -69,8 +75,9 @@ for (const model of [...saunas,...homes]) {
       assert.match(row('Помещения'), /Комната отдыха/)
     }
   } else if (n <= 8) {
-    assert.match(text,/Утепление Включено в базовую комплектацию Стены, пол и потолок — минеральная вата 100 мм/)
-    assert.match(text,/Мебель В подарок Стол и две лавки — в подарок/)
+    assert.match(text,/Утепление Стены, пол и потолок — минеральная вата 100 мм/)
+    assert.match(text,/Мебель Стол и две лавки/)
+    assert.match(text,/В подарок/)
   } else if (n <= 27) {
     const furniture = expectedRows.find(item => item.label === 'Мебель')?.value ?? ''
     assert(requiresBaseConfigurationConfirmation(furniture), `${model.id}: furniture gift must only appear where confirmed by source`)
@@ -84,7 +91,7 @@ for (const model of [...saunas,...homes]) {
     assert(!text.includes('Бак для воды и камни для печи — в подарок'))
   }
   assert(!/(?<!\d)50\s*мм/.test(clean(html)), `${model.id}: outdated visible insulation`)
-  const construction = block.match(/<div[^>]*data-base-label="Конструкция"[^>]*>[\s\S]*?<dd[^>]*>([\s\S]*?)<\/dd>/)?.[1]
+  const construction = block.match(/<div[^>]*data-base-label="Конструкция"[^>]*>[\s\S]*?<dd[^>]*>\s*<span[^>]*>([^<]*)<\/span>/)?.[1]
   if (n >= 25 && n <= 27) assert.equal(clean(construction ?? ''), 'Согласуется при заказе')
   else if ((n >= 18 && n <= 24) || n === 28) assert.equal(clean(construction ?? ''), 'Тип конструкции согласуется при заказе')
   else assert.equal(clean(construction ?? ''), n === 31 ? 'Брус 90×140 мм' : 'Каркас 100 мм')
