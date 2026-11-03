@@ -6,7 +6,7 @@ export function modelConstruction(id: string): string {
 }
 // Keep published model-specific characteristics visible while using the owner's current insulation specification.
 export function modelFeatures(model: Sauna | Home): string[] {
-  return model.features.map(feature => feature.includes('Пол и потолок: утепление 50 мм') ? 'Пол и потолок: утепление 100 мм' : feature.includes('Каркас 100 мм или брус') ? modelConstruction(model.id) : feature)
+  return model.features.map(feature => feature.includes('Пол и потолок: утепление 50 мм') ? 'Пол и потолок: утепление 100 мм' : feature.includes('Каменка-2') ? 'Печь-каменка «Ермак» с дымоходом; бак и камни в подарок' : feature.includes('Каркас 100 мм или брус') ? modelConstruction(model.id) : feature)
 }
 export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationRow[] {
   const number = Number(model.id.replace('bg-', ''))
@@ -23,7 +23,7 @@ export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationR
   const knownStove = model.features.find(feature => /печь|печное/i.test(feature))
   const stove = number === 28
     ? 'Чугунная печь ЭТНА 18 с дымоходом — представленное исполнение Barn Premium'
-    : knownStove
+    : number <= 8 ? 'Печь-каменка «Ермак» с дымоходом — актуальная базовая комплектация' : knownStove
       ? `${knownStove.replace(/,?\s*(бак[^,]*,?\s*)?и?\s*камни\b/gi, '').replace(/,\s*$/, '')}; дымоход и защита узлов по проекту`
       : 'Печь-каменка «Ермак» с дымоходом; точная модель уточняется по спецификации'
   return [
