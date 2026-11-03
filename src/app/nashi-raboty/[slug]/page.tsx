@@ -80,13 +80,12 @@ export default async function ProjectPage({ params }: Props) {
           <>
             <section className="project-extras" aria-labelledby="project-extras-title">
               <div className="project-extras-heading">
-                <h2 className="project-section-title" id="project-extras-title">Что установлено дополнительно</h2>
-                <p className="mb-4 text-sm text-cream/60">Ниже перечислено оборудование и исполнение, выбранные и установленные на этом объекте сверх базовой комплектации.</p>
+                <h2 className="project-section-title" id="project-extras-title">Дополнительная комплектация и индивидуальные решения</h2>
+                <p className="mb-4 text-sm text-cream/60">Все перечисленные решения были заказаны вместе с баней и выполнены при её изготовлении, а не добавлены после установки на участке.</p>
               </div>
               <div className="project-extras-grid">
                 {clientCase.selectedExtras.map(extra => (
                   <article className="project-extra" key={extra}>
-                    <span className="project-extra-chip">Установлено на объекте</span>
                     <h3 className="project-extra-name">{extra}</h3>
                   </article>
                 ))}
@@ -95,7 +94,7 @@ export default async function ProjectPage({ params }: Props) {
 
             <section className="project-base" aria-labelledby="project-base-title">
               <h2 className="project-section-title" id="project-base-title">Что входит в базовую комплектацию</h2>
-              <p className="mb-4 text-sm text-cream/60">Ниже показан состав базовой комплектации по проекту. Дополнительное оборудование, установленное на этой бане, вынесено в отдельный список выше.</p>
+              <p className="mb-4 text-sm text-cream/60">Ниже показана базовая комплектация, на основе которой изготовлена баня. Дополнительное оборудование, установленное на этой бане, вынесено в отдельный список выше.</p>
               <table className="base-equipment-table"><caption className="sr-only">Состав базовой комплектации</caption><thead><tr><th scope="col">Параметр</th><th scope="col">Состав</th></tr></thead><tbody>{baseEquipmentRows.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td>{row.value}</td></tr>)}</tbody></table>
             </section>
           </>
