@@ -6,14 +6,14 @@ import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 
 // This audit verifies cumulative price changes against the fixed pre-increase baseline.
-// Saunas received +40,000 ₽ on 27 Oct and a further +15,000 ₽ on 3 Nov; homes retain +40,000 ₽.
+// All 31 models received +40,000 ₽ earlier and a further +15,000 ₽ on 3 Nov.
 // It only reads prices: running it cannot apply an increase.
 export const PRICE_BASELINE = '0e18849ddb891cae04d596babf8537cedd453cfe'
+export const OPTION_BASELINE = '51720e3d4bf63757b13fc1c7c1e81d4667e25736'
 export const MODEL_INCREASE = 55000
 export const HOME_MODEL_INCREASE = 40000
 export const ADDITIONAL_SAUNA_INCREASE = 15000
-export const OPTION_INCREASE = 5000
-export const OPTION_PRICE_PROVENANCE = '; повышение владельца от 27.10.2026: +5 000 ₽ к цене на 0e18849'
+export const OPTION_INCREASE = 0
 const scriptPath = fileURLToPath(import.meta.url)
 const defaultRoot = path.resolve(path.dirname(scriptPath), '..')
 const plain = value => JSON.parse(JSON.stringify(value))
@@ -40,7 +40,7 @@ export function auditPriceUpdate(root = defaultRoot) {
   const errors = []
   const check = (condition, message) => { if (!condition) errors.push(message) }
   const sourceFiles = ['src/data/index.ts', 'src/data/options.ts']
-  const baselineText = Object.fromEntries(sourceFiles.map(file => [file, execFileSync('git', ['show', `${PRICE_BASELINE}:${file}`], { cwd: root, encoding: 'utf8' })]))
+  const baselineText = Object.fromEntries(sourceFiles.map(file => [file, execFileSync('git', ['show', `${file === 'src/data/options.ts' ? OPTION_BASELINE : PRICE_BASELINE}:${file}`], { cwd: root, encoding: 'utf8' })]))
   const currentText = Object.fromEntries(sourceFiles.map(file => [file, fs.readFileSync(path.join(root, file), 'utf8')]))
   const oldData = loadData(baselineText[sourceFiles[0]])
   const newData = loadData(currentText[sourceFiles[0]])
@@ -80,34 +80,57 @@ export function auditPriceUpdate(root = defaultRoot) {
     restoredData.siteSettings.email = oldData.siteSettings.email
   }
   check(equal(restoredData, oldData), 'Other catalog exports or nonprice data changed')
-  check(equal(newOptions.optionCategories, oldOptions.optionCategories), 'Option categories changed')
-  check(equal(newOptions.additionalOptions.map(o => o.id), oldOptions.additionalOptions.map(o => o.id)), 'Option IDs/order changed')
+  check(equal(newOptions.optionCategories, [...oldOptions.optionCategories, 'Логистика']), 'Option categories changed outside the approved logistics category')
+  const approvedNewOptions = [
+    { id: 'facade-ral', name: 'Окраска внешней отделки по RAL', salePrice: 25000, category: 'Внешний вид', priceUnit: 'опция', description: 'Окраска наружной отделки в выбранный оттенок RAL; цвет и материалы согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: 'Стоимость 25 000 ₽ утверждена владельцем 03.11.2026.' },
+    { id: 'ceiling-height', name: 'Увеличение высоты потолка', salePrice: 22000, category: 'Общее по бане', priceUnit: '10 см', description: 'Увеличение на 10 см — 22 000 ₽, на 20 см — 44 000 ₽; максимум 20 см. Итоговая высота и техническая возможность согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: '22 000 ₽ за каждые 10 см — указано владельцем 03.11.2026.' },
+    { id: 'outdoor-lighting', name: 'Уличное освещение', salePrice: 15000, category: 'Электрика и освещение', priceUnit: 'опция', description: 'Наружное освещение для бани со стандартной открытой проводкой, без перехода на скрытую электрику.', enabled: true, source: 'owner-2026-11-03', priceSource: '15 000 ₽ — указано владельцем 03.11.2026. Не дублирует пакет со скрытой электрикой.' },
+    { id: 'larch-wash', name: 'Пол из лиственницы в моечной', salePrice: null, category: 'Моечная', priceUnit: 'опция', description: 'Замена чистового пола в моечной на лиственницу. Стоимость и конструкция требуют подтверждения.', enabled: true, source: 'owner-mention-2026-11-03', priceSource: 'Опция упомянута владельцем 03.11.2026, цену не сообщал.' },
+    { id: 'delivery', name: 'Доставка — Раменский район', salePrice: 20000, category: 'Логистика', description: 'Стоимость доставки в пределах Раменского района составляет 20 000 ₽. Доставка в другие районы и населённые пункты рассчитывается индивидуально.', priceUnit: 'услуга', enabled: true, source: 'owner-2026-11-03', priceSource: '20 000 ₽ только при явно выбранном Раменском районе. Иначе — индивидуальный расчёт.' },
+    { id: 'crane-unload', name: 'Разгрузка краном — Раменский район', salePrice: 25000, category: 'Логистика', description: 'Стоимость разгрузки краном в пределах Раменского района составляет 25 000 ₽. За пределами района стоимость рассчитывается индивидуально.', priceUnit: 'услуга', enabled: true, source: 'owner-2026-11-03', priceSource: '25 000 ₽ только при явно выбранном Раменском районе. Иначе — индивидуальный расчёт.' },
+    { id: 'wooden-window-600', name: 'Деревянное окно 600 × 600 мм', salePrice: 7000, category: 'Окна и двери', description: 'Деревянное окно размером 600 × 600 мм. Возможность установки и размеры проёма подтверждаются для выбранной модели.', priceUnit: 'шт.', enabled: true, source: 'owner-2026-11-03', priceSource: '7 000 ₽ — уточнение владельца 03.11.2026.' },
+    { id: 'wooden-window-400', name: 'Деревянное окно 400 × 400 мм', salePrice: 5500, category: 'Окна и двери', description: 'Деревянное окно размером 400 × 400 мм. Возможность установки и размеры проёма подтверждаются для выбранной модели.', priceUnit: 'шт.', enabled: true, source: 'owner-2026-11-03', priceSource: '5 500 ₽ — уточнение владельца 03.11.2026.' },
+  ]
+  const baselineIds = oldOptions.additionalOptions.map(o => o.id)
+  check(equal(newOptions.additionalOptions.map(o => o.id), [...baselineIds, ...approvedNewOptions.map(o => o.id)]), 'Option IDs/order changed outside the eight approved additions')
   const options = oldOptions.additionalOptions.map(before => {
     const after = newOptions.additionalOptions.find(option => option.id === before.id)
     const paid = typeof before.salePrice === 'number' && before.salePrice > 0 && before.source !== 'unconfirmed'
     const expected = { ...before }
-    if (paid) {
-      expected.salePrice += OPTION_INCREASE
-      expected.priceSource = `Исходная цена: ${before.priceSource}${OPTION_PRICE_PROVENANCE}`
+    if (before.id === 'furniture') {
+      expected.name = 'Дополнительная заводская мебель'
+      expected.description = 'Мебель сверх подарочного набора (стол и две лавки). Состав, размеры и установка согласуются для выбранной модели.'
     }
-    check(equal(after, expected), `${before.id}: option differs from authorised increase or nonprice data changed`)
+    if (before.id === 'tray') {
+      expected.name = 'Душевой поддон со шторкой и выводом воды'
+      expected.salePrice = 18000
+      expected.description = 'Включает поддон, шторку и вывод воды. Размещение и совместимость согласуются для выбранной модели.'
+      expected.source = 'owner-2026-11-03'
+      expected.priceSource = '18 000 ₽ за поддон со шторкой и выводом воды — уточнение владельца 03.11.2026.'
+    }
+    check(equal(after, expected), `${before.id}: baseline option changed outside the approved furniture wording`)
     return { id: before.id, name: before.name, unit: before.priceUnit, paid, baselinePrice: before.salePrice, expectedPrice: expected.salePrice, currentPrice: after?.salePrice, delta: paid ? after?.salePrice - before.salePrice : null, baselinePriceSource: before.priceSource, currentPriceSource: after?.priceSource }
   })
-  check(options.filter(o => o.paid).length === 18, 'Expected exactly 18 confirmed paid options')
-  check(options.filter(o => !o.paid).length === 1 && options.find(o => o.id === 'tray')?.currentPrice === null, 'Unconfirmed tray must remain unpriced')
-  // A text-level comparison also catches edits to helpers/comments outside data.
+  check(options.filter(o => o.paid).length === 18, 'Historical baseline must contain 18 confirmed paid options')
+  for (const expected of approvedNewOptions) {
+    const actual = newOptions.additionalOptions.find(option => option.id === expected.id)
+    check(equal(actual, expected), `${expected.id}: new option differs from its exact approved definition`)
+    options.push({ id: expected.id, name: expected.name, unit: expected.priceUnit, paid: expected.salePrice !== null, baselinePrice: null, expectedPrice: expected.salePrice, currentPrice: actual?.salePrice, delta: null, baselinePriceSource: null, currentPriceSource: actual?.priceSource })
+  }
+  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 26, 'Expected exactly 26 confirmed priced options')
+  check(newOptions.additionalOptions.filter(o => o.salePrice === null).length === 1 && newOptions.additionalOptions.find(o => o.id === 'larch-wash')?.salePrice === null, 'Larch wash must remain the only unpriced option')
+  check(newOptions.additionalOptions.find(o => o.id === 'tray')?.salePrice === 18000, 'Curtained shower tray must use the approved 18 000 RUB price')
+  // The catalog model comparison is structural; prices and approved contact email are the only allowed source changes.
   const normalise = source => source.replaceAll('\r\n', '\n')
   const scrubModels = source => normalise(source).replace("email: 'banger.ram@bk.ru'", "email: 'banger.su@bk.ru'").replace(/priceFrom: \d+/g, 'priceFrom: PRICE').replace(/priceVariants: \[[^\]]*\]/g, 'priceVariants: VARIANTS')
-  const scrubOptions = source => normalise(source).replace(/"salePrice": (?:\d+|null)/g, '"salePrice": PRICE').replace(/"priceSource": "[^"]*"/g, '"priceSource": SOURCE')
   check(scrubModels(currentText[sourceFiles[0]]) === scrubModels(baselineText[sourceFiles[0]]), 'Catalog source changed outside price literals')
-  check(scrubOptions(currentText[sourceFiles[1]]) === scrubOptions(baselineText[sourceFiles[1]]), 'Option source changed outside prices/provenance')
-  return { status: errors.length ? 'FAIL' : 'PASS', baseline: PRICE_BASELINE, modelIncrease: MODEL_INCREASE, homeModelIncrease: HOME_MODEL_INCREASE, additionalSaunaIncrease: ADDITIONAL_SAUNA_INCREASE, optionIncrease: OPTION_INCREASE, counts: { saunas: newData.saunas.length, homes: newData.homes.length, models: models.length, alternativePrices: models.reduce((n, m) => n + m.variants.length, 0), paidOptions: options.filter(o => o.paid).length, unpricedOptions: options.filter(o => !o.paid).length }, sourceFiles, errors, models, options }
+  return { status: errors.length ? 'FAIL' : 'PASS', baseline: PRICE_BASELINE, modelIncrease: MODEL_INCREASE, homeModelIncrease: HOME_MODEL_INCREASE, additionalSaunaIncrease: ADDITIONAL_SAUNA_INCREASE, optionIncrease: OPTION_INCREASE, counts: { saunas: newData.saunas.length, homes: newData.homes.length, models: models.length, alternativePrices: models.reduce((n, m) => n + m.variants.length, 0), paidOptions: newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length, unpricedOptions: newOptions.additionalOptions.filter(o => o.salePrice === null).length }, sourceFiles, errors, models, options }
 }
 
 export function writePriceReport(report, directory) {
   fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(path.join(directory, 'pricing-audit.json'), JSON.stringify(report, null, 2) + '\n')
-  const lines = [`# Изменение цен по состоянию на 03.11.2026 — ${report.status}`, '', `База: \`${report.baseline}\`. Мобильные бани: +55 000 ₽ суммарно от базы (+40 000 ₽ ранее и ещё +15 000 ₽ 03.11.2026); дома: +40 000 ₽; подтверждённые платные опции: +5 000 ₽. Повторный аудит не меняет цены.`, '', '| Модель / исполнение | До, ₽ | После, ₽ | Изменение, ₽ | Проверка |', '| --- | ---: | ---: | ---: | --- |']
+  const lines = [`# Изменение цен по состоянию на 03.11.2026 — ${report.status}`, '', `База моделей: \`${report.baseline}\`. 25 бань: +55 000 ₽ суммарно (+40 000 ₽ ранее и ещё +15 000 ₽ 03.11.2026); 6 домов: +40 000 ₽ без изменения. Исторические цены опций сверяются с \`${OPTION_BASELINE}\`; проверены восемь точных добавлений/уточнений. Повторный аудит не меняет цены.`, '', '| Модель / исполнение | До, ₽ | После, ₽ | Изменение, ₽ | Проверка |', '| --- | ---: | ---: | ---: | --- |']
   for (const model of report.models) {
     const status = model.currentPrice === model.expectedPrice && model.delta === model.expectedIncrease && !report.errors.some(error => error.startsWith(`${model.id}:`)) ? 'PASS' : 'FAIL'
     lines.push(`| ${model.id} — ${model.name} | ${rubles(model.baselinePrice)} | ${rubles(model.currentPrice)} | ${rubles(model.delta)} | ${status} |`)
@@ -118,7 +141,7 @@ export function writePriceReport(report, directory) {
   }
   lines.push('', '| Опция | Единица | До, ₽ | После, ₽ | Изменение, ₽ | Проверка |', '| --- | --- | ---: | ---: | ---: | --- |')
   for (const option of report.options) {
-    const passed = option.currentPrice === option.expectedPrice && (!option.paid || option.delta === OPTION_INCREASE) && !report.errors.some(error => error.startsWith(`${option.id}:`))
+    const passed = option.currentPrice === option.expectedPrice && !report.errors.some(error => error.startsWith(`${option.id}:`))
     const status = passed ? option.paid ? 'PASS' : 'Без изменения / PASS' : 'FAIL'
     lines.push(`| ${option.id} — ${option.name} | ${option.unit} | ${option.baselinePrice === null ? 'по согласованию' : rubles(option.baselinePrice)} | ${option.currentPrice === null ? 'по согласованию' : rubles(option.currentPrice)} | ${option.paid ? rubles(option.delta) : 'без изменений'} | ${status} |`)
   }

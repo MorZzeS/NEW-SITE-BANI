@@ -1,3 +1,4 @@
+import { deliveryDistrictLabel } from '@/lib/logistics'
 import { jsPDF } from 'jspdf'
 import type { Sauna, Home } from '@/types'
 import { modelBaseConfiguration, modelFeatures } from '@/data/model-configuration'
@@ -79,9 +80,10 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   for (const feature of modelFeatures(model)) text(`• ${feature}`)
   heading(configuration.options.length ? 'Выбранные дополнительные опции' : 'Дополнительные опции')
   if (!configuration.options.length) text('Дополнительные опции не выбраны. Представлена базовая комплектация модели.')
-  for (const option of configuration.options) {
+  for (const option of [...configuration.options].sort((a, b) => Number(a.kind === 'logistics') - Number(b.kind === 'logistics'))) {
+    if (option.id === configuration.options.find(item => item.kind === 'logistics')?.id) heading('Логистические услуги')
     ensure(35)
-    text(`${option.name}${option.id === 'ceiling-height' ? ` (+${option.quantity * 10} см)` : ''} · ${option.price === null ? 'Цена по запросу' : money(option.price * option.quantity)}`, 12)
+    text(`${option.name}${option.id === 'ceiling-height' ? ` (+${option.quantity * 10} см)` : ''} · ${option.price === null ? 'Индивидуальный расчёт' : money(option.price * option.quantity)}`, 12)
     const guidance = optionGuidance[option.id]
     const source = additionalOptions.find(item => item.id === option.id)
     text(guidance?.explanation || source?.description || 'Исполнение согласуется при заказе.')
@@ -90,10 +92,13 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   ensure(68)
   heading('Стоимость комплектации')
   text(`Базовая комплектация: ${money(configuration.basePrice)}`)
-  text(`Дополнительные опции: ${money(configuration.optionsSubtotal)}`)
+  text(`Дополнительное оборудование: ${money(configuration.equipmentSubtotal)}`)
+  text(`Логистические услуги: ${money(configuration.logisticsSubtotal)}`)
+  if (configuration.options.some(option => option.kind === 'logistics') || configuration.deliveryAddress || configuration.deliveryDistrict !== 'unknown') text(`Район: ${deliveryDistrictLabel(configuration.deliveryDistrict)}`)
+  if (configuration.deliveryAddress) text(`Адрес доставки: ${configuration.deliveryAddress}`)
   text(configuration.discount ? `${configuration.discountLabel} (акция): -${money(configuration.discount)}` : 'Скидка: 0 ₽ (не применена)')
-  text(`Стоимость выбранной комплектации${configuration.discount ? ' с учётом скидки' : ''}${configuration.unpricedCount ? ' (без опций по согласованию)' : ''}: ${money(configuration.total)}`, 14)
-  if (configuration.unpricedCount) text(`Опции без подтверждённой цены: ${configuration.unpricedCount}. Их стоимость не включена в итог.`, 9)
+  text(`Итого подтверждённых позиций${configuration.discount ? ' с учётом скидки' : ''}${configuration.unpricedCount ? ' (без опций по согласованию)' : ''}: ${money(configuration.total)}`, 14)
+  if (configuration.unpricedCount) text(`Индивидуальный расчёт: ${configuration.unpricedCount}. Предварительная сумма без этих позиций и неподтверждённых логистических расходов.`, 9)
   text('Предварительный расчёт. Совместимость опций, окончательная стоимость, доставка и монтаж согласуются при заказе.', 9)
   ensure(40)
   heading('Связаться с нами')

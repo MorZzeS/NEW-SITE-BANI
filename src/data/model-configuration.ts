@@ -11,6 +11,16 @@ export function modelFeatures(model: Sauna | Home): string[] {
 export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationRow[] {
   const number = Number(model.id.replace('bg-', ''))
   const hasPlan = Boolean(model.floorPlan)
+  // These catalogue entries confirm a two-module format only. A missing home specification
+  // must not inherit the mobile bath's stove, steam-room finishes, gifts or engineering.
+  if (!('series' in model) && !hasPlan) {
+    return [
+      { label: 'Конструкция', value: modelConstruction(model.id) },
+      { label: 'Формат', value: model.features.find(feature => /двухмодульный формат/i.test(feature)) || 'Согласуется при заказе' },
+      { label: 'Планировка и комплектация', value: 'В каталоге нет подтверждённой планировки и комплектации; состав подтверждается при заказе' },
+      ...['Основание', 'Утепление', 'Наружная отделка', 'Кровля', 'Помещения', 'Внутренняя отделка', 'Окна и двери', 'Инженерные системы', 'Электрика', 'Освещение', 'Мебель', 'Входные ступени'].map(label => ({ label, value: 'Согласуется при заказе' })),
+    ]
+  }
   const combined = [1, 2, 3, 22].includes(number)
   const noSeparateWash = [9, 10, 18].includes(number)
   const rooms = !hasPlan

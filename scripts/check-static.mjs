@@ -107,7 +107,8 @@ for (const record of records) {
   const priceBlock = html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1]
   if (!priceBlock) errors.push(`${record.id}: missing price section`)
   const visiblePrice = model && dataExports.formatPrice(model.priceFrom).replace(/\s/g, ' ')
-  if (!priceBlock?.replace(/\s/g, ' ').includes(visiblePrice)) errors.push(`${record.id}: current base price not displayed`)
+  const visibleText = priceBlock?.replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/[\u00a0\u202f\s]+/g, ' ').trim() ?? ''
+  if (!visibleText.includes(`Базовая комплектация — ${visiblePrice}`)) errors.push(`${record.id}: base price must render as "Базовая комплектация — ${visiblePrice}"`)
   for (const variant of expectedVariants) {
     if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
   }

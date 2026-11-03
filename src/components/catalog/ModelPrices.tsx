@@ -5,10 +5,10 @@ export function ModelPrices({ model }: { model: Sauna | Home }) {
   const construction = model.specs.find((spec) => spec.label === 'Исполнение')?.value
   return (
     <section aria-label="Стоимость и варианты исполнения" className="glass rounded-2xl p-5 mb-6">
-      <h2 className="text-sm text-cream/70 mb-1">Базовая комплектация</h2>
+      <h2 className="text-sm text-cream/70 mb-1">Стоимость базового исполнения</h2>
       <p className="text-sm text-cream/70 mb-2">{construction}</p>
       <p className="text-3xl font-extrabold text-cream">
-        {formatPrice(model.priceFrom)}
+        Базовая комплектация — {formatPrice(model.priceFrom)}
       </p>
       {!!model.priceVariants?.length && <div className="mt-4 pt-4 border-t border-cream/15">
         <h3 className="text-sm font-semibold text-cream mb-2">Другие исполнения</h3>

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Armchair, Check, ChevronDown, Droplets, Flame, House, Layers, Palette, Puzzle, ShieldCheck, Waves, PanelsTopLeft, Zap } from 'lucide-react'
+import { Armchair, Check, ChevronDown, Droplets, Flame, House, Layers, Palette, Puzzle, ShieldCheck, Truck, Waves, PanelsTopLeft, Zap } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { optionGuidance } from '@/data/option-guidance'
 import { additionalOptions } from '@/data/options'
@@ -9,12 +9,12 @@ import { withBasePath } from '@/lib/site-path'
 import styles from './ConfigurationOption.module.css'
 
 export function ConfigurationCategoryTitle({ name, count }: { name: string; count: string }) {
-  const Icon = ({ 'Общее по бане': Layers, 'Внешний вид': Palette, 'Комната отдыха': Armchair, 'Моечная': Droplets, 'Парная': Waves, 'Печь и безопасность': Flame, 'Электрика и освещение': Zap, 'Окна и двери': PanelsTopLeft, 'Кровля': House, 'Уже входит в базовую комплектацию': Puzzle } as Record<string, typeof Layers>)[name] ?? ShieldCheck
+  const Icon = ({ 'Общее по бане': Layers, 'Внешний вид': Palette, 'Комната отдыха': Armchair, 'Моечная': Droplets, 'Парная': Waves, 'Печь и безопасность': Flame, 'Электрика и освещение': Zap, 'Окна и двери': PanelsTopLeft, 'Кровля': House, 'Логистика': Truck, 'Уже входит в базовую комплектацию': Puzzle } as Record<string, typeof Layers>)[name] ?? ShieldCheck
   return <><Icon className={styles.categoryIcon} size={22} aria-hidden="true" /><span className={styles.categoryName}>{name}</span><span className={styles.count}>{count}</span><ChevronDown className={styles.chevron} size={19} aria-hidden="true" /></>
 }
 
 export function ConfigurationOption({ option, checked, onToggle, inputId, price, reason, status = 'available', children }: {
-  option: typeof additionalOptions[number]; checked: boolean; onToggle: () => void; inputId: string; price: string; reason?: string; status?: string; children?: ReactNode
+  option: Omit<typeof additionalOptions[number], 'salePrice'> & { salePrice: number | null }; checked: boolean; onToggle: () => void; inputId: string; price: string; reason?: string; status?: string; children?: ReactNode
 }) {
   const guidance = optionGuidance[option.id]
   return <article className={styles.option} data-selected={checked} data-option-id={option.id} data-option-price={option.salePrice ?? ''} data-option-selectable="true" data-option-status={status}>

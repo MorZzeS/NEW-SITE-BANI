@@ -27,7 +27,7 @@ export default async function ModelSheet({ params }: { params: Promise<{ id: str
     <div className="sheet-images"><figure><img src={withBasePath(model.image)} alt={model.name} /><figcaption>Визуализация модели</figcaption></figure>
       {model.floorPlan && <figure><img src={withBasePath(model.floorPlan)} alt={`Планировка ${model.name}`} /><figcaption>Планировка модели</figcaption></figure>}</div>
     <p>{model.description}</p>
-    <h2>Стоимость</h2><p>{model.specs.find(spec => spec.label === 'Исполнение')?.value}</p><p className="sheet-price">{model.id !== 'bg-28' && 'от '}{model.priceFrom.toLocaleString('ru-RU')} ₽</p>
+    <h2>Стоимость</h2><p>{model.specs.find(spec => spec.label === 'Исполнение')?.value}</p><p className="sheet-price">{model.priceFrom.toLocaleString('ru-RU')} ₽</p>
     {model.priceVariants?.map(v => <p key={v}>{v}</p>)}
     <h2>Характеристики</h2><dl className="model-parameters">
       <div><dt>Размер</dt><dd>{model.size}</dd></div><div><dt>Площадь</dt><dd>{model.area} м²</dd></div><div><dt>Артикул</dt><dd>{model.article}</dd></div>

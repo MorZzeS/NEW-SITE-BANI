@@ -1,10 +1,18 @@
+import { deliveryDistrictLabel, managerOptionName, isLogisticsOption, normalizeDeliveryAddress, normalizeDeliveryDistrict, resolveOptionPrice, type DeliveryDistrict } from '@/lib/logistics'
 import { additionalOptions } from '@/data/options'
 export const enabledEquipmentOptions = additionalOptions.filter(option => option.enabled)
-export function equipmentSelection(ids: readonly string[], quantities: Readonly<Record<string, number>> = {}) {
+export function equipmentSelection(ids: readonly string[], quantities: Readonly<Record<string, number>> = {}, logistics: { deliveryDistrict?: DeliveryDistrict; deliveryAddress?: string } = {}) {
+  const deliveryDistrict = normalizeDeliveryDistrict(logistics.deliveryDistrict)
+  const deliveryAddress = normalizeDeliveryAddress(logistics.deliveryAddress)
   const uniqueIds = new Set(ids)
-  const selected = enabledEquipmentOptions.filter(option => uniqueIds.has(option.id)).map(option => ({ ...option, quantity: option.id === 'ceiling-height' ? Math.max(1, Math.min(20, Math.floor(quantities[option.id] || 1))) : 1 }))
-  return { selected, knownTotal: selected.reduce((sum, option) => sum + (option.salePrice ?? 0) * option.quantity, 0), unpricedCount: selected.filter(option => option.salePrice === null).length,
-    comment: selected.length ? ['Выбранные дополнительные опции:', ...selected.map(option => `• ${option.name}${option.id === 'ceiling-height' ? ` — +${option.quantity * 10} см (${option.quantity} × 10 см)` : option.priceUnit === 'шт.' ? ' — 1 шт.' : ''}`)].join('\n') : '' }
+  const selected = enabledEquipmentOptions.filter(option => uniqueIds.has(option.id) && !(option.id === 'ceiling-height' && quantities[option.id] === 0)).map(option => ({ ...option, salePrice: resolveOptionPrice(option, deliveryDistrict), kind: isLogisticsOption(option.id) ? 'logistics' as const : 'equipment' as const, quantity: option.id === 'ceiling-height' ? Math.max(1, Math.min(2, Math.floor(Number.isFinite(quantities[option.id]) ? quantities[option.id] : 1))) : 1 }))
+  const subtotal = (kind?: string) => selected.filter(option => !kind || option.kind === kind).reduce((sum, option) => sum + (option.salePrice ?? 0) * option.quantity, 0)
+  const knownTotal = subtotal(), equipmentSubtotal = subtotal('equipment'), logisticsSubtotal = subtotal('logistics')
+  const unpricedCount = selected.filter(option => option.salePrice === null).length
+  const money = (price: number) => price.toLocaleString('ru-RU') + ' ₽'
+  const summary = (compact = false) => selected.length || deliveryAddress || deliveryDistrict !== 'unknown' ? [selected.length ? 'Выбранные дополнительные опции:' : 'Дополнительные опции не выбраны.', ...selected.map(option => '• ' + managerOptionName(option, compact) + (option.id === 'ceiling-height' ? ' (+' + option.quantity * 10 + ' см)' : '') + ' — ' + (option.salePrice === null ? 'Индивидуальный расчёт' : money(option.salePrice * option.quantity))), 'Оборудование: ' + money(equipmentSubtotal), 'Логистика: ' + money(logisticsSubtotal), 'Итого дополнений: ' + money(knownTotal), ...(selected.some(option => option.kind === 'logistics') || deliveryAddress || deliveryDistrict !== 'unknown' ? ['Район: ' + deliveryDistrictLabel(deliveryDistrict), ...(deliveryAddress ? ['Адрес: ' + deliveryAddress] : [])] : []), ...(unpricedCount ? ['Предварительная сумма без позиций индивидуального расчёта и неподтверждённой логистики.'] : [])].join('\n') : ''
+  const comment = summary().length > 1500 ? summary(true) : summary()
+  return { selected, knownTotal, equipmentSubtotal, logisticsSubtotal, unpricedCount, comment, deliveryDistrict, deliveryAddress }
 }
 export function mergeConfigurationComment(comment: string, configurationNote?: string) {
   const result = configurationNote ? [configurationNote, comment].filter(Boolean).join('\n\n') : comment

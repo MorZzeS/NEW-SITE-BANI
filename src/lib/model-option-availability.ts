@@ -36,6 +36,7 @@ type Requirement = { zone: Zone; label: string }
  * configuration of the model. Compatibility of a specific execution is still confirmed at order.
  */
 const optionRequirements: Readonly<Record<string, Requirement>> = {
+  tray: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
   boiler: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
   shower: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
   bucket: { zone: 'wash', label: 'подтверждённая моечная / душевая зона' },
@@ -62,7 +63,8 @@ const optionRequirements: Readonly<Record<string, Requirement>> = {
 /** Options whose compatibility is a replacement or an unconfirmed engineering decision. */
 const replacementOptions: Readonly<Record<string, string>> = {
   ermak: 'Замена базовой печи на Ермак 12 ПС не подтверждена каталогом: совместимость, состав замены и цена требуют согласования.',
-  tray: 'Душевой поддон указан без подтверждённой цены и совместимости: вариант, размещение и стоимость согласуются при заказе.',
+  'wooden-window-600': 'Установка деревянного окна 600 × 600 мм не подтверждена планировкой: размер проёма и возможность замены требуют согласования.',
+  'wooden-window-400': 'Установка деревянного окна 400 × 400 мм не подтверждена планировкой: размер проёма и возможность замены требуют согласования.',
 }
 
 export const availabilitySources = Object.freeze({
@@ -122,6 +124,7 @@ export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
     const row = (status: ModelOptionStatus, reason: string, source: string): ModelOptionRow => ({
       option, status, reason, source, blockedReason: status === 'available' ? undefined : reason,
     })
+    if (option.id === 'delivery' || option.id === 'crane-unload') return row('available', 'Самостоятельная логистическая услуга. Тариф зависит от района, выбранного вручную; адрес и условия работ согласуются при заказе.', availabilitySources.options)
     const inBase = included(option.id)
     if (inBase) {
       return row('included', `Уже входит в базовую комплектацию модели: «${inBase.feature}». Повторно не оплачивается.`, availabilitySources.feature)

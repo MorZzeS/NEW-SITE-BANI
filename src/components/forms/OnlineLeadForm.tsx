@@ -57,7 +57,9 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     try {
       const verified = leadContract === 3 ? await verifyLeadDocumentBundle() : undefined
       if (!attempt.current) {
-        const managerConfiguration = configurationDetails ? configurationManagerText(configurationDetails) : configurationNote || ''
+        let managerConfiguration = configurationDetails ? configurationManagerText(configurationDetails) : configurationNote || ''
+        // The model URL is already sent in lead.page, so it need not consume the bounded legacy comment.
+        if (configurationDetails && managerConfiguration.length + comment.trim().length + 2 > 1500) managerConfiguration = configurationManagerText(configurationDetails, true)
         const finalComment = leadContract === 3 ? comment.trim() : mergeManagerComment(comment.trim(), managerConfiguration)
         attempt.current = {
           ...context,
@@ -67,7 +69,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
           phone,
           comment: finalComment,
           configuration: (configurationNote || '').slice(0, 2000),
-          ...(configurationDetails ? { configurationDetails: { ...structuredClone(configurationDetails), calculatedAt: new Date().toISOString() } } : {}),
+          ...(leadContract === 3 && configurationDetails ? { configurationDetails: { ...structuredClone(configurationDetails), calculatedAt: new Date().toISOString() } } : {}),
           createdAt: new Date().toISOString(),
           consent: true,
           website,
