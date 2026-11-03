@@ -21,7 +21,6 @@ export const includedOptionFeatures: Readonly<Record<string, ConfirmedFeature>> 
   guard: { pattern: /ограждение печи/i, feature: 'Ограждение печи' },
   ermak: { pattern: /печь ермак 12/i, feature: 'Печь Ермак 12' },
   shade: { pattern: /абажур/i, feature: 'Абажур в парную' },
-  furniture: { pattern: /стол и две лавки/i, feature: 'Стол и две лавки' },
   'window-grid': { pattern: /шпросы/i, feature: 'Шпросы' },
   decor: { pattern: /декоративн[а-яё]*\s+ре[йш]/i, feature: 'Декоративные рейки' },
   lamination: { pattern: /ламинация/i, feature: 'Ламинация окон и двери' },
