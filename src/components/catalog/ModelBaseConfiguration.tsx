@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Building2, Check, CircleHelp, DoorOpen, Flame, Gift, House, Layers, Lightbulb, PlugZap, Ruler, ShieldCheck, Sofa } from 'lucide-react'
 import { DownloadModelPdfButton } from './DownloadModelPdfButton'
 import { formatPrice } from '@/data'
-import { modelBaseConfiguration } from '@/data/model-configuration'
+import { modelBaseConfiguration, requiresBaseConfigurationConfirmation } from '@/data/model-configuration'
 import { optionCategories } from '@/data/options'
 import type { Home, Sauna } from '@/types'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
@@ -39,8 +39,11 @@ const baseRowGroups = [
 const baseRowGroupByLabel: Record<string, string> = {
   'Конструкция': 'structure',
   'Основание': 'structure',
+  'Формат': 'layout',
   'Пароизоляция и ветровлагозащита': 'protection',
   'Утепление': 'protection',
+  'Утепление пола и потолка': 'protection',
+  'Утепление стен': 'protection',
   'Пол': 'protection',
   'Наружная отделка': 'appearance',
   'Кровля': 'appearance',
@@ -50,6 +53,11 @@ const baseRowGroupByLabel: Record<string, string> = {
   'Внутренняя отделка': 'interior',
   'Парная': 'interior',
   'Печное решение': 'stove',
+  'Душевая и бойлер': 'engineering',
+  'Электрика и сантехника': 'engineering',
+  'Представленное исполнение': 'other',
+  'Особенности модели': 'other',
+  'Обработка парной': 'interior',
   'Электрика': 'engineering',
   'Инженерные системы': 'engineering',
   'Освещение': 'lighting',
@@ -58,7 +66,6 @@ const baseRowGroupByLabel: Record<string, string> = {
   'Входные ступени': 'gifts',
 }
 
-const needsConfirmation = (value: string) => /согласу(?:ется|ются) при заказе|состав подтверждается при заказе|нет подтверждённой/i.test(value)
 const isIncludedGift = (value: string) => /(?:^|[\s—])в подарок(?:$|[\s.,;—])/i.test(value)
 
 function optionPrice(option: Option) {
@@ -81,8 +88,8 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   const selectedIdsSet = new Set(selected.map(option => option.id))
   const { discount, discountLabel, total } = configuration
   const baseRows = modelBaseConfiguration(model)
-  const includedBaseRows = baseRows.filter(row => !needsConfirmation(row.value))
-  const pendingBaseRows = baseRows.filter(row => needsConfirmation(row.value))
+  const includedBaseRows = baseRows.filter(row => !requiresBaseConfigurationConfirmation(row.value))
+  const pendingBaseRows = baseRows.filter(row => requiresBaseConfigurationConfirmation(row.value))
   const basePriceText = formatPrice(model.priceFrom)
   const totalText = formatPrice(total)
   const configurationNote = [configurationManagerText(configuration), pageUrl ? `Страница модели: ${pageUrl}` : ''].filter(Boolean).join('\n')
@@ -144,18 +151,25 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
         return <section className={styles.baseGroup} key={id} aria-label={title}>
           <h3><span aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>{title}</h3>
           <dl className={styles.baseCards}>{rows.map(row => <div className={styles.baseCard} data-base-label={row.label} data-base-included="true" data-base-gift={isIncludedGift(row.value) ? 'true' : undefined} key={row.label}>
-            <dt><span>{row.label}</span>{isIncludedGift(row.value) && <span className={styles.giftBadge}><Gift size={12} aria-hidden="true" /> В подарок</span>}</dt>
+            <dt><span>{row.label}</span>{isIncludedGift(row.value)
+              ? <span className={styles.giftBadge}><Gift size={12} aria-hidden="true" /> В подарок</span>
+              : <span className={styles.includedRowBadge} aria-label="Включено в базовую комплектацию"><Check size={11} aria-hidden="true" />Включено в базовую комплектацию</span>}</dt>
             <dd>{row.value}</dd>
           </div>)}</dl>
         </section>
       })}
-      {pendingBaseRows.length > 0 && <section className={`${styles.baseGroup} ${styles.pendingGroup}`} aria-label="Параметры для согласования">
-        <h3><span aria-hidden="true"><CircleHelp size={16} strokeWidth={1.8} /></span>Параметры для согласования</h3>
+      {pendingBaseRows.length > 0 && <details className={`${styles.baseGroup} ${styles.pendingGroup}`} aria-label="Параметры для согласования">
+        <summary className={styles.pendingSummary}>
+          <span className={styles.pendingIcon} aria-hidden="true"><CircleHelp size={17} strokeWidth={1.8} /></span>
+          <span className={styles.pendingTitle}>Параметры для согласования</span>
+          <span className={styles.pendingCount}>{pendingBaseRows.length} {pendingBaseRows.length === 1 ? 'позиция' : 'позиций'}</span>
+        </summary>
+        <p className={styles.pendingIntro}>Эти характеристики не заявлены как гарантированная комплектация. Разверните список, чтобы посмотреть, что уточняется с менеджером.</p>
         <dl className={styles.baseCards}>{pendingBaseRows.map(row => <div className={styles.baseCard} data-base-label={row.label} data-base-included="false" key={row.label}>
           <dt><span>{row.label}</span><span className={styles.pendingBadge}>Уточнить</span></dt>
           <dd>{row.value}</dd>
         </div>)}</dl>
-      </section>}
+      </details>}
     </div>
 
     <section className={styles.calculator} data-model-option-calculator={model.id} data-base-price={model.priceFrom} data-discount={discount} data-promotion={promotionalDiscount ? 'exit-intent' : ''} data-available-count={available.length} data-included-count={included.length} data-unknown-count={unknown.length} aria-labelledby={`model-options-title-${model.id}`}>

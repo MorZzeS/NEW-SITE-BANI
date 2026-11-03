@@ -1,5 +1,5 @@
 import type { Home, Sauna } from '@/types'
-import { modelBaseConfiguration } from '@/data/model-configuration'
+import { modelBaseConfiguration, requiresBaseConfigurationConfirmation } from '@/data/model-configuration'
 import { enabledEquipmentOptions } from '@/lib/equipment-selection'
 
 export type ModelOptionStatus = 'available' | 'included' | 'unavailable' | 'unknown'
@@ -78,7 +78,11 @@ export const availabilitySources = Object.freeze({
 function confirmedZones(model: Sauna | Home) {
   const rows = modelBaseConfiguration(model)
   const value = (label: string) => rows.find(row => row.label === label)?.value ?? ''
-  const rooms = value('Помещения')
+  const confirmed = (label: string) => {
+    const result = value(label)
+    return result && !requiresBaseConfigurationConfirmation(result) ? result : ''
+  }
+  const rooms = confirmed('Помещения')
   const plan = Boolean(model.floorPlan)
   return {
     plan,
@@ -86,9 +90,9 @@ function confirmedZones(model: Sauna | Home) {
     wash: plan && /моечн|душев/i.test(rooms),
     bathroom: plan && /санузел/i.test(rooms),
     lounge: plan && /комната отдыха/i.test(rooms),
-    stove: plan && /печь/i.test(value('Печное решение')),
-    windows: plan && Boolean(value('Окна и двери')),
-    electrics: plan && Boolean(value('Освещение')),
+    stove: plan && /печь/i.test(confirmed('Печное решение')),
+    windows: plan && Boolean(confirmed('Окна и двери')),
+    electrics: plan && Boolean(confirmed('Электрика')) && Boolean(confirmed('Освещение')),
     building: plan,
   } satisfies Record<Zone | 'plan', boolean>
 }

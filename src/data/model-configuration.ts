@@ -1,26 +1,75 @@
-import type { Sauna, Home } from '@/types'
+import type { Home, Sauna } from '@/types'
+
 export type ModelConfigurationRow = { label: string; value: string }
+
+const pending = 'Согласуется при заказе'
+
+export function requiresBaseConfigurationConfirmation(value: string): boolean {
+  return /согласу(?:ется|ются)|уточня(?:ется|ются)|не подтвержд|не указано|не указана|по запросу/i.test(value)
+}
+
 export function modelConstruction(id: string): string {
   const number = Number(id.replace('bg-', ''))
-  return number === 31 ? 'Брус 90×140 мм' : number <= 17 || number === 29 || number === 30 ? 'Каркас 100 мм' : 'Исполнение по утверждённому проекту модели'
+  if (number === 31) return 'Брус 90×140 мм'
+  if (number <= 17 || number === 29 || number === 30) return 'Каркас 100 мм'
+  return 'Тип конструкции согласуется при заказе'
 }
+
 // Keep published model-specific characteristics visible while using the owner's current insulation specification.
 export function modelFeatures(model: Sauna | Home): string[] {
   return model.features.map(feature => feature.includes('Пол и потолок: утепление 50 мм') ? 'Пол и потолок: утепление 100 мм' : feature.includes('Каменка-2') ? 'Печь-каменка «Ермак» с дымоходом; бак и камни в подарок' : feature.includes('Каркас 100 мм или брус') ? modelConstruction(model.id) : feature)
 }
-export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationRow[] {
+
+function homeConfiguration(model: Home): ModelConfigurationRow[] {
   const number = Number(model.id.replace('bg-', ''))
+  const houseFeatures = model.features.filter(feature => !/планировка и комплектация согласуются при заказе/i.test(feature))
+  const layoutFeatures = houseFeatures.filter(feature => /парная|моечная|душевая|санузел|комната отдыха|терраса|веранда/i.test(feature))
+  const extraModelFeature = /террас|веранд/i.test(model.subtitle) && !layoutFeatures.some(feature => /террас|веранд/i.test(feature))
+    ? model.subtitle
+    : ''
+  const confirmedLayout = [...layoutFeatures, ...(extraModelFeature ? [extraModelFeature] : [])].join('; ')
+  const format = houseFeatures.find(feature => /двухмодульный формат/i.test(feature))
+
+  return [
+    { label: 'Конструкция', value: number >= 25 && number <= 27 ? pending : modelConstruction(model.id) },
+    ...(format ? [{ label: 'Формат', value: format }] : []),
+    { label: 'Помещения', value: confirmedLayout || (model.floorPlan ? 'Состав помещений — по планировке модели' : pending) },
+    { label: 'Утепление', value: 'Пол и потолок — минеральная вата 100 мм; подтверждено владельцем для моделей каталога' },
+    ...[
+      'Основание',
+      'Пароизоляция и ветровлагозащита',
+      'Наружная отделка',
+      'Кровля',
+      'Внутренняя отделка',
+      'Печное решение',
+      'Окна и двери',
+      'Электрика',
+      'Освещение',
+      'Мебель',
+      'Входные ступени',
+    ].map(label => ({ label, value: `${pending}. Проверяется по спецификации этой модели.` })),
+  ]
+}
+
+function barnPremiumConfiguration(model: Sauna): ModelConfigurationRow[] {
+  const feature = (pattern: RegExp, fallback: string) => model.features.find(item => pattern.test(item)) ?? fallback
+  return [
+    { label: 'Конструкция', value: modelConstruction(model.id) },
+    { label: 'Печное решение', value: feature(/печь/i, pending) },
+    { label: 'Душевая и бойлер', value: feature(/душев|бойлер/i, pending) },
+    { label: 'Электрика и сантехника', value: feature(/электрик|сантехник/i, pending) },
+    { label: 'Утепление', value: feature(/утеплен/i, 'Пол и потолок — минеральная вата 100 мм; подтверждено владельцем для моделей каталога') },
+    { label: 'Обработка парной', value: feature(/масло/i, pending) },
+  ]
+}
+
+export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationRow[] {
+  if (!('series' in model)) return homeConfiguration(model)
+
+  const number = Number(model.id.replace('bg-', ''))
+  if (number === 28) return barnPremiumConfiguration(model)
+
   const hasPlan = Boolean(model.floorPlan)
-  // These catalogue entries confirm a two-module format only. A missing home specification
-  // must not inherit the mobile bath's stove, steam-room finishes, gifts or engineering.
-  if (!('series' in model) && !hasPlan) {
-    return [
-      { label: 'Конструкция', value: modelConstruction(model.id) },
-      { label: 'Формат', value: model.features.find(feature => /двухмодульный формат/i.test(feature)) || 'Согласуется при заказе' },
-      { label: 'Планировка и комплектация', value: 'В каталоге нет подтверждённой планировки и комплектации; состав подтверждается при заказе' },
-      ...['Основание', 'Утепление', 'Наружная отделка', 'Кровля', 'Помещения', 'Внутренняя отделка', 'Окна и двери', 'Инженерные системы', 'Электрика', 'Освещение', 'Мебель', 'Входные ступени'].map(label => ({ label, value: 'Согласуется при заказе' })),
-    ]
-  }
   const combined = [1, 2, 3, 22].includes(number)
   const noSeparateWash = [9, 10, 18].includes(number)
   const rooms = !hasPlan
@@ -31,18 +80,19 @@ export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationR
   const bathroom = ('hasBathroom' in model && model.hasBathroom) || number >= 29
   const terrace = ('hasTerrace' in model && model.hasTerrace) || number === 31
   const knownStove = model.features.find(feature => /печь|печное/i.test(feature))
-  const stove = number === 28
-    ? 'Чугунная печь ЭТНА 18 с дымоходом — представленное исполнение Barn Premium'
-    : number <= 8 ? 'Печь-каменка «Ермак» с дымоходом — актуальная базовая комплектация' : knownStove
-      ? `${knownStove.replace(/,?\s*(бак[^,]*,?\s*)?и?\s*камни\b/gi, '').replace(/,\s*$/, '')}; дымоход и защита узлов по проекту`
-      : 'Печь-каменка «Ермак» с дымоходом; точная модель уточняется по спецификации'
+  const stove = number <= 8
+    ? 'Печь-каменка «Ермак» с дымоходом — актуальная базовая комплектация'
+    : knownStove
+      ? `${knownStove.replace(/,?\s*(бак[^,]*,?\s*)?и?\s*камни\b/gi, '').replace(/,\s*$/, '')}; точное исполнение — по спецификации модели`
+      : 'Печное решение согласуется при заказе'
+
   return [
     { label: 'Конструкция', value: modelConstruction(model.id) },
     { label: 'Основание', value: 'Обвязочный брус, лаги, черновой и чистовой пол' },
     { label: 'Пароизоляция и ветровлагозащита', value: 'Защитные мембраны согласно технологии строительства' },
-    { label: 'Утепление', value: 'Стены, пол и потолок — минеральная вата 100 мм (ISOVER, URSA или аналог)' },
+    { label: 'Утепление', value: 'Стены, пол и потолок — минеральная вата 100 мм (ISOVER, URSA или аналог), согласно утверждённой базовой комплектации мобильных бань' },
     { label: 'Пол', value: 'Черновой и чистовой деревянный пол; проливное исполнение — дополнительная опция, если не предусмотрено проектом' },
-    { label: 'Наружная отделка', value: number === 28 ? 'По утверждённому исполнению Barn Premium' : 'Имитация бруса из натуральной древесины; индивидуальные варианты согласуются отдельно' },
+    { label: 'Наружная отделка', value: 'Имитация бруса из натуральной древесины; индивидуальные варианты согласуются отдельно' },
     { label: 'Кровля', value: 'Односкатная крыша, профлист; индивидуальное исполнение — по проекту модели' },
     { label: 'Помещения', value: `${rooms}${hasPlan && bathroom ? '; санузел по планировке' : ''}${hasPlan && terrace ? '; терраса / крыльцо' : ''}` },
     { label: 'Внутренняя отделка', value: 'Комната отдыха и моечная — хвойная вагонка; парная — осина класса А (при наличии соответствующих помещений)' },
@@ -52,7 +102,7 @@ export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationR
     { label: 'Окна и двери', value: hasPlan ? 'Стандартные белые, согласно планировке выбранной модели' : 'Стандартные белые; размеры и расположение согласуются в планировке' },
     { label: 'Электрика', value: 'Открытая проводка, стандартные выключатели и розетка; скрытая проводка — дополнительная опция' },
     { label: 'Освещение', value: 'Светильники в комнате отдыха и моечной (при наличии); в парной — два специальных банных светильника по краям, без абажуров' },
-    { label: 'Мебель', value: 'Стол и две лавки — в подарок' },
+    { label: 'Мебель', value: number <= 8 ? 'Стол и две лавки — в подарок' : 'Состав мебели согласуется при заказе' },
     { label: 'Входные ступени', value: 'В подарок' },
   ]
 }

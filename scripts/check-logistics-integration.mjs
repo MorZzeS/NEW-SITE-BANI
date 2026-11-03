@@ -37,15 +37,37 @@ const { equipmentSelection } = load('src/lib/equipment-selection.ts')
 const { modelOptionAvailability } = load('src/lib/model-option-availability.ts')
 const models = [...data.saunas, ...data.homes]
 const baseConfiguration = load('src/data/model-configuration.ts')
-const baseBeforeFix = compile('baseBeforeFix', execFileSync('git', ['show', '714da378:src/data/model-configuration.ts'], { cwd: root, encoding: 'utf8' }))
 for (const model of models) {
   const rows = baseConfiguration.modelBaseConfiguration(model)
-  if (['bg-25', 'bg-26', 'bg-27'].includes(model.id)) {
-    const values = rows.map(row => row.value).join(' ')
-    assert.ok(values.includes('нет подтверждённой планировки и комплектации'))
-    assert.ok(!/осин|парн|печь|подарок|100 мм|ISOVER|URSA/i.test(values), model.id + ': do not inherit unconfirmed bath specifications')
-    assert.equal(rows.find(row => row.label === 'Освещение').value, 'Согласуется при заказе')
-  } else assert.equal(JSON.stringify(rows), JSON.stringify(baseBeforeFix.modelBaseConfiguration(model)), model.id + ': known base configuration must remain unchanged')
+  const values = rows.map(row => row.value).join(' ')
+  if (data.homes.includes(model)) {
+    assert.match(rows.find(row => row.label === 'Утепление').value, /Пол и потолок — минеральная вата 100 мм/)
+    assert.ok(!/осин|Бак для воды и камни|Стол и две лавки|Ермак/i.test(values), model.id + ': do not inherit mobile-bath interior, gifts, furniture or stove')
+    for (const row of rows.filter(row => !['Конструкция', 'Формат', 'Помещения', 'Утепление'].includes(row.label))) {
+      assert.ok(baseConfiguration.requiresBaseConfigurationConfirmation(row.value), model.id + ': undocumented home row must remain pending: ' + row.label)
+    }
+    if (['bg-25', 'bg-26', 'bg-27'].includes(model.id)) {
+      assert.equal(rows.find(row => row.label === 'Конструкция').value, 'Согласуется при заказе')
+      assert.ok(!model.floorPlan)
+      if (model.id === 'bg-27') assert.match(rows.find(row => row.label === 'Помещения').value, /Баня с верандой/)
+      else assert.equal(rows.find(row => row.label === 'Помещения').value, 'Согласуется при заказе')
+    } else {
+      assert.ok(model.floorPlan)
+      assert.ok(/Парная/.test(rows.find(row => row.label === 'Помещения').value))
+      assert.ok(/Комната отдыха/.test(rows.find(row => row.label === 'Помещения').value))
+    }
+  } else {
+    const construction = rows.find(row => row.label === 'Конструкция').value
+    if (Number(model.id.slice(3)) >= 18) assert.ok(baseConfiguration.requiresBaseConfigurationConfirmation(construction), model.id + ': unconfirmed construction must be marked pending')
+    const furniture = rows.find(row => row.label === 'Мебель')?.value
+    if (Number(model.id.slice(3)) <= 8) assert.match(furniture ?? '', /Стол и две лавки — в подарок/)
+    else if (Number(model.id.slice(3)) <= 27) assert.ok(baseConfiguration.requiresBaseConfigurationConfirmation(furniture ?? ''), model.id + ': unverified furniture must not be called a gift')
+  }
+  if (model.id === 'bg-28') {
+    assert.match(values, /Чугунная печь ЭТНА 18/)
+    assert.match(values, /Душевая кабина и бойлер 50 л/)
+    assert.ok(!values.includes('— в подарок'), 'Barn Premium gifts must not be inferred from standard bath package')
+  }
 }
 assert.equal(models.length, 31)
 assert.equal(options.length, 27)

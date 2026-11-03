@@ -205,6 +205,9 @@
   .summary { order: 0; width: 100%; border-radius: 14px; }
   .optionGroups { order: 1; }
 }
+@media(prefers-reduced-motion:reduce) {
+  .pendingSummary::after { transition: none; }
+}
 @media(max-width:540px) {
   .modelVisual { aspect-ratio: 1.9; border-radius: 13px 13px 0 0; }
   .modelDetails,.priceBreakdown { padding: 16px; }
@@ -230,8 +233,19 @@
 .baseCard { min-width: 0; padding: 10px 11px; border: 1px solid var(--glass-border-subtle); border-radius: 10px; background: color-mix(in srgb, var(--glass-bg) 78%, transparent); }
 .baseCard dt { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; color: var(--color-text); font-size: 12px; line-height: 1.4; font-weight: 700; }
 .baseCard dd { margin: 5px 0 0; color: var(--color-text-muted); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
-.giftBadge,.pendingBadge { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 4px; border: 1px solid color-mix(in srgb, var(--color-accent) 32%, transparent); border-radius: 999px; padding: 3px 7px; color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--glass-bg)); font-size: 10px; font-weight: 700; white-space: nowrap; }
+.giftBadge,.pendingBadge,.includedRowBadge { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 4px; border: 1px solid color-mix(in srgb, var(--color-accent) 32%, transparent); border-radius: 999px; padding: 3px 7px; color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--glass-bg)); font-size: 10px; line-height: 1.25; font-weight: 700; }
+.giftBadge,.pendingBadge { white-space: nowrap; }
+.includedRowBadge { max-width: 190px; justify-content: flex-end; text-align: right; }
 .pendingGroup { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--color-text-muted) 42%, var(--glass-border)); }
+.pendingSummary { display: flex; align-items: center; gap: 10px; min-height: 31px; color: var(--color-text); list-style: none; cursor: pointer; }
+.pendingSummary::-webkit-details-marker { display: none; }
+.pendingIcon { display: inline-flex; flex: 0 0 28px; width: 28px; height: 28px; align-items: center; justify-content: center; border: 1px solid var(--glass-border); border-radius: 9px; color: var(--color-text-muted); background: color-mix(in srgb, var(--glass-bg) 90%, transparent); }
+.pendingTitle { font-size: 14px; line-height: 1.4; font-weight: 700; }
+.pendingCount { margin-left: auto; color: var(--color-text-muted); font-size: 12px; white-space: nowrap; }
+.pendingSummary::after { content: ''; width: 8px; height: 8px; margin: 0 3px 4px 5px; border-right: 1.5px solid var(--color-text-muted); border-bottom: 1.5px solid var(--color-text-muted); transform: rotate(45deg); transition: transform .18s ease; }
+.pendingGroup[open] .pendingSummary::after { margin-bottom: 0; transform: rotate(225deg); }
+.pendingIntro { margin: 9px 0 12px 38px; color: var(--color-text-muted); font-size: 12px; line-height: 1.5; }
+.pendingGroup[open] .baseCards { padding-top: 2px; }
 .pendingBadge { color: var(--color-text-muted); border-color: var(--glass-border); background: color-mix(in srgb, var(--glass-bg) 90%, transparent); }
 @media(max-width:760px) {
   .baseHeader { flex-direction: column; gap: 12px; margin-bottom: 16px; }
