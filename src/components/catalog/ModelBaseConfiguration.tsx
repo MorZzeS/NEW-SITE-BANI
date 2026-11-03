@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check } from 'lucide-react'
+import Image from 'next/image'
+import { Building2, Check, CircleHelp, DoorOpen, Flame, Gift, House, Layers, Lightbulb, PlugZap, Ruler, ShieldCheck, Sofa } from 'lucide-react'
 import { DownloadModelPdfButton } from './DownloadModelPdfButton'
 import { formatPrice } from '@/data'
 import { modelBaseConfiguration } from '@/data/model-configuration'
@@ -16,8 +17,49 @@ import { modelOptionAvailability } from '@/lib/model-option-availability'
 import { useModelConfiguration } from './ModelConfigurationContext'
 import { ConfigurationCategoryTitle, ConfigurationOption } from './ConfigurationOption'
 import styles from './ModelBaseConfiguration.module.css'
+import { withBasePath } from '@/lib/site-path'
 
 type Option = ReturnType<typeof modelOptionAvailability>[number]['option']
+
+const baseRowGroups = [
+  { id: 'structure', title: 'Основание и конструкция', Icon: Building2 },
+  { id: 'protection', title: 'Защита и утепление', Icon: ShieldCheck },
+  { id: 'appearance', title: 'Наружная отделка и кровля', Icon: House },
+  { id: 'windows', title: 'Окна и двери', Icon: DoorOpen },
+  { id: 'layout', title: 'Помещения и планировка', Icon: Ruler },
+  { id: 'interior', title: 'Внутренняя отделка', Icon: Layers },
+  { id: 'engineering', title: 'Электрика и инженерные решения', Icon: PlugZap },
+  { id: 'lighting', title: 'Освещение', Icon: Lightbulb },
+  { id: 'stove', title: 'Печь', Icon: Flame },
+  { id: 'furniture', title: 'Мебель', Icon: Sofa },
+  { id: 'gifts', title: 'Подарки к комплектации', Icon: Gift },
+  { id: 'other', title: 'Дополнительные сведения', Icon: Check },
+] as const
+
+const baseRowGroupByLabel: Record<string, string> = {
+  'Конструкция': 'structure',
+  'Основание': 'structure',
+  'Пароизоляция и ветровлагозащита': 'protection',
+  'Утепление': 'protection',
+  'Пол': 'protection',
+  'Наружная отделка': 'appearance',
+  'Кровля': 'appearance',
+  'Окна и двери': 'windows',
+  'Помещения': 'layout',
+  'Планировка и комплектация': 'layout',
+  'Внутренняя отделка': 'interior',
+  'Парная': 'interior',
+  'Печное решение': 'stove',
+  'Электрика': 'engineering',
+  'Инженерные системы': 'engineering',
+  'Освещение': 'lighting',
+  'Подарки к печи': 'gifts',
+  'Мебель': 'furniture',
+  'Входные ступени': 'gifts',
+}
+
+const needsConfirmation = (value: string) => /согласу(?:ется|ются) при заказе|состав подтверждается при заказе|нет подтверждённой/i.test(value)
+const isIncludedGift = (value: string) => /(?:^|[\s—])в подарок(?:$|[\s.,;—])/i.test(value)
 
 function optionPrice(option: Option) {
   return option.salePrice === null ? 'Стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : option.id === 'ceiling-height' ? ' / 10 см' : ''}`
@@ -39,6 +81,8 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   const selectedIdsSet = new Set(selected.map(option => option.id))
   const { discount, discountLabel, total } = configuration
   const baseRows = modelBaseConfiguration(model)
+  const includedBaseRows = baseRows.filter(row => !needsConfirmation(row.value))
+  const pendingBaseRows = baseRows.filter(row => needsConfirmation(row.value))
   const basePriceText = formatPrice(model.priceFrom)
   const totalText = formatPrice(total)
   const configurationNote = [configurationManagerText(configuration), pageUrl ? `Страница модели: ${pageUrl}` : ''].filter(Boolean).join('\n')
@@ -85,15 +129,81 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   }
 
   return <section className={`${styles.configuration} mb-16`} data-model-config={model.id} aria-label="Базовая комплектация и калькулятор опций">
-    <h2 className="text-2xl font-bold text-cream mb-3">Базовая комплектация</h2>
-    <p className="text-sm text-cream/60 mb-5">Для {model.article ?? model.id}. Дополнительные опции рассчитываются отдельно. Неподтверждённые параметры согласуются при заказе.</p>
-    <dl className={styles.rows}>{baseRows.map(row => <div className={styles.row} key={row.label}>
-      <dt><span className={styles.tick} aria-hidden="true"><Check size={15} strokeWidth={2.5} /></span>{row.label}</dt>
-      <dd>{row.value}</dd>
-    </div>)}</dl>
+    <header className={styles.baseHeader}>
+      <div>
+        <p className={styles.eyebrow}>Комплектация модели {model.article ?? model.id}</p>
+        <h2>Базовая комплектация</h2>
+        <p className={styles.baseLead}>{pendingBaseRows.length ? 'Подтверждённые позиции входят в базовую стоимость. Параметры для согласования указаны отдельно ниже.' : 'Всё перечисленное входит в базовую стоимость модели.'}</p>
+      </div>
+      <span className={styles.includedBadge}><Check size={15} aria-hidden="true" /> {pendingBaseRows.length ? 'Подтверждённое — уже включено' : 'Уже включено в стоимость'}</span>
+    </header>
+    <div className={styles.baseGroups}>
+      {baseRowGroups.map(({ id, title, Icon }) => {
+        const rows = includedBaseRows.filter(row => (baseRowGroupByLabel[row.label] ?? 'other') === id)
+        if (!rows.length) return null
+        return <section className={styles.baseGroup} key={id} aria-label={title}>
+          <h3><span aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>{title}</h3>
+          <dl className={styles.baseCards}>{rows.map(row => <div className={styles.baseCard} data-base-label={row.label} data-base-included="true" data-base-gift={isIncludedGift(row.value) ? 'true' : undefined} key={row.label}>
+            <dt><span>{row.label}</span>{isIncludedGift(row.value) && <span className={styles.giftBadge}><Gift size={12} aria-hidden="true" /> В подарок</span>}</dt>
+            <dd>{row.value}</dd>
+          </div>)}</dl>
+        </section>
+      })}
+      {pendingBaseRows.length > 0 && <section className={`${styles.baseGroup} ${styles.pendingGroup}`} aria-label="Параметры для согласования">
+        <h3><span aria-hidden="true"><CircleHelp size={16} strokeWidth={1.8} /></span>Параметры для согласования</h3>
+        <dl className={styles.baseCards}>{pendingBaseRows.map(row => <div className={styles.baseCard} data-base-label={row.label} data-base-included="false" key={row.label}>
+          <dt><span>{row.label}</span><span className={styles.pendingBadge}>Уточнить</span></dt>
+          <dd>{row.value}</dd>
+        </div>)}</dl>
+      </section>}
+    </div>
 
     <section className={styles.calculator} data-model-option-calculator={model.id} data-base-price={model.priceFrom} data-discount={discount} data-promotion={promotionalDiscount ? 'exit-intent' : ''} data-available-count={available.length} data-included-count={included.length} data-unknown-count={unknown.length} aria-labelledby={`model-options-title-${model.id}`}>
       <div className={styles.calculatorGrid}>
+        <aside className={styles.summary} aria-label={`Итог расчёта для модели ${model.name}`}>
+          <div className={styles.modelVisual}>
+            <Image src={withBasePath(model.image)} alt={model.name} fill sizes="(max-width: 900px) 100vw, 360px" priority />
+            <span className={styles.visualLabel}>Выбранная модель</span>
+          </div>
+          <div className={styles.modelDetails}>
+            <p className={styles.eyebrow}>{model.article ?? 'Ваша модель'}</p>
+            <h3>{model.name}</h3>
+            <p className={styles.modelSize}>{model.size}{model.area ? <> <span aria-hidden="true">·</span> {model.area} м²</> : null}</p>
+            <p className={styles.modelDescription}>{model.description}</p>
+          </div>
+          <div className={styles.priceBreakdown}>
+            <p className={styles.eyebrow}>Предварительный расчёт</p>
+            <dl className={styles.summaryRows}>
+              <div><dt>Базовая комплектация</dt><dd>{basePriceText}</dd></div>
+              <div><dt>Дополнительное оборудование</dt><dd>+{formatPrice(configuration.equipmentSubtotal)}</dd></div>
+              <div><dt>Логистические услуги</dt><dd>+{formatPrice(configuration.logisticsSubtotal)}</dd></div>
+              <div data-discount-row={discount ? 'applied' : 'none'}><dt>{discount ? discountLabel : 'Скидка'}</dt><dd>{discount ? `−${formatPrice(discount)}` : 'не применена'}</dd></div>
+            </dl>
+            <details className={styles.selectedDetails} open>
+              <summary>Выбранные дополнения <span>{optionCountLabel(selected.length)}</span></summary>
+              {selected.length > 0 ? <ul className={styles.selectedList} aria-label="Выбранные опции">
+                {selected.map(option => {
+                  const quantity = configuration.options.find(item => item.id === option.id)?.quantity ?? 1
+                  return <li key={option.id}>
+                    <span>{option.name}{option.id === 'ceiling-height' ? ` (+${quantity * 10} см)` : quantity > 1 ? ` · ${quantity} шт.` : ''}</span>
+                    <strong>{option.salePrice === null ? 'По согласованию' : `+${formatPrice(option.salePrice * quantity)}`}</strong>
+                  </li>
+                })}
+              </ul> : <p className={styles.emptySelection}>Пока без дополнений. Выберите подходящие опции справа — они появятся здесь.</p>}
+            </details>
+            <div className={styles.total} role="status" aria-live="polite" aria-atomic="true" data-selected-count={selected.length} data-known-options-total={knownTotal} data-estimated-total={total} data-discount={discount} data-selected-option-ids={selected.map(option => option.id).join(',')}>
+              <span>Итого подтверждённых позиций{unpricedCount ? ' (без опций по согласованию)' : ''}</span>
+              <strong key={total}>{totalText}</strong>
+            </div>
+            {unpricedCount > 0 && <p className={styles.unavailable}>Предварительная сумма без {optionCountLabel(unpricedCount)} индивидуального расчёта, включая неподтверждённые логистические расходы.</p>}
+            {discount > 0 && <p className={styles.availabilityNote}>Скидка 15 000 ₽ применена по действующей акции для бань; окончательные условия подтверждаются при оформлении.</p>}
+            <p className={styles.summaryFine}>Базовая цена указана без стоимости доставки. Совместимость и окончательная цена подтверждаются при заказе.</p>
+            <button type="button" className={styles.requestButton} data-calculator-request onClick={goToContacts}>Оставить заявку на эту комплектацию</button>
+            <button type="button" className={styles.resetButton} data-calculator-reset onClick={resetSelection}>Сбросить выбор</button>
+            <div className="mt-4"><DownloadModelPdfButton model={model} /></div>
+          </div>
+        </aside>
+
         <div className={styles.optionGroups}>
           <header className={styles.calculatorIntro}>
             <p className={styles.eyebrow}>Расчёт для {model.article ?? model.id}</p>
@@ -118,30 +228,10 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
           </details>}
         </div>
 
-        <aside className={styles.summary} aria-label={`Итог расчёта для модели ${model.name}`}>
-          <p className={styles.eyebrow}>Предварительный расчёт</p>
-          <h3>Ваша комплектация</h3>
-          <p className={styles.modelName}>{model.name}</p>
-          <dl className={styles.summaryRows}>
-            <div><dt>Базовая комплектация</dt><dd>{basePriceText}</dd></div>
-            <div><dt>Дополнительное оборудование</dt><dd>+{formatPrice(configuration.equipmentSubtotal)}</dd></div>
-            <div><dt>Логистические услуги</dt><dd>+{formatPrice(configuration.logisticsSubtotal)}</dd></div>
-            <div data-discount-row={discount ? 'applied' : 'none'}><dt>{discount ? discountLabel : 'Скидка'}</dt><dd>{discount ? `−${formatPrice(discount)}` : 'не применена'}</dd></div>
-          </dl>
-          {selected.length > 0 && <ul className={styles.selectedList} aria-label="Выбранные опции">
-            {selected.map(option => { const quantity = configuration.options.find(item => item.id === option.id)?.quantity ?? 1; return <li key={option.id}><span>{option.name}{option.id === 'ceiling-height' ? ` (+${quantity * 10} см)` : ''}</span><strong>{option.salePrice === null ? 'Индивидуальный расчёт' : `+${formatPrice(option.salePrice * quantity)}`}</strong></li> })}
-          </ul>}
-          <div className={styles.total} role="status" aria-live="polite" aria-atomic="true" data-selected-count={selected.length} data-known-options-total={knownTotal} data-estimated-total={total} data-discount={discount} data-selected-option-ids={selected.map(option => option.id).join(',')}>
-            <span>Итого подтверждённых позиций{unpricedCount ? ' (без опций по согласованию)' : ''}</span>
-            <strong>{totalText}</strong>
-          </div>
-          {unpricedCount > 0 && <p className={styles.unavailable}>Предварительная сумма без {optionCountLabel(unpricedCount)} индивидуального расчёта, включая неподтверждённые логистические расходы.</p>}
-          {discount > 0 && <p className={styles.availabilityNote}>Скидка 15 000 ₽ применена по действующей акции для бань; окончательные условия подтверждаются при оформлении.</p>}
-          <p className={styles.summaryFine}>Базовая цена указана без стоимости доставки. Совместимость и окончательная цена подтверждаются при заказе.</p>
-          <button type="button" className={styles.requestButton} data-calculator-request onClick={goToContacts}>Оставить заявку на эту комплектацию</button>
-          <button type="button" className={styles.resetButton} data-calculator-reset onClick={resetSelection}>Сбросить выбор</button>
-          <div className="mt-4"><DownloadModelPdfButton model={model} /></div>
-        </aside>
+      </div>
+      <div className={styles.mobileAction}>
+        <span><small>Итого</small><strong>{totalText}</strong></span>
+        <button type="button" onClick={goToContacts}>Оставить заявку</button>
       </div>
     </section>
 
