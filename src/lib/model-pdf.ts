@@ -89,10 +89,10 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   }
   ensure(68)
   heading('Стоимость комплектации')
-  text(`Базовая цена: ${money(configuration.basePrice)}`)
+  text(`Базовая комплектация: ${money(configuration.basePrice)}`)
   text(`Дополнительные опции: ${money(configuration.optionsSubtotal)}`)
   text(configuration.discount ? `${configuration.discountLabel} (акция): -${money(configuration.discount)}` : 'Скидка: 0 ₽ (не применена)')
-  text(`${configuration.discount ? 'Итого с учётом скидки' : 'Итого'}${configuration.unpricedCount ? ' по позициям с известной ценой' : ''}: ${money(configuration.total)}`, 14)
+  text(`Стоимость выбранной комплектации${configuration.discount ? ' с учётом скидки' : ''}${configuration.unpricedCount ? ' (без опций по согласованию)' : ''}: ${money(configuration.total)}`, 14)
   if (configuration.unpricedCount) text(`Опции без подтверждённой цены: ${configuration.unpricedCount}. Их стоимость не включена в итог.`, 9)
   text('Предварительный расчёт. Совместимость опций, окончательная стоимость, доставка и монтаж согласуются при заказе.', 9)
   ensure(40)
