@@ -1,10 +1,10 @@
 import { additionalOptions } from '@/data/options'
 export const enabledEquipmentOptions = additionalOptions.filter(option => option.enabled)
-export function equipmentSelection(ids: readonly string[]) {
+export function equipmentSelection(ids: readonly string[], quantities: Readonly<Record<string, number>> = {}) {
   const uniqueIds = new Set(ids)
-  const selected = enabledEquipmentOptions.filter(option => uniqueIds.has(option.id))
-  return { selected, knownTotal: selected.reduce((sum, option) => sum + (option.salePrice ?? 0), 0), unpricedCount: selected.filter(option => option.salePrice === null).length,
-    comment: selected.length ? ['Выбранные дополнительные опции:', ...selected.map(option => `• ${option.name}${option.priceUnit === 'шт.' ? ' — 1 шт.' : ''}`)].join('\n') : '' }
+  const selected = enabledEquipmentOptions.filter(option => uniqueIds.has(option.id)).map(option => ({ ...option, quantity: option.id === 'ceiling-height' ? Math.max(1, Math.min(20, Math.floor(quantities[option.id] || 1))) : 1 }))
+  return { selected, knownTotal: selected.reduce((sum, option) => sum + (option.salePrice ?? 0) * option.quantity, 0), unpricedCount: selected.filter(option => option.salePrice === null).length,
+    comment: selected.length ? ['Выбранные дополнительные опции:', ...selected.map(option => `• ${option.name}${option.id === 'ceiling-height' ? ` — +${option.quantity * 10} см (${option.quantity} × 10 см)` : option.priceUnit === 'шт.' ? ' — 1 шт.' : ''}`)].join('\n') : '' }
 }
 export function mergeConfigurationComment(comment: string, configurationNote?: string) {
   const result = configurationNote ? [configurationNote, comment].filter(Boolean).join('\n\n') : comment
