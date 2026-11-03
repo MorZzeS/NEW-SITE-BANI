@@ -40,6 +40,11 @@ for (const model of [...saunas,...homes]) {
     const isGift = /(?:^|[\s—])в подарок(?:$|[\s.,;—])/i.test(row.value)
     assert.equal(card[0].includes('data-base-gift="true"'), isGift, `${model.id}: gift status differs from source: ${row.label}`)
   }
+  const hasPendingRows = expectedRows.some(row => /согласу(?:ется|ются) при заказе|состав подтверждается при заказе|нет подтверждённой/i.test(row.value))
+  const baseLead = clean(block.match(/<p[^>]*class="[^"]*baseLead[^"]*"[^>]*>([\s\S]*?)<\/p>/)?.[1] ?? '')
+  assert.equal(baseLead, hasPendingRows
+    ? 'Подтверждённые позиции входят в базовую стоимость. Параметры для согласования указаны отдельно ниже.'
+    : 'Всё перечисленное входит в базовую стоимость модели.', `${model.id}: base-price disclosure must match the verified row set`)
   const n = Number(model.id.slice(3))
   const unconfirmedHome = [25,26,27].includes(n)
   if (!unconfirmedHome) {
