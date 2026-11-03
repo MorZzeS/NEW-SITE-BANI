@@ -4,7 +4,7 @@ import crypto from 'node:crypto'
 import vm from 'node:vm'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
-import { MODEL_INCREASE, increasedVariant } from './verify-price-update.mjs'
+import { MODEL_INCREASE, HOME_MODEL_INCREASE, increasedVariant } from './verify-price-update.mjs'
 
 const require = createRequire(import.meta.url)
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -98,11 +98,12 @@ for (const record of records) {
   if (!fs.existsSync(card)) { errors.push(`${record.id}: missing card`); continue }
   const html = fs.readFileSync(card, 'utf8')
   const model = models.find((m) => m.id === record.id)
-  // Source records retain historical PPT prices; selling prices use the owner's increase.
-  // Avoid a git-history dependency here: CI checkouts can contain just one commit.
-  const expectedVariants = record.price_variants.map(increasedVariant)
+  // Source records retain historical PPT prices; selling prices use the cumulative increase
+  // for the model family. The .map callback is explicit so its index is not mistaken for a price delta.
+  const expectedIncrease = dataExports.saunas.some((sauna) => sauna.id === record.id) ? MODEL_INCREASE : HOME_MODEL_INCREASE
+  const expectedVariants = record.price_variants.map((variant) => increasedVariant(variant, expectedIncrease))
   if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(expectedVariants)) errors.push(`${record.id}: alternative prices differ from owner increase`)
-  if (model?.priceFrom !== record.priceFrom + MODEL_INCREASE) errors.push(`${record.id}: base price differs from owner increase`)
+  if (model?.priceFrom !== record.priceFrom + expectedIncrease) errors.push(`${record.id}: base price differs from owner increase`)
   const priceBlock = html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1]
   if (!priceBlock) errors.push(`${record.id}: missing price section`)
   const visiblePrice = model && dataExports.formatPrice(model.priceFrom).replace(/\s/g, ' ')
