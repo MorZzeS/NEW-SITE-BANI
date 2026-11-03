@@ -19,11 +19,11 @@ import styles from './ModelBaseConfiguration.module.css'
 type Option = ReturnType<typeof modelOptionAvailability>[number]['option']
 
 function optionPrice(option: Option) {
-  return option.salePrice === null ? 'Стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : ''}`
+  return option.salePrice === null ? 'Стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : option.id === 'ceiling-height' ? ' / 10 см' : ''}`
 }
 
 export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
-  const { configuration, selectedIds, toggleOption, resetSelection, promotionalDiscount } = useModelConfiguration()
+  const { configuration, selectedIds, toggleOption, setOptionQuantity, resetSelection, promotionalDiscount } = useModelConfiguration()
   const [pageUrl, setPageUrl] = useState('')
   const formRef = useRef<HTMLDivElement>(null)
   const availability = useMemo(() => modelOptionAvailability(model), [model])
@@ -32,7 +32,9 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   const unknown = useMemo(() => availability.filter(row => row.status === 'unknown'), [availability])
   const unavailable = useMemo(() => availability.filter(row => row.status === 'unavailable'), [availability])
   const selection = equipmentSelection(selectedIds)
-  const { selected, knownTotal, unpricedCount } = selection
+  const { selected } = selection
+  const knownTotal = configuration.optionsSubtotal
+  const unpricedCount = configuration.unpricedCount
   const selectedIdsSet = new Set(selected.map(option => option.id))
   const { discount, discountLabel, total } = configuration
   const baseRows = modelBaseConfiguration(model)
@@ -43,7 +45,10 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
       `Модель: ${model.name}${model.article ? ` (${model.article})` : ''}`,
       `Базовая комплектация: ${basePriceText}`,
       selected.length ? 'Выбранные дополнения:' : 'Дополнительные опции не выбраны.',
-      ...selected.map(option => `• ${option.name} — ${option.salePrice === null ? 'стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : ''}`}`),
+      ...selected.map(option => {
+        const quantity = configuration.options.find(item => item.id === option.id)?.quantity ?? 1
+        return `• ${option.name}${option.id === 'ceiling-height' ? ` (+${quantity * 10} см)` : ''} — ${option.salePrice === null ? 'стоимость по согласованию' : `+${formatPrice(option.salePrice * quantity)}`}`
+      }),
       `Стоимость дополнений: +${formatPrice(knownTotal)}`,
       ...(discount ? [`${discountLabel} (акция): −${formatPrice(discount)}`] : []),
       `Стоимость выбранной комплектации: ${totalText}${unpricedCount ? `; не включена стоимость ${optionCountLabel(unpricedCount)}` : ''}`,
@@ -51,7 +56,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
       'Совместимость и итоговый состав работ подтверждаются перед оформлением.',
     ]
     return lines.filter(Boolean).join('\n')
-  }, [basePriceText, discount, discountLabel, knownTotal, model.article, model.name, pageUrl, selected, totalText, unpricedCount])
+  }, [basePriceText, discount, discountLabel, knownTotal, model.article, model.name, pageUrl, selected, totalText, unpricedCount, configuration.options])
 
   useEffect(() => {
     setPageUrl(`${window.location.origin}${window.location.pathname}`)
@@ -70,7 +75,13 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
       return <details className={styles.optionCategory} key={category} open={category === firstAvailableCategory}>
         <summary><ConfigurationCategoryTitle name={category} count={optionCountLabel(items.length)} /></summary>
         <div className={styles.optionList}>
-          {items.map(({ option, reason, status }) => <ConfigurationOption key={option.id} option={option} checked={selectedIdsSet.has(option.id)} onToggle={() => toggleOption(option.id)} inputId={`model-option-${model.id}-${option.id}`} price={optionPrice(option)} reason={reason} status={status} />)}
+          {items.map(({ option, reason, status }) => <ConfigurationOption key={option.id} option={option} checked={selectedIdsSet.has(option.id)} onToggle={() => toggleOption(option.id)} inputId={`model-option-${model.id}-${option.id}`} price={optionPrice(option)} reason={reason} status={status}>
+            {option.id === 'ceiling-height' && selectedIdsSet.has(option.id) && <label className="mt-3 flex flex-wrap items-center gap-3 text-sm text-cream/85" htmlFor={`ceiling-steps-${model.id}`}>
+              <span>Увеличение высоты, шагов по 10 см:</span>
+              <input id={`ceiling-steps-${model.id}`} type="number" min={1} max={20} step={1} className="input-glass w-20 rounded-lg px-2 py-2" value={configuration.options.find(item => item.id === 'ceiling-height')?.quantity ?? 1} onChange={event => setOptionQuantity('ceiling-height', Number(event.target.value))} />
+              <strong>+{formatPrice(22000 * (configuration.options.find(item => item.id === 'ceiling-height')?.quantity ?? 1))}</strong>
+            </label>}
+          </ConfigurationOption>)}
         </div>
       </details>
     })
@@ -137,7 +148,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
             <div data-discount-row={discount ? 'applied' : 'none'}><dt>{discount ? discountLabel : 'Скидка'}</dt><dd>{discount ? `−${formatPrice(discount)}` : 'не применена'}</dd></div>
           </dl>
           {selected.length > 0 && <ul className={styles.selectedList} aria-label="Выбранные опции">
-            {selected.map(option => <li key={option.id}><span>{option.name}</span><strong>{option.salePrice === null ? 'цена уточняется' : `+${formatPrice(option.salePrice)}`}</strong></li>)}
+            {selected.map(option => { const quantity = configuration.options.find(item => item.id === option.id)?.quantity ?? 1; return <li key={option.id}><span>{option.name}{option.id === 'ceiling-height' ? ` (+${quantity * 10} см)` : ''}</span><strong>{option.salePrice === null ? 'цена уточняется' : `+${formatPrice(option.salePrice * quantity)}`}</strong></li> })}
           </ul>}
           <div className={styles.total} role="status" aria-live="polite" aria-atomic="true" data-selected-count={selected.length} data-known-options-total={knownTotal} data-estimated-total={total} data-discount={discount} data-selected-option-ids={selected.map(option => option.id).join(',')}>
             <span>Стоимость выбранной комплектации{unpricedCount ? ' (без опций по согласованию)' : ''}</span>
