@@ -130,7 +130,7 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
                 {lengthOptions.map((option) => <option key={option.value} value={option.value} className="bg-graphite-900">{option.label}</option>)}
               </select>
             </label>
-            <label className="text-sm text-cream/70">Бюджет от каталога
+            <label className="text-sm text-cream/70">Бюджет базовой комплектации
               <select value={budget} onChange={(event) => setBudget(event.target.value as typeof budget)} className="input-glass mt-1 w-full rounded-xl px-3 py-2 text-sm text-cream">
                 <option value="any" className="bg-graphite-900">Без ограничения</option>
                 <option value="under600" className="bg-graphite-900">До 600 000 ₽</option>
@@ -170,7 +170,7 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
               <colgroup><col className={styles.parameter} />{selected.map(product => <col key={product.id} className={styles.model} />)}</colgroup>
               <thead><tr><th scope="col">Модель</th>{selected.map(product => <th scope="col" key={product.id}>
                 <div className={styles.image}><Image src={catalogCardImage(product.image)} alt={product.name} fill sizes="220px" /></div>
-                <span className={styles.name}>{product.name}</span><span className={styles.priceLabel}>{product.id === 'bg-28' ? 'Представленное исполнение' : 'Цена от'}</span><span className={styles.price}>{formatPrice(product.priceFrom)}</span>
+                <span className={styles.name}>{product.name}</span><span className={styles.priceLabel}>{product.id === 'bg-28' ? 'Представленное исполнение' : 'Базовая комплектация'}</span><span className={styles.price}>{formatPrice(product.priceFrom)}</span>
                 <button className={styles.remove} type="button" aria-label={`Убрать из сравнения: ${product.name}`} onClick={() => { closeCompareRef.current?.focus(); onToggleCompare(product.id) }}><X size={14} aria-hidden="true" />Убрать</button>
               </th>)}</tr></thead>
               <tbody>{comparisonRows.map(row => {
