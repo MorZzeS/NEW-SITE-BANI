@@ -12,7 +12,7 @@ import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { equipmentSelection, optionCountLabel } from '@/lib/equipment-selection'
 import { modelOptionAvailability } from '@/lib/model-option-availability'
 import { useModelConfiguration } from './ModelConfigurationContext'
-import { withBasePath } from '@/lib/site-path'
+import { ConfigurationCategoryTitle, ConfigurationOption } from './ConfigurationOption'
 import styles from './ModelBaseConfiguration.module.css'
 
 type Option = ReturnType<typeof modelOptionAvailability>[number]['option']
@@ -67,33 +67,9 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
       const items = available.filter(row => row.option.category === category)
       if (!items.length) return null
       return <details className={styles.optionCategory} key={category} open={category === firstAvailableCategory}>
-        <summary><span>{category}</span><span className={styles.categoryCount}>{optionCountLabel(items.length)}</span></summary>
+        <summary><ConfigurationCategoryTitle name={category} count={optionCountLabel(items.length)} /></summary>
         <div className={styles.optionList}>
-          {items.map(({ option, reason, status }) => {
-            const guidance = optionGuidance[option.id]
-            const selectedOption = selectedIdsSet.has(option.id)
-            const statusId = `model-option-status-${model.id}-${option.id}`
-            const nameId = `model-option-name-${model.id}-${option.id}`
-            return <article className={styles.optionItem} data-option-id={option.id} data-option-price={option.salePrice ?? ''} data-option-selectable="true" data-option-status={status} key={option.id}>
-              <div className={styles.optionMain}>
-                <label className={styles.optionToggle} htmlFor={`model-option-${model.id}-${option.id}`}>
-                  <input id={`model-option-${model.id}-${option.id}`} type="checkbox" checked={selectedOption} onChange={() => toggleOption(option.id)} aria-labelledby={nameId} aria-describedby={statusId} />
-                  <span className={styles.checkVisual} aria-hidden="true">{selectedOption ? '✓' : '+'}</span>
-                </label>
-                {guidance && <figure className={styles.optionImage}>
-                  <Image src={withBasePath(guidance.image)} alt={option.id === 'boiler' ? 'Бойлер 50 л — фотография из материалов каталога' : `Иллюстративная схема: ${option.name}`} width={360} height={270} sizes="(max-width: 760px) 78px, 104px" loading="lazy" />
-                  <figcaption>{option.id === 'boiler' ? 'Фото' : 'Схема'}</figcaption>
-                </figure>}
-                <div className={styles.optionInfo}>
-                  <h3 id={nameId}><label htmlFor={`model-option-${model.id}-${option.id}`}>{option.name}</label></h3>
-                  <p className={styles.optionPrice}>{optionPrice(option)}</p>
-                  <p>{guidance?.explanation ?? option.description}</p>
-                  {guidance?.notes && <p className={styles.optionNote}>{guidance.notes}</p>}
-                  <p id={statusId} className={styles.availabilityNote}>{reason}</p>
-                </div>
-              </div>
-            </article>
-          })}
+          {items.map(({ option, reason, status }) => <ConfigurationOption key={option.id} option={option} checked={selectedIdsSet.has(option.id)} onToggle={() => toggleOption(option.id)} inputId={`model-option-${model.id}-${option.id}`} price={optionPrice(option)} reason={reason} status={status} />)}
         </div>
       </details>
     })
@@ -133,19 +109,19 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
           </div>
 
           {included.length > 0 && <details className={styles.statusSection} data-option-group="included">
-            <summary><span className={styles.statusTitle}>Уже входит в базовую комплектацию</span><span className={styles.categoryCount}>{optionCountLabel(included.length)}</span></summary>
+            <summary><ConfigurationCategoryTitle name="Уже входит в базовую комплектацию" count={optionCountLabel(included.length)} /></summary>
             <p className={styles.statusNote}>Эти позиции уже предусмотрены моделью: повторно они не оплачиваются и в калькулятор не добавляются.</p>
             <ul className={styles.statusList}>{renderStatusRows(included, 'included')}</ul>
           </details>}
 
           {unknown.length > 0 && <details className={styles.statusSection} data-option-group="unknown">
-            <summary><span className={styles.statusTitle}>Совместимость требует подтверждения</span><span className={styles.categoryCount}>{optionCountLabel(unknown.length)}</span></summary>
+            <summary><ConfigurationCategoryTitle name="Совместимость требует подтверждения" count={optionCountLabel(unknown.length)} /></summary>
             <p className={styles.statusNote}>Эти позиции не включаются в расчёт и не считаются гарантированно доступными: возможность и стоимость подтвердит менеджер при заказе.</p>
             <ul className={styles.statusList}>{renderStatusRows(unknown, 'unknown')}</ul>
           </details>}
 
           {unavailable.length > 0 && <details className={styles.statusSection} data-option-group="unavailable">
-            <summary><span className={styles.statusTitle}>Недоступно для этой модели</span><span className={styles.categoryCount}>{optionCountLabel(unavailable.length)}</span></summary>
+            <summary><ConfigurationCategoryTitle name="Недоступно для этой модели" count={optionCountLabel(unavailable.length)} /></summary>
             <ul className={styles.statusList}>{renderStatusRows(unavailable, 'unavailable')}</ul>
           </details>}
         </div>

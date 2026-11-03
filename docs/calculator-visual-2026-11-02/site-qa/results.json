@@ -1,0 +1,8 @@
+{
+  "startedAt": "2026-11-03T04:31:44.461Z",
+  "base": "http://127.0.0.1:4319",
+  "status": "blocked",
+  "cases": [],
+  "limitation": "Screenshots require manual review. No forms submitted. Model pages excluded.",
+  "error": "TypeError: fetch failed"
+}

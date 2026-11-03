@@ -1,0 +1,83 @@
+
+> banger-site@0.1.0 build
+> node scripts/create-social-qr.mjs && next build && node scripts/create-article-url-aliases.mjs
+
+PASS: 4 social QR codes generated from configured real URLs; missing URLs skipped.
+   ▲ Next.js 15.5.28
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 3.6s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/123) ...
+   Generating static pages (30/123)
+   Generating static pages (61/123)
+   Generating static pages (92/123)
+ ✓ Generating static pages (123/123)
+   Finalizing page optimization ...
+   Collecting build traces ...
+   Exporting (0/2) ...
+ ✓ Exporting (2/2)
+
+Route (app)                                                 Size  First Load JS
+┌ ○ /                                                    14.4 kB         181 kB
+├ ○ /_not-found                                            165 B         103 kB
+├ ● /banya/[slug]                                          147 B         142 kB
+├   ├ /banya/istok-4
+├   ├ /banya/istok-terra-5
+├   ├ /banya/istok-5
+├   └ [+22 more paths]
+├ ○ /cookie                                                165 B         103 kB
+├ ● /dom/[slug]                                            147 B         142 kB
+├   ├ /dom/usadba-praktik
+├   ├ /dom/usadba-prostor
+├   ├ /dom/usadba-veranda
+├   └ [+3 more paths]
+├ ○ /dostavka-i-ustanovka                                  165 B         103 kB
+├ ○ /kak-ustroeno                                          179 B         107 kB
+├ ○ /katalog                                               657 B         107 kB
+├ ○ /katalog/bani                                        3.52 kB         126 kB
+├ ○ /katalog/doma                                        2.28 kB         125 kB
+├ ○ /komplektaciya                                       7.05 kB         138 kB
+├ ○ /kontakty                                            2.08 kB         121 kB
+├ ● /model-sheet/[id]                                    1.66 kB         109 kB
+├   ├ /model-sheet/bg-01
+├   ├ /model-sheet/bg-02
+├   ├ /model-sheet/bg-03
+├   └ [+28 more paths]
+├ ○ /nashi-raboty                                          178 B         112 kB
+├ ● /nashi-raboty/[slug]                                 2.69 kB         130 kB
+├   ├ /nashi-raboty/istok-8-podmoskovye
+├   ├ /nashi-raboty/banya-8x24-u-klienta
+├   ├ /nashi-raboty/sever-panorama-8-mos
+├   └ [+3 more paths]
+├ ○ /o-kompanii                                          3.73 kB         112 kB
+├ ○ /planirovki                                            179 B         107 kB
+├ ○ /poleznoe                                              179 B         107 kB
+├ ● /poleznoe/[slug]                                       179 B         107 kB
+├   ├ /poleznoe/chto-proishodit-s-organizmom-v-bane
+├   ├ /poleznoe/kak-vybrat-drevesinu-dlya-mobilnoy-bani
+├   ├ /poleznoe/obrabotka-drevesiny-neomid-v-bane
+├   └ [+26 more paths]
+├ ○ /politika                                              165 B         103 kB
+├ ○ /privacy                                               165 B         103 kB
+├ ○ /rekvizity                                             459 B         108 kB
+├ ○ /robots.txt                                            165 B         103 kB
+├ ○ /sitemap.xml                                           165 B         103 kB
+├ ○ /soglasie-pd                                           165 B         103 kB
+├ ○ /soglasie-reklama                                      179 B         107 kB
+├ ○ /test-leads                                            171 B         119 kB
+├ ○ /usloviya-zakaza                                       165 B         103 kB
+└ ○ /vystavka                                              491 B         109 kB
++ First Load JS shared by all                             103 kB
+  ├ chunks/1255-197b8af0bc930668.js                      46.4 kB
+  ├ chunks/4bd1b696-100b9d70ed4e49c1.js                  54.2 kB
+  └ other shared chunks (total)                          2.31 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+PASS: 21/21 static article slash aliases; original .html routes preserved

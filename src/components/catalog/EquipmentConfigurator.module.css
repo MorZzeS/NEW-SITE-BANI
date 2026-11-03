@@ -100,3 +100,18 @@
  .extras{padding:40px 0}.extras h2{font-size:35px}.config{display:flex;flex-direction:column;gap:28px}.accordion{order:1}.summary{position:static;width:100%;order:0;padding:18px 0}.summary .sum{font-size:27px}.categoryButton{padding:16px 12px;font-size:16px;min-height:60px}.categoryBody{padding:0 12px 16px}.optionLine{display:block}.optionLine .price{display:block;margin-top:7px}.optionRow{gap:10px}.optionVisual{flex-basis:62px}.optionVisual img{width:62px;height:50px}.optionVisual small{font-size:8px}.cta{display:block;padding:40px 0}.cta h2{font-size:29px}.cta .calculate{margin-top:14px;width:100%;max-width:none}
 }
 @media(prefers-reduced-motion:reduce){.page *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* Categories and option cards share the model calculator visual language. */
+.config{gap:28px;grid-template-columns:minmax(0,1fr) minmax(250px,290px);align-items:start}
+.accordion{min-width:0}
+.category{margin-top:10px;border:1px solid var(--glass-border);border-radius:12px;background:var(--glass-bg);overflow:hidden}
+.category:first-child{margin-top:0}
+.categoryButton{gap:12px;min-height:52px;padding:12px 16px;font-size:15px;line-height:1.4;background:transparent}
+.categoryButton[aria-expanded=true]{background:transparent;box-shadow:none}
+.categoryBody{display:grid;gap:10px;padding:0 12px 12px;animation:none}
+.summary{max-height:calc(100dvh - 130px);overflow-y:auto;scrollbar-width:thin}
+.selectedList{list-style:none;padding:12px 0;margin:0 0 16px;border-top:1px solid var(--glass-border);display:grid;gap:10px;max-height:200px;overflow:auto}
+.selectedList li{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--color-text-muted)}
+.selectedList strong{text-align:right;font-size:11px;color:var(--color-text);font-variant-numeric:tabular-nums}
+.clear{display:block;margin:5px auto 0;color:var(--color-text-muted);border-color:var(--glass-border);font-size:12px;font-weight:400}
+@media(max-width:1000px){.config{display:flex;flex-direction:column}.accordion{order:0;width:100%}.summary{position:static;order:1;width:100%;max-height:none;overflow:visible}}
+@media(max-width:540px){.categoryButton{padding:12px 10px;gap:8px;font-size:14px}.categoryBody{padding:0 6px 6px}}
