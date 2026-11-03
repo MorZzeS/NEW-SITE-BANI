@@ -4,8 +4,6 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { allProjects, findProject, projectMediaStyle } from '@/data/projects'
 import { baseEquipmentRows } from '@/data/equipment'
-import { additionalOptions } from '@/data/options'
-import { formatPrice } from '@/data'
 import { InteractivePhotoGallery } from '@/components/ui/InteractivePhotoGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { withBasePath } from '@/lib/site-path'
@@ -34,7 +32,6 @@ export default async function ProjectPage({ params }: Props) {
   const project = findProject(slug)
   if (!project) notFound()
   const clientCase = project.caseType === 'client-case' && project.clientCase
-  const clientExtras = [{ id: 'boiler', label: 'Бойлер' }, { id: 'bench-light', label: 'Подсветка полков' }].map(extra => ({ ...extra, option: additionalOptions.find(option => option.id === extra.id && option.enabled) }))
 
   return (
     <div className="pt-24 pb-20">
@@ -81,13 +78,24 @@ export default async function ProjectPage({ params }: Props) {
 
         {clientCase && (
           <>
-            <section className="project-extras" aria-label="Дополнительно выбранные опции">
-              {clientExtras.map(({ id, label, option }) => <article className="project-extra" key={id}><span className="project-extra-chip">{label}</span><h2 className="project-extra-price">{option?.salePrice != null ? formatPrice(option.salePrice) : 'Стоимость уточняется'}</h2><p>Дополнительная опция к базовой комплектации.</p></article>)}
+            <section className="project-extras" aria-labelledby="project-extras-title">
+              <div className="project-extras-heading">
+                <h2 className="project-section-title" id="project-extras-title">Что установлено дополнительно</h2>
+                <p className="mb-4 text-sm text-cream/60">Ниже перечислено оборудование и исполнение, выбранные и установленные на этом объекте сверх базовой комплектации.</p>
+              </div>
+              <div className="project-extras-grid">
+                {clientCase.selectedExtras.map(extra => (
+                  <article className="project-extra" key={extra}>
+                    <span className="project-extra-chip">Установлено на объекте</span>
+                    <h3 className="project-extra-name">{extra}</h3>
+                  </article>
+                ))}
+              </div>
             </section>
 
             <section className="project-base" aria-labelledby="project-base-title">
               <h2 className="project-section-title" id="project-base-title">Что входит в базовую комплектацию</h2>
-              <p className="mb-4 text-sm text-cream/60">Состав показывается из актуальных данных раздела комплектации. Для этой бани подтверждена базовая комплектация.</p>
+              <p className="mb-4 text-sm text-cream/60">Ниже показан состав базовой комплектации по проекту. Дополнительное оборудование, установленное на этой бане, вынесено в отдельный список выше.</p>
               <table className="base-equipment-table"><caption className="sr-only">Состав базовой комплектации</caption><thead><tr><th scope="col">Параметр</th><th scope="col">Состав</th></tr></thead><tbody>{baseEquipmentRows.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td>{row.value}</td></tr>)}</tbody></table>
             </section>
           </>
