@@ -25,7 +25,7 @@
    "type": "sauna",
    "slug": "istok-4",
    "route": "/banya/istok-4",
-   "priceFrom": 397500,
+   "priceFrom": 412500,
    "counts": {
     "available": 15,
     "included": 1,
@@ -174,7 +174,7 @@
    "type": "sauna",
    "slug": "istok-terra-5",
    "route": "/banya/istok-terra-5",
-   "priceFrom": 456000,
+   "priceFrom": 471000,
    "counts": {
     "available": 15,
     "included": 1,
@@ -323,7 +323,7 @@
    "type": "sauna",
    "slug": "istok-5",
    "route": "/banya/istok-5",
-   "priceFrom": 449500,
+   "priceFrom": 464500,
    "counts": {
     "available": 15,
     "included": 1,
@@ -472,7 +472,7 @@
    "type": "sauna",
    "slug": "istok-6",
    "route": "/banya/istok-6",
-   "priceFrom": 469000,
+   "priceFrom": 484000,
    "counts": {
     "available": 15,
     "included": 1,
@@ -621,7 +621,7 @@
    "type": "sauna",
    "slug": "istok-semeynyy-7",
    "route": "/banya/istok-semeynyy-7",
-   "priceFrom": 501500,
+   "priceFrom": 516500,
    "counts": {
     "available": 16,
     "included": 1,
@@ -770,7 +770,7 @@
    "type": "sauna",
    "slug": "istok-semeynyy-7r",
    "route": "/banya/istok-semeynyy-7r",
-   "priceFrom": 501500,
+   "priceFrom": 516500,
    "counts": {
     "available": 16,
     "included": 1,
@@ -919,7 +919,7 @@
    "type": "sauna",
    "slug": "istok-prostor-7",
    "route": "/banya/istok-prostor-7",
-   "priceFrom": 495000,
+   "priceFrom": 510000,
    "counts": {
     "available": 15,
     "included": 1,
@@ -1068,7 +1068,7 @@
    "type": "sauna",
    "slug": "istok-8",
    "route": "/banya/istok-8",
-   "priceFrom": 586000,
+   "priceFrom": 601000,
    "counts": {
     "available": 15,
     "included": 1,
@@ -1217,7 +1217,7 @@
    "type": "sauna",
    "slug": "skandinaviya-mini-45",
    "route": "/banya/skandinaviya-mini-45",
-   "priceFrom": 560000,
+   "priceFrom": 575000,
    "counts": {
     "available": 11,
     "included": 1,
@@ -1366,7 +1366,7 @@
    "type": "sauna",
    "slug": "skandinaviya-start-6",
    "route": "/banya/skandinaviya-start-6",
-   "priceFrom": 592500,
+   "priceFrom": 607500,
    "counts": {
     "available": 11,
     "included": 1,
@@ -1515,7 +1515,7 @@
    "type": "sauna",
    "slug": "skandinaviya-start-65",
    "route": "/banya/skandinaviya-start-65",
-   "priceFrom": 625000,
+   "priceFrom": 640000,
    "counts": {
     "available": 16,
     "included": 1,
@@ -1664,7 +1664,7 @@
    "type": "sauna",
    "slug": "skandinaviya-standart-7",
    "route": "/banya/skandinaviya-standart-7",
-   "priceFrom": 631500,
+   "priceFrom": 646500,
    "counts": {
     "available": 16,
     "included": 1,
@@ -1813,7 +1813,7 @@
    "type": "sauna",
    "slug": "skandinaviya-standart-75",
    "route": "/banya/skandinaviya-standart-75",
-   "priceFrom": 657500,
+   "priceFrom": 672500,
    "counts": {
     "available": 16,
     "included": 1,
@@ -1962,7 +1962,7 @@
    "type": "sauna",
    "slug": "skandinaviya-komfort-6",
    "route": "/banya/skandinaviya-komfort-6",
-   "priceFrom": 631500,
+   "priceFrom": 646500,
    "counts": {
     "available": 16,
     "included": 1,
@@ -2111,7 +2111,7 @@
    "type": "sauna",
    "slug": "skandinaviya-komfort-8",
    "route": "/banya/skandinaviya-komfort-8",
-   "priceFrom": 716000,
+   "priceFrom": 731000,
    "counts": {
     "available": 16,
     "included": 1,
@@ -2260,7 +2260,7 @@
    "type": "sauna",
    "slug": "skandinaviya-komfort-plus-6",
    "route": "/banya/skandinaviya-komfort-plus-6",
-   "priceFrom": 625000,
+   "priceFrom": 640000,
    "counts": {
     "available": 17,
     "included": 1,
@@ -2409,7 +2409,7 @@
    "type": "sauna",
    "slug": "skandinaviya-komfort-plus-7",
    "route": "/banya/skandinaviya-komfort-plus-7",
-   "priceFrom": 683500,
+   "priceFrom": 698500,
    "counts": {
     "available": 17,
     "included": 1,
@@ -2558,7 +2558,7 @@
    "type": "sauna",
    "slug": "sever-layt-4",
    "route": "/banya/sever-layt-4",
-   "priceFrom": 604200,
+   "priceFrom": 619200,
    "counts": {
     "available": 7,
     "included": 4,
@@ -2707,7 +2707,7 @@
    "type": "sauna",
    "slug": "sever-terra-65",
    "route": "/banya/sever-terra-65",
-   "priceFrom": 738100,
+   "priceFrom": 753100,
    "counts": {
     "available": 12,
     "included": 5,
@@ -2856,7 +2856,7 @@
    "type": "sauna",
    "slug": "sever-rezidents-7",
    "route": "/banya/sever-rezidents-7",
-   "priceFrom": 1024100,
+   "priceFrom": 1039100,
    "counts": {
     "available": 11,
     "included": 6,
@@ -3005,7 +3005,7 @@
    "type": "sauna",
    "slug": "sever-panorama-8",
    "route": "/banya/sever-panorama-8",
-   "priceFrom": 861600,
+   "priceFrom": 876600,
    "counts": {
     "available": 12,
     "included": 5,
@@ -3154,7 +3154,7 @@
    "type": "sauna",
    "slug": "istok-grafit-4",
    "route": "/banya/istok-grafit-4",
-   "priceFrom": 432600,
+   "priceFrom": 447600,
    "counts": {
     "available": 14,
     "included": 2,
@@ -3303,7 +3303,7 @@
    "type": "sauna",
    "slug": "istok-teplo-6",
    "route": "/banya/istok-teplo-6",
-   "priceFrom": 519700,
+   "priceFrom": 534700,
    "counts": {
     "available": 15,
     "included": 1,
@@ -3452,7 +3452,7 @@
    "type": "sauna",
    "slug": "istok-stil-7",
    "route": "/banya/istok-stil-7",
-   "priceFrom": 596400,
+   "priceFrom": 611400,
    "counts": {
     "available": 15,
     "included": 2,
@@ -3601,7 +3601,7 @@
    "type": "sauna",
    "slug": "barn-premium",
    "route": "/banya/barn-premium",
-   "priceFrom": 1420000,
+   "priceFrom": 1435000,
    "counts": {
     "available": 14,
     "included": 2,
