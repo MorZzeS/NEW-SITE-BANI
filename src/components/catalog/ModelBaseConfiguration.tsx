@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Check } from 'lucide-react'
+import { DownloadModelPdfButton } from './DownloadModelPdfButton'
 import { formatPrice } from '@/data'
 import { modelBaseConfiguration } from '@/data/model-configuration'
 import { optionGuidance } from '@/data/option-guidance'
@@ -35,17 +36,17 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   const selectedIdsSet = new Set(selected.map(option => option.id))
   const { discount, discountLabel, total } = configuration
   const baseRows = modelBaseConfiguration(model)
-  const basePriceText = model.id === 'bg-28' ? formatPrice(model.priceFrom) : `от ${formatPrice(model.priceFrom)}`
-  const totalText = `${model.id === 'bg-28' ? '' : 'от '}${formatPrice(total)}`
+  const basePriceText = formatPrice(model.priceFrom)
+  const totalText = formatPrice(total)
   const configurationNote = useMemo(() => {
     const lines = [
       `Модель: ${model.name}${model.article ? ` (${model.article})` : ''}`,
-      `Базовая стоимость: ${basePriceText}`,
+      `Базовая комплектация: ${basePriceText}`,
       selected.length ? 'Выбранные дополнения:' : 'Дополнительные опции не выбраны.',
       ...selected.map(option => `• ${option.name} — ${option.salePrice === null ? 'стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : ''}`}`),
       `Стоимость дополнений: +${formatPrice(knownTotal)}`,
       ...(discount ? [`${discountLabel} (акция): −${formatPrice(discount)}`] : []),
-      `Предварительный итог: ${totalText}${unpricedCount ? `; не включена стоимость ${optionCountLabel(unpricedCount)}` : ''}`,
+      `Стоимость выбранной комплектации: ${totalText}${unpricedCount ? `; не включена стоимость ${optionCountLabel(unpricedCount)}` : ''}`,
       pageUrl ? `Страница модели: ${pageUrl}` : '',
       'Совместимость и итоговый состав работ подтверждаются перед оформлением.',
     ]
@@ -131,7 +132,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
           <h3>Ваша комплектация</h3>
           <p className={styles.modelName}>{model.name}</p>
           <dl className={styles.summaryRows}>
-            <div><dt>Базовая стоимость модели</dt><dd>{basePriceText}</dd></div>
+            <div><dt>Базовая комплектация</dt><dd>{basePriceText}</dd></div>
             <div><dt>Выбранные дополнения ({selected.length})</dt><dd>+{formatPrice(knownTotal)}</dd></div>
             <div data-discount-row={discount ? 'applied' : 'none'}><dt>{discount ? discountLabel : 'Скидка'}</dt><dd>{discount ? `−${formatPrice(discount)}` : 'не применена'}</dd></div>
           </dl>
@@ -139,7 +140,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
             {selected.map(option => <li key={option.id}><span>{option.name}</span><strong>{option.salePrice === null ? 'цена уточняется' : `+${formatPrice(option.salePrice)}`}</strong></li>)}
           </ul>}
           <div className={styles.total} role="status" aria-live="polite" aria-atomic="true" data-selected-count={selected.length} data-known-options-total={knownTotal} data-estimated-total={total} data-discount={discount} data-selected-option-ids={selected.map(option => option.id).join(',')}>
-            <span>Итого{unpricedCount ? ' без опций по согласованию' : ''}</span>
+            <span>Стоимость выбранной комплектации{unpricedCount ? ' (без опций по согласованию)' : ''}</span>
             <strong>{totalText}</strong>
           </div>
           {unpricedCount > 0 && <p className={styles.unavailable}>Стоимость {optionCountLabel(unpricedCount)} уточняется и в сумму не включена.</p>}
@@ -147,6 +148,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
           <p className={styles.summaryFine}>Базовая цена указана без стоимости доставки. Совместимость и окончательная цена подтверждаются при заказе.</p>
           <button type="button" className={styles.requestButton} data-calculator-request onClick={goToContacts}>Оставить заявку на эту комплектацию</button>
           <button type="button" className={styles.resetButton} data-calculator-reset onClick={resetSelection}>Сбросить выбор</button>
+          <div className="mt-4"><DownloadModelPdfButton model={model} /></div>
         </aside>
       </div>
     </section>
