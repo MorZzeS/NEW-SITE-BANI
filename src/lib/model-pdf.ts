@@ -81,7 +81,7 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   if (!configuration.options.length) text('Дополнительные опции не выбраны. Представлена базовая комплектация модели.')
   for (const option of configuration.options) {
     ensure(35)
-    text(`${option.name} · ${option.price === null ? 'Цена по запросу' : money(option.price)}`, 12)
+    text(`${option.name}${option.id === 'ceiling-height' ? ` (+${option.quantity * 10} см)` : ''} · ${option.price === null ? 'Цена по запросу' : money(option.price * option.quantity)}`, 12)
     const guidance = optionGuidance[option.id]
     const source = additionalOptions.find(item => item.id === option.id)
     text(guidance?.explanation || source?.description || 'Исполнение согласуется при заказе.')
