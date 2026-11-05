@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { DownloadModelPdfButton } from './DownloadModelPdfButton'
 import { formatPrice } from '@/data'
-import { modelBaseConfiguration, requiresBaseConfigurationConfirmation } from '@/data/model-configuration'
 import { optionCategories } from '@/data/options'
 import type { Home, Sauna } from '@/types'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
@@ -19,15 +18,6 @@ import styles from './ModelBaseConfiguration.module.css'
 import { withBasePath } from '@/lib/site-path'
 
 type Option = ReturnType<typeof modelOptionAvailability>[number]['option']
-
-const isIncludedGift = (value: string) => /(?:^|[\s—])в подарок(?:$|[\s.,;—])/i.test(value)
-const visibleBaseValue = (value: string) => {
-  const visible = value
-    .replace(/\s*[—–-]\s*в подарок(?=$|[\s.,;—–-])/gi, '')
-    .replace(/^\s*[;,.—–-]\s*|\s*[;,.—–-]\s*$/g, '')
-    .trim()
-  return /^в подарок$/i.test(visible) ? '' : visible
-}
 
 function optionPrice(option: Option) {
   return option.salePrice === null ? 'Стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : option.id === 'ceiling-height' ? ' / 10 см' : ''}`
@@ -48,9 +38,6 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   const unpricedCount = configuration.unpricedCount
   const selectedIdsSet = new Set(selected.map(option => option.id))
   const { discount, discountLabel, total } = configuration
-  const baseRows = modelBaseConfiguration(model)
-  const includedBaseRows = baseRows.filter(row => !requiresBaseConfigurationConfirmation(row.value))
-  const pendingBaseRows = baseRows.filter(row => requiresBaseConfigurationConfirmation(row.value))
   const basePriceText = formatPrice(model.priceFrom)
   const totalText = formatPrice(total)
   const configurationNote = [configurationManagerText(configuration), pageUrl ? `Страница модели: ${pageUrl}` : ''].filter(Boolean).join('\n')
@@ -96,39 +83,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
     </li>)
   }
 
-  return <section className={`${styles.configuration} mb-16`} data-model-config={model.id} aria-label="Базовая комплектация и калькулятор опций">
-    <section className={styles.baseSpecification} aria-label="Базовая комплектация модели">
-      <header className={styles.baseHeader}>
-        <div>
-          <p className={styles.eyebrow}>Комплектация модели {model.article ?? model.id}</p>
-          <h2>Базовая комплектация</h2>
-          <p className={styles.baseLead}>{pendingBaseRows.length ? 'В таблице перечислены подтверждённые позиции. Остальные параметры указаны отдельно ниже.' : 'Всё перечисленное входит в базовую стоимость модели.'}</p>
-        </div>
-        <span className={styles.includedBadge}>Включено в стоимость</span>
-      </header>
-      <dl className={styles.baseTable}>
-        {includedBaseRows.map(row => {
-          const gift = isIncludedGift(row.value)
-          const value = visibleBaseValue(row.value)
-          return <div className={styles.baseSpecRow} data-base-label={row.label} data-base-value={row.value} data-base-included="true" data-base-gift={gift ? 'true' : undefined} key={row.label}>
-            <dt>{row.label}</dt>
-            <dd>{value && <span>{value}</span>}{gift && <span className={styles.giftBadge}>В подарок</span>}</dd>
-          </div>
-        })}
-      </dl>
-    </section>
-    {pendingBaseRows.length > 0 && <details className={styles.pendingDetails} aria-label="Параметры для согласования">
-      <summary className={styles.pendingSummary}>
-        <span>Параметры для согласования</span>
-        <span className={styles.pendingCount}>{pendingBaseRows.length} {pendingBaseRows.length === 1 ? 'позиция' : 'позиций'}</span>
-      </summary>
-      <p className={styles.pendingIntro}>Эти характеристики уточняются с менеджером и не входят в подтверждённую спецификацию.</p>
-      <dl className={`${styles.baseTable} ${styles.pendingTable}`}>{pendingBaseRows.map(row => <div className={styles.baseSpecRow} data-base-label={row.label} data-base-value={row.value} data-base-included="false" key={row.label}>
-        <dt>{row.label}</dt>
-        <dd><span>{row.value}</span><span className={styles.pendingBadge}>Уточнить</span></dd>
-      </div>)}</dl>
-    </details>}
-
+  return <section className={`${styles.configuration} mb-16`} aria-label={`Калькулятор опций для модели ${model.name}`}>
     <section className={styles.calculator} data-model-option-calculator={model.id} data-base-price={model.priceFrom} data-discount={discount} data-promotion={promotionalDiscount ? 'exit-intent' : ''} data-available-count={available.length} data-included-count={included.length} data-unknown-count={unknown.length} aria-labelledby={`model-options-title-${model.id}`}>
       <div className={styles.calculatorGrid}>
         <aside className={styles.summary} aria-label={`Итог расчёта для модели ${model.name}`}>

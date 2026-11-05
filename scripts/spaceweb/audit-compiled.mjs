@@ -17,8 +17,13 @@ export function auditCompiled(root,configuredEndpoint=process.env.NEXT_PUBLIC_LE
    const text=literal(n);if(text!==undefined)render(text);
    if(ts.isPropertyAccessExpression(n)&&n.name.text==='NEXT_PUBLIC_LEADS_ENDPOINT'){
     const bin=n.parent,decl=bin?.parent;
-    if(!ts.isBinaryExpression(bin)||bin.left!==n||bin.operatorToken.kind!==ts.SyntaxKind.BarBarToken||literal(bin.right)!==''||!ts.isVariableDeclaration(decl)||decl.initializer!==bin)throw Error('Non-empty/unrecognized actual endpoint initializer: '+name);
-    endpointInitializers++;localEndpoint=true;
+    if(!ts.isBinaryExpression(bin)||bin.left!==n||bin.operatorToken.kind!==ts.SyntaxKind.BarBarToken||literal(bin.right)!=='')throw Error('Endpoint must have an explicit empty fallback: '+name);
+    if(ts.isVariableDeclaration(decl)&&decl.initializer===bin){endpointInitializers++;localEndpoint=true;}
+    else {
+     const consumer=bin.parent,callee=consumer?.expression;
+     const httpsOnlyReleaseGuard=ts.isCallExpression(consumer)&&consumer.arguments[0]===bin&&ts.isPropertyAccessExpression(callee)&&callee.name.text==='test'&&ts.isRegularExpressionLiteral(callee.expression)&&callee.expression.text.includes('^https:');
+     if(!httpsOnlyReleaseGuard)throw Error('Unrecognized lead-endpoint use outside initializer or HTTPS-only release guard: '+name);
+    }
    }
    if(ts.isCallExpression(n)){
     const callee=n.expression.getText(tree);

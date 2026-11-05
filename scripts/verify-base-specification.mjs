@@ -15,15 +15,21 @@ function readData(file) {
   return exports
 }
 const { saunas, homes } = readData('src/data/index.ts')
-const { modelBaseConfiguration, requiresBaseConfigurationConfirmation } = readData('src/data/model-configuration.ts')
+const { modelBaseConfiguration, modelFeatures, requiresBaseConfigurationConfirmation } = readData('src/data/model-configuration.ts')
 const clean = html => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ').replace(/&nbsp;|&#160;/g,' ').replace(/\s+/g,' ').trim()
 let prices = 0
 for (const model of [...saunas,...homes]) {
   const route = `${saunas.includes(model) ? 'banya' : 'dom'}/${model.slug}`
   const html = fs.readFileSync(path.join(dist,route+'.html'),'utf8')
-  const blockStart = html.indexOf(`data-model-config="${model.id}"`)
-  const calculatorStart = html.indexOf(`data-model-option-calculator="${model.id}"`, blockStart)
-  const block = blockStart >= 0 && calculatorStart > blockStart ? html.slice(blockStart, calculatorStart) : undefined
+  const baseMarkers = [...html.matchAll(new RegExp(`data-model-config="${model.id}"`, 'g'))]
+  assert.equal(baseMarkers.length, 1, `${model.id}: base specification must be rendered exactly once`)
+  const blockStart = baseMarkers[0].index
+  const interiorStart = html.indexOf('Варианты внутреннего исполнения', blockStart)
+  const descriptionStart = interiorStart >= 0 ? html.indexOf('О модели', interiorStart) : -1
+  const calculatorStart = descriptionStart >= 0 ? html.indexOf(`data-model-option-calculator="${model.id}"`, descriptionStart) : -1
+  assert(blockStart >= 0 && interiorStart > blockStart && descriptionStart > interiorStart && calculatorStart > descriptionStart,
+    `${model.id}: expected order is overview → base configuration → interior examples → description/specs → options calculator`)
+  const block = blockStart >= 0 && interiorStart > blockStart ? html.slice(blockStart, interiorStart) : undefined
   assert(block, `${model.id}: missing base specification`)
   const text = clean(block)
   const expectedRows = modelBaseConfiguration(model)
@@ -46,6 +52,7 @@ for (const model of [...saunas,...homes]) {
     else if (isGift) assert.match(clean(card[0]), /В подарок/, `${model.id}: gift row must be labelled separately`)
     else assert(!clean(card[0]).includes('Включено в стоимость'), `${model.id}: included rows must not repeat the global badge`)
   }
+  assert.equal((html.match(/data-base-label=/g) ?? []).length, expectedRows.length, `${model.id}: base rows must not be duplicated elsewhere in calculator`)
   const hasPendingRows = expectedRows.some(row => requiresBaseConfigurationConfirmation(row.value))
   const baseLead = clean(block.match(/<p[^>]*class="[^"]*baseLead[^"]*"[^>]*>([\s\S]*?)<\/p>/)?.[1] ?? '')
   assert.equal(baseLead, hasPendingRows
@@ -56,8 +63,12 @@ for (const model of [...saunas,...homes]) {
   assert.match(block, /class="[^"]*baseTable[^"]*"/, `${model.id}: compact specification table missing`)
   const n = Number(model.id.slice(3))
   if (homes.includes(model)) {
+    const visibleFeatures = modelFeatures(model)
+    for (const feature of model.features.filter(value => /Пол и потолок: утепление|Каменка-2|Каркас 100 мм или брус/.test(value))) {
+      assert(visibleFeatures.includes(feature), `${model.id}: house feature must not inherit mobile-sauna substitutions (${feature})`)
+    }
     const row = (label) => expectedRows.find(item => item.label === label)?.value ?? ''
-    assert.match(row('Утепление'), /Пол и потолок — минеральная вата 100 мм/)
+    assert(requiresBaseConfigurationConfirmation(row('Утепление')), `${model.id}: house insulation must remain pending until confirmed per model`)
     assert(!text.includes('Осиновая'), `${model.id}: mobile-bath interior must not be copied to a home`)
     assert(!text.includes('Бак для воды и камни для печи'), `${model.id}: mobile-bath stove gifts must not be copied to a home`)
     assert(!text.includes('Стол и две лавки'), `${model.id}: unconfirmed home furniture must not be shown as a gift`)

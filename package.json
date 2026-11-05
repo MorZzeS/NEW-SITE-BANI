@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "node scripts/create-social-qr.mjs && next build && node scripts/create-article-url-aliases.mjs",
     "start": "next start",
-    "check:static": "node scripts/check-static.mjs"
+    "check:static": "node scripts/check-static.mjs",
+    "test:pdf-layout": "node scripts/model-pdf-redesign-qa.mjs"
   },
   "dependencies": {
     "autoprefixer": "10.4.19",

@@ -1,5 +1,6 @@
 import { ModelConfigurationProvider } from '@/components/catalog/ModelConfigurationContext'
 import { ModelBaseConfiguration } from '@/components/catalog/ModelBaseConfiguration'
+import { ModelBaseSpecification } from '@/components/catalog/ModelBaseSpecification'
 import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
@@ -64,6 +65,7 @@ export default async function SaunaPage({ params }: Props) {
         </div>
 
         <ModelOverview model={sauna} />
+        <ModelBaseSpecification model={sauna} />
         {!sauna.floorPlan && <p className="text-sm text-cream/60 mb-6">Нет подтверждённого исходника планировки. Планировка согласуется при заказе.</p>}
         {!!interiorImages.length && <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>

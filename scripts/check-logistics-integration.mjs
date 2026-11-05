@@ -41,7 +41,8 @@ for (const model of models) {
   const rows = baseConfiguration.modelBaseConfiguration(model)
   const values = rows.map(row => row.value).join(' ')
   if (data.homes.includes(model)) {
-    assert.match(rows.find(row => row.label === 'Утепление').value, /Пол и потолок — минеральная вата 100 мм/)
+    assert.ok(baseConfiguration.requiresBaseConfigurationConfirmation(rows.find(row => row.label === 'Утепление').value), model.id + ': house insulation must remain pending until confirmed per model')
+    assert.ok(!/Пол и потолок — минеральная вата 100 мм/.test(values), model.id + ': mobile-sauna insulation must not be copied to a house')
     assert.ok(!/осин|Бак для воды и камни|Стол и две лавки|Ермак/i.test(values), model.id + ': do not inherit mobile-bath interior, gifts, furniture or stove')
     for (const row of rows.filter(row => !['Конструкция', 'Формат', 'Помещения', 'Утепление'].includes(row.label))) {
       assert.ok(baseConfiguration.requiresBaseConfigurationConfirmation(row.value), model.id + ': undocumented home row must remain pending: ' + row.label)
@@ -155,10 +156,10 @@ for (const district of ['unknown', 'outside', 'ramenskoe']) {
   const configuration = calculate(models[0], ['delivery', 'crane-unload', 'ceiling-height', 'tray', 'wooden-window-600', 'wooden-window-400', 'larch-wash'], { deliveryDistrict: district, deliveryAddress: 'Адрес участка 10', quantities: { 'ceiling-height': 2 } })
   const doc = createModelPdf(models[0], configuration, { font, images: {} }, new Date('2026-11-03T12:00:00Z'))
   const text = captured.join('\n').replace(/[\u00a0\u202f]/g, ' ')
-  for (const fragment of ['Адрес участка 10', 'Доставка', 'Разгрузка краном', 'Деревянное окно 600', 'Деревянное окно 400', 'Душевой поддон', 'Дополнительное оборудование', 'Логистические услуги', '44 000', configuration.total.toLocaleString('ru-RU').replace(/[\u00a0\u202f]/g, ' ')]) assert.ok(text.includes(fragment), district + ': PDF missing ' + fragment)
-  assert.ok(text.includes('Индивидуальный расчёт'))
+  for (const fragment of ['Адрес участка 10', 'Доставка', 'Разгрузка краном', 'Деревянное окно 600', 'Деревянное окно 400', 'Душевой поддон', 'Дополнительное оборудование', 'Доставка и разгрузка', '44 000', configuration.total.toLocaleString('ru-RU').replace(/[\u00a0\u202f]/g, ' ')]) assert.ok(text.includes(fragment), district + ': PDF missing ' + fragment)
+  if (configuration.unpricedCount) assert.match(text, /индивидуальный расчёт/i, district + ': missing individual-price warning')
   assert.ok(doc.getNumberOfPages() >= 2)
   assert.ok(doc.output('arraybuffer').byteLength > 10000)
   pdfCases++
 }
-console.log(JSON.stringify({ status: 'PASS', models: models.length, options: options.length, districtCombinationCases: cases, pdfCases, priceBaseline: '714da378; only tray changed to approved 18000', posts: 0, notChecked: ['browser visual layout', 'PDF image loading and visual page rendering', 'external MAX delivery'] }, null, 2))
+console.log(JSON.stringify({ status: 'PASS', models: models.length, options: options.length, districtCombinationCases: cases, pdfCases, priceBaseline: '714da378; only tray changed to approved 18000', posts: 0, notChecked: ['browser visual layout', 'external MAX delivery'] }, null, 2))

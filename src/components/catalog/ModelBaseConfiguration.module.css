@@ -226,19 +226,34 @@
   .optionGroups { grid-row: 2; }
 }
 
-.baseSpecification { min-width: 0; padding: clamp(16px, 2.2vw, 26px); border: 1px solid var(--glass-border); border-radius: 17px; background: color-mix(in srgb, var(--glass-bg) 86%, transparent); }
+.baseSpecification {
+  --color-text: #292720;
+  --color-text-muted: #5d584f;
+  --color-text-subtle: #746d60;
+  --color-accent: #91641f;
+  --glass-border: rgb(112 92 57 / 24%);
+  --glass-border-subtle: rgb(112 92 57 / 15%);
+  --glass-bg: #fffdf8;
+  min-width: 0;
+  padding: clamp(16px, 2.2vw, 26px);
+  border: 1px solid #ddd2bd;
+  border-radius: 17px;
+  color: #292720;
+  background: #f7f3ea;
+  box-shadow: 0 12px 32px rgb(22 18 11 / 10%);
+}
 .baseHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 22px; margin: 0 0 15px; padding: 0 0 14px; border-bottom: 1px solid var(--glass-border-subtle); }
 .baseHeader > div { min-width: 0; }
 .baseHeader .eyebrow { margin: 0 0 6px; }
 .baseHeader h2 { margin: 0; color: var(--color-text); font-size: clamp(23px, 2.4vw, 30px); font-weight: 750; line-height: 1.2; letter-spacing: -.025em; }
 .baseLead { max-width: 760px; margin: 9px 0 0; color: var(--color-text-muted); font-size: 13px; line-height: 1.55; }
-.includedBadge { display: inline-flex; flex: 0 0 auto; align-items: center; min-height: 28px; margin-top: 5px; padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--color-accent) 38%, var(--glass-border)); border-radius: 999px; color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--glass-bg)); font-size: 11px; font-weight: 700; white-space: nowrap; }
+.includedBadge { display: inline-flex; flex: 0 0 auto; align-items: center; min-height: 28px; margin-top: 5px; padding: 5px 10px; border: 1px solid rgb(145 100 31 / 38%); border-radius: 999px; color: #805514; background: #efe2c5; font-size: 11px; font-weight: 700; white-space: nowrap; }
 .baseTable { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 30px; margin: 0; }
 .baseSpecRow { display: grid; grid-template-columns: minmax(112px, .78fr) minmax(0, 1.65fr); align-items: start; gap: 12px; min-width: 0; padding: 10px 0; border-bottom: 1px solid var(--glass-border-subtle); }
 .baseSpecRow dt { min-width: 0; color: var(--color-text); font-size: 12px; line-height: 1.45; font-weight: 700; }
 .baseSpecRow dd { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 5px 8px; min-width: 0; margin: 0; color: var(--color-text-muted); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
 .giftBadge,.pendingBadge { display: inline-flex; flex: 0 0 auto; align-items: center; border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent); border-radius: 999px; padding: 2px 6px; color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 7%, var(--glass-bg)); font-size: 10px; line-height: 1.25; font-weight: 650; white-space: nowrap; }
-.pendingDetails { margin-top: 10px; padding: 11px 16px; border: 1px solid var(--glass-border); border-radius: 13px; background: color-mix(in srgb, var(--glass-bg) 70%, transparent); }
+.pendingDetails { --color-text: #292720; --color-text-muted: #5d584f; --color-text-subtle: #746d60; --color-accent: #91641f; --glass-border: rgb(112 92 57 / 24%); --glass-border-subtle: rgb(112 92 57 / 15%); --glass-bg: #fbf8f1; margin-top: 10px; padding: 11px 16px; border: 1px solid #ddd2bd; border-radius: 13px; color: #292720; background: #fbf8f1; }
 .pendingSummary { display: flex; align-items: center; gap: 12px; min-height: 26px; color: var(--color-text); list-style: none; cursor: pointer; font-size: 13px; line-height: 1.4; font-weight: 700; }
 .pendingSummary::-webkit-details-marker { display: none; }
 .pendingCount { margin-left: auto; color: var(--color-text-muted); font-size: 12px; white-space: nowrap; }

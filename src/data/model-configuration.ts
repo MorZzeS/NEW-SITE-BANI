@@ -15,9 +15,14 @@ export function modelConstruction(id: string): string {
   return 'Тип конструкции согласуется при заказе'
 }
 
-// Keep published model-specific characteristics visible while using the owner's current insulation specification.
+// Apply the owner's updated insulation specification only to mobile saunas; houses retain their own source data.
 export function modelFeatures(model: Sauna | Home): string[] {
-  return model.features.map(feature => feature.includes('Пол и потолок: утепление 50 мм') ? 'Пол и потолок: утепление 100 мм' : feature.includes('Каменка-2') ? 'Печь-каменка «Ермак» с дымоходом; бак и камни в подарок' : feature.includes('Каркас 100 мм или брус') ? modelConstruction(model.id) : feature)
+  return model.features.map(feature => {
+    if ('series' in model && feature.includes('Пол и потолок: утепление 50 мм')) return 'Пол и потолок: утепление 100 мм'
+    if ('series' in model && feature.includes('Каменка-2')) return 'Печь-каменка «Ермак» с дымоходом; бак и камни в подарок'
+    if ('series' in model && feature.includes('Каркас 100 мм или брус')) return modelConstruction(model.id)
+    return feature
+  })
 }
 
 function homeConfiguration(model: Home): ModelConfigurationRow[] {
@@ -34,7 +39,7 @@ function homeConfiguration(model: Home): ModelConfigurationRow[] {
     { label: 'Конструкция', value: number >= 25 && number <= 27 ? pending : modelConstruction(model.id) },
     ...(format ? [{ label: 'Формат', value: format }] : []),
     { label: 'Помещения', value: confirmedLayout || (model.floorPlan ? 'Состав помещений — по планировке модели' : pending) },
-    { label: 'Утепление', value: 'Пол и потолок — минеральная вата 100 мм; подтверждено владельцем для моделей каталога' },
+    { label: 'Утепление', value: 'Утепление уточняется по спецификации конкретной модели дома' },
     ...[
       'Основание',
       'Пароизоляция и ветровлагозащита',

@@ -28,7 +28,7 @@ try {
   }else if(f.path!=='robots.txt'&&f.path!=='.htaccess'){assert.equal(packaged.get(f.path)?.sha256,f.sha256);checks++;}
  }
  assert.deepEqual(inventory(source),initial);checks++;
- const report={result:'PASS',input:source,inputFiles:initial.length,artifactFiles:files,htmlPages:html,preservedScriptTags:scripts,preservedFormOpenTags:forms,compiledAudit:compiled,checks,sourceUnchanged:true,buildRun:false,network:false,artifact:'temporary owned-dir package verified and cleaned'};
+const report={result:'PASS',input:path.basename(source),inputFiles:initial.length,artifactFiles:files,htmlPages:html,preservedScriptTags:scripts,preservedFormOpenTags:forms,compiledAudit:compiled,checks,sourceUnchanged:true,buildRun:false,network:false,artifact:'temporary owned-dir package verified and cleaned'};
  fs.writeFileSync('docs/deployment/existing-build-verification.json',JSON.stringify(report,null,2)+'\n');
  console.log(JSON.stringify(report,null,2));
 }finally{
