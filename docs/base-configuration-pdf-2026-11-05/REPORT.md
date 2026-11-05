@@ -52,4 +52,13 @@
 
 ## Публикация
 
-Тестовая публикация ещё не выполнялась. Если остальные проверки готовы, кандидат может быть отправлен только в `work/github-pages-test-20261030` для просмотра владельцем; Browser QA остаётся BLOCKED. `main`, production BANGER.SU, SpaceWeb и DNS не изменялись.
+Изменения опубликованы только в тестовой ветке `work/github-pages-test-20261030`:
+
+- Коммит реализации: `389b8a984863f5aa0ed7160b7f747cca9d6d642c`.
+- GitHub Actions run `42003132120` завершился `success`: https://github.com/MorZzeS/NEW-SITE-BANI/actions/runs/42003132120.
+- `release.json` тестовых Pages вернул HTTP 200, SHA `389b8a984863f5aa0ed7160b7f747cca9d6d642c`, `basePath=/NEW-SITE-BANI`.
+- Live HTTP 200: главная, `/banya/istok-4`, `/dom/usadba-praktik`, `/model-sheet/bg-01`; на странице Исток 4 найдены базовая спецификация и калькулятор.
+- Live HTTP 200 также проверен для CSS, JS страницы модели, фото модели, плана и изображения опции. Это проверка HTTP/HTML/assets, не интерактивная браузерная QA.
+- Скриншоты UI desktop/mobile DAY/NIGHT не созданы: доступного браузера/Playwright в среде нет. Browser QA остаётся BLOCKED; владелец может открыть тестовый сайт для визуального просмотра.
+
+`main`, production BANGER.SU, SpaceWeb и DNS не изменялись.
