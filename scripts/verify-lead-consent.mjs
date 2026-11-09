@@ -14,10 +14,13 @@ const approved=load('src/lib/lead-consent.ts',{NEXT_PUBLIC_LEADS_CONTRACT:'2',NE
 assert.equal(approved.leadPageUrl('https://test.invalid/model?phone=private#anchor'),'https://test.invalid/model')
 assert.equal(approved.consentEvidence().contractVersion,2)
 let calls=0
-const http=load('src/lib/leads.ts',{NEXT_PUBLIC_LEADS_ENDPOINT:'https://test.invalid/leads'},()=>legacy,{location:{protocol:'http:'},fetch:()=>{calls++}})
+const leadImports=id=>id==='./release-policy'?{releasePolicy:{onlineLeads:true}}:legacy
+const http=load('src/lib/leads.ts',{NEXT_PUBLIC_LEADS_ENDPOINT:'https://test.invalid/leads'},leadImports,{location:{protocol:'http:'},fetch:()=>{calls++}})
 await assert.rejects(()=>http.sendLead({}),/HTTP/);assert.equal(calls,0)
-const missing=load('src/lib/leads.ts',{NEXT_PUBLIC_LEADS_ENDPOINT:'https://test.invalid/leads'},()=>pending,{location:{protocol:'https:'},fetch:()=>{calls++}})
+const pendingImports=id=>id==='./release-policy'?{releasePolicy:{onlineLeads:true}}:pending
+const missing=load('src/lib/leads.ts',{NEXT_PUBLIC_LEADS_ENDPOINT:'https://test.invalid/leads'},pendingImports,{location:{protocol:'https:'},fetch:()=>{calls++}})
 await assert.rejects(()=>missing.sendLead({}),/утверждены/);assert.equal(calls,0)
-const ok=load('src/lib/leads.ts',{NEXT_PUBLIC_LEADS_ENDPOINT:'https://test.invalid/leads'},()=>approved,{location:{protocol:'https:'},AbortController,setTimeout,clearTimeout,fetch:async(_,options)=>{calls++;assert.equal(options.credentials,'omit');return {ok:true,json:async()=>({ok:true,requestId:'synthetic-request'})}}})
+const approvedImports=id=>id==='./release-policy'?{releasePolicy:{onlineLeads:true}}:approved
+const ok=load('src/lib/leads.ts',{NEXT_PUBLIC_LEADS_ENDPOINT:'https://test.invalid/leads'},approvedImports,{location:{protocol:'https:'},AbortController,setTimeout,clearTimeout,fetch:async(_,options)=>{calls++;assert.equal(options.credentials,'omit');return {ok:true,json:async()=>({ok:true,requestId:'synthetic-request'})}}})
 await ok.sendLead({requestId:'synthetic-request',...approved.consentEvidence()});assert.equal(calls,1)
 console.log('PASS: legacy contract unchanged, v2 pending failclosed, approved synthetic evidence, URL minimization, HTTP blocked before fetch, matching receipt. No real network.')

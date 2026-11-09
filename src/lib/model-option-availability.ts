@@ -129,6 +129,9 @@ export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
       option, status, reason, source, blockedReason: status === 'available' ? undefined : reason,
     })
     if (option.id === 'delivery' || option.id === 'crane-unload') return row('available', 'Самостоятельная логистическая услуга. Тариф зависит от района, выбранного вручную; адрес и условия работ согласуются при заказе.', availabilitySources.options)
+    if (option.id === 'replanning') return 'hasShower' in model
+      ? row('available', 'Изменение стандартной планировки бани. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно.', 'Решение владельца от 09.11.2026')
+      : row('unknown', 'Услуга утверждена для стандартной планировки бани; применимость к дому «Усадьба» не подтверждена.', availabilitySources.unconfirmed)
     const inBase = included(option.id)
     if (inBase) {
       return row('included', `Уже входит в базовую комплектацию модели: «${inBase.feature}». Повторно не оплачивается.`, availabilitySources.feature)

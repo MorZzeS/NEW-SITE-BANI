@@ -52,11 +52,10 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   }
 
   function renderAvailableCategories() {
-    const firstAvailableCategory = optionCategories.find(category => available.some(row => row.option.category === category))
     return optionCategories.map(category => {
       const items = available.filter(row => row.option.category === category)
       if (!items.length) return null
-      return <details className={styles.optionCategory} key={category} open={category === firstAvailableCategory}>
+      return <details className={styles.optionCategory} key={category}>
         <summary><ConfigurationCategoryTitle name={category} count={optionCountLabel(items.length)} /></summary>
         {category === 'Логистика' && <DeliveryFields id={`model-${model.id}`} district={configuration.deliveryDistrict} address={configuration.deliveryAddress} onDistrict={setDeliveryDistrict} onAddress={setDeliveryAddress} />}
         <div className={styles.optionList}>

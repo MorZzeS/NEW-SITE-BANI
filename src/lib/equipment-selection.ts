@@ -10,7 +10,15 @@ export function equipmentSelection(ids: readonly string[], quantities: Readonly<
   const knownTotal = subtotal(), equipmentSubtotal = subtotal('equipment'), logisticsSubtotal = subtotal('logistics')
   const unpricedCount = selected.filter(option => option.salePrice === null).length
   const money = (price: number) => price.toLocaleString('ru-RU') + ' ₽'
-  const summary = (compact = false) => selected.length || deliveryAddress || deliveryDistrict !== 'unknown' ? [selected.length ? 'Выбранные дополнительные опции:' : 'Дополнительные опции не выбраны.', ...selected.map(option => '• ' + managerOptionName(option, compact) + (option.id === 'ceiling-height' ? ' (+' + option.quantity * 10 + ' см)' : '') + ' — ' + (option.salePrice === null ? 'Индивидуальный расчёт' : money(option.salePrice * option.quantity))), 'Оборудование: ' + money(equipmentSubtotal), 'Логистика: ' + money(logisticsSubtotal), 'Итого дополнений: ' + money(knownTotal), ...(selected.some(option => option.kind === 'logistics') || deliveryAddress || deliveryDistrict !== 'unknown' ? ['Район: ' + deliveryDistrictLabel(deliveryDistrict), ...(deliveryAddress ? ['Адрес: ' + deliveryAddress] : [])] : []), ...(unpricedCount ? ['Предварительная сумма без позиций индивидуального расчёта и неподтверждённой логистики.'] : [])].join('\n') : ''
+  const summary = (compact = false) => selected.length || deliveryAddress || deliveryDistrict !== 'unknown' ? [
+    selected.length ? (compact ? 'Опции:' : 'Выбранные дополнительные опции:') : 'Дополнительные опции не выбраны.',
+    ...selected.map(option => (compact ? '' : '• ') + managerOptionName(option, compact) + (option.id === 'ceiling-height' ? ' (+' + option.quantity * 10 + ' см)' : '') + ' — ' + (option.salePrice === null ? 'Индивидуальный расчёт' : money(option.salePrice * option.quantity))),
+    (compact ? 'Оборудование ' : 'Оборудование: ') + money(equipmentSubtotal),
+    (compact ? 'Логистика ' : 'Логистика: ') + money(logisticsSubtotal),
+    (compact ? 'Дополнения: ' : 'Итого дополнений: ') + money(knownTotal),
+    ...(selected.some(option => option.kind === 'logistics') || deliveryAddress || deliveryDistrict !== 'unknown' ? ['Район: ' + deliveryDistrictLabel(deliveryDistrict), ...(deliveryAddress ? ['Адрес: ' + deliveryAddress] : [])] : []),
+    ...(unpricedCount ? ['Предварительная сумма без позиций индивидуального расчёта и неподтверждённой логистики.'] : []),
+  ].join('\n') : ''
   const comment = summary().length > 1500 ? summary(true) : summary()
   return { selected, knownTotal, equipmentSubtotal, logisticsSubtotal, unpricedCount, comment, deliveryDistrict, deliveryAddress }
 }

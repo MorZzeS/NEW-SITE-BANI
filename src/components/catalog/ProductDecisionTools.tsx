@@ -6,8 +6,8 @@ import { createPortal } from 'react-dom'
 import { catalogCardImage } from '@/lib/catalog-image'
 import { modelBaseConfiguration, modelFeatures } from '@/data/model-configuration'
 import styles from './ProductDecisionTools.module.css'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowRight, GitCompareArrows, SlidersHorizontal, X } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { ArrowRight, GitCompareArrows, X } from 'lucide-react'
 import type { Home, Sauna } from '@/types'
 import { formatPrice } from '@/data'
 
@@ -18,34 +18,11 @@ type Props = {
   products: DecisionProduct[]
   selectedIds: string[]
   onToggleCompare: (id: string) => void
+  children: ReactNode
 }
 
-const lengthOptions = [
-  { value: 'any', label: 'Любой размер' },
-  { value: 'compact', label: 'До 6 м' },
-  { value: 'medium', label: '6–7,5 м' },
-  { value: 'large', label: 'От 8 м' },
-] as const
-
-function lengthInMeters(size: string) {
-  const match = size.replace(',', '.').match(/[0-9]+(?:\.[0-9]+)?/)
-  return match ? Number(match[0]) : 0
-}
-
-function matchesLength(size: string, value: typeof lengthOptions[number]['value']) {
-  const length = lengthInMeters(size)
-  if (value === 'compact') return length < 6
-  if (value === 'medium') return length >= 6 && length < 8
-  if (value === 'large') return length >= 8
-  return true
-}
-
-export function ProductDecisionTools({ kind, products, selectedIds, onToggleCompare }: Props) {
+export function ProductDecisionTools({ kind, products, selectedIds, onToggleCompare, children }: Props) {
   const [compareOpen, setCompareOpen] = useState(false)
-  const [pickerOpen, setPickerOpen] = useState(false)
-  const [length, setLength] = useState<typeof lengthOptions[number]['value']>('any')
-  const [budget, setBudget] = useState<'any' | 'under600' | 'under800'>('any')
-  const [feature, setFeature] = useState<'any' | 'terrace' | 'shower'>('any')
   const compareTriggerRef = useRef<HTMLButtonElement>(null)
   const compareReturnRef = useRef<HTMLElement>(null)
   const closeCompareRef = useRef<HTMLButtonElement>(null)
@@ -55,15 +32,6 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
     () => selectedIds.map((id) => products.find((product) => product.id === id)).filter(Boolean) as DecisionProduct[],
     [products, selectedIds],
   )
-
-  const recommendations = useMemo(() => products.filter((product) => {
-    if (!matchesLength(product.size, length)) return false
-    if (budget === 'under600' && product.priceFrom > 600000) return false
-    if (budget === 'under800' && product.priceFrom > 800000) return false
-    if (feature === 'terrace' && !('hasTerrace' in product && product.hasTerrace)) return false
-    if (feature === 'shower' && !('hasShower' in product && product.hasShower)) return false
-    return true
-  }).slice(0, 4), [budget, feature, length, products])
 
   const comparisonRows: { label: string; value: (product: DecisionProduct) => string | string[] }[] = [
     { label: 'Габариты', value: product => product.size },
@@ -107,53 +75,17 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
   }, [compareOpen])
 
   return (
-    <section ref={compareReturnRef} tabIndex={-1} className="mb-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]" aria-label="Помощь с выбором модели">
+    <section ref={compareReturnRef} tabIndex={-1} className="mb-8 grid items-stretch gap-4 lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,.85fr)]" aria-label="Подбор и сравнение моделей">
       <div className="glass rounded-2xl p-5 md:p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="section-tag mb-2">Помощь с выбором</p>
-            <h2 className="text-2xl font-bold text-cream">Сравните модели по фактам</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-cream/60">
-              Выберите до четырёх вариантов. Сравните размеры, площадь, стоимость и подтверждённую комплектацию.
-            </p>
-          </div>
-          <button type="button" className="btn-secondary inline-flex items-center gap-2" onClick={() => setPickerOpen((open) => !open)} aria-expanded={pickerOpen}>
-            <SlidersHorizontal className="h-4 w-4" />
-            {pickerOpen ? 'Скрыть подбор' : 'Подобрать модель'}
-          </button>
-        </div>
-
-        {pickerOpen && (
-          <div className="mt-5 grid gap-3 border-t border-cream/10 pt-5 md:grid-cols-3">
-            <label className="text-sm text-cream/70">Размер
-              <select value={length} onChange={(event) => setLength(event.target.value as typeof length)} className="input-glass mt-1 w-full rounded-xl px-3 py-2 text-sm text-cream">
-                {lengthOptions.map((option) => <option key={option.value} value={option.value} className="bg-graphite-900">{option.label}</option>)}
-              </select>
-            </label>
-            <label className="text-sm text-cream/70">Бюджет базовой комплектации
-              <select value={budget} onChange={(event) => setBudget(event.target.value as typeof budget)} className="input-glass mt-1 w-full rounded-xl px-3 py-2 text-sm text-cream">
-                <option value="any" className="bg-graphite-900">Без ограничения</option>
-                <option value="under600" className="bg-graphite-900">До 600 000 ₽</option>
-                <option value="under800" className="bg-graphite-900">До 800 000 ₽</option>
-              </select>
-            </label>
-            <label className="text-sm text-cream/70">Особенность
-              <select value={feature} onChange={(event) => setFeature(event.target.value as typeof feature)} className="input-glass mt-1 w-full rounded-xl px-3 py-2 text-sm text-cream">
-                <option value="any" className="bg-graphite-900">Неважно</option>
-                <option value="terrace" className="bg-graphite-900">Терраса / крыльцо</option>
-                {kind === 'bani' && <option value="shower" className="bg-graphite-900">Душ</option>}
-              </select>
-            </label>
-            <div className="md:col-span-3 rounded-xl border border-gold-400/20 bg-gold-400/5 p-3 text-sm text-cream/70">
-              Найдено по выбранным параметрам: <strong className="text-cream">{recommendations.length}</strong>. Это предварительный подбор, а не рекомендация по строительству или бюджету.
-              {recommendations.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{recommendations.map((product) => <Link key={product.id} href={hrefFor(product)} className="inline-flex items-center gap-1 rounded-lg border border-cream/15 px-3 py-2 text-xs text-cream transition-colors hover:border-gold-400/50 hover:text-gold-300">{product.name}<ArrowRight className="h-3 w-3" /></Link>)}</div>}
-            </div>
-          </div>
-        )}
+        <p className="section-tag mb-2">Подбор модели</p>
+        <h2 className="text-2xl font-bold text-cream">Найдите подходящий вариант</h2>
+        <p className="mt-2 text-sm leading-relaxed text-cream/60">Фильтры сразу обновляют список моделей ниже.</p>
+        <div className="mt-5 border-t border-cream/10 pt-5">{children}</div>
       </div>
 
       <div className="glass rounded-2xl p-5 md:p-6">
-        <div className="flex items-center gap-2 text-gold-300"><GitCompareArrows className="h-4 w-4" /><span className="text-sm font-semibold">Сравнение</span></div>
+        <div className="flex items-center gap-2 text-gold-300"><GitCompareArrows className="h-4 w-4" /><span className="text-sm font-semibold">Сравнение моделей</span></div>
+        <h2 className="mt-2 text-xl font-bold text-cream">Сравнение моделей по характеристикам</h2>
         <p className="mt-2 text-sm text-cream/60">Отметьте модели в каталоге, чтобы сопоставить их рядом.</p>
         <button ref={compareTriggerRef} type="button" className="btn-primary mt-4 inline-flex w-full items-center justify-center gap-2" disabled={selected.length < 2} onClick={() => setCompareOpen(true)}>
           Сравнить выбранные ({selected.length}/4)
@@ -163,7 +95,7 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
 
       {compareOpen && createPortal(<div className={styles.overlay} onClick={closeCompare}>
         <div ref={compareDialogRef} tabIndex={-1} className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="compare-title" onClick={(event) => event.stopPropagation()}>
-          <div className={styles.heading}><div><p className="section-tag mb-2">Сопоставление</p><h2 id="compare-title">Выбранные модели ({selected.length}/4)</h2></div><button ref={closeCompareRef} type="button" className={styles.close} aria-label="Закрыть сравнение" onClick={closeCompare}><X className="mx-auto h-5 w-5" /></button></div>
+          <div className={styles.heading}><div><p className="section-tag mb-2">Сопоставление</p><h2 id="compare-title">Сравнение моделей по характеристикам ({selected.length}/4)</h2></div><button ref={closeCompareRef} type="button" className={styles.close} aria-label="Закрыть сравнение" onClick={closeCompare}><X className="mx-auto h-5 w-5" /></button></div>
           {selected.length ? <div className={styles.scroll} role="region" aria-label="Таблица сравнения — прокручивается по горизонтали" tabIndex={0}>
             <table className={styles.table} style={{ minWidth: `calc(var(--compare-label-width, 144px) + ${selected.length * 176}px)` }}>
               <caption className="sr-only">Сравнение характеристик выбранных моделей. Строки с отличиями выделены фоном.</caption>

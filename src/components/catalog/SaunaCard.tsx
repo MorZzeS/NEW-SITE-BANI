@@ -32,7 +32,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
         aria-pressed={compareSelected}
         disabled={compareDisabled && !compareSelected}
         onClick={() => onCompare(sauna.id)}
-        className={clsx('absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-semibold backdrop-blur-sm transition-colors', compareSelected ? 'border-gold-300/70 bg-gold-400/25 text-gold-200' : 'border-cream/20 bg-graphite-950/60 text-cream/80 hover:border-gold-300/50', compareDisabled && !compareSelected && 'cursor-not-allowed opacity-50')}
+        className={clsx('absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-semibold shadow-lg backdrop-blur-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300', compareSelected ? 'border-gold-300/80 bg-graphite-950/95 text-gold-200' : 'border-white/50 bg-graphite-950/90 text-white hover:border-gold-300/80 hover:text-gold-200', compareDisabled && !compareSelected && 'cursor-not-allowed opacity-60')}
       >
         <GitCompareArrows className="h-3.5 w-3.5" /> {compareSelected ? 'В сравнении' : 'Сравнить'}
       </button>}

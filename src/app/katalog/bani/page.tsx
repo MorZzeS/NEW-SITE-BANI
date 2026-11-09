@@ -3,6 +3,7 @@ import { modelCountWord } from '@/lib/catalog-labels'
 
 import { Suspense, useEffect, useState, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunas } from '@/data'
 import clsx from 'clsx'
@@ -10,6 +11,12 @@ import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 
 const series = ['Все', 'Исток', 'Скандинавия', 'Барн']
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
+const seriesDescriptions: Record<string, string> = {
+  'Все': 'Модели мобильных бань собственного производства. Доставка и установка по Москве и регионам Центральной России.',
+  'Исток': 'Мобильные бани серии «Исток». Количество моделей считается по актуальному каталогу.',
+  'Скандинавия': 'Бани направлений «Скандинавия» и «Север»: количество моделей считается по данным каталога.',
+  'Барн': 'Мобильные бани серии «Барн». Количество моделей считается по актуальному каталогу.',
+}
 
 function SeriesQuery({ onChange }: { onChange: (value: string) => void }) {
   const searchParams = useSearchParams()
@@ -34,14 +41,26 @@ export default function BaniCatalogPage() {
     ? current.filter((item) => item !== id)
     : current.length < 4 ? [...current, id] : current)
 
-  const filtered = useMemo(() => {
+  const categoryProducts = useMemo(() => {
     let list = [...saunas]
-
     if (activeSeries !== 'Все') {
       list = list.filter((s) => activeSeries === 'Скандинавия'
         ? s.series === 'Скандинавия' || s.series === 'Север'
         : s.series === activeSeries)
     }
+    return list
+  }, [activeSeries])
+
+  const categoryTitle = activeSeries === 'Все' ? 'Мобильные бани' : `Бани ${activeSeries}`
+
+  useEffect(() => {
+    const description = `${categoryTitle}: ${categoryProducts.length} ${modelCountWord(categoryProducts.length)}. ${seriesDescriptions[activeSeries]}`
+    document.title = `${categoryTitle} — ${categoryProducts.length} ${modelCountWord(categoryProducts.length)} | Бани Герасимов`
+    document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute('content', description)
+  }, [activeSeries, categoryProducts.length, categoryTitle])
+
+  const filtered = useMemo(() => {
+    let list = [...categoryProducts]
 
     if (activeLength !== 'Все') {
       list = list.filter((s) => {
@@ -63,29 +82,29 @@ export default function BaniCatalogPage() {
     if (sort === 'area') list.sort((a, b) => b.area - a.area)
 
     return list
-  }, [activeSeries, activeLength, sort, minPrice, maxPrice, hasShowerFilter, hasTerraceFilter])
+  }, [categoryProducts, activeLength, sort, minPrice, maxPrice, hasShowerFilter, hasTerraceFilter])
 
   return (
     <div className="pt-28 pb-20">
       <Suspense fallback={null}><SeriesQuery onChange={setActiveSeries} /></Suspense>
       <div className="site-container">
         {/* Header */}
-        <div className="mb-10">
+        <nav aria-label="Хлебные крошки" className="mb-5 text-sm text-cream/55">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li><Link className="hover:text-cream" href="/">Главная</Link></li><li aria-hidden="true">/</li>
+            <li><Link className="hover:text-cream" href="/katalog/bani">Мобильные бани</Link></li>
+            {activeSeries !== 'Все' && <><li aria-hidden="true">/</li><li aria-current="page" className="text-cream/85">{categoryTitle}</li></>}
+          </ol>
+        </nav>
+        <div className="mb-8">
           <div className="section-tag mb-4">Каталог</div>
-          <h1 className="text-5xl font-extrabold text-cream mb-3">Мобильные бани</h1>
-          <p className="text-cream/60 max-w-xl">
-            {saunas.length} моделей собственного производства. Доставка и установка по Москве и регионам Центральной России.
-          </p>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-cream mb-3">{categoryTitle}</h1>
+          <p className="text-cream/60 max-w-xl">{categoryProducts.length} {modelCountWord(categoryProducts.length)}. {seriesDescriptions[activeSeries]}</p>
         </div>
 
-        <p className="text-sm text-cream/60 mb-6">Направление Скандинавия включает модели серий Скандинавия и Север.</p>
-
-        <ProductDecisionTools kind="bani" products={saunas} selectedIds={compareIds} onToggleCompare={toggleCompare} />
-
-        {/* Filters */}
-        <div className="glass rounded-2xl p-5 mb-8 flex flex-wrap items-center gap-6">
-          {/* Series filter */}
-          <div>
+        <ProductDecisionTools kind="bani" products={saunas} selectedIds={compareIds} onToggleCompare={toggleCompare}>
+          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="sm:col-span-2">
             <div className="text-xs text-cream/50 mb-2 font-semibold">Направление</div>
             <div className="flex flex-wrap gap-2">
               {series.map((s) => (
@@ -139,31 +158,32 @@ export default function BaniCatalogPage() {
 
           <div>
             <div className="text-xs text-cream/50 mb-2 font-semibold">Цена, ₽</div>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <input aria-label="Цена от" type="number" min="0" value={minPrice || ''}
                 onChange={(e) => setMinPrice(Math.max(0, Number(e.target.value)))} placeholder="От"
-                className="input-glass rounded-xl px-3 py-2 text-sm w-32" />
+                className="input-glass min-w-0 rounded-xl px-3 py-2 text-sm" />
               <input aria-label="Цена до" type="number" min="0" value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))} placeholder="До"
-                className="input-glass rounded-xl px-3 py-2 text-sm w-32" />
+                className="input-glass min-w-0 rounded-xl px-3 py-2 text-sm" />
             </div>
           </div>
 
           {/* Sort */}
-          <div className="ml-auto">
+          <div>
             <div className="text-xs text-cream/50 mb-2 font-semibold">Сортировка</div>
             <select
               aria-label="Сортировка моделей"
               value={sort}
               onChange={(e) => setSort(e.target.value as typeof sort)}
-              className="glass rounded-xl px-4 py-2 text-sm text-cream bg-transparent outline-none cursor-pointer"
+              className="glass w-full rounded-xl px-4 py-2 text-sm text-cream bg-transparent outline-none cursor-pointer"
             >
               <option value="price_asc" className="bg-graphite-900">Сначала дешевле</option>
               <option value="price_desc" className="bg-graphite-900">Сначала дороже</option>
               <option value="area" className="bg-graphite-900">По площади</option>
             </select>
           </div>
-        </div>
+          </div>
+        </ProductDecisionTools>
 
         {/* Count */}
         <div className="text-sm text-cream/50 mb-6">

@@ -39,8 +39,9 @@ const guidance = compile('src/data/option-guidance.ts')
 const models = [...data.saunas, ...data.homes]
 const enabled = optionsData.additionalOptions.filter(option => option.enabled)
 assert.equal(models.length, 31, 'all 25 sauna and 6 home models must be checked')
-assert.equal(enabled.length, 27, 'global option list must contain the 19 historical entries and eight approved additions/updates')
-assert.deepEqual(JSON.parse(JSON.stringify(enabled.slice(-8).map(option => [option.id, option.salePrice, option.priceUnit]))), [
+assert.equal(enabled.length, 28, 'global option list must contain the historical entries and nine approved additions/updates')
+assert.equal(enabled.find(option => option.id === 'replanning')?.salePrice, 10000, 'standard project replanning must use the owner-approved 10 000 RUB price')
+assert.deepEqual(JSON.parse(JSON.stringify(enabled.slice(-9).map(option => [option.id, option.salePrice, option.priceUnit]))), [
   ['facade-ral', 25_000, 'опция'],
   ['ceiling-height', 22_000, '10 см'],
   ['outdoor-lighting', 15_000, 'опция'],
@@ -49,6 +50,7 @@ assert.deepEqual(JSON.parse(JSON.stringify(enabled.slice(-8).map(option => [opti
   ['crane-unload', 25_000, 'услуга'],
   ['wooden-window-600', 7_000, 'шт.'],
   ['wooden-window-400', 5_500, 'шт.'],
+  ['replanning', 10_000, 'услуга'],
 ], 'new options and approved prices/units must be exact')
 assert.equal(optionsData.additionalOptions.find(option => option.id === 'tray')?.salePrice, 18_000, 'curtained tray includes drain for the approved 18 000 RUB')
 assert.equal(optionsData.additionalOptions.filter(option => /санузел/i.test(option.name)).length, 1, 'do not duplicate the already priced sanitary option')
@@ -167,7 +169,7 @@ for (const model of models) {
 
 const totals = { available: 0, included: 0, unavailable: 0, unknown: 0 }
 for (const model of matrix) for (const key of Object.keys(totals)) totals[key] += model.counts[key]
-assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 31 * 27, 'matrix must cover every model/option pair')
+assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 31 * 28, 'matrix must cover every model/option pair')
 assert.equal(totals.included, 39, 'only catalogue-confirmed paid options already in the model are classified as included; the free gift furniture is not the paid furniture option')
 assert.equal(totals.unavailable, 0, 'current sources confirm no incompatible option; do not invent unavailable rows')
 assert.ok(totals.available > 0 && totals.unknown > 0, 'matrix must distinguish confirmed availability from confirmation-needed positions')
@@ -176,7 +178,7 @@ const planless = matrix.filter(model => ['bg-25', 'bg-26', 'bg-27'].includes(mod
 assert.equal(planless.length, 3)
 for (const model of planless) {
   assert.equal(model.counts.available, 2, `${model.id}: only the two district-priced logistics services are available without a plan`)
-  assert.equal(model.counts.unknown, 25, `${model.id}: non-logistics options remain manager-confirmed estimates`)
+  assert.equal(model.counts.unknown, 26, `${model.id}: all 26 non-logistics options remain manager-confirmed estimates for these planless house models`)
 }
 const availableCounts = new Set(matrix.map(model => model.counts.available))
 assert.ok(availableCounts.size >= 4, 'compatibility matrix must differ between models, not show one identical option list')

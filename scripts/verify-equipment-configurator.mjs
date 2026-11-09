@@ -16,8 +16,8 @@ const selection = load('src/lib/equipment-selection.ts', id => {
   throw new Error('Unexpected equipment selection dependency: ' + id)
 })
 const ids = source.additionalOptions.filter(o => o.enabled).map(o => o.id)
-assert.equal(ids.length, 27)
-assert.equal(selection.equipmentSelection([...ids, ...ids, 'invalid']).selected.length, 27)
+assert.equal(ids.length, 28)
+assert.equal(selection.equipmentSelection([...ids, ...ids, 'invalid']).selected.length, 28)
 const allSelection = selection.equipmentSelection(ids)
 assert.equal(allSelection.knownTotal, source.additionalOptions.filter(o => o.enabled && !['delivery', 'crane-unload'].includes(o.id)).reduce((sum, o) => sum + (o.salePrice ?? 0), 0), 'logistics prices stay out until the Ramensky district is selected')
 assert.equal(allSelection.unpricedCount, 3, 'larch flooring and both district-priced services need confirmation by default')
@@ -38,6 +38,7 @@ assert.equal(selection.equipmentSelection([]).comment, '')
 assert.equal(selection.equipmentSelection(['ceiling-height'], { 'ceiling-height': 0 }).selected.length, 0, '0 cm means no height option is selected')
 assert.equal(selection.equipmentSelection(['ceiling-height'], { 'ceiling-height': 2 }).knownTotal, 44_000, '20 cm is the maximum height increase')
 assert.equal(selection.equipmentSelection(['ceiling-height'], { 'ceiling-height': 3 }).knownTotal, 44_000, 'steps above 20 cm are clamped')
+assert.equal(selection.equipmentSelection(['replanning']).knownTotal, 10_000, 'standard project replanning uses the approved customer price')
 assert.equal(selection.mergeConfigurationComment('Мой комментарий'), 'Мой комментарий')
 assert.throws(() => selection.mergeConfigurationComment('x'.repeat(1500), pair.comment), /1500/)
 // The visual release carries selections into a contact panel and clipboard.
@@ -93,9 +94,9 @@ await renderContacts(contactProps).find(node => node.type === 'button').props.on
 assert(renderContacts(contactProps).some(node => node.props?.role === 'status' && node.props.children.includes('Не удалось скопировать')))
 contactState = []
 assert(!renderContacts({}).some(node => node.type === 'button'), 'Empty selection has no copy control')
-console.log('PASS: 27/27 options; historical prices, exact new options, district-dependent logistics, deduplication, unpriced items, comment limit; contact-only selection transfer and clipboard success/failure. No real requests sent.')
+console.log('PASS: 28/28 options; historical prices, exact new options, district-dependent logistics, deduplication, unpriced items, comment limit; contact-only selection transfer and clipboard success/failure. No real requests sent.')
 
-const baseData=load('src/data/equipment.ts');let uiHook=0;const uiState=[[],{},'unknown','',['Моечная']];
+const baseData=load('src/data/equipment.ts');let uiHook=0;const uiState=[[],{},'unknown','',[]];
 const uiReact={useState: initial=>{const n=uiHook++;return [uiState[n]??initial,next=>{uiState[n]=typeof next==='function'?next(uiState[n]):next}]},useRef:value=>({current:value})};
 const ui=load('src/components/catalog/EquipmentConfigurator.tsx',id=>{
  if(id==='react')return uiReact;

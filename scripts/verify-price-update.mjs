@@ -90,9 +90,10 @@ export function auditPriceUpdate(root = defaultRoot) {
     { id: 'crane-unload', name: 'Разгрузка краном — Раменский район', salePrice: 25000, category: 'Логистика', description: 'Стоимость разгрузки краном в пределах Раменского района составляет 25 000 ₽. За пределами района стоимость рассчитывается индивидуально.', priceUnit: 'услуга', enabled: true, source: 'owner-2026-11-03', priceSource: '25 000 ₽ только при явно выбранном Раменском районе. Иначе — индивидуальный расчёт.' },
     { id: 'wooden-window-600', name: 'Деревянное окно 600 × 600 мм', salePrice: 7000, category: 'Окна и двери', description: 'Деревянное окно размером 600 × 600 мм. Возможность установки и размеры проёма подтверждаются для выбранной модели.', priceUnit: 'шт.', enabled: true, source: 'owner-2026-11-03', priceSource: '7 000 ₽ — уточнение владельца 03.11.2026.' },
     { id: 'wooden-window-400', name: 'Деревянное окно 400 × 400 мм', salePrice: 5500, category: 'Окна и двери', description: 'Деревянное окно размером 400 × 400 мм. Возможность установки и размеры проёма подтверждаются для выбранной модели.', priceUnit: 'шт.', enabled: true, source: 'owner-2026-11-03', priceSource: '5 500 ₽ — уточнение владельца 03.11.2026.' },
+    { id: 'replanning', image: '/images/options/guidance/replanning.svg', name: 'Перепланировка стандартного проекта', salePrice: 10000, category: 'Общее по бане', priceUnit: 'услуга', description: 'Изменение стандартной планировки бани по пожеланиям заказчика. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно', enabled: true, source: 'owner-2026-11-09', priceSource: '10 000 ₽ — утверждено владельцем 09.11.2026.' },
   ]
   const baselineIds = oldOptions.additionalOptions.map(o => o.id)
-  check(equal(newOptions.additionalOptions.map(o => o.id), [...baselineIds, ...approvedNewOptions.map(o => o.id)]), 'Option IDs/order changed outside the eight approved additions')
+  check(equal(newOptions.additionalOptions.map(o => o.id), [...baselineIds, ...approvedNewOptions.map(o => o.id)]), 'Option IDs/order changed outside the nine approved additions')
   const options = oldOptions.additionalOptions.map(before => {
     const after = newOptions.additionalOptions.find(option => option.id === before.id)
     const paid = typeof before.salePrice === 'number' && before.salePrice > 0 && before.source !== 'unconfirmed'
@@ -117,7 +118,7 @@ export function auditPriceUpdate(root = defaultRoot) {
     check(equal(actual, expected), `${expected.id}: new option differs from its exact approved definition`)
     options.push({ id: expected.id, name: expected.name, unit: expected.priceUnit, paid: expected.salePrice !== null, baselinePrice: null, expectedPrice: expected.salePrice, currentPrice: actual?.salePrice, delta: null, baselinePriceSource: null, currentPriceSource: actual?.priceSource })
   }
-  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 26, 'Expected exactly 26 confirmed priced options')
+  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 27, 'Expected exactly 27 confirmed priced options')
   check(newOptions.additionalOptions.filter(o => o.salePrice === null).length === 1 && newOptions.additionalOptions.find(o => o.id === 'larch-wash')?.salePrice === null, 'Larch wash must remain the only unpriced option')
   check(newOptions.additionalOptions.find(o => o.id === 'tray')?.salePrice === 18000, 'Curtained shower tray must use the approved 18 000 RUB price')
   // The catalog model comparison is structural; prices and approved contact email are the only allowed source changes.

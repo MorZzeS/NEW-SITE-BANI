@@ -34,7 +34,7 @@ export function EquipmentConfigurator() {
   const [quantities, setQuantities] = useState<Record<string, number>>({})
   const [deliveryDistrict, setDeliveryDistrict] = useState<DeliveryDistrict>('unknown')
   const [deliveryAddress, setDeliveryAddress] = useState('')
-  const [opened, setOpened] = useState<string[]>(['Моечная'])
+  const [opened, setOpened] = useState<string[]>([])
   const formRef = useRef<HTMLDivElement>(null)
   const selection = equipmentSelection(selectedIds, quantities, { deliveryDistrict, deliveryAddress })
   const { selected, knownTotal, unpricedCount, comment } = selection

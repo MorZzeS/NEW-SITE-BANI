@@ -71,14 +71,19 @@ for (const model of models) {
   }
 }
 assert.equal(models.length, 31)
-assert.equal(options.length, 27)
-assert.equal(new Set(options.map(option => option.id)).size, 27)
+assert.equal(options.length, 28)
+assert.equal(new Set(options.map(option => option.id)).size, 28)
+assert.equal(options.find(option => option.id === 'replanning')?.salePrice, 10000)
 for (const option of baseline) assert.equal(options.find(item => item.id === option.id).salePrice, option.id === 'tray' ? 18000 : option.salePrice, option.id + ': approved prices must remain unchanged')
 assert.equal(options.find(option => option.id === 'tray').name, 'Душевой поддон со шторкой и выводом воды')
 assert.equal(options.find(option => option.id === 'wc').salePrice, 20600)
 
 let cases = 0
 for (const model of models) {
+  const replanning = calculate(model, ['replanning'])
+  assert.equal(replanning.optionsSubtotal, 10000)
+  assert.equal(replanning.total, model.priceFrom + 10000)
+  assert.match(configurationManagerText(replanning), /Перепланировка стандартного проекта/)
   const rows = modelOptionAvailability(model)
   for (const district of ['unknown', 'outside', 'ramenskoe']) {
     for (const ids of [[], ['delivery'], ['crane-unload'], ['delivery', 'crane-unload', 'delivery']]) {

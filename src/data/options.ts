@@ -297,5 +297,17 @@ export const additionalOptions = [
   "enabled": true,
   "source": "owner-2026-11-03",
   "priceSource": "5 500 ₽ — уточнение владельца 03.11.2026."
+},
+{
+  "id": "replanning",
+  "image": "/images/options/guidance/replanning.svg",
+  "name": "Перепланировка стандартного проекта",
+  "salePrice": 10000,
+  "category": "Общее по бане",
+  "priceUnit": "услуга",
+  "description": "Изменение стандартной планировки бани по пожеланиям заказчика. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно",
+  "enabled": true,
+  "source": "owner-2026-11-09",
+  "priceSource": "10 000 ₽ — утверждено владельцем 09.11.2026."
 }
 ]

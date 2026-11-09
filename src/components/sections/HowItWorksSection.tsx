@@ -41,10 +41,7 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section className="py-20">
-      {/* Background gradient strip */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-wood-900/20 via-transparent to-wood-900/10 pointer-events-none" />
+    <section className="home-process-section py-20">
         <div className="site-container">
           <div className="text-center mb-14">
             <div className="section-tag mb-4">Процесс заказа</div>
@@ -75,7 +72,6 @@ export function HowItWorksSection() {
             ))}
           </div>
         </div>
-      </div>
     </section>
   )
 }
