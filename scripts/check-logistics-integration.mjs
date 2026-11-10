@@ -74,6 +74,8 @@ assert.equal(models.length, 31)
 assert.equal(options.length, 44)
 assert.equal(new Set(options.map(option => option.id)).size, 44)
 assert.equal(options.find(option => option.id === 'replanning')?.salePrice, 10000)
+assert.equal(options.find(option => option.id === 'replanning')?.name, 'Изменение стандартной планировки')
+assert.equal(options.find(option => option.id === 'replanning')?.description, 'Изменение стандартной планировки бани по пожеланиям заказчика. Возможность перепланировки согласовывается индивидуально. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно.')
 const latestOverrides = { tray: 18000, ermak: null, led: 12000, 'bench-light': 7000 }
 for (const option of baseline) assert.equal(options.find(item => item.id === option.id).salePrice, Object.hasOwn(latestOverrides, option.id) ? latestOverrides[option.id] : option.salePrice, option.id + ': prices outside explicit owner overrides must remain unchanged')
 assert.equal(options.find(option => option.id === 'tray').name, 'Душевой поддон со шторкой и выводом воды')
@@ -82,10 +84,16 @@ assert.equal(options.find(option => option.id === 'wc').salePrice, 20600)
 let cases = 0
 for (const model of models) {
   const replanning = calculate(model, ['replanning'])
-  assert.equal(replanning.optionsSubtotal, 10000)
-  assert.equal(replanning.total, model.priceFrom + 10000)
-  assert.match(configurationManagerText(replanning), /Перепланировка готового проекта/)
   const rows = modelOptionAvailability(model)
+  const planChangeEligible = data.saunas.includes(model) && model.slug !== 'barn-premium'
+  assert.equal(rows.some(row => row.option.id === 'replanning'), planChangeEligible, model.id + ': plan-change option must appear only for eligible mobile saunas')
+  assert.equal(replanning.optionsSubtotal, planChangeEligible ? 10000 : 0)
+  assert.equal(replanning.total, model.priceFrom + (planChangeEligible ? 10000 : 0))
+  assert.equal(replanning.selectedOptionIds.includes('replanning'), planChangeEligible)
+  if (planChangeEligible) {
+    const summary = configurationManagerText(replanning).replace(/[\u00a0\u202f]/g, ' ')
+    assert.ok(summary.includes('Изменение стандартной планировки') && summary.includes('10 000 ₽'), model.id + ': lead summary must preserve plan-change service and price')
+  }
   for (const district of ['unknown', 'outside', 'ramenskoe']) {
     for (const ids of [[], ['delivery'], ['crane-unload'], ['delivery', 'crane-unload', 'delivery']]) {
       const input = { deliveryDistrict: district, deliveryAddress: 'Ручной адрес, участок 10' }
@@ -159,10 +167,11 @@ const font = fs.readFileSync(path.join(root, 'public/fonts/NotoSans-Regular.ttf'
 let pdfCases = 0
 for (const district of ['unknown', 'outside', 'ramenskoe']) {
   captured.length = 0
-  const configuration = calculate(models[0], ['delivery', 'crane-unload', 'ceiling-height', 'tray', 'wooden-window-600', 'wooden-window-400', 'larch-wash'], { deliveryDistrict: district, deliveryAddress: 'Адрес участка 10', quantities: { 'ceiling-height': 2 } })
+  const configuration = calculate(models[0], ['delivery', 'crane-unload', 'ceiling-height', 'tray', 'wooden-window-600', 'wooden-window-400', 'larch-wash', 'replanning'], { deliveryDistrict: district, deliveryAddress: 'Адрес участка 10', quantities: { 'ceiling-height': 2 } })
   const doc = createModelPdf(models[0], configuration, { font, images: {} }, new Date('2026-11-03T12:00:00Z'))
   const text = captured.join('\n').replace(/[\u00a0\u202f]/g, ' ')
-  for (const fragment of ['Адрес участка 10', 'Доставка', 'Разгрузка краном', 'Деревянное окно 600', 'Деревянное окно 400', 'Душевой поддон', 'Дополнительное оборудование', 'Доставка и разгрузка', '44 000', configuration.total.toLocaleString('ru-RU').replace(/[\u00a0\u202f]/g, ' ')]) assert.ok(text.includes(fragment), district + ': PDF missing ' + fragment)
+  for (const fragment of ['Адрес участка 10', 'Доставка', 'Разгрузка краном', 'Деревянное окно 600', 'Деревянное окно 400', 'Душевой поддон', 'Изменение стандартной планировки', 'Дополнительное оборудование', 'Доставка и разгрузка', '10 000', '44 000', configuration.total.toLocaleString('ru-RU').replace(/[\u00a0\u202f]/g, ' ')]) assert.ok(text.includes(fragment), district + ': PDF missing ' + fragment)
+  assert.equal(configuration.options.find(option => option.id === 'replanning')?.price, 10000, district + ': PDF must use the approved plan-change amount')
   if (configuration.unpricedCount) assert.match(text, /индивидуальный расчёт/i, district + ': missing individual-price warning')
   assert.ok(doc.getNumberOfPages() >= 2)
   assert.ok(doc.output('arraybuffer').byteLength > 10000)

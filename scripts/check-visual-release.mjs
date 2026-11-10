@@ -1,6 +1,17 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
+import ts from 'typescript'
+import { compiledLeadEndpointPresent, leadArtifactFileAllowed, sourceLeadTransportAllowed } from './lead-artifact-gate.mjs'
+
+function loadTypeScriptModule(file) {
+  const source = fs.readFileSync(file, 'utf8')
+  const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
+  const loaded = { exports: {} }
+  new Function('exports', 'require', 'module', output)(loaded.exports, () => { throw new Error('Unexpected import in ' + file) }, loaded)
+  return loaded.exports
+}
+
 
 const isGitHubPagesProject = process.env.BANGER_GITHUB_PAGES === 'true'
 const basePath = isGitHubPagesProject ? '/NEW-SITE-BANI' : ''
@@ -9,15 +20,22 @@ const files = fs.readdirSync(root, { recursive: true }).filter(name => fs.statSy
 const htmlFiles = files.filter(name => name.endsWith('.html'))
 if (!htmlFiles.length) throw new Error('Visual release export is missing')
 const leadsEndpoint = process.env.NEXT_PUBLIC_LEADS_ENDPOINT || ''
-const leadsEnabled = /^https:\/\//.test(leadsEndpoint)
-if (leadsEnabled && leadsEndpoint !== 'https://banger-leads.onrender.com/leads') throw new Error('Lead endpoint is not the owner-approved Render endpoint')
+const leadContract = process.env.NEXT_PUBLIC_LEADS_CONTRACT || ''
+const endpointConfigured = leadsEndpoint.length > 0
+const { leadDocumentBundle } = loadTypeScriptModule('src/data/lead-documents.ts')
+const { isOnlineLeadReleaseReady } = loadTypeScriptModule('src/lib/lead-release-gate.ts')
+const leadsEnabled = isOnlineLeadReleaseReady(leadsEndpoint, leadContract, leadDocumentBundle)
+if (endpointConfigured && !leadsEnabled) throw new Error('Unsafe lead build: endpoint requires contract 3 and a complete approved document bundle')
+if (leadsEnabled && leadsEndpoint !== 'https://banger.su/leads.php') throw new Error('Lead endpoint must be the reviewed SpaceWeb HTTPS handler')
+const sourceFiles = fs.readdirSync('src', { recursive: true }).filter(name => /\.(?:ts|tsx|js|jsx)$/.test(name)).map(name => ({ path: `src/${name}`.replaceAll('\\', '/'), content: fs.readFileSync(path.join('src', name), 'utf8') }))
+if (!sourceLeadTransportAllowed(sourceFiles)) throw new Error('Unsafe lead transport: browser POSTs must use the single gated SpaceWeb lead client')
 const releaseProfiles = leadsEnabled ? ['visual-contacts', 'online-leads'] : ['visual-contacts']
+const artifactTextFiles = []
+let onlineFormCount = 0
+const leadClientSource = fs.readFileSync('src/lib/leads.ts', 'utf8')
+if (!/export const leadEndpoint = process\.env\.NEXT_PUBLIC_LEADS_ENDPOINT \|\| ''/.test(leadClientSource) || !/fetch\(\s*leadEndpoint,\s*\{\s*method:\s*'POST'/s.test(leadClientSource)) throw new Error('Lead client must POST through the gated leadEndpoint')
 const policy = fs.readFileSync('src/lib/release-policy.ts', 'utf8')
-if (leadsEnabled) {
-  if (!/onlineLeads:\s*leadsEndpointConfigured/.test(policy)) throw new Error('Lead form must be gated by the build-time HTTPS endpoint')
-} else {
-  if (!/const leadsEndpointConfigured = \/\^https:\\\/\\\/\//.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy)) throw new Error('Unsafe release policy: onlineLeads')
-}
+if (!/isOnlineLeadReleaseReady\(/.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy)) throw new Error('Unsafe release policy: onlineLeads must require the shared readiness gate')
 for (const flag of ['analytics']) {
   if (!new RegExp(`\\b${flag}:\\s*false\\b`).test(policy)) throw new Error(`Unsafe release policy: ${flag}`)
 }
@@ -41,11 +59,14 @@ for (const name of files) {
   if (/(^|\/)(?:docs|backend|node_modules|\.git)(\/|$)|(^|\/)\.env(?:\.|$)|\.map$/i.test(normalized)) throw new Error(`Private deployment file: ${name}`)
   if (!/\.(?:html|js|json|txt|xml|svg)$/i.test(name)) continue
   const content = fs.readFileSync(path.join(root, name), 'utf8')
+  artifactTextFiles.push({ path: name.replaceAll('\\', '/'), content })
+  if (!leadArtifactFileAllowed(name.replaceAll('\\', '/'), content, leadsEnabled)) throw new Error('Lead artifact/profile mismatch: ' + name)
+  if (name.endsWith('.html') && leadsEnabled && /<form\b/i.test(content)) onlineFormCount++
   if (/(?:MAX_BOT_TOKEN|MAX_USER_ID|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----)/.test(content)) throw new Error(`Unexpected server-only material: ${name}`)
   if (/mc\.yandex\.(?:ru|com)\/|api\.met\.no\/weatherapi|api\.open-meteo\.com\/|platform-api2\.max\.ru/.test(content)) throw new Error(`Disabled service shipped: ${name}`)
-  if (!leadsEnabled && /banger-leads\.onrender\.com/.test(content)) throw new Error(`Lead endpoint shipped without the approved build flag: ${name}`)
   if (forbiddenCopy.test(content) || /bestseller-bow-a\.svg/.test(content)) throw new Error(`Superseded owner copy or bow reference: ${name}`)
 }
+if (leadsEnabled && (!compiledLeadEndpointPresent(artifactTextFiles, leadsEndpoint) || onlineFormCount === 0)) throw new Error('Approved lead build is missing its exact compiled endpoint or active form')
 for (const name of htmlFiles) {
   const html = fs.readFileSync(path.join(root, name), 'utf8')
   if (/weather-strip-section|weather-strip-toggle|Погода для загородного отдыха/u.test(html)) throw new Error(`Temporarily disabled weather UI leaked into ${name}`)

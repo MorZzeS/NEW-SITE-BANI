@@ -8,7 +8,7 @@ export function RealWorksGallery({ limit = 2 }: { limit?: number }) {
     <div className="real-works-grid portfolio-project-grid">
       {projects.slice(0, limit).map(project => (
         <Link key={project.id} href={`/nashi-raboty/${project.slug}`} className="real-works-card portfolio-project-card glass-card">
-          <span className="real-works-image">
+          <span className="real-works-image" style={{ aspectRatio: `${project.cover.width} / ${project.cover.height}` }}>
             <Image
               src={withBasePath(project.cover.thumbnail)}
               alt={project.cover.alt}

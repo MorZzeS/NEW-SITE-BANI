@@ -145,14 +145,13 @@ export type ModelOptionRow = {
 export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
   const zones = confirmedZones(model)
   const included = includedEvidence(model)
-  return enabledEquipmentOptions.map(option => {
+  const modelOptions = enabledEquipmentOptions.filter(option => option.id !== 'replanning' || ('series' in model && model.slug !== 'barn-premium'))
+  return modelOptions.map(option => {
     const row = (status: ModelOptionStatus, reason: string, source: string): ModelOptionRow => ({
       option, status, reason, source, blockedReason: status === 'available' ? undefined : reason,
     })
     if (option.id === 'delivery' || option.id === 'crane-unload') return row('available', 'Самостоятельная логистическая услуга. Тариф зависит от района, выбранного вручную; адрес и условия работ согласуются при заказе.', availabilitySources.options)
-    if (option.id === 'replanning') return 'hasShower' in model
-      ? row('available', 'Изменение стандартной планировки бани. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно.', 'Решение владельца от 09.11.2026')
-      : row('unknown', 'Услуга утверждена для стандартной планировки бани; применимость к дому «Усадьба» не подтверждена.', availabilitySources.unconfirmed)
+    if (option.id === 'replanning') return row('available', option.description, 'Решение владельца от 10.11.2026')
     const inBase = included(option.id)
     if (inBase) {
       return row('included', `Уже входит в базовую комплектацию модели: «${inBase.feature}». Повторно не оплачивается.`, availabilitySources.feature)

@@ -82,7 +82,12 @@ export function auditPriceUpdate(root = defaultRoot) {
   check(equal(restoredData, oldData), 'Other catalog exports or nonprice data changed')
   check(equal(newOptions.optionCategories, [...oldOptions.optionCategories, 'Логистика']), 'Option categories changed outside the approved logistics category')
   const owner20261109 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261109.json'), 'utf8'))
-  const approvedOverride = id => owner20261109.overrides.find(option => option.id === id)
+  const owner20261110 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261110.json'), 'utf8'))
+  const approvedOverride = id => {
+    const prior = owner20261109.overrides.find(option => option.id === id)
+    const latest = owner20261110.overrides.find(option => option.id === id)
+    return prior || latest ? { ...(prior || {}), ...(latest || {}) } : undefined
+  }
   const approvedNewOptions = [
     { id: 'facade-ral', name: 'Окраска внешней отделки по RAL', salePrice: 25000, category: 'Внешний вид', priceUnit: 'опция', description: 'Окраска наружной отделки в выбранный оттенок RAL; цвет и материалы согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: 'Стоимость 25 000 ₽ утверждена владельцем 03.11.2026.' },
     { id: 'ceiling-height', name: 'Увеличение высоты потолка', salePrice: 22000, category: 'Общее по бане', priceUnit: '10 см', description: 'Увеличение на 10 см — 22 000 ₽, на 20 см — 44 000 ₽; максимум 20 см. Итоговая высота и техническая возможность согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: '22 000 ₽ за каждые 10 см — указано владельцем 03.11.2026.' },

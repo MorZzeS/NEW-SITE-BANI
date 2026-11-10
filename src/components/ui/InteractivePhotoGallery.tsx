@@ -18,6 +18,7 @@ export function InteractivePhotoGallery({ photos, compact = false, ariaLabel }: 
             key={photo.id}
             type="button"
             className="project-photo-thumb"
+            style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
             aria-label={`Открыть фотографию ${index + 1}: ${photo.alt}`}
             aria-haspopup="dialog"
             onClick={() => setActive(index)}

@@ -165,8 +165,9 @@
 /* Selected model card stays in normal flow; the page owns all vertical scrolling. */
 .calculatorGrid { grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); }
 .summary { position: static; top: auto; align-self: start; min-width: 0; height: auto; overflow: visible; border: 1px solid var(--glass-border); border-radius: 18px; padding: 0; background: linear-gradient(160deg, color-mix(in srgb, var(--glass-bg) 96%, var(--color-accent) 4%), var(--glass-bg)); box-shadow: 0 20px 55px color-mix(in srgb, #000 22%, transparent); }
-.modelVisual { position: relative; aspect-ratio: 1.9; overflow: hidden; border-radius: 17px 17px 0 0; background: var(--color-surface-2); }
-.modelVisual img { object-fit: contain; padding: 8px; }
+.modelVisual { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 17px 17px 0 0; background: var(--color-surface-2); }
+.modelVisual.wideModelVisual { aspect-ratio: 1664 / 928; }
+.modelVisual img { object-fit: cover; }
 .visualLabel { position: absolute; left: 14px; bottom: 12px; z-index: 1; border: 1px solid color-mix(in srgb, white 18%, transparent); border-radius: 999px; padding: 5px 10px; color: #fff; background: color-mix(in srgb, #111 72%, transparent); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .modelDetails,.priceBreakdown { padding: 16px 18px; }
 .modelDetails { border-bottom: 1px solid var(--glass-border); }
@@ -209,7 +210,7 @@
   .pendingSummary::after { transition: none; }
 }
 @media(max-width:540px) {
-  .modelVisual { aspect-ratio: 1.9; border-radius: 13px 13px 0 0; }
+  .modelVisual { aspect-ratio: 3 / 2; border-radius: 13px 13px 0 0; }
   .modelDetails,.priceBreakdown { padding: 14px; }
   .summary h3 { font-size: 19px; }
   .requestButton { display: none; }

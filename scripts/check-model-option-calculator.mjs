@@ -40,7 +40,9 @@ const models = [...data.saunas, ...data.homes]
 const enabled = optionsData.additionalOptions.filter(option => option.enabled)
 assert.equal(models.length, 31, 'all 25 sauna and 6 home models must be checked')
 assert.equal(enabled.length, 44, 'global option list must contain the historical entries and nine approved additions/updates')
-assert.equal(enabled.find(option => option.id === 'replanning')?.salePrice, 10000, 'standard project replanning must use the owner-approved 10 000 RUB price')
+assert.equal(enabled.find(option => option.id === 'replanning')?.salePrice, 10000, 'standard plan change must use the owner-approved 10 000 RUB price')
+assert.equal(enabled.find(option => option.id === 'replanning')?.name, 'Изменение стандартной планировки')
+assert.equal(enabled.find(option => option.id === 'replanning')?.description, 'Изменение стандартной планировки бани по пожеланиям заказчика. Возможность перепланировки согласовывается индивидуально. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно.')
 assert.deepEqual(JSON.parse(JSON.stringify(enabled.slice(19, 28).map(option => [option.id, option.salePrice, option.priceUnit]))), [
   ['facade-ral', 25_000, 'опция'],
   ['ceiling-height', 22_000, '10 см'],
@@ -100,7 +102,15 @@ for (const model of models) {
     assert.ok(!html.includes('Совместимость требует подтверждения'), `${model.id}: separate blocked unknown-options heading must not return`)
   }
   const items = availability.modelOptionAvailability(model)
-  assert.equal(items.length, enabled.length, `${model.id}: option list length mismatch`)
+  const replanningEligible = !isHome && !premium
+  assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${model.id}: only eligible mobile sauna models may offer standard plan changes`)
+  const replanningRow = items.find(item => item.option.id === 'replanning')
+  if (replanningEligible) {
+    assert.equal(replanningRow?.status, 'available', `${model.id}: plan-change service must be offered`)
+    assert.equal(replanningRow?.option.salePrice, 10000)
+    assert.equal(replanningRow?.option.category, 'Общее по бане')
+    assert.equal(replanningRow?.reason, enabled.find(option => option.id === 'replanning').description)
+  } else assert.equal(replanningRow, undefined, `${model.id}: plan-change service must not be offered`)
   const renderedIds = unitOnly ? [] : [...html.matchAll(/data-option-id="([^"]+)"/g)].map(match => match[1])
   if (!unitOnly && !premium) assert.equal(renderedIds.length, items.length, `${model.id}: not all option rows rendered (available + included + confirmation groups)`)
   assert.equal(new Set(renderedIds).size, renderedIds.length, `${model.id}: duplicate option row`)
@@ -114,11 +124,16 @@ for (const model of models) {
   assert.equal(calculated.total, model.priceFrom + calculated.optionsSubtotal - calculated.discount)
   assert.equal(calculated.discount, 0, `${model.id}: promotional discount must not be applied without the promo source`)
   assert.equal(calculated.selectedOptionIds.length, new Set(calculated.selectedOptionIds).size)
+  assert.equal(calculated.selectedOptionIds.includes('replanning'), replanningEligible, `${model.id}: standard plan change must be included exactly for eligible saunas`)
   assert.ok(calculated.selectedOptionIds.every(id => ['available', 'unknown'].includes(items.find(item => item.option.id === id)?.status)), `${model.id}: confirmed and estimate-only options can be selected`)
   assert.equal(calculated.unpricedCount, 4, `${model.id}: all pending prices and unpriced district logistics must be disclosed`)
   assert.deepEqual(JSON.parse(JSON.stringify(calculated.individualItems)), ['larch-wash', 'delivery', 'crane-unload', 'ermak-16-premium-cast-iron'])
   assert.ok(calculation.configurationManagerText(calculated).includes('Предварительная сумма без позиций индивидуального расчёта, включая неподтверждённую логистику.'), `${model.id}: manager summary must carry the preliminary-total caveat`)
   assert.equal(calculation.calculateModelConfiguration(model, []).total, model.priceFrom)
+  const replanningOnly = calculation.calculateModelConfiguration(model, ['replanning'])
+  assert.equal(replanningOnly.optionsSubtotal, replanningEligible ? 10000 : 0, `${model.id}: plan-change price is added once only where offered`)
+  assert.equal(replanningOnly.total, model.priceFrom + (replanningEligible ? 10000 : 0))
+  assert.equal(replanningOnly.selectedOptionIds.includes('replanning'), replanningEligible)
   const logisticsSelected = calculation.calculateModelConfiguration(model, ['delivery', 'crane-unload'])
   assert.deepEqual(JSON.parse(JSON.stringify(logisticsSelected.selectedOptionIds)), ['delivery', 'crane-unload'])
   assert.equal(logisticsSelected.logisticsSubtotal, 0, `${model.id}: no district means no fixed logistics tariff`)
@@ -174,7 +189,7 @@ for (const model of models) {
 
 const totals = { available: 0, included: 0, unavailable: 0, unknown: 0 }
 for (const model of matrix) for (const key of Object.keys(totals)) totals[key] += model.counts[key]
-assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 31 * 44, 'matrix must cover every model/option pair')
+assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 24 * 44 + 7 * 43, 'matrix must cover all 44 options for 24 eligible saunas and 43 for Barn Premium plus six homes')
 assert.equal(totals.included, 47, 'only catalogue-confirmed options already in the model are classified as included; the free gift furniture is not the paid furniture option')
 assert.equal(totals.unavailable, 0, 'current sources confirm no incompatible option; do not invent unavailable rows')
 assert.ok(totals.available > 0 && totals.unknown > 0, 'matrix must distinguish confirmed availability from confirmation-needed positions')
@@ -183,7 +198,7 @@ const planless = matrix.filter(model => ['bg-25', 'bg-26', 'bg-27'].includes(mod
 assert.equal(planless.length, 3)
 for (const model of planless) {
   assert.equal(model.counts.available, 2, `${model.id}: only the two district-priced logistics services are available without a plan`)
-  assert.equal(model.counts.unknown, 42, `${model.id}: all 42 non-logistics options remain manager-confirmed estimates for these planless house models`)
+  assert.equal(model.counts.unknown, 41, `${model.id}: the unpriced plan-change service is excluded from this house model`)
 }
 const availableCounts = new Set(matrix.map(model => model.counts.available))
 assert.ok(availableCounts.size >= 4, 'compatibility matrix must differ between models, not show one identical option list')

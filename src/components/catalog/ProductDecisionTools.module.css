@@ -13,8 +13,8 @@
 .table thead th{font-weight:500}
 .table tr:last-child>*{border-bottom:0}.table tr>:last-child{border-right:0}
 .table .different{background:color-mix(in srgb,var(--color-accent) 7%,var(--color-surface))}
-.image{display:block;position:relative;aspect-ratio:16/10;background:var(--color-surface-2);margin-bottom:12px;border-radius:8px;overflow:hidden}
-.image img{object-fit:contain}
+.image{display:block;position:relative;aspect-ratio:3/2;background:var(--color-surface-2);margin-bottom:12px;border-radius:8px;overflow:hidden}
+.image img{object-fit:cover}
 .name{font-size:15px;line-height:1.4;font-weight:700;display:block;margin-bottom:10px}
 .price{font-size:16px;color:var(--color-accent);font-weight:700;display:block;margin-bottom:4px}
 .priceLabel,.note{font-size:12px;color:var(--color-text-subtle)}

@@ -633,10 +633,10 @@ html { scroll-behavior: smooth; }
  .social-qr-name { font-size: 14px; }
 }
 /* Owner interiors: native horizontal scrolling and a separate accessible viewer. */
+.product-gallery-stage { position: relative; overflow: hidden; margin-bottom: 1rem; border-radius: 16px; background: var(--color-surface-2); }
 .interior-carousel { display: flex; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding: 3px 2px 14px; scrollbar-width: thin; scrollbar-color: var(--glass-border) transparent; cursor: grab; }
 .interior-carousel.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
-.interior-carousel-card { flex: 0 0 clamp(280px,27vw,360px); min-width: 0; text-align: left; scroll-snap-align: start; border-radius: 10px; overflow: hidden; border: 1px solid var(--glass-border-subtle); background: var(--glass-bg); transition: border-color 180ms ease; }
-.interior-carousel-card:hover { border-color: var(--color-accent); }
+.interior-carousel-card { flex: 0 0 clamp(280px,27vw,360px); min-width: 0; text-align: left; scroll-snap-align: start; border-radius: 10px; overflow: hidden; border: 0; background: var(--glass-bg); }
 .interior-carousel-card picture { display: block; aspect-ratio: 4/3; overflow: hidden; }
 .interior-carousel-card img { width: 100%; height: 100%; object-fit: cover; }
 .interior-carousel-card > span { display: block; padding: 14px 16px; font-size: 14px; color: var(--color-text); }

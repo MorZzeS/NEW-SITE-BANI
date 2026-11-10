@@ -50,7 +50,7 @@ export default async function ProjectPage({ params }: Props) {
 
         <div className={clientCase ? "project-story-grid" : "project-showroom-photo"}>
           <figure className="m-0">
-            <div className="relative aspect-video overflow-hidden rounded-3xl">
+            <div className="relative overflow-hidden rounded-3xl" style={{ aspectRatio: `${project.cover.width} / ${project.cover.height}` }}>
               <Image src={withBasePath(project.image)} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 760px) 100vw, 66vw" />
             </div>
             <figcaption className="mt-2 text-sm text-cream/55">{project.cover.caption}</figcaption>

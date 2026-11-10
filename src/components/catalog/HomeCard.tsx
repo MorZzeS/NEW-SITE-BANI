@@ -43,7 +43,7 @@ export function HomeCard({ home, compareSelected = false, compareDisabled = fals
               alt={home.name}
               fill
               loading="lazy"
-              className="object-contain transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
             />
           </picture>

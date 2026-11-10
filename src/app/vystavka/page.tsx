@@ -39,7 +39,7 @@ export default function VystavkaPage() {
               <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Отделка: варианты цветов фасада и внутренних поверхностей</span></li>
             </ul>
           </div>
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden glass-card">
+          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-[var(--color-surface-2)]">
             <Image src={withBasePath('/images/interiors/vizual-gostinnaya-5.jpg')} alt="Выставочный образец — интерьер" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             <div className="absolute bottom-4 left-4 right-4">
               <div className="glass-dark rounded-2xl px-4 py-3 text-sm text-cream/80">
@@ -50,13 +50,13 @@ export default function VystavkaPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
-          <div className="glass rounded-3xl overflow-hidden relative aspect-[4/3]">
+          <div className="rounded-3xl overflow-hidden relative aspect-[4/3] bg-[var(--color-surface-2)]">
             <Image src={withBasePath('/images/interiors/parnaya-2-.jpg')} alt="Парная выставка" fill className="object-cover" sizes="33vw" />
           </div>
-          <div className="glass rounded-3xl overflow-hidden relative aspect-[4/3]">
+          <div className="rounded-3xl overflow-hidden relative aspect-[4/3] bg-[var(--color-surface-2)]">
             <Image src={withBasePath('/images/interiors/pech-2.jpg')} alt="Печь выставка" fill className="object-cover" sizes="33vw" />
           </div>
-          <div className="glass rounded-3xl overflow-hidden relative aspect-[4/3]">
+          <div className="rounded-3xl overflow-hidden relative aspect-[4/3] bg-[var(--color-surface-2)]">
             <Image src={withBasePath('/images/interiors/dushevoy-plus-.jpg')} alt="Душ выставка" fill className="object-cover" sizes="33vw" />
           </div>
         </div>

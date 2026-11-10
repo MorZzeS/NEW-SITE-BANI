@@ -5,11 +5,12 @@ import { ModelPrices } from './ModelPrices'
 import { siteSettings } from '@/data'
 
 export function ModelOverview({ model }: { model: Sauna | Home }) {
+  const modelImageAspectRatio = model.image.includes('/bg-28/') ? 1664 / 928 : 3 / 2
   return <section className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 lg:gap-10 mb-12 items-start">
     <ProductGallery compact items={[
-      { src: model.image, type: 'MAIN', alt: model.name, label: 'Визуализация модели' },
+      { src: model.image, type: 'MAIN', alt: model.name, label: 'Визуализация модели', aspectRatio: modelImageAspectRatio },
       ...(model.floorPlan ? [{ src: model.floorPlan, type: 'PLAN' as const, alt: `${model.name} — планировка`, label: 'Планировка модели' }] : []),
-      ...model.images.filter(src => src !== model.image).map((src, i) => ({ src, type: 'MODEL_PHOTO' as const, alt: `${model.name} — изображение ${i + 1}` })),
+      ...model.images.filter(src => src !== model.image).map((src, i) => ({ src, type: 'MODEL_PHOTO' as const, alt: `${model.name} — изображение ${i + 1}`, aspectRatio: modelImageAspectRatio })),
     ]} />
     <div className="min-w-0">
       <p className="text-xs text-gold-400 mb-2">{model.article}</p>

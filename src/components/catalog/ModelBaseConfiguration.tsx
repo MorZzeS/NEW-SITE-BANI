@@ -86,7 +86,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
     <section className={styles.calculator} data-model-option-calculator={model.id} data-base-price={model.priceFrom} data-discount={discount} data-promotion={promotionalDiscount ? 'exit-intent' : ''} data-available-count={available.length} data-included-count={included.length} data-unknown-count={unknown.length} aria-labelledby={`model-options-title-${model.id}`}>
       <div className={styles.calculatorGrid}>
         <aside className={styles.summary} aria-label={`Итог расчёта для модели ${model.name}`}>
-          <div className={styles.modelVisual}>
+          <div className={`${styles.modelVisual} ${model.image.includes('/bg-28/') ? styles.wideModelVisual : ''}`}>
             <Image src={withBasePath(model.image)} alt={model.name} fill sizes="(max-width: 900px) 100vw, 360px" priority />
             <span className={styles.visualLabel}>Выбранная модель</span>
           </div>

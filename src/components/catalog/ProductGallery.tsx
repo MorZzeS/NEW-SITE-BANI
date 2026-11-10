@@ -10,6 +10,7 @@ export type GalleryItem = {
   type: 'MAIN' | 'PLAN' | 'MODEL_PHOTO' | 'INTERIOR_REAL' | 'INTERIOR_EXAMPLE'
   alt: string
   label?: string
+  aspectRatio?: number
 }
 
 interface Props {
@@ -18,13 +19,27 @@ interface Props {
   compact?: boolean
 }
 
-function GalleryImage({ item, priority = false, full = false }: { item: GalleryItem; priority?: boolean; full?: boolean }) {
+function GalleryImage({ item, priority = false, full = false, onAspectRatio }: { item: GalleryItem; priority?: boolean; full?: boolean; onAspectRatio?: (ratio: number) => void }) {
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+  const imageRef = useRef<HTMLImageElement>(null)
+  const settleImage = useCallback((image: HTMLImageElement) => {
+    if (!image.complete) return
+    if (image.naturalWidth <= 0 || image.naturalHeight <= 0) {
+      setStatus('error')
+      return
+    }
+    setStatus('ready')
+    onAspectRatio?.(image.naturalWidth / image.naturalHeight)
+  }, [onAspectRatio])
+  useEffect(() => {
+    const image = imageRef.current
+    if (image?.complete) settleImage(image)
+  }, [item.src, settleImage])
   return <>
-    <Image draggable={false} src={withBasePath(item.src)} alt={item.alt} fill priority={priority}
+    <Image ref={imageRef} draggable={false} src={withBasePath(item.src)} alt={item.alt} fill priority={priority}
       loading="eager" sizes={full ? '90vw' : '(max-width: 768px) 100vw, 80vw'}
-      onLoad={() => setStatus('ready')} onError={() => setStatus('error')}
-      className={`${full || ['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(item.type) ? 'object-contain' : 'object-cover'} ${status === 'error' ? 'invisible' : ''}`} />
+      onLoad={(event) => settleImage(event.currentTarget)} onError={() => setStatus('error')}
+      className={`${full || item.type === 'PLAN' ? 'object-contain' : 'object-cover'} ${item.type === 'PLAN' && !full ? 'bg-white' : ''} ${status === 'error' ? 'invisible' : ''}`} />
     {status !== 'ready' && <span role="status" className="theme-on-image absolute inset-0 flex items-center justify-center px-16 text-center text-sm text-white bg-graphite-950/60 pointer-events-none">
       {status === 'error' ? 'Изображение недоступно. Выберите другой кадр или обновите страницу.' : item.type === 'PLAN' ? 'Загружаем планировку…' : 'Загружаем изображение…'}
     </span>}
@@ -34,6 +49,7 @@ function GalleryImage({ item, priority = false, full = false }: { item: GalleryI
 export function ProductGallery({ items: sourceItems, title, compact = false }: Props) {
   const items = useMemo(() => sourceItems.filter((item, i) => sourceItems.findIndex((other) => other.src === item.src) === i), [sourceItems])
   const [current, setCurrent] = useState(0)
+  const [imageRatios, setImageRatios] = useState<Record<string, number>>({})
   const swipeRef = useRef<number | null>(null)
   const swipeYRef = useRef(0)
   const swipedRef = useRef(false)
@@ -80,6 +96,11 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
   if (!items || items.length === 0) return null
 
   const currentItem = items[current % items.length]
+  const currentAspectRatio = imageRatios[currentItem.src] ?? currentItem.aspectRatio ?? (currentItem.type === 'PLAN' ? 4 / 3 : 3 / 2)
+  const rememberAspectRatio = useCallback((ratio: number) => {
+    if (!Number.isFinite(ratio) || ratio <= 0) return
+    setImageRatios(previous => previous[currentItem.src] === ratio ? previous : { ...previous, [currentItem.src]: ratio })
+  }, [currentItem.src])
   const touchHandlers = {
     onPointerDown: (e: React.PointerEvent) => { swipeRef.current = e.clientX; swipeYRef.current = e.clientY; swipedRef.current = false },
     onPointerUp: (e: React.PointerEvent) => {
@@ -98,7 +119,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
       {!compact && <h2 className="text-2xl font-bold text-cream mb-6">{title || 'Галерея'}</h2>}
 
       {/* Main image viewer */}
-      <div className="relative rounded-xl overflow-hidden glass mb-4">
+      <div className="product-gallery-stage">
         {!single && (
           <button
             onClick={() => go(-1)}
@@ -122,11 +143,12 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           ref={openerRef}
           type="button"
           aria-label={`Открыть ${currentItem.type === 'PLAN' ? 'планировку' : 'фото'}: ${currentItem.alt}`}
-          className={`block w-full relative aspect-[4/3] ${compact ? '' : 'md:aspect-[16/10]'} cursor-pointer select-none touch-pan-y`}
+          className="block w-full relative cursor-pointer select-none touch-pan-y"
+          style={{ aspectRatio: currentAspectRatio }}
           onClick={() => { if (!swipedRef.current) setLightbox(true); swipedRef.current = false }}
           {...touchHandlers}
         >
-          <GalleryImage key={currentItem.src} item={currentItem} priority={current === 0} />
+          <GalleryImage key={currentItem.src} item={currentItem} priority={current === 0} onAspectRatio={rememberAspectRatio} />
           {currentItem.label && (
             <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur px-3 py-1 rounded-xl text-xs text-white/90 border border-white/10">
               {currentItem.label}
@@ -145,11 +167,11 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Перейти к ${i + 1}`}
-            className={`relative shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-xl overflow-hidden border-2 transition-all ${
-              i === current ? 'border-gold-400 ring-2 ring-gold-400/30' : 'border-transparent opacity-60 hover:opacity-100'
+            className={`relative shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-lg overflow-hidden border transition-opacity ${
+              i === current ? 'border-gold-400' : 'border-transparent opacity-65 hover:opacity-100'
             }`}
           >
-            <Image src={withBasePath(item.src)} alt={item.alt} fill className={['PLAN', 'MAIN', 'MODEL_PHOTO'].includes(item.type) ? 'object-contain' : 'object-cover'} loading="lazy" />
+            <Image src={withBasePath(item.src)} alt={item.alt} fill className={item.type === 'PLAN' ? 'object-contain bg-white' : 'object-cover'} loading="lazy" />
           </button>
         ))}
       </div>}

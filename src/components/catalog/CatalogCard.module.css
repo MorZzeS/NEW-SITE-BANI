@@ -1,7 +1,8 @@
 .wrapper{position:relative;height:100%;min-width:0;display:flex}
 .link{display:flex;width:100%;height:100%;min-width:0}
 .card{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
-.image{position:relative;aspect-ratio:2/1;flex-shrink:0;overflow:hidden;background:var(--color-surface-2)}
+.image{position:relative;aspect-ratio:3/2;flex-shrink:0;overflow:hidden;background:var(--color-surface-2)}
+.wideImage{aspect-ratio:1664/928}
 .tags{position:absolute;left:12px;bottom:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px}
 .bestSeller{position:absolute;top:8px;left:8px;z-index:2;max-width:calc(100% - 112px);padding:9px 13px;border:1px solid rgba(255,255,255,.28);border-radius:5px 5px 5px 2px;background:#bd1720;box-shadow:0 3px 12px rgba(30,4,8,.28);color:#fff;font-size:14px;font-weight:800;line-height:1.25;letter-spacing:.01em}
 .content{display:flex;flex-direction:column;flex:1;padding:12px;min-width:0}
@@ -14,5 +15,5 @@
 .footer>div:first-child{min-width:0}
 .cta{white-space:nowrap;flex-shrink:0}
 .link:focus-visible{outline:2px solid var(--focus-color);outline-offset:4px;border-radius:16px}
-@media(min-width:768px){.featured{flex-direction:row}.featured .image{width:50%;aspect-ratio:2/1}.featured .content{width:50%}}
+@media(min-width:768px){.featured{flex-direction:row}.featured .image{width:50%;aspect-ratio:3/2}.featured .image.wideImage{aspect-ratio:1664/928}.featured .content{width:50%}}
 @media(prefers-reduced-motion:reduce){.card img{transition:none;transform:none}}
