@@ -3,6 +3,7 @@ import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import ts from 'typescript'
 import { compiledLeadEndpointPresent, leadArtifactFileAllowed, sourceLeadTransportAllowed } from './lead-artifact-gate.mjs'
+import { assertNoUnsafeDynamicIframes, validateYandexEmbedArtifact } from './yandex-embed-artifact-gate.mjs'
 
 function loadTypeScriptModule(file) {
   const source = fs.readFileSync(file, 'utf8')
@@ -29,6 +30,7 @@ if (endpointConfigured && !leadsEnabled) throw new Error('Unsafe lead build: end
 if (leadsEnabled && leadsEndpoint !== 'https://banger.su/leads.php') throw new Error('Lead endpoint must be the reviewed SpaceWeb HTTPS handler')
 const sourceFiles = fs.readdirSync('src', { recursive: true }).filter(name => /\.(?:ts|tsx|js|jsx)$/.test(name)).map(name => ({ path: `src/${name}`.replaceAll('\\', '/'), content: fs.readFileSync(path.join('src', name), 'utf8') }))
 if (!sourceLeadTransportAllowed(sourceFiles)) throw new Error('Unsafe lead transport: browser POSTs must use the single gated SpaceWeb lead client')
+for (const file of sourceFiles) assertNoUnsafeDynamicIframes(file.content, file.path)
 const releaseProfiles = leadsEnabled ? ['visual-contacts', 'online-leads'] : ['visual-contacts']
 const artifactTextFiles = []
 let onlineFormCount = 0
@@ -39,11 +41,12 @@ if (!/isOnlineLeadReleaseReady\(/.test(policy) || !/\bonlineLeads:\s*leadsEndpoi
 for (const flag of ['analytics']) {
   if (!new RegExp(`\\b${flag}:\\s*false\\b`).test(policy)) throw new Error(`Unsafe release policy: ${flag}`)
 }
-if (!/\bembeddedYandex:\s*(?:true|false)\b/.test(policy)) throw new Error('Missing explicit Yandex embed policy')
-if (/\bembeddedYandex:\s*true\b/.test(policy)) {
+const automaticYandexEmbeds = /\bembeddedYandex:\s*'automatic'/.test(policy)
+if (!automaticYandexEmbeds && !/\bembeddedYandex:\s*false\b/.test(policy)) throw new Error('Missing explicit Yandex embed policy')
+if (automaticYandexEmbeds) {
   for (const component of ['YandexMapEmbed', 'YandexReviewsWidget']) {
     const source = fs.readFileSync(`src/components/integrations/${component}.tsx`, 'utf8')
-    if (!source.includes('useState(false)') || !source.includes('setLoaded(true)') || !source.includes('&& loaded ?') || !source.includes('<YandexLoadNotice />')) throw new Error(`Yandex widget must require explicit informed load: ${component}`)
+    if (source.includes('useState(') || source.includes('setLoaded') || !source.includes('loading="eager"') || !source.includes('<iframe')) throw new Error(`Yandex widget must load automatically from its approved embed URL: ${component}`)
   }
 }
 if (!/\bweather:\s*'disabled'/.test(policy) || !/\bweatherTransport:\s*'none'/.test(policy) || !/\bpromotionalOffer:\s*true\b/.test(policy)) throw new Error('Owner-approved release policy changed')
@@ -60,6 +63,7 @@ for (const name of files) {
   if (!/\.(?:html|js|json|txt|xml|svg)$/i.test(name)) continue
   const content = fs.readFileSync(path.join(root, name), 'utf8')
   artifactTextFiles.push({ path: name.replaceAll('\\', '/'), content })
+  if (name.endsWith('.js')) assertNoUnsafeDynamicIframes(content, name.replaceAll('\\', '/'))
   if (!leadArtifactFileAllowed(name.replaceAll('\\', '/'), content, leadsEnabled)) throw new Error('Lead artifact/profile mismatch: ' + name)
   if (name.endsWith('.html') && leadsEnabled && /<form\b/i.test(content)) onlineFormCount++
   if (/(?:MAX_BOT_TOKEN|MAX_USER_ID|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----)/.test(content)) throw new Error(`Unexpected server-only material: ${name}`)
@@ -70,8 +74,9 @@ if (leadsEnabled && (!compiledLeadEndpointPresent(artifactTextFiles, leadsEndpoi
 for (const name of htmlFiles) {
   const html = fs.readFileSync(path.join(root, name), 'utf8')
   if (/weather-strip-section|weather-strip-toggle|Погода для загородного отдыха/u.test(html)) throw new Error(`Temporarily disabled weather UI leaked into ${name}`)
-  if (!leadsEnabled && /<form\b|<iframe\b/i.test(html)) throw new Error(`Unexpected collection or embed surface: ${name}`)
+  if (!leadsEnabled && /<form\b/i.test(html)) throw new Error(`Unexpected collection surface: ${name}`)
   if (leadsEnabled && /<iframe\b/i.test(html)) throw new Error(`Unexpected embed surface: ${name}`)
+  validateYandexEmbedArtifact(html, name, automaticYandexEmbeds)
   const catalogRedirect = name === 'katalog.html' && html.includes('NEXT_REDIRECT;replace;/katalog/bani;307;') && html.includes('href="https://banger.su/katalog/bani"')
   if (!releaseProfiles.some(profile => html.includes(`data-release-profile="${profile}"`)) && !catalogRedirect) throw new Error(`Wrong release profile: ${name}`)
   if (isGitHubPagesProject && !/<meta name="robots" content="noindex, (?:no)?follow"/.test(html)) throw new Error(`Test Pages build must be noindex: ${name}`)
@@ -82,7 +87,7 @@ for (const name of htmlFiles) {
     if (missingBase) throw new Error(`Unprefixed root path ${missingBase} in test Pages HTML: ${name}`)
   }
   if (/Заявка отправлена\./u.test(html)) throw new Error(`False submission confirmation: ${name}`)
-  if (/<(?:script|iframe)[^>]+src=["']https?:\/\/|<link[^>]+rel=["'](?:preconnect|dns-prefetch)["'][^>]+href=["']https?:\/\//i.test(html)) throw new Error(`Automatic external resource: ${name}`)
+  if (/<script[^>]+src=["']https?:\/\/|<link[^>]+rel=["'](?:preconnect|dns-prefetch)["'][^>]+href=["']https?:\/\//i.test(html)) throw new Error(`Automatic external resource: ${name}`)
   if (/(?:MAX_BOT_TOKEN|MAX_USER_ID|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----)/.test(html)) throw new Error(`Unexpected server-only material: ${name}`)
 }
 if (isGitHubPagesProject) {
@@ -99,5 +104,5 @@ for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-r
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')
-fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: /\bembeddedYandex:\s*true\b/.test(policy) ? 'on-demand' : false, promotionalOffer: true }) + '\n')
+fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: automaticYandexEmbeds ? 'automatic' : false, promotionalOffer: true }) + '\n')
 console.log(`Release export PASS: ${htmlFiles.length} HTML, ${leadsEnabled ? `online lead form enabled through ${leadsEndpoint}` : 'contacts only'}, weather UI and snapshots disabled, city component/source data retained in the repository for redesign, desktop offer retained; browser and legal acceptance required separately`)

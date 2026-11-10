@@ -6,7 +6,7 @@ import { getSitePreferences, setSitePreferences, PREFERENCES_EVENT, SITE_PREFERE
 import styles from './CookieConsent.module.css'
 import { OPEN_SITE_SETTINGS_EVENT } from './SiteSettingsButton'
 
-/** Local preference controls; opening this surface never starts external services. */
+/** Local preference controls are separate from the automatically loaded Yandex map and reviews. */
 export default function CookieConsent() {
   const dialog = useRef<HTMLDialogElement>(null)
   const previousFocus = useRef<HTMLElement | null>(null)
@@ -30,10 +30,10 @@ export default function CookieConsent() {
   function choose() {
     if (!setSitePreferences(false)) {
       setStorageBlocked(true)
-      setStatus('Браузер не разрешил сохранить настройки. Погодный виджет и необязательные функции остаются выключенными.')
+      setStatus('Браузер не разрешил сохранить локальные настройки. Погодный виджет, Метрика и Webvisor остаются выключенными; карта и отзывы Яндекса на странице «О компании» загружаются независимо от этого выбора.')
       return
     }
-    setStatus('Сохранены только необходимые настройки. Погодный виджет и аналитика выключены.')
+    setStatus('Локальные настройки сохранены. Погодный виджет, Метрика и Webvisor выключены; карта и отзывы Яндекса на странице «О компании» загружаются автоматически.')
     setStorageBlocked(false)
     setBannerOpen(false)
     dialog.current?.close()
@@ -54,7 +54,7 @@ export default function CookieConsent() {
   }
   return <>
     {bannerOpen && <section className={styles.notice} aria-labelledby="site-preferences-notice-title" data-site-preferences-notice>
-      <div><p className={styles.eyebrow}>Ваши настройки</p><h2 id="site-preferences-notice-title">Настройки сайта</h2><p>Погодный виджет, аналитика, Webvisor и рекламные cookie сейчас отключены. Сайт не запрашивает геолокацию. <Link href="/cookie">Подробнее</Link></p></div>
+      <div><p className={styles.eyebrow}>Ваши настройки</p><h2 id="site-preferences-notice-title">Настройки сайта</h2><p>Погодный виджет, Яндекс Метрика, Webvisor и собственные рекламные cookie BANGER.SU отключены. На странице «О компании» карта и отзывы Яндекса загружаются автоматически; Яндекс может получить IP-адрес, технические заголовки и использовать свои cookie. <Link href="/cookie">Подробнее</Link></p></div>
       <div className={styles.actions}><button type="button" className="btn-primary" onClick={choose}>Продолжить без дополнительных настроек</button><button type="button" className={styles.settings} onClick={showSettings}>Настройки сайта</button></div>
       {storageBlocked && <div className={styles.storageError}><p role="status">{status}</p><button type="button" onClick={() => setBannerOpen(false)}>Продолжить без сохранения</button></div>}
     </section>}
@@ -67,7 +67,7 @@ export default function CookieConsent() {
     }} className={styles.dialog}>
       <h2 id="site-settings-title">Локальные настройки</h2>
       <p>Тема, избранное, выбор модели и дополнений, район доставки и отметка о скрытии предложения хранятся только в браузере для работы выбранных функций. Адрес, имя, телефон и комментарий в сохранённые комплектации не записываются.</p>
-      <p>Погодный виджет, аналитика, Webvisor и рекламные cookie сейчас отключены. Сайт не запрашивает геолокацию и не загружает прогноз.</p>
+      <p>Погодный виджет, Яндекс Метрика, Webvisor и собственные рекламные cookie BANGER.SU отключены. На странице «О компании» карта и отзывы Яндекса загружаются автоматически; внешний сервис может получить IP-адрес, технические заголовки и использовать свои cookie. Сайт не запрашивает геолокацию и не загружает прогноз.</p>
       <div className={styles.clearActions}>
         <button type="button" onClick={clearConfigurations}>Удалить сохранённые комплектации</button>
         <button type="button" onClick={() => clearSetting(WEATHER_CITY_KEY, 'Город погоды')}>Удалить сохранённый город</button>

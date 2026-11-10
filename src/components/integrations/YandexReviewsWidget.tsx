@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, type CSSProperties } from 'react'
+import { type CSSProperties } from 'react'
 import { ExternalLink, Star } from 'lucide-react'
 import { useTheme } from '@/components/ui/ThemeProvider'
 import { releasePolicy } from '@/lib/release-policy'
-import { YandexLoadNotice } from './YandexLoadNotice'
 
 const YANDEX_HOSTS = ['yandex.ru', 'yandex.com', 'yandex.com.tr'] as const
 
@@ -14,10 +13,25 @@ function trustedYandexUrl(value?: string) {
     const url = new URL(value)
     const host = url.hostname.toLowerCase()
     const trustedHost = YANDEX_HOSTS.some((domain) => host === domain || host.endsWith(`.${domain}`))
-    return url.protocol === 'https:' && trustedHost ? url.toString() : null
+    return url.protocol === 'https:' && trustedHost && !url.username && !url.password && !url.port ? url.toString() : null
   } catch {
     return null
   }
+}
+
+function trustedReviewsWidgetUrl(value?: string) {
+  const safe = trustedYandexUrl(value)
+  if (!safe) return null
+  const url = new URL(safe)
+  const keys = [...url.searchParams.keys()]
+  return url.hostname === 'yandex.ru'
+    && url.pathname === '/maps-reviews-widget/68540156780'
+    && !url.hash
+    && keys.length === 1
+    && keys[0] === 'comments'
+    && url.searchParams.get('comments') === ''
+    ? url.toString()
+    : null
 }
 
 export type YandexReviewsWidgetProps = {
@@ -31,7 +45,7 @@ export type YandexReviewsWidgetProps = {
 }
 
 /**
- * A deliberately opt-in Yandex Reviews surface.
+ * Yandex Reviews loads automatically when the approved Yandex widget URL is present.
  *
  * No business URL is guessed here: until the owner supplies an approved URL the
  * component renders a clear placeholder and makes no third-party request.
@@ -44,9 +58,8 @@ export function YandexReviewsWidget({
   className = '',
 }: YandexReviewsWidgetProps) {
   const { theme } = useTheme()
-  const [loaded, setLoaded] = useState(false)
   const safeBusinessUrl = trustedYandexUrl(businessUrl)
-  const safeEmbedUrl = releasePolicy.embeddedYandex ? trustedYandexUrl(embedUrl) : null
+  const safeEmbedUrl = releasePolicy.embeddedYandex === 'automatic' ? trustedReviewsWidgetUrl(embedUrl) : null
   const themedEmbedUrl = safeEmbedUrl ? (() => {
     const url = new URL(safeEmbedUrl)
     url.searchParams.set('theme', theme === 'light' ? 'light' : 'dark')
@@ -72,22 +85,20 @@ export function YandexReviewsWidget({
         <Star aria-hidden="true" size={22} className="shrink-0 text-[var(--integration-accent)]" />
       </div>
 
-      {themedEmbedUrl && loaded ? (
+      {themedEmbedUrl ? (
         <div className="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)]">
           <iframe
             key={themedEmbedUrl}
             src={themedEmbedUrl}
             title="Отзывы о Бани Герасимов на Яндексе"
-            loading="lazy"
+            loading="eager"
             referrerPolicy="strict-origin-when-cross-origin"
             className="block h-[500px] w-full border-0"
           />
         </div>
       ) : (
         <div className="mt-5 rounded-[var(--radius-md)] border border-dashed border-[var(--glass-border)] bg-[var(--glass-bg-dark)] p-5 text-sm text-[var(--color-text-muted)]">
-          <p>{themedEmbedUrl ? 'Отзывы загружаются с серверов Яндекса после вашего нажатия.' : 'Отзывы доступны на сайте Яндекса. По ссылке ниже вы перейдёте во внешний сервис.'}</p>
-          {themedEmbedUrl && <YandexLoadNotice />}
-          {themedEmbedUrl && <button type="button" className="btn-secondary mt-4 min-h-11" onClick={() => setLoaded(true)}>Загрузить отзывы Яндекса</button>}
+          <p>Отзывы доступны на сайте Яндекса. По ссылке ниже вы перейдёте во внешний сервис.</p>
         </div>
       )}
 

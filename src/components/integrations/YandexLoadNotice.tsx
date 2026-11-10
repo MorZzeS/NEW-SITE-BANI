@@ -1,3 +1,0 @@
-export function YandexLoadNotice() {
-  return <p className="text-xs leading-relaxed mt-3">При загрузке встроенного элемента браузер подключится к Яндексу и передаст IP-адрес и технические HTTP-заголовки; cookies могут передаваться, если они присутствуют в браузере. Загрузка — ваш выбор; можно использовать обычную ссылку. <a href="https://yandex.ru/legal/confidential/ru/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Политика Яндекса</a> · <a href="https://yandex.ru/legal/cookies_policy/ru/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Cookie Яндекса</a>.</p>
-}

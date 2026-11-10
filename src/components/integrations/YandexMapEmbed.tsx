@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, type CSSProperties } from 'react'
+import { type CSSProperties } from 'react'
 import { ExternalLink, MapPinned } from 'lucide-react'
 import { useTheme } from '@/components/ui/ThemeProvider'
 import { releasePolicy } from '@/lib/release-policy'
-import { YandexLoadNotice } from './YandexLoadNotice'
 
 const YANDEX_HOSTS = ['yandex.ru', 'yandex.com', 'yandex.com.tr'] as const
 
@@ -14,10 +13,26 @@ function trustedYandexUrl(value?: string) {
     const url = new URL(value)
     const host = url.hostname.toLowerCase()
     const trustedHost = YANDEX_HOSTS.some((domain) => host === domain || host.endsWith(`.${domain}`))
-    return url.protocol === 'https:' && trustedHost ? url.toString() : null
+    return url.protocol === 'https:' && trustedHost && !url.username && !url.password && !url.port ? url.toString() : null
   } catch {
     return null
   }
+}
+
+function trustedYandexMapWidgetUrl(value?: string) {
+  const safe = trustedYandexUrl(value)
+  if (!safe) return null
+  const url = new URL(safe)
+  const keys = [...url.searchParams.keys()].sort()
+  return url.hostname === 'yandex.ru'
+    && url.pathname === '/map-widget/v1/'
+    && !url.hash
+    && keys.join(',') === 'oid,ol,z'
+    && url.searchParams.get('ol') === 'biz'
+    && url.searchParams.get('oid') === '68540156780'
+    && url.searchParams.get('z') === '16'
+    ? url.toString()
+    : null
 }
 
 export type YandexMapEmbedProps = {
@@ -32,7 +47,7 @@ export type YandexMapEmbedProps = {
 }
 
 /**
- * Lazy Yandex Map surface. An embed URL is intentionally required from the
+ * Yandex Map loads automatically when the approved embed URL is present. An embed URL is intentionally required from the
  * caller so the site cannot publish unverified coordinates or an invented venue.
  */
 export function YandexMapEmbed({
@@ -43,8 +58,7 @@ export function YandexMapEmbed({
   className = '',
 }: YandexMapEmbedProps) {
   const { theme } = useTheme()
-  const [loaded, setLoaded] = useState(false)
-  const safeEmbedUrl = releasePolicy.embeddedYandex ? trustedYandexUrl(embedUrl) : null
+  const safeEmbedUrl = releasePolicy.embeddedYandex === 'automatic' ? trustedYandexMapWidgetUrl(embedUrl) : null
   const safeMapUrl = trustedYandexUrl(mapUrl)
   const safeRouteUrl = trustedYandexUrl(routeUrl)
   const style = { '--integration-accent': 'var(--color-accent)' } as CSSProperties
@@ -61,12 +75,12 @@ export function YandexMapEmbed({
         <h2 id="yandex-map-title" className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h2>
       </div>
 
-      {safeEmbedUrl && loaded ? (
+      {safeEmbedUrl ? (
         <div className="mt-5 min-h-[280px] overflow-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)] sm:min-h-[360px]">
           <iframe
             src={safeEmbedUrl}
             title={title}
-            loading="lazy"
+            loading="eager"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
             className="block h-[280px] w-full border-0 sm:h-[360px]"
@@ -74,11 +88,7 @@ export function YandexMapEmbed({
         </div>
       ) : (
         <div className="mt-5 flex min-h-[180px] items-center justify-center rounded-[var(--radius-md)] border border-dashed border-[var(--glass-border)] bg-[var(--glass-bg-dark)] p-5 text-center text-sm text-[var(--color-text-muted)]">
-          <div>
-            <p>{safeEmbedUrl ? 'Интерактивная карта загружается с серверов Яндекса после вашего нажатия.' : 'Карта и маршрут открываются на сайте Яндекса по ссылкам ниже. Переход ведёт во внешний сервис.'}</p>
-            {safeEmbedUrl && <YandexLoadNotice />}
-            {safeEmbedUrl && <button type="button" className="btn-secondary mt-4 min-h-11" onClick={() => setLoaded(true)}>Показать интерактивную карту</button>}
-          </div>
+          <p>Карта и маршрут открываются на сайте Яндекса по ссылкам ниже. Переход ведёт во внешний сервис.</p>
         </div>
       )}
 

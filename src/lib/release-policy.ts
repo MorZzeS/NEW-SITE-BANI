@@ -14,6 +14,6 @@ export const releasePolicy = Object.freeze({
   analytics: false,
   weather: 'disabled',
   weatherTransport: 'none',
-  embeddedYandex: true,
+  embeddedYandex: 'automatic',
   promotionalOffer: true,
 } as const)
