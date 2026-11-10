@@ -1,6 +1,8 @@
 import { ModelConfigurationProvider } from '@/components/catalog/ModelConfigurationContext'
 import { ModelBaseConfiguration } from '@/components/catalog/ModelBaseConfiguration'
 import { ModelBaseSpecification } from '@/components/catalog/ModelBaseSpecification'
+import { ModelTechnicalDimensions } from '@/components/catalog/ModelTechnicalDimensions'
+import { PremiumConfigurationInfo } from '@/components/catalog/PremiumConfigurationInfo'
 import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
@@ -53,7 +55,7 @@ export default async function SaunaPage({ params }: Props) {
   const related = saunas.filter((s) => s.series === sauna.series && s.id !== sauna.id).slice(0, 3)
 
   return (
-    <ModelConfigurationProvider key={sauna.id} model={sauna}><div className="pt-24 pb-20">
+    <ModelConfigurationProvider key={sauna.id} model={sauna} optionsEnabled={sauna.slug !== 'barn-premium'}><div className="pt-24 pb-20">
       <div className="site-container">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-cream/50 mb-8">
@@ -66,6 +68,7 @@ export default async function SaunaPage({ params }: Props) {
 
         <ModelOverview model={sauna} />
         <ModelBaseSpecification model={sauna} />
+        <ModelTechnicalDimensions model={sauna} />
         {!sauna.floorPlan && <p className="text-sm text-cream/60 mb-6">Нет подтверждённого исходника планировки. Планировка согласуется при заказе.</p>}
         {!!interiorImages.length && <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>
@@ -103,7 +106,7 @@ export default async function SaunaPage({ params }: Props) {
           </div>
         </div>
 
-        <ModelBaseConfiguration key={sauna.id} model={sauna} />
+        {sauna.slug === 'barn-premium' ? <PremiumConfigurationInfo model={sauna} /> : <ModelBaseConfiguration key={sauna.id} model={sauna} />}
 
         {/* Related */}
         {related.length > 0 && (

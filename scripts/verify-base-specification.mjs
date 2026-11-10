@@ -26,9 +26,11 @@ for (const model of [...saunas,...homes]) {
   const blockStart = baseMarkers[0].index
   const interiorStart = html.indexOf('Варианты внутреннего исполнения', blockStart)
   const descriptionStart = interiorStart >= 0 ? html.indexOf('О модели', interiorStart) : -1
-  const calculatorStart = descriptionStart >= 0 ? html.indexOf(`data-model-option-calculator="${model.id}"`, descriptionStart) : -1
+  const premium = model.id === 'bg-28'
+  const calculatorStart = descriptionStart >= 0 ? html.indexOf(`${premium ? 'data-premium-configuration' : 'data-model-option-calculator'}="${model.id}"`, descriptionStart) : -1
   assert(blockStart >= 0 && interiorStart > blockStart && descriptionStart > interiorStart && calculatorStart > descriptionStart,
-    `${model.id}: expected order is overview → base configuration → interior examples → description/specs → options calculator`)
+    `${model.id}: expected order is overview → base configuration → interior examples → description/specs → ${premium ? 'premium configuration' : 'options calculator'}`)
+  if (premium) assert(!html.includes('data-model-option-calculator='), 'Barn Premium must not expose the standard calculator')
   const block = blockStart >= 0 && interiorStart > blockStart ? html.slice(blockStart, interiorStart) : undefined
   assert(block, `${model.id}: missing base specification`)
   const text = clean(block)

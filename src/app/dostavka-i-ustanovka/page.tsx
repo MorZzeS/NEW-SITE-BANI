@@ -26,7 +26,7 @@ export default function DostavkaPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mb-16">
           {steps.map(({ icon: Icon, title, desc }, i) => (
-            <div key={title} className="glass-card p-6 relative">
+            <div key={title} id={title === 'Доставка' ? 'delivery' : title === 'Монтаж' ? 'installation' : undefined} className="glass-card p-6 relative site-anchor">
               <div className="absolute top-4 right-4 text-5xl font-black text-white/5 select-none">{i + 1}</div>
               <Icon className="w-10 h-10 text-gold-400 mb-4" />
               <h3 className="text-lg font-bold text-cream mb-2">{title}</h3>

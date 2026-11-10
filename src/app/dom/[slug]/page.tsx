@@ -1,6 +1,7 @@
 import { ModelConfigurationProvider } from '@/components/catalog/ModelConfigurationContext'
 import { ModelBaseConfiguration } from '@/components/catalog/ModelBaseConfiguration'
 import { ModelBaseSpecification } from '@/components/catalog/ModelBaseSpecification'
+import { ModelTechnicalDimensions } from '@/components/catalog/ModelTechnicalDimensions'
 import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
@@ -63,6 +64,7 @@ export default async function HomePage({ params }: Props) {
 
         <ModelOverview model={home} />
         <ModelBaseSpecification model={home} />
+        <ModelTechnicalDimensions model={home} />
         {!home.floorPlan && <p className="text-sm text-cream/60 mb-6">Нет подтверждённого исходника планировки. Планировка согласуется при заказе.</p>}
         <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>

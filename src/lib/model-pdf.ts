@@ -149,6 +149,8 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   write('Позиции ниже отражают состав модели; подарочные элементы помечены отдельно.', 7, colors.muted, 1.5)
   drawTwoColumnRows(confirmedRows)
   if (pendingRows.length) {
+    ensure(9)
+    y += 3
     write('Параметры для согласования', 8, colors.gold, 1)
     drawTwoColumnRows(pendingRows, true)
   }

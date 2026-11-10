@@ -5,7 +5,7 @@ import { siteSettings } from '@/data'
 import { releasePolicy } from '@/lib/release-policy'
 import type { ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
-import { OnlineLeadForm } from './OnlineLeadForm'
+import { OnlineLeadForm, type EquipmentLeadSelection } from './OnlineLeadForm'
 
 /** Contact-only fallback for builds without an approved HTTPS lead endpoint; the working form is mounted when configured. */
 function ContactFallback({ modelName, configurationNote }: { modelName?: string; configurationNote?: string }) {
@@ -57,6 +57,6 @@ function ContactFallback({ modelName, configurationNote }: { modelName?: string;
   </section>
 }
 
-export function CTAFormInline(props: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation }) {
+export function CTAFormInline(props: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation; equipmentSelection?: EquipmentLeadSelection }) {
   return releasePolicy.onlineLeads ? <OnlineLeadForm {...props} /> : <ContactFallback {...props} />
 }

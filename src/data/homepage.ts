@@ -18,7 +18,7 @@ export const homepageTrustItems = [
   {
     id: 'delivery',
     title: 'Доставка',
-    caption: 'Москва и Центральный регион',
+    caption: 'Условия и логистика',
     detail: 'Адрес участка и особенности подъезда помогают уточнить условия доставки.',
   },
   {
@@ -30,7 +30,7 @@ export const homepageTrustItems = [
   {
     id: 'warranty',
     title: 'Гарантия',
-    caption: 'По договору',
+    caption: '12 месяцев на конструкцию',
     detail: 'Перед заказом ознакомьтесь с обязательствами и гарантийными условиями договора.',
   },
 ] as const

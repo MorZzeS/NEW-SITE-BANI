@@ -198,7 +198,7 @@
   .mobileAction span { display: grid; min-width: 0; gap: 2px; }
   .mobileAction small { color: var(--color-text-subtle); font-size: 10px; }
   .mobileAction strong { overflow: hidden; color: var(--color-accent); font-size: 16px; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .mobileAction button { flex: 0 0 auto; min-height: 42px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--color-accent); color: var(--color-action-text); font-size: 12px; font-weight: 750; cursor: pointer; }
+  .mobileAction button { flex: 0 0 auto; min-height: 42px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--color-gold); color: var(--color-action-text); font-size: 12px; font-weight: 750; cursor: pointer; }
 }
 @media(max-width:760px) {
   .calculatorGrid { display: flex; flex-direction: column; }

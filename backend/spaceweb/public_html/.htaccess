@@ -1,7 +1,8 @@
 Options -Indexes
 <FilesMatch "^\.">
- Require all denied
+ Order allow,deny
+ Deny from all
 </FilesMatch>
 RewriteEngine On
-RewriteRule ^health/?$ health.php [END]
-RewriteRule ^leads/?$ leads.php [END]
+RewriteRule ^health/?$ health.php [L]
+RewriteRule ^leads/?$ leads.php [L]

@@ -10,7 +10,7 @@ import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { configurationManagerText } from '@/lib/model-configuration-selection'
 import { isLogisticsOption, resolveOptionPrice } from '@/lib/logistics'
 import { DeliveryFields } from './DeliveryFields'
-import { equipmentSelection, optionCountLabel } from '@/lib/equipment-selection'
+import { equipmentSelection, optionCountLabel, optionQuantityLimit, optionSelectionGroup } from '@/lib/equipment-selection'
 import { modelOptionAvailability } from '@/lib/model-option-availability'
 import { useModelConfiguration } from './ModelConfigurationContext'
 import { ConfigurationCategoryTitle, ConfigurationOption } from './ConfigurationOption'
@@ -59,11 +59,11 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
         <summary><ConfigurationCategoryTitle name={category} count={optionCountLabel(items.length)} /></summary>
         {category === 'Логистика' && <DeliveryFields id={`model-${model.id}`} district={configuration.deliveryDistrict} address={configuration.deliveryAddress} onDistrict={setDeliveryDistrict} onAddress={setDeliveryAddress} />}
         <div className={styles.optionList}>
-          {items.map(({ option, reason, status }) => <ConfigurationOption key={option.id} option={isLogisticsOption(option.id) ? { ...option, salePrice: resolveOptionPrice(option, configuration.deliveryDistrict) } : option} checked={selectedIdsSet.has(option.id)} onToggle={() => toggleOption(option.id)} inputId={`model-option-${model.id}-${option.id}`} price={isLogisticsOption(option.id) && resolveOptionPrice(option, configuration.deliveryDistrict) === null ? 'Индивидуальный расчёт' : optionPrice(option)} reason={reason} status={status}>
-            {option.id === 'ceiling-height' && selectedIdsSet.has(option.id) && <label className="mt-3 flex flex-wrap items-center gap-3 text-sm text-cream/85" htmlFor={`ceiling-steps-${model.id}`}>
-              <span>Увеличение высоты, шагов по 10 см:</span>
-              <input id={`ceiling-steps-${model.id}`} type="number" min={1} max={2} step={1} className="input-glass w-20 rounded-lg px-2 py-2" value={configuration.options.find(item => item.id === 'ceiling-height')?.quantity ?? 1} onChange={event => setOptionQuantity('ceiling-height', Number(event.target.value))} />
-              <strong>+{formatPrice(22000 * (configuration.options.find(item => item.id === 'ceiling-height')?.quantity ?? 1))}</strong>
+          {items.map(({ option, reason, status }) => <ConfigurationOption key={option.id} option={isLogisticsOption(option.id) ? { ...option, salePrice: resolveOptionPrice(option, configuration.deliveryDistrict) } : option} checked={selectedIdsSet.has(option.id)} onToggle={() => toggleOption(option.id)} inputId={`model-option-${model.id}-${option.id}`} groupName={optionSelectionGroup(option.id) ? `model-stove-${model.id}` : undefined} price={isLogisticsOption(option.id) && resolveOptionPrice(option, configuration.deliveryDistrict) === null ? 'Индивидуальный расчёт' : optionPrice(option)} reason={reason} status={status}>
+            {optionQuantityLimit(option) > 1 && selectedIdsSet.has(option.id) && <label className="mt-3 flex flex-wrap items-center gap-3 text-sm text-cream/85" htmlFor={option.id === 'ceiling-height' ? `ceiling-steps-${model.id}` : `quantity-${model.id}-${option.id}`}>
+              <span>{option.id === 'ceiling-height' ? 'Увеличение высоты, шагов по 10 см:' : 'Количество, шт.:'}</span>
+              <input id={option.id === 'ceiling-height' ? `ceiling-steps-${model.id}` : `quantity-${model.id}-${option.id}`} type="number" min={1} max={optionQuantityLimit(option)} step={1} className="input-glass w-20 rounded-lg px-2 py-2" value={configuration.options.find(item => item.id === option.id)?.quantity ?? 1} onChange={event => setOptionQuantity(option.id, Number(event.target.value))} />
+              {option.salePrice !== null && <strong>+{formatPrice(option.salePrice * (configuration.options.find(item => item.id === option.id)?.quantity ?? 1))}</strong>}
             </label>}
           </ConfigurationOption>)}
         </div>
@@ -161,6 +161,10 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
     </section>
 
     <div ref={formRef} id={`model-contacts-${model.id}`} className={styles.contacts}>
+      <div className="grid gap-3 sm:grid-cols-2 mb-6" data-model-calculation-actions>
+        <DownloadModelPdfButton model={model} label="Скачать расчёт в PDF" />
+        <button type="button" className="btn-primary min-h-12 justify-center" onClick={goToContacts}>Оставить заявку</button>
+      </div>
       <CTAFormInline modelName={model.name} configurationNote={configurationNote} configurationDetails={configuration} />
     </div>
   </section>

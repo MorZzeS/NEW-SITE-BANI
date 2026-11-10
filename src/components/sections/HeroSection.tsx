@@ -1,5 +1,5 @@
 'use client'
-import { SocialBlock } from '@/components/ui/SocialBlock'
+import { HeroContactDisclosure } from '@/components/ui/HeroContactDisclosure'
 
 
 import Link from 'next/link'
@@ -104,7 +104,8 @@ export function HeroSection() {
                 {/* Subheading */}
                 <div className="hero-subheading hero-reveal mb-6 max-w-md" style={{ animationDelay: '0.22s' }}>
                   <p className="text-lg sm:text-xl font-semibold leading-snug mb-2">Собственное производство — город Раменское</p>
-                  <p className="text-sm sm:text-base leading-relaxed">Современные, тёплые, надёжные.<br />География работы: Москва и центральные регионы.</p>
+                  <p className="text-sm sm:text-base font-semibold leading-relaxed">Производитель мобильных бань с 2024 года</p>
+                  <p className="text-sm sm:text-base leading-relaxed mt-2">Делаем бани, которые греют, радуют и служат долгие годы</p>
                 </div>
 
                 {/* CTAs */}
@@ -114,10 +115,10 @@ export function HeroSection() {
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <HeroVideoAction onClick={() => setVideoOpen(true)} />
+                  <HeroContactDisclosure />
                 </div>
               </div>
 
-              <SocialBlock compact />
             </div>
           </div>
         </div>

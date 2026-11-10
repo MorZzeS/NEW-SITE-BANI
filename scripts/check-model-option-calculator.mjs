@@ -33,15 +33,15 @@ const availability = compile('src/lib/model-option-availability.ts', {
   '@/data/model-configuration': modelConfig,
   '@/lib/equipment-selection': selection,
 })
-const calculation = compile('src/lib/model-configuration-selection.ts', { '@/lib/model-option-availability': availability, '@/lib/logistics': logistics })
+const calculation = compile('src/lib/model-configuration-selection.ts', { '@/lib/model-option-availability': availability, '@/lib/logistics': logistics, '@/lib/equipment-selection': selection })
 const unitOnly = process.argv.includes('--unit')
 const guidance = compile('src/data/option-guidance.ts')
 const models = [...data.saunas, ...data.homes]
 const enabled = optionsData.additionalOptions.filter(option => option.enabled)
 assert.equal(models.length, 31, 'all 25 sauna and 6 home models must be checked')
-assert.equal(enabled.length, 28, 'global option list must contain the historical entries and nine approved additions/updates')
+assert.equal(enabled.length, 44, 'global option list must contain the historical entries and nine approved additions/updates')
 assert.equal(enabled.find(option => option.id === 'replanning')?.salePrice, 10000, 'standard project replanning must use the owner-approved 10 000 RUB price')
-assert.deepEqual(JSON.parse(JSON.stringify(enabled.slice(-9).map(option => [option.id, option.salePrice, option.priceUnit]))), [
+assert.deepEqual(JSON.parse(JSON.stringify(enabled.slice(19, 28).map(option => [option.id, option.salePrice, option.priceUnit]))), [
   ['facade-ral', 25_000, 'опция'],
   ['ceiling-height', 22_000, '10 см'],
   ['outdoor-lighting', 15_000, 'опция'],
@@ -75,18 +75,23 @@ assert.equal(districtPrices('outside').knownTotal, 0, 'outside-district logistic
 assert.equal(districtPrices('outside').unpricedCount, 2)
 assert.equal(districtPrices('unknown').knownTotal, 0, 'an unspecified district must not inherit a tariff')
 assert.equal(districtPrices('unknown').unpricedCount, 2)
-assert.ok(districtPrices('outside').comment.includes('Индивидуальный расчёт'))
+assert.ok(districtPrices('outside').comment.includes('Стоимость по согласованию'))
 assert.ok(districtPrices('ramenskoe').comment.replace(/[\u00a0\u202f]/g, ' ').includes('Логистика: 45 000 ₽'))
 
 let checkedPages = 0
 const matrix = []
 for (const model of models) {
   const isHome = data.homes.some(item => item.id === model.id)
+  const premium = model.id === 'bg-28'
   const relative = `${isHome ? 'dom' : 'banya'}/${model.slug}.html`
   const htmlPath = path.join(dist, relative)
   if (!unitOnly) assert.ok(fs.existsSync(htmlPath), `missing exported model page ${relative}`)
   const html = unitOnly ? '' : fs.readFileSync(htmlPath, 'utf8')
-  if (!unitOnly) {
+  if (!unitOnly && premium) {
+    assert.ok(html.includes('data-premium-configuration'), 'Barn Premium must show bespoke information')
+    assert.ok(!html.includes('data-model-option-calculator'), 'Barn Premium must not show the standard calculator')
+  }
+  if (!unitOnly && !premium) {
     assert.ok(html.includes(`data-model-option-calculator="${model.id}"`), `${model.id}: calculator is not rendered`)
     assert.ok(html.includes(`data-base-price="${model.priceFrom}"`), `${model.id}: base price differs from model data`)
     assert.ok(html.includes('Расчёт предварительный. Применимость дополнений, размеры проёмов и состав работ подтверждает менеджер для выбранной модели. Уже включённые позиции повторно не оплачиваются.'), `${model.id}: estimate must disclose manager confirmation without claiming fit`)
@@ -97,12 +102,12 @@ for (const model of models) {
   const items = availability.modelOptionAvailability(model)
   assert.equal(items.length, enabled.length, `${model.id}: option list length mismatch`)
   const renderedIds = unitOnly ? [] : [...html.matchAll(/data-option-id="([^"]+)"/g)].map(match => match[1])
-  if (!unitOnly) assert.equal(renderedIds.length, items.length, `${model.id}: not all option rows rendered (available + included + confirmation groups)`)
+  if (!unitOnly && !premium) assert.equal(renderedIds.length, items.length, `${model.id}: not all option rows rendered (available + included + confirmation groups)`)
   assert.equal(new Set(renderedIds).size, renderedIds.length, `${model.id}: duplicate option row`)
   for (const item of items) {
     const image = guidance.optionGuidance[item.option.id]?.image
     assert.ok(image && fs.existsSync(path.join(root, 'public', image.replace(/^\//, ''))), `${model.id}/${item.option.id}: missing option photo or diagram`)
-    if (!unitOnly && item.blockedReason) assert.ok(html.includes(item.blockedReason), `${model.id}/${item.option.id}: compatibility status text missing`)
+    if (!unitOnly && !premium && item.blockedReason) assert.ok(html.includes(item.blockedReason), `${model.id}/${item.option.id}: compatibility status text missing`)
   }
   const calculated = calculation.calculateModelConfiguration(model, [...enabled.map(option => option.id), 'unknown', 'boiler'])
   assert.equal(calculated.basePrice, model.priceFrom)
@@ -110,8 +115,8 @@ for (const model of models) {
   assert.equal(calculated.discount, 0, `${model.id}: promotional discount must not be applied without the promo source`)
   assert.equal(calculated.selectedOptionIds.length, new Set(calculated.selectedOptionIds).size)
   assert.ok(calculated.selectedOptionIds.every(id => ['available', 'unknown'].includes(items.find(item => item.option.id === id)?.status)), `${model.id}: confirmed and estimate-only options can be selected`)
-  assert.equal(calculated.unpricedCount, 3, `${model.id}: larch flooring and unpriced district logistics must be disclosed`)
-  assert.deepEqual(JSON.parse(JSON.stringify(calculated.individualItems)), ['larch-wash', 'delivery', 'crane-unload'])
+  assert.equal(calculated.unpricedCount, 4, `${model.id}: all pending prices and unpriced district logistics must be disclosed`)
+  assert.deepEqual(JSON.parse(JSON.stringify(calculated.individualItems)), ['larch-wash', 'delivery', 'crane-unload', 'ermak-16-premium-cast-iron'])
   assert.ok(calculation.configurationManagerText(calculated).includes('Предварительная сумма без позиций индивидуального расчёта, включая неподтверждённую логистику.'), `${model.id}: manager summary must carry the preliminary-total caveat`)
   assert.equal(calculation.calculateModelConfiguration(model, []).total, model.priceFrom)
   const logisticsSelected = calculation.calculateModelConfiguration(model, ['delivery', 'crane-unload'])
@@ -127,7 +132,7 @@ for (const model of models) {
   assert.equal(logisticsOutside.unpricedCount, 2)
   assert.deepEqual(JSON.parse(JSON.stringify(logisticsOutside.individualItems)), ['delivery', 'crane-unload'])
   const logisticsNote = calculation.configurationManagerText(logisticsOutside).replace(/[\u00a0\u202f]/g, ' ')
-  assert.ok(logisticsNote.includes('Район: За пределами Раменского района') && logisticsNote.includes('Индивидуальный расчёт'))
+  assert.ok(logisticsNote.includes('Район: За пределами Раменского района') && logisticsNote.includes('Стоимость по согласованию'))
   assert.ok(logisticsNote.includes('Логистика: 0 ₽') && logisticsNote.includes('Предварительная сумма без позиций индивидуального расчёта'))
   const heightTwo = calculation.calculateModelConfiguration(model, ['ceiling-height'], { quantities: { 'ceiling-height': 2 } })
   const heightOutOfRange = calculation.calculateModelConfiguration(model, ['ceiling-height'], { quantities: { 'ceiling-height': 3 } })
@@ -145,12 +150,12 @@ for (const model of models) {
     assert.ok(['available', 'included', 'unavailable', 'unknown'].includes(item.status))
     assert.ok(item.source && item.reason)
     if (item.status === 'included' || item.status === 'unavailable') assert.ok(!calculated.selectedOptionIds.includes(item.option.id))
-    if (item.status === 'unknown') assert.ok(calculated.selectedOptionIds.includes(item.option.id), `${model.id}/${item.option.id}: estimate-only option remains selectable`)
-    if (!unitOnly && item.status === 'unknown') {
+    if (item.status === 'unknown') assert.ok(calculation.calculateModelConfiguration(model, [item.option.id]).selectedOptionIds.includes(item.option.id), `${model.id}/${item.option.id}: estimate-only option remains selectable`)
+    if (!unitOnly && !premium && item.status === 'unknown') {
       const tag = html.match(new RegExp(`<article\\b[^>]*data-option-id="${item.option.id}"[^>]*>`))?.[0]
       assert.ok(tag?.includes('data-option-selectable="true"'), `${model.id}/${item.option.id}: estimate-only row must be selectable`)
     }
-    if (!unitOnly && item.status === 'unknown') {
+    if (!unitOnly && !premium && item.status === 'unknown') {
       const tag = html.match(new RegExp(`<article\\b[^>]*data-option-id="${item.option.id}"[^>]*>`))?.[0]
       assert.ok(tag?.includes('data-option-selectable="true"'), `${model.id}/${item.option.id}: estimate-only row must be selectable`)
     }
@@ -169,8 +174,8 @@ for (const model of models) {
 
 const totals = { available: 0, included: 0, unavailable: 0, unknown: 0 }
 for (const model of matrix) for (const key of Object.keys(totals)) totals[key] += model.counts[key]
-assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 31 * 28, 'matrix must cover every model/option pair')
-assert.equal(totals.included, 39, 'only catalogue-confirmed paid options already in the model are classified as included; the free gift furniture is not the paid furniture option')
+assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 31 * 44, 'matrix must cover every model/option pair')
+assert.equal(totals.included, 47, 'only catalogue-confirmed options already in the model are classified as included; the free gift furniture is not the paid furniture option')
 assert.equal(totals.unavailable, 0, 'current sources confirm no incompatible option; do not invent unavailable rows')
 assert.ok(totals.available > 0 && totals.unknown > 0, 'matrix must distinguish confirmed availability from confirmation-needed positions')
 
@@ -178,14 +183,14 @@ const planless = matrix.filter(model => ['bg-25', 'bg-26', 'bg-27'].includes(mod
 assert.equal(planless.length, 3)
 for (const model of planless) {
   assert.equal(model.counts.available, 2, `${model.id}: only the two district-priced logistics services are available without a plan`)
-  assert.equal(model.counts.unknown, 26, `${model.id}: all 26 non-logistics options remain manager-confirmed estimates for these planless house models`)
+  assert.equal(model.counts.unknown, 42, `${model.id}: all 42 non-logistics options remain manager-confirmed estimates for these planless house models`)
 }
 const availableCounts = new Set(matrix.map(model => model.counts.available))
 assert.ok(availableCounts.size >= 4, 'compatibility matrix must differ between models, not show one identical option list')
 const evidence = id => matrix.find(model => model.id === id).rows
 assert.equal(evidence('bg-01').find(row => row.option === 'furniture').status, 'available', 'gift table and benches do not make additional paid furniture included')
 assert.equal(evidence('bg-04').find(row => row.option === 'ermak').status, 'unknown')
-assert.equal(evidence('bg-09').find(row => row.option === 'ermak').status, 'included')
+assert.equal(evidence('bg-09').find(row => row.option === 'ermak-base').status, 'included')
 assert.equal(evidence('bg-18').find(row => row.option === 'external-light').status, 'included')
 assert.equal(evidence('bg-18').find(row => row.option === 'shade').status, 'included')
 assert.equal(evidence('bg-19').find(row => row.option === 'boiler').status, 'included')
@@ -193,7 +198,7 @@ assert.equal(evidence('bg-19').find(row => row.option === 'shower').status, 'inc
 assert.equal(evidence('bg-20').find(row => row.option === 'wc').status, 'included')
 assert.equal(evidence('bg-21').find(row => row.option === 'floor').status, 'included')
 assert.equal(evidence('bg-23').find(row => row.option === 'floor').status, 'included')
-assert.equal(evidence('bg-24').find(row => row.option === 'ermak').status, 'included')
+assert.equal(evidence('bg-24').find(row => row.option === 'ermak-base').status, 'included')
 assert.equal(evidence('bg-28').find(row => row.option === 'boiler').status, 'included')
 assert.equal(evidence('bg-04').find(row => row.option === 'boiler').status, 'available')
 assert.equal(evidence('bg-09').find(row => row.option === 'shower').status, 'unknown')

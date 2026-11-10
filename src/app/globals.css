@@ -597,6 +597,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* Compact social panel: stable size, always-visible owner QR codes. */
 html { scrollbar-gutter: stable; }
+.site-anchor { scroll-margin-top: 110px; }
+html { scroll-behavior: smooth; }
+.hero-contact-disclosure { position: relative; width: 100%; }
+.hero-contact-panel { width: min(624px,calc(100vw - 48px)); margin-top: 12px; overflow: hidden; border: 1px solid var(--glass-border); border-radius: 16px; background: var(--color-surface); color: var(--color-text); box-shadow: 0 10px 32px rgb(0 0 0 / .14); }
+.social-qr-horizontal { display: flex; flex-wrap: nowrap; gap: 16px; padding: 16px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.social-qr-horizontal-item { display: flex; flex-direction: column; flex: 0 0 128px; align-items: center; gap: 8px; scroll-snap-align: start; border-radius: 8px; }
+.social-qr-horizontal-item .social-qr-name { color: var(--color-text); }
+.social-qr-horizontal-item > span:last-child, .social-qr-horizontal-item svg { color: var(--color-accent); }
+[data-theme="light"] .hero-contact-panel { --color-text: #1e2330; --color-accent: #805018; }
+.social-qr-horizontal-item:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.social-qr-horizontal-image { width: 128px; height: 128px; border-radius: 6px; background: white; }
+@media (min-width:1280px) { .hero-contact-panel { position: absolute; left: calc(100% + 16px); bottom: 0; margin-top: 0; } }
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
 .hero-social { width: 272px; flex-shrink: 0; margin-top: 44px; padding: 10px; border: 1px solid var(--hero-panel-border); border-radius: 12px; background: transparent; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); box-shadow: inset 0 1px 0 rgba(255,255,255,.10); }
 .social-qr-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px 8px; }
 .social-qr-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; border-radius: 4px; }

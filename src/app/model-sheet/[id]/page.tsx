@@ -21,7 +21,7 @@ export default async function ModelSheet({ params }: { params: Promise<{ id: str
   const model = models.find(m => m.id === id)
   if (!model) notFound()
   return <article className="model-sheet">
-    <div className="print-model-action mb-6"><ModelConfigurationProvider model={model}><DownloadModelPdfButton model={model} /></ModelConfigurationProvider><PrintModelButton /><p className="text-sm mt-3">PDF содержит базовую комплектацию. PDF с выбранными опциями можно скачать на странице модели.</p></div>
+    <div className="print-model-action mb-6"><ModelConfigurationProvider model={model} optionsEnabled={false}><DownloadModelPdfButton model={model} /></ModelConfigurationProvider><PrintModelButton /><p className="text-sm mt-3">PDF содержит базовую комплектацию. PDF с выбранными опциями можно скачать на странице модели.</p></div>
     <header className="sheet-heading"><span>БАНИ ГЕРАСИМОВ · BANGER.SU</span><p>Информация о модели</p></header>
     <h1>{model.name}</h1><p>{model.article} · {model.size} · {model.area} м²</p>
     <div className="sheet-images"><figure><img src={withBasePath(model.image)} alt={model.name} /><figcaption>Визуализация модели</figcaption></figure>

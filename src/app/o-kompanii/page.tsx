@@ -62,7 +62,7 @@ export default function OKompaniiPage() {
         </div>
 
         {/* Story */}
-        <div className="about-story glass rounded-3xl p-6 md:p-8 mb-5">
+        <div id="production" className="about-story glass rounded-3xl p-6 md:p-8 mb-5 site-anchor">
             <h2 className="text-3xl font-bold text-cream mb-4">Наша история</h2>
             <div className="space-y-4 text-cream/70 leading-relaxed">
               <p>

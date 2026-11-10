@@ -1,18 +1,22 @@
 'use client'
 
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { saunas, homes, siteSettings } from '@/data'
 import { leadContract, leadDocumentBundle, verifyLeadDocumentBundle, consentEvidence } from '@/lib/lead-consent'
 import { leadEndpoint, sendLead, LeadSubmissionError, type Lead } from '@/lib/leads'
 import { leadAttemptMarker, discardRejectedLeadAttempt } from '@/lib/lead-attempt'
-import { configurationManagerText, mergeManagerComment, type ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
+import { calculateModelConfiguration, configurationManagerText, mergeManagerComment, type ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
+import type { DeliveryDistrict } from '@/lib/logistics'
 import { resolveLeadContext } from '@/lib/lead-context'
 import { LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
 import { withBasePath } from '@/lib/site-path'
 
 const LEGAL_CONSENT_TEXT = 'Я согласен на обработку персональных данных в соответствии с Согласием на обработку персональных данных и Политикой обработки персональных данных.'
 
-export function OnlineLeadForm({ modelName, configurationNote, configurationDetails }: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation }) {
+export type EquipmentLeadSelection = { selectedIds: string[]; quantities: Record<string, number>; deliveryDistrict: DeliveryDistrict; deliveryAddress: string }
+
+export function OnlineLeadForm({ modelName, configurationNote, configurationDetails, equipmentSelection }: { modelName?: string; configurationNote?: string; configurationDetails?: ModelConfigurationCalculation; equipmentSelection?: EquipmentLeadSelection }) {
+  const modelListId = useId()
   const [name, setName] = useState(''), [phone, setPhone] = useState(''), [comment, setComment] = useState('')
   const [consent, setConsent] = useState(false), [ready, setReady] = useState(false)
   const [error, setError] = useState(''), [result, setResult] = useState(''), [busy, setBusy] = useState(false)
@@ -21,6 +25,8 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
   const [locked, setLocked] = useState(false)
   const [rejected, setRejected] = useState(false)
   const documents = leadContract === 3 ? leadDocumentBundle.documents : null
+  const selectedModel = [...saunas, ...homes].find(model => model.name === context.model)
+  const effectiveConfiguration = configurationDetails || (equipmentSelection && selectedModel ? calculateModelConfiguration(selectedModel, equipmentSelection.selectedIds, { quantities: equipmentSelection.quantities, deliveryDistrict: equipmentSelection.deliveryDistrict, deliveryAddress: equipmentSelection.deliveryAddress }) : undefined)
   useEffect(() => {
     setContext(resolveLeadContext(location.href, modelName, saunas, homes))
     const marker = leadAttemptMarker()
@@ -32,7 +38,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
       setReady(location.protocol === 'https:' && /^https:\/\//.test(leadEndpoint))
     }
     return () => { cancelled = true }
-  }, [modelName, configurationNote])
+  }, [modelName])
 
   // A topic from an on-page offer (for example the custom-project band) becomes the request subject.
   // It never assigns a ready model or a price; existing model/configuration props always win.
@@ -52,14 +58,15 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     if (!ready || !consent || pending.current || locked) return
     if (name.trim().length < 2) { setError('Укажите имя: не менее двух символов.'); return }
     if (!/^[78]\d{10}$/.test(phone.replace(/\D/g, ''))) { setError('Введите телефон в формате +7 900 000-00-00.'); return }
+    if (equipmentSelection?.selectedIds.length && !selectedModel) { setError('Выберите модель из списка, чтобы передать базовую стоимость и полный расчёт выбранных дополнений.'); return }
     const website = new FormData(event.currentTarget).get('website')?.toString() || ''
     pending.current = true; setBusy(true); setError('')
     try {
       const verified = leadContract === 3 ? await verifyLeadDocumentBundle() : undefined
       if (!attempt.current) {
-        let managerConfiguration = configurationDetails ? configurationManagerText(configurationDetails) : configurationNote || ''
+        let managerConfiguration = effectiveConfiguration ? configurationManagerText(effectiveConfiguration) : configurationNote || ''
         // The model URL is already sent in lead.page, so it need not consume the bounded legacy comment.
-        if (configurationDetails && managerConfiguration.length + comment.trim().length + 2 > 1500) managerConfiguration = configurationManagerText(configurationDetails, true)
+        if (effectiveConfiguration && managerConfiguration.length + comment.trim().length + 2 > 1500) managerConfiguration = configurationManagerText(effectiveConfiguration, true)
         const finalComment = leadContract === 3 ? comment.trim() : mergeManagerComment(comment.trim(), managerConfiguration)
         attempt.current = {
           ...context,
@@ -68,8 +75,8 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
           name: name.trim(),
           phone,
           comment: finalComment,
-          configuration: (configurationNote || '').slice(0, 2000),
-          ...(leadContract === 3 && configurationDetails ? { configurationDetails: { ...structuredClone(configurationDetails), calculatedAt: new Date().toISOString() } } : {}),
+          configuration: leadContract === 3 && effectiveConfiguration ? '' : (configurationNote || ''),
+          ...(leadContract === 3 && effectiveConfiguration ? { configurationDetails: { ...structuredClone(effectiveConfiguration), calculatedAt: new Date().toISOString() } } : {}),
           createdAt: new Date().toISOString(),
           consent: true,
           website,
@@ -88,7 +95,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
   }
   const displayed = attempt.current || context
   const selection = [
-    attempt.current ? attempt.current.configuration : configurationNote,
+    attempt.current?.configurationDetails ? configurationManagerText(attempt.current.configurationDetails) : attempt.current ? attempt.current.configuration : effectiveConfiguration ? configurationManagerText(effectiveConfiguration) : configurationNote,
     !configurationNote && displayed.model ? `Модель: ${displayed.model}` : '',
     !configurationNote && displayed.article ? `Артикул: ${displayed.article}` : '',
     displayed.promotion,
@@ -102,7 +109,8 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
       <fieldset disabled={!ready || busy || locked || Boolean(attempt.current)} className="space-y-3">
         <label className="block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input" value={name} onChange={e => setName(e.target.value)} /></label>
         <label className="block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
-        <label className="block text-sm text-cream">Модель<input className="lead-input" maxLength={160} value={context.model} readOnly={Boolean(configurationDetails)} onChange={e => setContext(resolveLeadContext(location.href, e.target.value, saunas, homes))} /></label>
+        <label className="block text-sm text-cream">Модель<input className="lead-input" list={modelListId} maxLength={160} value={context.model} readOnly={Boolean(configurationDetails)} onChange={e => setContext(resolveLeadContext(location.href, e.target.value, saunas, homes))} /></label>
+        {!configurationDetails && <datalist id={modelListId}>{[...saunas, ...homes].map(model => <option key={model.id} value={model.name} />)}</datalist>}
         <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input" value={comment} onChange={e => setComment(e.target.value)} placeholder="Пожелания, сроки, вопросы" /></label>
         <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
         {documents ? <><label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{documents.checkbox.text}</span></label><details><summary>Согласие на обработку данных</summary><p className="whitespace-pre-wrap text-sm">{documents.consent.text}</p></details><details><summary>Политика обработки данных</summary><p className="whitespace-pre-wrap text-sm">{documents.policy.text}</p></details></> : <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{LEGAL_CONSENT_TEXT} <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/soglasie-pd')} target="_blank" rel="noopener noreferrer">Согласие</a> · <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/politika')} target="_blank" rel="noopener noreferrer">Политика</a></span></label>}

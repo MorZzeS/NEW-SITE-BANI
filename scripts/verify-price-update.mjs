@@ -81,6 +81,8 @@ export function auditPriceUpdate(root = defaultRoot) {
   }
   check(equal(restoredData, oldData), 'Other catalog exports or nonprice data changed')
   check(equal(newOptions.optionCategories, [...oldOptions.optionCategories, 'Логистика']), 'Option categories changed outside the approved logistics category')
+  const owner20261109 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261109.json'), 'utf8'))
+  const approvedOverride = id => owner20261109.overrides.find(option => option.id === id)
   const approvedNewOptions = [
     { id: 'facade-ral', name: 'Окраска внешней отделки по RAL', salePrice: 25000, category: 'Внешний вид', priceUnit: 'опция', description: 'Окраска наружной отделки в выбранный оттенок RAL; цвет и материалы согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: 'Стоимость 25 000 ₽ утверждена владельцем 03.11.2026.' },
     { id: 'ceiling-height', name: 'Увеличение высоты потолка', salePrice: 22000, category: 'Общее по бане', priceUnit: '10 см', description: 'Увеличение на 10 см — 22 000 ₽, на 20 см — 44 000 ₽; максимум 20 см. Итоговая высота и техническая возможность согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: '22 000 ₽ за каждые 10 см — указано владельцем 03.11.2026.' },
@@ -92,8 +94,10 @@ export function auditPriceUpdate(root = defaultRoot) {
     { id: 'wooden-window-400', name: 'Деревянное окно 400 × 400 мм', salePrice: 5500, category: 'Окна и двери', description: 'Деревянное окно размером 400 × 400 мм. Возможность установки и размеры проёма подтверждаются для выбранной модели.', priceUnit: 'шт.', enabled: true, source: 'owner-2026-11-03', priceSource: '5 500 ₽ — уточнение владельца 03.11.2026.' },
     { id: 'replanning', image: '/images/options/guidance/replanning.svg', name: 'Перепланировка стандартного проекта', salePrice: 10000, category: 'Общее по бане', priceUnit: 'услуга', description: 'Изменение стандартной планировки бани по пожеланиям заказчика. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно', enabled: true, source: 'owner-2026-11-09', priceSource: '10 000 ₽ — утверждено владельцем 09.11.2026.' },
   ]
+  for (let index = 0; index < approvedNewOptions.length; index++) approvedNewOptions[index] = approvedOverride(approvedNewOptions[index].id) || approvedNewOptions[index]
+  approvedNewOptions.push(...owner20261109.additions)
   const baselineIds = oldOptions.additionalOptions.map(o => o.id)
-  check(equal(newOptions.additionalOptions.map(o => o.id), [...baselineIds, ...approvedNewOptions.map(o => o.id)]), 'Option IDs/order changed outside the nine approved additions')
+  check(equal(newOptions.additionalOptions.map(o => o.id), [...baselineIds, ...approvedNewOptions.map(o => o.id)]), 'Option IDs/order changed outside the exact owner-approved additions')
   const options = oldOptions.additionalOptions.map(before => {
     const after = newOptions.additionalOptions.find(option => option.id === before.id)
     const paid = typeof before.salePrice === 'number' && before.salePrice > 0 && before.source !== 'unconfirmed'
@@ -109,7 +113,9 @@ export function auditPriceUpdate(root = defaultRoot) {
       expected.source = 'owner-2026-11-03'
       expected.priceSource = '18 000 ₽ за поддон со шторкой и выводом воды — уточнение владельца 03.11.2026.'
     }
-    check(equal(after, expected), `${before.id}: baseline option changed outside the approved furniture wording`)
+    const override = approvedOverride(before.id)
+    if (override) Object.assign(expected, override)
+    check(equal(after, expected), `${before.id}: baseline option changed outside the exact owner-approved overrides`)
     return { id: before.id, name: before.name, unit: before.priceUnit, paid, baselinePrice: before.salePrice, expectedPrice: expected.salePrice, currentPrice: after?.salePrice, delta: paid ? after?.salePrice - before.salePrice : null, baselinePriceSource: before.priceSource, currentPriceSource: after?.priceSource }
   })
   check(options.filter(o => o.paid).length === 18, 'Historical baseline must contain 18 confirmed paid options')
@@ -118,8 +124,16 @@ export function auditPriceUpdate(root = defaultRoot) {
     check(equal(actual, expected), `${expected.id}: new option differs from its exact approved definition`)
     options.push({ id: expected.id, name: expected.name, unit: expected.priceUnit, paid: expected.salePrice !== null, baselinePrice: null, expectedPrice: expected.salePrice, currentPrice: actual?.salePrice, delta: null, baselinePriceSource: null, currentPriceSource: actual?.priceSource })
   }
-  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 27, 'Expected exactly 27 confirmed priced options')
-  check(newOptions.additionalOptions.filter(o => o.salePrice === null).length === 1 && newOptions.additionalOptions.find(o => o.id === 'larch-wash')?.salePrice === null, 'Larch wash must remain the only unpriced option')
+  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 38, 'Expected exactly 38 positive confirmed priced options')
+  check(equal(newOptions.additionalOptions.filter(o => o.salePrice === null).map(o => o.id), ['ermak', 'larch-wash', 'ermak-16-ps', 'ermak-16-premium-steel', 'ermak-16-premium-cast-iron']), 'Only the unconfirmed larch floor and four individually calculated stove replacement supplements may be unpriced')
+  for (const [id, price] of Object.entries({ led: 12000, 'steam-bench-oil': 15000 })) {
+    const option = newOptions.additionalOptions.find(o => o.id === id)
+    check(option?.salePrice === price && option.enabled === true && !('proposedRetailPrice' in option) && !('priceStatus' in option), `${id}: final owner-approved price must be selectable, without preliminary status`)
+  }
+  for (const [id, retail] of Object.entries({ ermak: 17000, 'ermak-16-ps': 25000, 'ermak-16-premium-steel': 45000, 'ermak-16-premium-cast-iron': 66000 })) {
+    const option = newOptions.additionalOptions.find(o => o.id === id)
+    check(option?.salePrice === null && option.confirmedRetailPrice === retail && option.priceStatus === 'replacement-pending' && !('proposedRetailPrice' in option), `${id}: approved full retail must not be charged as a replacement supplement`)
+  }
   check(newOptions.additionalOptions.find(o => o.id === 'tray')?.salePrice === 18000, 'Curtained shower tray must use the approved 18 000 RUB price')
   // The catalog model comparison is structural; prices and approved contact email are the only allowed source changes.
   const normalise = source => source.replaceAll('\r\n', '\n')

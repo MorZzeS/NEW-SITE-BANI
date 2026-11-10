@@ -18,8 +18,15 @@ if (leadsEnabled) {
 } else {
   if (!/const leadsEndpointConfigured = \/\^https:\\\/\\\/\//.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy)) throw new Error('Unsafe release policy: onlineLeads')
 }
-for (const flag of ['analytics', 'embeddedYandex']) {
+for (const flag of ['analytics']) {
   if (!new RegExp(`\\b${flag}:\\s*false\\b`).test(policy)) throw new Error(`Unsafe release policy: ${flag}`)
+}
+if (!/\bembeddedYandex:\s*(?:true|false)\b/.test(policy)) throw new Error('Missing explicit Yandex embed policy')
+if (/\bembeddedYandex:\s*true\b/.test(policy)) {
+  for (const component of ['YandexMapEmbed', 'YandexReviewsWidget']) {
+    const source = fs.readFileSync(`src/components/integrations/${component}.tsx`, 'utf8')
+    if (!source.includes('useState(false)') || !source.includes('setLoaded(true)') || !source.includes('&& loaded ?') || !source.includes('<YandexLoadNotice />')) throw new Error(`Yandex widget must require explicit informed load: ${component}`)
+  }
 }
 if (!/\bweather:\s*'disabled'/.test(policy) || !/\bweatherTransport:\s*'none'/.test(policy) || !/\bpromotionalOffer:\s*true\b/.test(policy)) throw new Error('Owner-approved release policy changed')
 const nextConfig = fs.readFileSync('next.config.js', 'utf8')
@@ -71,5 +78,5 @@ for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-r
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')
-fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: false, promotionalOffer: true }) + '\n')
+fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: /\bembeddedYandex:\s*true\b/.test(policy) ? 'on-demand' : false, promotionalOffer: true }) + '\n')
 console.log(`Release export PASS: ${htmlFiles.length} HTML, ${leadsEnabled ? `online lead form enabled through ${leadsEndpoint}` : 'contacts only'}, weather UI and snapshots disabled, city component/source data retained in the repository for redesign, desktop offer retained; browser and legal acceptance required separately`)

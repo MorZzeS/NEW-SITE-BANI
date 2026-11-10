@@ -4,6 +4,7 @@ import { useState, type CSSProperties } from 'react'
 import { ExternalLink, MapPinned } from 'lucide-react'
 import { useTheme } from '@/components/ui/ThemeProvider'
 import { releasePolicy } from '@/lib/release-policy'
+import { YandexLoadNotice } from './YandexLoadNotice'
 
 const YANDEX_HOSTS = ['yandex.ru', 'yandex.com', 'yandex.com.tr'] as const
 
@@ -75,6 +76,7 @@ export function YandexMapEmbed({
         <div className="mt-5 flex min-h-[180px] items-center justify-center rounded-[var(--radius-md)] border border-dashed border-[var(--glass-border)] bg-[var(--glass-bg-dark)] p-5 text-center text-sm text-[var(--color-text-muted)]">
           <div>
             <p>{safeEmbedUrl ? 'Интерактивная карта загружается с серверов Яндекса после вашего нажатия.' : 'Карта и маршрут открываются на сайте Яндекса по ссылкам ниже. Переход ведёт во внешний сервис.'}</p>
+            {safeEmbedUrl && <YandexLoadNotice />}
             {safeEmbedUrl && <button type="button" className="btn-secondary mt-4 min-h-11" onClick={() => setLoaded(true)}>Показать интерактивную карту</button>}
           </div>
         </div>

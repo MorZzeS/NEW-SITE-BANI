@@ -1,5 +1,5 @@
 import { PhoneLinks } from '@/components/ui/PhoneLinks'
-import { SocialBlock } from '@/components/ui/SocialBlock'
+import { SiteSettingsButton } from '@/components/privacy/SiteSettingsButton'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react'
 import type { SiteSettings } from '@/types'
@@ -30,7 +30,6 @@ export function Footer({ settings }: Props) {
     <footer className="border-t border-white/10 mt-20">
       <div className="glass-dark">
         <div className="site-container py-16">
-          <SocialBlock />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {/* Brand */}
             <div className="lg:col-span-1">
@@ -123,11 +122,12 @@ export function Footer({ settings }: Props) {
         <div className="border-t border-white/8">
           <div className="site-container py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-cream/40">
             <p>© {new Date().getFullYear()} Бани Герасимов. Все права защищены.</p>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
               <a href="https://max.ru/u/f9LHodD0cOIxMWBIqevncnKjjJjmhro04Avs206ALKtkVorTXnbzx5mVTVs" target="_blank" rel="noopener noreferrer" className="text-xs text-cream/40 hover:text-cream/70 transition-colors">MAX</a>
               <Link href="/politika" className="hover:text-cream/70 transition-colors">Данные и контакты</Link>
               <Link href="/privacy" className="hover:text-cream/70 transition-colors">Конфиденциальность</Link>
               <Link href="/cookie" className="hover:text-cream/70 transition-colors">Cookie</Link>
+              <SiteSettingsButton />
               <Link href="/soglasie-pd" className="hover:text-cream/70 transition-colors">Согласие ПДн</Link>
             </div>
           </div>

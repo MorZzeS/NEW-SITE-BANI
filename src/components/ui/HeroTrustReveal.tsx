@@ -3,10 +3,12 @@
 import { useEffect, useRef } from 'react'
 import { Factory, Shield, Truck, Wrench } from 'lucide-react'
 import { homepageTrustItems } from '@/data/homepage'
+import Link from 'next/link'
 
 const icons = { production: Factory, delivery: Truck, installation: Wrench, warranty: Shield }
+const destinations = { production: '/o-kompanii#production', delivery: '/dostavka-i-ustanovka#delivery', installation: '/dostavka-i-ustanovka#installation', warranty: '#home-warranty' }
 
-// Static information: no controls, expansion, pointer tracking or height changes.
+// Real destinations keep the decorative glass panel useful without reveal tooltips.
 export function HeroTrustReveal() {
   const panel = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -27,13 +29,13 @@ export function HeroTrustReveal() {
         {homepageTrustItems.map(item => {
           const Icon = icons[item.id]
           return <li key={item.id} className="hero-trust-item">
-            <div className="hero-trust-content flex items-start gap-2.5 px-3 py-4 sm:px-5">
+            <Link href={destinations[item.id]} className="hero-trust-content flex items-start gap-2.5 px-3 py-4 sm:px-5 rounded-xl focus-visible:outline-2 focus-visible:outline-gold-400 focus-visible:outline-offset-[-3px] hover:bg-white/5 transition-colors">
               <Icon aria-hidden="true" className="hero-trust-icon w-4 h-4 mt-0.5 shrink-0" strokeWidth={1.5} />
               <div className="min-w-0">
                 <span className="block text-sm font-semibold leading-5">{item.title}</span>
                 <span className="hero-trust-caption block text-xs leading-5 mt-1">{item.caption}</span>
               </div>
-            </div>
+            </Link>
           </li>
         })}
       </ul>

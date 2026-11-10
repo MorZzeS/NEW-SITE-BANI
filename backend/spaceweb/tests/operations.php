@@ -1,9 +1,12 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__).'/private/readiness.php'; require dirname(__DIR__).'/private/ca.php';
+require __DIR__.'/fixtures.php';
 $c=['enabled'=>true,'approved'=>true,'retention_approved'=>true,'ru_storage_confirmed'=>true,'ru_backups_confirmed'=>true,'document_archive_contract_verified'=>true,'environment'=>'TEST','consent_version'=>'synthetic','policy_version'=>'synthetic','origins'=>['https://test.invalid']];
+$c+=syntheticBundleFile();register_shutdown_function(static fn()=>unlink($c['document_bundle_path']));
 $checks=0; if(!readiness($c)) throw new RuntimeException('gate_good'); $checks++;
 foreach (['enabled','approved','retention_approved','ru_storage_confirmed','ru_backups_confirmed','document_archive_contract_verified'] as $k) {$bad=$c;$bad[$k]=false;if(readiness($bad))throw new RuntimeException('gate_missing');$checks++;}
+foreach (['document_bundle_path','document_bundle_sha256'] as $k) {$bad=$c;unset($bad[$k]);if(readiness($bad))throw new RuntimeException('archive_gate_missing');$checks++;}
 if(operationReady($c,'backup'))throw new RuntimeException('backup_default');$checks++;
 $c+=['backup_enabled'=>true,'backup_approved'=>true,'dry_run'=>false];if(!operationReady($c,'backup'))throw new RuntimeException('backup_explicit');$checks++;
 try {retentionDurations($c);throw new LogicException('empty_durations');} catch (RuntimeException) {$checks++;}

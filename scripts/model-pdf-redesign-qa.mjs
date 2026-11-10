@@ -15,7 +15,11 @@ let captured = []
 let measurements = []
 const { jsPDF: RealPdf } = require('jspdf')
 function CapturingPdf(...args) {
-  const doc = new RealPdf(...args), text = doc.text.bind(doc)
+  const doc = new RealPdf(...args), text = doc.text.bind(doc), line = doc.line.bind(doc), horizontalRules = []
+  doc.line = (x1, y1, x2, y2, ...rest) => {
+    if (y1 === y2) horizontalRules.push({ page: doc.internal.getCurrentPageInfo().pageNumber, x1, x2, y: y1 })
+    return line(x1, y1, x2, y2, ...rest)
+  }
   doc.text = (value, ...rest) => {
     const page = doc.internal.getCurrentPageInfo().pageNumber
     captured[page - 1] ??= []
@@ -24,7 +28,10 @@ function CapturingPdf(...args) {
     const x = rest[0], options = rest[2]
     if (typeof x === 'number') for (const line of values) {
       const width = doc.getTextWidth(line), align = options?.align
-      measurements.push({ page, text: line, left: align === 'right' ? x - width : x, right: align === 'right' ? x : x + width })
+      const left = align === 'right' ? x - width : x, right = align === 'right' ? x : x + width
+      const baseline = rest[1]
+      const ruleCollision = line === 'Параметры для согласования' && horizontalRules.some(rule => rule.page === page && rule.x2 > left && rule.x1 < right && rule.y > baseline - 2.6 && rule.y < baseline + .4)
+      measurements.push({ page, text: line, left, right, ruleCollision })
     }
     return text(value, ...rest)
   }
@@ -63,8 +70,9 @@ const availableIds = modelOptionAvailability(model)
   .filter(id => !isLogisticsOption(id))
 assert.ok(availableIds.length >= 12, `${model.id}: expected at least 12 selectable equipment options`)
 const font = fs.readFileSync(path.join(root, 'public/fonts/NotoSans-Regular.ttf')).toString('base64')
-const outputDir = path.join(root, 'output/pdf')
-const renderDir = path.join(root, 'tmp/pdfs/rendered-2026-11-05')
+const qaOutputRoot = process.env.BANGER_QA_OUTPUT_DIR ? path.resolve(process.env.BANGER_QA_OUTPUT_DIR) : null
+const outputDir = qaOutputRoot ? path.join(qaOutputRoot, 'pdf') : path.join(root, 'output/pdf')
+const renderDir = qaOutputRoot ? path.join(qaOutputRoot, 'pdf-rendered') : path.join(root, 'tmp/pdfs/rendered-2026-11-05')
 fs.mkdirSync(outputDir, { recursive: true })
 fs.mkdirSync(renderDir, { recursive: true })
 
@@ -152,6 +160,7 @@ for (const catalogModel of [...data.saunas, ...data.homes]) {
   assert.equal(doc.getNumberOfPages(), captured.length, `${catalogModel.id}: page count and captured page count differ`)
   assert(captured.every(page => page.join(' ').trim().length > 0), `${catalogModel.id}: blank page detected`)
   assert(measurements.every(line => line.left >= -0.1 && line.right <= 201), `${catalogModel.id}: text outside printable bounds`)
+  assert(measurements.every(line => !line.ruleCollision), `${catalogModel.id}: table separator crosses the clarification heading`)
   const allText = normalize(captured.flat().join(' '))
   assert(allText.includes(normalize(catalogModel.name)), `${catalogModel.id}: PDF title missing`)
   assert(allText.includes(normalize(money(configuration.basePrice))), `${catalogModel.id}: base price missing`)

@@ -10,6 +10,7 @@ import { HowItWorksSection } from '@/components/sections/HowItWorksSection'
 import { ProjectsSection } from '@/components/sections/ProjectsSection'
 import { ArticlesSection } from '@/components/sections/ArticlesSection'
 import { CTASection } from '@/components/sections/CTASection'
+import { WarrantySection } from '@/components/sections/WarrantySection'
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
       <ScrollReveal><CategoriesSection /></ScrollReveal>
       <ScrollReveal><PopularSaunasSection /></ScrollReveal>
       <ScrollReveal><WhyUsSection /></ScrollReveal>
+      <ScrollReveal><WarrantySection /></ScrollReveal>
       <ScrollReveal><HowItWorksSection /></ScrollReveal>
       <ScrollReveal><ProjectsSection /></ScrollReveal>
       <ScrollReveal><InteriorPhotosSection /></ScrollReveal>

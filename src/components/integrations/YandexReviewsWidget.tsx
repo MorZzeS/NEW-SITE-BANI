@@ -4,6 +4,7 @@ import { useState, type CSSProperties } from 'react'
 import { ExternalLink, Star } from 'lucide-react'
 import { useTheme } from '@/components/ui/ThemeProvider'
 import { releasePolicy } from '@/lib/release-policy'
+import { YandexLoadNotice } from './YandexLoadNotice'
 
 const YANDEX_HOSTS = ['yandex.ru', 'yandex.com', 'yandex.com.tr'] as const
 
@@ -85,6 +86,7 @@ export function YandexReviewsWidget({
       ) : (
         <div className="mt-5 rounded-[var(--radius-md)] border border-dashed border-[var(--glass-border)] bg-[var(--glass-bg-dark)] p-5 text-sm text-[var(--color-text-muted)]">
           <p>{themedEmbedUrl ? 'Отзывы загружаются с серверов Яндекса после вашего нажатия.' : 'Отзывы доступны на сайте Яндекса. По ссылке ниже вы перейдёте во внешний сервис.'}</p>
+          {themedEmbedUrl && <YandexLoadNotice />}
           {themedEmbedUrl && <button type="button" className="btn-secondary mt-4 min-h-11" onClick={() => setLoaded(true)}>Загрузить отзывы Яндекса</button>}
         </div>
       )}

@@ -71,10 +71,11 @@ for (const model of models) {
   }
 }
 assert.equal(models.length, 31)
-assert.equal(options.length, 28)
-assert.equal(new Set(options.map(option => option.id)).size, 28)
+assert.equal(options.length, 44)
+assert.equal(new Set(options.map(option => option.id)).size, 44)
 assert.equal(options.find(option => option.id === 'replanning')?.salePrice, 10000)
-for (const option of baseline) assert.equal(options.find(item => item.id === option.id).salePrice, option.id === 'tray' ? 18000 : option.salePrice, option.id + ': approved prices must remain unchanged')
+const latestOverrides = { tray: 18000, ermak: null, led: 12000, 'bench-light': 7000 }
+for (const option of baseline) assert.equal(options.find(item => item.id === option.id).salePrice, Object.hasOwn(latestOverrides, option.id) ? latestOverrides[option.id] : option.salePrice, option.id + ': prices outside explicit owner overrides must remain unchanged')
 assert.equal(options.find(option => option.id === 'tray').name, 'Душевой поддон со шторкой и выводом воды')
 assert.equal(options.find(option => option.id === 'wc').salePrice, 20600)
 
@@ -83,7 +84,7 @@ for (const model of models) {
   const replanning = calculate(model, ['replanning'])
   assert.equal(replanning.optionsSubtotal, 10000)
   assert.equal(replanning.total, model.priceFrom + 10000)
-  assert.match(configurationManagerText(replanning), /Перепланировка стандартного проекта/)
+  assert.match(configurationManagerText(replanning), /Перепланировка готового проекта/)
   const rows = modelOptionAvailability(model)
   for (const district of ['unknown', 'outside', 'ramenskoe']) {
     for (const ids of [[], ['delivery'], ['crane-unload'], ['delivery', 'crane-unload', 'delivery']]) {
@@ -104,7 +105,7 @@ for (const model of models) {
       assert.ok(note.includes('Ручной адрес, участок 10'))
       assert.ok(note.includes('Итого:'))
       for (const id of new Set(ids)) assert.ok(note.includes(options.find(option => option.id === id).name))
-      if (result.unpricedCount) assert.ok(note.includes('Индивидуальный расчёт') && note.includes('Предварительная сумма'))
+      if (result.unpricedCount) assert.ok(note.includes('Стоимость по согласованию') && note.includes('Предварительная сумма'))
       cases++
     }
   }
@@ -149,7 +150,7 @@ assert.ok(compactNote.includes(maximum.total.toLocaleString('ru-RU')))
 for (const option of maximum.options) assert.ok(compactNote.includes(load('src/lib/logistics.ts').managerOptionName(option, true)), option.id + ': compact note must preserve every selected item')
 assert.ok(equipmentSelection(options.map(option => option.id), { 'ceiling-height': 2 }, { deliveryDistrict: 'outside', deliveryAddress: 'А'.repeat(300) }).comment.length <= 1500)
 const formSource = fs.readFileSync(path.join(root, 'src/components/forms/OnlineLeadForm.tsx'), 'utf8')
-assert.ok(formSource.includes('leadContract === 3 && configurationDetails'), 'new configuration schema must not leak into legacy payload')
+assert.ok(formSource.includes('leadContract === 3 && effectiveConfiguration'), 'new configuration schema must not leak into legacy payload')
 assert.ok(formSource.indexOf('mergeManagerComment(comment.trim(), managerConfiguration)') < formSource.indexOf('await sendLead(attempt.current)'), 'bounded complete comment checked before sending')
 
 // Exercise the actual jsPDF layout and Cyrillic font without browser fetches or real lead submissions.
@@ -167,4 +168,18 @@ for (const district of ['unknown', 'outside', 'ramenskoe']) {
   assert.ok(doc.output('arraybuffer').byteLength > 10000)
   pdfCases++
 }
-console.log(JSON.stringify({ status: 'PASS', models: models.length, options: options.length, districtCombinationCases: cases, pdfCases, priceBaseline: '714da378; only tray changed to approved 18000', posts: 0, notChecked: ['browser visual layout', 'external MAX delivery'] }, null, 2))
+// New quantity and pending-price rows must reach the actual PDF, without proposed amounts.
+captured.length = 0
+const quantityConfiguration = calculate(models[0], ['outdoor-lamp', 'roof-overhang-light', 'wall-point', 'ermak', 'ermak-16-premium-cast-iron', 'led', 'steam-bench-oil'], { quantities: { 'outdoor-lamp': 3, 'roof-overhang-light': 4, 'wall-point': 2 } })
+const quantityPdf = createModelPdf(models[0], quantityConfiguration, { font, images: {} }, new Date('2026-11-09T12:00:00Z'))
+const quantityPdfText = captured.join('\n').replace(/[\u00a0\u202f]/g, ' ')
+for (const fragment of ['Дополнительный наружный светильник', '3 шт.', '4 шт.', '2 шт.', '21 000', '14 000', '18 000', 'Ермак 16 Премиум, чугун', 'Светодиодная лента за спинкой полков', 'Пропитка полков в парной маслом', '12 000', '15 000', 'Цена по согласованию']) assert.ok(quantityPdfText.includes(fragment), 'quantity PDF missing ' + fragment)
+assert.equal(quantityConfiguration.options.find(option => option.id === 'ermak-16-premium-cast-iron').price, null, 'confirmed stove retail price must not become a replacement supplement')
+assert.equal(quantityConfiguration.optionsSubtotal, 80000, 'only approved supplements and quantities contribute to the PDF total')
+assert.ok(quantityPdfText.includes('80 000') && quantityPdfText.includes('492 500'), 'PDF must show the verified subtotal and exact total')
+assert.ok(!quantityConfiguration.options.some(option => option.id === 'ermak'), 'the earlier stove choice must not survive mutual exclusion')
+assert.equal(quantityConfiguration.options.filter(option => option.id.startsWith('ermak')).length, 1)
+assert.ok(quantityPdf.output('arraybuffer').byteLength > 10000)
+pdfCases++
+
+console.log(JSON.stringify({ status: 'PASS', models: models.length, options: options.length, districtCombinationCases: cases, pdfCases, priceBaseline: '714da378; only explicit 03.11/09.11 owner overrides allowed', posts: 0, notChecked: ['browser visual layout', 'external MAX delivery'] }, null, 2))

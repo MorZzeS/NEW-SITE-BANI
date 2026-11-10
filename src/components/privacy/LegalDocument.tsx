@@ -19,7 +19,7 @@ export function LegalDocument({ kind }: { kind: keyof typeof documents }) {
   return <article className="pt-28 pb-20"><div className="prose-column">
     <p className="section-tag mb-4">Документы BANGER.SU</p>
     <h1 className="text-3xl sm:text-4xl font-bold text-cream mb-5">{document.title}</h1>
-    <p className="text-sm text-cream/60 mb-7">Редакция от 27 октября 2026 года · версия {document.version}</p>
+    <p className="text-sm text-cream/60 mb-7">Версия {document.version}</p>
     <nav aria-label="Содержание документа" className="border-y border-[var(--glass-border)] py-5 mb-9"><ol className="space-y-2 text-sm text-gold-400">{document.sections.map(section => <li key={section.id}><a href={`#${section.id}`} className="underline-offset-4 hover:underline">{section.title}</a></li>)}</ol></nav>
     <div className="space-y-10">{document.sections.map(section => <section id={section.id} key={section.id} className="scroll-mt-28">
       <h2 className="text-xl sm:text-2xl font-semibold text-cream mb-4">{section.title}</h2>
