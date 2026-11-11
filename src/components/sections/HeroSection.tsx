@@ -105,7 +105,6 @@ export function HeroSection() {
                 <div className="hero-subheading hero-reveal mb-6 max-w-md" style={{ animationDelay: '0.22s' }}>
                   <p className="text-lg sm:text-xl font-semibold leading-snug mb-2">Собственное производство — город Раменское</p>
                   <p className="text-sm sm:text-base font-semibold leading-relaxed">Производитель мобильных бань с 2024 года</p>
-                  <p className="text-sm sm:text-base leading-relaxed mt-2">Делаем бани, которые греют, радуют и служат долгие годы</p>
                 </div>
 
                 {/* CTAs */}
