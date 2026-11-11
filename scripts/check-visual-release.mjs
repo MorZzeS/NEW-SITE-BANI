@@ -79,7 +79,9 @@ for (const name of htmlFiles) {
   if (!leadsEnabled && /<form\b/i.test(html)) throw new Error(`Unexpected collection surface: ${name}`)
   validateYandexEmbedArtifact(html, name, automaticYandexEmbeds)
   const catalogRedirect = name === 'katalog.html' && html.includes('NEXT_REDIRECT;replace;/katalog/bani;307;') && html.includes('href="https://banger.su/katalog/bani"')
-  if (!html.includes(`data-release-profile="${releaseProfile}"`) && !catalogRedirect) throw new Error(`Wrong release profile: ${name}`)
+  const disabledTestRoute = name === 'test-leads.html' && !/<form\b|leads\.php/i.test(html) && /<meta name="robots" content="noindex/i.test(html)
+  if (!html.includes(`data-release-profile="${releaseProfile}"`) && !catalogRedirect && !disabledTestRoute) throw new Error(`Wrong release profile: ${name}`)
+  if (name === 'test-leads.html' && !disabledTestRoute) throw new Error('Production test-leads artifact must be non-interactive and noindex')
   if (leadsEnabled && /<form\b/i.test(html)) {
     for (const form of htmlParser.parse(html).querySelectorAll('form')) {
       for (const kind of ['checkbox', 'consent', 'policy']) verifyRenderedDocument(form, kind, name)

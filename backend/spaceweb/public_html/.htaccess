@@ -1,8 +1,65 @@
-Options -Indexes
-<FilesMatch "^\.">
- Order allow,deny
- Deny from all
+# SpaceWeb / Apache 2.4 — статический экспорт BANGER.SU.
+# Root document-root rules: HTTPS canonicalization, static routes and narrow PHP admission.
+# Не содержит staging host, noindex или настроек обработки заявок.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+DirectorySlash Off
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .html .css .js .json .txt .xml
+AddType image/webp .webp
+AddType image/avif .avif
+AddType video/mp4 .mp4
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Не исполнять/публиковать случайно оставленные конфигурации и серверные файлы.
+<FilesMatch "^(?!leads\.php$)(?:\..*|.*\.(?i:php[0-9]?|phtml|phar|env|ini|conf|config|sql|bak|log|key|pem|zip|gz|tgz|tar|7z|dump|enc|sqlite|db|jsonl))$">
+    Order allow,deny
+    Deny from all
 </FilesMatch>
-RewriteEngine On
-RewriteRule ^health/?$ health.php [L]
-RewriteRule ^leads/?$ leads.php [L]
+<Files ".htaccess">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Canonical HTTPS: normalize www directly to HTTPS apex.
+    RewriteCond %{HTTP_HOST} ^www\.banger\.su(?::[0-9]+)?$ [NC]
+    RewriteRule ^ https://banger.su%{REQUEST_URI} [R=301,L,NE]
+
+    # Force HTTPS on apex unless Apache, a trusted TLS proxy, or port confirms TLS.
+    RewriteCond %{HTTP_HOST} ^banger\.su(?::[0-9]+)?$ [NC]
+    RewriteCond %{HTTPS} !^(on|1)$ [NC]
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteCond %{SERVER_PORT} !=443
+    RewriteRule ^ https://banger.su%{REQUEST_URI} [R=301,L,NE]
+    # Не отдавать приватные каталоги и не запускать PHP на статическом сайте.
+    RewriteRule (^|/)(private|config|userdata|backend|api|\.git|\.env)(/|$) - [F,L,NC]
+    RewriteRule ^test-leads(?:\.html|/index\.html|/)?$ - [F,L,NC]
+    RewriteCond %{REQUEST_METHOD} ^(POST|OPTIONS)$
+    RewriteRule ^leads\.php$ - [L]
+    RewriteRule \.(php[0-9]?|phtml|phar)(/|$) - [F,L,NC]
+
+    # Существующие файлы (включая _next, изображения, видео, favicon) без изменений.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Сохранить явные slash-alias страниц статей, созданные статическим экспортом.
+    RewriteCond %{REQUEST_FILENAME}/index.html -f
+    RewriteRule ^poleznoe/[a-z0-9-]+/$ - [L]
+
+    # Next static export создаёт .html; искать его до одноимённых каталогов маршрутов.
+    RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+    RewriteRule ^(.+?)/?$ $1.html [L]
+
+    # Разрешить реальные каталоги и не допускать внутренних редиректов со слэшем.
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+</IfModule>
+
+ErrorDocument 404 /404.html
