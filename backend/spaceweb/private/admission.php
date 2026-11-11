@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__.'/documents.php';
 require_once __DIR__.'/messages.php';
+require_once __DIR__.'/validation.php';
 function leadResponse(string $requestId, string $status, ?bool $admitted, ?array $receipt=null, bool $retryable=false): array {
     $http=match($status) {'sent'=>200,'accepted'=>202,'rejected'=>$retryable?429:400,'conflict'=>409,default=>503};
     $body=['ok'=>in_array($status,['sent','accepted'],true),'contractVersion'=>3,'requestId'=>$requestId,'status'=>$status,'admitted'=>$admitted,'retryable'=>$retryable];
@@ -15,23 +16,31 @@ function canonicalLeadValue(mixed $v): mixed {
 }
 function leadPayloadHash(array $lead): string {
     unset($lead['createdAt'],$lead['startedAt']);
-    if (isset($lead['configurationDetails'])) unset($lead['configurationDetails']['calculatedAt']);
+    if (is_array($lead['configurationDetails']??null)) unset($lead['configurationDetails']['calculatedAt']);
     return hash('sha256',json_encode(canonicalLeadValue($lead),JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),true);
 }
 function existingAdmission(PDO $db, array $d, array $c, string $hash): ?array {
-    $q=$db->prepare('SELECT l.payload_hash,c.receipt_json,o.state FROM leads l JOIN consent_journal c ON c.lead_id=l.id JOIN outbox o ON o.lead_id=l.id WHERE l.environment=? AND l.request_id=?');
+    $q=$db->prepare('SELECT l.payload_hash,c.receipt_json,o.state FROM leads l LEFT JOIN consent_journal c ON c.lead_id=l.id LEFT JOIN outbox o ON o.lead_id=l.id WHERE l.environment=? AND l.request_id=?');
     $q->execute([$c['environment'],$d['requestId']]); $row=$q->fetch(PDO::FETCH_ASSOC);
     if (!$row) return null;
     if (!hash_equals($row['payload_hash'],$hash)) return leadResponse($d['requestId'],'conflict',true);
+    if ($row['receipt_json']===null) return leadResponse($d['requestId'],'unknown',true);
     $state=match($row['state']) {'sent'=>'sent','pending','retry'=>'accepted','processing'=>'claimed',default=>'unknown'};
     return leadResponse($d['requestId'],$state,true,json_decode($row['receipt_json'],true,8,JSON_THROW_ON_ERROR));
 }
 /** One transaction admits the lead, immutable evidence and every notification part. */
 function admitLead(PDO $db, array $d, array $c, string $ipHash, ?callable $fault=null): array {
-    $hash=leadPayloadHash($d); $commitAttempted=false;
+    try {
+        $hash=leadPayloadHash($d);
+    } catch (JsonException) {
+        return [400,['ok'=>false]];
+    }
+    $commitAttempted=false;
     try {
         // An already-admitted request must never be represented as a retryable rejection.
         if ($prior=existingAdmission($db,$d,$c,$hash)) return $prior;
+        // Freshness and current document versions apply only to a new admission.
+        if (!validLead($d,$c,(int)floor(microtime(true)*1000))) return leadResponse($d['requestId'],'rejected',false);
         $db->beginTransaction();
         archiveDocuments($db,$c['documents']);
         $bucket=intdiv(time(),600);
@@ -58,4 +67,29 @@ function admitLead(PDO $db, array $d, array $c, string $ipHash, ?callable $fault
         try { if ($db->inTransaction()) { $db->rollBack(); $rolledBack=true; } } catch (Throwable) { /* unknown */ }
         return !$commitAttempted && $rolledBack ? leadResponse($d['requestId'],'storage_unavailable',false,null,true) : leadResponse($d['requestId'],'unknown',null);
     }
+}
+
+/** HTTPS, allowed Origin and readiness have already been checked by the endpoint. */
+function receiveLead(mixed $data, array $c, string $origin, string $remote, callable $connect): array {
+    $id=is_array($data)?($data['requestId']??null):null;
+    if (!is_string($id) || !preg_match('/^[A-Za-z0-9_-]{16,80}$/D',$id)) {
+        return leadResponse('','rejected',false);
+    }
+    $page=is_string($data['page']??null)?parse_url($data['page']):false;
+    if (!$page || ($page['scheme']??'')!=='https' || !isset($page['host']) ||
+        ('https://'.$page['host'].(isset($page['port'])?':'.$page['port']:''))!==$origin) {
+        return [403,['ok'=>false]];
+    }
+    // A previous POST may have committed. Without storage we cannot say it was rejected.
+    if (($c['dry_run']??true)!==false || !filter_var($remote,FILTER_VALIDATE_IP) ||
+        !is_string($c['ip_hmac_key']??null) || strlen($c['ip_hmac_key'])<32) {
+        return leadResponse($id,'unknown',null);
+    }
+    try {
+        $db=$connect($c);
+    } catch (Throwable) {
+        return leadResponse($id,'unknown',null);
+    }
+    $ipHash=hash_hmac('sha256',inet_pton($remote),$c['ip_hmac_key'],true);
+    return admitLead($db,$data,$c,$ipHash);
 }

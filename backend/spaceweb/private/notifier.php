@@ -6,6 +6,38 @@ function maxRecipientQuery(array $c): string {
     if (strlen($magnitude)===19 && strcmp($magnitude,$limit)>0) throw new RuntimeException('recipient_not_approved');
     return $c['max_recipient_type'].'='.$c['max_recipient_id'];
 }
+/** An explicit TEST invocation cannot consume a production configuration or destination. */
+function outboxEnvironment(array $arguments, array $c): string {
+    $environment=match ($arguments) {
+        [] => 'PRODUCTION',
+        ['--test'] => 'TEST',
+        default => throw new RuntimeException('invalid_worker_arguments')
+    };
+    if (($c['environment']??null)!==$environment) throw new RuntimeException('worker_environment_mismatch');
+    return $environment;
+}
+function maxDestination(array $c): array {
+    if (($c['environment']??null)==='TEST') {
+        if (!empty($c['max_token']) || !empty($c['max_recipient_id']) || !empty($c['max_recipient_approved'])) {
+            throw new RuntimeException('mixed_worker_credentials');
+        }
+        $test=$c['max_test_destination']??null;
+        if (!is_array($test)) throw new RuntimeException('test_destination_missing');
+        $token=$test['token']??null;
+        $recipient=maxRecipientQuery([
+            'max_recipient_type'=>$test['recipient_type']??null,
+            'max_recipient_id'=>$test['recipient_id']??null,
+            'max_recipient_approved'=>$test['approved']??false
+        ]);
+    } elseif (($c['environment']??null)==='PRODUCTION') {
+        $token=$c['max_token']??null;
+        $recipient=maxRecipientQuery($c);
+    } else {
+        throw new RuntimeException('worker_environment_mismatch');
+    }
+    if (!is_string($token) || $token==='' || strpbrk($token,"\r\n")!==false) throw new RuntimeException('notifier_disabled');
+    return ['token'=>$token,'recipient'=>$recipient];
+}
 function deliveryOutcome(int $status, string $body, int $error): array {
     // Only an explicit rate-limit rejection is automatically retryable.
     if ($error !== 0) return ['state'=>'unknown','code'=>'transport_unconfirmed','id'=>null];
@@ -17,28 +49,24 @@ function deliveryOutcome(int $status, string $body, int $error): array {
     return ['state'=>'unknown','code'=>'delivery_unconfirmed','id'=>null];
 }
 /** Validate local adapter prerequisites before claiming any durable message. No network I/O. */
-function maxAdapterConfiguration(array $c): string {
+function maxAdapterConfiguration(array $c): array {
     require_once __DIR__.'/ca.php';
     require_once __DIR__.'/readiness.php';
-    if (!readiness($c)) throw new RuntimeException('notifier_disabled');
-    $ca=combinedPublicCa($c);
-    if (($c['environment'] ?? '') !== 'PRODUCTION' || ($c['notify_enabled'] ?? false) !== true ||
-        ($c['max_tls_public_ca_verified'] ?? false) !== true || !is_string($c['max_token'] ?? null) || $c['max_token'] === '' ||
-        strpbrk($c['max_token'], "\r\n") !== false) throw new RuntimeException('notifier_disabled');
-    maxRecipientQuery($c);
+    if (!readiness($c) || ($c['dry_run']??true)!==false || ($c['notify_enabled']??false)!==true ||
+        ($c['max_tls_public_ca_verified']??false)!==true) throw new RuntimeException('notifier_disabled');
     if (!function_exists('curl_init') || !defined('CURLOPT_CAINFO_BLOB')) throw new RuntimeException('curl_unavailable');
-    return $ca;
+    return maxDestination($c)+['ca'=>combinedPublicCa($c)];
 }
 function notifyMax(array $lead, array $c): array {
-    $ca=maxAdapterConfiguration($c);
-    $recipient=maxRecipientQuery($c);
+    if (($lead['environment']??null)!==($c['environment']??null)) throw new RuntimeException('worker_environment_mismatch');
+    $adapter=maxAdapterConfiguration($c);
     $text=$lead['notification_text']??null;
     if (!is_string($text) || $text==='' || !mb_check_encoding($text,'UTF-8') || strlen(mb_convert_encoding($text,'UTF-16LE','UTF-8'))>8000) throw new RuntimeException('message_invalid');
-    $h = curl_init('https://platform-api2.max.ru/messages?'.$recipient.'&disable_link_preview=true');
+    $h = curl_init('https://platform-api2.max.ru/messages?'.$adapter['recipient'].'&disable_link_preview=true');
     curl_setopt_array($h, [CURLOPT_POST=>true, CURLOPT_POSTFIELDS=>json_encode(['text'=>$text], JSON_THROW_ON_ERROR|JSON_UNESCAPED_UNICODE),
-        CURLOPT_HTTPHEADER=>['Authorization: '.$c['max_token'], 'Content-Type: application/json'],
+        CURLOPT_HTTPHEADER=>['Authorization: '.$adapter['token'], 'Content-Type: application/json'],
         CURLOPT_RETURNTRANSFER=>true, CURLOPT_CONNECTTIMEOUT=>5, CURLOPT_TIMEOUT=>15,
-        CURLOPT_CAINFO_BLOB=>$ca, CURLOPT_SSL_VERIFYPEER=>true, CURLOPT_SSL_VERIFYHOST=>2, CURLOPT_FOLLOWLOCATION=>false,
+        CURLOPT_CAINFO_BLOB=>$adapter['ca'], CURLOPT_SSL_VERIFYPEER=>true, CURLOPT_SSL_VERIFYHOST=>2, CURLOPT_FOLLOWLOCATION=>false,
         CURLOPT_PROTOCOLS=>CURLPROTO_HTTPS, CURLOPT_MAXFILESIZE=>65536]);
     // Maintained system public CA bundle PLUS fingerprint-pinned official public root; no bypass.
     $body='';

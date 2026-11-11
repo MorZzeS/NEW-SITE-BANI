@@ -4,7 +4,8 @@ export type LeadDocumentBundle = Readonly<{
   documents: Readonly<Record<'consent' | 'checkbox' | 'policy', LeadDocument>> | null
 }>
 
-// No legal texts have been approved for publication. Never import private drafts here.
-// Activation requires a reviewed static release of all three exact UTF-8 snapshots.
-// This client flag is not server approval: the backend independently pins its manifest.
-export const leadDocumentBundle: LeadDocumentBundle = Object.freeze({ approved: false, documents: null })
+// Next embeds only the public snapshots validated against the build-time archive pin.
+// The PHP handler checks its own private archive and pin on every admission.
+export const leadDocumentBundle: LeadDocumentBundle = process.env.BANGER_COMPILED_LEAD_DOCUMENTS
+  ? JSON.parse(process.env.BANGER_COMPILED_LEAD_DOCUMENTS)
+  : { approved: false, documents: null }

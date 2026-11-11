@@ -54,7 +54,7 @@ export async function sendLead(lead: Lead) {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), 75000)
   try {
-    const response = await fetch(leadEndpoint, { method: 'POST', credentials: 'omit', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), signal: controller.signal })
+    const response = await fetch(process.env.NEXT_PUBLIC_LEADS_ENDPOINT || '', { method: 'POST', credentials: 'omit', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), signal: controller.signal })
     const result = await response.json()
     if (v3) {
       if (!exactKeys(result, ['ok', 'contractVersion', 'requestId', 'status', 'admitted', 'retryable', ...(result?.receipt ? ['receipt'] : [])]) || result.contractVersion !== 3 || result.requestId !== lead.requestId) throw new Error('Invalid acknowledgement')

@@ -48,6 +48,14 @@ test('malformed receipt never reports success',async()=>{
  const body=ack();body.receipt.page='https://banger.su/wrong'
  const s=setup(()=>response(body,202));await assert.rejects(()=>s.client.sendLead(candidate));assert.equal(s.attempts.leadAttemptMarker().state,'unknown')
 })
+test('delivery requires HTTP 200 and a matching sent receipt',async()=>{
+ const delivered=setup(()=>response(ack('sent'),200))
+ assert.equal((await delivered.client.sendLead(candidate)).status,'sent')
+ assert.equal(delivered.attempts.leadAttemptMarker().state,'sent')
+ const mismatch=setup(()=>response(ack('sent'),202))
+ await assert.rejects(()=>mismatch.client.sendLead(candidate))
+ assert.equal(mismatch.attempts.leadAttemptMarker().state,'unknown')
+})
 test('proven storage rollback allows same-ID retry, then accepted',async()=>{
  const s=setup(n=>n===1?response({ok:false,contractVersion:3,requestId:candidate.requestId,status:'storage_unavailable',admitted:false,retryable:true},503):response(ack(),202))
  await assert.rejects(()=>s.client.sendLead(candidate),e=>e.retryable===true)

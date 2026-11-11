@@ -21,14 +21,5 @@ if ((int)($_SERVER['CONTENT_LENGTH']??0)>65536) reply(413,['ok'=>false]);
 $body=file_get_contents('php://input',false,null,0,65537);
 if ($body===false || strlen($body)>65536) reply(413,['ok'=>false]);
 try { $d=json_decode($body,true,16,JSON_THROW_ON_ERROR); } catch (Throwable) { reply(400,['ok'=>false]); }
-require dirname(__DIR__).'/private/validation.php'; require dirname(__DIR__).'/private/admission.php';
-$id=is_array($d) && is_string($d['requestId']??null) && preg_match('/^[A-Za-z0-9_-]{16,80}$/D',$d['requestId'])?$d['requestId']:'';
-if (!is_array($d) || !validLead($d,$c,(int)floor(microtime(true)*1000))) reply(...leadResponse($id,'rejected',false));
-$page=parse_url($d['page']); $pageOrigin='https://'.$page['host'].(isset($page['port'])?':'.$page['port']:'');
-if ($pageOrigin!==$origin) reply(...leadResponse($id,'rejected',false));
-if (($c['dry_run']??true)===true) reply(...leadResponse($id,'storage_unavailable',false,null,true));
-$remote=$_SERVER['REMOTE_ADDR']??'';
-if (!filter_var($remote,FILTER_VALIDATE_IP) || !is_string($c['ip_hmac_key']??null) || strlen($c['ip_hmac_key'])<32) reply(...leadResponse($id,'storage_unavailable',false,null,true));
-$ipHash=hash_hmac('sha256',inet_pton($remote),$c['ip_hmac_key'],true);
-try { $db=operationDb($c); } catch (Throwable) { reply(...leadResponse($id,'storage_unavailable',false,null,true)); }
-reply(...admitLead($db,$d,$c,$ipHash));
+require dirname(__DIR__).'/private/admission.php';
+reply(...receiveLead($d,$c,$origin,$_SERVER['REMOTE_ADDR']??'','operationDb'));

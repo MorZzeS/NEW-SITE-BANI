@@ -1,4 +1,7 @@
 import ts from 'typescript'
+import { createHash } from 'node:crypto'
+
+const isNextStaticChunk = path => /(?:^|\/)_next\/static\/chunks\//.test(path.replaceAll('\\', '/'))
 
 export function leadArtifactFileAllowed(path, content, enabled) {
   if (content.includes('banger-leads.onrender.com')) return false
@@ -72,7 +75,7 @@ function isUnsupportedFetchAccessCall(node) {
 function isNextServerActionPost(file, call) {
   const target = call.arguments[0]
   const options = call.arguments[1]
-  if (!file.path.replaceAll('\\', '/').includes('/_next/static/chunks/') || !target || !ts.isPropertyAccessExpression(target) || target.name.text !== 'canonicalUrl' || !options || !ts.isObjectLiteralExpression(options)) return false
+  if (!isNextStaticChunk(file.path) || !target || !ts.isPropertyAccessExpression(target) || target.name.text !== 'canonicalUrl' || !options || !ts.isObjectLiteralExpression(options)) return false
   let hasActionHeader = false
   function visit(node) {
     if (ts.isPropertyAssignment(node) && ts.isComputedPropertyName(node.name) && ts.isPropertyAccessExpression(node.name.expression) && node.name.expression.name.text === 'ACTION_HEADER') hasActionHeader = true
@@ -123,7 +126,7 @@ function isSafeCompiledGetTarget(file, call, source) {
   if (isJsPdfCreateImageFetch(call)) return true
   if (isNextRouterDataRequest(file, call)) return true
   const options = call.arguments[1]
-  if (ts.isIdentifier(target) && options && ts.isObjectLiteralExpression(options) && file.path.replaceAll('\\', '/').includes('/_next/static/chunks/')) {
+  if (ts.isIdentifier(target) && options && ts.isObjectLiteralExpression(options) && isNextStaticChunk(file.path)) {
     const credentials = options.properties.find(property => ts.isPropertyAssignment(property) && property.name.getText(source) === 'credentials')
     const hasBody = options.properties.some(property => ts.isPropertyAssignment(property) && property.name.getText(source) === 'body')
     return Boolean(credentials && ts.isStringLiteral(credentials.initializer) && credentials.initializer.text === 'same-origin' && !hasBody)
@@ -148,7 +151,12 @@ export function sourceLeadTransportAllowed(files) {
       if (isFetchCall(node)) {
         const method = fetchMethod(node)
         if (file.path.replaceAll('\\', '/') === 'src/lib/leads.ts' || file.path.replaceAll('\\', '/').endsWith('/src/lib/leads.ts')) {
-          if (method !== 'POST' || !ts.isIdentifier(node.arguments[0]) || node.arguments[0].text !== 'leadEndpoint') allowed = false
+          const target = node.arguments[0]
+          const approvedTarget = target && (ts.isIdentifier(target) && target.text === 'leadEndpoint'
+            || ts.isBinaryExpression(target) && target.operatorToken.kind === ts.SyntaxKind.BarBarToken
+              && target.left.getText(source) === 'process.env.NEXT_PUBLIC_LEADS_ENDPOINT'
+              && ts.isStringLiteral(target.right) && target.right.text === '')
+          if (method !== 'POST' || !approvedTarget) allowed = false
           else approvedLeadPostCount++
         } else if (method !== 'GET' || !node.arguments[0] || !isSafeSourceGetTarget(node.arguments[0])) allowed = false
       }
@@ -200,11 +208,15 @@ function isSafeSourceGetTarget(expression) {
 export function compiledLeadEndpointPresent(files, endpoint) {
   let approvedPostCount = 0
   for (const file of files.filter(file => file.path.endsWith('.js'))) {
+    // The locked canvg dependency includes two GET-only member calls that load SVG as text.
+    // Permit those calls only in the exact reviewed Next chunk.
+    const reviewedCanvg = isNextStaticChunk(file.path) &&
+      createHash('sha256').update(file.content).digest('hex') === 'fe2292408e7501841871b21337c872ff4744d29efe91b8b45114df3f4a915b9a'
     const source = ts.createSourceFile(file.path, file.content, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS)
     let allowed = true
     if (source.parseDiagnostics.length) allowed = false
     function visit(node) {
-      if (isUnsupportedFetchAccessCall(node)) allowed = false
+      if (isUnsupportedFetchAccessCall(node) && !reviewedCanvg) allowed = false
       if (isFetchCall(node)) {
         const method = fetchMethod(node)
         if (method === undefined) {

@@ -10,6 +10,7 @@ import type { DeliveryDistrict } from '@/lib/logistics'
 import { resolveLeadContext } from '@/lib/lead-context'
 import { LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
 import { withBasePath } from '@/lib/site-path'
+import { ApprovedLeadText } from './ApprovedLeadText'
 
 const LEGAL_CONSENT_TEXT = 'Я согласен на обработку персональных данных в соответствии с Согласием на обработку персональных данных и Политикой обработки персональных данных.'
 
@@ -19,7 +20,8 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
   const modelListId = useId()
   const [name, setName] = useState(''), [phone, setPhone] = useState(''), [comment, setComment] = useState('')
   const [consent, setConsent] = useState(false), [ready, setReady] = useState(false)
-  const [error, setError] = useState(''), [result, setResult] = useState(''), [busy, setBusy] = useState(false)
+  const [error, setError] = useState(''), [busy, setBusy] = useState(false)
+  const [result, setResult] = useState<{ status: 'sent' | 'accepted'; requestId: string } | null>(null)
   const [context, setContext] = useState<Pick<Lead, 'source'|'article'|'modelKind'|'promotion'|'model'|'page'>>({ model: modelName || '', page: '' })
   const started = useRef(Date.now()), pending = useRef(false), attempt = useRef<Lead | null>(null)
   const [locked, setLocked] = useState(false)
@@ -30,7 +32,11 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
   useEffect(() => {
     setContext(resolveLeadContext(location.href, modelName, saunas, homes))
     const marker = leadAttemptMarker()
-    if (marker) { setLocked(true); setError(`Предыдущая попытка: ${marker.requestId || 'номер недоступен'}. Для уточнения свяжитесь с нами. Повторная отправка отключена.`) }
+    if (marker) {
+      setLocked(true)
+      if (marker.state === 'accepted' || marker.state === 'sent') setResult({ status: marker.state, requestId: marker.requestId })
+      else setError(`Предыдущая попытка: ${marker.requestId || 'номер недоступен'}. Для уточнения свяжитесь с нами. Повторная отправка отключена.`)
+    }
     let cancelled = false
     if (leadContract === 3 && location.protocol === 'https:' && /^https:\/\//.test(leadEndpoint)) {
       void verifyLeadDocumentBundle().then(() => { if (!cancelled) setReady(true) }).catch(() => { if (!cancelled) setReady(false) })
@@ -59,6 +65,10 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     if (name.trim().length < 2) { setError('Укажите имя: не менее двух символов.'); return }
     if (!/^[78]\d{10}$/.test(phone.replace(/\D/g, ''))) { setError('Введите телефон в формате +7 900 000-00-00.'); return }
     if (equipmentSelection?.selectedIds.length && !selectedModel) { setError('Выберите модель из списка, чтобы передать базовую стоимость и полный расчёт выбранных дополнений.'); return }
+    if (equipmentSelection && effectiveConfiguration && equipmentSelection.selectedIds.some(id => !effectiveConfiguration.selectedOptionIds.includes(id))) {
+      setError('В выбранной модели часть дополнений недоступна или уже включена в базу. Измените выбор модели или дополнений, чтобы передать полный расчёт.')
+      return
+    }
     const website = new FormData(event.currentTarget).get('website')?.toString() || ''
     pending.current = true; setBusy(true); setError('')
     try {
@@ -85,7 +95,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
       }
       const response = await sendLead(attempt.current)
       if (!response) throw new Error('Сервер не подтвердил сохранение заявки.')
-      setResult(response.status === 'sent' ? 'Заявка отправлена и доставлена менеджеру в MAX.' : 'Заявка сохранена сервером. Уведомление менеджеру ожидает доставки.')
+      setResult(response)
       setLocked(true)
     } catch (cause) {
       setRejected(cause instanceof LeadSubmissionError && cause.state === 'rejected')
@@ -105,7 +115,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     <p className="text-sm text-cream/70 mb-4">Оставьте заявку — менеджер подтвердит комплектацию, совместимость опций и итоговую стоимость.</p>
     {selection && <div className="mb-5 text-sm text-cream/80" data-configuration-summary><p className="whitespace-pre-wrap break-words">{selection}</p><button type="button" className="btn-secondary mt-3" onClick={() => { void navigator.clipboard.writeText(selection).catch(() => setError('Выделите и скопируйте текст выбора вручную.')) }}>Скопировать комплектацию</button></div>}
     {!ready && <p className="text-sm text-cream/70 mb-4">Онлайн-отправка пока недоступна на этом адресе. Свяжитесь с нами напрямую.</p>}
-    {result ? <p role="status" className="text-cream">{result} Номер: {attempt.current?.requestId}</p> : <form onSubmit={submit} className="space-y-3" noValidate>
+    {result ? <p role="status" className="text-cream">{result.status === 'sent' ? 'Заявка отправлена и доставлена менеджеру в MAX.' : 'Заявка сохранена сервером. Уведомление менеджеру ожидает доставки.'} Номер: {result.requestId}</p> : <form onSubmit={submit} className="space-y-3" noValidate>
       <fieldset disabled={!ready || busy || locked || Boolean(attempt.current)} className="space-y-3">
         <label className="block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input" value={name} onChange={e => setName(e.target.value)} /></label>
         <label className="block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
@@ -113,7 +123,11 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
         {!configurationDetails && <datalist id={modelListId}>{[...saunas, ...homes].map(model => <option key={model.id} value={model.name} />)}</datalist>}
         <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input" value={comment} onChange={e => setComment(e.target.value)} placeholder="Пожелания, сроки, вопросы" /></label>
         <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
-        {documents ? <><label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{documents.checkbox.text}</span></label><details><summary>Согласие на обработку данных</summary><p className="whitespace-pre-wrap text-sm">{documents.consent.text}</p></details><details><summary>Политика обработки данных</summary><p className="whitespace-pre-wrap text-sm">{documents.policy.text}</p></details></> : <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{LEGAL_CONSENT_TEXT} <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/soglasie-pd')} target="_blank" rel="noopener noreferrer">Согласие</a> · <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/politika')} target="_blank" rel="noopener noreferrer">Политика</a></span></label>}
+        {documents ? <>
+          <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><ApprovedLeadText kind="checkbox" document={documents.checkbox} /></label>
+          <details><summary>Согласие на обработку данных</summary><p className="text-sm"><ApprovedLeadText kind="consent" document={documents.consent} /></p></details>
+          <details><summary>Политика обработки данных</summary><p className="text-sm"><ApprovedLeadText kind="policy" document={documents.policy} /></p></details>
+        </> : <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{LEGAL_CONSENT_TEXT} <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/soglasie-pd')} target="_blank" rel="noopener noreferrer">Согласие</a> · <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/politika')} target="_blank" rel="noopener noreferrer">Политика</a></span></label>}
       </fieldset>
       <button type="submit" disabled={!ready || !consent || busy || locked} className="btn-primary w-full justify-center disabled:opacity-60">{busy ? 'Отправляем заявку…' : attempt.current ? 'Повторить исходную заявку' : 'Отправить заявку'}</button>
     </form>}

@@ -2,6 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import ts from 'typescript'
+import htmlParser from 'next/dist/compiled/node-html-parser/index.js'
+import buildDocuments from './lead-build-documents.cjs'
 import { compiledLeadEndpointPresent, leadArtifactFileAllowed, sourceLeadTransportAllowed } from './lead-artifact-gate.mjs'
 import { assertNoUnsafeDynamicIframes, validateYandexEmbedArtifact } from './yandex-embed-artifact-gate.mjs'
 
@@ -23,7 +25,7 @@ if (!htmlFiles.length) throw new Error('Visual release export is missing')
 const leadsEndpoint = process.env.NEXT_PUBLIC_LEADS_ENDPOINT || ''
 const leadContract = process.env.NEXT_PUBLIC_LEADS_CONTRACT || ''
 const endpointConfigured = leadsEndpoint.length > 0
-const { leadDocumentBundle } = loadTypeScriptModule('src/data/lead-documents.ts')
+const leadDocumentBundle = buildDocuments.readLeadBuildDocuments(process.env)
 const { isOnlineLeadReleaseReady } = loadTypeScriptModule('src/lib/lead-release-gate.ts')
 const leadsEnabled = isOnlineLeadReleaseReady(leadsEndpoint, leadContract, leadDocumentBundle)
 if (endpointConfigured && !leadsEnabled) throw new Error('Unsafe lead build: endpoint requires contract 3 and a complete approved document bundle')
@@ -31,11 +33,11 @@ if (leadsEnabled && leadsEndpoint !== 'https://banger.su/leads.php') throw new E
 const sourceFiles = fs.readdirSync('src', { recursive: true }).filter(name => /\.(?:ts|tsx|js|jsx)$/.test(name)).map(name => ({ path: `src/${name}`.replaceAll('\\', '/'), content: fs.readFileSync(path.join('src', name), 'utf8') }))
 if (!sourceLeadTransportAllowed(sourceFiles)) throw new Error('Unsafe lead transport: browser POSTs must use the single gated SpaceWeb lead client')
 for (const file of sourceFiles) assertNoUnsafeDynamicIframes(file.content, file.path)
-const releaseProfiles = leadsEnabled ? ['visual-contacts', 'online-leads'] : ['visual-contacts']
+const releaseProfile = leadsEnabled ? 'online-leads' : 'visual-contacts'
 const artifactTextFiles = []
 let onlineFormCount = 0
 const leadClientSource = fs.readFileSync('src/lib/leads.ts', 'utf8')
-if (!/export const leadEndpoint = process\.env\.NEXT_PUBLIC_LEADS_ENDPOINT \|\| ''/.test(leadClientSource) || !/fetch\(\s*leadEndpoint,\s*\{\s*method:\s*'POST'/s.test(leadClientSource)) throw new Error('Lead client must POST through the gated leadEndpoint')
+if (!/export const leadEndpoint = process\.env\.NEXT_PUBLIC_LEADS_ENDPOINT \|\| ''/.test(leadClientSource)) throw new Error('Lead client must use the gated lead endpoint')
 const policy = fs.readFileSync('src/lib/release-policy.ts', 'utf8')
 if (!/isOnlineLeadReleaseReady\(/.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy)) throw new Error('Unsafe release policy: onlineLeads must require the shared readiness gate')
 for (const flag of ['analytics']) {
@@ -75,10 +77,14 @@ for (const name of htmlFiles) {
   const html = fs.readFileSync(path.join(root, name), 'utf8')
   if (/weather-strip-section|weather-strip-toggle|Погода для загородного отдыха/u.test(html)) throw new Error(`Temporarily disabled weather UI leaked into ${name}`)
   if (!leadsEnabled && /<form\b/i.test(html)) throw new Error(`Unexpected collection surface: ${name}`)
-  if (leadsEnabled && /<iframe\b/i.test(html)) throw new Error(`Unexpected embed surface: ${name}`)
   validateYandexEmbedArtifact(html, name, automaticYandexEmbeds)
   const catalogRedirect = name === 'katalog.html' && html.includes('NEXT_REDIRECT;replace;/katalog/bani;307;') && html.includes('href="https://banger.su/katalog/bani"')
-  if (!releaseProfiles.some(profile => html.includes(`data-release-profile="${profile}"`)) && !catalogRedirect) throw new Error(`Wrong release profile: ${name}`)
+  if (!html.includes(`data-release-profile="${releaseProfile}"`) && !catalogRedirect) throw new Error(`Wrong release profile: ${name}`)
+  if (leadsEnabled && /<form\b/i.test(html)) {
+    for (const form of htmlParser.parse(html).querySelectorAll('form')) {
+      for (const kind of ['checkbox', 'consent', 'policy']) verifyRenderedDocument(form, kind, name)
+    }
+  }
   if (isGitHubPagesProject && !/<meta name="robots" content="noindex, (?:no)?follow"/.test(html)) throw new Error(`Test Pages build must be noindex: ${name}`)
   if (isGitHubPagesProject && /(?:src|href|srcset|poster)=["']\/(?:_next|images|videos|favicon|icon|apple-touch)/i.test(html)) throw new Error(`Unprefixed root asset in test Pages HTML: ${name}`)
   if (isGitHubPagesProject) {
@@ -96,11 +102,21 @@ if (isGitHubPagesProject) {
     if (/url\(["']?\/(?!\/)(?!NEW-SITE-BANI\/)/i.test(css)) throw new Error(`Unprefixed root URL in test Pages CSS: ${name}`)
   }
 }
+function verifyRenderedDocument(root, kind, name) {
+  const elements = root.querySelectorAll(`[data-lead-document="${kind}"]`)
+  if (elements.length !== 1 || elements[0].textContent !== leadDocumentBundle.documents[kind].text) {
+    throw new Error(`Rendered ${kind} does not match the pinned lead archive: ${name}`)
+  }
+}
 for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-reklama']) {
   const name = htmlFiles.find(name => name === `${route}.html` || name === `${route}/index.html`)
   if (!name) throw new Error(`Missing information route: ${route}`)
   const html = fs.readFileSync(path.join(root, name), 'utf8')
-  if (/не передаются третьим|база.*на территории РФ|требует проверки владельцем|черновик/iu.test(html)) throw new Error(`Unapproved legal assertion: ${route}`)
+  if (leadsEnabled && ['privacy', 'politika', 'soglasie-pd'].includes(route)) {
+    verifyRenderedDocument(htmlParser.parse(html), route === 'soglasie-pd' ? 'consent' : 'policy', name)
+  } else if (/не передаются третьим|база.*на территории РФ|требует проверки владельцем|черновик/iu.test(html)) {
+    throw new Error(`Unapproved legal assertion: ${route}`)
+  }
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')

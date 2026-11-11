@@ -11,6 +11,7 @@ import CookieConsent from '@/components/privacy/CookieConsent'
 import { siteSettings } from '@/data'
 import { themeScript } from '@/lib/theme'
 import { basePath, withBasePath } from '@/lib/site-path'
+import { releasePolicy } from '@/lib/release-policy'
 
 const isGitHubPagesProject = basePath === '/NEW-SITE-BANI'
 const homepagePath = isGitHubPagesProject ? `${basePath}/` : '/'
@@ -73,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: heroPreloadScript }} />
       </head>
-      <body className="min-h-screen flex flex-col" data-release-profile="visual-contacts">
+      <body className="min-h-screen flex flex-col" data-release-profile={releasePolicy.profile}>
         <ThemeProvider>
           <Header settings={siteSettings} />
           <main className="flex-1">

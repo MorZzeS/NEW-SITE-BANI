@@ -9,7 +9,7 @@ if($mode==='child'){
  $kind=$argv[2];$request=$argv[3];$barrier=getenv('SPACEWEB_RACE_DIR').'/'.$argv[4];$record=getenv('SPACEWEB_RACE_DIR').'/'.$argv[5];$index=(int)$argv[6];$until=microtime(true)+15;
  while(!is_file($barrier)){if(microtime(true)>$until)exit(70);usleep(10000);}
  $db=raceDb();
- if($kind==='admit'){$d=syntheticLead((int)floor(microtime(true)*1000));$d['requestId']=$request;$c=['environment'=>'TEST','documents'=>syntheticDocuments(),'document_bundle_sha256'=>str_repeat('a',64)];$result=admitLead($db,$d,$c,hash('sha256',$request.'-'.$index,true));echo json_encode($result,JSON_THROW_ON_ERROR);}
+ if($kind==='admit'){$d=syntheticLead((int)floor(microtime(true)*1000));$d['requestId']=$request;$c=['environment'=>'TEST','origins'=>['https://test.invalid'],'documents'=>syntheticDocuments(),'document_bundle_sha256'=>str_repeat('a',64)];$result=admitLead($db,$d,$c,hash('sha256',$request.'-'.$index,true));echo json_encode($result,JSON_THROW_ON_ERROR);}
  else{$worked=runOutbox($db,'TEST',static function(array $row)use($record):array{if(file_put_contents($record,$row['request_id']."\n",FILE_APPEND|LOCK_EX)===false)throw new RuntimeException('record_failed');usleep(200000);return ['state'=>'sent','code'=>null,'id'=>'fake-concurrent-receipt'];});echo $worked?'worked':'idle';}
  exit;
 }

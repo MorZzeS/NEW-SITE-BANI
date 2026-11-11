@@ -1,6 +1,9 @@
 import { Fragment, type ReactNode } from 'react'
 import documents from '@/data/site-legal.json'
 import { withBasePath } from '@/lib/site-path'
+import { releasePolicy } from '@/lib/release-policy'
+import { leadDocumentBundle } from '@/data/lead-documents'
+import { ApprovedLeadText } from '@/components/forms/ApprovedLeadText'
 
 type Block = { type: string; text?: string; headers?: string[]; rows?: string[][] }
 
@@ -16,6 +19,14 @@ function inline(text: string): ReactNode[] {
 
 export function LegalDocument({ kind }: { kind: keyof typeof documents }) {
   const document = documents[kind]
+  if (releasePolicy.onlineLeads && leadDocumentBundle.documents && (kind === 'consent' || kind === 'policy')) {
+    const snapshot = leadDocumentBundle.documents[kind]
+    return <article className="pt-28 pb-20"><div className="prose-column">
+      <h1 className="text-3xl sm:text-4xl font-bold text-cream mb-5">{document.title}</h1>
+      <p className="text-sm text-cream/60 mb-7">Версия {snapshot.version}</p>
+      <p className="text-sm leading-7 text-cream/75"><ApprovedLeadText kind={kind} document={snapshot} /></p>
+    </div></article>
+  }
   return <article className="pt-28 pb-20"><div className="prose-column">
     <p className="section-tag mb-4">Документы BANGER.SU</p>
     <h1 className="text-3xl sm:text-4xl font-bold text-cream mb-5">{document.title}</h1>
