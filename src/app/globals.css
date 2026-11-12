@@ -773,8 +773,13 @@ html { scroll-behavior: smooth; }
 .hero-headline > span { display: block; white-space: nowrap; }
 .hero-subheading { max-width: 580px; margin-bottom: 24px; color: #fff; font-size: 14px; line-height: 1.5; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
 .hero-subheading p + p { margin-top: 4px; font-size: 13px; }
-.hero-contact-chevron { flex: none; transition: transform 180ms ease; }
-.hero-contact-trigger[aria-expanded="true"] .hero-contact-chevron { transform: rotate(180deg); }
+.hero-contact-indicator { display: block; position: relative; flex: 0 0 16px; height: 16px; }
+.hero-contact-indicator::before { content: ''; position: absolute; left: 0; top: 7px; width: 20px; height: 2px; border-radius: 999px; background: #e8c97a; transform: scaleX(.4); transform-origin: left center; transition: transform 280ms cubic-bezier(.22,1,.36,1); }
+@media (hover: hover) and (pointer: fine) {
+ .hero-contact-trigger:hover .hero-contact-indicator::before { transform: scaleX(.7); }
+}
+.hero-contact-trigger:focus-visible .hero-contact-indicator::before { transform: scaleX(.7); }
+.hero-contact-trigger[aria-expanded="true"] .hero-contact-indicator::before { transform: scaleX(1); }
 .hero-contact-panel .social-qr-horizontal { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; padding: 10px; overflow: visible; }
 .hero-contact-panel .social-qr-horizontal-item { min-width: 0; gap: 7px; }
 .hero-contact-panel .social-qr-horizontal-image { width: 128px; height: 128px; max-width: 100%; }
@@ -816,7 +821,14 @@ html { scroll-behavior: smooth; }
  .social-qr-horizontal-image { width: clamp(64px, 20vw, 96px); height: clamp(64px, 20vw, 96px); }
  .social-qr-horizontal-item .social-qr-name { font-size: 13px; }
 }
-@media (prefers-reduced-motion: reduce) { .hero-contact-chevron { transition: none; } }
+@media (prefers-reduced-motion: no-preference) {
+ .hero-contact-panel .social-qr-horizontal-item { animation: hero-contact-card-enter 240ms cubic-bezier(.22,1,.36,1) both; }
+ .hero-contact-panel .social-qr-horizontal-item:nth-child(2) { animation-delay: 35ms; }
+ .hero-contact-panel .social-qr-horizontal-item:nth-child(3) { animation-delay: 70ms; }
+ .hero-contact-panel .social-qr-horizontal-item:nth-child(4) { animation-delay: 105ms; }
+}
+@keyframes hero-contact-card-enter { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .hero-contact-indicator::before { transition: none; } }
 @media (max-width: 380px) {
  .social-qr-horizontal { gap: 8px; padding: 10px; }
  .social-qr-horizontal-image { width: 68px; height: 68px; }

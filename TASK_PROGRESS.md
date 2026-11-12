@@ -144,3 +144,11 @@
 - SHA256 .htaccess/leads.php/health.php до/после совпадают. Сервер/БД/Cron/секреты/DNS/main не менялись. Rollback7751fda: прежний проверенный overlay в hero-refinement и сохранённая полная статика ad8473a в urgent-fixes/release-artifact (точные пути в release-manifest.json).
 - При upload устаревший выбор файлового менеджера вызвал TypeError mime; после очищения выбора и обычного exec('upload') загрузка подтверждена событием upload+серверным listing. Не считать DOM.setFileInputFiles подтверждением upload; проверять event/listing перед extract.
 - Текущая задача завершена. Для дальнейших правок использовать именно раскрытие ВПРАВО, не возвращать верхнюю панель. Новое изменение формы/MAX не требуется.
+
+## Индикатор и motion — проверенный кандидат, 12.11.2026
+
+- По новому поручению ChevronDown полностью удалён. Золотистая полоска с круглым краем в прежнем16px слоте:8px default,14px hover/keyboard focus,20px expanded; transform-origin:left, transition280ms. Габариты кнопки и всей композиции сохранены.
+- Панель по-прежнему вправо: opacity/x(-10→0)/clipPath260ms, без Y. Четыре QR входят с CSSstagger0/35/70/105ms, duration240ms. Reduced-motion: initial=false/duration0, без card animations, без воспринимаемого перехода полоски (global CSS safety0.01ms).
+- Найден/устранён начальный прозрачный кадр reduced-motion: initial={false} исключает его. Enter/Space/Escape проверены реальными CDP keyboard events, hover реальным mouseMoved; RAF traces normal/reduced сохранены. Local motion8/8 PASS и layout16/16 PASS, DAY/NIGHT1440/1280/1024/390. Геометрия H1/trust/CTA/panel соответствует предыдущей версии, QR128×128.
+- Build/typecheck/online-leads artifact gate/check:static/diff-check PASS; Legal RU/Security Auditor/QA Tester PASS в изменённом объёме. Evidence `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-indicator`; итоговые motion-results.json и local/qa-results.json. Секреты, backend, формы, цены, картинки и URLs не менялись.
+- Следующий шаг: commit → rebuild точного SHA → проверенный overlay на SpaceWeb → live motion/keyboard/reduced QA. Baseline5b799b5, rollback qr-right/BANGER_HERO_5b799b5.zip + прежняя полная статикаad8473a в Memory; серверные хеши до замены сохранены.
