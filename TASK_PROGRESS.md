@@ -126,3 +126,11 @@
 - Главная, «Исток 4» и контакты HTTP200, формы присутствуют; GET /leads.php405. SHA256 `.htaccess`, leads.php, health.php до/после одинаковы (`server-files-before.json` / `server-files-after.json` в папке evidence). Новые тестовые сообщения MAX не отправлялись: backend/контракт/поток не менялись; предыдущая полная production-проверка с подтверждением владельца остаётся в записи выше.
 - Откат: точная предыдущая статика `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\SpaceWeb-TZ\urgent-fixes-2026-11-12\release-artifact\BANGER_SPACEWEB_READY_ad8473a.zip`; её целостность и baseline SHA проверены перед выкладкой. Сервер, DNS, main, цены и документы не менялись.
 - Задача завершена. Следующее действие — новая задача владельца; текущий hero повторно не перерабатывать и контрольные заявки не дублировать. Существующий дефект header на320px записан отдельно выше; исправление не входило в согласованный объём hero.
+
+## QR вправо — уточнение владельца, 12.11.2026
+
+- Предыдущее раскрытие вверх заменено горизонтальным продолжением кнопки на desktop >=1280px. Панель в flex-потоке справа с зазором12px, нижняя граница совпадает с кнопкой, правый край совпадает с trust strip. Все4QR128×128px в ряд, изображения/ссылки/подписи сохранены. Tablet1024–1279 отдельной строкой, mobile2×2 без горизонтального скролла. Анимация x/clipPath вместо height, reduced-motion duration0.
+- Изменены только globals.css и HeroContactDisclosure.tsx. Заголовок/фон/другие кнопки/четыре преимущества не редактировались; baseline comparison1440×800 подтвердил одинаковые rects H1/trust/двухCTA closed/open.
+- Build/typecheck/online-leads artifact gate и check:static PASS. Chrome/CDP36 состояний на320/390/768/1024/1280/1366/1440/1920px, обе темы: QR128, right placement, границы/перекрытия,4ссылки,Escape — PASS. Evidence `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-right\local`.
+- Legal RU, Security Auditor, QA Tester и independent_reviewer PASS в новом diff. Новые сообщения MAX не отправлялись; формы/endpoint/backend не затрагивались.
+- Далее: commit/rebuild с точным SHA, проверенный overlay на SpaceWeb и live-приёмка. Baseline7751fda; для отката сохранены прежний overlay BANGER_HERO_7751fda.zip и полная база статики ad8473a; контрольные хеши серверных файлов сохранены в qr-right/server-files-before.json. Серверные настройки не менять.

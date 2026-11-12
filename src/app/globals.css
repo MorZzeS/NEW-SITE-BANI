@@ -775,9 +775,9 @@ html { scroll-behavior: smooth; }
 .hero-subheading p + p { margin-top: 4px; font-size: 13px; }
 .hero-contact-chevron { flex: none; transition: transform 180ms ease; }
 .hero-contact-trigger[aria-expanded="true"] .hero-contact-chevron { transform: rotate(180deg); }
-.hero-contact-panel .social-qr-horizontal { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; padding: 12px; overflow: visible; }
+.hero-contact-panel .social-qr-horizontal { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; padding: 10px; overflow: visible; }
 .hero-contact-panel .social-qr-horizontal-item { min-width: 0; gap: 7px; }
-.hero-contact-panel .social-qr-horizontal-image { width: 88px; height: 88px; max-width: 100%; }
+.hero-contact-panel .social-qr-horizontal-image { width: 128px; height: 128px; max-width: 100%; }
 .hero-contact-panel .social-qr-horizontal-item > span:last-child { display: none; }
 @media (min-width: 768px) {
  .hero-main-content { padding-top: 112px; }
@@ -790,8 +790,22 @@ html { scroll-behavior: smooth; }
  .hero-actions { flex-direction: row; align-items: flex-start; width: max-content; max-width: 100%; }
  .hero-actions > * { flex: 0 0 auto; }
  .hero-actions .hero-contact-disclosure { width: auto; }
- .hero-actions .hero-contact-panel { position: absolute; top: auto; bottom: calc(100% + 12px); left: auto; right: 0; margin-top: 0; width: 464px; max-height: none; overflow: visible; }
+ .hero-actions .hero-contact-panel { position: relative; margin-top: 0; width: 560px; max-height: none; overflow: hidden; }
  .theme-hero:has(.hero-contact-panel) .hero-main-content { min-height: 620px; }
+}
+@media (min-width: 1280px) {
+ .hero-actions { width: 100%; align-items: flex-end; }
+ .hero-actions .hero-contact-disclosure { display: flex; flex: 1 1 0; min-width: 0; align-items: flex-end; gap: 12px; }
+ .hero-actions .hero-contact-trigger { width: auto; flex: 0 0 auto; }
+ .hero-actions .hero-contact-panel { flex: 1 1 0; min-width: 0; width: auto; }
+ .hero-contact-panel .social-qr-horizontal { gap: 5px; padding: 8px; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+ .hero-actions { width: 100%; flex-wrap: wrap; }
+ .hero-actions .hero-contact-disclosure { display: contents; }
+ .hero-actions .hero-contact-trigger { width: auto; }
+ .hero-actions .hero-contact-panel { flex: 0 0 100%; max-width: 560px; margin-left: auto; }
+ .hero-contact-panel .social-qr-horizontal { gap: 5px; padding: 8px; }
 }
 @media (max-width: 1023px) {
  .hero-actions { margin-top: 28px; }
