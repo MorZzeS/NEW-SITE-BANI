@@ -1,6 +1,6 @@
 # Точка продолжения — 12.11.2026, актуальное состояние
 
-> Последний production-релиз — `7751fda433ae309ffd8ca36a081060483ee35758`, hero-правки опубликованы на SpaceWeb. Онлайн-формы остались включены; погода выключена. Последний раздел содержит результат live-проверки. Более ранние записи ниже — история предыдущих состояний и не являются актуальным статусом.
+> Последний production-релиз — `5b799b53976b784781701465d05aa02834ebcb6e`, QR-панель раскрывается вправо на desktop. Онлайн-формы включены; погода выключена. Последний раздел содержит результат live-проверки. Более ранние записи ниже — история предыдущих состояний и не являются актуальным статусом.
 
 ## Выполнено локально
 
@@ -134,3 +134,13 @@
 - Build/typecheck/online-leads artifact gate и check:static PASS. Chrome/CDP36 состояний на320/390/768/1024/1280/1366/1440/1920px, обе темы: QR128, right placement, границы/перекрытия,4ссылки,Escape — PASS. Evidence `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-right\local`.
 - Legal RU, Security Auditor, QA Tester и independent_reviewer PASS в новом diff. Новые сообщения MAX не отправлялись; формы/endpoint/backend не затрагивались.
 - Далее: commit/rebuild с точным SHA, проверенный overlay на SpaceWeb и live-приёмка. Baseline7751fda; для отката сохранены прежний overlay BANGER_HERO_7751fda.zip и полная база статики ad8473a; контрольные хеши серверных файлов сохранены в qr-right/server-files-before.json. Серверные настройки не менять.
+
+### QR вправо — production PASS
+
+- Опубликован код `5b799b53976b784781701465d05aa02834ebcb6e` (`fix: slide hero QR panel to the right`); live release.json подтверждает online-leads:true и weather:disabled. Главная/Исток4/контакты HTTP200 с формами; GET leads.php405.
+- Live Chrome16 состояний:1440/1280 desktop,1024 tablet,390 mobile, DAY/NIGHT и closed/open — PASS. Панель1440:562.453×173px, зазор12px справа от кнопки, низ совпадает, right1325.5 = trust.right1325.5. На1280:557.453×173px, right1243 = trust.right1243. Все4QR128×128; mobile2×2 без обрезки/горизонтального скролла. Скриншоты/JSON: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-right\live`.
+- Заголовок, trust и первые две CTA не изменились по координатам1440closed/open относительно7751fda (`baseline-comparison.json`). Изображения/URLs/названия соцсетей сохранены; новые реальные заявки не отправлялись.
+- Package: `qr-right\BANGER_HERO_5b799b5.zip`,268/825 статических файлов,3 444 951 байт, SHA256 `4A131FB56FD5D6CB898EE820EE3CF92A0D9AED7307F685A2A43A8E4F6AAED902`; все entries проверены, assets доHTML,release.json последним. Временный ZIP из public_html удалён; одноимённого файла в bangersu нет.
+- SHA256 .htaccess/leads.php/health.php до/после совпадают. Сервер/БД/Cron/секреты/DNS/main не менялись. Rollback7751fda: прежний проверенный overlay в hero-refinement и сохранённая полная статика ad8473a в urgent-fixes/release-artifact (точные пути в release-manifest.json).
+- При upload устаревший выбор файлового менеджера вызвал TypeError mime; после очищения выбора и обычного exec('upload') загрузка подтверждена событием upload+серверным listing. Не считать DOM.setFileInputFiles подтверждением upload; проверять event/listing перед extract.
+- Текущая задача завершена. Для дальнейших правок использовать именно раскрытие ВПРАВО, не возвращать верхнюю панель. Новое изменение формы/MAX не требуется.

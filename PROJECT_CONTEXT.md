@@ -3,7 +3,7 @@
 ## Текущий статус на 12.11.2026
 
 - Актуальный сайт: https://banger.su/ на SpaceWeb.
-- Опубликованный код приложения: `7751fda433ae309ffd8ca36a081060483ee35758` (`fix: align homepage hero and contact panel`). Live `release.json` подтверждает этот SHA, профиль `online-leads`, `onlineLeads:true`, погода выключена.
+- Опубликованный код приложения: `5b799b53976b784781701465d05aa02834ebcb6e` (`fix: slide hero QR panel to the right`). Live `release.json` подтверждает этот SHA, профиль `online-leads`, `onlineLeads:true`, погода выключена.
 - Рабочая локальная ветка: `work/spaceweb-refresh-20261112`; рабочий каталог: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\SpaceWeb-refresh`.
 - Онлайн-формы на production включены. SpaceWeb PHP/MySQL/MAX обработчик, `.htaccess`, закрытые credentials и Cron в ходе последнего статического обновления не менялись.
 
@@ -25,6 +25,10 @@
 - Правила 3D-визуалов `/poleznoe` — в `AGENTS.md`; к текущему релизу они не применялись.
 
 ## Результат последней задачи
+
+- Владелец уточнил направление QR-панели: наdesktop>=1280 строго ВПРАВО от кнопки до правого края trust strip, низ совпадает с кнопкой. Четыре QR128×128px в ряд, панель562.453×173 на1440. Tablet1024–1279 отдельной строкой, mobile2×2. Motion x/clipPath с отключением при reduced-motion. Заголовок/фон/кнопки/trust сохранены. Local36/live16 состояний PASS, evidence `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-right`. Раскрытие вверх из7751fda отменено этим уточнением; не возвращать его в следующих задачах.
+
+## Предыдущий этап — типографика hero (`7751fda`)
 
 - Hero `7751fda`: заголовок ровно в две строки «Бани и дачные домики» / «под ключ», desktop увеличен до76.32px на1440 и поднят на48px; производство/город Раменское и2024 вторичным текстом. QR-панель открывается вверх над кнопкой desktop (464×141), mobile в потоке перед trust strip; все4QR/ссылки сохранены, chevron вниз/вверх и Escape работают. Local28/live8 состояний DAY/NIGHT/closed/open PASS. Evidence: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\hero-refinement`. Хеши серверных файлов до/после совпадают, новые заявки в cosmetic-тесте не отправлялись.
 
