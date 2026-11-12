@@ -64,8 +64,6 @@ export default async function HomePage({ params }: Props) {
 
         <ModelOverview model={home} />
         <ModelBaseSpecification model={home} />
-        <ModelTechnicalDimensions model={home} />
-        {!home.floorPlan && <p className="text-sm text-cream/60 mb-6">Нет подтверждённого исходника планировки. Планировка согласуется при заказе.</p>}
         <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>
           <ProductGallery title="Варианты внутреннего исполнения" items={homeInteriorExamples.map((src, i) => ({
@@ -84,7 +82,7 @@ export default async function HomePage({ params }: Props) {
             </dl>
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-cream mb-4">Характеристики</h2>
+            <h2 className="text-2xl font-bold text-cream mb-4">Характеристики модели</h2>
             <div className="glass rounded-2xl overflow-hidden">
               {home.specs.map((spec, i) => (
                 <div key={spec.label} className={`grid grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] gap-4 px-5 py-3.5 ${i !== home.specs.length - 1 ? 'border-b border-white/8' : ''}`}>
@@ -92,6 +90,7 @@ export default async function HomePage({ params }: Props) {
                   <span className="text-sm font-semibold text-cream text-right break-words">{spec.value}</span>
                 </div>
               ))}
+              <ModelTechnicalDimensions model={home} />
             </div>
           </div>
         </div>

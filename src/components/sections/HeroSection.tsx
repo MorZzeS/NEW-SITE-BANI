@@ -88,8 +88,8 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Main hero content — pushed down from nav */}
-        <div className="hero-main-content flex-1 flex items-start pt-28 md:pt-36 xl:pt-40 pb-8 md:pb-10">
-          <div className="site-container w-full">
+        <div className="hero-main-content flex-1 flex items-stretch pt-28 md:pt-36 xl:pt-40 pb-6 md:pb-8">
+          <div className="site-container w-full flex flex-col">
             <div className="max-w-xl xl:max-w-2xl">
                 {/* Headline */}
                 <h1
@@ -104,14 +104,14 @@ export function HeroSection() {
                   <p className="text-lg sm:text-xl font-semibold leading-snug mb-2">Собственное производство — город Раменское</p>
                   <p className="text-sm sm:text-base font-semibold leading-relaxed">Производитель мобильных бань с 2024 года</p>
                 </div>
-                <div className="hero-actions hero-reveal relative flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
-                  <Link href="/katalog/bani" className="btn-primary justify-center text-sm px-7 py-3.5">
-                    Смотреть каталог <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <HeroVideoAction onClick={() => setVideoOpen(true)} />
-                  <HeroContactDisclosure />
-                </div>
               </div>
+            <div className="hero-actions hero-reveal relative mt-auto flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
+              <Link href="/katalog/bani" className="btn-primary justify-center text-sm px-7 py-3.5">
+                Смотреть каталог <ArrowRight className="w-4 h-4" />
+              </Link>
+              <HeroVideoAction onClick={() => setVideoOpen(true)} />
+              <HeroContactDisclosure />
+            </div>
           </div>
         </div>
 

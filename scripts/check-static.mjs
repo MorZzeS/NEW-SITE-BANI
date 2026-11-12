@@ -108,7 +108,7 @@ for (const record of records) {
   if (!priceBlock) errors.push(`${record.id}: missing price section`)
   const visiblePrice = model && dataExports.formatPrice(model.priceFrom).replace(/\s/g, ' ')
   const visibleText = priceBlock?.replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/[\u00a0\u202f\s]+/g, ' ').trim() ?? ''
-  if (!visibleText.includes(`Стоимость базового исполнения ${visiblePrice}`)) errors.push(`${record.id}: base price card must show "Стоимость базового исполнения" and the exact catalogue price`)
+  if (!priceBlock?.includes('model-price-primary') || !visibleText.includes('Стоимость базового исполнения') || !visibleText.includes(visiblePrice)) errors.push(`${record.id}: primary price card must show the base-price label and exact catalogue price`)
   for (const variant of expectedVariants) {
     if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
   }

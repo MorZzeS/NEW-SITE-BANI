@@ -68,8 +68,6 @@ export default async function SaunaPage({ params }: Props) {
 
         <ModelOverview model={sauna} />
         <ModelBaseSpecification model={sauna} />
-        <ModelTechnicalDimensions model={sauna} />
-        {!sauna.floorPlan && <p className="text-sm text-cream/60 mb-6">Нет подтверждённого исходника планировки. Планировка согласуется при заказе.</p>}
         {!!interiorImages.length && <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>
           <ProductGallery title="Варианты внутреннего исполнения" items={interiorImages.map((src, i) => ({
@@ -93,7 +91,7 @@ export default async function SaunaPage({ params }: Props) {
 
           {/* Specs */}
           <div>
-            <h2 className="text-2xl font-bold text-cream mb-4">Характеристики</h2>
+            <h2 className="text-2xl font-bold text-cream mb-4">Характеристики модели</h2>
             <div className="glass rounded-2xl overflow-hidden">
               {sauna.specs.map((spec, i) => (
                 <div key={spec.label}
@@ -102,6 +100,7 @@ export default async function SaunaPage({ params }: Props) {
                   <span className="text-sm font-semibold text-cream text-right break-words">{spec.value}</span>
                 </div>
               ))}
+              <ModelTechnicalDimensions model={sauna} />
             </div>
           </div>
         </div>
