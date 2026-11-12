@@ -108,3 +108,12 @@
 ### Следующий шаг
 
 Текущая задача завершена: публикация и получение контрольной заявки в MAX подтверждены. Повторная отправка не требуется. Перед следующей задачей читать `AGENTS.md`, этот файл и `PROJECT_CONTEXT.md`; не повторять уже пройденные проверки без нового изменения. Ранее записанные операционные ограничения по ручному удалению/отзыву и очереди остаются отдельной задачей.
+
+## Hero refinement — 12.11.2026, проверенный кандидат
+
+- Задача: заголовок ровно в две строки, более крупная desktop-типографика, выше расположенный текст; вторичные подписи про город Раменское/2024; аккуратная кнопка контактов и QR-панель в границах композиции.
+- Изменены только HeroSection.tsx, HeroContactDisclosure.tsx и связанные hero-стили globals.css. Desktop QR раскрывается вверх, right:0 относительно кнопки; 464×141 px. На mobile панель идёт в потоке перед trust strip, 4 QR/ссылки сохранены. Chevron вращается на 180°, Escape возвращает фокус.
+- Проверки: production build с online-leads/PHP endpoint и закреплённым одобренным архивом документов PASS; build typecheck PASS; npm test PASS; check:static 142 pages/435 URLs/31 models, productionPathAudit PASS; diff-check PASS.
+- Chrome/CDP QA: 28 состояний (320,390,768,1024,1440,1920 px; DAY/NIGHT; closed/open), 0 ошибок. QR не выходит за trust grid, не пересекает текст; Escape 14/14. Скриншоты/qa-results.json: D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\hero-refinement\local.
+- Legal RU, Security Auditor, QA Tester и independent_reviewer: PASS в изменённом объёме. Независимо отмечен существующий дефект header на 320px (обрезанная кнопка меню), отсутствующий в текущем diff; не исправлялся в задаче hero, required mobile390 PASS.
+- Production пока ad8473a; далее commit → пересборка с точным SHA → проверенный статический overlay без PHP/.htaccess/секретов → SpaceWeb → live QA. Rollback: сохранённый BANGER_SPACEWEB_READY_ad8473a.zip в Memory. Формы/бэкенд/БД/MAX, погода и цены не меняются.

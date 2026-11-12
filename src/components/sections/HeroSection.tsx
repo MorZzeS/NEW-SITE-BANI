@@ -88,21 +88,21 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Main hero content — pushed down from nav */}
-        <div className="hero-main-content flex-1 flex items-stretch pt-28 md:pt-36 xl:pt-40 pb-6 md:pb-8">
+        <div className="hero-main-content flex-1 flex items-stretch pb-6 md:pb-8">
           <div className="site-container w-full flex flex-col">
-            <div className="max-w-xl xl:max-w-2xl">
+            <div className="hero-copy">
                 {/* Headline */}
                 <h1
-                  className="hero-headline hero-reveal text-[40px] sm:text-[52px] xl:text-[64px] font-bold leading-[1.04] tracking-tight mb-5"
+                  className="hero-headline hero-reveal font-bold tracking-tight"
                   style={{ animationDelay: '0.12s' }}
                 >
-                  Бани и дачные домики под ключ
+                  <span>Бани и дачные домики</span>{' '}<span>под ключ</span>
                 </h1>
 
                 {/* Subheading */}
-                <div className="hero-subheading hero-reveal mb-6 max-w-md" style={{ animationDelay: '0.22s' }}>
-                  <p className="text-lg sm:text-xl font-semibold leading-snug mb-2">Собственное производство — город Раменское</p>
-                  <p className="text-sm sm:text-base font-semibold leading-relaxed">Производитель мобильных бань с 2024 года</p>
+                <div className="hero-subheading hero-reveal" style={{ animationDelay: '0.22s' }}>
+                  <p>Собственное производство — город Раменское</p>
+                  <p>Производитель мобильных бань с 2024 года</p>
                 </div>
               </div>
             <div className="hero-actions hero-reveal relative mt-auto flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
