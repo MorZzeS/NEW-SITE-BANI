@@ -17,6 +17,12 @@ AddType image/avif .avif
 AddType video/mp4 .mp4
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
+    <FilesMatch "\.(html|txt)$">
+        Header set Cache-Control "no-cache, max-age=0, must-revalidate"
+    </FilesMatch>
+    <Files "release.json">
+        Header set Cache-Control "no-store"
+    </Files>
 </IfModule>
 
 # Не исполнять/публиковать случайно оставленные конфигурации и серверные файлы.
