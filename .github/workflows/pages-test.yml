@@ -26,6 +26,9 @@ jobs:
       NEXT_PUBLIC_LEADS_CONTRACT: '3'
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Price verification compares the current catalog with the approved historic baseline.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
