@@ -1,6 +1,6 @@
 # Точка продолжения — 12.11.2026, актуальное состояние
 
-> Последний production-релиз — `ad8473a5384ca36d488a26bebc8c2850dde96aca`, опубликован на SpaceWeb. Онлайн-формы остались включены; погода выключена. Результат и проверка новой формы записаны в последнем разделе этого файла. Более ранние записи ниже — история предыдущих состояний и не являются актуальным статусом.
+> Последний production-релиз — `7751fda433ae309ffd8ca36a081060483ee35758`, hero-правки опубликованы на SpaceWeb. Онлайн-формы остались включены; погода выключена. Последний раздел содержит результат live-проверки. Более ранние записи ниже — история предыдущих состояний и не являются актуальным статусом.
 
 ## Выполнено локально
 
@@ -117,3 +117,12 @@
 - Chrome/CDP QA: 28 состояний (320,390,768,1024,1440,1920 px; DAY/NIGHT; closed/open), 0 ошибок. QR не выходит за trust grid, не пересекает текст; Escape 14/14. Скриншоты/qa-results.json: D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\hero-refinement\local.
 - Legal RU, Security Auditor, QA Tester и independent_reviewer: PASS в изменённом объёме. Независимо отмечен существующий дефект header на 320px (обрезанная кнопка меню), отсутствующий в текущем diff; не исправлялся в задаче hero, required mobile390 PASS.
 - Production пока ad8473a; далее commit → пересборка с точным SHA → проверенный статический overlay без PHP/.htaccess/секретов → SpaceWeb → live QA. Rollback: сохранённый BANGER_SPACEWEB_READY_ad8473a.zip в Memory. Формы/бэкенд/БД/MAX, погода и цены не меняются.
+
+### Hero refinement — опубликовано и проверено
+
+- На SpaceWeb опубликован `7751fda433ae309ffd8ca36a081060483ee35758` (`fix: align homepage hero and contact panel`). Live release.json: тот же SHA, online-leads / onlineLeads:true / weather:disabled.
+- Overlay: 268 изменённых статических файлов из 825, 3 444 961 байт, SHA256 `9357A84407456F1C06FCBB8B5CFB0CD22D2D73FE5D8AC14C90CC54660A016CBC`. Путь: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\hero-refinement\BANGER_HERO_7751fda.zip`. ZIP проверен по каждому entry; assets шли перед HTML, release.json последним. Временный ZIP после извлечения удалён из public_html.
+- Live Chrome QA: 8 состояний 1440×800/390×844, DAY/NIGHT, closed/open — PASS. Реальные скриншоты и `qa-results.json`: `...\hero-refinement\live`. Desktop panel 464×141, right 751 < trust right1325.5, bottom602 < trust top690. Mobile panel358×265.125, right374 = trust right374, bottom743.375 < trust top759.375. Заголовок76.32px desktop (прежний64), responsive31.97px на390; обе заданные строки сохранены.
+- Главная, «Исток 4» и контакты HTTP200, формы присутствуют; GET /leads.php405. SHA256 `.htaccess`, leads.php, health.php до/после одинаковы (`server-files-before.json` / `server-files-after.json` в папке evidence). Новые тестовые сообщения MAX не отправлялись: backend/контракт/поток не менялись; предыдущая полная production-проверка с подтверждением владельца остаётся в записи выше.
+- Откат: точная предыдущая статика `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\SpaceWeb-TZ\urgent-fixes-2026-11-12\release-artifact\BANGER_SPACEWEB_READY_ad8473a.zip`; её целостность и baseline SHA проверены перед выкладкой. Сервер, DNS, main, цены и документы не менялись.
+- Задача завершена. Следующее действие — новая задача владельца; текущий hero повторно не перерабатывать и контрольные заявки не дублировать. Существующий дефект header на320px записан отдельно выше; исправление не входило в согласованный объём hero.
