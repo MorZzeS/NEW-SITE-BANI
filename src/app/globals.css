@@ -728,7 +728,13 @@ html { scroll-behavior: smooth; }
 }
 .hero-headline { color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.32); }
 .hero-subheading { color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.55); }
-.hero-actions { width: min(100%, 264px); }
+.hero-actions { width: 100%; max-width: 360px; }
+@media (min-width: 1024px) {
+ .hero-actions { flex-direction: row; align-items: flex-start; width: max-content; max-width: 100%; }
+ .hero-actions > * { flex: 0 0 auto; }
+ .hero-actions .hero-contact-disclosure { width: auto; }
+ .hero-actions .hero-contact-panel { position: absolute; top: auto; bottom: calc(100% + 12px); left: auto; right: 0; margin-top: 0; width: min(640px, calc(100vw - 48px)); }
+}
 .hero-reveal { animation: hero-reveal 720ms cubic-bezier(.22,1,.36,1) both; }
 @keyframes hero-reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .hero-actions > .btn-primary { min-height: 52px; transition: box-shadow 240ms ease, transform 240ms cubic-bezier(.22,1,.36,1); }

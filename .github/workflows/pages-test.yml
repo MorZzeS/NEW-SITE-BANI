@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BANGER_GITHUB_PAGES: 'true'
-      # Owner-approved visual preview with contacts. Restore collection only after the
-      # SpaceWeb storage, document bundle and end-to-end delivery gates are accepted.
+      # Public preview is intentionally isolated from production SpaceWeb/MySQL/MAX.
+      # Production lead activation is verified separately; preview sends no applications.
       NEXT_PUBLIC_LEADS_ENDPOINT: ''
       NEXT_PUBLIC_LEADS_CONTRACT: '3'
     steps:
@@ -31,7 +31,11 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm test
+      - run: node scripts/check-approved-option-calculations.mjs
+      - run: node scripts/verify-price-update.mjs
       - run: npm run build
+      - run: node scripts/check-model-option-calculator.mjs
       - run: npm run check:static
       - run: node scripts/check-visual-release.mjs
       - name: Upload test Pages artifact

@@ -1,5 +1,6 @@
 'use client'
 import { modelCountWord } from '@/lib/catalog-labels'
+import { withBasePath } from '@/lib/site-path'
 
 import { Suspense, useEffect, useState, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
@@ -91,7 +92,7 @@ export default function BaniCatalogPage() {
         {/* Header */}
         <nav aria-label="Хлебные крошки" className="mb-5 text-sm text-cream/55">
           <ol className="flex flex-wrap items-center gap-2">
-            <li><Link className="hover:text-cream" href="/">Главная</Link></li><li aria-hidden="true">/</li>
+            <li><a className="hover:text-cream" href={withBasePath('/')}>Главная</a></li><li aria-hidden="true">/</li>
             <li><Link className="hover:text-cream" href="/katalog/bani">Мобильные бани</Link></li>
             {activeSeries !== 'Все' && <><li aria-hidden="true">/</li><li aria-current="page" className="text-cream/85">{categoryTitle}</li></>}
           </ol>

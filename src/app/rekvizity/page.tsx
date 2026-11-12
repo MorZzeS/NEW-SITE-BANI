@@ -1,5 +1,8 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import type { Metadata } from 'next'
-export const metadata: Metadata = { title: 'Реквизиты', description: 'Юридические данные продавца и оператора персональных данных.', alternates: { canonical: 'https://banger.su/rekvizity' }, }
+export const metadata: Metadata = { title: 'Реквизиты', description: 'Юридические данные продавца и оператора персональных данных.', alternates: { canonical: 'https://banger.su/rekvizity' },
+  openGraph: { ...defaultOpenGraph, url: 'https://banger.su/rekvizity', title: 'Реквизиты', description: 'Юридические данные продавца и оператора персональных данных.' },
+}
 import { PhoneLinks } from '@/components/ui/PhoneLinks'
 
 export default function RekvizityPage() {

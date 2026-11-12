@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import { modelFeatures, modelBaseConfiguration } from '@/data/model-configuration'
 import { notFound } from 'next/navigation'
 import { saunas, homes, siteSettings } from '@/data'
@@ -10,9 +11,13 @@ export function generateStaticParams() { return models.map(model => ({ id: model
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const model = models.find(m => m.id === id)
+  const title = `${model?.name ?? 'Модель'} — информация для клиента`
+  const description = `${model?.name ?? 'Модель'}${model ? `, ${model.size}` : ''}: характеристики, базовая комплектация и стоимость. Печатная информация о выбранной модели BANGER.SU.`
+  const canonical = `https://banger.su/model-sheet/${id}`
   return {
-    title: `${model?.name ?? 'Модель'} — информация для клиента`,
-    alternates: { canonical: `https://banger.su/model-sheet/${id}` },
+    title, description,
+    alternates: { canonical },
+    openGraph: { ...defaultOpenGraph, title, description, url: canonical, images: model ? [{ url: `https://banger.su${model.image}`, alt: model.name }] : defaultOpenGraph.images },
     robots: { index: false, follow: false },
   }
 }

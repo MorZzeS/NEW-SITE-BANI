@@ -26,7 +26,7 @@ export function managerOptionName(option: { id: string; name: string }, compact 
     boiler: 'Бойлер 50 л', shower: 'Тропич. душ', bucket: 'Обливное устр.', floor: 'Проливной пол', wc: 'Санузел', guard: 'Огражд. печи', ermak: 'Ермак 12 ПС',
     shade: 'Абажур', led: 'Лента за спинкой', 'bench-light': '2 плафона', furniture: 'Доп. мебель',
     'window-grid': 'Шпросы', decor: 'Декор. решётки', lamination: 'Ламинация', drain: 'Доп. слив', roof: 'Кровля', tray: 'Поддон+шторка',
-    'outdoor-lighting': 'Уличный свет', 'larch-wash': 'Пол листв./мойка', replanning: 'Изменение стандартной планировки',
+    'outdoor-lighting': 'Уличный свет', 'larch-wash': 'Пол листв./мойка', replanning: 'Перепланировка',
     'outdoor-lamp': 'Наружный свет.', 'roof-overhang-light': 'Свет в свесе', 'hidden-wiring': 'Скрыт. электрика',
     'floating-bench': 'Парящий полок', 'aspen-bench': 'Скамья осина 1м', 'stove-fireproof-boards': 'Защита плитами', 'wash-tap': 'Кран в мойку',
     'panoramic-window-600-1800': 'Окно 60×180', 'ermak-base': 'Ермак 12 (база)', 'ermak-16-ps': 'Ермак 16 ПС',

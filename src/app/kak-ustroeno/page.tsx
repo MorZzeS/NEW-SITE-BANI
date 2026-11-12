@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import Link from 'next/link'
 import { Layers, Shield, Wind, Droplets, Zap, Flame, Thermometer, ChevronRight } from 'lucide-react'
 
@@ -5,6 +6,8 @@ export const metadata = {
   title: 'Как устроена мобильная баня',
   description: 'Конструкция стены, слои, утепление, пароизоляция, вентиляция, печь и пол бани Герасимов.',
   alternates: { canonical: 'https://banger.su/kak-ustroeno' },
+
+  openGraph: { ...defaultOpenGraph, url: 'https://banger.su/kak-ustroeno', title: 'Как устроена мобильная баня', description: 'Конструкция стены, слои, утепление, пароизоляция, вентиляция, печь и пол бани Герасимов.' },
 }
 
 const layers = [

@@ -51,7 +51,7 @@ export default function OKompaniiPage() {
           <div className="section-tag mb-4">О нас</div>
           <h1 className="text-5xl font-extrabold text-cream mb-4">Бани Герасимов</h1>
           <p className="text-xl text-cream/60 max-w-2xl mx-auto leading-relaxed">
-            Производитель мобильных бань с {companyFacts.founded} года. Делаем бани, которые греют, радуют и служат десятилетиями.
+            Производитель мобильных бань с {companyFacts.founded} года. Собственное производство — город Раменское.
           </p>
         </div>
 

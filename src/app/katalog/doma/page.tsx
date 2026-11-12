@@ -1,5 +1,6 @@
 'use client'
 import { modelCountWord } from '@/lib/catalog-labels'
+import { withBasePath } from '@/lib/site-path'
 
 import { useState, useMemo } from 'react'
 import { HomeCard } from '@/components/catalog/HomeCard'
@@ -44,7 +45,7 @@ export default function DomaCatalogPage() {
     <div className="pt-28 pb-20">
       <div className="site-container">
         {/* Header */}
-        <nav aria-label="Хлебные крошки" className="mb-5 text-sm text-cream/55"><ol className="flex flex-wrap items-center gap-2"><li><Link className="hover:text-cream" href="/">Главная</Link></li><li aria-hidden="true">/</li><li><Link className="hover:text-cream" href="/katalog/doma">Мобильные дома</Link></li></ol></nav>
+        <nav aria-label="Хлебные крошки" className="mb-5 text-sm text-cream/55"><ol className="flex flex-wrap items-center gap-2"><li><a className="hover:text-cream" href={withBasePath('/')}>Главная</a></li><li aria-hidden="true">/</li><li><Link className="hover:text-cream" href="/katalog/doma">Мобильные дома</Link></li></ol></nav>
         <div className="mb-8">
           <div className="section-tag mb-4">Каталог</div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-cream mb-3">Мобильные дома серии «Усадьба»</h1>

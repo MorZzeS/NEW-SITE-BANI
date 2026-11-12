@@ -19,11 +19,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = findProject(slug)
   if (!project) return {}
   const canonical = `https://banger.su/nashi-raboty/${project.slug}`
+  const description = project.caseType === 'client-case' ? project.description : `${project.title}. ${project.description}`
   return {
     title: project.pageHeading || project.title,
-    description: project.description,
+    description,
     alternates: { canonical },
-    openGraph: { url: canonical, title: project.pageHeading || project.title, description: project.description, images: [{ url: `https://banger.su${project.image}`, alt: project.cover.alt }] },
+    openGraph: { url: canonical, title: project.pageHeading || project.title, description, images: [{ url: `https://banger.su${project.image}`, alt: project.cover.alt }] },
   }
 }
 

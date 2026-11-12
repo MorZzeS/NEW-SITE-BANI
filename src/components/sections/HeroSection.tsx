@@ -105,18 +105,8 @@ export function HeroSection() {
                 <div className="hero-subheading hero-reveal mb-6 max-w-md" style={{ animationDelay: '0.22s' }}>
                   <p className="text-lg sm:text-xl font-semibold leading-snug mb-2">Собственное производство — город Раменское</p>
                   <p className="text-sm sm:text-base font-semibold leading-relaxed">Производитель мобильных бань с 2024 года</p>
-                  <p className="text-sm sm:text-base leading-relaxed mt-2">Делаем бани, которые греют, радуют и служат долгие годы</p>
                 </div>
 
-                {/* CTAs */}
-                <div className="hero-actions hero-reveal flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
-                  <Link href="/katalog/bani" className="btn-primary justify-center text-sm px-7 py-3.5">
-                    Смотреть каталог
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <HeroVideoAction onClick={() => setVideoOpen(true)} />
-                  <HeroContactDisclosure />
-                </div>
               </div>
 
             </div>
@@ -126,6 +116,13 @@ export function HeroSection() {
         {/* Bottom: approved Glass Reveal trust strip */}
         <div className="relative z-10 pb-6">
           <div className="site-container">
+            <div className="hero-actions hero-reveal flex flex-col items-stretch gap-3 mb-4 lg:mb-5" style={{ animationDelay: '0.32s' }}>
+              <Link href="/katalog/bani" className="btn-primary justify-center text-sm px-7 py-3.5">
+                Смотреть каталог <ArrowRight className="w-4 h-4" />
+              </Link>
+              <HeroVideoAction onClick={() => setVideoOpen(true)} />
+              <HeroContactDisclosure />
+            </div>
             <HeroTrustReveal />
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import Link from 'next/link'
 import { Clock, ArrowRight } from 'lucide-react'
 import { articles } from '@/data'
@@ -10,6 +11,8 @@ export const metadata = {
   alternates: {
     canonical: 'https://banger.su/poleznoe',
   },
+
+  openGraph: { ...defaultOpenGraph, url: 'https://banger.su/poleznoe', title: 'Полезное — советы и статьи о банях', description: 'Советы по выбору, уходу и эксплуатации мобильных бань. Материалы, печи, доставка, подготовка участка.' },
 }
 
 export default function PoleznoeePage() {

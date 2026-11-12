@@ -1,9 +1,12 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import { CheckCircle, Truck, Home, Settings, Check } from 'lucide-react'
 
 export const metadata = {
   title: 'Доставка и установка мобильной бани',
   description: 'Как происходит доставка, разгрузка манипулятором и установка бани на участке. Пошаговая визуализация.',
   alternates: { canonical: 'https://banger.su/dostavka-i-ustanovka' },
+
+  openGraph: { ...defaultOpenGraph, url: 'https://banger.su/dostavka-i-ustanovka', title: 'Доставка и установка мобильной бани', description: 'Как происходит доставка, разгрузка манипулятором и установка бани на участке. Пошаговая визуализация.' },
 }
 
 const steps = [
@@ -29,7 +32,7 @@ export default function DostavkaPage() {
             <div key={title} id={title === 'Доставка' ? 'delivery' : title === 'Монтаж' ? 'installation' : undefined} className="glass-card p-6 relative site-anchor">
               <div className="absolute top-4 right-4 text-5xl font-black text-white/5 select-none">{i + 1}</div>
               <Icon className="w-10 h-10 text-gold-400 mb-4" />
-              <h3 className="text-lg font-bold text-cream mb-2">{title}</h3>
+              <h2 className="text-lg font-bold text-cream mb-2">{title}</h2>
               <p className="text-sm text-cream/60 leading-relaxed">{desc}</p>
             </div>
           ))}
@@ -38,8 +41,8 @@ export default function DostavkaPage() {
         <section className="glass-strong rounded-3xl p-8 md:p-12">
           <h2 className="text-2xl font-bold text-cream mb-4">Что нужно подготовить на участке</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-cream/70">
-            <div className="glass rounded-xl px-5 py-3">Площадка 4×4 м с подступом для манипулятора</div>
-            <div className="glass rounded-xl px-5 py-3">Подъездная дорога без препятствий в 1 м шириной</div>
+            <div className="glass rounded-xl px-5 py-3">Подготовленная площадка под выбранную модель и место для работы техники</div>
+            <div className="glass rounded-xl px-5 py-3">Свободный подъезд без препятствий; необходимую ширину проезда согласуем для выбранной модели и техники</div>
             <div className="glass rounded-xl px-5 py-3">Электропитание 220 В (если требуется подключение)</div>
             <div className="glass rounded-xl px-5 py-3">Вывод воды или дренаж для слива</div>
           </div>
