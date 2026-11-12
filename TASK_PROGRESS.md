@@ -1,5 +1,7 @@
 # Точка продолжения — 12.11.2026
 
+> Текущий итог: релиз кода 3d5c845819f876ea28b0bd9d0fd01269bcce1cff опубликован на SpaceWeb; online-формы включены, а синтетическая заявка из калькулятора «Исток 4» получила HTTP 202 и подтверждена владельцем в MAX. Подробности и пути к бэкапам — в разделе «Завершение публикации и проверка онлайн-заявки» в конце файла.
+
 ## Выполнено локально
 
 - Изучено ТЗ `BANGER_SU_TZ_Codex_SpaceWeb_12-11-2026.docx`; создана отдельная ветка `work/spaceweb-refresh-20261112` от `27948c7ff58157d6da36cbf1a04854dff051c337`.
@@ -72,7 +74,20 @@
 
 ### Next exact steps
 
-1. Commit only reviewed source, legal archive metadata, memory files and tests; exclude four line-ending-only QR SVG changes and tsconfig.tsbuildinfo.
-2. Rebuild with approved online-leads environment and re-run artifact gate; verify release SHA matches commit.
-3. Use existing authenticated SpaceWeb file manager. Save a local backup in Memory before replacing public files; preserve the working PHP handler and .htaccess unless the static deploy requires a documented update.
-4. Publish static artifact and verify live release.json, homepage, model page, calculator, PDF and existing form endpoint without sending a test submission.
+Завершено; фактическая публикация и контрольная заявка записаны в заключительном разделе файла. Новую тестовую заявку повторно не отправлять.
+
+## Завершение публикации и проверка онлайн-заявки — 12.11.2026
+
+- Код релиза: 3d5c845819f876ea28b0bd9d0fd01269bcce1cff (feat: refine BANGER calculator and release content). Production release.json подтверждает тот же SHA, профиль online-leads, onlineLeads:true, погода disabled.
+- Сборка и обязательные тесты, TypeScript, статические проверки, калькулятор/цены/логистика, PDF-сценарии и 31-модельный sweep пройдены; Legal RU, Security Auditor и QA Tester дали необходимые результаты для этой публикации.
+- Реальная production-проверка из формы «Исток 4»: POST /leads.php → HTTP 202 за 698 мс; номер f2c9675a-9d4d-4cba-89de-3902332ec3d4; серверный интерфейс подтвердил durable admission со статусом «уведомление ожидает доставки». В заявке были базовая цена 412 500 ₽, перепланировка 10 000 ₽, итог 422 500 ₽.
+- Владелец подтвердил получение этого сообщения в MAX. Отправка выполнялась один раз; повторов не было.
+- Production: https://banger.su/ и /banya/istok-4 вернули HTTP 200; калькулятор, выбранная опция и форма видны, fallback отсутствует. Скриншоты: D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\SpaceWeb-TZ\screenshots-final-release.
+- До замены файлов сделана локальная копия web-root: D:\Максим\Memory\Projects\BANGER.SU\Backups\SpaceWeb\2026-11-12-before-static-release\site-public_html-before-3d5c845.zip (270 127 907 байт; архив развёрнут во временный каталог и проверен, временная распаковка удалена).
+- Подготовленный ZIP релиза сохранён локально: D:\Максим\Memory\Projects\BANGER.SU\Backups\SpaceWeb\2026-11-12-before-static-release\BANGER_SPACEWEB_READY_3d5c845.zip (269 749 909 байт; SHA256 8061d21cdd854e14c399ffae50044f5262a14a1839c03310afa20605309523fd). Временный экземпляр ZIP удалён из public_html; .htaccess, leads.php и health.php не заменялись.
+- Секреты не читались и не попадали в артефакт. Отдельную настройку сервера, домена, БД, Cron и DNS в ходе статического релиза не меняли.
+- Изменения кода опубликованы на SpaceWeb; test form → MySQL durable admission → MAX human receipt подтверждены. Известное операционное замечание по ручной обработке отзыва/раннего удаления и неизвестных записей очереди описано выше в этой памяти и остаётся отдельной задачей.
+
+### Следующая точка продолжения
+
+Пользователь может открыть production-сайт сейчас. Для будущей работы сначала прочитать этот файл и PROJECT_CONTEXT.md; повторная отправка контрольной заявки не нужна.
