@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { saunas, homes } from '@/data'
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Планировки мобильных бань',
   description: 'Готовые варианты планировок мобильных бань. Двухкомнатные, трёхкомнатные, с террасой.',
   alternates: { canonical: 'https://banger.su/planirovki' },
-  openGraph: { url: 'https://banger.su/planirovki' },
+  openGraph: { ...defaultOpenGraph, url: 'https://banger.su/planirovki', title: 'Планировки мобильных бань', description: 'Готовые варианты планировок мобильных бань. Двухкомнатные, трёхкомнатные, с террасой.' },
 }
 
 const layouts = [

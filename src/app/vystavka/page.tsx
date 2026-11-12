@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import { siteSettings } from '@/data'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Выставка — Бани Герасимов',
   description: 'Посетите выставочный образец мобильной бани вживую. Запишитесь на просмотр.',
   alternates: { canonical: 'https://banger.su/vystavka' },
-  openGraph: {
+  openGraph: { ...defaultOpenGraph,
     url: 'https://banger.su/vystavka',
     title: 'Выставка — Бани Герасимов',
     description: 'Посетите выставочный образец мобильной бани вживую. Запишитесь на просмотр.',

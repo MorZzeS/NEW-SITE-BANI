@@ -1,3 +1,4 @@
+import { defaultOpenGraph } from '@/lib/site-metadata'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { saunas, homes } from '@/data'
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title: 'О нас — Бани Герасимов',
   description: 'Надёжный производитель мобильных бань. Работаем с 2024 года. Собственное производство в городе Раменское, доставка по Москве и регионам Центральной России.',
   alternates: { canonical: 'https://banger.su/o-kompanii' },
-  openGraph: {
+  openGraph: { ...defaultOpenGraph,
     url: 'https://banger.su/o-kompanii',
     title: 'О нас — Бани Герасимов',
     description: 'Надёжный производитель мобильных бань. Работаем с 2024 года. Собственное производство в городе Раменское, доставка по Москве и регионам Центральной России.',
