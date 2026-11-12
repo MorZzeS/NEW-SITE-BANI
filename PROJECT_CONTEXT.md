@@ -3,7 +3,7 @@
 ## Текущий статус на 12.11.2026
 
 - Актуальный сайт: https://banger.su/ на SpaceWeb.
-- Опубликованный код приложения: `5b799b53976b784781701465d05aa02834ebcb6e` (`fix: slide hero QR panel to the right`). Live `release.json` подтверждает этот SHA, профиль `online-leads`, `onlineLeads:true`, погода выключена.
+- Опубликованный код приложения: `3c7e53f6f8b7fdb6cdc5eac2d0cf16282c6d3dac` (`fix: polish contact indicator and QR motion`). Live `release.json` подтверждает этот SHA, профиль `online-leads`, `onlineLeads:true`, погода выключена.
 - Рабочая локальная ветка: `work/spaceweb-refresh-20261112`; рабочий каталог: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\SpaceWeb-refresh`.
 - Онлайн-формы на production включены. SpaceWeb PHP/MySQL/MAX обработчик, `.htaccess`, закрытые credentials и Cron в ходе последнего статического обновления не менялись.
 
@@ -25,6 +25,10 @@
 - Правила 3D-визуалов `/poleznoe` — в `AGENTS.md`; к текущему релизу они не применялись.
 
 ## Результат последней задачи
+
+- Индикатор «Мы на связи» — декоративная золотая полоска8/14/20px для rest/hover-focus/expanded, с возвратом. Стрелки удалены. Motion панели x-10→0/opacity/clipPath260ms, карточки240ms с stagger35ms. Reduced-motion — без начального перехода/движения/cards animation. Раскладка вправо и QR128 сохранены. Local layout16/motion8 и live8 PASS в установленном изолированном Chrome headless; Enter/Space/Escape и обе темы проверены. Evidence `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-indicator`. Backend/forms/server hashes сохранены; новые реальные заявки не отправлялись. AuditChrome9222 иногда не рисует background-окно; не принимать его белые кадры за дефект сайта.
+
+## Предыдущий этап — QR вправо (`5b799b5`)
 
 - Владелец уточнил направление QR-панели: наdesktop>=1280 строго ВПРАВО от кнопки до правого края trust strip, низ совпадает с кнопкой. Четыре QR128×128px в ряд, панель562.453×173 на1440. Tablet1024–1279 отдельной строкой, mobile2×2. Motion x/clipPath с отключением при reduced-motion. Заголовок/фон/кнопки/trust сохранены. Local36/live16 состояний PASS, evidence `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-right`. Раскрытие вверх из7751fda отменено этим уточнением; не возвращать его в следующих задачах.
 

@@ -1,6 +1,6 @@
 # Точка продолжения — 12.11.2026, актуальное состояние
 
-> Последний production-релиз — `5b799b53976b784781701465d05aa02834ebcb6e`, QR-панель раскрывается вправо на desktop. Онлайн-формы включены; погода выключена. Последний раздел содержит результат live-проверки. Более ранние записи ниже — история предыдущих состояний и не являются актуальным статусом.
+> Последний production-релиз — `3c7e53f6f8b7fdb6cdc5eac2d0cf16282c6d3dac`, индикатор-полоска и полировка QR motion опубликованы; раскрытие вправо сохранено. Live motion/keyboard/reduced QA8/8 PASS. Онлайн-формы включены; погода выключена. Более ранние записи ниже — история предыдущих состояний и не являются актуальным статусом.
 
 ## Выполнено локально
 
@@ -152,3 +152,13 @@
 - Найден/устранён начальный прозрачный кадр reduced-motion: initial={false} исключает его. Enter/Space/Escape проверены реальными CDP keyboard events, hover реальным mouseMoved; RAF traces normal/reduced сохранены. Local motion8/8 PASS и layout16/16 PASS, DAY/NIGHT1440/1280/1024/390. Геометрия H1/trust/CTA/panel соответствует предыдущей версии, QR128×128.
 - Build/typecheck/online-leads artifact gate/check:static/diff-check PASS; Legal RU/Security Auditor/QA Tester PASS в изменённом объёме. Evidence `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-indicator`; итоговые motion-results.json и local/qa-results.json. Секреты, backend, формы, цены, картинки и URLs не менялись.
 - Следующий шаг: commit → rebuild точного SHA → проверенный overlay на SpaceWeb → live motion/keyboard/reduced QA. Baseline5b799b5, rollback qr-right/BANGER_HERO_5b799b5.zip + прежняя полная статикаad8473a в Memory; серверные хеши до замены сохранены.
+
+### Индикатор — production PASS
+
+- Код3c7e53f6f8b7fdb6cdc5eac2d0cf16282c6d3dac опубликован на SpaceWeb. Release.json подтверждает точный SHA, online-leads:true, weather:disabled; главная/Исток4/контакты200 с формами,GETleads.php405.
+- В проверенном overlay270/825 статических файлов,3 492 886байт, SHA256 `5202C3B7D036C7653E5E5BE66A8B58344BB9A8659E992480CCD0BD829F0DC97D`; файл `qr-indicator/BANGER_HERO_3c7e53f.zip` в Memory. Assets доHTML, manifestпоследним. Серверный временныйZIP удалён.
+- Контрольные хеши .htaccess/leads.php/health.php до/после совпадают; сервер/БД/Cron/секреты/DNS не менялись. Новые заявки не отправлялись.
+- Оконный CDP9222 перестал отрисовывать вкладку: visibility hidden, а после focus emulation visible, но opacity панели0/не загружены lazyQR/кадр белый. Поэтому не считать незавершённый motion-live доказательством. Для публичного сайта запущен установленный Chrome157 headless в отдельном временном профиле без копирования авторизации и без отключения sandbox/TLS. В нём финальная проверка8/8 PASS:1440/390, DAY/NIGHT, normal/reduced, Enter/Space/Escape, hover8→14→20/reset8, границы/128pxQR/nooverflow. Все вкладки visible, normal RAF показывает плавность, reduced RAF x0/opacity1 и cards animation none.
+- Доказательства финального live: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\qr-indicator\motion-live-headless\motion-results.json` и скриншоты в том же каталоге. Превью без клавиатурного outline: `qr-indicator\desktop-open.png` / `mobile-open.png`. Local normal stagger дополнительно доказан попарной разницей opacity в actual RAF (`stagger-proof.json`).
+- Временный headlessChrome закрыт, порт9223 освобождён. Оригинальное окно9222 и авторизация сохранены. Рекурсивное удаление своего Temp-профиля отклонено автоматической политикой («blocked by policy»); профиль оставлен, повторно не обходить блокировку. Метаданные без секретов: headless-process.json.
+- Задача полностью завершена: опубликованный SHA проверен; Desktop/mobile DAY/NIGHT, keyboard/reduced и направление ВПРАВО подтверждены. Больше не отправлять контрольные заявки ради этого косметического изменения. Следующий шаг — новое поручение владельца.
