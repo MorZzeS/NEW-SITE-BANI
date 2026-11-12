@@ -33,7 +33,8 @@ const data = load('src/data/index.ts')
 const options = load('src/data/options.ts').additionalOptions
 const baseline = compile('baseline', execFileSync('git', ['show', '714da378:src/data/options.ts'], { cwd: root, encoding: 'utf8' })).additionalOptions
 const { calculateModelConfiguration: calculate, configurationManagerText, mergeManagerComment } = load('src/lib/model-configuration-selection.ts')
-const { equipmentSelection } = load('src/lib/equipment-selection.ts')
+const { equipmentSelection, optionQuantityLabel } = load('src/lib/equipment-selection.ts')
+const { managerOptionName, isPreliminaryLogisticsEstimate, preliminaryOptionPriceText } = load('src/lib/logistics.ts')
 const { modelOptionAvailability } = load('src/lib/model-option-availability.ts')
 const models = [...data.saunas, ...data.homes]
 const baseConfiguration = load('src/data/model-configuration.ts')
@@ -71,11 +72,13 @@ for (const model of models) {
   }
 }
 assert.equal(models.length, 31)
-assert.equal(options.length, 44)
-assert.equal(new Set(options.map(option => option.id)).size, 44)
+assert.equal(options.length, 45)
+assert.equal(new Set(options.map(option => option.id)).size, 45)
 assert.equal(options.find(option => option.id === 'replanning')?.salePrice, 10000)
 assert.equal(options.find(option => option.id === 'replanning')?.name, 'Изменение стандартной планировки')
 assert.equal(options.find(option => option.id === 'replanning')?.description, 'Изменение стандартной планировки бани по пожеланиям заказчика. Возможность перепланировки согласовывается индивидуально. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно.')
+assert.equal(options.find(option => option.id === 'onsite-assembly')?.salePrice, 300_000)
+assert.equal(options.find(option => option.id === 'onsite-assembly')?.category, 'Логистика')
 const latestOverrides = { tray: 18000, ermak: null, led: 12000, 'bench-light': 7000 }
 for (const option of baseline) assert.equal(options.find(item => item.id === option.id).salePrice, Object.hasOwn(latestOverrides, option.id) ? latestOverrides[option.id] : option.salePrice, option.id + ': prices outside explicit owner overrides must remain unchanged')
 assert.equal(options.find(option => option.id === 'tray').name, 'Душевой поддон со шторкой и выводом воды')
@@ -94,6 +97,14 @@ for (const model of models) {
     const summary = configurationManagerText(replanning).replace(/[\u00a0\u202f]/g, ' ')
     assert.ok(summary.includes('Изменение стандартной планировки') && summary.includes('10 000 ₽'), model.id + ': lead summary must preserve plan-change service and price')
   }
+  const assembly = calculate(model, ['onsite-assembly'])
+  assert.equal(assembly.logisticsSubtotal, 300_000, model.id + ': assembly is a separately priced service')
+  assert.equal(assembly.total, model.priceFrom + 300_000)
+  assert.equal(assembly.selectedOptionIds.includes('crane-unload'), false)
+  const assemblyAndCrane = calculate(model, ['crane-unload', 'onsite-assembly'], { deliveryDistrict: 'ramenskoe' })
+  assert.deepEqual(JSON.parse(JSON.stringify(assemblyAndCrane.selectedOptionIds)), ['onsite-assembly'], model.id + ': assembly selection replaces separate crane unloading')
+  assert.equal(assemblyAndCrane.logisticsSubtotal, 300_000)
+  assert.ok(configurationManagerText(assembly).includes('ориентир 300 000 ₽'), model.id + ': assembly is presented as an estimate')
   for (const district of ['unknown', 'outside', 'ramenskoe']) {
     for (const ids of [[], ['delivery'], ['crane-unload'], ['delivery', 'crane-unload', 'delivery']]) {
       const input = { deliveryDistrict: district, deliveryAddress: 'Ручной адрес, участок 10' }
@@ -111,7 +122,7 @@ for (const model of models) {
       assert.equal(global.logisticsSubtotal, expected)
       const note = configurationManagerText(result)
       assert.ok(note.includes('Ручной адрес, участок 10'))
-      assert.ok(note.includes('Итого:'))
+      assert.match(note, /(?:Итого:|Предварительный итог от:)/)
       for (const id of new Set(ids)) assert.ok(note.includes(options.find(option => option.id === id).name))
       if (result.unpricedCount) assert.ok(note.includes('Стоимость по согласованию') && note.includes('Предварительная сумма'))
       cases++
@@ -155,8 +166,15 @@ assert.ok(compactNote.length <= 1500, 'maximal configuration + address300 must f
 assert.equal(mergeManagerComment('', compactNote), compactNote)
 assert.ok(compactNote.includes('А'.repeat(300)))
 assert.ok(compactNote.includes(maximum.total.toLocaleString('ru-RU')))
-for (const option of maximum.options) assert.ok(compactNote.includes(load('src/lib/logistics.ts').managerOptionName(option, true)), option.id + ': compact note must preserve every selected item')
-assert.ok(equipmentSelection(options.map(option => option.id), { 'ceiling-height': 2 }, { deliveryDistrict: 'outside', deliveryAddress: 'А'.repeat(300) }).comment.length <= 1500)
+for (const option of maximum.options) {
+  const label = managerOptionName(option, true) + optionQuantityLabel(option, true)
+  const price = option.price === null ? 'согл.' : isPreliminaryLogisticsEstimate(option.id)
+    ? preliminaryOptionPriceText(option.id, option.price, option.quantity).replace(/^\+/, '')
+    : (option.price * option.quantity).toLocaleString('ru-RU')
+  assert.ok(compactNote.includes(`${label}=${price}`), option.id + ': compact note must preserve item identity and its precise amount')
+}
+const maximalEquipmentComment = equipmentSelection(options.map(option => option.id), { 'ceiling-height': 2 }, { deliveryDistrict: 'outside', deliveryAddress: 'А'.repeat(300) }).comment
+assert.ok(maximalEquipmentComment.length <= 1500, 'global option note must fit the legacy 1500-character comment limit: ' + maximalEquipmentComment.length)
 const formSource = fs.readFileSync(path.join(root, 'src/components/forms/OnlineLeadForm.tsx'), 'utf8')
 assert.ok(formSource.includes('leadContract === 3 && effectiveConfiguration'), 'new configuration schema must not leak into legacy payload')
 assert.ok(formSource.indexOf('mergeManagerComment(comment.trim(), managerConfiguration)') < formSource.indexOf('await sendLead(attempt.current)'), 'bounded complete comment checked before sending')
@@ -170,7 +188,7 @@ for (const district of ['unknown', 'outside', 'ramenskoe']) {
   const configuration = calculate(models[0], ['delivery', 'crane-unload', 'ceiling-height', 'tray', 'wooden-window-600', 'wooden-window-400', 'larch-wash', 'replanning'], { deliveryDistrict: district, deliveryAddress: 'Адрес участка 10', quantities: { 'ceiling-height': 2 } })
   const doc = createModelPdf(models[0], configuration, { font, images: {} }, new Date('2026-11-03T12:00:00Z'))
   const text = captured.join('\n').replace(/[\u00a0\u202f]/g, ' ')
-  for (const fragment of ['Адрес участка 10', 'Доставка', 'Разгрузка краном', 'Деревянное окно 600', 'Деревянное окно 400', 'Душевой поддон', 'Изменение стандартной планировки', 'Дополнительное оборудование', 'Доставка и разгрузка', '10 000', '44 000', configuration.total.toLocaleString('ru-RU').replace(/[\u00a0\u202f]/g, ' ')]) assert.ok(text.includes(fragment), district + ': PDF missing ' + fragment)
+  for (const fragment of ['Адрес участка 10', 'Доставка', 'Разгрузка краном', 'Деревянное окно 600', 'Деревянное окно 400', 'Душевой поддон', 'Изменение стандартной планировки', 'Дополнительное оборудование', 'Доставка и адрес', '10 000', '44 000', configuration.total.toLocaleString('ru-RU').replace(/[\u00a0\u202f]/g, ' ')]) assert.ok(text.includes(fragment), district + ': PDF missing ' + fragment)
   assert.equal(configuration.options.find(option => option.id === 'replanning')?.price, 10000, district + ': PDF must use the approved plan-change amount')
   if (configuration.unpricedCount) assert.match(text, /индивидуальный расчёт/i, district + ': missing individual-price warning')
   assert.ok(doc.getNumberOfPages() >= 2)

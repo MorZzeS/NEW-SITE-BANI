@@ -206,9 +206,6 @@
   .summary { order: 0; width: 100%; border-radius: 14px; }
   .optionGroups { order: 1; }
 }
-@media(prefers-reduced-motion:reduce) {
-  .pendingSummary::after { transition: none; }
-}
 @media(max-width:540px) {
   .modelVisual { aspect-ratio: 3 / 2; border-radius: 13px 13px 0 0; }
   .modelDetails,.priceBreakdown { padding: 14px; }
@@ -251,23 +248,13 @@
 .includedBadge { display: inline-flex; flex: 0 0 auto; align-items: center; min-height: 28px; margin-top: 5px; padding: 5px 10px; border: 1px solid rgb(145 100 31 / 38%); border-radius: 999px; color: #805514; background: #efe2c5; font-size: 11px; font-weight: 700; white-space: nowrap; }
 .baseTable { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 30px; margin: 0; }
 .baseSpecRow { display: grid; grid-template-columns: minmax(112px, .78fr) minmax(0, 1.65fr); align-items: start; gap: 12px; min-width: 0; padding: 10px 0; border-bottom: 1px solid var(--glass-border-subtle); }
-.baseSpecRow dt { min-width: 0; color: var(--color-text); font-size: 12px; line-height: 1.45; font-weight: 700; }
-.baseSpecRow dd { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 5px 8px; min-width: 0; margin: 0; color: var(--color-text-muted); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
-.giftBadge,.pendingBadge { display: inline-flex; flex: 0 0 auto; align-items: center; border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent); border-radius: 999px; padding: 2px 6px; color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 7%, var(--glass-bg)); font-size: 10px; line-height: 1.25; font-weight: 650; white-space: nowrap; }
-.pendingDetails { --color-text: #292720; --color-text-muted: #5d584f; --color-text-subtle: #746d60; --color-accent: #91641f; --glass-border: rgb(112 92 57 / 24%); --glass-border-subtle: rgb(112 92 57 / 15%); --glass-bg: #fbf8f1; margin-top: 10px; padding: 11px 16px; border: 1px solid #ddd2bd; border-radius: 13px; color: #292720; background: #fbf8f1; }
-.pendingSummary { display: flex; align-items: center; gap: 12px; min-height: 26px; color: var(--color-text); list-style: none; cursor: pointer; font-size: 13px; line-height: 1.4; font-weight: 700; }
-.pendingSummary::-webkit-details-marker { display: none; }
-.pendingCount { margin-left: auto; color: var(--color-text-muted); font-size: 12px; white-space: nowrap; }
-.pendingSummary::after { content: ''; width: 7px; height: 7px; margin: 0 2px 3px 1px; border-right: 1.5px solid var(--color-text-muted); border-bottom: 1.5px solid var(--color-text-muted); transform: rotate(45deg); transition: transform .18s ease; }
-.pendingDetails[open] .pendingSummary { padding-bottom: 8px; border-bottom: 1px solid var(--glass-border-subtle); }
-.pendingDetails[open] .pendingSummary::after { margin-bottom: 0; transform: rotate(225deg); }
-.pendingIntro { margin: 9px 0 2px; color: var(--color-text-muted); font-size: 12px; line-height: 1.5; }
-.pendingTable .baseSpecRow:last-child { border-bottom: 0; }
+.baseSpecRow dt { min-width: 0; color: var(--color-text); font-size: 13px; line-height: 1.45; font-weight: 700; }
+.baseSpecRow dd { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 5px 8px; min-width: 0; margin: 0; color: var(--color-text-muted); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.giftBadge { display: inline-flex; flex: 0 0 auto; align-items: center; border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent); border-radius: 999px; padding: 2px 6px; color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 7%, var(--glass-bg)); font-size: 10px; line-height: 1.25; font-weight: 650; white-space: nowrap; }
 @media(max-width:760px) {
   .baseSpecification { padding: 15px; border-radius: 14px; }
   .baseHeader { flex-direction: column; gap: 10px; margin-bottom: 7px; padding-bottom: 12px; }
   .baseLead { margin-top: 7px; }
   .baseTable { grid-template-columns: minmax(0, 1fr); }
   .baseSpecRow { grid-template-columns: minmax(100px, .58fr) minmax(0, 1fr); gap: 10px; padding: 9px 0; }
-  .pendingDetails { padding: 10px 12px; border-radius: 11px; }
 }

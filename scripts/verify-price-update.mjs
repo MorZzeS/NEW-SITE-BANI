@@ -83,10 +83,12 @@ export function auditPriceUpdate(root = defaultRoot) {
   check(equal(newOptions.optionCategories, [...oldOptions.optionCategories, 'Логистика']), 'Option categories changed outside the approved logistics category')
   const owner20261109 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261109.json'), 'utf8'))
   const owner20261110 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261110.json'), 'utf8'))
+  const owner20261112 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261112.json'), 'utf8'))
   const approvedOverride = id => {
     const prior = owner20261109.overrides.find(option => option.id === id)
     const latest = owner20261110.overrides.find(option => option.id === id)
-    return prior || latest ? { ...(prior || {}), ...(latest || {}) } : undefined
+    const current = owner20261112.overrides.find(option => option.id === id)
+    return prior || latest || current ? { ...(prior || {}), ...(latest || {}), ...(current || {}) } : undefined
   }
   const approvedNewOptions = [
     { id: 'facade-ral', name: 'Окраска внешней отделки по RAL', salePrice: 25000, category: 'Внешний вид', priceUnit: 'опция', description: 'Окраска наружной отделки в выбранный оттенок RAL; цвет и материалы согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: 'Стоимость 25 000 ₽ утверждена владельцем 03.11.2026.' },
@@ -99,10 +101,16 @@ export function auditPriceUpdate(root = defaultRoot) {
     { id: 'wooden-window-400', name: 'Деревянное окно 400 × 400 мм', salePrice: 5500, category: 'Окна и двери', description: 'Деревянное окно размером 400 × 400 мм. Возможность установки и размеры проёма подтверждаются для выбранной модели.', priceUnit: 'шт.', enabled: true, source: 'owner-2026-11-03', priceSource: '5 500 ₽ — уточнение владельца 03.11.2026.' },
     { id: 'replanning', image: '/images/options/guidance/replanning.svg', name: 'Перепланировка стандартного проекта', salePrice: 10000, category: 'Общее по бане', priceUnit: 'услуга', description: 'Изменение стандартной планировки бани по пожеланиям заказчика. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно', enabled: true, source: 'owner-2026-11-09', priceSource: '10 000 ₽ — утверждено владельцем 09.11.2026.' },
   ]
-  for (let index = 0; index < approvedNewOptions.length; index++) approvedNewOptions[index] = approvedOverride(approvedNewOptions[index].id) || approvedNewOptions[index]
+  for (let index = 0; index < approvedNewOptions.length; index++) approvedNewOptions[index] = { ...approvedNewOptions[index], ...(approvedOverride(approvedNewOptions[index].id) || {}) }
   approvedNewOptions.push(...owner20261109.additions)
+  approvedNewOptions.push(...owner20261112.additions)
   const baselineIds = oldOptions.additionalOptions.map(o => o.id)
-  check(equal(newOptions.additionalOptions.map(o => o.id), [...baselineIds, ...approvedNewOptions.map(o => o.id)]), 'Option IDs/order changed outside the exact owner-approved additions')
+  const actualOptionIds = newOptions.additionalOptions.map(o => o.id)
+  const actualBaselineOrder = actualOptionIds.filter(id => baselineIds.includes(id))
+  const actualAdditionOrder = actualOptionIds.filter(id => !baselineIds.includes(id))
+  check(equal(actualBaselineOrder, baselineIds), 'Historical option IDs/order changed')
+  check(equal([...actualAdditionOrder].sort(), approvedNewOptions.map(o => o.id).sort()), 'Option IDs changed outside the exact owner-approved additions')
+  check(new Set(actualOptionIds).size === actualOptionIds.length, 'Option IDs must be unique; duplicate option may double-count')
   const options = oldOptions.additionalOptions.map(before => {
     const after = newOptions.additionalOptions.find(option => option.id === before.id)
     const paid = typeof before.salePrice === 'number' && before.salePrice > 0 && before.source !== 'unconfirmed'
@@ -126,10 +134,11 @@ export function auditPriceUpdate(root = defaultRoot) {
   check(options.filter(o => o.paid).length === 18, 'Historical baseline must contain 18 confirmed paid options')
   for (const expected of approvedNewOptions) {
     const actual = newOptions.additionalOptions.find(option => option.id === expected.id)
-    check(equal(actual, expected), `${expected.id}: new option differs from its exact approved definition`)
+    const differences = [...new Set([...Object.keys(actual ?? {}), ...Object.keys(expected)])].filter(key => !equal(actual?.[key], expected[key])).map(key => `${key}: expected ${JSON.stringify(expected[key])}, got ${JSON.stringify(actual?.[key])}`)
+    check(equal(actual, expected), `${expected.id}: new option differs from its exact approved definition${differences.length ? ' (' + differences.join('; ') + ')' : ''}`)
     options.push({ id: expected.id, name: expected.name, unit: expected.priceUnit, paid: expected.salePrice !== null, baselinePrice: null, expectedPrice: expected.salePrice, currentPrice: actual?.salePrice, delta: null, baselinePriceSource: null, currentPriceSource: actual?.priceSource })
   }
-  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 38, 'Expected exactly 38 positive confirmed priced options')
+  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 39, 'Expected exactly 39 positive confirmed priced options')
   check(equal(newOptions.additionalOptions.filter(o => o.salePrice === null).map(o => o.id), ['ermak', 'larch-wash', 'ermak-16-ps', 'ermak-16-premium-steel', 'ermak-16-premium-cast-iron']), 'Only the unconfirmed larch floor and four individually calculated stove replacement supplements may be unpriced')
   for (const [id, price] of Object.entries({ led: 12000, 'steam-bench-oil': 15000 })) {
     const option = newOptions.additionalOptions.find(o => o.id === id)
@@ -150,7 +159,7 @@ export function auditPriceUpdate(root = defaultRoot) {
 export function writePriceReport(report, directory) {
   fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(path.join(directory, 'pricing-audit.json'), JSON.stringify(report, null, 2) + '\n')
-  const lines = [`# Изменение цен по состоянию на 03.11.2026 — ${report.status}`, '', `База моделей: \`${report.baseline}\`. 25 бань: +55 000 ₽ суммарно (+40 000 ₽ ранее и ещё +15 000 ₽ 03.11.2026); 6 домов: +40 000 ₽ без изменения. Исторические цены опций сверяются с \`${OPTION_BASELINE}\`; проверены восемь точных добавлений/уточнений. Повторный аудит не меняет цены.`, '', '| Модель / исполнение | До, ₽ | После, ₽ | Изменение, ₽ | Проверка |', '| --- | ---: | ---: | ---: | --- |']
+  const lines = [`# Изменение цен и утверждённых опций по состоянию на 12.11.2026 — ${report.status}`, '', `База моделей: \`${report.baseline}\`. 25 бань: +55 000 ₽ суммарно (+40 000 ₽ ранее и ещё +15 000 ₽ 03.11.2026); 6 домов: +40 000 ₽ без изменения. Исторические цены опций сверяются с \`${OPTION_BASELINE}\`; согласованные новые позиции проверяются по датированным fixtures. Повторный аудит не меняет цены.`, '', '| Модель / исполнение | До, ₽ | После, ₽ | Изменение, ₽ | Проверка |', '| --- | ---: | ---: | ---: | --- |']
   for (const model of report.models) {
     const status = model.currentPrice === model.expectedPrice && model.delta === model.expectedIncrease && !report.errors.some(error => error.startsWith(`${model.id}:`)) ? 'PASS' : 'FAIL'
     lines.push(`| ${model.id} — ${model.name} | ${rubles(model.baselinePrice)} | ${rubles(model.currentPrice)} | ${rubles(model.delta)} | ${status} |`)

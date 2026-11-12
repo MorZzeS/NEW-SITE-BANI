@@ -16,11 +16,12 @@ const selection = load('src/lib/equipment-selection.ts', id => {
   throw new Error('Unexpected equipment selection dependency: ' + id)
 })
 const ids = source.additionalOptions.filter(o => o.enabled).map(o => o.id)
-assert.equal(ids.length, 44)
+assert.equal(ids.length, 45)
 assert.equal(selection.equipmentSelection([...ids, ...ids, 'invalid']).selected.length, 39)
 const allSelection = selection.equipmentSelection(ids)
 assert.equal(allSelection.knownTotal, source.additionalOptions.filter(o => selection.normalizeOptionIds(ids).includes(o.id) && !['delivery', 'crane-unload'].includes(o.id)).reduce((sum, o) => sum + (o.salePrice ?? 0), 0), 'logistics prices stay out until the Ramensky district is selected')
-assert.equal(allSelection.unpricedCount, 4, 'larch flooring, replacement supplement and both district-priced services need confirmation by default')
+assert.equal(allSelection.unpricedCount, 3, 'larch flooring, replacement supplement and delivery need confirmation; assembly replaces separate crane unloading')
+assert.ok(allSelection.selected.some(option => option.id === 'onsite-assembly') && !allSelection.selected.some(option => option.id === 'crane-unload'), 'assembly includes unloading and must not double count crane service')
 assert.equal(source.additionalOptions.filter(option => /санузел/i.test(option.name)).length, 1, 'the existing sanitary option must not be duplicated')
 for (const id of ['delivery', 'crane-unload']) {
   const option = source.additionalOptions.find(o => o.id === id)
@@ -94,7 +95,7 @@ await renderContacts(contactProps).find(node => node.type === 'button').props.on
 assert(renderContacts(contactProps).some(node => node.props?.role === 'status' && node.props.children.includes('Не удалось скопировать')))
 contactState = []
 assert(!renderContacts({}).some(node => node.type === 'button'), 'Empty selection has no copy control')
-console.log('PASS: 44 options; protected historical prices, exact owner-approved overrides and additions, district-dependent logistics, deduplication, unpriced items, comment limit; contact-only selection transfer and clipboard success/failure. No real requests sent.')
+console.log('PASS: 45 options; protected historical prices, exact owner-approved overrides and additions, district-dependent logistics, deduplication, unpriced items, comment limit; contact-only selection transfer and clipboard success/failure. No real requests sent.')
 
 const baseData=load('src/data/equipment.ts');let uiHook=0;const uiState=[[],{},'unknown','',[]];
 const uiReact={useState: initial=>{const n=uiHook++;return [uiState[n]??initial,next=>{uiState[n]=typeof next==='function'?next(uiState[n]):next}]},useRef:value=>({current:value})};

@@ -1,4 +1,4 @@
-import { deliveryDistrictLabel, managerOptionName, isLogisticsOption, normalizeDeliveryAddress, normalizeDeliveryDistrict, resolveOptionPrice, type DeliveryDistrict } from '@/lib/logistics'
+import { deliveryDistrictLabel, isLogisticsOption, isPreliminaryLogisticsEstimate, managerOptionName, normalizeDeliveryAddress, normalizeDeliveryDistrict, preliminaryOptionPriceText, resolveOptionPrice, type DeliveryDistrict } from '@/lib/logistics'
 import { additionalOptions } from '@/data/options'
 export const enabledEquipmentOptions = additionalOptions.filter(option => option.enabled)
 export const stoveOptionIds = ['ermak-base', 'ermak', 'ermak-16-ps', 'ermak-16-premium-steel', 'ermak-16-premium-cast-iron'] as const
@@ -19,6 +19,7 @@ export function optionQuantityLabel(option: { id: string; quantity: number }, co
 const selectionConflicts: Readonly<Record<string, readonly string[]>> = {
   'external-light': ['outdoor-lighting', 'hidden-wiring'],
   'outdoor-lighting': ['external-light'], 'hidden-wiring': ['external-light'],
+  'onsite-assembly': ['crane-unload'], 'crane-unload': ['onsite-assembly'],
 }
 /** Last explicit selection wins, including restored/stale input and direct calculator calls. */
 export function normalizeOptionIds(ids: readonly string[]): string[] {
@@ -40,15 +41,36 @@ export function equipmentSelection(ids: readonly string[], quantities: Readonly<
   const knownTotal = subtotal(), equipmentSubtotal = subtotal('equipment'), logisticsSubtotal = subtotal('logistics')
   const unpricedCount = selected.filter(option => option.salePrice === null).length
   const money = (price: number) => price.toLocaleString('ru-RU') + ' ₽'
-  const summary = (compact = false) => selected.length || deliveryAddress || deliveryDistrict !== 'unknown' ? [
-    selected.length ? (compact ? 'Опции:' : 'Выбранные дополнительные опции:') : 'Дополнительные опции не выбраны.',
-    ...selected.map(option => (compact ? '' : '• ') + managerOptionName(option, compact) + optionQuantityLabel(option, compact) + ' — ' + (option.salePrice === null ? (compact ? 'согл.' : 'Стоимость по согласованию') : money(option.salePrice * option.quantity))),
-    (compact ? 'Оборудование ' : 'Оборудование: ') + money(equipmentSubtotal),
-    (compact ? 'Логистика ' : 'Логистика: ') + money(logisticsSubtotal),
-    (compact ? 'Дополнения: ' : 'Итого дополнений: ') + money(knownTotal),
-    ...(selected.some(option => option.kind === 'logistics') || deliveryAddress || deliveryDistrict !== 'unknown' ? ['Район: ' + deliveryDistrictLabel(deliveryDistrict), ...(deliveryAddress ? ['Адрес: ' + deliveryAddress] : [])] : []),
-    ...(unpricedCount ? ['Предварительная сумма без позиций индивидуального расчёта и неподтверждённой логистики.'] : []),
-  ].join('\n') : ''
+  const hasPreliminaryLogistics = selected.some(option => isPreliminaryLogisticsEstimate(option.id))
+  const hasOnsiteAssembly = selected.some(option => option.id === 'onsite-assembly')
+  const hasUnpricedLogistics = selected.some(option => option.kind === 'logistics' && option.salePrice === null)
+  const logisticsText = hasUnpricedLogistics ? 'Индивидуальный расчёт' : (hasPreliminaryLogistics ? 'от ' : '') + money(logisticsSubtotal)
+  const summary = (compact = false) => {
+    if (!selected.length && !deliveryAddress && deliveryDistrict === 'unknown') return ''
+    const compactOptions = selected.map(option => managerOptionName(option, true) + optionQuantityLabel(option, true) + '=' + (option.salePrice === null
+      ? 'согл.'
+      : preliminaryOptionPriceText(option.id, option.salePrice, option.quantity).replace(/^\+/, '')))
+    if (compact) return [
+      compactOptions.length ? 'Опции: ' + compactOptions.join('; ') : 'Доп. опции не выбраны',
+      `Известно: ${money(knownTotal)}`,
+      ...(hasOnsiteAssembly ? ['Сборка на участке — ориентир 300 000 ₽; доставка отдельно, состав работ и условия участка уточняются в предложении.'] : []),
+      ...(selected.some(option => option.kind === 'logistics') || deliveryAddress || deliveryDistrict !== 'unknown'
+        ? [`Район: ${deliveryDistrictLabel(deliveryDistrict)}${deliveryAddress ? '; адрес: ' + deliveryAddress : ''}`]
+        : []),
+      ...(unpricedCount ? ['Согл. цены отдельно.'] : []),
+    ].join('\n')
+    return [
+      selected.length ? 'Выбранные дополнительные опции:' : 'Дополнительные опции не выбраны.',
+      ...selected.map(option => '• ' + managerOptionName(option) + optionQuantityLabel(option) + ' — ' + (option.salePrice === null ? 'Стоимость по согласованию' : preliminaryOptionPriceText(option.id, option.salePrice, option.quantity).replace(/^\+/, ''))),
+      'Оборудование: ' + money(equipmentSubtotal),
+      (hasPreliminaryLogistics || hasUnpricedLogistics ? 'Логистика, предварительно: ' : 'Логистика: ') + logisticsText,
+      (hasPreliminaryLogistics && !unpricedCount ? 'Предварительная сумма дополнений от: ' : 'Итого дополнений: ') + money(knownTotal),
+      ...(hasPreliminaryLogistics ? ['Ориентир Раменского района: доставка от 20 000 ₽ (обычно 20 000–25 000 ₽); разгрузка краном от 25 000 ₽ (обычно 25 000–30 000 ₽). Итог зависит от адреса и условий подъезда.'] : []),
+      ...(hasOnsiteAssembly ? ['Сборка на участке — ориентир 300 000 ₽; доставка отдельно. Состав работ, включение разгрузки и установки, площадка и другие условия фиксируются в предложении до заказа.'] : []),
+      ...(selected.some(option => option.kind === 'logistics') || deliveryAddress || deliveryDistrict !== 'unknown' ? ['Район: ' + deliveryDistrictLabel(deliveryDistrict), ...(deliveryAddress ? ['Адрес: ' + deliveryAddress] : [])] : []),
+      ...(unpricedCount ? ['Предварительная сумма не включает позиции индивидуального расчёта.'] : []),
+    ].join('\n')
+  }
   const comment = summary().length > 1500 ? summary(true) : summary()
   return { selected, knownTotal, equipmentSubtotal, logisticsSubtotal, unpricedCount, comment, deliveryDistrict, deliveryAddress }
 }

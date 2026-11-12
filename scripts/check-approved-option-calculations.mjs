@@ -103,7 +103,8 @@ for (const model of [...saunas, ...homes]) {
   const maximal = calculate(model, options.map(item => item.id), { promotionalDiscount: true, quantities: maximalQuantities, deliveryDistrict: 'outside', deliveryAddress: 'А'.repeat(300) })
   assert.ok(configurationManagerText(maximal, true).length <= 1500, `${model.id}: every selected service and maximum quantity must fit the bounded manager note with the full address: ${configurationManagerText(maximal, true).length}`)
 }
-assert.ok(equipmentSelection(options.map(item => item.id), maximalQuantities, { deliveryDistrict: 'outside', deliveryAddress: 'А'.repeat(300) }).comment.length <= 1500)
+const maximalEquipmentComment = equipmentSelection(options.map(item => item.id), maximalQuantities, { deliveryDistrict: 'outside', deliveryAddress: 'А'.repeat(300) }).comment
+assert.ok(maximalEquipmentComment.length <= 1500, 'global option summary with maximum counts/address must fit 1500 characters: ' + maximalEquipmentComment.length)
 
 // Exercise the real context state/persistence with React hook stubs, without browser or personal data.
 let states = [], effects = [], dependencies = [], hook = 0

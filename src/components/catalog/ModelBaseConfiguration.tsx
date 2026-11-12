@@ -8,7 +8,7 @@ import { optionCategories } from '@/data/options'
 import type { Home, Sauna } from '@/types'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { configurationManagerText } from '@/lib/model-configuration-selection'
-import { isLogisticsOption, resolveOptionPrice } from '@/lib/logistics'
+import { isLogisticsOption, preliminaryOptionPriceText, resolveOptionPrice } from '@/lib/logistics'
 import { DeliveryFields } from './DeliveryFields'
 import { equipmentSelection, optionCountLabel, optionQuantityLimit, optionSelectionGroup } from '@/lib/equipment-selection'
 import { modelOptionAvailability } from '@/lib/model-option-availability'
@@ -20,7 +20,7 @@ import { withBasePath } from '@/lib/site-path'
 type Option = ReturnType<typeof modelOptionAvailability>[number]['option']
 
 function optionPrice(option: Option) {
-  return option.salePrice === null ? 'Стоимость по согласованию' : `+${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : option.id === 'ceiling-height' ? ' / 10 см' : ''}`
+  return option.salePrice === null ? 'Стоимость по согласованию' : `${preliminaryOptionPriceText(option.id, option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : option.id === 'ceiling-height' ? ' / 10 см' : ''}`
 }
 
 export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
@@ -39,7 +39,13 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
   const selectedIdsSet = new Set(selected.map(option => option.id))
   const { discount, discountLabel, total } = configuration
   const basePriceText = formatPrice(model.priceFrom)
-  const totalText = formatPrice(total)
+  const hasLogisticsEstimate = configuration.options.some(option => option.id === 'delivery' || option.id === 'crane-unload')
+  const hasUnpriced = configuration.unpricedCount > 0
+  const totalText = `${hasLogisticsEstimate || hasUnpriced ? 'от ' : ''}${formatPrice(total)}`
+  const assemblyOption = configuration.options.find(option => option.id === 'onsite-assembly')
+  const transportOptions = configuration.options.filter(option => option.id === 'delivery' || option.id === 'crane-unload')
+  const transportSubtotal = transportOptions.reduce((sum, option) => sum + (option.price ?? 0) * option.quantity, 0)
+  const unpricedTransport = transportOptions.some(option => option.price === null)
   const configurationNote = [configurationManagerText(configuration), pageUrl ? `Страница модели: ${pageUrl}` : ''].filter(Boolean).join('\n')
 
   useEffect(() => {
@@ -58,8 +64,8 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
       return <details className={styles.optionCategory} key={category}>
         <summary><ConfigurationCategoryTitle name={category} count={optionCountLabel(items.length)} /></summary>
         {category === 'Логистика' && <DeliveryFields id={`model-${model.id}`} district={configuration.deliveryDistrict} address={configuration.deliveryAddress} onDistrict={setDeliveryDistrict} onAddress={setDeliveryAddress} />}
-        <div className={styles.optionList}>
-          {items.map(({ option, reason, status }) => <ConfigurationOption key={option.id} option={isLogisticsOption(option.id) ? { ...option, salePrice: resolveOptionPrice(option, configuration.deliveryDistrict) } : option} checked={selectedIdsSet.has(option.id)} onToggle={() => toggleOption(option.id)} inputId={`model-option-${model.id}-${option.id}`} groupName={optionSelectionGroup(option.id) ? `model-stove-${model.id}` : undefined} price={isLogisticsOption(option.id) && resolveOptionPrice(option, configuration.deliveryDistrict) === null ? 'Индивидуальный расчёт' : optionPrice(option)} reason={reason} status={status}>
+      <div className={styles.optionList}>
+          {items.map(({ option, status }) => <ConfigurationOption key={option.id} option={isLogisticsOption(option.id) ? { ...option, salePrice: resolveOptionPrice(option, configuration.deliveryDistrict) } : option} checked={selectedIdsSet.has(option.id)} onToggle={() => toggleOption(option.id)} inputId={`model-option-${model.id}-${option.id}`} groupName={optionSelectionGroup(option.id) ? `model-stove-${model.id}` : undefined} price={isLogisticsOption(option.id) && resolveOptionPrice(option, configuration.deliveryDistrict) === null ? 'Индивидуальный расчёт' : optionPrice(option)} status={status}>
             {optionQuantityLimit(option) > 1 && selectedIdsSet.has(option.id) && <label className="mt-3 flex flex-wrap items-center gap-3 text-sm text-cream/85" htmlFor={option.id === 'ceiling-height' ? `ceiling-steps-${model.id}` : `quantity-${model.id}-${option.id}`}>
               <span>{option.id === 'ceiling-height' ? 'Увеличение высоты, шагов по 10 см:' : 'Количество, шт.:'}</span>
               <input id={option.id === 'ceiling-height' ? `ceiling-steps-${model.id}` : `quantity-${model.id}-${option.id}`} type="number" min={1} max={optionQuantityLimit(option)} step={1} className="input-glass w-20 rounded-lg px-2 py-2" value={configuration.options.find(item => item.id === option.id)?.quantity ?? 1} onChange={event => setOptionQuantity(option.id, Number(event.target.value))} />
@@ -82,7 +88,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
     </li>)
   }
 
-  return <section className={`${styles.configuration} mb-16`} aria-label={`Калькулятор опций для модели ${model.name}`}>
+    return <section id={`model-calculator-${model.id}`} style={{ scrollMarginTop: '7rem' }} className={`${styles.configuration} mb-16`} aria-label={`Калькулятор опций для модели ${model.name}`}>
     <section className={styles.calculator} data-model-option-calculator={model.id} data-base-price={model.priceFrom} data-discount={discount} data-promotion={promotionalDiscount ? 'exit-intent' : ''} data-available-count={available.length} data-included-count={included.length} data-unknown-count={unknown.length} aria-labelledby={`model-options-title-${model.id}`}>
       <div className={styles.calculatorGrid}>
         <aside className={styles.summary} aria-label={`Итог расчёта для модели ${model.name}`}>
@@ -93,7 +99,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
           <div className={styles.modelDetails}>
             <p className={styles.eyebrow}>{model.article ?? 'Ваша модель'}</p>
             <h3>{model.name}</h3>
-            <p className={styles.modelSize}>{model.size}{model.area ? <> <span aria-hidden="true">·</span> {model.area} м²</> : null}</p>
+            <p className={styles.modelSize}>{model.size}{model.area ? <> <span aria-hidden="true">·</span> Площадь застройки {model.area} м²</> : null}</p>
             <p className={styles.modelDescription}>{model.description}</p>
           </div>
           <div className={styles.priceBreakdown}>
@@ -101,7 +107,8 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
             <dl className={styles.summaryRows}>
               <div><dt>Базовая комплектация</dt><dd>{basePriceText}</dd></div>
               <div><dt>Дополнительное оборудование</dt><dd>+{formatPrice(configuration.equipmentSubtotal)}</dd></div>
-              <div><dt>Логистические услуги</dt><dd>+{formatPrice(configuration.logisticsSubtotal)}</dd></div>
+              {transportOptions.length > 0 && <div><dt>Доставка и разгрузка</dt><dd>{unpricedTransport ? 'Индивидуальный расчёт' : `от ${formatPrice(transportSubtotal)}`}</dd></div>}
+              {assemblyOption && <div><dt>Сборка и установка</dt><dd>+{formatPrice(assemblyOption.price! * assemblyOption.quantity)}</dd></div>}
               <div data-discount-row={discount ? 'applied' : 'none'}><dt>{discount ? discountLabel : 'Скидка'}</dt><dd>{discount ? `−${formatPrice(discount)}` : 'не применена'}</dd></div>
             </dl>
             <details className={styles.selectedDetails} open>
@@ -111,18 +118,19 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
                   const quantity = configuration.options.find(item => item.id === option.id)?.quantity ?? 1
                   return <li key={option.id}>
                     <span>{option.name}{option.id === 'ceiling-height' ? ` (+${quantity * 10} см)` : quantity > 1 ? ` · ${quantity} шт.` : ''}</span>
-                    <strong>{option.salePrice === null ? 'По согласованию' : `+${formatPrice(option.salePrice * quantity)}`}</strong>
+                    <strong>{option.salePrice === null ? 'По согласованию' : preliminaryOptionPriceText(option.id, option.salePrice, quantity)}</strong>
                   </li>
                 })}
               </ul> : <p className={styles.emptySelection}>Пока без дополнений. Выберите подходящие опции справа — они появятся здесь.</p>}
             </details>
             <div className={styles.total} role="status" aria-live="polite" aria-atomic="true" data-selected-count={selected.length} data-known-options-total={knownTotal} data-estimated-total={total} data-discount={discount} data-selected-option-ids={selected.map(option => option.id).join(',')}>
-              <span>Итого подтверждённых позиций{unpricedCount ? ' (без опций по согласованию)' : ''}</span>
+              <span>{hasLogisticsEstimate || hasUnpriced ? 'Предварительный итог от' : 'Предварительный итог'}{unpricedCount ? ' (без опций по согласованию)' : ''}</span>
               <strong key={total}>{totalText}</strong>
             </div>
-            {unpricedCount > 0 && <p className={styles.unavailable}>Предварительная сумма без {optionCountLabel(unpricedCount)} индивидуального расчёта, включая неподтверждённые логистические расходы.</p>}
+            {unpricedCount > 0 && <p className={styles.unavailable}>В сумму не включены {optionCountLabel(unpricedCount)} индивидуального расчёта.</p>}
+            {hasLogisticsEstimate && <p className={styles.unavailable}>Стоимость доставки и разгрузки указана как ориентир «от»; итог подтвердит менеджер по адресу и условиям подъезда.</p>}
             {discount > 0 && <p className={styles.availabilityNote}>Скидка 15 000 ₽ применена по действующей акции для бань; окончательные условия подтверждаются при оформлении.</p>}
-            <p className={styles.summaryFine}>Базовая цена указана без стоимости доставки. Совместимость и окончательная цена подтверждаются при заказе.</p>
+            <p className={styles.summaryFine}>Базовая цена указана без стоимости доставки. Применимость дополнений и окончательная комплектация подтверждаются при заказе.</p>
             <button type="button" className={styles.requestButton} data-calculator-request onClick={goToContacts}>Оставить заявку на эту комплектацию</button>
             <button type="button" className={styles.resetButton} data-calculator-reset onClick={resetSelection}>Сбросить выбор</button>
             <div className="mt-4"><DownloadModelPdfButton model={model} /></div>

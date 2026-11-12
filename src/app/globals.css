@@ -662,13 +662,19 @@ html { scroll-behavior: smooth; }
  .interior-lightbox-image { height: 65svh; }
  .interior-lightbox-toolbar { padding: 10px; gap: 8px; }
 }
-/* Base specification and options share quiet architectural separators. */
-.base-equipment-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; text-align: left; }
-.base-equipment-table th, .base-equipment-table td { padding: 16px 20px; border-bottom: 1px solid var(--glass-border-subtle); vertical-align: top; }
-.base-equipment-table thead th { font-size: 12px; letter-spacing: .04em; color: var(--color-text-muted); background: var(--glass-bg); }
-.base-equipment-table tbody th { width: 25%; font-weight: 600; }
-.base-equipment-table tbody tr:nth-child(even) { background: var(--glass-bg); }
-.base-equipment-table td { color: var(--color-text-muted); }
+/* Compact base-equipment tables on the model catalogue use a warm, high-contrast surface. */
+.base-equipment-shell { --base-ink:#292720; --base-muted:#5d584f; --base-border:rgb(112 92 57 / 17%); padding:clamp(16px,2.2vw,26px); border:1px solid #ddd2bd; border-radius:17px; color:var(--base-ink); background:#f7f3ea; box-shadow:0 12px 32px rgb(22 18 11 / 10%); }
+.base-equipment-header { display:flex; align-items:flex-start; justify-content:space-between; gap:22px; margin:0 0 14px; padding:0 0 14px; border-bottom:1px solid var(--base-border); }
+.base-equipment-header>div { min-width:0; }
+.base-equipment-header h2 { color:var(--base-ink); }
+.base-equipment-header p { max-width:740px; color:var(--base-muted); }
+.base-equipment-badge { display:inline-flex; flex:0 0 auto; align-items:center; min-height:28px; margin-top:5px; padding:5px 10px; border:1px solid rgb(145 100 31 / 38%); border-radius:999px; color:#805514; background:#efe2c5; font-size:11px; font-weight:700; white-space:nowrap; }
+.base-equipment-table { display:block; width:100%; border-collapse:collapse; font-size:13px; line-height:1.5; text-align:left; }
+.base-equipment-table tbody { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:30px; }
+.base-equipment-table tr { display:grid; grid-template-columns:minmax(112px,.78fr) minmax(0,1.65fr); align-items:start; gap:12px; padding:10px 0; border-bottom:1px solid var(--base-border); }
+.base-equipment-table th { padding:0; color:var(--base-ink); font-weight:700; }
+.base-equipment-table td { padding:0; color:var(--base-muted); }
+.base-equipment-gift { display:inline-flex; margin:6px 0 0 8px; padding:2px 7px; border:1px solid rgb(145 100 31 / 30%); border-radius:999px; color:#805514; background:#efe2c5; font-size:10px; font-weight:650; line-height:1.3; white-space:nowrap; }
 .extra-options { border: 1px solid var(--glass-border); border-radius: 10px; overflow: hidden; }
 .extra-options-group + .extra-options-group { border-top: 1px solid var(--glass-border-subtle); }
 .extra-options-group h3 button { width: 100%; min-height: 60px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 15px; font-weight: 600; text-align: left; }
@@ -683,10 +689,12 @@ html { scroll-behavior: smooth; }
 .model-base-configuration dd { color: var(--color-text); overflow-wrap: anywhere; }
 @media (max-width: 900px) { .model-base-configuration dl { grid-template-columns: 1fr; } }
 @media (max-width: 640px) {
- .base-equipment-table thead { display: none; }
- .base-equipment-table tr, .base-equipment-table th, .base-equipment-table td { display: block; width: 100%; }
- .base-equipment-table tbody th { width: 100%; padding: 14px 12px 4px; border-bottom: 0; }
- .base-equipment-table td { padding: 0 12px 14px; }
+ .base-equipment-header { flex-direction:column; gap:10px; margin-bottom:7px; padding-bottom:12px; }
+ .base-equipment-table tbody { display:block; }
+ .base-equipment-table tr { display:block; padding:10px 0; }
+ .base-equipment-table th, .base-equipment-table td { display:block; width:100%; }
+ .base-equipment-table th { padding:0 0 5px; }
+ .base-equipment-table td { padding:0; }
  .extra-options-group h3 button { padding: 16px; }
  .extra-options-content { padding: 0 16px; }
  .model-base-configuration dl > div { grid-template-columns: 1fr; gap: 4px; }

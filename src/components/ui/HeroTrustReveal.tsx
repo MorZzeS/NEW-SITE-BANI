@@ -6,7 +6,7 @@ import { homepageTrustItems } from '@/data/homepage'
 import Link from 'next/link'
 
 const icons = { production: Factory, delivery: Truck, installation: Wrench, warranty: Shield }
-const destinations = { production: '/o-kompanii#production', delivery: '/dostavka-i-ustanovka#delivery', installation: '/dostavka-i-ustanovka#installation', warranty: '#home-warranty' }
+const destinations = { production: '/o-kompanii#production', delivery: '/dostavka-i-ustanovka#delivery', installation: '/dostavka-i-ustanovka#installation', warranty: '/garantiya' }
 
 // Real destinations keep the decorative glass panel useful without reveal tooltips.
 export function HeroTrustReveal() {

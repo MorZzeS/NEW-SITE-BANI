@@ -28,14 +28,14 @@ export default async function ModelSheet({ params }: { params: Promise<{ id: str
   return <article className="model-sheet">
     <div className="print-model-action mb-6"><ModelConfigurationProvider model={model} optionsEnabled={false}><DownloadModelPdfButton model={model} /></ModelConfigurationProvider><PrintModelButton /><p className="text-sm mt-3">PDF содержит базовую комплектацию. PDF с выбранными опциями можно скачать на странице модели.</p></div>
     <header className="sheet-heading"><span>БАНИ ГЕРАСИМОВ · BANGER.SU</span><p>Информация о модели</p></header>
-    <h1>{model.name}</h1><p>{model.article} · {model.size} · {model.area} м²</p>
+    <h1>{model.name}</h1><p>{model.article} · {model.size} · площадь застройки {model.area} м²</p>
     <div className="sheet-images"><figure><img src={withBasePath(model.image)} alt={model.name} /><figcaption>Визуализация модели</figcaption></figure>
       {model.floorPlan && <figure><img src={withBasePath(model.floorPlan)} alt={`Планировка ${model.name}`} /><figcaption>Планировка модели</figcaption></figure>}</div>
     <p>{model.description}</p>
     <h2>Стоимость</h2><p>{model.specs.find(spec => spec.label === 'Исполнение')?.value}</p><p className="sheet-price">{model.priceFrom.toLocaleString('ru-RU')} ₽</p>
     {model.priceVariants?.map(v => <p key={v}>{v}</p>)}
     <h2>Характеристики</h2><dl className="model-parameters">
-      <div><dt>Размер</dt><dd>{model.size}</dd></div><div><dt>Площадь</dt><dd>{model.area} м²</dd></div><div><dt>Артикул</dt><dd>{model.article}</dd></div>
+      <div><dt>Размер</dt><dd>{model.size}</dd></div><div><dt>Площадь застройки</dt><dd>{model.area} м²</dd></div><div><dt>Артикул</dt><dd>{model.article}</dd></div>
       {model.specs.filter(s => !['Размер','Площадь застройки'].includes(s.label)).map(s => <div key={s.label}><dt>{s.label}</dt><dd>{s.value}</dd></div>)}</dl>
     <h2>Комплектация и особенности по каталогу</h2><ul>{modelFeatures(model).map(f => <li key={f}>{f}</li>)}</ul>
     <h2>Базовая комплектация</h2><dl className="model-parameters">{modelBaseConfiguration(model).map(row => <div key={row.label}><dt>{row.label}</dt><dd>{row.value}</dd></div>)}</dl>

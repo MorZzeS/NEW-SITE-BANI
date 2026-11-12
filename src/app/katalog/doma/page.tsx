@@ -7,7 +7,7 @@ import { HomeCard } from '@/components/catalog/HomeCard'
 import { homes } from '@/data'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 import Link from 'next/link'
-import { longestDimensionInMeters } from '@/lib/catalog-filters'
+import { filterByBudget, longestDimensionInMeters, sortByPrice } from '@/lib/catalog-filters'
 
 
 export default function DomaCatalogPage() {
@@ -32,11 +32,10 @@ export default function DomaCatalogPage() {
         return meters >= 8
       })
     }
-    if (minPrice > 0) list = list.filter(home => home.priceFrom >= minPrice)
-    if (maxPrice !== '') list = list.filter(home => home.priceFrom <= maxPrice)
+    list = filterByBudget(list, minPrice, maxPrice)
 
-    if (sort === 'price_asc') list.sort((a, b) => a.priceFrom - b.priceFrom)
-    if (sort === 'price_desc') list.sort((a, b) => b.priceFrom - a.priceFrom)
+    if (sort === 'price_asc') list = sortByPrice(list, 'asc')
+    if (sort === 'price_desc') list = sortByPrice(list, 'desc')
 
     return list
   }, [sort, length, minPrice, maxPrice])

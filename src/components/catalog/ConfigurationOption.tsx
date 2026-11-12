@@ -13,19 +13,22 @@ export function ConfigurationCategoryTitle({ name, count }: { name: string; coun
   return <><Icon className={styles.categoryIcon} size={22} aria-hidden="true" /><span className={styles.categoryName}>{name}</span><span className={styles.count}>{count}</span><ChevronDown className={styles.chevron} size={19} aria-hidden="true" /></>
 }
 
-export function ConfigurationOption({ option, checked, onToggle, inputId, price, reason, status = 'available', groupName, children }: {
-  option: Omit<typeof additionalOptions[number], 'salePrice'> & { salePrice: number | null }; checked: boolean; onToggle: () => void; inputId: string; price: string; reason?: string; status?: string; groupName?: string; children?: ReactNode
+export function ConfigurationOption({ option, checked, onToggle, inputId, price, status = 'available', groupName, children }: {
+  option: Omit<typeof additionalOptions[number], 'salePrice'> & { salePrice: number | null }; checked: boolean; onToggle: () => void; inputId: string; price: string; status?: string; groupName?: string; children?: ReactNode
 }) {
   const guidance = optionGuidance[option.id]
   return <article className={styles.option} data-selected={checked} data-option-id={option.id} data-option-price={option.salePrice ?? ''} data-option-selectable="true" data-option-status={status}>
     <label className={styles.main} htmlFor={inputId}>
-      <span className={styles.toggle}><input id={inputId} type={groupName ? 'radio' : 'checkbox'} name={groupName} checked={checked} onChange={onToggle} aria-labelledby={`${inputId}-name`} aria-describedby={reason ? `${inputId}-reason` : undefined} /><span className={styles.check} aria-hidden="true">{checked && <Check size={16} strokeWidth={3} />}</span></span>
+      <span className={styles.toggle}><input id={inputId} type={groupName ? 'radio' : 'checkbox'} name={groupName} checked={checked} onChange={onToggle} aria-labelledby={`${inputId}-name`} /><span className={styles.check} aria-hidden="true">{checked && <Check size={16} strokeWidth={3} />}</span></span>
       <span className={styles.visual}>{guidance && <><Image src={withBasePath(guidance.image)} alt={option.id === 'boiler' ? 'Бойлер 50 л — фото из каталога' : `Иллюстративная схема: ${option.name}`} width={104} height={78} sizes="(max-width: 540px) 76px, 104px" /><small>{option.id === 'boiler' ? 'Фото' : 'Схема'}</small></>}</span>
       <strong className={styles.name} id={`${inputId}-name`}>{option.name}</strong>
       <span className={styles.price}>{price}</span>
       <span className={styles.description}>{guidance?.explanation ?? option.description}{option.priceUnit === 'шт.' && <span className={styles.unit}>В расчёте один элемент: 1 шт.</span>}</span>
     </label>
-    {(reason || guidance?.notes) && <p className={styles.note} id={`${inputId}-reason`}>{guidance?.notes}{reason && <span>{reason}</span>}</p>}
+    {option.id === 'onsite-assembly' && checked && <details className={styles.serviceConditions}>
+      <summary>Условия на участке</summary>
+      <p>{guidance?.notes}</p>
+    </details>}
     {children}
   </article>
 }

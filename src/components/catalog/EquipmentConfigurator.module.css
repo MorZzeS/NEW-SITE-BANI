@@ -9,18 +9,19 @@
 .lead{color:var(--color-text-subtle);max-width:650px;font-size:17px;margin:0 0 20px}
 .sectionNav{display:flex;gap:12px 24px;flex-wrap:wrap}.sectionNav a{font-size:13px}.sectionNav,.base h2,.popular h2{scroll-margin-top:110px}
 .jump{display:inline-flex;align-items:center;gap:12px;margin-top:0;padding:9px 0;border-bottom:1px solid var(--glass-border);color:var(--color-accent);font-weight:650;min-height:44px}
-.base{margin:10px 0 38px;padding:22px 24px 24px;border:1px solid var(--glass-border);border-radius:18px;background:var(--color-surface-2)}
-.base h2{font-size:22px;margin:4px 0 8px}
-.base>.eyebrow{margin-bottom:4px}
-.base>.note{margin-bottom:8px}
-.included{font-size:15px;color:var(--color-accent);font-weight:600;margin:0 0 8px}
+.base{--color-text:#292720;--color-text-subtle:#5d584f;--glass-border:rgb(112 92 57 / 24%);margin:10px 0 38px;padding:22px 24px 24px;border:1px solid #ddd2bd;border-radius:18px;color:#292720;background:#f7f3ea;box-shadow:0 12px 32px rgb(22 18 11 / 10%)}
+.base h2{font-size:22px;margin:4px 0 8px;color:#292720}
+.baseHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid rgb(112 92 57 / 15%)}
+.baseHeader>div{min-width:0}.baseHeader .eyebrow{margin-bottom:4px;color:#91641f}
+.included{display:inline-flex;flex:0 0 auto;align-items:center;min-height:28px;margin-top:5px;padding:5px 10px;border:1px solid rgb(145 100 31 / 38%);border-radius:999px;color:#805514;background:#efe2c5;font-size:11px;font-weight:700;white-space:nowrap}
+.giftBadge{display:inline-flex;flex:0 0 auto;align-items:center;margin:6px 0 0 8px;padding:2px 7px;border:1px solid rgb(145 100 31 / 30%);border-radius:999px;color:#805514;background:#efe2c5;font-size:10px;font-weight:650;line-height:1.3;white-space:nowrap}
 .note{color:var(--color-text-subtle);font-size:13px;max-width:740px;margin:0 0 16px}
 .baseTable{display:block;width:100%;border-collapse:collapse;margin-top:12px}
 .baseTable tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
-.baseTable tr{display:flex;flex-direction:column;border-top:1px solid var(--glass-border);padding:8px 0}
+.baseTable tr{display:flex;flex-direction:column;border-top:1px solid rgb(112 92 57 / 15%);padding:8px 0}
 .baseTable tr:last-child{border-bottom:1px solid var(--glass-border)}
 .baseTable th{text-align:left;font-size:13px;width:100%;padding:0 0 4px;font-weight:650}
-.baseTable td{padding:0;color:var(--color-text-subtle);font-size:13px;line-height:1.5}
+.baseTable td{padding:0;color:#5d584f;font-size:13px;line-height:1.5}
 .popular{padding-bottom:62px}
 .popular h2{font-size:32px}
 .popularGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);margin-top:26px}
@@ -92,7 +93,7 @@
 @media(max-width:1200px){.shell,.inner{margin:0 32px}}
 @media(max-width:760px){
  .page{padding:104px 0 40px}.shell,.inner{margin:0 22px}.intro{padding-bottom:24px}.intro h1{font-size:32px}.page h2{font-size:27px}.lead{font-size:15px}.base{padding-bottom:32px}
- .base{padding:16px 16px 18px;border-radius:14px}.baseTable tbody{display:block}.sectionNav{gap:4px 20px}.base h2{font-size:24px}
+ .base{padding:16px 16px 18px;border-radius:14px}.baseHeader{flex-direction:column;gap:10px;margin-bottom:7px;padding-bottom:12px}.baseTable tbody{display:block}.sectionNav{gap:4px 20px}.base h2{font-size:24px}
  .baseTable tr{display:block;padding:15px 0}.baseTable th,.baseTable td{display:block;width:100%;padding:0}.baseTable td{margin-top:7px;font-size:13px}
  .popular{padding-bottom:40px}.popular h2{font-size:28px}.popularGrid{display:block}.popularGrid article,.popularGrid article:first-child{padding:18px 0;border-right:0;border-bottom:1px solid var(--glass-border);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 18px}.popularGrid article:last-child{border-bottom:0}.popularVisual{grid-column:1/-1;max-width:300px}.popularVisual img{height:150px}
  .popularGrid article>.eyebrow,.popularGrid article>h3,.popularGrid article>.description{grid-column:1/-1}.popularGrid h3,.popularGrid .description,.popularGrid .eyebrow{min-height:0}.popularGrid h3{margin:8px 0}.popularGrid .description{margin:8px 0}.popularGrid .price{align-self:center}.add{width:auto;min-width:104px;margin:0}

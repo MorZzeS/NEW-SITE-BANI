@@ -150,7 +150,8 @@ export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
     const row = (status: ModelOptionStatus, reason: string, source: string): ModelOptionRow => ({
       option, status, reason, source, blockedReason: status === 'available' ? undefined : reason,
     })
-    if (option.id === 'delivery' || option.id === 'crane-unload') return row('available', 'Самостоятельная логистическая услуга. Тариф зависит от района, выбранного вручную; адрес и условия работ согласуются при заказе.', availabilitySources.options)
+    if (option.id === 'delivery' || option.id === 'crane-unload') return row('available', 'Предварительная услуга с ориентиром цены для Раменского района; адрес и окончательная стоимость согласуются при заказе.', availabilitySources.options)
+    if (option.id === 'onsite-assembly') return row('available', 'Отдельная услуга сборки, разгрузки и установки. При её выборе разгрузка краном отдельно не начисляется; доставка до участка согласуется отдельно.', availabilitySources.options)
     if (option.id === 'replanning') return row('available', option.description, 'Решение владельца от 10.11.2026')
     const inBase = included(option.id)
     if (inBase) {

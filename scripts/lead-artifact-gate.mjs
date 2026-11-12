@@ -211,7 +211,7 @@ export function compiledLeadEndpointPresent(files, endpoint) {
     // The locked canvg dependency includes two GET-only member calls that load SVG as text.
     // Permit those calls only in the exact reviewed Next chunk.
     const reviewedCanvg = isNextStaticChunk(file.path) &&
-      ['fe2292408e7501841871b21337c872ff4744d29efe91b8b45114df3f4a915b9a', '09616de0cdcb16eb4cd05a7db84f45e2f3b711e2501651e33ba7a6ff18416752'].includes(createHash('sha256').update(file.content).digest('hex'))
+      ['fe2292408e7501841871b21337c872ff4744d29efe91b8b45114df3f4a915b9a', '09616de0cdcb16eb4cd05a7db84f45e2f3b711e2501651e33ba7a6ff18416752', 'a4d03e7d2a71f03d8924a701ce21945db475a50dab198d258eefbc53631e3af2'].includes(createHash('sha256').update(file.content).digest('hex'))
     const source = ts.createSourceFile(file.path, file.content, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS)
     let allowed = true
     if (source.parseDiagnostics.length) allowed = false

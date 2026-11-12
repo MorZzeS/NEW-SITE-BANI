@@ -30,7 +30,7 @@ export const homepageTrustItems = [
   {
     id: 'warranty',
     title: 'Гарантия',
-    caption: '12 месяцев на конструкцию',
+    caption: 'Условия в договоре',
     detail: 'Перед заказом ознакомьтесь с обязательствами и гарантийными условиями договора.',
   },
 ] as const

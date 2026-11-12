@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ogImage = sauna.image.startsWith('http') ? sauna.image : `${BASE}${sauna.image}`
   return {
     title: `${sauna.name} — мобильная баня ${sauna.size}`,
-    description: `${sauna.name} (${sauna.article}): ${sauna.subtitle}. Размер ${sauna.size}, ${sauna.area} м². ${sauna.description} Доставка по Москве и МО.`,
+    description: `${sauna.name} (${sauna.article}): ${sauna.subtitle}. Размер ${sauna.size}, площадь застройки ${sauna.area} м². ${sauna.description} Доставка по Москве и МО.`,
     alternates: { canonical },
     openGraph: {
       url: canonical,

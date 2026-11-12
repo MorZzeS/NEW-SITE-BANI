@@ -88,11 +88,9 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Main hero content — pushed down from nav */}
-        <div className="hero-main-content flex-1 flex items-center pt-28 pb-8 md:pb-10">
+        <div className="hero-main-content flex-1 flex items-start pt-28 md:pt-36 xl:pt-40 pb-8 md:pb-10">
           <div className="site-container w-full">
-            <div className="flex flex-col xl:flex-row items-start justify-between gap-8">
-              {/* Left: Text content */}
-              <div className="max-w-xl xl:max-w-2xl">
+            <div className="max-w-xl xl:max-w-2xl">
                 {/* Headline */}
                 <h1
                   className="hero-headline hero-reveal text-[40px] sm:text-[52px] xl:text-[64px] font-bold leading-[1.04] tracking-tight mb-5"
@@ -106,25 +104,20 @@ export function HeroSection() {
                   <p className="text-lg sm:text-xl font-semibold leading-snug mb-2">Собственное производство — город Раменское</p>
                   <p className="text-sm sm:text-base font-semibold leading-relaxed">Производитель мобильных бань с 2024 года</p>
                 </div>
-
+                <div className="hero-actions hero-reveal relative flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
+                  <Link href="/katalog/bani" className="btn-primary justify-center text-sm px-7 py-3.5">
+                    Смотреть каталог <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <HeroVideoAction onClick={() => setVideoOpen(true)} />
+                  <HeroContactDisclosure />
+                </div>
               </div>
-
-            </div>
           </div>
         </div>
 
-        {/* Bottom: approved Glass Reveal trust strip */}
+        {/* Four equal trust items stay at the bottom of the hero. */}
         <div className="relative z-10 pb-6">
-          <div className="site-container">
-            <div className="hero-actions hero-reveal flex flex-col items-stretch gap-3 mb-4 lg:mb-5" style={{ animationDelay: '0.32s' }}>
-              <Link href="/katalog/bani" className="btn-primary justify-center text-sm px-7 py-3.5">
-                Смотреть каталог <ArrowRight className="w-4 h-4" />
-              </Link>
-              <HeroVideoAction onClick={() => setVideoOpen(true)} />
-              <HeroContactDisclosure />
-            </div>
-            <HeroTrustReveal />
-          </div>
+          <div className="site-container"><HeroTrustReveal /></div>
         </div>
       </div>
       {videoOpen && <BathVideoViewer onClose={() => setVideoOpen(false)} />}

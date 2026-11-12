@@ -3,9 +3,16 @@ export type DeliveryDistrict = 'unknown' | 'ramenskoe' | 'outside'
 export function normalizeDeliveryDistrict(value: unknown): DeliveryDistrict {
   return value === 'ramenskoe' || value === 'outside' ? value : 'unknown'
 }
-export function isLogisticsOption(id: string) { return id === 'delivery' || id === 'crane-unload' }
+export function isLogisticsOption(id: string) { return id === 'delivery' || id === 'crane-unload' || id === 'onsite-assembly' }
+export function isDistrictPricedOption(id: string) { return id === 'delivery' || id === 'crane-unload' }
 export function resolveOptionPrice(option: { id: string; salePrice: number | null }, district: DeliveryDistrict = 'unknown') {
-  return isLogisticsOption(option.id) && district !== 'ramenskoe' ? null : option.salePrice
+  return isDistrictPricedOption(option.id) && district !== 'ramenskoe' ? null : option.salePrice
+}
+export function isPreliminaryLogisticsEstimate(id: string) { return isDistrictPricedOption(id) }
+export function preliminaryOptionPriceText(id: string, price: number | null, quantity = 1) {
+  if (price === null) return 'Индивидуальный расчёт'
+  const formatted = (price * quantity).toLocaleString('ru-RU') + ' ₽'
+  return isPreliminaryLogisticsEstimate(id) ? `от ${formatted}` : `+${formatted}`
 }
 export function deliveryDistrictLabel(district: DeliveryDistrict) {
   return district === 'ramenskoe' ? 'Раменский район' : district === 'outside' ? 'За пределами Раменского района' : 'Район не указан'
@@ -18,7 +25,7 @@ export function normalizeDeliveryAddress(value: string | undefined) {
 export function managerOptionName(option: { id: string; name: string }, compact = false) {
   if (!compact) return option.name
   const labels: Record<string, string> = {
-    delivery: 'Доставка', 'crane-unload': 'Разгрузка краном',
+    delivery: 'Доставка', 'crane-unload': 'Разгрузка краном', 'onsite-assembly': 'Сборка и установка на участке',
     'external-light': 'Скрытая электрика / подсветка крыши',
     'wall-point': 'Доп. розетка',
     'facade-ral': 'Окраска фасада RAL', 'ceiling-height': 'Высота потолка',

@@ -36,7 +36,8 @@ for (const model of [...saunas,...homes]) {
   const text = clean(block)
   const expectedRows = modelBaseConfiguration(model)
   assert(expectedRows.length > 0, `${model.id}: source base specification is empty`)
-  for (const row of expectedRows) {
+  const visibleRows = expectedRows.filter(row => !requiresBaseConfigurationConfirmation(row.value))
+  for (const row of visibleRows) {
     const escapedLabel = row.label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     const card = block.match(new RegExp(`<div[^>]*data-base-label="${escapedLabel}"[^>]*>([\\s\\S]*?)</div>`))
     assert(card, `${model.id}: base row missing: ${row.label}`)
@@ -44,22 +45,21 @@ for (const model of [...saunas,...homes]) {
     assert(description, `${model.id}: base row value missing: ${row.label}`)
     const visibleValue = row.value.replace(/\s*[—–-]\s*в подарок(?=$|[\s.,;—–-])/gi, '').replace(/^\s*[;,.—–-]\s*|\s*[;,.—–-]\s*$/g, '').trim().replace(/^в подарок$/i, '')
     if (visibleValue) assert(clean(description).includes(clean(visibleValue)), `${model.id}: base row value changed: ${row.label}`)
-    const requiresConfirmation = requiresBaseConfigurationConfirmation(row.value)
-    assert(card[0].includes(`data-base-included="${requiresConfirmation ? 'false' : 'true'}"`), `${model.id}: incorrect inclusion status: ${row.label}`)
+    assert(card[0].includes('data-base-included="true"'), `${model.id}: visible row must be a confirmed included feature: ${row.label}`)
     const isGift = /(?:^|[\s—])в подарок(?:$|[\s.,;—])/i.test(row.value)
     assert.equal(card[0].includes('data-base-gift="true"'), isGift, `${model.id}: gift status differs from source: ${row.label}`)
     const visibleGiftCount = (clean(description).match(/в подарок/gi) ?? []).length
     assert.equal(visibleGiftCount, isGift ? 1 : 0, `${model.id}: visible gift wording must be represented by exactly one compact label: ${row.label}`)
-    if (requiresConfirmation) assert.match(clean(card[0]), /Уточнить/, `${model.id}: pending row must be labelled`)
-    else if (isGift) assert.match(clean(card[0]), /В подарок/, `${model.id}: gift row must be labelled separately`)
+    if (isGift) assert.match(clean(card[0]), /В подарок/, `${model.id}: gift row must be labelled separately`)
     else assert(!clean(card[0]).includes('Включено в стоимость'), `${model.id}: included rows must not repeat the global badge`)
   }
-  assert.equal((html.match(/data-base-label=/g) ?? []).length, expectedRows.length, `${model.id}: base rows must not be duplicated elsewhere in calculator`)
-  const hasPendingRows = expectedRows.some(row => requiresBaseConfigurationConfirmation(row.value))
+  assert.equal((block.match(/data-base-label=/g) ?? []).length, visibleRows.length, `${model.id}: only verified base rows should be rendered`)
+  for (const pendingRow of expectedRows.filter(row => requiresBaseConfigurationConfirmation(row.value))) {
+    assert(!block.includes(`data-base-label="${pendingRow.label}"`), `${model.id}: omit unconfirmed ${pendingRow.label} instead of presenting it as included`)
+  }
+  assert(!text.includes('Параметры для согласования') && !text.includes('Уточнить'), `${model.id}: remove internal pending panel and labels`)
   const baseLead = clean(block.match(/<p[^>]*class="[^"]*baseLead[^"]*"[^>]*>([\s\S]*?)<\/p>/)?.[1] ?? '')
-  assert.equal(baseLead, hasPendingRows
-    ? 'В таблице перечислены подтверждённые позиции. Остальные параметры указаны отдельно ниже.'
-    : 'Всё перечисленное входит в базовую стоимость модели.', `${model.id}: base-price disclosure must match the verified row set`)
+  assert.equal(baseLead, 'Всё перечисленное входит в базовую стоимость модели.', `${model.id}: base-price disclosure must match the verified rows`)
   assert.equal((clean(block).match(/Включено в стоимость/g) ?? []).length, 1, `${model.id}: show only one included badge`)
   assert.match(block, /class="[^"]*baseSpecification[^"]*"/, `${model.id}: compact specification container missing`)
   assert.match(block, /class="[^"]*baseTable[^"]*"/, `${model.id}: compact specification table missing`)
@@ -104,13 +104,13 @@ for (const model of [...saunas,...homes]) {
     assert(!text.includes('Бак для воды и камни для печи — в подарок'))
   }
   assert(!/(?<!\d)50\s*мм/.test(clean(html)), `${model.id}: outdated visible insulation`)
+  const constructionRow = expectedRows.find(row => row.label === 'Конструкция')
   const construction = block.match(/<div[^>]*data-base-label="Конструкция"[^>]*>[\s\S]*?<dd[^>]*>\s*<span[^>]*>([^<]*)<\/span>/)?.[1]
-  if (n >= 25 && n <= 27) assert.equal(clean(construction ?? ''), 'Согласуется при заказе')
-  else if ((n >= 18 && n <= 24) || n === 28) assert.equal(clean(construction ?? ''), 'Тип конструкции согласуется при заказе')
+  if (constructionRow && requiresBaseConfigurationConfirmation(constructionRow.value)) assert.equal(construction, undefined, `${model.id}: unconfirmed construction must not be shown as included`)
   else assert.equal(clean(construction ?? ''), n === 31 ? 'Брус 90×140 мм' : 'Каркас 100 мм')
   const priceBlock = clean(html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1] ?? '')
   const mainPrice = model.priceFrom.toLocaleString('ru-RU').replace(/\s+/g,' ')
-  assert(priceBlock.includes(`Базовая комплектация — ${mainPrice} ₽`), `${model.id}: fixed base price must render as "Базовая комплектация — ${mainPrice} ₽"`)
+  assert(priceBlock.includes('Стоимость базового исполнения') && priceBlock.includes(`${mainPrice} ₽`), `${model.id}: price card must show compact label and unchanged fixed price`)
   assert(!priceBlock.includes(`от ${mainPrice}`), `${model.id}: fixed base price must not use "от"`)
   prices++
   for (const variant of model.priceVariants ?? []) { assert(priceBlock.includes(variant.replace(/\s+/g,' ')), `${model.id}: missing alternate price`); prices++ }

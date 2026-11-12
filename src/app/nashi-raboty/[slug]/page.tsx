@@ -96,7 +96,7 @@ export default async function ProjectPage({ params }: Props) {
             <section className="project-base" aria-labelledby="project-base-title">
               <h2 className="project-section-title" id="project-base-title">Что входит в базовую комплектацию</h2>
               <p className="mb-4 text-sm text-cream/60">Ниже показана базовая комплектация, на основе которой изготовлена баня. Дополнительное оборудование, установленное на этой бане, вынесено в отдельный список выше.</p>
-              <table className="base-equipment-table"><caption className="sr-only">Состав базовой комплектации</caption><thead><tr><th scope="col">Параметр</th><th scope="col">Состав</th></tr></thead><tbody>{baseEquipmentRows.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td>{row.value}</td></tr>)}</tbody></table>
+              <table className="base-equipment-table"><caption className="sr-only">Состав базовой комплектации мобильных бань</caption><tbody>{baseEquipmentRows.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td><span>{row.value}</span>{row.gift && <small className="base-equipment-gift">В подарок</small>}</td></tr>)}</tbody></table>
             </section>
           </>
         )}

@@ -9,6 +9,7 @@ import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunas } from '@/data'
 import clsx from 'clsx'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
+import { filterByBudget, sortByPrice } from '@/lib/catalog-filters'
 
 const series = ['Все', 'Исток', 'Скандинавия', 'Барн']
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
@@ -73,13 +74,12 @@ export default function BaniCatalogPage() {
       })
     }
 
-    if (minPrice > 0) list = list.filter(s => s.priceFrom >= minPrice)
-    if (maxPrice !== '') list = list.filter(s => s.priceFrom <= maxPrice)
+    list = filterByBudget(list, minPrice, maxPrice)
     if (hasShowerFilter) list = list.filter(s => s.hasShower)
     if (hasTerraceFilter) list = list.filter(s => s.hasTerrace)
 
-    if (sort === 'price_asc') list.sort((a, b) => a.priceFrom - b.priceFrom)
-    if (sort === 'price_desc') list.sort((a, b) => b.priceFrom - a.priceFrom)
+    if (sort === 'price_asc') list = sortByPrice(list, 'asc')
+    if (sort === 'price_desc') list = sortByPrice(list, 'desc')
     if (sort === 'area') list.sort((a, b) => b.area - a.area)
 
     return list

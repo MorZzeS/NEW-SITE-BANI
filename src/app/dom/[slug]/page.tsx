@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ogImage = home.image.startsWith('http') ? home.image : `${BASE}${home.image}`
   return {
     title: `${home.name} — ${home.size}`,
-    description: `${home.name} (${home.article}): ${home.subtitle}. Размер ${home.size}, ${home.area} м². ${home.description} Доставка по Москве и МО.`,
+    description: `${home.name} (${home.article}): ${home.subtitle}. Размер ${home.size}, площадь застройки ${home.area} м². ${home.description} Доставка по Москве и МО.`,
     alternates: { canonical },
     openGraph: {
       url: canonical,

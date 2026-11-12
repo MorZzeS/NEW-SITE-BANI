@@ -1,4 +1,4 @@
-import { deliveryDistrictLabel } from '@/lib/logistics'
+import { deliveryDistrictLabel, isPreliminaryLogisticsEstimate, isLogisticsOption, preliminaryOptionPriceText } from '@/lib/logistics'
 import { jsPDF } from 'jspdf'
 import type { Sauna, Home } from '@/types'
 import { modelBaseConfiguration, modelFeatures, requiresBaseConfigurationConfirmation } from '@/data/model-configuration'
@@ -124,7 +124,7 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
 
   runningHeader()
   write(model.name, 19, colors.ink, 1)
-  write(`${model.article || model.id} · ${model.size}${model.area ? ` · ${model.area} м²` : ''} · ${date.toLocaleDateString('ru-RU')}`, 8, colors.muted, 3)
+  write(`${model.article || model.id} · ${model.size}${model.area ? ` · площадь застройки ${model.area} м²` : ''} · ${date.toLocaleDateString('ru-RU')}`, 8, colors.muted, 3)
 
   const imageY = y, imageHeight = 38, imageGap = 5, imageWidth = (contentWidth - imageGap) / 2
   addContainedImage(model.image, margin, imageY, imageWidth, imageHeight, 'Фото модели')
@@ -173,7 +173,7 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
     const image = guidance?.image ? assets.images[guidance.image] : undefined
     const thumbnailWidth = image ? 18 : 0, textX = margin + (image ? 23 : 4), priceWidth = 38, textWidth = contentWidth - (image ? 23 : 4) - priceWidth - 4
     const name = `${option.name}${option.id === 'ceiling-height' ? ` — +${option.quantity * 10} см` : option.quantity > 1 ? ` — ${option.quantity} шт.` : ''}`
-    const price = option.price === null ? 'Цена по согласованию' : option.quantity > 1 ? `${money(option.price)} × ${option.quantity} = ${money(option.price * option.quantity)}` : money(option.price)
+    const price = option.price === null ? 'Цена по согласованию' : isPreliminaryLogisticsEstimate(option.id) ? preliminaryOptionPriceText(option.id, option.price, option.quantity).replace(/^\+/, '') : option.quantity > 1 ? `${money(option.price)} × ${option.quantity} = ${money(option.price * option.quantity)}` : money(option.price)
     const descriptions = [guidance?.explanation || source?.description || 'Исполнение согласуется при заказе.', ...(guidance?.notes ? [guidance.notes] : [])].join(' ')
     const nameLines = linesFor(name, 8.2, textWidth), descLines = linesFor(descriptions, 6.8, textWidth), priceLines = linesFor(price, 7, priceWidth)
     const rowHeight = Math.max(image ? 17 : 0, nameLines.length * lineHeight(8.2) + descLines.length * lineHeight(6.8) + 5, priceLines.length * lineHeight(7) + 5)
@@ -202,10 +202,18 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   } else write('Адрес доставки не указан.', 7, colors.muted, 2)
 
   heading('Стоимость комплектации')
+  const deliveryOption = configuration.options.find(option => option.id === 'delivery')
+  const craneOption = configuration.options.find(option => option.id === 'crane-unload')
+  const assemblyOption = configuration.options.find(option => option.id === 'onsite-assembly')
+  const hasEstimatedTariff = configuration.options.some(option => isPreliminaryLogisticsEstimate(option.id))
+  const logisticsRows: [string, string][] = []
+  if (deliveryOption) logisticsRows.push(['Доставка', deliveryOption.price === null ? 'Индивидуальный расчёт' : preliminaryOptionPriceText(deliveryOption.id, deliveryOption.price, deliveryOption.quantity).replace(/^\+/, '')])
+  if (craneOption) logisticsRows.push(['Разгрузка краном', craneOption.price === null ? 'Индивидуальный расчёт' : preliminaryOptionPriceText(craneOption.id, craneOption.price, craneOption.quantity).replace(/^\+/, '')])
+  if (assemblyOption) logisticsRows.push(['Сборка, разгрузка и установка на участке', money((assemblyOption.price ?? 0) * assemblyOption.quantity)])
   const priceRows: [string, string][] = [
     ['Базовая стоимость модели', money(configuration.basePrice)],
     ['Дополнительное оборудование', money(configuration.equipmentSubtotal)],
-    ['Доставка и разгрузка', money(configuration.logisticsSubtotal)],
+    ...logisticsRows,
   ]
   if (configuration.discount) priceRows.push([`${configuration.discountLabel} (акция)`, `−${money(configuration.discount)}`])
   for (const [label, value] of priceRows) {
@@ -214,7 +222,7 @@ export function createModelPdf(model: Sauna | Home, configuration: ModelConfigur
   }
   if (!configuration.discount) write('Скидка не применена.', 7, colors.soft, 1)
   ensure(13); doc.setFillColor(239, 227, 202); doc.roundedRect(margin, y, contentWidth, 11, 2, 2, 'F')
-  doc.setFont('NotoSans', 'normal'); doc.setFontSize(9); doc.setTextColor(...colors.ink); doc.text(`ИТОГО${configuration.unpricedCount ? ' · без позиций по согласованию' : ''}`, margin + 4, y + 7)
+  doc.setFont('NotoSans', 'normal'); doc.setFontSize(9); doc.setTextColor(...colors.ink); doc.text(`${hasEstimatedTariff ? 'ИТОГО · ориентировочно от' : 'ИТОГО'}${configuration.unpricedCount ? ' · без позиций по согласованию' : ''}`, margin + 4, y + 7)
   doc.setFontSize(12); doc.setTextColor(...colors.gold); doc.text(money(configuration.total), right - 4, y + 7, { align: 'right' }); y += 14
   if (configuration.unpricedCount) write(`Не включены в итог: ${configuration.unpricedCount} позиции индивидуального расчёта. Окончательную цену и доставку подтвердит менеджер.`, 7, colors.muted, 2)
   write('Предварительный расчёт. Применимость опций, окончательная комплектация, стоимость и условия доставки подтверждаются при заказе.', 7, colors.muted, 2)

@@ -19,7 +19,7 @@ interface Props {
   compact?: boolean
 }
 
-function GalleryImage({ item, priority = false, full = false, onAspectRatio }: { item: GalleryItem; priority?: boolean; full?: boolean; onAspectRatio?: (ratio: number) => void }) {
+function GalleryImage({ item, priority = false, full = false, contain = false, onAspectRatio }: { item: GalleryItem; priority?: boolean; full?: boolean; contain?: boolean; onAspectRatio?: (ratio: number) => void }) {
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const imageRef = useRef<HTMLImageElement>(null)
   const settleImage = useCallback((image: HTMLImageElement) => {
@@ -39,7 +39,7 @@ function GalleryImage({ item, priority = false, full = false, onAspectRatio }: {
     <Image ref={imageRef} draggable={false} src={withBasePath(item.src)} alt={item.alt} fill priority={priority}
       loading="eager" sizes={full ? '90vw' : '(max-width: 768px) 100vw, 80vw'}
       onLoad={(event) => settleImage(event.currentTarget)} onError={() => setStatus('error')}
-      className={`${full || item.type === 'PLAN' ? 'object-contain' : 'object-cover'} ${item.type === 'PLAN' && !full ? 'bg-white' : ''} ${status === 'error' ? 'invisible' : ''}`} />
+      className={`${full || contain || item.type === 'PLAN' ? 'object-contain' : 'object-cover'} ${item.type === 'PLAN' && !full ? 'bg-white' : contain ? 'bg-graphite-950' : ''} ${status === 'error' ? 'invisible' : ''}`} />
     {status !== 'ready' && <span role="status" className="theme-on-image absolute inset-0 flex items-center justify-center px-16 text-center text-sm text-white bg-graphite-950/60 pointer-events-none">
       {status === 'error' ? 'Изображение недоступно. Выберите другой кадр или обновите страницу.' : item.type === 'PLAN' ? 'Загружаем планировку…' : 'Загружаем изображение…'}
     </span>}
@@ -96,7 +96,9 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
   if (!items || items.length === 0) return null
 
   const currentItem = items[current % items.length]
-  const currentAspectRatio = imageRatios[currentItem.src] ?? currentItem.aspectRatio ?? (currentItem.type === 'PLAN' ? 4 / 3 : 3 / 2)
+  const observedAspectRatio = imageRatios[currentItem.src] ?? currentItem.aspectRatio ?? (currentItem.type === 'PLAN' ? 4 / 3 : 3 / 2)
+  const portraitInterior = currentItem.type === 'INTERIOR_EXAMPLE' && observedAspectRatio < 1
+  const currentAspectRatio = currentItem.type === 'INTERIOR_EXAMPLE' ? 4 / 3 : observedAspectRatio
   const rememberAspectRatio = useCallback((ratio: number) => {
     if (!Number.isFinite(ratio) || ratio <= 0) return
     setImageRatios(previous => previous[currentItem.src] === ratio ? previous : { ...previous, [currentItem.src]: ratio })
@@ -148,7 +150,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
           onClick={() => { if (!swipedRef.current) setLightbox(true); swipedRef.current = false }}
           {...touchHandlers}
         >
-          <GalleryImage key={currentItem.src} item={currentItem} priority={current === 0} onAspectRatio={rememberAspectRatio} />
+          <GalleryImage key={currentItem.src} item={currentItem} priority={current === 0} contain={portraitInterior} onAspectRatio={rememberAspectRatio} />
           {currentItem.label && (
             <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur px-3 py-1 rounded-xl text-xs text-white/90 border border-white/10">
               {currentItem.label}

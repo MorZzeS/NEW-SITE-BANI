@@ -1,7 +1,7 @@
 import type { Home, Sauna } from '@/types'
 import { modelOptionAvailability } from '@/lib/model-option-availability'
 import { normalizeOptionIds, normalizeOptionQuantity, optionQuantityLabel } from '@/lib/equipment-selection'
-import { deliveryDistrictLabel, managerOptionName, isLogisticsOption, normalizeDeliveryAddress, normalizeDeliveryDistrict, resolveOptionPrice, type DeliveryDistrict } from '@/lib/logistics'
+import { deliveryDistrictLabel, isLogisticsOption, isPreliminaryLogisticsEstimate, managerOptionName, normalizeDeliveryAddress, normalizeDeliveryDistrict, preliminaryOptionPriceText, resolveOptionPrice, type DeliveryDistrict } from '@/lib/logistics'
 
 export const PROMOTIONAL_DISCOUNT_RUB = 15_000
 export type ModelConfigurationCalculation = {
@@ -30,16 +30,48 @@ export function calculateModelConfiguration(model: Sauna | Home, ids: readonly s
 const money = (value: number) => value.toLocaleString('ru-RU') + ' ₽'
 export const MANAGER_COMMENT_LIMIT = 1500
 export function configurationManagerText(configuration: ModelConfigurationCalculation, compact = false) {
+  const hasEstimatedTariff = configuration.options.some(option => isPreliminaryLogisticsEstimate(option.id))
+  const hasOnsiteAssembly = configuration.options.some(option => option.id === 'onsite-assembly')
+  const hasUnpricedLogistics = configuration.options.some(option => isLogisticsOption(option.id) && option.price === null)
+  const logisticsText = hasUnpricedLogistics
+    ? 'Индивидуальный расчёт'
+    : `${hasEstimatedTariff ? 'от ' : ''}${money(configuration.logisticsSubtotal)}`
+  const optionPrice = (option: ModelConfigurationCalculation['options'][number]) => option.price === null
+    ? (compact ? 'согл.' : 'Стоимость по согласованию')
+    : isPreliminaryLogisticsEstimate(option.id)
+      ? preliminaryOptionPriceText(option.id, option.price, option.quantity).replace(/^\+/, '')
+      : compact ? (option.price * option.quantity).toLocaleString('ru-RU') : money(option.price * option.quantity)
+  if (compact) {
+    const optionLines = configuration.options.map(option =>
+      managerOptionName(option, true) + optionQuantityLabel(option, true) + '=' + optionPrice(option),
+    )
+    return [
+      `${configuration.modelName} ${configuration.modelId}`,
+      `База ${money(configuration.basePrice)}`,
+      ...(optionLines.length ? ['Опции: ' + optionLines.join('; ')] : ['Доп. опции не выбраны']),
+      ...(configuration.options.some(option => option.kind === 'logistics') || configuration.deliveryAddress || configuration.deliveryDistrict !== 'unknown'
+        ? [`Район ${deliveryDistrictLabel(configuration.deliveryDistrict)}${configuration.deliveryAddress ? '; адрес ' + configuration.deliveryAddress : ''}`]
+        : []),
+      ...(hasOnsiteAssembly ? ['Сборка на участке — ориентир 300 000 ₽; доставка отдельно. Состав работ и включение разгрузки/установки уточняются в предложении.'] : []),
+      ...(configuration.discount ? ['Скидка −' + money(configuration.discount)] : []),
+      (hasEstimatedTariff ? 'Предварительный итог от: ' : 'Итого: ') + money(configuration.total),
+      'Согл. вне итога.',
+    ].join('\n')
+  }
   return [
     'Комплектация: ' + configuration.modelName + ' [' + configuration.modelId + ']',
     'Базовая стоимость: ' + money(configuration.basePrice),
     ...(compact && configuration.options.length ? ['Дополнения, ₽:'] : []),
-    ...(configuration.options.length ? configuration.options.map(option => (compact ? '' : '+ ') + managerOptionName(option, compact) + optionQuantityLabel(option, compact) + ' — ' + (option.price === null ? (compact ? 'согл.' : 'Стоимость по согласованию') : (compact ? (option.price * option.quantity).toLocaleString('ru-RU') : money(option.price * option.quantity)))) : ['Дополнительные опции не выбраны.']),
-    'Оборудование: ' + money(configuration.equipmentSubtotal), 'Логистика: ' + money(configuration.logisticsSubtotal),
+    ...(configuration.options.length ? configuration.options.map(option => (compact ? '' : '+ ') + managerOptionName(option, compact) + optionQuantityLabel(option, compact) + ' — ' + optionPrice(option)) : ['Дополнительные опции не выбраны.']),
+    'Оборудование: ' + money(configuration.equipmentSubtotal), 'Логистика: ' + logisticsText,
     ...(configuration.options.some(option => option.kind === 'logistics') || configuration.deliveryAddress || configuration.deliveryDistrict !== 'unknown' ? ['Район: ' + deliveryDistrictLabel(configuration.deliveryDistrict), ...(configuration.deliveryAddress ? ['Адрес: ' + configuration.deliveryAddress] : [])] : []),
+    ...(hasOnsiteAssembly ? [compact
+      ? 'Сборка на участке — ориентир 300 000 ₽; доставка отдельно. Состав работ, площадка и условия согласуются в предложении.'
+      : 'Сборка на участке — ориентир 300 000 ₽; доставка отдельно. Состав работ, включение разгрузки и установки, площадка и другие условия фиксируются в предложении до заказа.'
+    ] : []),
     ...(configuration.discount ? [configuration.discountLabel + ': −' + money(configuration.discount)] : []),
-    'Итого: ' + money(configuration.total),
-    compact ? 'Предварительно; согласуемые позиции не включены.' : configuration.unpricedCount ? 'Предварительная сумма без позиций индивидуального расчёта, включая неподтверждённую логистику.' : 'Предварительный расчёт: совместимость и окончательная стоимость подтверждаются при заказе.',
+    (hasEstimatedTariff ? 'Предварительный итог от: ' : 'Итого: ') + money(configuration.total),
+    configuration.unpricedCount ? 'Предварительная сумма без позиций индивидуального расчёта, включая неподтверждённую логистику.' : 'Предварительный расчёт: совместимость и окончательная стоимость подтверждаются при заказе.',
   ].join('\n')
 }
 /** The bounded legacy comment must never silently lose a selected item, district or total. */
