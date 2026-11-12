@@ -4,6 +4,10 @@ header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: 
 function reply(int $status, array $value): never {
     http_response_code($status); if ($status!==204) echo json_encode($value,JSON_THROW_ON_ERROR); exit;
 }
+if (!in_array($_SERVER['REQUEST_METHOD']??'', ['POST','OPTIONS'],true)) {
+ header('Allow: POST, OPTIONS');
+ reply(405,['ok'=>false]);
+}
 if (!in_array($_SERVER['HTTPS']??'',['on','1'],true)) reply(403,['ok'=>false]);
 $configPath=dirname(__DIR__).'/private/config.php'; $docroot=realpath($_SERVER['DOCUMENT_ROOT']??''); $private=realpath(dirname($configPath));
 if (!$docroot || !$private || str_starts_with($private.DIRECTORY_SEPARATOR,$docroot.DIRECTORY_SEPARATOR) || !is_file($configPath)) reply(503,['ok'=>false]);

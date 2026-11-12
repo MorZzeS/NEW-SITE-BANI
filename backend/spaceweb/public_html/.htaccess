@@ -4,6 +4,11 @@
 
 Options -Indexes -MultiViews
 DirectoryIndex index.html
+
+# SpaceWeb TLS terminates at its proxy; official HTTPS environment mapping.
+<Files "leads.php">
+    SetEnvIf X-Forwarded-Proto "^https$" HTTPS=on
+</Files>
 DirectorySlash Off
 AddDefaultCharset UTF-8
 AddCharset UTF-8 .html .css .js .json .txt .xml
@@ -41,7 +46,6 @@ AddType video/mp4 .mp4
     # Не отдавать приватные каталоги и не запускать PHP на статическом сайте.
     RewriteRule (^|/)(private|config|userdata|backend|api|\.git|\.env)(/|$) - [F,L,NC]
     RewriteRule ^test-leads(?:\.html|/index\.html|/)?$ - [F,L,NC]
-    RewriteCond %{REQUEST_METHOD} ^(POST|OPTIONS)$
     RewriteRule ^leads\.php$ - [L]
     RewriteRule \.(php[0-9]?|phtml|phar)(/|$) - [F,L,NC]
 
