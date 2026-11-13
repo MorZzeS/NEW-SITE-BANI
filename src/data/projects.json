@@ -695,7 +695,7 @@
           "src": "/images/works/projects/premium/unloading-yard.mp4",
           "poster": "/images/works/projects/premium/unloading-yard-poster.webp",
           "alt": "Разгрузка на производственной площадке",
-          "caption": "Разгрузка на производственной площадке · Без звука",
+          "caption": "Разгрузка на производственной площадке",
           "width": 1280,
           "height": 794
         },
@@ -704,7 +704,7 @@
           "src": "/images/works/projects/premium/unloading-lift.mp4",
           "poster": "/images/works/projects/premium/unloading-lift-poster.webp",
           "alt": "Подъём бани краном на участке",
-          "caption": "Подъём бани краном на участке · Без звука",
+          "caption": "Подъём бани краном на участке",
           "width": 1280,
           "height": 720
         },
@@ -713,7 +713,7 @@
           "src": "/images/works/projects/premium/installation-overview.mp4",
           "poster": "/images/works/projects/premium/installation-overview-poster.webp",
           "alt": "Установка бани — общий вид",
-          "caption": "Установка бани — общий вид · Без звука",
+          "caption": "Установка бани — общий вид",
           "width": 1280,
           "height": 720
         }
@@ -848,7 +848,7 @@
           "src": "/images/works/projects/comfort-blockhouse/delivery-arrival.mp4",
           "poster": "/images/works/projects/comfort-blockhouse/delivery-arrival-poster.webp",
           "alt": "Доставка бани с отделкой блок-хаусом",
-          "caption": "Доставка бани с отделкой блок-хаусом · Без звука",
+          "caption": "Доставка бани с отделкой блок-хаусом",
           "width": 1280,
           "height": 720
         },
@@ -857,7 +857,7 @@
           "src": "/images/works/projects/comfort-blockhouse/installation-lift.mp4",
           "poster": "/images/works/projects/comfort-blockhouse/installation-lift-poster.webp",
           "alt": "Подъём и установка бани с блок-хаусом",
-          "caption": "Подъём и установка бани с блок-хаусом · Без звука",
+          "caption": "Подъём и установка бани с блок-хаусом",
           "width": 1280,
           "height": 720
         }
