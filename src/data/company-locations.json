@@ -1,0 +1,30 @@
+{
+  "verificationDate": "2026-11-13",
+  "businessId": "68540156780",
+  "businessUrl": "https://yandex.ru/maps/org/68540156780/",
+  "reviewsUrl": "https://yandex.ru/maps/org/68540156780/reviews/",
+  "mapEmbedUrl": "https://yandex.ru/map-widget/v1/?ll=38.2769%2C55.5522&z=14&pt=38.274007%2C55.555411%2Cpm2rdm1~38.279810%2C55.549027%2Cpm2blm2",
+  "mapUrl": "https://yandex.ru/maps/?ll=38.2769%2C55.5522&z=14&pt=38.274007%2C55.555411%2Cpm2rdm1~38.279810%2C55.549027%2Cpm2blm2",
+  "locations": [
+    {
+      "id": "production",
+      "title": "Производство и офис",
+      "address": "Раменское, ул. Михалевича, 143Е/1",
+      "description": "Здесь изготавливаем бани и обсуждаем детали вашего проекта.",
+      "directions": "Въезд со стороны Сафоновского проезда.",
+      "latitude": 55.555411,
+      "longitude": 38.274007,
+      "source": "https://yandex.ru/maps/org/68540156780/"
+    },
+    {
+      "id": "showroom",
+      "title": "Выставочная площадка",
+      "address": "Раменское, ул. Михалевича, 118к1",
+      "description": "Можно посмотреть выставочный образец и обсудить комплектацию.",
+      "directions": "На выезде из Раменского, после АЗС «Газпром» справа, рядом с авторынком.",
+      "latitude": 55.549027,
+      "longitude": 38.279810,
+      "source": "https://yandex.ru/maps/10750/ramenskoe/house/ulitsa_mikhalevicha_118k1/Z0EYdABpQUQHQFtvfXl1eHxhYw==/"
+    }
+  ]
+}

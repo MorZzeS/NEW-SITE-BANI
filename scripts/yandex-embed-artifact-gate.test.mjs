@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import fs from 'node:fs'
 import { assertNoUnsafeDynamicIframes, validateYandexEmbedArtifact } from './yandex-embed-artifact-gate.mjs'
 
 const approved = '<iframe src="https://yandex.ru/maps-reviews-widget/68540156780?comments=&amp;theme=dark"></iframe>' +
@@ -96,4 +97,30 @@ test('permits the known PDF local blob/data preview iframe paths', () => {
   ))
 })
 
-console.log('Yandex embed artifact gate: 12 cases PASS')
+test('allows the exact verified two-location map, rejects any changed coordinates', () => {
+  const company = JSON.parse(fs.readFileSync(new URL('../src/data/company-locations.json', import.meta.url), 'utf8'))
+  const html = approved.replace('https://yandex.ru/map-widget/v1/?ol=biz&amp;oid=68540156780&amp;z=16', company.mapEmbedUrl.replaceAll('&', '&amp;'))
+  assert.equal(validateYandexEmbedArtifact(html, 'o-kompanii.html', true).length, 2)
+  assert.throws(() => validateYandexEmbedArtifact(html.replace('55.555411', '55.000001'), 'o-kompanii.html', true), /Unapproved iframe/)
+})
+
+test('permits only the local contract PDF on its dedicated page in both build profiles', () => {
+  for (const base of ['', '/NEW-SITE-BANI']) {
+    const html = `<iframe src="${base}/documents/banger-contract-sample.pdf#view=FitH"></iframe>`
+    assert.equal(validateYandexEmbedArtifact(html, 'obrazec-dogovora.html', false).length, 1)
+    assert.throws(() => validateYandexEmbedArtifact(html, 'index.html', true), /Unexpected embed surface/)
+  }
+})
+
+test('rejects external, arbitrary, duplicate and protocol-relative contract frames', () => {
+  for (const source of ['https://evil.example/doc.pdf', '//evil.example/doc.pdf', '/documents/private.pdf', '/documents/banger-contract-sample.pdf?url=https://evil.example']) {
+    assert.throws(() => validateYandexEmbedArtifact(`<iframe src="${source}"></iframe>`, 'obrazec-dogovora.html', true), /Unapproved contract/)
+  }
+  assert.throws(() => validateYandexEmbedArtifact('<iframe src="/documents/banger-contract-sample.pdf#view=FitH"></iframe>'.repeat(2), 'obrazec-dogovora.html', true), /Unapproved contract/)
+})
+
+test('rejects srcdoc and inline event handlers even with the approved PDF source', () => {
+  for (const attribute of ['srcdoc="active-content"', 'srcDoc = "active-content"', 'onload="active-content"', 'ONERROR = active-content']) {
+    assert.throws(() => validateYandexEmbedArtifact(`<iframe src="/documents/banger-contract-sample.pdf#view=FitH" ${attribute}></iframe>`, 'obrazec-dogovora.html', false), /Active iframe attributes/)
+  }
+})

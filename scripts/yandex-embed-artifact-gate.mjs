@@ -35,6 +35,9 @@ export function assertNoUnsafeDynamicIframes(content, artifactName) {
 }
 
 function readSingleSrc(tag, pageName) {
+  if (/\s(?:srcdoc|on[a-z][\w:-]*)\s*=/i.test(tag)) {
+    throw new Error(`Active iframe attributes are not allowed: ${pageName}`)
+  }
   const assignments = [...tag.matchAll(/(?:^|\s)src\s*=/gi)]
   const attributes = [...tag.matchAll(/(?:^|\s)src\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi)]
   if (assignments.length !== 1 || attributes.length !== 1) {
@@ -47,6 +50,7 @@ function isApprovedWidgetUrl(raw) {
   try {
     const url = new URL(raw)
     if (url.protocol !== 'https:' || url.hostname !== 'yandex.ru' || url.username || url.password || url.port || url.hash) return false
+    if (url.toString() === companyLocations.mapEmbedUrl) return true
     const keys = [...url.searchParams.keys()].sort()
     return (url.pathname === APPROVED_REVIEW_PATH
       && keys.join(',') === 'comments,theme'
@@ -68,6 +72,14 @@ export function validateYandexEmbedArtifact(html, pageName, automaticEnabled) {
   if (iframeTags.length === 0) return []
 
   const normalizedPage = pageName.replaceAll('\\', '/')
+  // One exact same-origin public PDF, only on its dedicated page. Never allow arbitrary document URLs.
+  if (normalizedPage === 'obrazec-dogovora.html') {
+    const sources = iframeTags.map(tag => readSingleSrc(tag, pageName))
+    if (sources.length !== 1 || !/^\/(?:NEW-SITE-BANI\/)?documents\/banger-contract-sample\.pdf#view=FitH$/.test(sources[0])) {
+      throw new Error(`Unapproved contract PDF preview: ${pageName}`)
+    }
+    return sources
+  }
   if (!automaticEnabled || normalizedPage !== 'o-kompanii.html' || iframeTags.length !== 2) {
     throw new Error(`Unexpected embed surface: ${pageName}`)
   }
@@ -81,3 +93,6 @@ export function validateYandexEmbedArtifact(html, pageName, automaticEnabled) {
   if (reviewCount !== 1 || mapCount !== 1) throw new Error(`Expected exactly one approved Yandex review and map widget: ${pageName}`)
   return sources
 }
+import fs from 'node:fs'
+
+const companyLocations = JSON.parse(fs.readFileSync(new URL('../src/data/company-locations.json', import.meta.url), 'utf8'))

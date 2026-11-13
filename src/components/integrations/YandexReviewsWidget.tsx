@@ -86,14 +86,20 @@ export function YandexReviewsWidget({
       </div>
 
       {themedEmbedUrl ? (
-        <div className="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)]">
+        <div
+          role="region"
+          aria-label="Отзывы Яндекса — прокручиваемый список"
+          tabIndex={0}
+          data-yandex-reviews-scroll
+          className="mt-5 box-border h-[500px] max-w-[760px] overflow-y-auto overflow-x-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-color)]"
+        >
           <iframe
             key={themedEmbedUrl}
             src={themedEmbedUrl}
             title="Отзывы о Бани Герасимов на Яндексе"
             loading="eager"
             referrerPolicy="strict-origin-when-cross-origin"
-            className="block h-[500px] w-full border-0"
+            className="block h-[1200px] w-full border-0"
           />
         </div>
       ) : (
@@ -102,6 +108,8 @@ export function YandexReviewsWidget({
         </div>
       )}
 
+      {themedEmbedUrl && <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Прокрутите список, чтобы увидеть остальные отзывы. Полный список и сортировка по дате доступны на Яндексе.</p>}
+
       {safeBusinessUrl ? (
         <a
           href={safeBusinessUrl}
@@ -109,7 +117,7 @@ export function YandexReviewsWidget({
           rel="noopener noreferrer"
           className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-color)]"
         >
-          Открыть отзывы и оставить отзыв на Яндексе
+          Все отзывы на Яндексе
           <ExternalLink aria-hidden="true" size={15} />
         </a>
       ) : null}

@@ -19,6 +19,7 @@ const footerLinks = {
   info: [
     { label: 'Доставка и установка', href: '/dostavka-i-ustanovka' },
     { label: 'Наши гарантии', href: '/garantiya' },
+    { label: 'Образец договора', href: '/obrazec-dogovora' },
     { label: 'Оплата и чеки', href: '/oplata-i-cheki' },
     { label: 'О нас', href: '/o-kompanii' },
     { label: 'Наши работы', href: '/nashi-raboty' },

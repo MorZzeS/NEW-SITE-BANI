@@ -62,7 +62,12 @@ export default function WarrantyPage() {
         <details className="mt-10 rounded-xl border border-white/12 px-5 py-4 sm:px-6">
           <summary className="cursor-pointer text-base font-semibold text-cream">Подробнее об условиях гарантии</summary>
           <div className="mt-5 space-y-4 text-sm leading-relaxed text-cream/75">
-            <p><strong className="text-cream">Состав гарантии.</strong> Гарантия на конструктивные элементы бани составляет 12 месяцев. Перечень элементов и подробные условия закрепляются в документах заказа.</p>
+            <p><strong className="text-cream">Срок гарантии.</strong> {warrantyContent.period}</p>
+            <p><strong className="text-cream">Качество изготовления и сборки.</strong> {warrantyContent.scope}</p>
+            <p><strong className="text-cream">Естественные особенности древесины.</strong> {warrantyContent.wood}</p>
+            <p><strong className="text-cream">Оборудование.</strong> {warrantyContent.equipment}</p>
+            <p><strong className="text-cream">Условия эксплуатации.</strong> {warrantyContent.exclusions}</p>
+            <p>{warrantyContent.rights}</p>
             <p><strong className="text-cream">Рассмотрение обращения.</strong> Мы изучим описание вопроса и документы заказа, при необходимости попросим фотографии или видео и сообщим о дальнейших действиях. Порядок рассмотрения недостатков определяется документами заказа и применимым законодательством. Законные права покупателя сохраняются.</p>
           <h2 id="warranty-steps-title" className="text-xl font-bold text-cream">Что сообщить при обращении</h2>
           <ol className="mt-6 grid gap-4 md:grid-cols-3">
@@ -79,6 +84,7 @@ export default function WarrantyPage() {
               </li>
             ))}
           </ol>
+          <Link href="/obrazec-dogovora" className="inline-flex min-h-11 items-center font-semibold text-gold-300 underline underline-offset-4">Посмотреть образец договора и все пять приложений</Link>
           </div>
         </details>
       </div>

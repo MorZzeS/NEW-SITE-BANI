@@ -26,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Legal — low priority, do not exclude
     { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE_URL}/garantiya`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/obrazec-dogovora`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/cookie`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE_URL}/oplata-i-cheki`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${BASE_URL}/rekvizity`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },

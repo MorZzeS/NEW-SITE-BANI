@@ -4,6 +4,7 @@ import { type CSSProperties } from 'react'
 import { ExternalLink, MapPinned } from 'lucide-react'
 import { useTheme } from '@/components/ui/ThemeProvider'
 import { releasePolicy } from '@/lib/release-policy'
+import companyLocations from '@/data/company-locations.json'
 
 const YANDEX_HOSTS = ['yandex.ru', 'yandex.com', 'yandex.com.tr'] as const
 
@@ -23,6 +24,8 @@ function trustedYandexMapWidgetUrl(value?: string) {
   const safe = trustedYandexUrl(value)
   if (!safe) return null
   const url = new URL(safe)
+  // Exact two-point URL verified against the public Yandex business/building cards.
+  if (url.toString() === companyLocations.mapEmbedUrl) return url.toString()
   const keys = [...url.searchParams.keys()].sort()
   return url.hostname === 'yandex.ru'
     && url.pathname === '/map-widget/v1/'
@@ -76,14 +79,14 @@ export function YandexMapEmbed({
       </div>
 
       {safeEmbedUrl ? (
-        <div className="mt-5 min-h-[280px] overflow-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)] sm:min-h-[360px]">
+        <div className="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)]">
           <iframe
             src={safeEmbedUrl}
             title={title}
             loading="eager"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className="block h-[280px] w-full border-0 sm:h-[360px]"
+            className="block h-[360px] w-full border-0 sm:h-[500px]"
           />
         </div>
       ) : (
