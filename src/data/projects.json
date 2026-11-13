@@ -357,11 +357,11 @@
       "slug": "banya-s-terrasoi-vecherniy-svet",
       "title": "Баня с террасой в вечернем освещении",
       "pageHeading": "Баня с террасой в вечернем освещении",
-      "description": "Выставочный образец. Вечернее освещение подчёркивает архитектуру бани и уют террасы.",
+      "description": "Вечернее освещение подчёркивает архитектуру бани и уют террасы.",
       "order": 2,
       "visible": true,
       "evidence": "illustrative",
-      "caseType": "showroom-example",
+      "caseType": "photo-example",
       "temporaryNote": "Вечернее освещение подчёркивает архитектуру бани и уют террасы.",
       "coverMediaId": "work-6211",
       "characteristics": [],
@@ -382,7 +382,7 @@
           }
         }
       ],
-      "cardDescription": "Выставочный образец в вечернем освещении."
+      "cardDescription": "Баня с террасой в вечернем освещении."
     },
     {
       "id": "project-standard-7",
@@ -390,22 +390,22 @@
       "title": "Скандинавия Стандарт 7 — индивидуальное исполнение",
       "pageHeading": "Скандинавия Стандарт 7 — индивидуальное исполнение",
       "model": "Скандинавия Стандарт 7",
-      "description": "Индивидуальный проект мобильной бани 7 × 2,3 м с отдельной планировкой и светло-серым наружным исполнением. Здесь показаны согласованный план и проектная визуализация.",
+      "description": "Индивидуальный проект мобильной бани «Скандинавия Стандарт 7» размером 7 × 2,3 м. Светло-серая наружная отделка, отдельная планировка и материалы оформления парной собраны в одной подборке.",
       "order": 5,
       "visible": true,
       "evidence": "owner-confirmed",
       "caseType": "client-case",
       "projectCategory": "bathhouse",
       "executionConfirmed": false,
-      "coverMediaId": "standard-7-render",
+      "coverMediaId": "individual-standard-exterior-render",
       "characteristics": [],
       "media": [
         {
-          "id": "standard-7-render",
+          "id": "individual-standard-exterior-render",
           "src": "/images/works/projects/individual-standard/exterior-render.webp",
           "thumbnail": "/images/works/projects/individual-standard/exterior-render-thumb.webp",
-          "alt": "Проектная визуализация «Скандинавия Стандарт 7» в светло-сером оформлении",
-          "caption": "Проектная визуализация, не фотография установленного объекта.",
+          "alt": "Проектная визуализация «Скандинавия Стандарт 7»",
+          "caption": "Проектная визуализация.",
           "kind": "catalog-render",
           "order": 1,
           "width": 983,
@@ -416,15 +416,30 @@
           }
         },
         {
-          "id": "standard-7-plan",
+          "id": "individual-standard-plan",
           "src": "/images/works/projects/individual-standard/plan.webp",
           "thumbnail": "/images/works/projects/individual-standard/plan-thumb.webp",
-          "alt": "Планировка индивидуального проекта бани 7 × 2,3 м",
-          "caption": "План-схема согласованного проекта.",
+          "alt": "Планировка «Скандинавия Стандарт 7» 7 × 2,3 м",
+          "caption": "План-схема индивидуального проекта.",
           "kind": "plan",
           "order": 2,
           "width": 1010,
           "height": 423,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "individual-standard-interior-reference",
+          "src": "/images/works/projects/individual-standard/interior-reference.webp",
+          "thumbnail": "/images/works/projects/individual-standard/interior-reference-thumb.webp",
+          "alt": "Референс отделки парной из материалов проекта",
+          "caption": "Референс интерьера из проектных материалов.",
+          "kind": "reference",
+          "order": 3,
+          "width": 734,
+          "height": 413,
           "focalPoint": {
             "x": 50,
             "y": 50
@@ -506,24 +521,84 @@
       "title": "Скандинавия Премиум — индивидуальный проект 6 × 2,6 м",
       "pageHeading": "Скандинавия Премиум — проект 6 × 2,6 м",
       "model": "Скандинавия Премиум",
-      "description": "Индивидуальный проект мобильной бани 6 × 2,6 м с отдельной парной и просторной гостевой. В подборке собраны согласованная планировка и проектная визуализация.",
+      "description": "Индивидуальная мобильная баня «Скандинавия Премиум» 6 × 2,6 м с отдельной парной и просторной гостевой. Фотографии показывают наружное исполнение, доставку и установку; первоначальные визуализация и планировка сохранены отдельно.",
       "order": 6,
       "visible": true,
       "evidence": "owner-confirmed",
       "caseType": "client-case",
       "projectCategory": "bathhouse",
-      "executionConfirmed": false,
-      "coverMediaId": "premium-render",
+      "executionConfirmed": true,
+      "coverMediaId": "premium-installed-photo",
       "characteristics": [],
       "media": [
         {
-          "id": "premium-render",
+          "id": "premium-production-photo",
+          "src": "/images/works/projects/premium/production-photo.webp",
+          "thumbnail": "/images/works/projects/premium/production-photo-thumb.webp",
+          "alt": "Баня «Скандинавия Премиум» на производстве",
+          "caption": "Внешний вид перед отправкой.",
+          "kind": "photo",
+          "order": 1,
+          "width": 1160,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "premium-delivery-photo",
+          "src": "/images/works/projects/premium/delivery-photo.webp",
+          "thumbnail": "/images/works/projects/premium/delivery-photo-thumb.webp",
+          "alt": "Доставка бани «Скандинавия Премиум»",
+          "caption": "Доставка бани на участок.",
+          "kind": "photo",
+          "order": 2,
+          "width": 1000,
+          "height": 840,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "premium-installation-photo",
+          "src": "/images/works/projects/premium/installation-photo.webp",
+          "thumbnail": "/images/works/projects/premium/installation-photo-thumb.webp",
+          "alt": "Установка бани «Скандинавия Премиум»",
+          "caption": "Установка бани краном.",
+          "kind": "photo",
+          "order": 3,
+          "width": 1600,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "premium-installed-photo",
+          "src": "/images/works/projects/premium/installed-photo.webp",
+          "thumbnail": "/images/works/projects/premium/installed-photo-thumb.webp",
+          "alt": "«Скандинавия Премиум» на участке",
+          "caption": "Реальная фотография бани на участке.",
+          "kind": "photo",
+          "order": 4,
+          "width": 1600,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "premium-exterior-render",
           "src": "/images/works/projects/premium/exterior-render.webp",
           "thumbnail": "/images/works/projects/premium/exterior-render-thumb.webp",
-          "alt": "Проектная визуализация мобильной бани «Скандинавия Премиум»",
-          "caption": "Проектная визуализация, не фотография установленного объекта.",
+          "alt": "Первоначальная визуализация «Скандинавия Премиум»",
+          "caption": "Первоначальная проектная визуализация.",
           "kind": "catalog-render",
-          "order": 1,
+          "order": 5,
           "width": 1154,
           "height": 769,
           "focalPoint": {
@@ -535,10 +610,10 @@
           "id": "premium-plan",
           "src": "/images/works/projects/premium/plan.webp",
           "thumbnail": "/images/works/projects/premium/plan-thumb.webp",
-          "alt": "План индивидуальной бани 6 × 2,6 м с парной и гостевой",
-          "caption": "План-схема согласованного проекта.",
+          "alt": "Планировка бани «Скандинавия Премиум» 6 × 2,6 м",
+          "caption": "План-схема индивидуального проекта.",
           "kind": "plan",
-          "order": 2,
+          "order": 6,
           "width": 1542,
           "height": 838,
           "focalPoint": {
@@ -559,7 +634,7 @@
         ],
         "ownerFeedback": ""
       },
-      "cardDescription": "Два отдельных помещения, индивидуальная планировка и продуманные материалы отделки.",
+      "cardDescription": "Индивидуальная баня 6 × 2,6 м: реальные фотографии, доставка и установка.",
       "storySections": [
         {
           "heading": "Задача проекта",
@@ -613,6 +688,35 @@
             }
           ]
         }
+      ],
+      "videos": [
+        {
+          "id": "premium-unloading-yard",
+          "src": "/images/works/projects/premium/unloading-yard.mp4",
+          "poster": "/images/works/projects/premium/unloading-yard-poster.webp",
+          "alt": "Разгрузка на производственной площадке",
+          "caption": "Разгрузка на производственной площадке · Без звука",
+          "width": 1280,
+          "height": 794
+        },
+        {
+          "id": "premium-unloading-lift",
+          "src": "/images/works/projects/premium/unloading-lift.mp4",
+          "poster": "/images/works/projects/premium/unloading-lift-poster.webp",
+          "alt": "Подъём бани краном на участке",
+          "caption": "Подъём бани краном на участке · Без звука",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "id": "premium-installation-overview",
+          "src": "/images/works/projects/premium/installation-overview.mp4",
+          "poster": "/images/works/projects/premium/installation-overview-poster.webp",
+          "alt": "Установка бани — общий вид",
+          "caption": "Установка бани — общий вид · Без звука",
+          "width": 1280,
+          "height": 720
+        }
       ]
     },
     {
@@ -621,24 +725,69 @@
       "title": "Скандинавия Комфорт — отделка блок-хаусом",
       "pageHeading": "Скандинавия Комфорт — блок-хаус",
       "model": "Скандинавия Комфорт",
-      "description": "Индивидуальное решение с выразительной горизонтальной фактурой блок-хауса. В этой подборке показана проектная визуализация, а акцент сделан на наружной отделке.",
+      "description": "Мобильная баня «Скандинавия Комфорт» 6 × 2,4 м в индивидуальном исполнении с горизонтальным блок-хаусом. В галерее — реальные фотографии погрузки, доставки и установки, а также первоначальная визуализация.",
       "order": 7,
       "visible": true,
       "evidence": "owner-confirmed",
       "caseType": "client-case",
       "projectCategory": "bathhouse",
-      "executionConfirmed": false,
-      "coverMediaId": "comfort-render",
+      "executionConfirmed": true,
+      "coverMediaId": "comfort-blockhouse-installation-photo",
       "characteristics": [],
       "media": [
         {
-          "id": "comfort-render",
+          "id": "comfort-blockhouse-loading-photo",
+          "src": "/images/works/projects/comfort-blockhouse/loading-photo.webp",
+          "thumbnail": "/images/works/projects/comfort-blockhouse/loading-photo-thumb.webp",
+          "alt": "Погрузка бани с отделкой блок-хаусом",
+          "caption": "Погрузка на производственной площадке.",
+          "kind": "photo",
+          "order": 1,
+          "width": 1600,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "comfort-blockhouse-delivery-photo",
+          "src": "/images/works/projects/comfort-blockhouse/delivery-photo.webp",
+          "thumbnail": "/images/works/projects/comfort-blockhouse/delivery-photo-thumb.webp",
+          "alt": "«Скандинавия Комфорт» с блок-хаусом перед доставкой",
+          "caption": "Баня с отделкой блок-хаусом перед доставкой.",
+          "kind": "photo",
+          "order": 2,
+          "width": 1600,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "comfort-blockhouse-installation-photo",
+          "src": "/images/works/projects/comfort-blockhouse/installation-photo.webp",
+          "thumbnail": "/images/works/projects/comfort-blockhouse/installation-photo-thumb.webp",
+          "alt": "Установка «Скандинавия Комфорт» с блок-хаусом",
+          "caption": "Установка бани на участке.",
+          "kind": "photo",
+          "order": 3,
+          "width": 1130,
+          "height": 830,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "comfort-blockhouse-exterior-render",
           "src": "/images/works/projects/comfort-blockhouse/exterior-render.webp",
           "thumbnail": "/images/works/projects/comfort-blockhouse/exterior-render-thumb.webp",
-          "alt": "Проектная визуализация бани с горизонтальной деревянной отделкой",
-          "caption": "Проектная визуализация из материалов проекта; не подтверждает фактическое исполнение.",
+          "alt": "Первоначальная визуализация бани с блок-хаусом",
+          "caption": "Первоначальная проектная визуализация.",
           "kind": "catalog-render",
-          "order": 1,
+          "order": 4,
           "width": 1092,
           "height": 468,
           "focalPoint": {
@@ -648,7 +797,7 @@
         }
       ],
       "clientCase": {
-        "size": "",
+        "size": "6 × 2,4 м",
         "base": "Индивидуальная комплектация модели «Скандинавия»",
         "duration": "",
         "selectedExtras": [
@@ -657,18 +806,12 @@
         ],
         "ownerFeedback": ""
       },
-      "cardDescription": "Изменение наружной отделки стало главным акцентом индивидуального проекта.",
+      "cardDescription": "Баня 6 × 2,4 м с фактурной отделкой блок-хаусом. Фото и видео доставки и установки.",
       "storySections": [
         {
           "heading": "Акцент на фактуре",
           "paragraphs": [
             "В проектном задании для этой «Скандинавии» предусмотрен горизонтальный блок-хаус вместо стандартной имитации бруса. Такое решение меняет характер фасада, сохраняя узнаваемую архитектуру модели."
-          ]
-        },
-        {
-          "heading": "Что важно согласовать",
-          "paragraphs": [
-            "Размеры, планировка и модель печи не публикуются до сверки финальной редакции спецификации: в доступных материалах есть несколько вариантов."
           ]
         }
       ],
@@ -698,6 +841,26 @@
             }
           ]
         }
+      ],
+      "videos": [
+        {
+          "id": "comfort-blockhouse-delivery-arrival",
+          "src": "/images/works/projects/comfort-blockhouse/delivery-arrival.mp4",
+          "poster": "/images/works/projects/comfort-blockhouse/delivery-arrival-poster.webp",
+          "alt": "Доставка бани с отделкой блок-хаусом",
+          "caption": "Доставка бани с отделкой блок-хаусом · Без звука",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "id": "comfort-blockhouse-installation-lift",
+          "src": "/images/works/projects/comfort-blockhouse/installation-lift.mp4",
+          "poster": "/images/works/projects/comfort-blockhouse/installation-lift-poster.webp",
+          "alt": "Подъём и установка бани с блок-хаусом",
+          "caption": "Подъём и установка бани с блок-хаусом · Без звука",
+          "width": 1280,
+          "height": 720
+        }
       ]
     },
     {
@@ -706,37 +869,67 @@
       "title": "Скандинавия 7 × 2,3 м — выставочный образец",
       "pageHeading": "Скандинавия — выставочный образец",
       "model": "Скандинавия",
-      "description": "Реальный выставочный образец. На фотографии показан внешний вид с торцевой стороны; образец не представлен как установленный объект клиента.",
+      "description": "Выставочный образец мобильной бани «Скандинавия» 7 × 2,3 м. Фотографии показывают фронтальный фасад с входом, сочетание дерева и графитовых деталей, а также торцевые стороны.",
       "order": 8,
       "visible": true,
       "evidence": "owner-confirmed",
       "caseType": "showroom-example",
       "projectCategory": "bathhouse",
-      "coverMediaId": "showroom-sauna-photo",
+      "coverMediaId": "showroom-sauna-front-photo",
       "characteristics": [],
       "media": [
         {
-          "id": "showroom-sauna-photo",
-          "src": "/images/works/projects/showroom-sauna/exhibition-example.webp",
-          "thumbnail": "/images/works/projects/showroom-sauna/exhibition-example-thumb.webp",
-          "alt": "Выставочный образец мобильной бани «Скандинавия»",
-          "caption": "Выставочный образец, торцевой вид.",
+          "id": "showroom-sauna-front-photo",
+          "src": "/images/works/projects/showroom-sauna/front-photo.webp",
+          "thumbnail": "/images/works/projects/showroom-sauna/front-photo-thumb.webp",
+          "alt": "Фронтальный фасад выставочной бани «Скандинавия»",
+          "caption": "Фронтальный фасад выставочного образца.",
           "kind": "photo",
           "order": 1,
-          "width": 1920,
-          "height": 1080,
+          "width": 1445,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "showroom-sauna-side-photo",
+          "src": "/images/works/projects/showroom-sauna/side-photo.webp",
+          "thumbnail": "/images/works/projects/showroom-sauna/side-photo-thumb.webp",
+          "alt": "Выставочная баня — торцевой и фронтальный фасады",
+          "caption": "Выставочный образец — вид со стороны входа.",
+          "kind": "photo",
+          "order": 2,
+          "width": 1600,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "showroom-sauna-exhibition-example",
+          "src": "/images/works/projects/showroom-sauna/exhibition-example.webp",
+          "thumbnail": "/images/works/projects/showroom-sauna/exhibition-example-thumb.webp",
+          "alt": "Выставочная баня — другой торцевой фасад",
+          "caption": "Выставочный образец — другой торцевой фасад.",
+          "kind": "photo",
+          "order": 3,
+          "width": 1600,
+          "height": 900,
           "focalPoint": {
             "x": 50,
             "y": 50
           }
         }
       ],
-      "cardDescription": "Демонстрационный образец; реальная фотография наружного исполнения.",
+      "cardDescription": "Выставочная баня 7 × 2,3 м: фронтальный фасад и другие ракурсы.",
       "storySections": [
         {
-          "heading": "Выставочный образец",
+          "heading": "Наружное исполнение",
           "paragraphs": [
-            "Фотография показывает реальное строение на выставочной площадке. Это демонстрационный пример, а не карточка индивидуально установленного объекта."
+            "Деревянная отделка дополнена графитовыми вставками и вертикальными рейками. Панорамные двери и окна хорошо видны на фронтальном ракурсе; в галерее можно рассмотреть образец с разных сторон."
           ]
         }
       ]
@@ -752,19 +945,64 @@
       "evidence": "owner-confirmed",
       "caseType": "showroom-example",
       "projectCategory": "mobile-home",
-      "coverMediaId": "mobile-home-photo",
+      "coverMediaId": "mobile-home-front-photo",
       "characteristics": [],
       "media": [
         {
-          "id": "mobile-home-photo",
-          "src": "/images/works/projects/mobile-home/showroom-photo.webp",
-          "thumbnail": "/images/works/projects/mobile-home/showroom-photo-thumb.webp",
-          "alt": "Мобильный домик на выставочной площадке, боковой фасад",
-          "caption": "Фотография выставочного образца у производственной площадки.",
+          "id": "mobile-home-front-photo",
+          "src": "/images/works/projects/mobile-home/front-photo.webp",
+          "thumbnail": "/images/works/projects/mobile-home/front-photo-thumb.webp",
+          "alt": "Фронтальный фасад выставочного мобильного дома",
+          "caption": "Фронтальный фасад выставочного мобильного дома.",
           "kind": "photo",
           "order": 1,
-          "width": 1920,
-          "height": 1080,
+          "width": 1600,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "mobile-home-front-detail",
+          "src": "/images/works/projects/mobile-home/front-detail.webp",
+          "thumbnail": "/images/works/projects/mobile-home/front-detail-thumb.webp",
+          "alt": "Вход и отделка выставочного мобильного дома",
+          "caption": "Вход и сочетание материалов фасада.",
+          "kind": "photo",
+          "order": 2,
+          "width": 1190,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "mobile-home-side-photo",
+          "src": "/images/works/projects/mobile-home/side-photo.webp",
+          "thumbnail": "/images/works/projects/mobile-home/side-photo-thumb.webp",
+          "alt": "Торцевой фасад мобильного дома",
+          "caption": "Торцевой фасад с окном.",
+          "kind": "photo",
+          "order": 3,
+          "width": 1050,
+          "height": 900,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "mobile-home-showroom-photo",
+          "src": "/images/works/projects/mobile-home/showroom-photo.webp",
+          "thumbnail": "/images/works/projects/mobile-home/showroom-photo-thumb.webp",
+          "alt": "Обратная сторона мобильного дома",
+          "caption": "Обратная сторона мобильного дома.",
+          "kind": "photo",
+          "order": 4,
+          "width": 1600,
+          "height": 900,
           "focalPoint": {
             "x": 50,
             "y": 50
@@ -774,10 +1012,10 @@
           "id": "mobile-home-plan",
           "src": "/images/works/projects/mobile-home/plan.webp",
           "thumbnail": "/images/works/projects/mobile-home/plan-thumb.webp",
-          "alt": "План-схема мобильного домика из материалов выставочного образца",
-          "caption": "План-схема из комплекта выставочных материалов; детали конкретного заказа согласуются отдельно.",
+          "alt": "План-схема выставочного мобильного дома",
+          "caption": "План-схема из материалов выставочного образца.",
           "kind": "plan",
-          "order": 2,
+          "order": 5,
           "width": 1051,
           "height": 543,
           "focalPoint": {
@@ -786,7 +1024,7 @@
           }
         }
       ],
-      "cardDescription": "Отдельный мобильный формат для дачи, гостевого размещения и глэмпинга.",
+      "cardDescription": "Фронтальный фасад, фотографии с разных сторон и планировка выставочного мобильного дома.",
       "storySections": [
         {
           "heading": "Возможные сценарии",

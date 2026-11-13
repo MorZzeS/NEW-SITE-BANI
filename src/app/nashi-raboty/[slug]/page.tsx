@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { allProjects, findProject, projectMediaStyle } from '@/data/projects'
+import { allProjects, findProject } from '@/data/projects'
 import { baseEquipmentRows } from '@/data/equipment'
 import { InteractivePhotoGallery } from '@/components/ui/InteractivePhotoGallery'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
@@ -33,29 +32,27 @@ export default async function ProjectPage({ params }: Props) {
   const project = findProject(slug)
   if (!project) notFound()
   const clientCase = project.caseType === 'client-case' && project.clientCase
+  const coverGallery = [project.cover, ...project.gallery.filter(item => item.kind === project.cover.kind)]
 
   return (
-    <div className="pt-24 pb-20">
+    <div className="project-page pt-24 pb-20">
       <div className="site-container">
-        <nav className="mb-6 flex items-center gap-2 text-sm text-cream/50" aria-label="Хлебные крошки">
+        <nav className="project-breadcrumbs mb-6 flex flex-wrap items-center gap-2 text-sm text-cream/50" aria-label="Хлебные крошки">
           <a href={withBasePath('/')} className="hover:text-cream transition-colors">Главная</a><span>/</span>
           <Link href="/nashi-raboty" className="hover:text-cream transition-colors">Наши работы</Link><span>/</span>
           <span className="text-cream">{project.title}</span>
         </nav>
 
-        <header className="mb-7 max-w-4xl">
-          <div className="section-tag mb-3">{clientCase ? (project.executionConfirmed ? 'Клиентский объект' : 'Клиентский проект') : project.caseType === 'showroom-example' ? 'Выставочный образец' : 'Каталожная визуализация'}</div>
+        <header className="project-page-heading">
+          <div className="section-tag mb-3">{clientCase ? (project.executionConfirmed ? 'Клиентский объект' : 'Клиентский проект') : project.caseType === 'showroom-example' ? 'Выставочный образец' : project.caseType === 'photo-example' ? 'Вариант исполнения' : 'Каталожная визуализация'}</div>
           <h1 className="mb-4 text-3xl font-extrabold text-cream sm:text-4xl">{project.pageHeading || project.title}</h1>
           <p className="project-intro">{project.description}</p>
         </header>
 
-        <div className={clientCase ? "project-story-grid" : "project-showroom-photo"}>
-          <figure className="m-0">
-            <div className="relative overflow-hidden rounded-3xl" style={{ aspectRatio: `${project.cover.width} / ${project.cover.height}` }}>
-              <Image src={withBasePath(project.image)} alt={project.cover.alt} style={projectMediaStyle(project.cover)} fill priority className="object-cover" sizes="(max-width: 760px) 100vw, 66vw" />
-            </div>
-            <figcaption className="mt-2 text-sm text-cream/55">{project.cover.caption}</figcaption>
-          </figure>
+        <div className={clientCase || project.caseType !== 'showroom-example' ? "project-story-grid" : "project-showroom-photo"}>
+          <div className="project-cover-gallery">
+            <InteractivePhotoGallery photos={coverGallery} featured ariaLabel={`Обложка проекта: ${project.title}`} />
+          </div>
 
           {clientCase ? (
             <section className="project-case-summary" aria-labelledby="client-case-summary">
@@ -79,7 +76,7 @@ export default async function ProjectPage({ params }: Props) {
 
         {clientCase && (
           <>
-            <section className="project-extras" aria-labelledby="project-extras-title">
+            {clientCase.selectedExtras.length > 0 && <section className="project-extras" aria-labelledby="project-extras-title">
               <div className="project-extras-heading">
                 <h2 className="project-section-title" id="project-extras-title">{project.executionConfirmed ? 'Дополнительная комплектация объекта' : 'Дополнительные решения проекта'}</h2>
                 <p className="mb-4 text-sm text-cream/60">{project.executionConfirmed ? 'Эти решения были заказаны и выполнены при изготовлении бани.' : 'Ниже перечислены индивидуальные решения, предусмотренные проектной спецификацией. Их состав сверяется по финальной комплектации.'}</p>
@@ -91,7 +88,7 @@ export default async function ProjectPage({ params }: Props) {
                   </article>
                 ))}
               </div>
-            </section>
+            </section>}
 
             {clientCase.gifts?.length ? <section className="project-gifts" aria-labelledby="project-gifts-title">
               <h2 className="project-section-title" id="project-gifts-title">Подарочные позиции в комплектации</h2>
@@ -128,9 +125,10 @@ export default async function ProjectPage({ params }: Props) {
         </aside> : null}
 
         {(() => {
-          const photos = project.media.filter(item => item.kind === 'photo')
-          const renders = project.media.filter(item => item.kind === 'catalog-render')
-          const plans = project.media.filter(item => item.kind === 'plan')
+          const photos = project.gallery.filter(item => item.kind === 'photo')
+          const renders = project.gallery.filter(item => item.kind === 'catalog-render')
+          const plans = project.gallery.filter(item => item.kind === 'plan')
+          const references = project.gallery.filter(item => item.kind === 'reference')
           return <>
             {photos.length ? <section className="project-photo-gallery" aria-labelledby="project-gallery-title">
               <h2 className="project-section-title" id="project-gallery-title">{project.caseType === 'client-case' ? 'Фотографии объекта' : 'Фотографии образца'}</h2>
@@ -145,12 +143,17 @@ export default async function ProjectPage({ params }: Props) {
               <h2 className="project-section-title" id="project-plans-title">Планировка</h2>
               <InteractivePhotoGallery photos={plans} ariaLabel={`Планировки: ${project.title}`} />
             </section> : null}
+            {references.length ? <section className="project-photo-gallery project-reference-gallery" aria-labelledby="project-references-title">
+              <h2 className="project-section-title" id="project-references-title">Материалы проекта</h2>
+              <p className="project-media-note">Референс интерьера из материалов проекта.</p>
+              <InteractivePhotoGallery photos={references} ariaLabel={`Материалы проекта: ${project.title}`} />
+            </section> : null}
           </>
         })()}
 
         {project.videos?.length ? <section className="project-video-gallery" aria-labelledby="project-video-title">
           <h2 className="project-section-title" id="project-video-title">Видео проекта</h2>
-          <div className="project-video-grid">{project.videos.map(video => <figure key={video.id} className="project-video">
+          <div className={`project-video-grid${project.videos.length === 1 ? ' project-video-grid--single' : project.videos.length === 3 ? ' project-video-grid--triple' : ''}`}>{project.videos.map(video => <figure key={video.id} className="project-video">
             <video controls muted playsInline preload="none" poster={withBasePath(video.poster)} aria-label={video.alt}>
               <source src={withBasePath(video.src)} type="video/mp4" />
               Ваш браузер не поддерживает видео.
@@ -159,7 +162,7 @@ export default async function ProjectPage({ params }: Props) {
           </figure>)}</div>
         </section> : null}
 
-        {clientCase && <CTAFormInline modelName={project.model || project.title} />}
+        <div className="project-inquiry"><CTAFormInline modelName={project.model || project.title} /></div>
       </div>
     </div>
   )

@@ -6,7 +6,7 @@ export type ProjectMedia = {
   thumbnail: string
   alt: string
   caption: string
-  kind: 'catalog-render' | 'photo' | 'plan'
+  kind: 'catalog-render' | 'photo' | 'plan' | 'reference'
   order: number
   width: number
   height: number
@@ -45,7 +45,7 @@ export type PortfolioRecord = {
   characteristics: { label: string; value: string }[]
   media: ProjectMedia[]
   pageHeading?: string
-  caseType?: 'client-case' | 'showroom-example'
+  caseType?: 'client-case' | 'showroom-example' | 'photo-example'
   clientCase?: {
     size: string
     base: string
@@ -80,7 +80,8 @@ function prepare(item: PortfolioRecord): PreparedPortfolioRecord {
     width: entry.width || 1920,
     height: entry.height || 1080,
   }))
-  return { ...item, cover, media, image: cover.src, gallery: media.filter(media => media.id !== cover.id) }
+  const preparedCover = media.find(entry => entry.id === cover.id)!
+  return { ...item, cover: preparedCover, media, image: preparedCover.src, gallery: media.filter(entry => entry.id !== preparedCover.id) }
 }
 
 // Keep hidden legacy detail routes buildable while rendering only visible records in portfolio listings.
