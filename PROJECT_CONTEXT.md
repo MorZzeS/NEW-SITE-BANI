@@ -1,11 +1,11 @@
 # BANGER.SU — контекст production-релиза SpaceWeb
 
-## Текущий статус на 12.11.2026
+## Текущий статус на 13.11.2026
 
 - Актуальный сайт: https://banger.su/ на SpaceWeb.
-- Опубликованный код приложения: `3c7e53f6f8b7fdb6cdc5eac2d0cf16282c6d3dac` (`fix: polish contact indicator and QR motion`). Live `release.json` подтверждает этот SHA, профиль `online-leads`, `onlineLeads:true`, погода выключена.
+- Опубликованный код приложения: `476c604a96a69f6e344ea298bc0553788df08dd1` (`fix: apply targeted audit corrections`). Live `release.json` подтверждает этот SHA, профиль `online-leads`, `onlineLeads:true`, погода выключена. Гарантия 12 месяцев явно утверждена владельцем; общий источник `src/data/warranty.ts`. Sitemap 74 URL, /politika перенаправляется 301 на /privacy узкой вставкой .htaccess.
 - Рабочая локальная ветка: `work/spaceweb-refresh-20261112`; рабочий каталог: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-12\SpaceWeb-refresh`.
-- Онлайн-формы на production включены. SpaceWeb PHP/MySQL/MAX обработчик, `.htaccess`, закрытые credentials и Cron в ходе последнего статического обновления не менялись.
+- Онлайн-формы на production включены. SpaceWeb PHP/MySQL/MAX обработчик, закрытые credentials и Cron в ходе последнего обновления не менялись. В .htaccess добавлен только согласованный canonical-редирект /politika; все защитные/PHP-правила сохранены.
 
 ## Архитектура
 

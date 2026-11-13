@@ -1,6 +1,6 @@
-# Точка продолжения — 12.11.2026, актуальное состояние
+# Точка продолжения — 13.11.2026, актуальное состояние
 
-> Последний production-релиз — `3c7e53f6f8b7fdb6cdc5eac2d0cf16282c6d3dac`, индикатор-полоска и полировка QR motion опубликованы; раскрытие вправо сохранено. Live motion/keyboard/reduced QA8/8 PASS. Онлайн-формы включены; погода выключена. Более ранние записи ниже — история предыдущих состояний и не являются актуальным статусом.
+> Последний production-релиз — `476c604a96a69f6e344ea298bc0553788df08dd1`: точечные исправления гарантии, установки, SEO и sitemap опубликованы на SpaceWeb и проверены. Live 16 браузерных сценариев PASS; 31 модель / 93 SEO-тега и 74 URL sitemap PASS. Онлайн-формы включены, серверная обработка не менялась; погода выключена. Текущая задача завершена. Более ранние записи ниже — история.
 
 ## Выполнено локально
 
@@ -174,3 +174,13 @@
 - Перед обновлением сохранена восстановимая публичная версия3c7e53f из проверенных релизных архивов + актуальные .htaccess/leads.php/health.php/release.json. Backup: D:\Максим\Memory\Projects\BANGER.SU\Backups\SpaceWeb\2026-11-13-audit-fixes\BANGER_PUBLIC_3c7e53f_BEFORE_AUDIT.zip;287710287байт,834entries, полный поток восстановления и SHAкаждой записи PASS. Private/DB/секреты не копировались и не изменялись.
 - Chrome9222 подключён владельцем вручную после автоматического отказа запуска («blocked by policy»), владелец самостоятельно вошёл SpaceWeb. Файловый менеджер открыт через «Открыть в отдельном окне»; в свежем FM сначала открыть bangersu, затем public_html (глубокий hash пока не вcache). Секреты не читались.
 - Следующий шаг: commit/rebuildточногоSHA → повтор artifact gates → staticoverlay + узкая вставка .htaccess с guardedbaseline → live301/privacy200,74sitemap,93SEOtags и scopedbrowser → Memory/отчёт. Main/DNS не менять; реальные заявки не отправлять.
+
+### 13.11.2026 — production опубликован, точечная задача завершена
+
+- Код 476c604a96a69f6e344ea298bc0553788df08dd1 опубликован на https://banger.su/ через существующий файловый менеджер SpaceWeb. Live release.json подтверждает точный SHA, online-leads:true, weather:disabled.
+- Проверенный overlay BANGER_AUDIT_476c604.zip: 270/825 файлов, 3489302 байта, SHA256 ADFDE32A42F2A5FE0F36E1AEE7F2BFB338A0CF3E8156F28E653666471E81D947. Временный ZIP удалён с хостинга после проверки.
+- Узкий редирект /politika[.html][/] → https://banger.su/privacy применён, все 3 варианта HTTP301; /privacy200. Точный .htaccess a6da52bc77f5aaae2b0d207594a15ed7f5692969f5c925e5abd65d0343f44e62; удаление вставки возвращает исходный c0f488b6… . PHP-файлы совпадают с backup побайтно.
+- Первая проверка OPTIONS без Origin вернула ожидаемый защитный403; автоматический guarded rollback восстановил исходный файл. Диагностический запрос исправлен: Origin https://banger.su и Access-Control-Request-Method POST. После повторного применения GET405 / OPTIONS204; никакие защиты формы не ослаблены и ни одна заявка не отправлена.
+- Live PASS: 31 модель, 93 SEO description-тега совпадают с артефактом, 74 URL sitemap, canonical4 страниц. Формы на главной/контактах/Исток4 присутствуют. Browser16 случаев 1440/390 DAY/NIGHT, disclosureEnter/nooverflow PASS;20 реальных скриншотов, выбранные просмотрены. Evidence: Work/2026-11-13/Audit-fixes/live и live-content-results.json, redirect-live.json, server-files-after.json.
+- Backup: Backups/SpaceWeb/2026-11-13-audit-fixes/BANGER_PUBLIC_3c7e53f_BEFORE_AUDIT.zip (287710287 байт/834 entries, восстановление каждого файла проверено); секреты/БД не затронуты.
+- Новых общих проверок, тестовых лидов, GitHub push/main/DNS изменений нет. Отдельная подготовка изображений допов/фасадов остаётся в Options-visuals, не входит в релиз. Следующий шаг: новое поручение владельца; эту задачу не повторять.
