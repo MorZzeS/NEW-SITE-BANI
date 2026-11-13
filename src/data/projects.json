@@ -163,6 +163,7 @@
       "visible": true,
       "evidence": "owner-confirmed",
       "caseType": "client-case",
+      "showBaseEquipment": true,
       "coverMediaId": "client-8x24-01",
       "characteristics": [],
       "media": [
@@ -348,7 +349,8 @@
         ],
         "ownerFeedback": "По обратной связи клиента, баня полностью устраивает его в повседневной эксплуатации."
       },
-      "cardDescription": "Базовая комплектация и восемь опций, заказанных при изготовлении. Около двух лет успешной эксплуатации."
+      "cardDescription": "Базовая комплектация и восемь опций, заказанных при изготовлении. Около двух лет успешной эксплуатации.",
+      "executionConfirmed": true
     },
     {
       "id": "terrace-evening-temp",
@@ -381,6 +383,424 @@
         }
       ],
       "cardDescription": "Выставочный образец в вечернем освещении."
+    },
+    {
+      "id": "project-standard-7",
+      "slug": "skandinaviya-standart-7-individual",
+      "title": "Скандинавия Стандарт 7 — индивидуальное исполнение",
+      "pageHeading": "Скандинавия Стандарт 7 — индивидуальное исполнение",
+      "model": "Скандинавия Стандарт 7",
+      "description": "Индивидуальный проект мобильной бани 7 × 2,3 м с отдельной планировкой и светло-серым наружным исполнением. Здесь показаны согласованный план и проектная визуализация.",
+      "order": 5,
+      "visible": true,
+      "evidence": "owner-confirmed",
+      "caseType": "client-case",
+      "projectCategory": "bathhouse",
+      "executionConfirmed": false,
+      "coverMediaId": "standard-7-render",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "standard-7-render",
+          "src": "/images/works/projects/individual-standard/exterior-render.webp",
+          "thumbnail": "/images/works/projects/individual-standard/exterior-render-thumb.webp",
+          "alt": "Проектная визуализация «Скандинавия Стандарт 7» в светло-сером оформлении",
+          "caption": "Проектная визуализация, не фотография установленного объекта.",
+          "kind": "catalog-render",
+          "order": 1,
+          "width": 983,
+          "height": 738,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "standard-7-plan",
+          "src": "/images/works/projects/individual-standard/plan.webp",
+          "thumbnail": "/images/works/projects/individual-standard/plan-thumb.webp",
+          "alt": "Планировка индивидуального проекта бани 7 × 2,3 м",
+          "caption": "План-схема согласованного проекта.",
+          "kind": "plan",
+          "order": 2,
+          "width": 1010,
+          "height": 423,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "clientCase": {
+        "size": "7 × 2,3 м",
+        "base": "Индивидуальная комплектация модели «Скандинавия»",
+        "duration": "",
+        "selectedExtras": [
+          "Проливной пол в моечной",
+          "Скрытая электрика",
+          "Дополнительные светильники и розетки",
+          "Односкатный навес и дополнительное основание"
+        ],
+        "ownerFeedback": "",
+        "gifts": []
+      },
+      "cardDescription": "Светло-серое исполнение, индивидуальная планировка и заказные конструктивные решения.",
+      "storySections": [
+        {
+          "heading": "Индивидуальная планировка",
+          "paragraphs": [
+            "Для проекта подготовили отдельный план трёх помещений. Габариты модели — 7 × 2,3 м; на схеме указаны ориентировочные площади комнаты отдыха, моечной и парной."
+          ]
+        },
+        {
+          "heading": "Сдержанный внешний облик",
+          "paragraphs": [
+            "В проекте предусмотрена светло-серая имитация бруса с белыми декоративными элементами и графитовыми металлическими деталями. Односкатная кровля завершает спокойную современную композицию."
+          ]
+        }
+      ],
+      "specificationGroups": [
+        {
+          "heading": "Каркас и теплоизоляция",
+          "items": [
+            {
+              "label": "Каркас",
+              "value": "Сухая деревянная конструкция 100 мм"
+            },
+            {
+              "label": "Утепление",
+              "value": "Минеральная вата 100 мм в стенах, полу и потолке"
+            },
+            {
+              "label": "Защита",
+              "value": "Пароизоляция и ветровлагозащита"
+            }
+          ]
+        },
+        {
+          "heading": "Отделка и оснащение по проекту",
+          "items": [
+            {
+              "label": "Парная",
+              "value": "Осиновая вагонка класса А и осиновые полки"
+            },
+            {
+              "label": "Комната отдыха",
+              "value": "Хвойная вагонка"
+            },
+            {
+              "label": "Печь",
+              "value": "«Ермак»; точная модификация в договоре не указана"
+            },
+            {
+              "label": "Наружная отделка",
+              "value": "Светло-серая имитация бруса с белыми декоративными элементами"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "project-premium-6x26",
+      "slug": "skandinaviya-premium-individualnyy-proekt-6x26",
+      "title": "Скандинавия Премиум — индивидуальный проект 6 × 2,6 м",
+      "pageHeading": "Скандинавия Премиум — проект 6 × 2,6 м",
+      "model": "Скандинавия Премиум",
+      "description": "Индивидуальный проект мобильной бани 6 × 2,6 м с отдельной парной и просторной гостевой. В подборке собраны согласованная планировка и проектная визуализация.",
+      "order": 6,
+      "visible": true,
+      "evidence": "owner-confirmed",
+      "caseType": "client-case",
+      "projectCategory": "bathhouse",
+      "executionConfirmed": false,
+      "coverMediaId": "premium-render",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "premium-render",
+          "src": "/images/works/projects/premium/exterior-render.webp",
+          "thumbnail": "/images/works/projects/premium/exterior-render-thumb.webp",
+          "alt": "Проектная визуализация мобильной бани «Скандинавия Премиум»",
+          "caption": "Проектная визуализация, не фотография установленного объекта.",
+          "kind": "catalog-render",
+          "order": 1,
+          "width": 1154,
+          "height": 769,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "premium-plan",
+          "src": "/images/works/projects/premium/plan.webp",
+          "thumbnail": "/images/works/projects/premium/plan-thumb.webp",
+          "alt": "План индивидуальной бани 6 × 2,6 м с парной и гостевой",
+          "caption": "План-схема согласованного проекта.",
+          "kind": "plan",
+          "order": 2,
+          "width": 1542,
+          "height": 838,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "clientCase": {
+        "size": "6 × 2,6 м",
+        "base": "Индивидуальная каркасная комплектация",
+        "duration": "",
+        "selectedExtras": [
+          "Отдельная просторная гостевая",
+          "Липовые полки и выдвижная лавочка",
+          "Организованный слив в парной",
+          "Панорамная входная ПВХ-дверь"
+        ],
+        "ownerFeedback": ""
+      },
+      "cardDescription": "Два отдельных помещения, индивидуальная планировка и продуманные материалы отделки.",
+      "storySections": [
+        {
+          "heading": "Задача проекта",
+          "paragraphs": [
+            "Спроектировать компактную баню с двумя отдельными помещениями: парной и просторной гостевой. Внутреннюю компоновку согласовали под размер 6 × 2,6 м."
+          ]
+        },
+        {
+          "heading": "Сочетание материалов",
+          "paragraphs": [
+            "Для парной предусмотрены осиновая вагонка и липовые полки. В гостевой — хвойная вагонка. Наружное исполнение сочетает имитацию бруса, графитовые детали и односкатную кровлю."
+          ]
+        }
+      ],
+      "specificationGroups": [
+        {
+          "heading": "Каркас и защита",
+          "items": [
+            {
+              "label": "Каркас",
+              "value": "Утеплённая каркасная конструкция 100 мм из сухой строганой доски"
+            },
+            {
+              "label": "Утепление",
+              "value": "Базальтовая минеральная вата «Технониколь»"
+            },
+            {
+              "label": "Защита",
+              "value": "Пароизоляция «Изоспан» и огнебиозащитная обработка древесины"
+            }
+          ]
+        },
+        {
+          "heading": "Планировка и внутреннее исполнение",
+          "items": [
+            {
+              "label": "Планировка",
+              "value": "Отдельные парная и гостевая"
+            },
+            {
+              "label": "Парная",
+              "value": "Осиновая вагонка класса А, липовые полки и выдвижная лавочка"
+            },
+            {
+              "label": "Гостевая",
+              "value": "Вагонка «Штиль» (ель/сосна); мебель в спецификации не предусмотрена"
+            },
+            {
+              "label": "Электрика",
+              "value": "Светильники в парной, гостевой и на фасаде; выключатели и розетки по согласованной схеме"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "project-comfort-blockhouse",
+      "slug": "skandinaviya-komfort-blokhaus-individualnyy-proekt",
+      "title": "Скандинавия Комфорт — отделка блок-хаусом",
+      "pageHeading": "Скандинавия Комфорт — блок-хаус",
+      "model": "Скандинавия Комфорт",
+      "description": "Индивидуальное решение с выразительной горизонтальной фактурой блок-хауса. В этой подборке показана проектная визуализация, а акцент сделан на наружной отделке.",
+      "order": 7,
+      "visible": true,
+      "evidence": "owner-confirmed",
+      "caseType": "client-case",
+      "projectCategory": "bathhouse",
+      "executionConfirmed": false,
+      "coverMediaId": "comfort-render",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "comfort-render",
+          "src": "/images/works/projects/comfort-blockhouse/exterior-render.webp",
+          "thumbnail": "/images/works/projects/comfort-blockhouse/exterior-render-thumb.webp",
+          "alt": "Проектная визуализация бани с горизонтальной деревянной отделкой",
+          "caption": "Проектная визуализация из материалов проекта; не подтверждает фактическое исполнение.",
+          "kind": "catalog-render",
+          "order": 1,
+          "width": 1092,
+          "height": 468,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "clientCase": {
+        "size": "",
+        "base": "Индивидуальная комплектация модели «Скандинавия»",
+        "duration": "",
+        "selectedExtras": [
+          "Горизонтальный блок-хаус с выраженной деревянной фактурой",
+          "Индивидуальные решения наружной отделки"
+        ],
+        "ownerFeedback": ""
+      },
+      "cardDescription": "Изменение наружной отделки стало главным акцентом индивидуального проекта.",
+      "storySections": [
+        {
+          "heading": "Акцент на фактуре",
+          "paragraphs": [
+            "В проектном задании для этой «Скандинавии» предусмотрен горизонтальный блок-хаус вместо стандартной имитации бруса. Такое решение меняет характер фасада, сохраняя узнаваемую архитектуру модели."
+          ]
+        },
+        {
+          "heading": "Что важно согласовать",
+          "paragraphs": [
+            "Размеры, планировка и модель печи не публикуются до сверки финальной редакции спецификации: в доступных материалах есть несколько вариантов."
+          ]
+        }
+      ],
+      "specificationGroups": [
+        {
+          "heading": "Подтверждённые проектные решения",
+          "items": [
+            {
+              "label": "Каркас",
+              "value": "Утеплённая каркасная конструкция 100 мм"
+            },
+            {
+              "label": "Утепление",
+              "value": "Минеральная вата 100 мм"
+            },
+            {
+              "label": "Защита",
+              "value": "Пароизоляция и ветровлагозащита"
+            },
+            {
+              "label": "Отделка парной",
+              "value": "Осиновая вагонка и осиновые полки"
+            },
+            {
+              "label": "Комната отдыха",
+              "value": "Хвойная вагонка"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "showroom-sauna-7x23",
+      "slug": "skandinaviya-7-vystavochnyy-obrazets",
+      "title": "Скандинавия 7 × 2,3 м — выставочный образец",
+      "pageHeading": "Скандинавия — выставочный образец",
+      "model": "Скандинавия",
+      "description": "Реальный выставочный образец. На фотографии показан внешний вид с торцевой стороны; образец не представлен как установленный объект клиента.",
+      "order": 8,
+      "visible": true,
+      "evidence": "owner-confirmed",
+      "caseType": "showroom-example",
+      "projectCategory": "bathhouse",
+      "coverMediaId": "showroom-sauna-photo",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "showroom-sauna-photo",
+          "src": "/images/works/projects/showroom-sauna/exhibition-example.webp",
+          "thumbnail": "/images/works/projects/showroom-sauna/exhibition-example-thumb.webp",
+          "alt": "Выставочный образец мобильной бани «Скандинавия»",
+          "caption": "Выставочный образец, торцевой вид.",
+          "kind": "photo",
+          "order": 1,
+          "width": 1920,
+          "height": 1080,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "cardDescription": "Демонстрационный образец; реальная фотография наружного исполнения.",
+      "storySections": [
+        {
+          "heading": "Выставочный образец",
+          "paragraphs": [
+            "Фотография показывает реальное строение на выставочной площадке. Это демонстрационный пример, а не карточка индивидуально установленного объекта."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "showroom-mobile-home",
+      "slug": "mobilnyy-dom-dlya-dachi-i-glempinga",
+      "title": "Мобильный дом для дачи и глэмпинга",
+      "pageHeading": "Мобильный дом — выставочный образец",
+      "description": "Отдельный от банных моделей выставочный образец мобильного домика. Его можно рассматривать для дачного отдыха, гостевого размещения или территории глэмпинга; конкретная комплектация уточняется для каждого проекта.",
+      "order": 9,
+      "visible": true,
+      "evidence": "owner-confirmed",
+      "caseType": "showroom-example",
+      "projectCategory": "mobile-home",
+      "coverMediaId": "mobile-home-photo",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "mobile-home-photo",
+          "src": "/images/works/projects/mobile-home/showroom-photo.webp",
+          "thumbnail": "/images/works/projects/mobile-home/showroom-photo-thumb.webp",
+          "alt": "Мобильный домик на выставочной площадке, боковой фасад",
+          "caption": "Фотография выставочного образца у производственной площадки.",
+          "kind": "photo",
+          "order": 1,
+          "width": 1920,
+          "height": 1080,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "mobile-home-plan",
+          "src": "/images/works/projects/mobile-home/plan.webp",
+          "thumbnail": "/images/works/projects/mobile-home/plan-thumb.webp",
+          "alt": "План-схема мобильного домика из материалов выставочного образца",
+          "caption": "План-схема из комплекта выставочных материалов; детали конкретного заказа согласуются отдельно.",
+          "kind": "plan",
+          "order": 2,
+          "width": 1051,
+          "height": 543,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "cardDescription": "Отдельный мобильный формат для дачи, гостевого размещения и глэмпинга.",
+      "storySections": [
+        {
+          "heading": "Возможные сценарии",
+          "paragraphs": [
+            "Мобильный формат подходит для дачного отдыха, гостевого размещения и размещения на территории глэмпинга. На странице показан выставочный образец, не отдельный клиентский кейс."
+          ]
+        },
+        {
+          "heading": "План-схема образца",
+          "paragraphs": [
+            "Изображение планировки приведено как часть материалов выставочного образца. Конструкцию, инженерные системы и комплектацию необходимо согласовывать под конкретную задачу."
+          ]
+        }
+      ]
     }
   ]
 }

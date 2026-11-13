@@ -17,7 +17,7 @@ export function InteractivePhotoGallery({ photos, compact = false, ariaLabel }: 
           <button
             key={photo.id}
             type="button"
-            className="project-photo-thumb"
+            className={`project-photo-thumb${photo.kind === 'plan' ? ' project-photo-thumb--plan' : photo.width < photo.height ? ' project-photo-thumb--portrait' : ''}`}
             aria-label={`Открыть фотографию ${index + 1}: ${photo.alt}`}
             aria-haspopup="dialog"
             onClick={() => setActive(index)}
@@ -28,7 +28,7 @@ export function InteractivePhotoGallery({ photos, compact = false, ariaLabel }: 
               fill
               loading="lazy"
               sizes={compact ? '(max-width: 760px) 42vw, 22vw' : '(max-width: 760px) 42vw, 23vw'}
-              style={{ objectPosition: `${photo.focalPoint.x}% ${photo.focalPoint.y}%` }}
+              style={{ objectPosition: `${photo.focalPoint.x}% ${photo.focalPoint.y}%`, objectFit: photo.kind === 'plan' || photo.width < photo.height ? 'contain' : 'cover' }}
             />
             <span className="project-photo-number">{index + 1}</span>
           </button>

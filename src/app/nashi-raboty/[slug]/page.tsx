@@ -59,13 +59,13 @@ export default async function ProjectPage({ params }: Props) {
 
           {clientCase ? (
             <section className="project-case-summary" aria-labelledby="client-case-summary">
-              <h2 id="client-case-summary">Кратко об объекте</h2>
+              <h2 id="client-case-summary">{project.executionConfirmed ? 'Кратко об объекте' : 'Кратко о проекте'}</h2>
               <dl className="project-case-facts">
-                <div><dt>Размер</dt><dd>{clientCase.size}</dd></div>
-                <div><dt>Комплектация</dt><dd>{clientCase.base}</dd></div>
-                <div><dt>Эксплуатация</dt><dd>{clientCase.duration}</dd></div>
+                {clientCase.size && <div><dt>Размер</dt><dd>{clientCase.size}</dd></div>}
+                {clientCase.base && <div><dt>Комплектация</dt><dd>{clientCase.base}</dd></div>}
+                {clientCase.duration && <div><dt>Эксплуатация</dt><dd>{clientCase.duration}</dd></div>}
               </dl>
-              <p className="mt-4 text-sm leading-relaxed text-cream/75">{clientCase.ownerFeedback}</p>
+              {clientCase.ownerFeedback && <p className="mt-4 text-sm leading-relaxed text-cream/75">{clientCase.ownerFeedback}</p>}
             </section>
           ) : project.caseType !== 'showroom-example' ? (
             <section className="project-case-summary" aria-labelledby="project-note-title">
@@ -81,8 +81,8 @@ export default async function ProjectPage({ params }: Props) {
           <>
             <section className="project-extras" aria-labelledby="project-extras-title">
               <div className="project-extras-heading">
-                <h2 className="project-section-title" id="project-extras-title">Дополнительная комплектация и индивидуальные решения</h2>
-                <p className="mb-4 text-sm text-cream/60">Все перечисленные решения были заказаны вместе с баней и выполнены при её изготовлении, а не добавлены после установки на участке.</p>
+                <h2 className="project-section-title" id="project-extras-title">{project.executionConfirmed ? 'Дополнительная комплектация объекта' : 'Дополнительные решения проекта'}</h2>
+                <p className="mb-4 text-sm text-cream/60">{project.executionConfirmed ? 'Эти решения были заказаны и выполнены при изготовлении бани.' : 'Ниже перечислены индивидуальные решения, предусмотренные проектной спецификацией. Их состав сверяется по финальной комплектации.'}</p>
               </div>
               <div className="project-extras-grid">
                 {clientCase.selectedExtras.map(extra => (
@@ -93,19 +93,71 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             </section>
 
-            <section className="project-base" aria-labelledby="project-base-title">
+            {clientCase.gifts?.length ? <section className="project-gifts" aria-labelledby="project-gifts-title">
+              <h2 className="project-section-title" id="project-gifts-title">Подарочные позиции в комплектации</h2>
+              <ul>{clientCase.gifts.map(gift => <li key={gift}>{gift}</li>)}</ul>
+            </section> : null}
+
+            {project.showBaseEquipment && <section className="project-base" aria-labelledby="project-base-title">
               <h2 className="project-section-title" id="project-base-title">Что входит в базовую комплектацию</h2>
               <p className="mb-4 text-sm text-cream/60">Ниже показана базовая комплектация, на основе которой изготовлена баня. Дополнительное оборудование, установленное на этой бане, вынесено в отдельный список выше.</p>
               <table className="base-equipment-table"><caption className="sr-only">Состав базовой комплектации мобильных бань</caption><tbody>{baseEquipmentRows.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td><span>{row.value}</span>{row.gift && <small className="base-equipment-gift">В подарок</small>}</td></tr>)}</tbody></table>
-            </section>
+            </section>}
           </>
         )}
 
-        <section className="project-photo-gallery" aria-labelledby="project-gallery-title">
-          <h2 className="project-section-title" id="project-gallery-title">{clientCase ? 'Фотографии объекта' : 'Фотография'}</h2>
-          {clientCase && <p className="mb-4 text-sm text-cream/60">11 фотографий, расположенных в исходной нумерации от 1 до 11.</p>}
-          <InteractivePhotoGallery photos={project.media} ariaLabel={`Фотогалерея: ${project.title}`} />
-        </section>
+        {project.storySections?.length ? <section className="project-story-sections" aria-label="История и решения проекта">
+          {project.storySections.map((section, index) => <article className="project-story-section" key={`${section.heading}-${index}`}>
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
+            {section.bullets?.length ? <ul>{section.bullets.map(item => <li key={item}>{item}</li>)}</ul> : null}
+          </article>)}
+        </section> : null}
+
+        {project.specificationGroups?.length ? <section className="project-specifications" aria-label="Подтверждённые особенности исполнения">
+          {project.specificationGroups.map(group => <article className="project-specification-group" key={group.heading}>
+            <h2>{group.heading}</h2>
+            <dl>{group.items.map(item => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>
+          </article>)}
+        </section> : null}
+
+        {project.review ? <aside className="project-review" aria-label="Отзыв клиента">
+          <span className="section-tag">Обратная связь</span>
+          <blockquote>«{project.review.quote}»</blockquote>
+          <a href={project.review.url} target="_blank" rel="noopener noreferrer">{project.review.sourceLabel} ↗</a>
+        </aside> : null}
+
+        {(() => {
+          const photos = project.media.filter(item => item.kind === 'photo')
+          const renders = project.media.filter(item => item.kind === 'catalog-render')
+          const plans = project.media.filter(item => item.kind === 'plan')
+          return <>
+            {photos.length ? <section className="project-photo-gallery" aria-labelledby="project-gallery-title">
+              <h2 className="project-section-title" id="project-gallery-title">{project.caseType === 'client-case' ? 'Фотографии объекта' : 'Фотографии образца'}</h2>
+              <InteractivePhotoGallery photos={photos} ariaLabel={`Фотогалерея: ${project.title}`} />
+            </section> : null}
+            {renders.length ? <section className="project-photo-gallery project-render-gallery" aria-labelledby="project-renders-title">
+              <h2 className="project-section-title" id="project-renders-title">Первоначальный проект и визуализация</h2>
+              <p className="project-media-note">Проектная визуализация. Фактическое исполнение может отличаться от первоначального рендера в соответствии с согласованной комплектацией.</p>
+              <InteractivePhotoGallery photos={renders} ariaLabel={`Проектные визуализации: ${project.title}`} />
+            </section> : null}
+            {plans.length ? <section className="project-photo-gallery project-plan-gallery" aria-labelledby="project-plans-title">
+              <h2 className="project-section-title" id="project-plans-title">Планировка</h2>
+              <InteractivePhotoGallery photos={plans} ariaLabel={`Планировки: ${project.title}`} />
+            </section> : null}
+          </>
+        })()}
+
+        {project.videos?.length ? <section className="project-video-gallery" aria-labelledby="project-video-title">
+          <h2 className="project-section-title" id="project-video-title">Видео проекта</h2>
+          <div className="project-video-grid">{project.videos.map(video => <figure key={video.id} className="project-video">
+            <video controls muted playsInline preload="none" poster={withBasePath(video.poster)} aria-label={video.alt}>
+              <source src={withBasePath(video.src)} type="video/mp4" />
+              Ваш браузер не поддерживает видео.
+            </video>
+            <figcaption>{video.caption} <span>Без звука</span></figcaption>
+          </figure>)}</div>
+        </section> : null}
 
         {clientCase && <CTAFormInline modelName="Баня 8 × 2,4 м" />}
       </div>

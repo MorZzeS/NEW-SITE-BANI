@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { withBasePath } from '@/lib/site-path'
-export type WorksPhoto = { id: string; src: string; thumbnail: string; alt: string; caption: string; width: number; height: number; focalPoint: { x: number; y: number } }
+export type WorksPhoto = { id: string; src: string; thumbnail: string; alt: string; caption: string; width: number; height: number; focalPoint: { x: number; y: number }; kind?: 'photo' | 'catalog-render' | 'plan' }
 export function WorksLightbox({ photos, initialIndex, onClose }: { photos: WorksPhoto[]; initialIndex: number; onClose: () => void }) {
   const [index,setIndex] = useState(initialIndex)
   const dialog = useRef<HTMLDivElement>(null)

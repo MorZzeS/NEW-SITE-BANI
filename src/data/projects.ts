@@ -6,11 +6,30 @@ export type ProjectMedia = {
   thumbnail: string
   alt: string
   caption: string
-  kind: 'catalog-render' | 'photo'
+  kind: 'catalog-render' | 'photo' | 'plan'
   order: number
   width: number
   height: number
   focalPoint: { x: number; y: number }
+}
+
+export type ProjectVideo = {
+  id: string
+  src: string
+  poster: string
+  alt: string
+  caption: string
+}
+
+export type ProjectStorySection = {
+  heading: string
+  paragraphs: string[]
+  bullets?: string[]
+}
+
+export type ProjectSpecificationGroup = {
+  heading: string
+  items: { label: string; value: string }[]
 }
 
 export type PortfolioRecord = {
@@ -33,15 +52,25 @@ export type PortfolioRecord = {
     duration: string
     selectedExtras: string[]
     ownerFeedback: string
+    gifts?: string[]
   }
   temporaryNote?: string
   cardDescription?: string
+  storySections?: ProjectStorySection[]
+  specificationGroups?: ProjectSpecificationGroup[]
+  videos?: ProjectVideo[]
+  projectCategory?: 'bathhouse' | 'mobile-home'
+  review?: { quote: string; sourceLabel: string; url: string }
+  showBaseEquipment?: boolean
+  executionConfirmed?: boolean
 }
+
+export type PreparedPortfolioRecord = PortfolioRecord & { cover: ProjectMedia; image: string; gallery: ProjectMedia[] }
 
 // One editable content source. No per-component photo/title/order configuration.
 const records: PortfolioRecord[] = manifest.items as unknown as PortfolioRecord[]
 export const homepagePortfolioModels = manifest.homepageModelSlugs
-function prepare(item: PortfolioRecord) {
+function prepare(item: PortfolioRecord): PreparedPortfolioRecord {
   const cover = item.media.find(media => media.id === item.coverMediaId)
   if (!cover) throw new Error(`Portfolio cover missing: ${item.id}`)
   if (new Set(item.media.map(media => media.id)).size !== item.media.length) throw new Error(`Duplicate portfolio media: ${item.id}`)
