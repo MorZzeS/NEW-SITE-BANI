@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: Props) {
         </nav>
 
         <header className="mb-7 max-w-4xl">
-          <div className="section-tag mb-3">{clientCase ? 'Клиентский объект' : project.caseType === 'showroom-example' ? 'Выставочный образец' : 'Каталожная визуализация'}</div>
+          <div className="section-tag mb-3">{clientCase ? (project.executionConfirmed ? 'Клиентский объект' : 'Клиентский проект') : project.caseType === 'showroom-example' ? 'Выставочный образец' : 'Каталожная визуализация'}</div>
           <h1 className="mb-4 text-3xl font-extrabold text-cream sm:text-4xl">{project.pageHeading || project.title}</h1>
           <p className="project-intro">{project.description}</p>
         </header>
@@ -159,7 +159,7 @@ export default async function ProjectPage({ params }: Props) {
           </figure>)}</div>
         </section> : null}
 
-        {clientCase && <CTAFormInline modelName="Баня 8 × 2,4 м" />}
+        {clientCase && <CTAFormInline modelName={project.model || project.title} />}
       </div>
     </div>
   )
