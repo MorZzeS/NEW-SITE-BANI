@@ -2,9 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Camera, FileText, Hash, ShieldCheck } from 'lucide-react'
 import { defaultOpenGraph } from '@/lib/site-metadata'
+import { warrantyContent } from '@/data/warranty'
 
-const title = 'Гарантия и поддержка после покупки'
-const description = 'Условия гарантии на конструктивные элементы бань и порядок обращения по вопросам качества изготовления.'
+const title = 'Гарантия 12 месяцев на конструкцию бани'
+const description = '12 месяцев гарантии на конструктивные элементы бани. Условия гарантии и порядок обращения по вопросам качества изготовления.'
 
 export const metadata: Metadata = {
   title,
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 const steps = [
-  { icon: Hash, title: 'Укажите номер заказа', text: 'Так мы сможем найти информацию и документы по покупке.' },
+  { icon: Hash, title: 'Сообщите данные о заказе', text: 'Если номер заказа сохранился, укажите его — это поможет найти документы по покупке.' },
   { icon: FileText, title: 'Опишите вопрос', text: 'Коротко расскажите, что произошло и когда вы это заметили.' },
   { icon: Camera, title: 'Приложите материалы при необходимости', text: 'Если потребуется, мы попросим фотографии или видео.' },
 ]
@@ -39,8 +40,8 @@ export default function WarrantyPage() {
                 <span className="text-xs font-bold uppercase tracking-[.16em]">Бани Герасимов</span>
               </div>
               <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#936c22]">Информация о гарантии</p>
-              <p className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">По договору</p>
-              <p className="mt-2 max-w-[24ch] text-sm leading-relaxed text-[#5f5a4e]">срок и условия определяются документами заказа</p>
+              <p className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">12 месяцев</p>
+              <p className="mt-2 max-w-[24ch] text-sm leading-relaxed text-[#5f5a4e]">на конструктивные элементы бани</p>
               <div aria-hidden="true" className="mt-8 space-y-2.5">
                 <span className="block h-2 w-full rounded bg-[#e7e0d2]" />
                 <span className="block h-2 w-[88%] rounded bg-[#e7e0d2]" />
@@ -52,16 +53,18 @@ export default function WarrantyPage() {
 
           <div className="max-w-2xl">
             <p className="section-tag mb-4">Гарантия и поддержка</p>
-            <h1 id="warranty-title" className="text-4xl font-extrabold leading-tight text-cream sm:text-5xl">Гарантия и поддержка после покупки</h1>
-            <p className="mt-4 text-xl font-semibold leading-relaxed text-cream">Гарантийные обязательства и срок фиксируются в договоре и документах к заказу.</p>
-            <p className="mt-4 text-base leading-relaxed text-cream/75">Мы остаёмся на связи после передачи заказа. Конкретные гарантийные обязательства, срок и порядок обращения указаны в договоре и документах к заказу. Если у вас возник вопрос по качеству изготовления, свяжитесь с нами и укажите номер заказа. Мы изучим обращение и документы, при необходимости попросим фотографии или видео и сообщим о дальнейших действиях. Ваши права, предусмотренные законодательством РФ, сохраняются.</p>
+            <h1 id="warranty-title" className="text-4xl font-extrabold leading-tight text-cream sm:text-5xl">{warrantyContent.title}</h1>
+            <p className="mt-4 text-base leading-relaxed text-cream/75">{warrantyContent.description}</p>
             <Link href="/kontakty" className="btn-primary mt-7 inline-flex min-h-12 items-center justify-center gap-2 px-6">Связаться по гарантии</Link>
           </div>
         </section>
 
-        <section className="mt-14 border-t border-white/12 pt-8" aria-labelledby="warranty-steps-title">
-          <p className="section-tag mb-3">Как обратиться</p>
-          <h2 id="warranty-steps-title" className="text-2xl font-bold text-cream sm:text-3xl">Что сообщить при обращении</h2>
+        <details className="mt-10 rounded-xl border border-white/12 px-5 py-4 sm:px-6">
+          <summary className="cursor-pointer text-base font-semibold text-cream">Подробнее об условиях гарантии</summary>
+          <div className="mt-5 space-y-4 text-sm leading-relaxed text-cream/75">
+            <p><strong className="text-cream">Состав гарантии.</strong> Гарантия на конструктивные элементы бани составляет 12 месяцев. Перечень элементов и подробные условия закрепляются в документах заказа.</p>
+            <p><strong className="text-cream">Рассмотрение обращения.</strong> Мы изучим описание вопроса и документы заказа, при необходимости попросим фотографии или видео и сообщим о дальнейших действиях. Порядок рассмотрения недостатков определяется документами заказа и применимым законодательством. Законные права покупателя сохраняются.</p>
+          <h2 id="warranty-steps-title" className="text-xl font-bold text-cream">Что сообщить при обращении</h2>
           <ol className="mt-6 grid gap-4 md:grid-cols-3">
             {steps.map(({ icon: Icon, title: stepTitle, text }, index) => (
               <li key={stepTitle} className="flex gap-4 border-t border-gold-400/35 py-5">
@@ -76,7 +79,8 @@ export default function WarrantyPage() {
               </li>
             ))}
           </ol>
-        </section>
+          </div>
+        </details>
       </div>
     </div>
   )

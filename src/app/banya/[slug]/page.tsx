@@ -15,6 +15,7 @@ import { ModelPrices } from '@/components/catalog/ModelPrices'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
 import type { Metadata } from 'next'
 import { withBasePath } from '@/lib/site-path'
+import { getModelSeoDescription } from '@/lib/model-seo'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -32,16 +33,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonical = `${BASE}/banya/${sauna.slug}`
   // OG image: prefer full URL
   const ogImage = sauna.image.startsWith('http') ? sauna.image : `${BASE}${sauna.image}`
+  const description = getModelSeoDescription(sauna, 'sauna')
   return {
     title: `${sauna.name} — мобильная баня ${sauna.size}`,
-    description: `${sauna.name} (${sauna.article}): ${sauna.subtitle}. Размер ${sauna.size}, площадь застройки ${sauna.area} м². ${sauna.description} Доставка по Москве и МО.`,
+    description,
     alternates: { canonical },
     openGraph: {
       url: canonical,
       title: `${sauna.name} — мобильная баня ${sauna.size}`,
-      description: `${sauna.subtitle}. Размер ${sauna.size}. ${sauna.description}`,
+      description,
       images: [{ url: ogImage, alt: sauna.name }],
     },
+    twitter: { description },
   }
 }
 

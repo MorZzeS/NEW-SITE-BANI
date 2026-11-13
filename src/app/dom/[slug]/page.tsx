@@ -14,6 +14,7 @@ import { ModelPrices } from '@/components/catalog/ModelPrices'
 import { ProductGallery } from '@/components/catalog/ProductGallery'
 import type { Metadata } from 'next'
 import { withBasePath } from '@/lib/site-path'
+import { getModelSeoDescription } from '@/lib/model-seo'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -30,16 +31,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const BASE = 'https://banger.su'
   const canonical = `${BASE}/dom/${home.slug}`
   const ogImage = home.image.startsWith('http') ? home.image : `${BASE}${home.image}`
+  const description = getModelSeoDescription(home, 'home')
   return {
     title: `${home.name} — ${home.size}`,
-    description: `${home.name} (${home.article}): ${home.subtitle}. Размер ${home.size}, площадь застройки ${home.area} м². ${home.description} Доставка по Москве и МО.`,
+    description,
     alternates: { canonical },
     openGraph: {
       url: canonical,
       title: `${home.name} — ${home.size}`,
-      description: `${home.subtitle}. ${home.description}`,
+      description,
       images: [{ url: ogImage, alt: home.name }],
     },
+    twitter: { description },
   }
 }
 

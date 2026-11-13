@@ -78,7 +78,7 @@ export default function VystavkaPage() {
             <a href={`tel:${siteSettings.phone2}`} className="btn-secondary px-6 py-3 text-sm">{siteSettings.phoneDisplay2}</a>
           </div>
           <div className="mt-6 pt-6 border-t border-white/10 text-xs text-cream/40">
-            <p>Адрес выставочного зала и режим работы будут опубликованы после подтверждения владельцем. Для записи на просмотр используйте кнопки связи выше.</p>
+            <p>Адрес и удобное время просмотра согласуем при записи. Свяжитесь с нами, чтобы договориться о посещении выставочного образца</p>
           </div>
         </section>
       </div>

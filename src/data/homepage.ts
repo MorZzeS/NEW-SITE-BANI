@@ -1,3 +1,5 @@
+import { warrantyContent } from './warranty'
+
 // Keep homepage media separate from transition logic for future photo replacement.
 export const homepageHeroImages = {
   light: '/images/hero/hero-day.webp',
@@ -30,7 +32,7 @@ export const homepageTrustItems = [
   {
     id: 'warranty',
     title: 'Гарантия',
-    caption: 'Условия в договоре',
+    caption: warrantyContent.caption,
     detail: 'Перед заказом ознакомьтесь с обязательствами и гарантийными условиями договора.',
   },
 ] as const

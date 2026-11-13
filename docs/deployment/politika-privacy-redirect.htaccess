@@ -1,0 +1,4 @@
+# Owner-approved canonical policy URL, 13 November 2026.
+# Insert after the existing RewriteBase /; preserve all other server rules.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?banger\.su(?::[0-9]+)?$ [NC]
+RewriteRule ^politika(?:\.html)?/?$ https://banger.su/privacy [R=301,L]
