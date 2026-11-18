@@ -201,7 +201,7 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
 const totals = { available: 0, included: 0, unavailable: 0, unknown: 0 }
 for (const model of matrix) for (const key of Object.keys(totals)) totals[key] += model.counts[key]
 assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 24 * 45 + 7 * 44, 'matrix must cover 45 options for eligible saunas and 44 for Barn Premium plus six homes')
-assert.equal(totals.included, 47, 'only catalogue-confirmed options already in the model are classified as included; the free gift furniture is not the paid furniture option')
+assert.equal(totals.included, 48, 'only catalogue-confirmed options already in the model are classified as included; the free gift furniture is not the paid furniture option')
 assert.equal(totals.unavailable, 0, 'current sources confirm no incompatible option; do not invent unavailable rows')
 assert.ok(totals.available > 0 && totals.unknown > 0, 'matrix must distinguish confirmed availability from confirmation-needed positions')
 
@@ -219,6 +219,9 @@ assert.equal(evidence('bg-04').find(row => row.option === 'ermak').status, 'unkn
 assert.equal(evidence('bg-09').find(row => row.option === 'ermak-base').status, 'included')
 assert.equal(evidence('bg-18').find(row => row.option === 'external-light').status, 'included')
 assert.equal(evidence('bg-18').find(row => row.option === 'shade').status, 'included')
+assert.equal(evidence('bg-18').find(row => row.option === 'floor').status, 'included')
+assert.equal(evidence('bg-18').find(row => row.option === 'window-grid').status, 'included')
+assert.equal(models.find(model => model.id === 'bg-18').priceFrom, 657600, 'owner approved floor and two grids counted once in base')
 assert.equal(evidence('bg-19').find(row => row.option === 'boiler').status, 'included')
 assert.equal(evidence('bg-19').find(row => row.option === 'shower').status, 'included')
 assert.equal(evidence('bg-20').find(row => row.option === 'wc').status, 'included')

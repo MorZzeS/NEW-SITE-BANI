@@ -57,6 +57,10 @@ for (const id of ['led', 'steam-bench-oil']) {
   assert.equal(option(id).enabled, true)
   assert.ok(!('priceStatus' in option(id)) && !('proposedRetailPrice' in option(id)), `${id}: final price must not retain preliminary metadata`)
 }
+const fourMetre = saunas.find(model => model.id === 'bg-18')
+const includedFourMetre = calculate(fourMetre, ['floor', 'window-grid'], { quantities: { 'window-grid': 2 } })
+assert.equal(includedFourMetre.basePrice, 657600)
+assert.equal(includedFourMetre.total, 657600, 'included floor and two grids must never be charged twice')
 assert.equal(equipmentSelection(['led', 'steam-bench-oil']).knownTotal, 27000)
 assert.equal(equipmentSelection(['led', 'steam-bench-oil']).unpricedCount, 0)
 for (const item of options.filter(item => item.priceUnit === 'шт.')) {

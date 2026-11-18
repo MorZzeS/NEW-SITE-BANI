@@ -22,7 +22,7 @@ export function PopularSaunasSection() {
             Весь каталог <ArrowRight aria-hidden="true" className="w-4 h-4" />
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {popular.map((sauna) => (
             <SaunaCard key={sauna.id} sauna={sauna} bestSeller={sauna.slug === homepageBestSellerSlug} />
           ))}

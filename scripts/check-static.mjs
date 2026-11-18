@@ -4,7 +4,7 @@ import crypto from 'node:crypto'
 import vm from 'node:vm'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
-import { MODEL_INCREASE, HOME_MODEL_INCREASE, increasedVariant } from './verify-price-update.mjs'
+import { APPROVED_MODEL_OVERRIDES, MODEL_INCREASE, HOME_MODEL_INCREASE, increasedVariant } from './verify-price-update.mjs'
 
 const require = createRequire(import.meta.url)
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -116,7 +116,7 @@ for (const record of records) {
   const expectedVariants = record.price_variants.filter((variant) => !(isMobileSauna && /брус/i.test(variant))).map((variant) => increasedVariant(variant, expectedIncrease))
   if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(expectedVariants)) errors.push(`${record.id}: alternative prices differ from owner increase`)
   if (isMobileSauna && (model?.priceVariants || []).some((variant) => /брус/i.test(variant))) errors.push(`${record.id}: bрус execution must not be sold as a price variant for a mobile sauna`)
-  if (model?.priceFrom !== record.priceFrom + expectedIncrease) errors.push(`${record.id}: base price differs from owner increase`)
+  if (model?.priceFrom !== record.priceFrom + expectedIncrease + (record.id === 'bg-18' ? 38400 : 0)) errors.push(`${record.id}: base price differs from owner increase`)
   if (model?.isPublished === false) {
     if (!html.includes('временно') || !html.includes('noindex') || html.includes('Оставить заявку на эту комплектацию')) errors.push(`${record.id}: hidden route must be unavailable/noindex without ordering`)
     continue
@@ -130,9 +130,9 @@ for (const record of records) {
     if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
   }
   for (const field of ['name', 'article', 'size', 'description', 'area']) {
-    if (model?.[field] !== (field === 'name' ? ({ 'bg-14': 'Скандинавия Комфорт 6 Д', 'bg-17': 'Скандинавия Комфорт+ 7 С-Д' }[record.id] ?? record[field]) : record[field])) errors.push(`${record.id}: data differs from catalog: ${field}`)
+    if (model?.[field] !== (field === 'name' ? (APPROVED_MODEL_OVERRIDES[record.id]?.name ?? record[field]) : record[field])) errors.push(`${record.id}: data differs from catalog: ${field}`)
   }
-  if (JSON.stringify(model?.features) !== JSON.stringify(record.features)) errors.push(`${record.id}: features differ from catalog`)
+  if (JSON.stringify(model?.features) !== JSON.stringify(APPROVED_MODEL_OVERRIDES[record.id]?.features ?? record.features)) errors.push(`${record.id}: features differ from catalog`)
   const mainAsset = path.join(dist, record.model_asset)
   if (!fs.existsSync(mainAsset)) errors.push(`${record.id}: missing main model asset`)
   else if (crypto.createHash('sha256').update(fs.readFileSync(mainAsset)).digest('hex') !== record.model_source_sha256) errors.push(`${record.id}: main image differs from source slide`)

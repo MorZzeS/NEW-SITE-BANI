@@ -7,7 +7,7 @@ export const homepageHeroImages = {
 } as const
 
 export const homepageBestSellerSlug = 'skandinaviya-start-65'
-export const homepagePopularIds = ['bg-01', 'bg-11', 'bg-04', 'bg-05'] as const
+export const homepagePopularIds = ['bg-10', 'bg-11', 'bg-21'] as const
 
 // Approved Glass Reveal copy: docs/ux/homepage-20261014/content.js.
 export const homepageTrustItems = [

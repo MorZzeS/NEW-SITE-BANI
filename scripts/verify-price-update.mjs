@@ -10,6 +10,59 @@ import ts from 'typescript'
 // It only reads prices: running it cannot apply an increase.
 export const PRICE_BASELINE = '0e18849ddb891cae04d596babf8537cedd453cfe'
 export const OPTION_BASELINE = '51720e3d4bf63757b13fc1c7c1e81d4667e25736'
+// Exact owner-approved model corrections, 18 Nov 2026.
+export const APPROVED_MODEL_OVERRIDES = {
+  "bg-09": {
+    "name": "Скандинавия 4,5 В"
+  },
+  "bg-10": {
+    "name": "Скандинавия 6 В"
+  },
+  "bg-11": {
+    "name": "Скандинавия 6,5 Д-В",
+    "hasShower": true
+  },
+  "bg-12": {
+    "name": "Скандинавия 7 Д",
+    "hasTerrace": false,
+    "hasShower": true
+  },
+  "bg-13": {
+    "name": "Скандинавия 7,5 Д-В",
+    "hasShower": true
+  },
+  "bg-14": {
+    "name": "Скандинавия Комфорт 6 Д"
+  },
+  "bg-15": {
+    "name": "Скандинавия Комфорт 8 Д-В"
+  },
+  "bg-16": {
+    "name": "Скандинавия 6 С-Д"
+  },
+  "bg-17": {
+    "name": "Скандинавия 7 С-Д"
+  },
+  "bg-18": {
+    "priceFrom": 657600,
+    "features": ["Скрытая электрика и уличная подсветка", "Абажуры и ограждение печи", "Шпросы на окнах и двери", "Проливной пол в парной"],
+    "name": "Скандинавия 4"
+  },
+  "bg-19": {
+    "name": "Скандинавия Терра 6,5 Д-В",
+    "hasBathroom": false,
+    "hasTerrace": true
+  },
+  "bg-20": {
+    "name": "Скандинавия Резиденс 7 С-Д"
+  },
+  "bg-21": {
+    "name": "Скандинавия Панорама 8 С-Д"
+  },
+  "bg-28": {
+    "name": "Барн Премиум 8 Д-В"
+  }
+}
 export const MODEL_INCREASE = 55000
 export const HOME_MODEL_INCREASE = 40000
 export const ADDITIONAL_SAUNA_INCREASE = 15000
@@ -44,11 +97,8 @@ export function auditPriceUpdate(root = defaultRoot) {
   const currentText = Object.fromEntries(sourceFiles.map(file => [file, fs.readFileSync(path.join(root, file), 'utf8')]))
   const oldData = loadData(baselineText[sourceFiles[0]])
   const publicData = loadData(currentText[sourceFiles[0]])
-  const authorisedNames = { 'bg-14': 'Скандинавия Комфорт 6 Д', 'bg-17': 'Скандинавия Комфорт+ 7 С-Д' }
-  const originalNames = { 'bg-14': 'Скандинавия Комфорт 6', 'bg-17': 'Скандинавия Комфорт+ 7' }
   for (const model of [...publicData.saunas, ...publicData.homes]) {
     check(model.isPublished === !(model.series === 'Исток' || model.name.startsWith('Усадьба')), `${model.id}: publication differs from owner instruction`)
-    if (authorisedNames[model.id]) check(model.name === authorisedNames[model.id], `${model.id}: unapproved plan-based name`)
   }
   check(equal(publicData.publishedSaunas, publicData.saunas.filter(model => model.isPublished)), 'Public sauna selection differs')
   check(equal(publicData.publishedHomes, publicData.homes.filter(model => model.isPublished)), 'Public home selection differs')
@@ -56,7 +106,6 @@ export function auditPriceUpdate(root = defaultRoot) {
   delete newData.publishedSaunas; delete newData.publishedHomes
   for (const model of [...newData.saunas, ...newData.homes]) {
     delete model.isPublished
-    if (originalNames[model.id]) model.name = originalNames[model.id]
   }
   const oldOptions = loadData(baselineText[sourceFiles[1]])
   const newOptions = loadData(currentText[sourceFiles[1]])
@@ -69,12 +118,13 @@ export function auditPriceUpdate(root = defaultRoot) {
   const models = beforeModels.map(before => {
     const after = afterModels.find(model => model.id === before.id)
     const category = oldData.saunas.some(m => m.id === before.id) ? 'sauna' : 'home'
-    const expectedIncrease = category === 'sauna' ? MODEL_INCREASE : HOME_MODEL_INCREASE
+    const expectedIncrease = (category === 'sauna' ? MODEL_INCREASE : HOME_MODEL_INCREASE) + (before.id === 'bg-18' ? 38400 : 0)
     const sourceVariants = before.priceVariants ?? []
     const retiredVariants = category === 'sauna' ? sourceVariants.filter(variant => /брус/i.test(variant)).map(variant => increasedVariant(variant, expectedIncrease)) : []
     const retainedVariants = sourceVariants.filter(variant => !(category === 'sauna' && /брус/i.test(variant)))
     const expectedVariants = retainedVariants.map(variant => increasedVariant(variant, expectedIncrease))
     const expected = { ...before, priceFrom: before.priceFrom + expectedIncrease }
+    Object.assign(expected, APPROVED_MODEL_OVERRIDES[before.id] || {})
     if (expectedVariants.length) expected.priceVariants = expectedVariants
     else delete expected.priceVariants
     check(equal(after, expected), `${before.id}: model differs from its authorised cumulative increase or nonprice data changed`)
@@ -86,7 +136,7 @@ export function auditPriceUpdate(root = defaultRoot) {
     for (const collection of ['saunas', 'homes']) data[collection] = data[collection].map(model => {
       const original = originals.find(item => item.id === model.id)
       if (!original) return model
-      return Object.fromEntries(Object.keys(original).map(key => [key, key === 'priceFrom' ? original.priceFrom : key === 'priceVariants' ? original.priceVariants : model[key]]))
+      return Object.fromEntries(Object.keys(original).map(key => [key, key === 'priceFrom' || key === 'priceVariants' || Object.hasOwn(APPROVED_MODEL_OVERRIDES[model.id] || {}, key) ? original[key] : model[key]]))
     })
     return data
   }
@@ -178,7 +228,18 @@ export function auditPriceUpdate(root = defaultRoot) {
   const steamGun = newOptions.additionalOptions.find(o => o.id === 'steam-gun')
   check(steamGun?.salePrice === 8000 && steamGun.enabled === false && steamGun.compatibilityStatus === 'requires_confirmation', 'Steam gun must remain excluded from configuration until compatibility is confirmed')
   // The catalog model comparison is structural; prices and approved contact email are the only allowed source changes.
-  const normalise = source => source.replaceAll('\r\n', '\n')
+  const restoreApprovedSource = source => source.split('\n').map(line => {
+    const id = line.match(/id: '([^']+)'/)?.[1]
+    const override = APPROVED_MODEL_OVERRIDES[id]
+    const original = beforeModels.find(model => model.id === id)
+    if (!override || !original) return line
+    for (const [key, approved] of Object.entries(override)) {
+      const literal = value => typeof value === 'object' ? JSON.stringify(value).replaceAll(',', ', ') : typeof value === 'string' ? JSON.stringify(value) : String(value)
+      line = line.replace(key + ': ' + literal(approved), key + ': ' + literal(original[key]))
+    }
+    return line
+  }).join('\n')
+  const normalise = source => restoreApprovedSource(source).replaceAll('\r\n', '\n')
     .replace(/isPublished: (?:true|false), /g, '')
     .replace('Скандинавия Комфорт 6 Д', 'Скандинавия Комфорт 6')
     .replace('Скандинавия Комфорт+ 7 С-Д', 'Скандинавия Комфорт+ 7')

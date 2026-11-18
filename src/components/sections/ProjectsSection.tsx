@@ -3,7 +3,7 @@ import { RealWorksGallery } from './RealWorksGallery'
 import { projects } from '@/data/projects'
 
 const homepageProjects = [
-  'skandinaviya-premium-individualnyy-proekt-6x26',
+  'banya-8x24-u-klienta',
   'skandinaviya-komfort-blokhaus-individualnyy-proekt',
 ].map(slug => {
   const project = projects.find(item => item.slug === slug)

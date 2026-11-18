@@ -75,8 +75,8 @@ export default function BaniCatalogPage() {
     }
 
     list = filterByBudget(list, minPrice, maxPrice)
-    if (hasShowerFilter) list = list.filter(s => s.series === 'Скандинавия' || s.series === 'Север' ? ['bg-14', 'bg-15', 'bg-17'].includes(s.id) : s.hasShower)
-    if (hasTerraceFilter) list = list.filter(s => s.series === 'Скандинавия' || s.series === 'Север' ? ['bg-09', 'bg-10', 'bg-11', 'bg-13', 'bg-15'].includes(s.id) : s.hasTerrace)
+    if (hasShowerFilter) list = list.filter(s => s.hasShower)
+    if (hasTerraceFilter) list = list.filter(s => s.hasTerrace)
 
     if (sort === 'price_asc') list = sortByPrice(list, 'asc')
     if (sort === 'price_desc') list = sortByPrice(list, 'desc')

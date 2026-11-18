@@ -87,7 +87,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": false,
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": true,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-10",
@@ -97,7 +102,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": false,
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": true,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-11",
@@ -105,9 +115,14 @@
     "source": "Бани Герасимов — Каталог(1).pptx",
     "verified_by": "Independent visual review of all plans and main images",
     "terrace_definition": "Терраса / входное крыльцо",
-    "hasShower": false,
+    "hasShower": true,
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": true,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-12",
@@ -115,9 +130,14 @@
     "source": "Бани Герасимов — Каталог(1).pptx",
     "verified_by": "Independent visual review of all plans and main images",
     "terrace_definition": "Терраса / входное крыльцо",
-    "hasShower": false,
+    "hasShower": true,
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": false,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-13",
@@ -125,9 +145,14 @@
     "source": "Бани Герасимов — Каталог(1).pptx",
     "verified_by": "Independent visual review of all plans and main images",
     "terrace_definition": "Терраса / входное крыльцо",
-    "hasShower": false,
+    "hasShower": true,
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": true,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-14",
@@ -137,7 +162,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
     "hasBathroom": false,
-    "hasTerrace": false
+    "hasTerrace": false,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-15",
@@ -147,7 +177,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": true,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-16",
@@ -157,7 +192,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
     "hasBathroom": true,
-    "hasTerrace": false
+    "hasTerrace": false,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-17",
@@ -167,7 +207,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
     "hasBathroom": true,
-    "hasTerrace": false
+    "hasTerrace": false,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-18",
@@ -177,7 +222,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": false,
     "hasBathroom": false,
-    "hasTerrace": false
+    "hasTerrace": false,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-19",
@@ -186,8 +236,13 @@
     "verified_by": "Independent visual review of all plans and main images",
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
-    "hasBathroom": true,
-    "hasTerrace": false
+    "hasBathroom": false,
+    "hasTerrace": true,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-20",
@@ -197,7 +252,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
     "hasBathroom": true,
-    "hasTerrace": false
+    "hasTerrace": false,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-21",
@@ -207,7 +267,12 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
     "hasBathroom": true,
-    "hasTerrace": false
+    "hasTerrace": false,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   },
   {
     "id": "bg-22",
@@ -247,6 +312,11 @@
     "terrace_definition": "Терраса / входное крыльцо",
     "hasShower": true,
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": true,
+    "owner_confirmation": {
+      "date": "2026-11-18",
+      "source": "Прямое подтверждение владельца: С — санузел, Д — душевая, В — веранда",
+      "verified_by": "Owner, 18 Nov 2026"
+    }
   }
 ]
