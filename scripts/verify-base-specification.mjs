@@ -21,6 +21,14 @@ let prices = 0
 for (const model of [...saunas,...homes]) {
   const route = `${saunas.includes(model) ? 'banya' : 'dom'}/${model.slug}`
   const html = fs.readFileSync(path.join(dist,route+'.html'),'utf8')
+  if (model.isPublished === false) {
+    assert(modelBaseConfiguration(model).length > 0, `${model.id}: archived source specification must remain intact`)
+    assert(html.includes('Модель временно недоступна') && html.includes('noindex'), `${model.id}: archived route must be safe and reachable`)
+    assert(!html.includes('data-model-config=') && !html.includes('data-model-option-calculator'), `${model.id}: archived model must not be sold`)
+    const sheet = fs.readFileSync(path.join(dist, 'model-sheet', model.id + '.html'), 'utf8')
+    assert(sheet.includes('временно недоступна') && !sheet.includes('data-model-config='), `${model.id}: archived sheet must not offer a quote`)
+    continue
+  }
   const baseMarkers = [...html.matchAll(new RegExp(`data-model-config="${model.id}"`, 'g'))]
   assert.equal(baseMarkers.length, 1, `${model.id}: base specification must be rendered exactly once`)
   const blockStart = baseMarkers[0].index
