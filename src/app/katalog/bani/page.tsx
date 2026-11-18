@@ -16,7 +16,7 @@ const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
 const seriesDescriptions: Record<string, string> = {
   'Все': 'Модели мобильных бань собственного производства. Доставка и установка по Москве и регионам Центральной России.',
   'Исток': 'Мобильные бани серии «Исток». Количество моделей считается по актуальному каталогу.',
-  'Скандинавия': 'Бани направлений «Скандинавия» и «Север»: количество моделей считается по данным каталога.',
+  'Скандинавия': 'Бани серии «Скандинавия»: количество моделей считается по данным каталога.',
   'Барн': 'Мобильные бани серии «Барн». Количество моделей считается по актуальному каталогу.',
 }
 
@@ -193,13 +193,13 @@ export default function BaniCatalogPage() {
 
         {/* Grid */}
         {filtered.length > 0 ? (
-          <div className="grid auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="catalog-model-grid">
             {filtered.map((sauna) => (
               <SaunaCard key={sauna.id} sauna={sauna} compareSelected={compareIds.includes(sauna.id)} compareDisabled={compareIds.length >= 4} onCompare={toggleCompare} />
             ))}
           </div>
         ) : (
-          <div className="glass rounded-3xl p-16 text-center">
+          <div className="glass rounded-3xl px-5 py-10 sm:p-12 text-center">
             <p className="text-cream/50 text-lg">По выбранным фильтрам ничего не найдено</p>
             <button
               onClick={() => { setActiveSeries('Все'); setActiveLength('Все'); setMinPrice(0); setMaxPrice(''); setHasShowerFilter(false); setHasTerraceFilter(false) }}

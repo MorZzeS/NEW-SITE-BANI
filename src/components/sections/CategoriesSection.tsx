@@ -21,7 +21,7 @@ const directions = [
     image: saunas.find(model => model.series === 'Скандинавия' || model.series === 'Север')?.image ?? '',
     alt: saunas.find(model => model.series === 'Скандинавия' || model.series === 'Север')?.name ?? 'Бани Скандинавия',
     count: saunas.filter(model => model.series === 'Скандинавия' || model.series === 'Север').length,
-    description: 'Бани серий Скандинавия и Север в одном направлении.',
+    description: 'Бани серии Скандинавия. Выберите модель, размер и планировку.',
   },
   {
     name: 'Бани Барн',

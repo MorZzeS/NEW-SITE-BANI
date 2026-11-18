@@ -9,8 +9,11 @@ import type { Metadata } from 'next'
 import { articleInlineVisuals } from '@/data/article-visuals'
 
 function contentWithVisuals(slug: string, content: string) {
+  // Hide markdown separators only while rendering; preserve the supplied article source.
+  content = content.replace(/<p>\s*---\s*<\/p>/g, '')
+  const escapeHtml = (value: string) => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!)
   for (const visual of articleInlineVisuals[slug] || []) {
-    const figure = `<figure><picture><source srcset="${withBasePath(visual.avif)}" type="image/avif" /><img src="${withBasePath(visual.src)}" alt="${visual.alt}" width="${visual.width}" height="${visual.height}" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;border-radius:16px" /></picture><figcaption>${visual.caption}</figcaption></figure>`
+    const figure = `<figure><picture><source srcset="${escapeHtml(withBasePath(visual.avif))}" type="image/avif" /><img src="${escapeHtml(withBasePath(visual.src))}" alt="${escapeHtml(visual.alt)}" width="${visual.width}" height="${visual.height}" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;border-radius:16px" /></picture><figcaption>${escapeHtml(visual.caption)}</figcaption></figure>`
     content = content.replace(`<h2 id="${visual.beforeSection}">`, `${figure}<h2 id="${visual.beforeSection}">`)
   }
   return content

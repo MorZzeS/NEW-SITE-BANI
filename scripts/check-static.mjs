@@ -116,7 +116,7 @@ for (const record of records) {
   const expectedVariants = record.price_variants.filter((variant) => !(isMobileSauna && /брус/i.test(variant))).map((variant) => increasedVariant(variant, expectedIncrease))
   if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(expectedVariants)) errors.push(`${record.id}: alternative prices differ from owner increase`)
   if (isMobileSauna && (model?.priceVariants || []).some((variant) => /брус/i.test(variant))) errors.push(`${record.id}: bрус execution must not be sold as a price variant for a mobile sauna`)
-  if (model?.priceFrom !== record.priceFrom + expectedIncrease + (record.id === 'bg-18' ? 38400 : 0)) errors.push(`${record.id}: base price differs from owner increase`)
+  if (model?.priceFrom !== record.priceFrom + expectedIncrease) errors.push(`${record.id}: base price differs from owner increase`)
   if (model?.isPublished === false) {
     if (!html.includes('временно') || !html.includes('noindex') || html.includes('Оставить заявку на эту комплектацию')) errors.push(`${record.id}: hidden route must be unavailable/noindex without ordering`)
     continue

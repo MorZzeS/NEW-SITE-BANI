@@ -5,7 +5,7 @@ import { modelCountWord } from '@/lib/catalog-labels'
 
 const saunaCount = saunas.length
 const saunaCountLabel = modelCountWord(saunaCount)
-const publishedSeries = Array.from(new Set(saunas.map(model => model.series))).join(', ')
+const publishedSeries = Array.from(new Set(saunas.map(model => model.series === 'Север' ? 'Скандинавия' : model.series))).join(', ')
 
 export const metadata: Metadata = {
   title: `Каталог мобильных бань — ${saunaCount} ${saunaCountLabel} — серии ${publishedSeries}`,

@@ -44,8 +44,7 @@ export const APPROVED_MODEL_OVERRIDES = {
     "name": "Скандинавия 7 С-Д"
   },
   "bg-18": {
-    "priceFrom": 657600,
-    "features": ["Скрытая электрика и уличная подсветка", "Абажуры и ограждение печи", "Шпросы на окнах и двери", "Проливной пол в парной"],
+    "features": ["Скрытая электрика и уличная подсветка", "Абажуры и ограждение печи"],
     "name": "Скандинавия 4"
   },
   "bg-19": {
@@ -118,7 +117,7 @@ export function auditPriceUpdate(root = defaultRoot) {
   const models = beforeModels.map(before => {
     const after = afterModels.find(model => model.id === before.id)
     const category = oldData.saunas.some(m => m.id === before.id) ? 'sauna' : 'home'
-    const expectedIncrease = (category === 'sauna' ? MODEL_INCREASE : HOME_MODEL_INCREASE) + (before.id === 'bg-18' ? 38400 : 0)
+    const expectedIncrease = category === 'sauna' ? MODEL_INCREASE : HOME_MODEL_INCREASE
     const sourceVariants = before.priceVariants ?? []
     const retiredVariants = category === 'sauna' ? sourceVariants.filter(variant => /брус/i.test(variant)).map(variant => increasedVariant(variant, expectedIncrease)) : []
     const retainedVariants = sourceVariants.filter(variant => !(category === 'sauna' && /брус/i.test(variant)))

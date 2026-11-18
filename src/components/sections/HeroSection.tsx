@@ -96,7 +96,7 @@ export function HeroSection() {
                   className="hero-headline hero-reveal font-bold tracking-tight"
                   style={{ animationDelay: '0.12s' }}
                 >
-                  <span>Бани и дачные домики</span>{' '}<span>под ключ</span>
+                  <span>Мобильные бани</span>{' '}<span>под ключ</span>
                 </h1>
 
                 {/* Subheading */}

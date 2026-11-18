@@ -1,0 +1,83 @@
+.section { overflow: clip; }
+.stage {
+  --card-width: 53%;
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 36vw, 490px);
+  perspective: 1300px;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+.stage:active { cursor: grabbing; }
+.card {
+  position: absolute;
+  width: var(--card-width);
+  aspect-ratio: 16 / 9;
+  left: calc((100% - var(--card-width)) / 2);
+  top: 14%;
+  z-index: calc(5 - var(--depth));
+  transform: translateX(calc(var(--offset) * 56%)) translateY(calc(var(--depth) * 22px)) translateZ(calc(var(--depth) * -135px)) rotateY(calc(var(--offset) * -15deg));
+  opacity: calc(1 - var(--depth) * .12);
+  transition: transform 650ms cubic-bezier(.22,.68,.18,1), opacity 650ms ease;
+}
+.card[hidden] { display: none; }
+.cardAction {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(212,168,67,.45);
+  border-radius: 20px;
+  padding: 0;
+  text-align: left;
+  color: #f5f0e8;
+  background: #1e2330;
+  box-shadow: 0 20px 42px rgba(0,0,0,.28);
+  cursor: pointer;
+}
+.card[data-offset='0'] .cardAction { border-color: #d4a843; box-shadow: 0 22px 52px rgba(0,0,0,.35), 0 0 32px rgba(212,168,67,.1); }
+.picture, .picture img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.picture img { object-fit: cover; }
+.caption { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(14px, 2.2vw, 30px); background: linear-gradient(180deg,transparent 12%,rgba(14,18,25,.22) 38%,rgba(14,18,25,.96) 100%); }
+.meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; color: #efd28d; font-size: 11px; margin-bottom: 8px; }
+.meta > span { display: inline-flex; align-items: center; gap: 4px; color: #e3e5e8; }
+.title { font-size: clamp(16px, 1.9vw, 26px); line-height: 1.23; font-weight: 700; text-wrap: balance; }
+.read { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 12px; color: #efd28d; }
+.card:not([data-offset='0']) .caption { opacity: .8; }
+.controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 10px; }
+.control { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 1px solid var(--glass-border); border-radius: 50%; color: var(--color-text); background: var(--control-bg); cursor: pointer; }
+.control:hover { border-color: var(--color-gold); }
+.control:disabled { opacity: .45; cursor: default; }
+.control:focus-visible, .cardAction:focus-visible { outline: 3px solid var(--focus-color); outline-offset: 4px; }
+.counter { min-width: 65px; text-align: center; color: var(--color-text); font-size: 13px; font-variant-numeric: tabular-nums; }
+.counter strong { color: var(--color-accent); font-size: 20px; }
+@media (min-width: 768px) {
+  /* Side slides act as image previews; hiding their captions prevents text
+     from being cut by the overlapping center card. */
+  .card[data-offset='-2'] { --offset: -1.35 !important; }
+  .card[data-offset='2'] { --offset: 1.35 !important; }
+  .card:not([data-offset='0']) .caption { display: none; }
+}
+@media (max-width: 767px) {
+  .card:not([data-offset='0']) .meta, .card:not([data-offset='0']) .title, .card:not([data-offset='0']) .read { display: none; }
+  .stage { --card-width: 72%; height: clamp(235px, 49vw, 370px); perspective: 850px; }
+  .card { top: 9%; transform: translateX(calc(var(--offset) * 28%)) translateY(calc(var(--depth) * 17px)) translateZ(calc(var(--depth) * -120px)) rotateY(calc(var(--offset) * -18deg)); }
+  .cardAction { border-radius: 14px; }
+  .caption { padding: 14px; }
+  .title { font-size: clamp(14px, 2.6vw, 20px); }
+  .meta { font-size: 10px; gap: 6px; margin-bottom: 5px; }
+  .read { margin-top: 7px; font-size: 11px; }
+}
+@media (max-width: 420px) {
+  .stage { --card-width: 79%; height: 225px; }
+  .card { aspect-ratio: 16 / 11; }
+  .picture { inset: 0 0 auto; height: auto; aspect-ratio: 16 / 9; }
+  .caption { background: linear-gradient(180deg,transparent,rgba(14,18,25,.25) 20%,#0e1219 85%); }
+  .meta > span { display: none; }
+  .title { font-size: 14px; }
+  .read { font-size: 10px; }
+  .controls { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }

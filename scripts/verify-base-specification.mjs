@@ -42,6 +42,9 @@ for (const model of [...saunas,...homes]) {
   const block = blockStart >= 0 && interiorStart > blockStart ? html.slice(blockStart, interiorStart) : undefined
   assert(block, `${model.id}: missing base specification`)
   const text = clean(block)
+  if (model.id === 'bg-18') {
+    assert(!/шпрос/i.test(text), 'BG18 base specification must not mark optional decorative grids as included')
+  }
   const expectedRows = modelBaseConfiguration(model)
   assert(expectedRows.length > 0, `${model.id}: source base specification is empty`)
   const visibleRows = expectedRows.filter(row => !requiresBaseConfigurationConfirmation(row.value))

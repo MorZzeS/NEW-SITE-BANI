@@ -85,6 +85,8 @@ const scenarios = [
   },
   { name: '06-stove-replacement-price-by-agreement', optionIds: ['ermak-16-premium-steel'], input: {} },
   { name: '07-base-stove-specification-pending', optionIds: ['ermak-base'], input: {} },
+  { name: '08-scandinavia-four-base', model: data.saunas.find(item => item.id === 'bg-18'), expectedTotal: 619200, optionIds: [], input: {} },
+  { name: '09-scandinavia-four-photo', model: data.saunas.find(item => item.id === 'bg-18'), expectedTotal: 657600, optionIds: ['floor', 'window-grid'], input: { quantities: { 'window-grid': 2 } } },
 ]
 const normalize = value => String(value).replace(/[\u00a0\u202f]/g, ' ').replace(/[\u2011-\u2014]/g, '-').replace(/\s+/g, ' ').trim()
 const money = value => `${value.toLocaleString('ru-RU')} ₽`
@@ -101,8 +103,10 @@ async function loadImagesFor(model, configuration, label) {
 }
 const results = []
 for (const scenario of scenarios) {
+  const model = scenario.model ?? data.saunas[0]
   const input = scenario.input
   const configuration = calculateModelConfiguration(model, scenario.optionIds, input)
+  if (scenario.expectedTotal !== undefined) assert.equal(configuration.total, scenario.expectedTotal, 'approved Scandinavia 4 PDF total')
   const recalculatedTotal = configuration.basePrice + configuration.options.reduce((sum, option) => sum + (option.price ?? 0) * option.quantity, 0) - configuration.discount
   assert.equal(configuration.total, recalculatedTotal, `${scenario.name}: displayed total must equal base + priced options - discount`)
   const images = await loadImagesFor(model, configuration, scenario.name)
@@ -152,6 +156,10 @@ for (const scenario of scenarios) {
     assert.ok(allText.includes(normalize('Точная заводская модификация не подтверждена, поэтому характеристики не приводим')), 'PDF must retain the pending factory-model disclosure')
     assert.ok(!allText.toLocaleLowerCase('ru-RU').includes('стандартная базовая печь'), 'PDF must not claim an unconfirmed stove variant is standard')
     assert.equal(configuration.total, configuration.basePrice, 'included base stove must not add a second charge')
+  }
+  if (scenario.name === '09-scandinavia-four-photo') {
+    assert.ok(allText.includes(normalize(optionGuidance['window-grid'].notes)), 'PDF must explain per-element price without implying quantity one')
+    assert.ok(!allText.includes(normalize('В расчёт включён один элемент')), 'PDF must not contradict the two selected window grids')
   }
   const maxPages = scenario.name === '04-twelve-options' ? 3 : 2
   assert.ok(pageCount <= maxPages, `${scenario.name}: expected at most ${maxPages} pages, got ${pageCount}`)

@@ -22,7 +22,7 @@ const navItems = [
     href: '/katalog/bani',
     children: [
       { label: 'Мобильные бани Исток', href: '/katalog/bani?series=Исток', desc: 'Модели серии Исток' },
-      { label: 'Бани Скандинавия', href: '/katalog/bani?series=Скандинавия', desc: 'Серии Скандинавия и Север' },
+      { label: 'Бани Скандинавия', href: '/katalog/bani?series=Скандинавия', desc: 'Модели серии Скандинавия' },
       { label: 'Бани Барн', href: '/katalog/bani?series=Барн', desc: 'Модели серии Барн' },
       { label: 'Бани и дома Усадьба', href: '/katalog/doma', desc: 'Серия Усадьба' },
       { label: 'Все мобильные бани', href: '/katalog/bani', desc: 'Все модели, размеры и планировки' },

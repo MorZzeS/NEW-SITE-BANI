@@ -17,11 +17,14 @@ export function ModelOverview({ model }: { model: Sauna | Home }) {
       </Link>
     </div>
     <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(360px,1fr)] gap-5 lg:gap-8 items-stretch">
+      <div className="min-w-0">
       <ProductGallery compact items={[
         { src: model.image, type: 'MAIN', alt: model.name, label: 'Визуализация модели', aspectRatio: modelImageAspectRatio },
         ...(model.floorPlan ? [{ src: model.floorPlan, type: 'PLAN' as const, alt: `${model.name} — планировка`, label: 'Планировка модели' }] : []),
         ...model.images.filter(src => src !== model.image).map((src, i) => ({ src, type: 'MODEL_PHOTO' as const, alt: `${model.name} — изображение ${i + 1}`, aspectRatio: modelImageAspectRatio })),
       ]} />
+      {model.id === 'bg-18' && <p className="mt-3 text-sm leading-relaxed text-cream/75" data-photo-options-note="bg-18">Визуализация показывает внешний вид модели с декоративными шпросами; проливной пол на изображении не показан. Ни проливной пол, ни два шпроса не входят в базовую комплектацию — их можно выбрать отдельно.</p>}
+      </div>
       <div className="model-overview-details glass rounded-2xl p-4 sm:p-5 min-w-0">
         <p className="text-xs font-semibold tracking-[0.12em] text-gold-400 mb-1">{model.article}</p>
         <h1 className="text-3xl sm:text-4xl font-bold text-cream mb-2">{model.name}</h1>

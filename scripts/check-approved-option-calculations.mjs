@@ -27,6 +27,7 @@ const { calculateModelConfiguration: calculate, configurationManagerText } = loa
 const { modelOptionAvailability } = load('src/lib/model-option-availability.ts')
 const modelConfiguratorSource = fs.readFileSync(path.join(root, 'src/components/catalog/ModelBaseConfiguration.tsx'), 'utf8')
 const genericConfiguratorSource = fs.readFileSync(path.join(root, 'src/components/catalog/EquipmentConfigurator.tsx'), 'utf8')
+const optionComponentSource = fs.readFileSync(path.join(root, 'src/components/catalog/ConfigurationOption.tsx'), 'utf8')
 const option = id => options.find(item => item.id === id)
 const confirmed = { 'outdoor-lamp': 7000, 'roof-overhang-light': 3500, 'hidden-wiring': 20000, 'wall-point': 9000, 'bench-light': 7000, 'floating-bench': 12000, 'aspen-bench': 7000, 'stove-fireproof-boards': 25000, 'wash-tap': 6000, 'panoramic-window-600-1800': 16000, 'steam-floor-oil': 12000, 'steam-lining-oil': 25000, 'lounge-floor-varnish': 20000, replanning: 10000, boiler: 37500, shower: 24500, led: 12000, 'steam-bench-oil': 15000 }
 for (const [id, price] of Object.entries(confirmed)) assert.equal(option(id)?.salePrice, price, id)
@@ -58,9 +59,27 @@ for (const id of ['led', 'steam-bench-oil']) {
   assert.ok(!('priceStatus' in option(id)) && !('proposedRetailPrice' in option(id)), `${id}: final price must not retain preliminary metadata`)
 }
 const fourMetre = saunas.find(model => model.id === 'bg-18')
-const includedFourMetre = calculate(fourMetre, ['floor', 'window-grid'], { quantities: { 'window-grid': 2 } })
-assert.equal(includedFourMetre.basePrice, 657600)
-assert.equal(includedFourMetre.total, 657600, 'included floor and two grids must never be charged twice')
+const { modelBaseConfiguration } = load('src/data/model-configuration.ts')
+const windowsDescription = modelBaseConfiguration(fourMetre).find(row => row.label === 'Окна и двери')?.value ?? ''
+assert.ok(!/шпрос/i.test(windowsDescription), 'BG18 decorative grids are no longer presented as included in the base configuration')
+assert.ok(!optionGuidance['window-grid'].notes.includes('В расчёт включён один элемент'), 'window-grid guidance must not claim a single element when quantity can vary')
+assert.ok(optionGuidance['window-grid'].notes.includes('Цена указана за один элемент; итог зависит от выбранного количества.'))
+assert.ok(optionGuidance.lamination.notes.includes('Цена указана за один элемент; итог зависит от выбранного количества.'))
+assert.match(optionComponentSource, /Цена указана за 1 шт\./)
+assert.doesNotMatch(optionComponentSource, /количество выберите ниже/i, 'calculator quantity hint belongs below the checkbox, not in PDF copy')
+for (const [ids, quantities, subtotal, total] of [
+  [[], {}, 0, 619200],
+  [['floor'], {}, 20600, 639800],
+  [['window-grid'], { 'window-grid': 2 }, 17800, 637000],
+  [['floor', 'window-grid'], { 'window-grid': 2 }, 38400, 657600],
+  [['floor', 'floor', 'window-grid', 'window-grid'], { 'window-grid': 2 }, 38400, 657600],
+]) {
+  const result = calculate(fourMetre, ids, { quantities })
+  assert.equal(result.basePrice, 619200)
+  assert.equal(result.optionsSubtotal, subtotal)
+  assert.equal(result.total, total, 'floor and grids must be selectable and counted once')
+  assert.equal(result.options.length, new Set(ids).size)
+}
 assert.equal(equipmentSelection(['led', 'steam-bench-oil']).knownTotal, 27000)
 assert.equal(equipmentSelection(['led', 'steam-bench-oil']).unpricedCount, 0)
 for (const item of options.filter(item => item.priceUnit === 'шт.')) {

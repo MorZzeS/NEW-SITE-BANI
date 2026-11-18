@@ -31,9 +31,9 @@ const footerLinks = {
 
 export function Footer({ settings }: Props) {
   return (
-    <footer className="border-t border-white/10 mt-20">
+    <footer className="border-t border-white/10 mt-12 sm:mt-16">
       <div className="glass-dark">
-        <div className="site-container py-16">
+        <div className="site-container py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {/* Brand */}
             <div className="lg:col-span-1">
@@ -50,7 +50,7 @@ export function Footer({ settings }: Props) {
                 </div>
               </a>
               <p className="text-cream/60 text-sm leading-relaxed mb-6">
-                Собственное производство мобильных бань и домов. Доставка и установка по Москве и регионам Центральной России.
+                Собственное производство мобильных бань. Доставка и установка по Москве и регионам Центральной России.
               </p>
               <div className="flex items-center gap-3">
                 {settings.vk && settings.vk !== '#' && <a href={settings.vk} target="_blank" rel="noopener noreferrer"

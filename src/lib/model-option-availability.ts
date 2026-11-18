@@ -153,6 +153,7 @@ export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
     if (option.id === 'delivery' || option.id === 'crane-unload') return row('available', 'Предварительная услуга с ориентиром цены для Раменского района; адрес и окончательная стоимость согласуются при заказе.', availabilitySources.options)
     if (option.id === 'onsite-assembly') return row('available', 'Отдельная услуга сборки, разгрузки и установки. При её выборе разгрузка краном отдельно не начисляется; доставка до участка согласуется отдельно.', availabilitySources.options)
     if (option.id === 'replanning') return row('available', option.description, 'Решение владельца от 10.11.2026')
+    if (model.id === 'bg-18' && option.id === 'floor') return row('available', 'Проливной пол в парной выбирается отдельно и не входит в базовую цену.', 'Прямое подтверждение владельца от 18.11.2026')
     const inBase = included(option.id)
     if (inBase) {
       return row('included', `Уже входит в базовую комплектацию модели: «${inBase.feature}». Повторно не оплачивается.`, availabilitySources.feature)

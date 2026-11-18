@@ -26,7 +26,7 @@ export function ConfigurationOption({ option, checked, onToggle, inputId, price,
       <span className={styles.visual}>{guidance && <><Image src={withBasePath(guidance.image)} alt={option.id === 'boiler' ? 'Бойлер 50 л — фото из каталога' : `Иллюстративная схема: ${option.name}`} width={104} height={78} sizes="(max-width: 540px) 76px, 104px" /><small>{option.id === 'boiler' ? 'Фото' : 'Схема'}</small></>}</span>
       <strong className={styles.name} id={`${inputId}-name`}>{option.name}</strong>
       <span className={styles.price}>{price}</span>
-      <span className={styles.description}>{guidance?.explanation ?? option.description}{option.priceUnit === 'шт.' && <span className={styles.unit}>В расчёте один элемент: 1 шт.</span>}</span>
+      <span className={styles.description}>{guidance?.explanation ?? option.description}{option.priceUnit === 'шт.' && <span className={styles.unit}>Цена указана за 1 шт.</span>}</span>
     </label>
     {technicalSpecs && <div className={styles.technicalSpecs} aria-label={`Характеристики ${option.name}`}>
       <dl>{technicalSpecs.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>

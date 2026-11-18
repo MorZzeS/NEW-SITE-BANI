@@ -78,7 +78,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
         <div className={styles.content}>
 
           <div className="text-[10px] font-semibold tracking-widest uppercase text-gold-400/80 mb-1">
-            {sauna.series}
+            {sauna.series === 'Север' ? 'Скандинавия' : sauna.series}
           </div>
           <h3 className={clsx(styles.title, "text-lg font-bold text-cream mb-1 group-hover:text-gold-300 transition-colors")}>
             {sauna.name}
@@ -101,6 +101,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
             ))}
           </div>
 
+          {sauna.id === 'bg-18' && <p className="text-xs leading-relaxed text-cream/75 mb-3">С проливным полом и двумя шпросами — {formatPrice(657600)}. Показанные дополнения не входят в базовую цену.</p>}
           {/* Price + CTA */}
           <div className={styles.footer}>
             <div>

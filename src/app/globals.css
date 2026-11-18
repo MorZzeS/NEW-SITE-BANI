@@ -1107,3 +1107,22 @@ body:has(.weather-wide[data-open="true"]) { overflow-anchor:none; }
   .project-extras-grid { grid-template-columns: 1fr; }
   .project-case-summary { padding: 18px; }
 }
+
+/* Compact section rhythm; preserve control sizes and article reading space. */
+main section.py-20 { padding-block: 4rem; }
+main section.py-24 { padding-block: 5rem; }
+.catalog-model-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 20px; }
+.catalog-model-grid > * { flex: 0 0 100%; min-width: 0; }
+@media (min-width: 640px) {
+  .catalog-model-grid > * { flex-basis: calc((100% - 20px) / 2); }
+}
+@media (min-width: 1024px) {
+  .catalog-model-grid > * { flex-basis: calc((100% - 40px) / 3); }
+}
+@media (min-width: 1280px) {
+  .catalog-model-grid > * { flex-basis: calc((100% - 60px) / 4); }
+}
+@media (max-width: 639px) {
+  main section.py-20 { padding-block: 3rem; }
+  main section.py-24 { padding-block: 3.5rem; }
+}
