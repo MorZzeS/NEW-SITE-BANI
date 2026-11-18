@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { saunas, homes } from '@/data'
+import { publishedSaunas as saunas, publishedHomes as homes } from '@/data'
 import { CustomProjectBand } from '@/components/sections/CustomProjectBand'
 import { catalogCardImage } from '@/lib/catalog-image'
 import { modelCountWord } from '@/lib/catalog-labels'
@@ -10,23 +10,23 @@ const directions = [
   {
     name: 'Мобильные бани Исток',
     href: '/katalog/bani?series=Исток',
-    image: '/images/catalog/bg-05/model.png',
-    alt: 'Исток Семейный 7',
+    image: saunas.find(model => model.series === 'Исток')?.image ?? '',
+    alt: saunas.find(model => model.series === 'Исток')?.name ?? 'Бани Исток',
     count: saunas.filter(model => model.series === 'Исток').length,
     description: 'Мобильные бани серии Исток. Выберите модель, размер и планировку.',
   },
   {
     name: 'Бани Скандинавия',
     href: '/katalog/bani?series=Скандинавия',
-    image: '/images/catalog/bg-21/model.png',
-    alt: 'Север Панорама 8 — направление Скандинавия',
+    image: saunas.find(model => model.series === 'Скандинавия' || model.series === 'Север')?.image ?? '',
+    alt: saunas.find(model => model.series === 'Скандинавия' || model.series === 'Север')?.name ?? 'Бани Скандинавия',
     count: saunas.filter(model => model.series === 'Скандинавия' || model.series === 'Север').length,
     description: 'Бани серий Скандинавия и Север в одном направлении.',
   },
   {
     name: 'Бани Барн',
     href: '/katalog/bani?series=Барн',
-    image: '/images/catalog/bg-28/model.png',
+    image: saunas.find(model => model.series === 'Барн')?.image ?? '',
     alt: 'Барн Премиум',
     count: saunas.filter(model => model.series === 'Барн').length,
     description: 'Баня Барн Премиум. Планировка и комплектация модели.',
@@ -34,7 +34,7 @@ const directions = [
   {
     name: 'Бани и дома Усадьба',
     href: '/katalog/doma',
-    image: '/images/catalog/bg-25/model.png',
+    image: homes[0]?.image ?? '',
     alt: 'Усадьба Практик',
     count: homes.length,
     description: 'Дома отдыха и бани серии Усадьба. Планировки, размеры и комплектации.',
@@ -49,11 +49,11 @@ export function CategoriesSection() {
           <div className="section-tag mb-4">Направления</div>
           <h2 className="text-4xl font-bold text-cream mb-3">Что мы производим</h2>
           <p className="text-cream/60 max-w-lg mx-auto">
-            Четыре направления — выберите модели, планировки и комплектации
+            Выберите актуальные модели, планировки и комплектации
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {directions.map(direction => (
+          {directions.filter(direction => direction.count > 0).map(direction => (
             <Link key={direction.name} href={direction.href} className="group block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-400">
               <div className="relative overflow-hidden rounded-3xl min-h-80 glass-card border-0 flex items-end">
                 <picture className="absolute inset-0 block">

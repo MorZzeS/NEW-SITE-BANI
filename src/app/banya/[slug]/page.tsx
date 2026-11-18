@@ -8,7 +8,7 @@ import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Phone } from 'lucide-react'
-import { saunas, siteSettings } from '@/data'
+import { saunas, publishedSaunas, siteSettings } from '@/data'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunaInteriorExamples, barnInteriorExamples } from '@/data/interior-examples'
 import { ModelPrices } from '@/components/catalog/ModelPrices'
@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${sauna.name} — мобильная баня ${sauna.size}`,
     description,
+    ...(sauna.isPublished === false ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical },
     openGraph: {
       url: canonical,
@@ -52,10 +53,17 @@ export default async function SaunaPage({ params }: Props) {
   const { slug } = await params
   const sauna = saunas.find((s) => s.slug === slug)
   if (!sauna) notFound()
+  if (sauna.isPublished === false) return (
+    <main className="pt-28 pb-20"><div className="site-container">
+      <h1 className="text-3xl font-bold text-cream mb-4">{sauna.name}</h1>
+      <p className="text-cream/70 mb-6">Модель временно недоступна. Выберите актуальную модель в каталоге.</p>
+      <Link className="btn-primary" href="/katalog/bani">Перейти в актуальный каталог</Link>
+    </div></main>
+  )
 
   const interiorImages = sauna.slug === 'barn-premium' && barnInteriorExamples.length ? barnInteriorExamples : saunaInteriorExamples
 
-  const related = saunas.filter((s) => s.series === sauna.series && s.id !== sauna.id).slice(0, 3)
+  const related = publishedSaunas.filter((s) => s.series === sauna.series && s.id !== sauna.id).slice(0, 3)
 
   return (
     <ModelConfigurationProvider key={sauna.id} model={sauna} optionsEnabled={sauna.slug !== 'barn-premium'}><div className="pt-24 pb-20">

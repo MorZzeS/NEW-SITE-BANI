@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
-import { saunas, homes, siteSettings } from '@/data'
+import { publishedSaunas as saunas, publishedHomes as homes, siteSettings } from '@/data'
 import { leadContract, leadDocumentBundle, verifyLeadDocumentBundle, consentEvidence } from '@/lib/lead-consent'
 import { leadEndpoint, sendLead, LeadSubmissionError, type Lead } from '@/lib/leads'
 import { leadAttemptMarker, discardRejectedLeadAttempt } from '@/lib/lead-attempt'

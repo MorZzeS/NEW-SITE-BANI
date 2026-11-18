@@ -7,7 +7,7 @@ import { ModelOverview } from '@/components/catalog/ModelOverview'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Phone, Check } from 'lucide-react'
-import { homes, siteSettings } from '@/data'
+import { homes, publishedHomes, siteSettings } from '@/data'
 import { HomeCard } from '@/components/catalog/HomeCard'
 import { homeInteriorExamples } from '@/data/interior-examples'
 import { ModelPrices } from '@/components/catalog/ModelPrices'
@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${home.name} — ${home.size}`,
     description,
+    ...(home.isPublished === false ? { robots: { index: false, follow: true } } : {}),
     alternates: { canonical },
     openGraph: {
       url: canonical,
@@ -50,8 +51,15 @@ export default async function HomePage({ params }: Props) {
   const { slug } = await params
   const home = homes.find((h) => h.slug === slug)
   if (!home) notFound()
+  if (home.isPublished === false) return (
+    <main className="pt-28 pb-20"><div className="site-container">
+      <h1 className="text-3xl font-bold text-cream mb-4">{home.name}</h1>
+      <p className="text-cream/70 mb-6">Модель временно недоступна. Выберите актуальную модель в каталоге.</p>
+      <Link className="btn-primary" href="/katalog/bani">Перейти в актуальный каталог</Link>
+    </div></main>
+  )
 
-  const related = homes.filter((h) => h.id !== home.id).slice(0, 3)
+  const related = publishedHomes.filter((h) => h.id !== home.id).slice(0, 3)
 
   return (
     <ModelConfigurationProvider key={home.id} model={home}><div className="pt-24 pb-20">

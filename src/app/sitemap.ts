@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { saunas, homes, articles } from '@/data'
+import { publishedSaunas as saunas, publishedHomes as homes, articles } from '@/data'
 import { projects } from '@/data/projects'
 
 export const dynamic = 'force-static'
@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
     { url: `${BASE_URL}/katalog/bani`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/katalog/doma`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    ...(homes.length ? [{ url: `${BASE_URL}/katalog/doma`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 }] : []),
     { url: `${BASE_URL}/komplektaciya`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/dostavka-i-ustanovka`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/o-kompanii`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },

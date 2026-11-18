@@ -6,12 +6,12 @@ import { Suspense, useEffect, useState, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
-import { saunas } from '@/data'
+import { publishedSaunas as saunas } from '@/data'
 import clsx from 'clsx'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 import { filterByBudget, sortByPrice } from '@/lib/catalog-filters'
 
-const series = ['Все', 'Исток', 'Скандинавия', 'Барн']
+const series = ['Все', ...Array.from(new Set(saunas.map(model => model.series === 'Север' ? 'Скандинавия' : model.series)))]
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
 const seriesDescriptions: Record<string, string> = {
   'Все': 'Модели мобильных бань собственного производства. Доставка и установка по Москве и регионам Центральной России.',
@@ -75,8 +75,8 @@ export default function BaniCatalogPage() {
     }
 
     list = filterByBudget(list, minPrice, maxPrice)
-    if (hasShowerFilter) list = list.filter(s => s.hasShower)
-    if (hasTerraceFilter) list = list.filter(s => s.hasTerrace)
+    if (hasShowerFilter) list = list.filter(s => s.series === 'Скандинавия' || s.series === 'Север' ? ['bg-14', 'bg-15', 'bg-17'].includes(s.id) : s.hasShower)
+    if (hasTerraceFilter) list = list.filter(s => s.series === 'Скандинавия' || s.series === 'Север' ? ['bg-09', 'bg-10', 'bg-11', 'bg-13', 'bg-15'].includes(s.id) : s.hasTerrace)
 
     if (sort === 'price_asc') list = sortByPrice(list, 'asc')
     if (sort === 'price_desc') list = sortByPrice(list, 'desc')

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Clock, ArrowLeft } from 'lucide-react'
-import { articles, homes } from '@/data'
+import { articles, publishedHomes as homes } from '@/data'
 import { articleHtmlWithBasePath, withBasePath } from '@/lib/site-path'
 import { articleAliases } from '@/data/article-aliases'
 import { articlePublicationNotices } from '@/data/article-publication-notices'

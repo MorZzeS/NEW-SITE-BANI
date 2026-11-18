@@ -5,6 +5,7 @@ export interface ProductSpec {
 }
 
 export interface Sauna {
+  isPublished?: boolean
   id: string
   slug: string
   name: string
@@ -31,6 +32,7 @@ export interface Sauna {
 }
 
 export interface Home {
+  isPublished?: boolean
   id: string
   slug: string
   name: string

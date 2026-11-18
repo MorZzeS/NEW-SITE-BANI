@@ -95,7 +95,11 @@ for (const model of models) {
     assert.ok(html.includes('data-premium-configuration'), 'Barn Premium must show bespoke information')
     assert.ok(!html.includes('data-model-option-calculator'), 'Barn Premium must not show the standard calculator')
   }
-  if (!unitOnly && !premium) {
+  if (!unitOnly && model.isPublished === false) {
+    assert.ok(html.includes("Модель временно недоступна") && html.includes("noindex"), `${model.id}: archived page must remain reachable and noindex`)
+    assert.ok(!html.includes("data-model-option-calculator"), `${model.id}: archived model calculator must not be offered`)
+  }
+  if (!unitOnly && !premium && model.isPublished !== false && model.isPublished !== false) {
     assert.ok(html.includes(`data-model-option-calculator="${model.id}"`), `${model.id}: calculator is not rendered`)
     assert.ok(html.includes(`data-base-price="${model.priceFrom}"`), `${model.id}: base price differs from model data`)
     assert.ok(html.includes('Расчёт предварительный. Применимость дополнений, размеры проёмов и состав работ подтверждает менеджер для выбранной модели. Уже включённые позиции повторно не оплачиваются.'), `${model.id}: estimate must disclose manager confirmation without claiming fit`)
@@ -114,12 +118,12 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
     assert.equal(replanningRow?.reason, enabled.find(option => option.id === 'replanning').description)
   } else assert.equal(replanningRow, undefined, `${model.id}: plan-change service must not be offered`)
   const renderedIds = unitOnly ? [] : [...html.matchAll(/data-option-id="([^"]+)"/g)].map(match => match[1])
-  if (!unitOnly && !premium) assert.equal(renderedIds.length, items.length, `${model.id}: not all option rows rendered (available + included + confirmation groups)`)
+  if (!unitOnly && !premium && model.isPublished !== false) assert.equal(renderedIds.length, items.length, `${model.id}: not all option rows rendered (available + included + confirmation groups)`)
   assert.equal(new Set(renderedIds).size, renderedIds.length, `${model.id}: duplicate option row`)
   for (const item of items) {
     const image = guidance.optionGuidance[item.option.id]?.image
     assert.ok(image && fs.existsSync(path.join(root, 'public', image.replace(/^\//, ''))), `${model.id}/${item.option.id}: missing option photo or diagram`)
-    if (!unitOnly && !premium && item.status === 'unknown' && item.blockedReason) {
+    if (!unitOnly && !premium && model.isPublished !== false && item.status === 'unknown' && item.blockedReason) {
       assert.ok(!html.includes(item.blockedReason), `${model.id}/${item.option.id}: internal compatibility rationale must not leak into the public card`)
       const publicRow = html.match(new RegExp(`<article\\b[^>]*data-option-id="${item.option.id}"[^>]*>`))?.[0]
       assert.ok(publicRow?.includes('data-option-selectable="true"'), `${model.id}/${item.option.id}: estimate-only item stays selectable for manager confirmation`)
@@ -173,11 +177,11 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
     assert.ok(item.source && item.reason)
     if (item.status === 'included' || item.status === 'unavailable') assert.ok(!calculated.selectedOptionIds.includes(item.option.id))
     if (item.status === 'unknown') assert.ok(calculation.calculateModelConfiguration(model, [item.option.id]).selectedOptionIds.includes(item.option.id), `${model.id}/${item.option.id}: estimate-only option remains selectable`)
-    if (!unitOnly && !premium && item.status === 'unknown') {
+    if (!unitOnly && !premium && model.isPublished !== false && item.status === 'unknown') {
       const tag = html.match(new RegExp(`<article\\b[^>]*data-option-id="${item.option.id}"[^>]*>`))?.[0]
       assert.ok(tag?.includes('data-option-selectable="true"'), `${model.id}/${item.option.id}: estimate-only row must be selectable`)
     }
-    if (!unitOnly && !premium && item.status === 'unknown') {
+    if (!unitOnly && !premium && model.isPublished !== false && item.status === 'unknown') {
       const tag = html.match(new RegExp(`<article\\b[^>]*data-option-id="${item.option.id}"[^>]*>`))?.[0]
       assert.ok(tag?.includes('data-option-selectable="true"'), `${model.id}/${item.option.id}: estimate-only row must be selectable`)
     }

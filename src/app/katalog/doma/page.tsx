@@ -4,7 +4,7 @@ import { withBasePath } from '@/lib/site-path'
 
 import { useState, useMemo } from 'react'
 import { HomeCard } from '@/components/catalog/HomeCard'
-import { homes } from '@/data'
+import { publishedHomes as homes } from '@/data'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 import Link from 'next/link'
 import { filterByBudget, longestDimensionInMeters, sortByPrice } from '@/lib/catalog-filters'
@@ -48,10 +48,10 @@ export default function DomaCatalogPage() {
         <div className="mb-8">
           <div className="section-tag mb-4">Каталог</div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-cream mb-3">Мобильные дома серии «Усадьба»</h1>
-          <p className="text-cream/60 max-w-xl">{homes.length} {modelCountWord(homes.length)} в каталоге. Размер и стоимость можно уточнить фильтрами ниже.</p>
+          <p className="text-cream/60 max-w-xl">{homes.length ? `${homes.length} ${modelCountWord(homes.length)} в каталоге. Размер и стоимость можно уточнить фильтрами ниже.` : 'Модели мобильных домов временно недоступны. Посмотрите актуальные модели бань.'}</p>
         </div>
 
-        <ProductDecisionTools kind="doma" products={homes} selectedIds={compareIds} onToggleCompare={toggleCompare}>
+        {homes.length > 0 && <ProductDecisionTools kind="doma" products={homes} selectedIds={compareIds} onToggleCompare={toggleCompare}>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="text-sm text-cream/70">Размер
               <select value={length} onChange={event => setLength(event.target.value)} className="input-glass mt-1 min-h-10 w-full rounded-xl px-3 py-2 text-sm text-cream">
@@ -69,7 +69,7 @@ export default function DomaCatalogPage() {
             </div>
             {(length !== 'Все' || minPrice !== 0 || maxPrice !== '') && <button type="button" className="text-sm text-gold-300 underline underline-offset-4 sm:col-span-2 sm:justify-self-start" onClick={() => { setLength('Все'); setMinPrice(0); setMaxPrice('') }}>Сбросить подбор</button>}
           </div>
-        </ProductDecisionTools>
+        </ProductDecisionTools>}
 
         <div className="text-sm text-cream/50 mb-6">
           Найдено: <span className="text-cream font-semibold">{filtered.length}</span> {modelCountWord(filtered.length)}
@@ -83,7 +83,7 @@ export default function DomaCatalogPage() {
           </div>
         ) : (
           <div role="status" className="glass rounded-2xl px-5 py-6 text-center text-cream/75">
-            По выбранным параметрам домов не найдено. Измените условия подбора или сбросьте фильтры.
+            {homes.length ? 'По выбранным параметрам домов не найдено. Измените условия подбора или сбросьте фильтры.' : <><p className="mb-4">Модели домов временно недоступны.</p><Link className="text-gold-300 underline underline-offset-4" href="/katalog/bani">Перейти в актуальный каталог бань</Link></>}
           </div>
         )}
       </div>

@@ -1,7 +1,7 @@
 import { defaultOpenGraph } from '@/lib/site-metadata'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { saunas, homes } from '@/data'
+import { publishedSaunas as saunas, publishedHomes as homes } from '@/data'
 import { withBasePath } from '@/lib/site-path'
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function PlanirovkiPage() {
         </div>
 
         <div className="space-y-12">
-          {layouts.map((layout) => (
+          {layouts.filter(layout => layout.models.length > 0).map((layout) => (
             <section key={layout.route}>
               <h2 className="text-3xl font-bold text-cream mb-6">{layout.label}</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

@@ -1,7 +1,7 @@
 import { defaultOpenGraph } from '@/lib/site-metadata'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { saunas, homes } from '@/data'
+import { publishedSaunas as saunas, publishedHomes as homes } from '@/data'
 import { Factory, Award, Users, Truck } from 'lucide-react'
 import { CompanyLocations } from '@/components/sections/CompanyLocations'
 import { withBasePath } from '@/lib/site-path'
@@ -31,7 +31,7 @@ const companyFacts = {
 
 const stats = [
   { value: String(companyFacts.saunas), label: 'Модели бань' },
-  { value: String(companyFacts.homes), label: 'Модели домов' },
+  ...(companyFacts.homes > 0 ? [{ value: String(companyFacts.homes), label: 'Модели домов' }] : []),
   { value: '8', label: 'Человек в команде' },
   { value: companyFacts.founded, label: 'Основание' },
 ]
@@ -66,7 +66,7 @@ export default function OKompaniiPage() {
             <h2 className="text-3xl font-bold text-cream mb-4">Наша история</h2>
             <div className="space-y-4 text-cream/70 leading-relaxed">
               <p>
-                Надёжный производитель мобильных бань. Работаем с 2024 года. Собственное производство — город Раменское. Сегодня в нашем каталоге {companyFacts.saunas} моделей мобильных бань и {companyFacts.homes} моделей домов серии Усадьба. Над проектами работает команда из {companyFacts.team} специалистов.
+                Надёжный производитель мобильных бань. Работаем с 2024 года. Собственное производство — город Раменское. Сегодня в нашем каталоге {companyFacts.saunas} моделей мобильных бань{companyFacts.homes > 0 ? ` и ${companyFacts.homes} моделей домов серии Усадьба` : ''}. Над проектами работает команда из {companyFacts.team} специалистов.
               </p>
               <p>
                 Мы работаем только с натуральной древесиной, сертифицированными утеплителями и проверенной фурнитурой. Каждая баня собирается вручную с контролем качества на каждом этапе — от распиловки до финальной отделки.

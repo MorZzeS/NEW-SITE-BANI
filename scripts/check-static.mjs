@@ -80,17 +80,28 @@ for (const file of htmlFiles) {
   if (/href="\/poleznoe\/[^"/?#]+\/(?=["?#])/.test(fs.readFileSync(file, 'utf8'))) errors.push(`${path.relative(dist, file)}: article link has trailing slash`)
 }
 const homepage = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+const publicModels = models.filter(model => model.isPublished !== false)
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file, 'utf8')
+  for (const model of models.filter(model => model.isPublished === false)) {
+    const route = `/${dataExports.saunas.some(item => item.id === model.id) ? 'banya' : 'dom'}/${model.slug}`
+    if (html.includes(`href="${prefix}${route}"`)) errors.push(`${path.relative(dist, file)}: hidden model offered ${model.id}`)
+    if (sitemap.includes(`<loc>https://banger.su${route}</loc>`)) errors.push(`${model.id}: hidden model remains in sitemap`)
+  }
+  if (path.relative(dist, file).replaceAll(path.sep, "/") !== "katalog/doma.html" && !dataExports.publishedHomes.length && [...html.matchAll(/<a\b[^>]*>/g)].some(match => match[0].includes(`href="${prefix}/katalog/doma"`))) errors.push(`${path.relative(dist, file)}: empty house catalog offered`)
+}
 const directionCounts = [
-  ['Мобильные бани Исток', dataExports.saunas.filter(model => model.series === 'Исток').length],
-  ['Бани Скандинавия', dataExports.saunas.filter(model => ['Скандинавия', 'Север'].includes(model.series)).length],
-  ['Бани Барн', dataExports.saunas.filter(model => model.series === 'Барн').length],
-  ['Бани и дома Усадьба', dataExports.homes.length],
+  ['Мобильные бани Исток', dataExports.saunas.filter(model => model.isPublished !== false).filter(model => model.series === 'Исток').length],
+  ['Бани Скандинавия', dataExports.saunas.filter(model => model.isPublished !== false).filter(model => ['Скандинавия', 'Север'].includes(model.series)).length],
+  ['Бани Барн', dataExports.saunas.filter(model => model.isPublished !== false).filter(model => model.series === 'Барн').length],
+  ['Бани и дома Усадьба', dataExports.homes.filter(model => model.isPublished !== false).length],
 ]
 for (const [name, count] of directionCounts) {
   const plain = homepage.replaceAll('<!-- -->', '')
+  if (count === 0) { if (plain.includes(`<h3>${name}</h3>`)) errors.push(`hidden direction offered: ${name}`); continue }
   if (!new RegExp(`>${count} (?:модель|модели|моделей)</div><h3[^>]*>${name}</h3>`).test(plain)) errors.push(`homepage direction count mismatch: ${name}`)
 }
-if (directionCounts.reduce((sum, [, count]) => sum + count, 0) !== models.length) errors.push('catalog directions do not cover all models')
+if (directionCounts.reduce((sum, [, count]) => sum + count, 0) !== publicModels.length) errors.push('catalog directions do not cover all models')
 if (models.length !== 31 || new Set(models.map((m) => m.id)).size !== 31 || new Set(models.map((m) => m.slug)).size !== 31) errors.push('model IDs/slugs are not unique 31/31')
 if (new Set(records.map((r) => r.model_source_sha256)).size !== 31) errors.push('duplicate catalog main image')
 for (const record of records) {
@@ -106,6 +117,10 @@ for (const record of records) {
   if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(expectedVariants)) errors.push(`${record.id}: alternative prices differ from owner increase`)
   if (isMobileSauna && (model?.priceVariants || []).some((variant) => /брус/i.test(variant))) errors.push(`${record.id}: bрус execution must not be sold as a price variant for a mobile sauna`)
   if (model?.priceFrom !== record.priceFrom + expectedIncrease) errors.push(`${record.id}: base price differs from owner increase`)
+  if (model?.isPublished === false) {
+    if (!html.includes('временно') || !html.includes('noindex') || html.includes('Оставить заявку на эту комплектацию')) errors.push(`${record.id}: hidden route must be unavailable/noindex without ordering`)
+    continue
+  }
   const priceBlock = html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1]
   if (!priceBlock) errors.push(`${record.id}: missing price section`)
   const visiblePrice = model && dataExports.formatPrice(model.priceFrom).replace(/\s/g, ' ')
@@ -115,7 +130,7 @@ for (const record of records) {
     if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
   }
   for (const field of ['name', 'article', 'size', 'description', 'area']) {
-    if (model?.[field] !== record[field]) errors.push(`${record.id}: data differs from catalog: ${field}`)
+    if (model?.[field] !== (field === 'name' ? ({ 'bg-14': 'Скандинавия Комфорт 6 Д', 'bg-17': 'Скандинавия Комфорт+ 7 С-Д' }[record.id] ?? record[field]) : record[field])) errors.push(`${record.id}: data differs from catalog: ${field}`)
   }
   if (JSON.stringify(model?.features) !== JSON.stringify(record.features)) errors.push(`${record.id}: features differ from catalog`)
   const mainAsset = path.join(dist, record.model_asset)
@@ -157,7 +172,7 @@ for (const item of interiors) {
 for (const record of records) {
   const html = fs.readFileSync(path.join(dist, record.route + '.html'), 'utf8')
   if (/>(?:Планировка|Планировка модели)<\/h2>/.test(html)) errors.push(`${record.id}: duplicate standalone plan section`)
-  if (!html.includes('>Варианты внутреннего исполнения</h2>')) errors.push(`${record.id}: missing interiors gallery`)
+  if (models.find(model => model.id === record.id)?.isPublished !== false && !html.includes('>Варианты внутреннего исполнения</h2>')) errors.push(`${record.id}: missing interiors gallery`)
 }
 const baseUrlIndex = process.argv.indexOf('--base-url')
 if (baseUrlIndex !== -1) {

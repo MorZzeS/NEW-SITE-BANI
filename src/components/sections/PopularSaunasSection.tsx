@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
-import { saunas } from '@/data'
+import { publishedSaunas as saunas } from '@/data'
 import { homepageBestSellerSlug, homepagePopularIds } from '@/data/homepage'
 
 export function PopularSaunasSection() {

@@ -1,3 +1,4 @@
+import { publishedHomes } from '@/data'
 import { PhoneLinks } from '@/components/ui/PhoneLinks'
 import { SiteSettingsButton } from '@/components/privacy/SiteSettingsButton'
 import Link from 'next/link'
@@ -15,7 +16,7 @@ const footerLinks = {
     { label: 'Мобильные дома', href: '/katalog/doma' },
     { label: 'Планировки', href: '/planirovki' },
     { label: 'Комплектация', href: '/komplektaciya' },
-  ],
+  ].filter(item => item.href !== '/katalog/doma' || publishedHomes.length > 0),
   info: [
     { label: 'Доставка и установка', href: '/dostavka-i-ustanovka' },
     { label: 'Наши гарантии', href: '/garantiya' },

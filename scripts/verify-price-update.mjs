@@ -43,7 +43,21 @@ export function auditPriceUpdate(root = defaultRoot) {
   const baselineText = Object.fromEntries(sourceFiles.map(file => [file, execFileSync('git', ['show', `${file === 'src/data/options.ts' ? OPTION_BASELINE : PRICE_BASELINE}:${file}`], { cwd: root, encoding: 'utf8' })]))
   const currentText = Object.fromEntries(sourceFiles.map(file => [file, fs.readFileSync(path.join(root, file), 'utf8')]))
   const oldData = loadData(baselineText[sourceFiles[0]])
-  const newData = loadData(currentText[sourceFiles[0]])
+  const publicData = loadData(currentText[sourceFiles[0]])
+  const authorisedNames = { 'bg-14': 'Скандинавия Комфорт 6 Д', 'bg-17': 'Скандинавия Комфорт+ 7 С-Д' }
+  const originalNames = { 'bg-14': 'Скандинавия Комфорт 6', 'bg-17': 'Скандинавия Комфорт+ 7' }
+  for (const model of [...publicData.saunas, ...publicData.homes]) {
+    check(model.isPublished === !(model.series === 'Исток' || model.name.startsWith('Усадьба')), `${model.id}: publication differs from owner instruction`)
+    if (authorisedNames[model.id]) check(model.name === authorisedNames[model.id], `${model.id}: unapproved plan-based name`)
+  }
+  check(equal(publicData.publishedSaunas, publicData.saunas.filter(model => model.isPublished)), 'Public sauna selection differs')
+  check(equal(publicData.publishedHomes, publicData.homes.filter(model => model.isPublished)), 'Public home selection differs')
+  const newData = plain(publicData)
+  delete newData.publishedSaunas; delete newData.publishedHomes
+  for (const model of [...newData.saunas, ...newData.homes]) {
+    delete model.isPublished
+    if (originalNames[model.id]) model.name = originalNames[model.id]
+  }
   const oldOptions = loadData(baselineText[sourceFiles[1]])
   const newOptions = loadData(currentText[sourceFiles[1]])
   const beforeModels = [...oldData.saunas, ...oldData.homes]
@@ -165,6 +179,14 @@ export function auditPriceUpdate(root = defaultRoot) {
   check(steamGun?.salePrice === 8000 && steamGun.enabled === false && steamGun.compatibilityStatus === 'requires_confirmation', 'Steam gun must remain excluded from configuration until compatibility is confirmed')
   // The catalog model comparison is structural; prices and approved contact email are the only allowed source changes.
   const normalise = source => source.replaceAll('\r\n', '\n')
+    .replace(/isPublished: (?:true|false), /g, '')
+    .replace('Скандинавия Комфорт 6 Д', 'Скандинавия Комфорт 6')
+    .replace('Скандинавия Комфорт+ 7 С-Д', 'Скандинавия Комфорт+ 7')
+    .replace(/\n\/\/ BEGIN OWNER APPROVED PUBLICATION 2026-11-18[\s\S]*?\/\/ END OWNER APPROVED PUBLICATION 2026-11-18\n/, '')
+    .replace('s.isPublished !== false && s.isPopular', 's.isPopular')
+    .replace('h.isPublished !== false && h.isPopular', 'h.isPopular')
+    .replace('saunas.filter(s => s.isPublished !== false).length', 'saunas.length')
+    .replace('homes.filter(h => h.isPublished !== false).length', 'homes.length')
   const scrubModels = source => normalise(source).replace(/, priceVariants: \["Брус: [^"]+"\]/g, '').replace(/\/\/ BEGIN OWNER APPROVED EDITORIAL IMPORT 2026-11-16[\s\S]*?\/\/ END OWNER APPROVED EDITORIAL IMPORT 2026-11-16/, '').replace(/\n{4,}export function formatPrice/g, '\n\n\nexport function formatPrice').replace("email: 'banger.ram@bk.ru'", "email: 'banger.su@bk.ru'").replace(/priceFrom: \d+/g, 'priceFrom: PRICE').replace(/priceVariants: \[[^\]]*\]/g, 'priceVariants: VARIANTS')
   check(scrubModels(currentText[sourceFiles[0]]) === scrubModels(baselineText[sourceFiles[0]]), 'Catalog source changed outside price literals')
   return { status: errors.length ? 'FAIL' : 'PASS', baseline: PRICE_BASELINE, modelIncrease: MODEL_INCREASE, homeModelIncrease: HOME_MODEL_INCREASE, additionalSaunaIncrease: ADDITIONAL_SAUNA_INCREASE, optionIncrease: OPTION_INCREASE, counts: { saunas: newData.saunas.length, homes: newData.homes.length, models: models.length, alternativePrices: models.reduce((n, m) => n + m.variants.length, 0), retiredBrusPriceVariants: models.reduce((n, model) => n + model.retiredVariants.length, 0), paidOptions: newOptions.additionalOptions.filter(o => o.enabled && typeof o.salePrice === 'number' && o.salePrice > 0).length, disabledPricedOptions: newOptions.additionalOptions.filter(o => !o.enabled && typeof o.salePrice === 'number' && o.salePrice > 0).length, unpricedOptions: newOptions.additionalOptions.filter(o => o.salePrice === null).length }, sourceFiles, errors, models, options }

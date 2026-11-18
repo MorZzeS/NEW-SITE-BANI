@@ -25,6 +25,11 @@ export default async function ModelSheet({ params }: { params: Promise<{ id: str
   const { id } = await params
   const model = models.find(m => m.id === id)
   if (!model) notFound()
+  if (model.isPublished === false) return <main className="pt-28 pb-20"><div className="site-container">
+    <h1 className="text-3xl font-bold text-cream mb-4">{model.name}</h1>
+    <p className="text-cream/70 mb-6">Модель временно недоступна. Выберите актуальную модель в каталоге.</p>
+    <a className="btn-primary" href={withBasePath('/katalog/bani')}>Перейти в актуальный каталог</a>
+  </div></main>
   return <article className="model-sheet">
     <div className="print-model-action mb-6"><ModelConfigurationProvider model={model} optionsEnabled={false}><DownloadModelPdfButton model={model} /></ModelConfigurationProvider><PrintModelButton /><p className="text-sm mt-3">PDF содержит базовую комплектацию. PDF с выбранными опциями можно скачать на странице модели.</p></div>
     <header className="sheet-heading"><span>БАНИ ГЕРАСИМОВ · BANGER.SU</span><p>Информация о модели</p></header>

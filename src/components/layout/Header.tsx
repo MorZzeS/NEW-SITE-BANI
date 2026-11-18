@@ -1,4 +1,5 @@
 'use client'
+import { publishedSaunas, publishedHomes } from '@/data'
 import { PhoneLinks } from '@/components/ui/PhoneLinks'
 
 
@@ -26,7 +27,7 @@ const navItems = [
       { label: 'Бани и дома Усадьба', href: '/katalog/doma', desc: 'Серия Усадьба' },
       { label: 'Все мобильные бани', href: '/katalog/bani', desc: 'Все модели, размеры и планировки' },
       { label: 'Планировки', href: '/planirovki', desc: 'Готовые варианты' },
-    ],
+    ].filter(item => item.href === '/katalog/doma' ? publishedHomes.length > 0 : item.href.includes('series=Исток') ? publishedSaunas.some(model => model.series === 'Исток') : true),
   },
   { label: 'Комплектация', href: '/komplektaciya' },
   { label: 'Полезное', href: '/poleznoe' },
