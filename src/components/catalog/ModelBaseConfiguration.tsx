@@ -20,6 +20,9 @@ import { withBasePath } from '@/lib/site-path'
 type Option = ReturnType<typeof modelOptionAvailability>[number]['option']
 
 function optionPrice(option: Option) {
+  if (option.salePrice === null && 'confirmedRetailPrice' in option && typeof option.confirmedRetailPrice === 'number') {
+    return `Полная цена печи ${formatPrice(option.confirmedRetailPrice)}; доплата за замену не определена`
+  }
   return option.salePrice === null ? 'Стоимость по согласованию' : `${preliminaryOptionPriceText(option.id, option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : option.id === 'ceiling-height' ? ' / 10 см' : ''}`
 }
 
@@ -81,7 +84,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
     return rows.map(({ option, reason, source, status }) => <li className={styles.statusRow} data-option-id={option.id} data-option-price={option.salePrice ?? ''} data-option-status={status} data-option-selectable="false" key={option.id}>
       <span className={styles.statusIcon} aria-hidden="true">{kind === 'included' ? '✓' : kind === 'unavailable' ? '×' : '!'}</span>
       <div className={styles.statusBody}>
-        <p className={styles.statusName}>{option.name}{kind === 'included' ? ' — в базовой стоимости' : option.salePrice === null ? ' — цена по запросу' : ` — опубликованная цена ${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : ''}`}</p>
+        <p className={styles.statusName}>{option.name}{kind === 'included' ? ' — в базовой стоимости' : option.salePrice === null && 'confirmedRetailPrice' in option && typeof option.confirmedRetailPrice === 'number' ? ` — полная цена печи ${formatPrice(option.confirmedRetailPrice)}; доплата за замену не определена` : option.salePrice === null ? ' — цена по запросу' : ` — опубликованная цена ${formatPrice(option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : ''}`}</p>
         <p className={styles.statusReason}>{reason}</p>
         <p className={styles.statusSource}>{source}</p>
       </div>

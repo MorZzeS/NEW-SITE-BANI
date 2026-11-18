@@ -60,7 +60,8 @@ for (const model of models) {
     }
   } else {
     const construction = rows.find(row => row.label === 'Конструкция').value
-    if (Number(model.id.slice(3)) >= 18) assert.ok(baseConfiguration.requiresBaseConfigurationConfirmation(construction), model.id + ': unconfirmed construction must be marked pending')
+    assert.equal(construction, 'Каркас 100 мм', model.id + ': mobile sauna construction must remain frame-only')
+    assert.match(rows.find(row => row.label === 'Утепление').value, /^Минеральная вата ISOVER или URSA, 100 мм(?:$| —)/, model.id + ': mobile sauna insulation must match the approved specification')
     const furniture = rows.find(row => row.label === 'Мебель')?.value
     if (Number(model.id.slice(3)) <= 8) assert.match(furniture ?? '', /Стол и две лавки — в подарок/)
     else if (Number(model.id.slice(3)) <= 27) assert.ok(baseConfiguration.requiresBaseConfigurationConfirmation(furniture ?? ''), model.id + ': unverified furniture must not be called a gift')
@@ -72,8 +73,8 @@ for (const model of models) {
   }
 }
 assert.equal(models.length, 31)
-assert.equal(options.length, 45)
-assert.equal(new Set(options.map(option => option.id)).size, 45)
+assert.equal(options.length, 46)
+assert.equal(new Set(options.map(option => option.id)).size, 46)
 assert.equal(options.find(option => option.id === 'replanning')?.salePrice, 10000)
 assert.equal(options.find(option => option.id === 'replanning')?.name, 'Изменение стандартной планировки')
 assert.equal(options.find(option => option.id === 'replanning')?.description, 'Изменение стандартной планировки бани по пожеланиям заказчика. Возможность перепланировки согласовывается индивидуально. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно.')

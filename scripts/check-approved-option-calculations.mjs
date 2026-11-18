@@ -21,12 +21,24 @@ function load(file, overrides = {}, scope = {}) {
 const plain = value => JSON.parse(JSON.stringify(value))
 const { saunas, homes } = load('src/data/index.ts')
 const { additionalOptions: options } = load('src/data/options.ts')
+const { optionGuidance } = load('src/data/option-guidance.ts')
 const { equipmentSelection, normalizeOptionQuantity, normalizeOptionIds, toggleEquipmentOption, optionQuantityLimit, optionQuantityLabel, stoveOptionIds } = load('src/lib/equipment-selection.ts')
 const { calculateModelConfiguration: calculate, configurationManagerText } = load('src/lib/model-configuration-selection.ts')
 const { modelOptionAvailability } = load('src/lib/model-option-availability.ts')
+const modelConfiguratorSource = fs.readFileSync(path.join(root, 'src/components/catalog/ModelBaseConfiguration.tsx'), 'utf8')
+const genericConfiguratorSource = fs.readFileSync(path.join(root, 'src/components/catalog/EquipmentConfigurator.tsx'), 'utf8')
 const option = id => options.find(item => item.id === id)
 const confirmed = { 'outdoor-lamp': 7000, 'roof-overhang-light': 3500, 'hidden-wiring': 20000, 'wall-point': 9000, 'bench-light': 7000, 'floating-bench': 12000, 'aspen-bench': 7000, 'stove-fireproof-boards': 25000, 'wash-tap': 6000, 'panoramic-window-600-1800': 16000, 'steam-floor-oil': 12000, 'steam-lining-oil': 25000, 'lounge-floor-varnish': 20000, replanning: 10000, boiler: 37500, shower: 24500, led: 12000, 'steam-bench-oil': 15000 }
 for (const [id, price] of Object.entries(confirmed)) assert.equal(option(id)?.salePrice, price, id)
+assert.equal(option('steam-gun')?.salePrice, 8000)
+assert.equal(option('steam-gun')?.enabled, false, 'steam gun stays hidden until stove compatibility is confirmed')
+assert.equal(option('steam-gun')?.compatibilityStatus, 'requires_confirmation')
+assert.deepEqual(plain(normalizeOptionIds(['steam-gun'])), [])
+assert.deepEqual(plain(toggleEquipmentOption([], 'steam-gun')), [])
+assert.equal(equipmentSelection(['steam-gun']).selected.length, 0)
+assert.equal(equipmentSelection(['steam-gun']).knownTotal, 0, 'pending steam gun must not enter calculator totals')
+assert.ok(optionGuidance['ermak-base'].explanation.includes('Точная заводская модификация не подтверждена'))
+assert.ok(!optionGuidance['ermak-base'].explanation.includes('Стандартная базовая печь'))
 const replacementRetail = { ermak: 17000, 'ermak-16-ps': 25000, 'ermak-16-premium-steel': 45000, 'ermak-16-premium-cast-iron': 66000 }
 for (const [id, retail] of Object.entries(replacementRetail)) {
   assert.equal(option(id)?.salePrice, null, `${id}: full retail must not be charged as a replacement supplement`)
@@ -39,6 +51,8 @@ for (const [id, retail] of Object.entries(replacementRetail)) {
   assert.ok(!('confirmedRetailPrice' in result.options[0]), 'PDF/lead configuration must never expose the full retail as a replacement charge')
   assert.ok(!configurationManagerText(result).includes(retail.toLocaleString('ru-RU')))
 }
+assert.match(modelConfiguratorSource, /Полная цена печи \$\{formatPrice\(option\.confirmedRetailPrice\)\}; доплата за замену не определена/)
+assert.match(genericConfiguratorSource, /Полная цена печи \$\{option\.confirmedRetailPrice\.toLocaleString\('ru-RU'\)\} ₽; доплата за замену не определена/)
 for (const id of ['led', 'steam-bench-oil']) {
   assert.equal(option(id).enabled, true)
   assert.ok(!('priceStatus' in option(id)) && !('proposedRetailPrice' in option(id)), `${id}: final price must not retain preliminary metadata`)

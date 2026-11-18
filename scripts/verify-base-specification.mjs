@@ -88,14 +88,15 @@ for (const model of [...saunas,...homes]) {
       assert.match(row('Помещения'), /Комната отдыха/)
     }
   } else if (n <= 8) {
-    assert.match(text,/Утепление Стены, пол и потолок — минеральная вата 100 мм/)
+    assert.match(text,/Минеральная вата ISOVER или URSA, 100 мм/)
     assert.match(text,/Мебель Стол и две лавки/)
     assert.match(text,/В подарок/)
   } else if (n <= 27) {
     const furniture = expectedRows.find(item => item.label === 'Мебель')?.value ?? ''
     assert(requiresBaseConfigurationConfirmation(furniture), `${model.id}: furniture gift must only appear where confirmed by source`)
   }
-  if (n >= 18 && n <= 28) assert(requiresBaseConfigurationConfirmation(expectedRows.find(item => item.label === 'Конструкция')?.value ?? ''), `${model.id}: unconfirmed construction must not be guaranteed`)
+  if (!homes.includes(model)) assert.equal(expectedRows.find(row => row.label === 'Конструкция')?.value, 'Каркас 100 мм', `${model.id}: mobile saunas use the approved frame-only construction`)
+  if (!homes.includes(model)) assert.match(text, /Минеральная вата ISOVER или URSA, 100 мм/i, `${model.id}: show the approved mineral wool brand and thickness`)
   if (!homes.includes(model) && n >= 9 && n <= 27) assert(requiresBaseConfigurationConfirmation(expectedRows.find(item => item.label === 'Мебель')?.value ?? ''), `${model.id}: unverified furniture must not be called a gift`)
   if (n === 28) {
     assert.match(text,/Чугунная печь ЭТНА 18/)
@@ -104,6 +105,7 @@ for (const model of [...saunas,...homes]) {
     assert(!text.includes('Бак для воды и камни для печи — в подарок'))
   }
   assert(!/(?<!\d)50\s*мм/.test(clean(html)), `${model.id}: outdated visible insulation`)
+  assert(!/rockwool|роквул/i.test(clean(html)), `${model.id}: rejected insulation brand must not be shown`)
   const constructionRow = expectedRows.find(row => row.label === 'Конструкция')
   const construction = block.match(/<div[^>]*data-base-label="Конструкция"[^>]*>[\s\S]*?<dd[^>]*>\s*<span[^>]*>([^<]*)<\/span>/)?.[1]
   if (constructionRow && requiresBaseConfigurationConfirmation(constructionRow.value)) assert.equal(construction, undefined, `${model.id}: unconfirmed construction must not be shown as included`)
@@ -117,10 +119,12 @@ for (const model of [...saunas,...homes]) {
   const sheet = clean(fs.readFileSync(path.join(dist,'model-sheet',model.id+'.html'),'utf8'))
   assert(!/(?<!\d)50\s*мм/.test(sheet), `${model.id}: outdated printable specification`)
   assert(sheet.includes('Базовая комплектация'))
+  if (!homes.includes(model)) assert(!sheet.includes('Брус:'), `${model.id}: printable model sheet must not sell a bрус price variant`)
+  assert(!/rockwool|роквул/i.test(clean(html + sheet)), `${model.id}: rejected insulation brand must not appear on the model page or PDF`)
 }
 const photos = readData('src/data/home-interiors.ts').homeInteriors
 assert.equal(photos.length,19, 'approved home gallery excludes the rejected construction-site image')
 assert.equal(new Set(photos.map(p=>p.src)).size,photos.length)
 assert(!photos.some(p => /\/interior-10\.(?:webp|avif)$/.test(p.src) || /\/interior-10\.(?:webp|avif)$/.test(p.avif)), 'rejected interior-10 must not reappear')
 for (const p of photos) for (const file of [p.src,p.avif]) assert(fs.existsSync(path.join(root,'public',file.replace(/^\//,''))))
-console.log(JSON.stringify({ models:31, saunas:25, homes:6, unconfirmedHomeConstruction:[25,26,27], unconfirmedSaunaConstruction:[18,19,20,21,22,23,24,28], prices, printableSheets:31, realInteriors:photos.length, status:'PASS' },null,2))
+console.log(JSON.stringify({ models:31, saunas:25, homes:6, unconfirmedHomeConstruction:[25,26,27], frameOnlyMobileSaunas:saunas.length, prices, printableSheets:31, realInteriors:photos.length, status:'PASS' },null,2))

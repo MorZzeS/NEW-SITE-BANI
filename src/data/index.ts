@@ -15,23 +15,23 @@ export const siteSettings: SiteSettings = {
 }
 
 export const saunas: Sauna[] = [
-  { id: 'bg-01', slug: 'istok-4', name: "Исток 4", article: "БГ-01", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Компактный формат с парной и комнатой отдыха.", description: "Компактный формат с парной и комнатой отдыха.", image: "/images/catalog/bg-01/model.png", images: ["/images/catalog/bg-01/model.png"], floorPlan: '/images/plans/bg-01.png', size: "4 × 2,4 м", area: 9.6, priceFrom: 412500, priceVariants: ["Брус: 425 500 ₽"], tags: [], isPopular: true, specs: [{"label": "Размер", "value": "4 × 2,4 м"}, {"label": "Площадь застройки", "value": "9,6 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false, interiorImages: ['/images/interiors/parnaya-2-.jpg','/images/interiors/pomiv-.jpg',] },
-  { id: 'bg-02', slug: 'istok-terra-5', name: "Исток Терра 5", article: "БГ-02", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Двухзонная баня с отдельным входным крыльцом. По исходному плану: модуль 5 м и крыльцо 1 м.", description: "Двухзонная баня с отдельным входным крыльцом. По исходному плану: модуль 5 м и крыльцо 1 м.", image: "/images/catalog/bg-02/model.png", images: ["/images/catalog/bg-02/model.png"], floorPlan: '/images/plans/bg-02.png', size: "5 × 2,4 м + крыльцо", area: 12.0, priceFrom: 471000, priceVariants: ["Брус: 484 000 ₽"], tags: [], specs: [{"label": "Размер", "value": "5 × 2,4 м + крыльцо"}, {"label": "Площадь застройки", "value": "12,0 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: true, hasShower: false },
-  { id: 'bg-03', slug: 'istok-5', name: "Исток 5", article: "БГ-03", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Дополнительное пространство в простом прямоугольном модуле.", description: "Дополнительное пространство в простом прямоугольном модуле.", image: "/images/catalog/bg-03/model.png", images: ["/images/catalog/bg-03/model.png"], floorPlan: '/images/plans/bg-03.png', size: "5 × 2,4 м", area: 12.0, priceFrom: 464500, priceVariants: ["Брус: 477 500 ₽"], tags: [], specs: [{"label": "Размер", "value": "5 × 2,4 м"}, {"label": "Площадь застройки", "value": "12,0 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
-  { id: 'bg-04', slug: 'istok-6', name: "Исток 6", article: "БГ-04", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Увеличенный модуль с парной и зоной отдыха.", description: "Увеличенный модуль с парной и зоной отдыха.", image: "/images/catalog/bg-04/model.png", images: ["/images/catalog/bg-04/model.png"], floorPlan: '/images/plans/bg-04.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 484000, priceVariants: ["Брус: 490 500 ₽"], tags: [], isPopular: true, specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
-  { id: 'bg-05', slug: 'istok-semeynyy-7', name: "Исток Семейный 7", article: "БГ-05", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Раздельные зоны и вход со стороны длинного фасада.", description: "Раздельные зоны и вход со стороны длинного фасада.", image: "/images/catalog/bg-05/model.png", images: ["/images/catalog/bg-05/model.png"], floorPlan: '/images/plans/bg-05.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 516500, priceVariants: ["Брус: 529 500 ₽"], tags: [], isPopular: true, specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: true, hasTerrace: false, hasShower: false },
-  { id: 'bg-06', slug: 'istok-semeynyy-7r', name: "Исток Семейный 7R", article: "БГ-06", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Альтернативное расположение помещений: парная справа на плане.", description: "Альтернативное расположение помещений: парная справа на плане.", image: "/images/catalog/bg-06/model.png", images: ["/images/catalog/bg-06/model.png"], floorPlan: '/images/plans/bg-06.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 516500, priceVariants: ["Брус: 529 500 ₽"], tags: [], specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: true, hasTerrace: false, hasShower: true },
-  { id: 'bg-07', slug: 'istok-prostor-7', name: "Исток Простор 7", article: "БГ-07", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Другая пропорция помещений в семиметровом модуле.", description: "Другая пропорция помещений в семиметровом модуле.", image: "/images/catalog/bg-07/model.png", images: ["/images/catalog/bg-07/model.png"], floorPlan: '/images/plans/bg-07.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 510000, priceVariants: ["Брус: 523 000 ₽"], tags: [], specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
-  { id: 'bg-08', slug: 'istok-8', name: "Исток 8", article: "БГ-08", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Самый длинный модуль серии с отдельными зонами отдыха и парения.", description: "Самый длинный модуль серии с отдельными зонами отдыха и парения.", image: "/images/catalog/bg-08/model.png", images: ["/images/catalog/bg-08/model.png"], floorPlan: '/images/plans/bg-08.png', size: "8 × 2,4 м", area: 19.2, priceFrom: 601000, priceVariants: ["Брус: 640 000 ₽"], tags: [], isPopular: true, specs: [{"label": "Размер", "value": "8 × 2,4 м"}, {"label": "Площадь застройки", "value": "19,2 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
-  { id: 'bg-09', slug: 'skandinaviya-mini-45', name: "Скандинавия Мини 4,5", article: "БГ-09", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Компактная баня с входной площадкой.", description: "Компактная баня с входной площадкой.", image: "/images/catalog/bg-09/model.png", images: ["/images/catalog/bg-09/model.png"], floorPlan: '/images/plans/bg-09.png', size: "4,5 × 2,4 м", area: 10.8, priceFrom: 575000, priceVariants: ["Брус: 588 000 ₽"], tags: [], specs: [{"label": "Размер", "value": "4,5 × 2,4 м"}, {"label": "Площадь застройки", "value": "10,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
-  { id: 'bg-10', slug: 'skandinaviya-start-6', name: "Скандинавия Старт+ 6", article: "БГ-10", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Крытое крыльцо, комната отдыха и парная. Две основные внутренние зоны в шестиметровом формате.", description: "Крытое крыльцо, комната отдыха и парная. Две основные внутренние зоны в шестиметровом формате.", image: "/images/catalog/bg-10/model.png", images: ["/images/catalog/bg-10/model.png"], floorPlan: '/images/plans/bg-10.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 607500, priceVariants: ["Брус: 620 500 ₽"], tags: [], isPopular: true, specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
-  { id: 'bg-11', slug: 'skandinaviya-start-65', name: "Скандинавия Старт+ 6,5", article: "БГ-11", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Три помещения и небольшой запас пространства у входа.", description: "Три помещения и небольшой запас пространства у входа.", image: "/images/catalog/bg-11/model.png", images: ["/images/catalog/bg-11/model.png"], floorPlan: '/images/plans/bg-11.png', size: "6,5 × 2,4 м", area: 15.6, priceFrom: 640000, priceVariants: ["Брус: 653 000 ₽"], tags: [], specs: [{"label": "Размер", "value": "6,5 × 2,4 м"}, {"label": "Площадь застройки", "value": "15,6 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
-  { id: 'bg-12', slug: 'skandinaviya-standart-7', name: "Скандинавия Стандарт 7", article: "БГ-12", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Комната отдыха, моечная и парная в одном модуле.", description: "Комната отдыха, моечная и парная в одном модуле.", image: "/images/catalog/bg-12/model.png", images: ["/images/catalog/bg-12/model.png"], floorPlan: '/images/plans/bg-12.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 646500, priceVariants: ["Брус: 659 500 ₽"], tags: [], isPopular: true, specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
-  { id: 'bg-13', slug: 'skandinaviya-standart-75', name: "Скандинавия Стандарт+ 7,5", article: "БГ-13", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Удлинённая версия с разделением основных зон.", description: "Удлинённая версия с разделением основных зон.", image: "/images/catalog/bg-13/model.png", images: ["/images/catalog/bg-13/model.png"], floorPlan: '/images/plans/bg-13.png', size: "7,5 × 2,4 м", area: 18.0, priceFrom: 672500, priceVariants: ["Брус: 685 500 ₽"], tags: [], specs: [{"label": "Размер", "value": "7,5 × 2,4 м"}, {"label": "Площадь застройки", "value": "18,0 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
-  { id: 'bg-14', slug: 'skandinaviya-komfort-6', name: "Скандинавия Комфорт 6", article: "БГ-14", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Боковой вход и отдельная моечная зона.", description: "Боковой вход и отдельная моечная зона.", image: "/images/catalog/bg-14/model.png", images: ["/images/catalog/bg-14/model.png"], floorPlan: '/images/plans/bg-14.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 646500, priceVariants: ["Брус: 659 500 ₽"], tags: [], isPopular: true, specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: false, hasShower: true },
-  { id: 'bg-15', slug: 'skandinaviya-komfort-8', name: "Скандинавия Комфорт 8", article: "БГ-15", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Просторный формат с входной площадкой.", description: "Просторный формат с входной площадкой.", image: "/images/catalog/bg-15/model.png", images: ["/images/catalog/bg-15/model.png"], floorPlan: '/images/plans/bg-15.png', size: "8 × 2,4 м", area: 19.2, priceFrom: 731000, priceVariants: ["Брус: 744 000 ₽"], tags: [], specs: [{"label": "Размер", "value": "8 × 2,4 м"}, {"label": "Площадь застройки", "value": "19,2 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: true },
-  { id: 'bg-16', slug: 'skandinaviya-komfort-plus-6', name: "Скандинавия Комфорт+ 6", article: "БГ-16", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Комната отдыха, моечная, парная и санузел по плану.", description: "Комната отдыха, моечная, парная и санузел по плану.", image: "/images/catalog/bg-16/model.png", images: ["/images/catalog/bg-16/model.png"], floorPlan: '/images/plans/bg-16.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 640000, priceVariants: ["Брус: 653 000 ₽"], tags: [], specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: true, hasTerrace: false, hasShower: true },
-  { id: 'bg-17', slug: 'skandinaviya-komfort-plus-7', name: "Скандинавия Комфорт+ 7", article: "БГ-17", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Расширенная планировка с санузлом и отдельной моечной.", description: "Расширенная планировка с санузлом и отдельной моечной.", image: "/images/catalog/bg-17/model.png", images: ["/images/catalog/bg-17/model.png"], floorPlan: '/images/plans/bg-17.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 698500, priceVariants: ["Брус: 711 500 ₽"], tags: [], specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: true, hasTerrace: false, hasShower: true },
+  { id: 'bg-01', slug: 'istok-4', name: "Исток 4", article: "БГ-01", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Компактный формат с парной и комнатой отдыха.", description: "Компактный формат с парной и комнатой отдыха.", image: "/images/catalog/bg-01/model.png", images: ["/images/catalog/bg-01/model.png"], floorPlan: '/images/plans/bg-01.png', size: "4 × 2,4 м", area: 9.6, priceFrom: 412500, tags: [], isPopular: true, specs: [{"label": "Размер", "value": "4 × 2,4 м"}, {"label": "Площадь застройки", "value": "9,6 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false, interiorImages: ['/images/interiors/parnaya-2-.jpg','/images/interiors/pomiv-.jpg',] },
+  { id: 'bg-02', slug: 'istok-terra-5', name: "Исток Терра 5", article: "БГ-02", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Двухзонная баня с отдельным входным крыльцом. По исходному плану: модуль 5 м и крыльцо 1 м.", description: "Двухзонная баня с отдельным входным крыльцом. По исходному плану: модуль 5 м и крыльцо 1 м.", image: "/images/catalog/bg-02/model.png", images: ["/images/catalog/bg-02/model.png"], floorPlan: '/images/plans/bg-02.png', size: "5 × 2,4 м + крыльцо", area: 12.0, priceFrom: 471000, tags: [], specs: [{"label": "Размер", "value": "5 × 2,4 м + крыльцо"}, {"label": "Площадь застройки", "value": "12,0 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: true, hasShower: false },
+  { id: 'bg-03', slug: 'istok-5', name: "Исток 5", article: "БГ-03", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Дополнительное пространство в простом прямоугольном модуле.", description: "Дополнительное пространство в простом прямоугольном модуле.", image: "/images/catalog/bg-03/model.png", images: ["/images/catalog/bg-03/model.png"], floorPlan: '/images/plans/bg-03.png', size: "5 × 2,4 м", area: 12.0, priceFrom: 464500, tags: [], specs: [{"label": "Размер", "value": "5 × 2,4 м"}, {"label": "Площадь застройки", "value": "12,0 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
+  { id: 'bg-04', slug: 'istok-6', name: "Исток 6", article: "БГ-04", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Увеличенный модуль с парной и зоной отдыха.", description: "Увеличенный модуль с парной и зоной отдыха.", image: "/images/catalog/bg-04/model.png", images: ["/images/catalog/bg-04/model.png"], floorPlan: '/images/plans/bg-04.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 484000, tags: [], isPopular: true, specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
+  { id: 'bg-05', slug: 'istok-semeynyy-7', name: "Исток Семейный 7", article: "БГ-05", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Раздельные зоны и вход со стороны длинного фасада.", description: "Раздельные зоны и вход со стороны длинного фасада.", image: "/images/catalog/bg-05/model.png", images: ["/images/catalog/bg-05/model.png"], floorPlan: '/images/plans/bg-05.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 516500, tags: [], isPopular: true, specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: true, hasTerrace: false, hasShower: false },
+  { id: 'bg-06', slug: 'istok-semeynyy-7r', name: "Исток Семейный 7R", article: "БГ-06", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Альтернативное расположение помещений: парная справа на плане.", description: "Альтернативное расположение помещений: парная справа на плане.", image: "/images/catalog/bg-06/model.png", images: ["/images/catalog/bg-06/model.png"], floorPlan: '/images/plans/bg-06.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 516500, tags: [], specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: true, hasTerrace: false, hasShower: true },
+  { id: 'bg-07', slug: 'istok-prostor-7', name: "Исток Простор 7", article: "БГ-07", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Другая пропорция помещений в семиметровом модуле.", description: "Другая пропорция помещений в семиметровом модуле.", image: "/images/catalog/bg-07/model.png", images: ["/images/catalog/bg-07/model.png"], floorPlan: '/images/plans/bg-07.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 510000, tags: [], specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
+  { id: 'bg-08', slug: 'istok-8', name: "Исток 8", article: "БГ-08", series: 'Исток', collection: 'Модульная коллекция', subtitle: "Самый длинный модуль серии с отдельными зонами отдыха и парения.", description: "Самый длинный модуль серии с отдельными зонами отдыха и парения.", image: "/images/catalog/bg-08/model.png", images: ["/images/catalog/bg-08/model.png"], floorPlan: '/images/plans/bg-08.png', size: "8 × 2,4 м", area: 19.2, priceFrom: 601000, tags: [], isPopular: true, specs: [{"label": "Размер", "value": "8 × 2,4 м"}, {"label": "Площадь застройки", "value": "19,2 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "Осиновая отделка парной и полки", "Печь «Каменка-2», бак и камни", "Освещение, стол и две лавки", "Пол и потолок: утепление 50 мм по базовой спецификации"], hasBathroom: false, hasTerrace: false, hasShower: false },
+  { id: 'bg-09', slug: 'skandinaviya-mini-45', name: "Скандинавия Мини 4,5", article: "БГ-09", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Компактная баня с входной площадкой.", description: "Компактная баня с входной площадкой.", image: "/images/catalog/bg-09/model.png", images: ["/images/catalog/bg-09/model.png"], floorPlan: '/images/plans/bg-09.png', size: "4,5 × 2,4 м", area: 10.8, priceFrom: 575000, tags: [], specs: [{"label": "Размер", "value": "4,5 × 2,4 м"}, {"label": "Площадь застройки", "value": "10,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
+  { id: 'bg-10', slug: 'skandinaviya-start-6', name: "Скандинавия Старт+ 6", article: "БГ-10", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Крытое крыльцо, комната отдыха и парная. Две основные внутренние зоны в шестиметровом формате.", description: "Крытое крыльцо, комната отдыха и парная. Две основные внутренние зоны в шестиметровом формате.", image: "/images/catalog/bg-10/model.png", images: ["/images/catalog/bg-10/model.png"], floorPlan: '/images/plans/bg-10.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 607500, tags: [], isPopular: true, specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
+  { id: 'bg-11', slug: 'skandinaviya-start-65', name: "Скандинавия Старт+ 6,5", article: "БГ-11", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Три помещения и небольшой запас пространства у входа.", description: "Три помещения и небольшой запас пространства у входа.", image: "/images/catalog/bg-11/model.png", images: ["/images/catalog/bg-11/model.png"], floorPlan: '/images/plans/bg-11.png', size: "6,5 × 2,4 м", area: 15.6, priceFrom: 640000, tags: [], specs: [{"label": "Размер", "value": "6,5 × 2,4 м"}, {"label": "Площадь застройки", "value": "15,6 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
+  { id: 'bg-12', slug: 'skandinaviya-standart-7', name: "Скандинавия Стандарт 7", article: "БГ-12", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Комната отдыха, моечная и парная в одном модуле.", description: "Комната отдыха, моечная и парная в одном модуле.", image: "/images/catalog/bg-12/model.png", images: ["/images/catalog/bg-12/model.png"], floorPlan: '/images/plans/bg-12.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 646500, tags: [], isPopular: true, specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
+  { id: 'bg-13', slug: 'skandinaviya-standart-75', name: "Скандинавия Стандарт+ 7,5", article: "БГ-13", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Удлинённая версия с разделением основных зон.", description: "Удлинённая версия с разделением основных зон.", image: "/images/catalog/bg-13/model.png", images: ["/images/catalog/bg-13/model.png"], floorPlan: '/images/plans/bg-13.png', size: "7,5 × 2,4 м", area: 18.0, priceFrom: 672500, tags: [], specs: [{"label": "Размер", "value": "7,5 × 2,4 м"}, {"label": "Площадь застройки", "value": "18,0 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: false },
+  { id: 'bg-14', slug: 'skandinaviya-komfort-6', name: "Скандинавия Комфорт 6", article: "БГ-14", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Боковой вход и отдельная моечная зона.", description: "Боковой вход и отдельная моечная зона.", image: "/images/catalog/bg-14/model.png", images: ["/images/catalog/bg-14/model.png"], floorPlan: '/images/plans/bg-14.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 646500, tags: [], isPopular: true, specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: false, hasShower: true },
+  { id: 'bg-15', slug: 'skandinaviya-komfort-8', name: "Скандинавия Комфорт 8", article: "БГ-15", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Просторный формат с входной площадкой.", description: "Просторный формат с входной площадкой.", image: "/images/catalog/bg-15/model.png", images: ["/images/catalog/bg-15/model.png"], floorPlan: '/images/plans/bg-15.png', size: "8 × 2,4 м", area: 19.2, priceFrom: 731000, tags: [], specs: [{"label": "Размер", "value": "8 × 2,4 м"}, {"label": "Площадь застройки", "value": "19,2 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: false, hasTerrace: true, hasShower: true },
+  { id: 'bg-16', slug: 'skandinaviya-komfort-plus-6', name: "Скандинавия Комфорт+ 6", article: "БГ-16", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Комната отдыха, моечная, парная и санузел по плану.", description: "Комната отдыха, моечная, парная и санузел по плану.", image: "/images/catalog/bg-16/model.png", images: ["/images/catalog/bg-16/model.png"], floorPlan: '/images/plans/bg-16.png', size: "6 × 2,4 м", area: 14.4, priceFrom: 640000, tags: [], specs: [{"label": "Размер", "value": "6 × 2,4 м"}, {"label": "Площадь застройки", "value": "14,4 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: true, hasTerrace: false, hasShower: true },
+  { id: 'bg-17', slug: 'skandinaviya-komfort-plus-7', name: "Скандинавия Комфорт+ 7", article: "БГ-17", series: 'Скандинавия', collection: 'Скандинавская коллекция', subtitle: "Расширенная планировка с санузлом и отдельной моечной.", description: "Расширенная планировка с санузлом и отдельной моечной.", image: "/images/catalog/bg-17/model.png", images: ["/images/catalog/bg-17/model.png"], floorPlan: '/images/plans/bg-17.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 698500, tags: [], specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Каркас 100 мм"}], features: ["Парная и зона отдыха", "Каркас 100 мм или брус 90 × 140 мм", "ПВХ-окна и входная ПВХ-дверь", "Стеклянные двери мокрых зон по проекту", "Печь Ермак 12, бак 55 л, камни", "Пол и потолок: утепление 100 мм"], hasBathroom: true, hasTerrace: false, hasShower: true },
   { id: 'bg-18', slug: 'sever-layt-4', name: "Север Лайт 4", article: "БГ-18", series: 'Север', collection: 'Северная коллекция', subtitle: "Вариант индивидуального исполнения. Внешний вид показан в визуализации.", description: "Вариант индивидуального исполнения. Внешний вид показан в визуализации.", image: "/images/catalog/bg-18/model.png", images: ["/images/catalog/bg-18/model.png"], floorPlan: '/images/plans/bg-18.png', size: "4 × 2,4 м", area: 9.6, priceFrom: 619200, tags: [], specs: [{"label": "Размер", "value": "4 × 2,4 м"}, {"label": "Площадь застройки", "value": "9,6 м²"}, {"label": "Исполнение", "value": "Представленное исполнение"}], features: ["Скрытая электрика и уличная подсветка", "Абажуры и ограждение печи", "Шпросы на окнах и двери"], hasBathroom: false, hasTerrace: false, hasShower: false },
   { id: 'bg-19', slug: 'sever-terra-65', name: "Север Терра 6,5", article: "БГ-19", series: 'Север', collection: 'Северная коллекция', subtitle: "Вариант индивидуального исполнения. Внешний вид показан в визуализации.", description: "Вариант индивидуального исполнения. Внешний вид показан в визуализации.", image: "/images/catalog/bg-19/model.png", images: ["/images/catalog/bg-19/model.png"], floorPlan: '/images/plans/bg-19.png', size: "6,5 × 2,4 м", area: 15.6, priceFrom: 753100, tags: [], specs: [{"label": "Размер", "value": "6,5 × 2,4 м"}, {"label": "Площадь застройки", "value": "15,6 м²"}, {"label": "Исполнение", "value": "Представленное исполнение"}], features: ["Скрытая электрика и уличная подсветка", "Ламинация окон и двери", "Тропический душ и бойлер 50 л", "Профлист в цвете графит"], hasBathroom: true, hasTerrace: false, hasShower: true },
   { id: 'bg-20', slug: 'sever-rezidents-7', name: "Север Резиденс 7", article: "БГ-20", series: 'Север', collection: 'Северная коллекция', subtitle: "Вариант индивидуального исполнения. Внешний вид показан в визуализации.", description: "Вариант индивидуального исполнения. Внешний вид показан в визуализации.", image: "/images/catalog/bg-20/model.png", images: ["/images/catalog/bg-20/model.png"], floorPlan: '/images/plans/bg-20.png', size: "7 × 2,4 м", area: 16.8, priceFrom: 1039100, tags: [], specs: [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Представленное исполнение"}], features: ["Скрытая электрика и подсветка", "Ламинация окон и двери", "Тропический душ и бойлер 50 л", "Санузел и декоративные рейки"], hasBathroom: true, hasTerrace: false, hasShower: true },
@@ -1382,6 +1382,351 @@ export const articles: Article[] = [
   }
 ]
 
+// BEGIN OWNER APPROVED EDITORIAL IMPORT 2026-11-16
+articles.push(...[
+  {
+    "id": "editorial-20261116-01",
+    "slug": "pochemu-karkasnaya-banya",
+    "title": "Почему мы выбираем каркасные бани: сравнение с брусом",
+    "seoTitle": "Каркасная баня или баня из бруса — сравнение конструкций | BANGER",
+    "metaDescription": "Преимущества каркасной бани: утепление, вес, сборка и стабильность геометрии. Честно о брусе 90×140 мм, усушке и трещинах.",
+    "excerpt": "В BANGER мы предлагаем мобильные бани в каркасном исполнении. Такая технология позволяет отдельно управлять несущей конструкцией, теплоизоляцией, внутренней и внешней отделкой. Для готового изделия важны не только видимые стены, но и скрытые узлы: плотность утепления, защита от влаги и качество примыканий.",
+    "category": "Экспертные материалы",
+    "date": "2026-11-16",
+    "readTime": 2,
+    "coverImage": "/images/articles/pochemu-karkasnaya-banya-cover.webp",
+    "coverAlt": "Две конструктивные системы: деревянный каркас и брус",
+    "image": "/images/articles/pochemu-karkasnaya-banya-cover.webp",
+    "imageAvif": "/images/articles/pochemu-karkasnaya-banya-cover.avif",
+    "imageAlt": "Две конструктивные системы: деревянный каркас и брус",
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели.",
+    "imageWidth": 1600,
+    "imageHeight": 893,
+    "content": "<h2 id=\"section-1\">Почему мы делаем ставку на каркас</h2>\n<p>В BANGER мы предлагаем мобильные бани в каркасном исполнении. Такая технология позволяет отдельно управлять несущей конструкцией, теплоизоляцией, внутренней и внешней отделкой. Для готового изделия важны не только видимые стены, но и скрытые узлы: плотность утепления, защита от влаги и качество примыканий.</p>\n<h2 id=\"section-3\">Каркасная баня: практические преимущества</h2>\n<p>Каркас обычно легче массивной стены той же площади, удобен для заводской сборки и доставки. Внутри стойкового каркаса можно разместить расчетный слой минеральной ваты, а снаружи выбрать нужную отделку: например, имитацию бруса или блок-хаус. Ремонт отдельного участка облицовки при необходимости также проще организовать, чем замену цельной несущей стены.</p>\n<h2 id=\"section-5\">Что происходит с брусом 90×140 мм</h2>\n<p>Массивная древесина изменяет размеры при изменении влажности. В период сушки и эксплуатации возможны усушка, деформации и трещины. Их выраженность зависит от исходной влажности, породы, способа сушки, условий хранения и режима использования. Трещина сама по себе не означает, что конструкция аварийная, но к геометрии и стыкам массивной деревянной стены нужно относиться внимательно. Каркас тоже состоит из древесины, поэтому требования к сухости материала и качеству монтажа остаются обязательными.</p>\n<h2 id=\"section-7\">Что важнее названия технологии</h2>\n<p>Ни каркас, ни брус не гарантируют качество сами по себе. Важно, чтобы древесина была подготовлена, утеплитель не имел пустот, влажный воздух не проникал неконтролируемо в толщу стен, а деревянные детали могли просыхать. Именно комплекс этих решений определяет комфорт и долговечность бани.</p>\n<h2 id=\"section-9\">Наш подход</h2>\n<p>Мы используем каркас 100 мм с минеральной теплоизоляцией ISOVER или URSA по стандартной комплектации, пароизоляцией, ветровлагозащитой и предусмотренными конструкцией вентиляционными решениями. Для разных условий эксплуатации состав узлов и необходимость дополнительной теплоизоляции уточняются при заказе.</p>\n<p>---</p>",
+    "toc": [
+      {
+        "id": "section-1",
+        "title": "Почему мы делаем ставку на каркас",
+        "level": 2
+      },
+      {
+        "id": "section-3",
+        "title": "Каркасная баня: практические преимущества",
+        "level": 2
+      },
+      {
+        "id": "section-5",
+        "title": "Что происходит с брусом 90×140 мм",
+        "level": 2
+      },
+      {
+        "id": "section-7",
+        "title": "Что важнее названия технологии",
+        "level": 2
+      },
+      {
+        "id": "section-9",
+        "title": "Наш подход",
+        "level": 2
+      }
+    ],
+    "photoBrief": "3D-визуал к материалу; не является проектом конкретной модели.",
+    "relatedSlugs": [],
+    "resourceLinks": []
+  },
+  {
+    "id": "editorial-20261116-02",
+    "slug": "uteplenie-isover-ursa-bani",
+    "title": "Почему для утепления наших бань мы используем ISOVER или URSA",
+    "seoTitle": "Утепление каркасной бани ISOVER и URSA: что даёт слой 100 мм | BANGER",
+    "metaDescription": "Почему BANGER использует минеральную вату ISOVER или URSA толщиной 100 мм, как работает защита от влаги и зачем нужен вентиляционный зазор.",
+    "excerpt": "В стандартной комплектации каркасных мобильных бань BANGER применяется минеральная вата толщиной 100 мм — ISOVER или URSA. Утепление закладывается в стены, пол и потолок согласно проектной конструкции. Это не случайный материал: волокнистая структура минваты снижает передачу тепла, а монтаж между элементами каркаса позволяет выполнить сплошной теплоизоляционный слой.",
+    "category": "Экспертные материалы",
+    "date": "2026-11-16",
+    "readTime": 2,
+    "coverImage": "/images/articles/uteplenie-isover-ursa-bani-cover.webp",
+    "coverAlt": "Иллюстративный разрез каркасной бани с минеральной теплоизоляцией. Визуализация, не технический чертёж и не фотография объекта.",
+    "image": "/images/articles/uteplenie-isover-ursa-bani-cover.webp",
+    "imageAlt": "Иллюстративный разрез каркасной бани с минеральной теплоизоляцией. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageCaption": "Иллюстративный разрез каркасной бани с минеральной теплоизоляцией. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageWidth": 824,
+    "imageHeight": 464,
+    "content": "<h2 id=\"section-1\">Базовое утепление BANGER</h2>\n<p>В стандартной комплектации каркасных мобильных бань BANGER применяется минеральная вата толщиной 100 мм — ISOVER или URSA. Утепление закладывается в стены, пол и потолок согласно проектной конструкции. Это не случайный материал: волокнистая структура минваты снижает передачу тепла, а монтаж между элементами каркаса позволяет выполнить сплошной теплоизоляционный слой.</p>\n<h2 id=\"section-3\">За что ценят минеральную вату</h2>\n<p>Подходящие серии минеральной ваты обладают низкой теплопроводностью, выполняют и теплоизоляционную, и звукоизоляционную функцию, а также относятся к негорючим материалам — конкретную группу горючести всегда следует сверять с паспортом выбранной марки. Эластичные материалы помогают плотно заполнять промежутки каркаса. При этом высокая эффективность зависит от качества монтажа: даже хороший утеплитель не компенсирует щели и мостики холода.</p>\n<h2 id=\"section-5\">Достаточно ли 100 мм</h2>\n<p>Толщина 100 мм — наш стандарт для мобильной бани. При периодическом использовании и грамотной сборке она помогает удерживать тепло и обеспечивает практичный баланс между размерами модуля и теплоизоляцией. Но нельзя обещать, что 100 мм одинаково достаточно для любой зимы и любого режима: при постоянном отоплении, сильных морозах или особых требованиях толщину подбирают расчётом с учетом климатической зоны, пола, потолка, окон и режима работы.</p>\n<h2 id=\"section-7\">Почему важны мембраны и вентиляционный зазор</h2>\n<p>Для сохранения свойств утеплителя необходимо защищать его от увлажнения. Со стороны парной и других влажных помещений особенно важен правильно выполненный парозащитный контур, а снаружи — ветровлагозащитный слой. Там, где фасадная система предусматривает вентиляционный зазор, он помогает отводу влаги за облицовкой. Вентиляция помещения и продуваемый фасадный зазор — разные инженерные решения: они не заменяют друг друга.</p>\n<h2 id=\"section-9\">Как мы обеспечиваем долгую службу конструкции</h2>\n<p>Качество складывается из правильного материала, плотного примыкания без зазоров, аккуратной герметизации мембран, проветривания бани после использования и защиты мокрых зон от прямого попадания воды в перекрытие. В результате утеплитель работает внутри защищённой конструкции, а не в постоянном контакте с паром и водой.</p>\n<p>---</p>",
+    "toc": [
+      {
+        "id": "section-1",
+        "title": "Базовое утепление BANGER",
+        "level": 2
+      },
+      {
+        "id": "section-3",
+        "title": "За что ценят минеральную вату",
+        "level": 2
+      },
+      {
+        "id": "section-5",
+        "title": "Достаточно ли 100 мм",
+        "level": 2
+      },
+      {
+        "id": "section-7",
+        "title": "Почему важны мембраны и вентиляционный зазор",
+        "level": 2
+      },
+      {
+        "id": "section-9",
+        "title": "Как мы обеспечиваем долгую службу конструкции",
+        "level": 2
+      }
+    ],
+    "photoBrief": "Иллюстративный разрез каркасной бани с минеральной теплоизоляцией. Визуализация, не технический чертёж и не фотография объекта.",
+    "relatedSlugs": [],
+    "resourceLinks": []
+  },
+  {
+    "id": "editorial-20261116-03",
+    "slug": "pochemu-ne-ispolzuem-epps-v-polu",
+    "title": "Почему мы не используем ЭППС в стандартном полу каркасной бани",
+    "seoTitle": "ЭППС или минеральная вата в полу бани: наш выбор | BANGER",
+    "metaDescription": "Где допустим ЭППС, почему в стандартном деревянном перекрытии BANGER используется минеральная вата и что важно для защиты от влаги.",
+    "excerpt": "ЭППС — экструдированный пенополистирол. Плиты этого типа продаются, например, под названиями «Пеноплэкс» и «Техноплекс». Материал лёгкий, хорошо сопротивляется сжатию, обладает низким водопоглощением и широко применяется в строительстве, особенно в полах под стяжкой и в контакте с грунтом по правильно рассчитанной схеме.",
+    "category": "Экспертные материалы",
+    "date": "2026-11-16",
+    "readTime": 2,
+    "coverImage": "/images/articles/pochemu-ne-ispolzuem-epps-v-polu-cover.webp",
+    "coverAlt": "Иллюстративный разбор слоёв каркасной стены",
+    "image": "/images/articles/pochemu-ne-ispolzuem-epps-v-polu-cover.webp",
+    "imageAvif": "/images/articles/pochemu-ne-ispolzuem-epps-v-polu-cover.avif",
+    "imageAlt": "Иллюстративный разбор слоёв каркасной стены",
+    "imageCaption": "3D-визуал к материалу; не является проектом конкретной модели.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "content": "<h2 id=\"section-1\">Что такое ЭППС</h2>\n<p>ЭППС — экструдированный пенополистирол. Плиты этого типа продаются, например, под названиями «Пеноплэкс» и «Техноплекс». Материал лёгкий, хорошо сопротивляется сжатию, обладает низким водопоглощением и широко применяется в строительстве, особенно в полах под стяжкой и в контакте с грунтом по правильно рассчитанной схеме.</p>\n<h2 id=\"section-3\">Почему мы выбрали другое решение</h2>\n<p>В стандартном деревянном перекрытии наших каркасных бань мы используем минеральную вату ISOVER или URSA, а не ЭППС. Для такой конструкции критичны не только свойства одной плиты, но и совместная работа древесины, пароизоляции, наружной защиты, примыканий и вентиляции подполья. Низкая паропроницаемость ЭППС требует особенно тщательной проверки, куда будет уходить случайная влага, попавшая к деревянным лагам или в стыки.</p>\n<h2 id=\"section-5\">Можно ли вообще утеплять баню ЭППС</h2>\n<p>Да, существуют технически обоснованные конструкции с ЭППС, например под бетонной стяжкой при соблюдении требований к гидроизоляции, температурному режиму и пожарной безопасности. У отдельных изделий типа ПЕНОПЛЭКС КОМФОРТ производитель указывает температуру эксплуатации до +75 °C и группу горючести Г4. Поэтому без проектной проверки не следует размещать такой материал в зонах повышенного нагрева и рядом с печным оборудованием.</p>\n<h2 id=\"section-7\">Баня должна не «дышать», а правильно работать</h2>\n<p>Фраза «стены должны дышать» упрощает реальную физику. Важно другое: контролируемый воздухообмен в помещении, герметичный парозащитный контур в подходящих зонах, пути высыхания конструкций и организованный водоотвод. Наличие утеплителя с высокой паропроницаемостью само по себе не гарантирует сухости дерева.</p>\n<h2 id=\"section-9\">Наш вывод</h2>\n<p>Мы не объявляем ЭППС плохим материалом в принципе. Просто для нашего стандартного каркасного деревянного пола выбран другой проверяемый конструктив: минеральная вата 100 мм, защита от влаги и предусмотренные проектом вентиляционные решения. В мокрых зонах с проливным полом используется отдельная схема гидроизоляции и водоотведения.</p>\n<p>---</p>",
+    "toc": [
+      {
+        "id": "section-1",
+        "title": "Что такое ЭППС",
+        "level": 2
+      },
+      {
+        "id": "section-3",
+        "title": "Почему мы выбрали другое решение",
+        "level": 2
+      },
+      {
+        "id": "section-5",
+        "title": "Можно ли вообще утеплять баню ЭППС",
+        "level": 2
+      },
+      {
+        "id": "section-7",
+        "title": "Баня должна не «дышать», а правильно работать",
+        "level": 2
+      },
+      {
+        "id": "section-9",
+        "title": "Наш вывод",
+        "level": 2
+      }
+    ],
+    "photoBrief": "3D-визуал к материалу; не является проектом конкретной модели.",
+    "relatedSlugs": [],
+    "resourceLinks": []
+  },
+  {
+    "id": "editorial-20261116-04",
+    "slug": "prolivnoy-pol-v-bane",
+    "title": "Как устроен проливной пол в парной и помывочной",
+    "seoTitle": "Проливной пол для мобильной бани: гидроизоляция и водоотвод | BANGER",
+    "metaDescription": "Для чего нужен проливной пол, почему важны гидроизоляция, керамзит и организованный отвод воды в парной и помывочной.",
+    "excerpt": "В парной и помывочной на пол попадает больше воды, чем в комнате отдыха. Поэтому при заказе проливного исполнения пол проектируется не так, как обычное сухое перекрытие. Важны раздельный путь воды и способность конструкций просыхать после использования.",
+    "category": "Экспертные материалы",
+    "date": "2026-11-16",
+    "readTime": 2,
+    "coverImage": "/images/articles/prolivnoy-pol-v-bane-cover.webp",
+    "coverAlt": "Разрез мокрой зоны с герметичным трапом и водоотводом",
+    "image": "/images/articles/prolivnoy-pol-v-bane-cover.webp",
+    "imageAvif": "/images/articles/prolivnoy-pol-v-bane-cover.avif",
+    "imageAlt": "Разрез мокрой зоны с герметичным трапом и водоотводом",
+    "imageCaption": "Иллюстрация каркасного пола; не является чертежом проливного пола. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "content": "<h2 id=\"section-1\">Где нужен проливной пол</h2>\n<p>В парной и помывочной на пол попадает больше воды, чем в комнате отдыха. Поэтому при заказе проливного исполнения пол проектируется не так, как обычное сухое перекрытие. Важны раздельный путь воды и способность конструкций просыхать после использования.</p>\n<h2 id=\"section-3\">Гидроизоляция и водоотвод</h2>\n<p>При проливном исполнении в BANGER предусматриваются гидроизоляционный слой и организованный отвод воды. Влага не должна бесконтрольно попадать в закрытые деревянные полости. Стыки, примыкания, проходки и уклон водосборной части особенно важны: ошибка в них может оказаться существеннее выбора утеплителя.</p>\n<h2 id=\"section-5\">Зачем применяется керамзит</h2>\n<p>По согласованному варианту такого пола в мокрой зоне применяется керамзит вместо обычного плитного утеплителя. Это пористая засыпка, которая может участвовать в теплоизоляции и формировании слоя конструкции. Однако керамзит не является гидроизоляцией: при увлажнении его теплозащитные свойства ухудшаются, а значит, он должен быть защищён от прямого попадания воды и иметь предусмотренный способ высыхания.</p>\n<h2 id=\"section-7\">Вентиляция и обслуживание</h2>\n<p>Для долговечности нужны не только слои пола, но и правильная вентиляция подполья и помещения, регулярная просушка после парения, доступность сливов для обслуживания и периодический осмотр герметичности. Итоговая схема зависит от конкретной модели и согласованной комплектации.</p>\n<h2 id=\"section-9\">Что уточнить при заказе</h2>\n<p>Если нужен проливной пол, заранее согласовываются помещения, расположение сливного узла, подключение к водоотведению и условия зимней эксплуатации. Конструктивные размеры и подробный разрез пола фиксируются в заказной документации, а не определяются по рекламной иллюстрации.</p>\n<p>---</p>",
+    "toc": [
+      {
+        "id": "section-1",
+        "title": "Где нужен проливной пол",
+        "level": 2
+      },
+      {
+        "id": "section-3",
+        "title": "Гидроизоляция и водоотвод",
+        "level": 2
+      },
+      {
+        "id": "section-5",
+        "title": "Зачем применяется керамзит",
+        "level": 2
+      },
+      {
+        "id": "section-7",
+        "title": "Вентиляция и обслуживание",
+        "level": 2
+      },
+      {
+        "id": "section-9",
+        "title": "Что уточнить при заказе",
+        "level": 2
+      }
+    ],
+    "photoBrief": "Иллюстрация каркасного пола; не является чертежом проливного пола. Визуализация, не технический чертёж и не фотография объекта.",
+    "relatedSlugs": [],
+    "resourceLinks": []
+  },
+  {
+    "id": "editorial-20261116-05",
+    "slug": "otkrytaya-ili-zakrytaya-kamenka",
+    "title": "Открытая и закрытая каменка: в чём разница",
+    "seoTitle": "Открытая или закрытая каменка для бани: отличия и выбор | BANGER",
+    "metaDescription": "Разбираемся, как нагреваются камни, чем отличается открытая каменка от закрытой и какой пар можно получить.",
+    "excerpt": "В открытой каменке камни находятся в открытой чаше или сетке и контактируют с воздухом парной. Такая конструкция позволяет нагревать помещение с выраженной конвекцией, а воду обычно подают непосредственно на доступные сверху камни. Режим зависит от массы и температуры камней, мощности печи и интенсивности топки.",
+    "category": "Экспертные материалы",
+    "date": "2026-11-16",
+    "readTime": 2,
+    "coverImage": "/images/articles/otkrytaya-ili-zakrytaya-kamenka-cover.webp",
+    "coverAlt": "Иллюстрация открытой сетчатой и закрытой каменки дровяной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "image": "/images/articles/otkrytaya-ili-zakrytaya-kamenka-cover.webp",
+    "imageAlt": "Иллюстрация открытой сетчатой и закрытой каменки дровяной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageCaption": "Иллюстрация открытой сетчатой и закрытой каменки дровяной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageWidth": 824,
+    "imageHeight": 464,
+    "content": "<h2 id=\"section-1\">Открытая каменка</h2>\n<p>В открытой каменке камни находятся в открытой чаше или сетке и контактируют с воздухом парной. Такая конструкция позволяет нагревать помещение с выраженной конвекцией, а воду обычно подают непосредственно на доступные сверху камни. Режим зависит от массы и температуры камней, мощности печи и интенсивности топки.</p>\n<h2 id=\"section-3\">Закрытая каменка</h2>\n<p>В закрытой каменке часть камней расположена внутри специальной камеры с дверцей или каналом для подачи воды. При грамотной конструкции она позволяет получать пар от камней, нагретых до более высокой температуры, даже когда воздух в помещении не перегрет. Но скорость прогрева, потребление топлива и способ подачи воды зависят от конкретной модели.</p>\n<h2 id=\"section-5\">Что выбрать для мягкого пара</h2>\n<p>Для традиционного парения важен не один только тип каменки. На ощущения влияют температура и влажность воздуха, проветривание, температура камней и объём подаваемой воды. Закрытая каменка часто удобна тем, кто предпочитает контролируемую подачу пара; открытая привычна и наглядна. Нельзя обещать, что любая закрытая каменка автоматически лучше любой открытой.</p>\n<h2 id=\"section-7\">Совместимость с печью</h2>\n<p>У некоторых печей Ермак предусмотрена возможность установки дополнительного модуля закрытой каменки или парообразователя. Наличие такой возможности в серии не означает, что любой аксессуар совместим с любой модификацией. При подборе мы сверяем паспорт конкретной печи и её рабочий диапазон по объёму парной.</p>\n<p>---</p>",
+    "toc": [
+      {
+        "id": "section-1",
+        "title": "Открытая каменка",
+        "level": 2
+      },
+      {
+        "id": "section-3",
+        "title": "Закрытая каменка",
+        "level": 2
+      },
+      {
+        "id": "section-5",
+        "title": "Что выбрать для мягкого пара",
+        "level": 2
+      },
+      {
+        "id": "section-7",
+        "title": "Совместимость с печью",
+        "level": 2
+      }
+    ],
+    "photoBrief": "Иллюстрация открытой сетчатой и закрытой каменки дровяной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "relatedSlugs": [],
+    "resourceLinks": []
+  },
+  {
+    "id": "editorial-20261116-06",
+    "slug": "kakie-kamni-luchshe-dlya-bani",
+    "title": "Какие камни лучше для банной печи: популярные варианты",
+    "seoTitle": "Камни для бани: габбро-диабаз, жадеит, дунит и кварцит | BANGER",
+    "metaDescription": "Сравниваем популярные камни для печей, объясняем, как выбирать размер и количество и когда нужна замена.",
+    "excerpt": "Камни нужны не только для красоты: они накапливают тепло и участвуют в образовании пара. Но универсального победителя среди пород нет. Главный критерий — подходит ли камень для конкретной печи, выдерживает ли перепады температур и указан ли нужный размер и масса загрузки в паспорте оборудования.",
+    "category": "Экспертные материалы",
+    "date": "2026-11-16",
+    "readTime": 2,
+    "coverImage": "/images/articles/kakie-kamni-luchshe-dlya-bani-cover.webp",
+    "coverAlt": "Декоративная иллюстрация нескольких видов камней для банной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "image": "/images/articles/kakie-kamni-luchshe-dlya-bani-cover.webp",
+    "imageAlt": "Декоративная иллюстрация нескольких видов камней для банной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageCaption": "Декоративная иллюстрация нескольких видов камней для банной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageWidth": 824,
+    "imageHeight": 464,
+    "content": "<h2 id=\"section-1\">Сначала смотрим инструкцию печи</h2>\n<p>Камни нужны не только для красоты: они накапливают тепло и участвуют в образовании пара. Но универсального победителя среди пород нет. Главный критерий — подходит ли камень для конкретной печи, выдерживает ли перепады температур и указан ли нужный размер и масса загрузки в паспорте оборудования.</p>\n<h2 id=\"section-3\">Габбро-диабаз</h2>\n<p>Один из самых известных и доступных вариантов. Это плотная тёмная горная порода, распространённая в продаже как камни для банных печей. Обычно её выбирают за практичность и умеренную стоимость. Как и другие природные камни, со временем габбро-диабаз может растрескиваться и требовать переборки.</p>\n<h2 id=\"section-5\">Дунит и жадеит</h2>\n<p>Дунит — плотная магматическая порода, встречающаяся в специальных наборах для банных печей. Жадеит — более дорогой вариант, который покупатели часто выбирают и за внешний вид. Ни одна порода не освобождает от требования использовать камни проверенного происхождения, предназначенные для высоких температур.</p>\n<h2 id=\"section-7\">Малиновый кварцит и другие породы</h2>\n<p>Малиновый кварцит узнаваем по цвету и нередко используется как декоративная часть каменной закладки. Талькохлорит также продаётся для бань, но его пригодность зависит от конкретной печи и рекомендаций производителя. Не стоит самостоятельно собирать речную или строительную гальку: некоторые камни разрушаются при нагревании или содержат нежелательные включения.</p>\n<h2 id=\"section-9\">Как правильно ухаживать за камнями</h2>\n<p>Перед первой укладкой камни промывают от пыли и размещают без чрезмерного уплотнения, чтобы не перекрывать движение воздуха. Не превышайте рекомендованную массу и не заклинивайте камни в элементах печи. Регулярно осматривайте закладку: раскрошившиеся, загрязнённые или треснувшие камни заменяйте. Для интенсивно используемой печи проверка может потребоваться чаще одного раза в год.</p>\n<h2 id=\"section-11\">Практический выбор</h2>\n<p>Если нужен простой и доступный вариант — выбирайте подходящий по паспорту проверенный камень, например габбро-диабаз. Если важен внешний вид — можно рассмотреть жадеит или кварцит, но не вместо требований по безопасности. Важнее качество камня и правильная укладка, чем красивое название породы.</p>\n<p>---</p>",
+    "toc": [
+      {
+        "id": "section-1",
+        "title": "Сначала смотрим инструкцию печи",
+        "level": 2
+      },
+      {
+        "id": "section-3",
+        "title": "Габбро-диабаз",
+        "level": 2
+      },
+      {
+        "id": "section-5",
+        "title": "Дунит и жадеит",
+        "level": 2
+      },
+      {
+        "id": "section-7",
+        "title": "Малиновый кварцит и другие породы",
+        "level": 2
+      },
+      {
+        "id": "section-9",
+        "title": "Как правильно ухаживать за камнями",
+        "level": 2
+      },
+      {
+        "id": "section-11",
+        "title": "Практический выбор",
+        "level": 2
+      }
+    ],
+    "photoBrief": "Декоративная иллюстрация нескольких видов камней для банной печи. Визуализация, не технический чертёж и не фотография объекта.",
+    "relatedSlugs": [],
+    "resourceLinks": []
+  },
+  {
+    "id": "editorial-20261116-07",
+    "slug": "parovaya-pushka-v-bane",
+    "title": "Паровая пушка в бане: что это и для чего нужна",
+    "seoTitle": "Паровая пушка для банной печи: принцип действия и выбор | BANGER",
+    "metaDescription": "Как работает паровая пушка, чем отличается от обычной подачи воды на камни и когда стоит установить её в бане.",
+    "excerpt": "Под этим названием обычно понимают устройство для дозированной подачи воды к наиболее нагретым камням или в специальную парообразующую зону печи. Конструкция бывает разной: металлическая трубка, воронка, распределительный канал или заводской парообразователь. Важно не путать разные изделия только потому, что они обещают «лёгкий пар».",
+    "category": "Экспертные материалы",
+    "date": "2026-11-16",
+    "readTime": 2,
+    "coverImage": "/images/articles/parovaya-pushka-v-bane-cover.webp",
+    "coverAlt": "Условная визуализация устройства подачи воды в глубину банной каменки. Визуализация, не технический чертёж и не фотография объекта.",
+    "image": "/images/articles/parovaya-pushka-v-bane-cover.webp",
+    "imageAlt": "Условная визуализация устройства подачи воды в глубину банной каменки. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageCaption": "Условная визуализация устройства подачи воды в глубину банной каменки. Визуализация, не технический чертёж и не фотография объекта.",
+    "imageWidth": 824,
+    "imageHeight": 464,
+    "content": "<h2 id=\"section-1\">Что называют паровой пушкой</h2>\n<p>Под этим названием обычно понимают устройство для дозированной подачи воды к наиболее нагретым камням или в специальную парообразующую зону печи. Конструкция бывает разной: металлическая трубка, воронка, распределительный канал или заводской парообразователь. Важно не путать разные изделия только потому, что они обещают «лёгкий пар».</p>\n<h2 id=\"section-3\">Чем это отличается от ковша</h2>\n<p>При обычной подаче вода попадает прежде всего на верхние камни открытой каменки. Паровая пушка направляет воду глубже — туда, где температура может быть выше. Это позволяет менять характер парообразования и контролировать порции воды. Однако результат зависит от температуры камней, конструкции печи и правильного использования.</p>\n<h2 id=\"section-5\">Когда опция полезна</h2>\n<p>Если нравится управлять подачей пара более точно и конкретная модель печи допускает такую систему, паровая пушка может быть интересным дополнением. Она не заменяет вентиляцию, правильную температуру парной или качественную каменную закладку. Нельзя заливать воду в произвольные участки печи или устанавливать самодельные устройства без согласования с изготовителем.</p>\n<h2 id=\"section-7\">Как заказать в BANGER</h2>\n<p>Паровая пушка доступна как дополнительная опция стоимостью 8 000 ₽. Возможность установки и конкретное исполнение мы проверяем под выбранную печь. Если для модели требуется другой аксессуар или установка технически невозможна, это уточняется до подтверждения заказа.</p>",
+    "toc": [
+      {
+        "id": "section-1",
+        "title": "Что называют паровой пушкой",
+        "level": 2
+      },
+      {
+        "id": "section-3",
+        "title": "Чем это отличается от ковша",
+        "level": 2
+      },
+      {
+        "id": "section-5",
+        "title": "Когда опция полезна",
+        "level": 2
+      },
+      {
+        "id": "section-7",
+        "title": "Как заказать в BANGER",
+        "level": 2
+      }
+    ],
+    "photoBrief": "Условная визуализация устройства подачи воды в глубину банной каменки. Визуализация, не технический чертёж и не фотография объекта.",
+    "relatedSlugs": [],
+    "resourceLinks": []
+  }
+])
+// END OWNER APPROVED EDITORIAL IMPORT 2026-11-16
 
 export function formatPrice(price: number): string {
   return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price)

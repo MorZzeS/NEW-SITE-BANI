@@ -624,6 +624,74 @@
           "sha256": "86242b650c9625c4bcd01647f1fc5904599a28f9ade0b9b18e0cd30347a38f72"
         }
       ]
+    },
+    {
+      "slug": "uteplenie-isover-ursa-bani",
+      "title": "Почему для утепления наших бань мы используем ISOVER или URSA",
+      "source": "docs/editorial-assets/2026-11-16/01_karkasnaya_banya_uteplenie.webp",
+      "source_sha256": "941e00e21272a883b51ad8275e06ef1eb4c05c89371ef9290822fe234d8418ad",
+      "kind": "user-provided-editorial-render",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/uteplenie-isover-ursa-bani-cover.webp",
+          "width": 824,
+          "height": 464,
+          "bytes": 102750,
+          "sha256": "941e00e21272a883b51ad8275e06ef1eb4c05c89371ef9290822fe234d8418ad"
+        }
+      ]
+    },
+    {
+      "slug": "otkrytaya-ili-zakrytaya-kamenka",
+      "title": "Открытая и закрытая каменка: в чём разница",
+      "source": "docs/editorial-assets/2026-11-16/02_otkrytaya_i_zakrytaya_kamenka.webp",
+      "source_sha256": "6e34b6f0c7bc51e5be79de0bf4806cf9c7a37ae6aa9a4d06152323be8b784b26",
+      "kind": "user-provided-editorial-render",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/otkrytaya-ili-zakrytaya-kamenka-cover.webp",
+          "width": 824,
+          "height": 464,
+          "bytes": 80036,
+          "sha256": "6e34b6f0c7bc51e5be79de0bf4806cf9c7a37ae6aa9a4d06152323be8b784b26"
+        }
+      ]
+    },
+    {
+      "slug": "kakie-kamni-luchshe-dlya-bani",
+      "title": "Какие камни лучше для банной печи: популярные варианты",
+      "source": "docs/editorial-assets/2026-11-16/03_kamni_dlya_bani.webp",
+      "source_sha256": "7dbe459b5f90684f304ac38aa4ada1f1bae27bd26604d161de95dcbca86ab4db",
+      "kind": "user-provided-editorial-render",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/kakie-kamni-luchshe-dlya-bani-cover.webp",
+          "width": 824,
+          "height": 464,
+          "bytes": 78798,
+          "sha256": "7dbe459b5f90684f304ac38aa4ada1f1bae27bd26604d161de95dcbca86ab4db"
+        }
+      ]
+    },
+    {
+      "slug": "parovaya-pushka-v-bane",
+      "title": "Паровая пушка в бане: что это и для чего нужна",
+      "source": "docs/editorial-assets/2026-11-16/04_parovaya_pushka.webp",
+      "source_sha256": "a79223fc0f4c57a51fa9fe879423c33f07018b7ccefbe8e81f806e3a86d789da",
+      "kind": "user-provided-editorial-render",
+      "role": "cover",
+      "outputs": [
+        {
+          "file": "public/images/articles/parovaya-pushka-v-bane-cover.webp",
+          "width": 824,
+          "height": 464,
+          "bytes": 61572,
+          "sha256": "a79223fc0f4c57a51fa9fe879423c33f07018b7ccefbe8e81f806e3a86d789da"
+        }
+      ]
     }
   ]
 }

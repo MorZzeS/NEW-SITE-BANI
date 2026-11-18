@@ -211,6 +211,76 @@
       "height": 900,
       "output": "public/images/articles/uhod-za-mobilnoy-baney-cover.webp",
       "output_sha256": "2d9200103a4445d42e2bd3df93af3073d82b77187433079e1ef830c7ded84b0e"
+    },
+    {
+      "slug": "pochemu-karkasnaya-banya",
+      "alt": "Две конструктивные системы: деревянный каркас и брус",
+      "source": "public/images/articles/karkas-ili-brus-dlya-bani-cover.webp",
+      "source_sha256": "24186d2b4afd1737b3e4843f01ae6bc4d242c68d4122e65e0c06c018e6844991",
+      "width": 1600,
+      "height": 893,
+      "output": "public/images/articles/pochemu-karkasnaya-banya-cover.webp",
+      "output_sha256": "24186d2b4afd1737b3e4843f01ae6bc4d242c68d4122e65e0c06c018e6844991"
+    },
+    {
+      "slug": "uteplenie-isover-ursa-bani",
+      "alt": "Иллюстративный разрез каркасной бани с минеральной теплоизоляцией. Визуализация, не технический чертёж и не фотография объекта.",
+      "source": "docs/editorial-assets/2026-11-16/01_karkasnaya_banya_uteplenie.webp",
+      "source_sha256": "941e00e21272a883b51ad8275e06ef1eb4c05c89371ef9290822fe234d8418ad",
+      "width": 824,
+      "height": 464,
+      "output": "public/images/articles/uteplenie-isover-ursa-bani-cover.webp",
+      "output_sha256": "941e00e21272a883b51ad8275e06ef1eb4c05c89371ef9290822fe234d8418ad"
+    },
+    {
+      "slug": "pochemu-ne-ispolzuem-epps-v-polu",
+      "alt": "Иллюстративный разбор слоёв каркасной стены",
+      "source": "public/images/articles/materialy-dlya-mobilnoy-bani-cover.webp",
+      "source_sha256": "5d2304fe6bef7d7dad98a3e2baa718c34f4fb0b96cb717be75af0fa007b75a8a",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/pochemu-ne-ispolzuem-epps-v-polu-cover.webp",
+      "output_sha256": "5d2304fe6bef7d7dad98a3e2baa718c34f4fb0b96cb717be75af0fa007b75a8a"
+    },
+    {
+      "slug": "prolivnoy-pol-v-bane",
+      "alt": "Разрез мокрой зоны с герметичным трапом и водоотводом",
+      "source": "public/images/articles/pol-i-sliv-v-bane-cover.webp",
+      "source_sha256": "a286add7c8eb5cd68fe962fd592807570b25b125441cf8c01706767c04e24c04",
+      "width": 1600,
+      "height": 900,
+      "output": "public/images/articles/prolivnoy-pol-v-bane-cover.webp",
+      "output_sha256": "a286add7c8eb5cd68fe962fd592807570b25b125441cf8c01706767c04e24c04"
+    },
+    {
+      "slug": "otkrytaya-ili-zakrytaya-kamenka",
+      "alt": "Иллюстрация открытой сетчатой и закрытой каменки дровяной печи. Визуализация, не технический чертёж и не фотография объекта.",
+      "source": "docs/editorial-assets/2026-11-16/02_otkrytaya_i_zakrytaya_kamenka.webp",
+      "source_sha256": "6e34b6f0c7bc51e5be79de0bf4806cf9c7a37ae6aa9a4d06152323be8b784b26",
+      "width": 824,
+      "height": 464,
+      "output": "public/images/articles/otkrytaya-ili-zakrytaya-kamenka-cover.webp",
+      "output_sha256": "6e34b6f0c7bc51e5be79de0bf4806cf9c7a37ae6aa9a4d06152323be8b784b26"
+    },
+    {
+      "slug": "kakie-kamni-luchshe-dlya-bani",
+      "alt": "Декоративная иллюстрация нескольких видов камней для банной печи. Визуализация, не технический чертёж и не фотография объекта.",
+      "source": "docs/editorial-assets/2026-11-16/03_kamni_dlya_bani.webp",
+      "source_sha256": "7dbe459b5f90684f304ac38aa4ada1f1bae27bd26604d161de95dcbca86ab4db",
+      "width": 824,
+      "height": 464,
+      "output": "public/images/articles/kakie-kamni-luchshe-dlya-bani-cover.webp",
+      "output_sha256": "7dbe459b5f90684f304ac38aa4ada1f1bae27bd26604d161de95dcbca86ab4db"
+    },
+    {
+      "slug": "parovaya-pushka-v-bane",
+      "alt": "Условная визуализация устройства подачи воды в глубину банной каменки. Визуализация, не технический чертёж и не фотография объекта.",
+      "source": "docs/editorial-assets/2026-11-16/04_parovaya_pushka.webp",
+      "source_sha256": "a79223fc0f4c57a51fa9fe879423c33f07018b7ccefbe8e81f806e3a86d789da",
+      "width": 824,
+      "height": 464,
+      "output": "public/images/articles/parovaya-pushka-v-bane-cover.webp",
+      "output_sha256": "a79223fc0f4c57a51fa9fe879423c33f07018b7ccefbe8e81f806e3a86d789da"
     }
   ]
 }

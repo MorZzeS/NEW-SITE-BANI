@@ -11,14 +11,17 @@ export function requiresBaseConfigurationConfirmation(value: string): boolean {
 export function modelConstruction(id: string): string {
   const number = Number(id.replace('bg-', ''))
   if (number === 31) return 'Брус 90×140 мм'
-  if (number <= 17 || number === 29 || number === 30) return 'Каркас 100 мм'
+  if ((number >= 1 && number <= 24) || [28, 29, 30].includes(number)) return 'Каркас 100 мм'
   return 'Тип конструкции согласуется при заказе'
 }
 
 // Apply the owner's updated insulation specification only to mobile saunas; houses retain their own source data.
 export function modelFeatures(model: Sauna | Home): string[] {
   return model.features.map(feature => {
-    if ('series' in model && feature.includes('Пол и потолок: утепление 50 мм')) return 'Пол и потолок: утепление 100 мм'
+    if ('series' in model && /утеплен|(?:минеральная|каменная) вата/i.test(feature)) {
+      const area = /пол и потолок/i.test(feature) ? 'Пол и потолок — ' : ''
+      return `${area}минеральная вата ISOVER или URSA, 100 мм`
+    }
     if ('series' in model && feature.includes('Каменка-2')) return 'Печь-каменка «Ермак» с дымоходом; бак и камни в подарок'
     if ('series' in model && feature.includes('Каркас 100 мм или брус')) return modelConstruction(model.id)
     return feature
@@ -63,7 +66,7 @@ function barnPremiumConfiguration(model: Sauna): ModelConfigurationRow[] {
     { label: 'Печное решение', value: feature(/печь/i, pending) },
     { label: 'Душевая и бойлер', value: feature(/душев|бойлер/i, pending) },
     { label: 'Электрика и сантехника', value: feature(/электрик|сантехник/i, pending) },
-    { label: 'Утепление', value: feature(/утеплен/i, 'Пол и потолок — минеральная вата 100 мм; подтверждено владельцем для моделей каталога') },
+    { label: 'Утепление', value: 'Минеральная вата ISOVER или URSA, 100 мм' },
     { label: 'Обработка парной', value: feature(/масло/i, pending) },
   ]
 }
@@ -95,7 +98,7 @@ export function modelBaseConfiguration(model: Sauna | Home): ModelConfigurationR
     { label: 'Конструкция', value: modelConstruction(model.id) },
     { label: 'Основание', value: 'Обвязочный брус, лаги, черновой и чистовой пол' },
     { label: 'Пароизоляция и ветровлагозащита', value: 'Защитные мембраны согласно технологии строительства' },
-    { label: 'Утепление', value: 'Стены, пол и потолок — минеральная вата 100 мм (ISOVER, URSA или аналог), согласно утверждённой базовой комплектации мобильных бань' },
+    { label: 'Утепление', value: 'Минеральная вата ISOVER или URSA, 100 мм — в стенах, полу и потолке согласно конструкции модели' },
     { label: 'Пол', value: 'Черновой и чистовой деревянный пол; проливное исполнение — дополнительная опция, если не предусмотрено проектом' },
     { label: 'Наружная отделка', value: 'Имитация бруса. По желанию заказчика возможна замена на другие материалы; вариант и стоимость согласовываются индивидуально' },
     { label: 'Кровля', value: 'Односкатная крыша, профлист; индивидуальное исполнение — по проекту модели' },

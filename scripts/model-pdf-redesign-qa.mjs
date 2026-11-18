@@ -83,6 +83,8 @@ const scenarios = [
   { name: '04-twelve-options', optionIds: availableIds.slice(0, 12), input: {} },
   { name: '05-logistics-long-address', optionIds: ['delivery', 'crane-unload'], input: { deliveryDistrict: 'ramenskoe', deliveryAddress: 'Московская область, Раменский муниципальный округ, деревня Синьково, СНТ Сосновый берег, улица Центральная, участок 123, строение 2, ориентир — дорога от перекрёстка у магазина, проезд через северные ворота, выгрузка рядом с хозяйственным въездом.' },
   },
+  { name: '06-stove-replacement-price-by-agreement', optionIds: ['ermak-16-premium-steel'], input: {} },
+  { name: '07-base-stove-specification-pending', optionIds: ['ermak-base'], input: {} },
 ]
 const normalize = value => String(value).replace(/[\u00a0\u202f]/g, ' ').replace(/[\u2011-\u2014]/g, '-').replace(/\s+/g, ' ').trim()
 const money = value => `${value.toLocaleString('ru-RU')} ₽`
@@ -136,6 +138,20 @@ for (const scenario of scenarios) {
     assert.ok(allText.includes(normalize(configuration.deliveryAddress)), `${scenario.name}: full delivery address was truncated`)
     assert.ok(allText.includes('Раменский район'), `${scenario.name}: delivery district missing`)
     assert.equal(configuration.logisticsSubtotal, 45_000)
+  }
+  if (scenario.name === '06-stove-replacement-price-by-agreement') {
+    const stove = configuration.options.find(option => option.id === 'ermak-16-premium-steel')
+    assert.ok(stove, 'stove replacement must remain in the PDF configuration')
+    assert.equal(stove.price, null, 'full retail price must not become a replacement supplement')
+    assert.equal(configuration.optionsSubtotal, 0, 'unpriced replacement must not alter the supplement subtotal')
+    assert.equal(configuration.total, configuration.basePrice, 'unpriced replacement must not alter the total')
+    assert.ok(allText.includes(normalize('Полная стоимость печи — 45 000 ₽')), 'full retail price must be clearly labeled as the full stove price')
+    assert.ok(allText.toLocaleLowerCase('ru-RU').includes(normalize('доплата за замену с зачётом базовой печи рассчитывается индивидуально и в итог не включена').toLocaleLowerCase('ru-RU')), 'PDF must explain that replacement supplement is still undetermined')
+  }
+  if (scenario.name === '07-base-stove-specification-pending') {
+    assert.ok(allText.includes(normalize('Точная заводская модификация не подтверждена, поэтому характеристики не приводим')), 'PDF must retain the pending factory-model disclosure')
+    assert.ok(!allText.toLocaleLowerCase('ru-RU').includes('стандартная базовая печь'), 'PDF must not claim an unconfirmed stove variant is standard')
+    assert.equal(configuration.total, configuration.basePrice, 'included base stove must not add a second charge')
   }
   const maxPages = scenario.name === '04-twelve-options' ? 3 : 2
   assert.ok(pageCount <= maxPages, `${scenario.name}: expected at most ${maxPages} pages, got ${pageCount}`)

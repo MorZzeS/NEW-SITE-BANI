@@ -17,10 +17,16 @@
 .name{grid-column:3;min-width:0;font-size:15px;line-height:1.4;color:var(--color-text);font-weight:650;overflow-wrap:anywhere}
 .price{grid-column:4;grid-row:1;color:var(--color-accent);font-weight:700;font-size:14px;text-align:right;line-height:1.5;font-variant-numeric:tabular-nums;max-width:150px}
 .description{grid-column:3/5;color:var(--color-text-muted);font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+.technicalSpecs{margin:0 16px 14px 162px;padding:10px 12px;border:1px solid var(--glass-border);border-radius:9px;background:color-mix(in srgb,var(--glass-bg) 86%,var(--color-accent) 14%);color:var(--color-text-muted);font-size:12px;line-height:1.45}
+.technicalSpecs dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;margin:0}
+.technicalSpecs dl>div{display:flex;justify-content:space-between;gap:8px;min-width:0}
+.technicalSpecs dt{color:var(--color-text-muted)}
+.technicalSpecs dd{margin:0;color:var(--color-text);font-weight:650;text-align:right}
+.technicalSpecs>a{display:inline-block;margin-top:8px;color:var(--color-accent);font-weight:650;text-decoration:underline;text-underline-offset:3px}
 .unit{display:block;margin-top:4px}
 .serviceConditions{margin:0;padding:0 16px 12px;color:var(--color-text-muted);font-size:12px;line-height:1.55}
 .serviceConditions summary{min-height:36px;color:var(--color-accent);font-weight:650;cursor:pointer}
 .serviceConditions p{margin:4px 0 0;overflow-wrap:anywhere}
 @media(min-width:1000px){.main:hover{background:color-mix(in srgb,var(--color-accent) 4%,transparent)}}
-@media(max-width:540px){.main{grid-template-columns:24px 76px minmax(0,1fr);gap:7px 10px;padding:12px}.visual{grid-row:1/3;align-self:start}.visual img{width:76px;height:57px}.toggle{grid-row:1/3}.name{grid-column:3;font-size:14px}.price{grid-column:3;grid-row:2;text-align:right;font-size:13px;max-width:none}.description{grid-column:2/4;font-size:12px}.serviceConditions{padding:0 12px 12px}.categoryIcon{width:19px}.count{font-size:11px}}
+@media(max-width:540px){.main{grid-template-columns:24px 76px minmax(0,1fr);gap:7px 10px;padding:12px}.visual{grid-row:1/3;align-self:start}.visual img{width:76px;height:57px}.toggle{grid-row:1/3}.name{grid-column:3;font-size:14px}.price{grid-column:3;grid-row:2;text-align:right;font-size:13px;max-width:none}.description{grid-column:2/4;font-size:12px}.technicalSpecs{margin:0 12px 12px}.technicalSpecs dl{grid-template-columns:1fr}.serviceConditions{padding:0 12px 12px}.categoryIcon{width:19px}.count{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.chevron{transition:none}}

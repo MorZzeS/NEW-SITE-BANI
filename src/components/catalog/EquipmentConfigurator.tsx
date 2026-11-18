@@ -16,7 +16,12 @@ import { ConfigurationCategoryTitle, ConfigurationOption } from './Configuration
 
 const popular = ['lamination', 'ermak', 'shower', 'boiler', 'led'].map(id => enabledEquipmentOptions.find(option => option.id === id)!)
 const categories = optionCategories.filter(category => enabledEquipmentOptions.some(option => option.category === category))
-function price(option: typeof enabledEquipmentOptions[number]) { return option.salePrice === null ? 'Стоимость по согласованию' : `${preliminaryOptionPriceText(option.id, option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : ''}` }
+function price(option: typeof enabledEquipmentOptions[number]) {
+  if (option.salePrice === null && 'confirmedRetailPrice' in option && typeof option.confirmedRetailPrice === 'number') {
+    return `Полная цена печи ${option.confirmedRetailPrice.toLocaleString('ru-RU')} ₽; доплата за замену не определена`
+  }
+  return option.salePrice === null ? 'Стоимость по согласованию' : `${preliminaryOptionPriceText(option.id, option.salePrice)}${option.priceUnit === 'шт.' ? ' / 1 шт.' : ''}`
+}
 
 function optionHelp(option: typeof enabledEquipmentOptions[number]) {
   const guidance = optionGuidance[option.id]

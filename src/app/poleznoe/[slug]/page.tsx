@@ -4,6 +4,7 @@ import { Clock, ArrowLeft } from 'lucide-react'
 import { articles, homes } from '@/data'
 import { articleHtmlWithBasePath, withBasePath } from '@/lib/site-path'
 import { articleAliases } from '@/data/article-aliases'
+import { articlePublicationNotices } from '@/data/article-publication-notices'
 import type { Metadata } from 'next'
 import { articleInlineVisuals } from '@/data/article-visuals'
 
@@ -53,6 +54,7 @@ export default async function ArticlePage({ params }: Props) {
 
   const heroImage = article.image || article.coverImage
   const related = (article.relatedSlugs || []).map((slug) => articles.find((a) => a.slug === slug)).filter((a): a is NonNullable<typeof a> => Boolean(a))
+  const publicationNotice = articlePublicationNotices[article.slug]
 
   return (
     <div className="pt-28 pb-20">
@@ -87,6 +89,11 @@ export default async function ArticlePage({ params }: Props) {
             </picture>
             {article.imageCaption && <figcaption className="text-sm text-cream/60 mt-3">{article.imageCaption}</figcaption>}
           </figure>}
+
+          {publicationNotice && <aside aria-label={publicationNotice.title} role="note" className="glass rounded-3xl p-5 sm:p-6 mb-8 border border-gold-400/30 text-[var(--color-text)]">
+            <h2 className="font-bold text-[var(--color-accent)] mb-2">{publicationNotice.title}</h2>
+            <p className="leading-relaxed">{publicationNotice.text}</p>
+          </aside>}
 
           {article.toc && <nav aria-label="Содержание статьи" className="glass rounded-3xl p-5 sm:p-8 mb-8">
             <h2 className="text-xl font-bold text-cream mb-4">Содержание</h2>

@@ -56,24 +56,31 @@ export function auditPriceUpdate(root = defaultRoot) {
     const after = afterModels.find(model => model.id === before.id)
     const category = oldData.saunas.some(m => m.id === before.id) ? 'sauna' : 'home'
     const expectedIncrease = category === 'sauna' ? MODEL_INCREASE : HOME_MODEL_INCREASE
-    const expectedVariants = (before.priceVariants ?? []).map(variant => increasedVariant(variant, expectedIncrease))
+    const sourceVariants = before.priceVariants ?? []
+    const retiredVariants = category === 'sauna' ? sourceVariants.filter(variant => /брус/i.test(variant)).map(variant => increasedVariant(variant, expectedIncrease)) : []
+    const retainedVariants = sourceVariants.filter(variant => !(category === 'sauna' && /брус/i.test(variant)))
+    const expectedVariants = retainedVariants.map(variant => increasedVariant(variant, expectedIncrease))
     const expected = { ...before, priceFrom: before.priceFrom + expectedIncrease }
-    if (before.priceVariants) expected.priceVariants = expectedVariants
+    if (expectedVariants.length) expected.priceVariants = expectedVariants
+    else delete expected.priceVariants
     check(equal(after, expected), `${before.id}: model differs from its authorised cumulative increase or nonprice data changed`)
     return { id: before.id, name: before.name, category, expectedIncrease, baselinePrice: before.priceFrom, expectedPrice: expected.priceFrom, currentPrice: after?.priceFrom, delta: after?.priceFrom - before.priceFrom,
-      variants: (before.priceVariants ?? []).map((variant, index) => ({ baseline: variant, expected: expectedVariants[index], current: after?.priceVariants?.[index], baselinePrice: variantAmount(variant), currentPrice: variantAmount(after?.priceVariants?.[index]), delta: variantAmount(after?.priceVariants?.[index]) - variantAmount(variant), expectedIncrease })) }
+      variants: retainedVariants.map((variant, index) => ({ baseline: variant, expected: expectedVariants[index], current: after?.priceVariants?.[index], baselinePrice: variantAmount(variant), currentPrice: variantAmount(after?.priceVariants?.[index]), delta: variantAmount(after?.priceVariants?.[index]) - variantAmount(variant), expectedIncrease })),
+      retiredVariants }
   })
   const restoreModels = (data, originals) => {
     for (const collection of ['saunas', 'homes']) data[collection] = data[collection].map(model => {
       const original = originals.find(item => item.id === model.id)
       if (!original) return model
-      const restored = { ...model, priceFrom: original.priceFrom }
-      if (original.priceVariants) restored.priceVariants = original.priceVariants
-      return restored
+      return Object.fromEntries(Object.keys(original).map(key => [key, key === 'priceFrom' ? original.priceFrom : key === 'priceVariants' ? original.priceVariants : model[key]]))
     })
     return data
   }
   const restoredData = restoreModels(plain(newData), beforeModels)
+  const approvedArticleImport = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-articles-20261116.json'), 'utf8'))
+  check(equal(newData.articles.slice(0, oldData.articles.length), oldData.articles), 'Historical articles changed during editorial import')
+  check(equal(newData.articles.slice(oldData.articles.length).map(article => article.slug), approvedArticleImport.slugs), 'Only the seven owner-supplied article slugs may be appended')
+  restoredData.articles = oldData.articles
   // A subsequent explicit owner correction changes only the public email.
   if (restoredData.siteSettings.email !== oldData.siteSettings.email) {
     check(restoredData.siteSettings.email === 'banger.ram@bk.ru', 'Unapproved public email change')
@@ -84,11 +91,13 @@ export function auditPriceUpdate(root = defaultRoot) {
   const owner20261109 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261109.json'), 'utf8'))
   const owner20261110 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261110.json'), 'utf8'))
   const owner20261112 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261112.json'), 'utf8'))
+  const owner20261116 = JSON.parse(fs.readFileSync(path.join(root, 'scripts/fixtures/approved-options-20261116.json'), 'utf8'))
   const approvedOverride = id => {
     const prior = owner20261109.overrides.find(option => option.id === id)
     const latest = owner20261110.overrides.find(option => option.id === id)
     const current = owner20261112.overrides.find(option => option.id === id)
-    return prior || latest || current ? { ...(prior || {}), ...(latest || {}), ...(current || {}) } : undefined
+    const editorial = owner20261116.overrides.find(option => option.id === id)
+    return prior || latest || current || editorial ? { ...(prior || {}), ...(latest || {}), ...(current || {}), ...(editorial || {}) } : undefined
   }
   const approvedNewOptions = [
     { id: 'facade-ral', name: 'Окраска внешней отделки по RAL', salePrice: 25000, category: 'Внешний вид', priceUnit: 'опция', description: 'Окраска наружной отделки в выбранный оттенок RAL; цвет и материалы согласуются при заказе.', enabled: true, source: 'owner-2026-11-03', priceSource: 'Стоимость 25 000 ₽ утверждена владельцем 03.11.2026.' },
@@ -101,9 +110,10 @@ export function auditPriceUpdate(root = defaultRoot) {
     { id: 'wooden-window-400', name: 'Деревянное окно 400 × 400 мм', salePrice: 5500, category: 'Окна и двери', description: 'Деревянное окно размером 400 × 400 мм. Возможность установки и размеры проёма подтверждаются для выбранной модели.', priceUnit: 'шт.', enabled: true, source: 'owner-2026-11-03', priceSource: '5 500 ₽ — уточнение владельца 03.11.2026.' },
     { id: 'replanning', image: '/images/options/guidance/replanning.svg', name: 'Перепланировка стандартного проекта', salePrice: 10000, category: 'Общее по бане', priceUnit: 'услуга', description: 'Изменение стандартной планировки бани по пожеланиям заказчика. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно', enabled: true, source: 'owner-2026-11-09', priceSource: '10 000 ₽ — утверждено владельцем 09.11.2026.' },
   ]
-  for (let index = 0; index < approvedNewOptions.length; index++) approvedNewOptions[index] = { ...approvedNewOptions[index], ...(approvedOverride(approvedNewOptions[index].id) || {}) }
   approvedNewOptions.push(...owner20261109.additions)
   approvedNewOptions.push(...owner20261112.additions)
+  approvedNewOptions.push(...owner20261116.additions)
+  for (let index = 0; index < approvedNewOptions.length; index++) approvedNewOptions[index] = { ...approvedNewOptions[index], ...(approvedOverride(approvedNewOptions[index].id) || {}) }
   const baselineIds = oldOptions.additionalOptions.map(o => o.id)
   const actualOptionIds = newOptions.additionalOptions.map(o => o.id)
   const actualBaselineOrder = actualOptionIds.filter(id => baselineIds.includes(id))
@@ -138,7 +148,9 @@ export function auditPriceUpdate(root = defaultRoot) {
     check(equal(actual, expected), `${expected.id}: new option differs from its exact approved definition${differences.length ? ' (' + differences.join('; ') + ')' : ''}`)
     options.push({ id: expected.id, name: expected.name, unit: expected.priceUnit, paid: expected.salePrice !== null, baselinePrice: null, expectedPrice: expected.salePrice, currentPrice: actual?.salePrice, delta: null, baselinePriceSource: null, currentPriceSource: actual?.priceSource })
   }
-  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 39, 'Expected exactly 39 positive confirmed priced options')
+  check(newOptions.additionalOptions.filter(o => o.enabled && typeof o.salePrice === 'number' && o.salePrice > 0).length === 39, 'Expected exactly 39 enabled positive-price options')
+  check(newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length === 40, 'Expected the 39 selectable prices plus one pending compatibility price')
+  check(equal(newOptions.additionalOptions.filter(o => !o.enabled && typeof o.salePrice === 'number' && o.salePrice > 0).map(o => [o.id, o.salePrice]), [['steam-gun', 8000]]), 'Only the 8 000 RUB steam gun may remain priced but disabled pending compatibility')
   check(equal(newOptions.additionalOptions.filter(o => o.salePrice === null).map(o => o.id), ['ermak', 'larch-wash', 'ermak-16-ps', 'ermak-16-premium-steel', 'ermak-16-premium-cast-iron']), 'Only the unconfirmed larch floor and four individually calculated stove replacement supplements may be unpriced')
   for (const [id, price] of Object.entries({ led: 12000, 'steam-bench-oil': 15000 })) {
     const option = newOptions.additionalOptions.find(o => o.id === id)
@@ -149,11 +161,13 @@ export function auditPriceUpdate(root = defaultRoot) {
     check(option?.salePrice === null && option.confirmedRetailPrice === retail && option.priceStatus === 'replacement-pending' && !('proposedRetailPrice' in option), `${id}: approved full retail must not be charged as a replacement supplement`)
   }
   check(newOptions.additionalOptions.find(o => o.id === 'tray')?.salePrice === 18000, 'Curtained shower tray must use the approved 18 000 RUB price')
+  const steamGun = newOptions.additionalOptions.find(o => o.id === 'steam-gun')
+  check(steamGun?.salePrice === 8000 && steamGun.enabled === false && steamGun.compatibilityStatus === 'requires_confirmation', 'Steam gun must remain excluded from configuration until compatibility is confirmed')
   // The catalog model comparison is structural; prices and approved contact email are the only allowed source changes.
   const normalise = source => source.replaceAll('\r\n', '\n')
-  const scrubModels = source => normalise(source).replace("email: 'banger.ram@bk.ru'", "email: 'banger.su@bk.ru'").replace(/priceFrom: \d+/g, 'priceFrom: PRICE').replace(/priceVariants: \[[^\]]*\]/g, 'priceVariants: VARIANTS')
+  const scrubModels = source => normalise(source).replace(/, priceVariants: \["Брус: [^"]+"\]/g, '').replace(/\/\/ BEGIN OWNER APPROVED EDITORIAL IMPORT 2026-11-16[\s\S]*?\/\/ END OWNER APPROVED EDITORIAL IMPORT 2026-11-16/, '').replace(/\n{4,}export function formatPrice/g, '\n\n\nexport function formatPrice').replace("email: 'banger.ram@bk.ru'", "email: 'banger.su@bk.ru'").replace(/priceFrom: \d+/g, 'priceFrom: PRICE').replace(/priceVariants: \[[^\]]*\]/g, 'priceVariants: VARIANTS')
   check(scrubModels(currentText[sourceFiles[0]]) === scrubModels(baselineText[sourceFiles[0]]), 'Catalog source changed outside price literals')
-  return { status: errors.length ? 'FAIL' : 'PASS', baseline: PRICE_BASELINE, modelIncrease: MODEL_INCREASE, homeModelIncrease: HOME_MODEL_INCREASE, additionalSaunaIncrease: ADDITIONAL_SAUNA_INCREASE, optionIncrease: OPTION_INCREASE, counts: { saunas: newData.saunas.length, homes: newData.homes.length, models: models.length, alternativePrices: models.reduce((n, m) => n + m.variants.length, 0), paidOptions: newOptions.additionalOptions.filter(o => typeof o.salePrice === 'number' && o.salePrice > 0).length, unpricedOptions: newOptions.additionalOptions.filter(o => o.salePrice === null).length }, sourceFiles, errors, models, options }
+  return { status: errors.length ? 'FAIL' : 'PASS', baseline: PRICE_BASELINE, modelIncrease: MODEL_INCREASE, homeModelIncrease: HOME_MODEL_INCREASE, additionalSaunaIncrease: ADDITIONAL_SAUNA_INCREASE, optionIncrease: OPTION_INCREASE, counts: { saunas: newData.saunas.length, homes: newData.homes.length, models: models.length, alternativePrices: models.reduce((n, m) => n + m.variants.length, 0), retiredBrusPriceVariants: models.reduce((n, model) => n + model.retiredVariants.length, 0), paidOptions: newOptions.additionalOptions.filter(o => o.enabled && typeof o.salePrice === 'number' && o.salePrice > 0).length, disabledPricedOptions: newOptions.additionalOptions.filter(o => !o.enabled && typeof o.salePrice === 'number' && o.salePrice > 0).length, unpricedOptions: newOptions.additionalOptions.filter(o => o.salePrice === null).length }, sourceFiles, errors, models, options }
 }
 
 export function writePriceReport(report, directory) {

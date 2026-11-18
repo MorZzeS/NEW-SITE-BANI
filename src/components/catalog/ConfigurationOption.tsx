@@ -17,6 +17,9 @@ export function ConfigurationOption({ option, checked, onToggle, inputId, price,
   option: Omit<typeof additionalOptions[number], 'salePrice'> & { salePrice: number | null }; checked: boolean; onToggle: () => void; inputId: string; price: string; status?: string; groupName?: string; children?: ReactNode
 }) {
   const guidance = optionGuidance[option.id]
+  const technicalSpecs = 'technicalSpecs' in option ? option.technicalSpecs : undefined
+  const technicalSpecsSource = 'technicalSpecsSource' in option ? option.technicalSpecsSource : undefined
+  const technicalSpecsSourceLabel = 'technicalSpecsSourceLabel' in option ? option.technicalSpecsSourceLabel : undefined
   return <article className={styles.option} data-selected={checked} data-option-id={option.id} data-option-price={option.salePrice ?? ''} data-option-selectable="true" data-option-status={status}>
     <label className={styles.main} htmlFor={inputId}>
       <span className={styles.toggle}><input id={inputId} type={groupName ? 'radio' : 'checkbox'} name={groupName} checked={checked} onChange={onToggle} aria-labelledby={`${inputId}-name`} /><span className={styles.check} aria-hidden="true">{checked && <Check size={16} strokeWidth={3} />}</span></span>
@@ -25,6 +28,10 @@ export function ConfigurationOption({ option, checked, onToggle, inputId, price,
       <span className={styles.price}>{price}</span>
       <span className={styles.description}>{guidance?.explanation ?? option.description}{option.priceUnit === 'шт.' && <span className={styles.unit}>В расчёте один элемент: 1 шт.</span>}</span>
     </label>
+    {technicalSpecs && <div className={styles.technicalSpecs} aria-label={`Характеристики ${option.name}`}>
+      <dl>{technicalSpecs.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>
+      {technicalSpecsSource && <a href={technicalSpecsSource} target="_blank" rel="noreferrer">{technicalSpecsSourceLabel ?? 'Источник характеристик — производитель'} ↗</a>}
+    </div>}
     {option.id === 'onsite-assembly' && checked && <details className={styles.serviceConditions}>
       <summary>Условия на участке</summary>
       <p>{guidance?.notes}</p>

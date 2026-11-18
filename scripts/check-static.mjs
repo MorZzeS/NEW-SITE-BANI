@@ -101,8 +101,10 @@ for (const record of records) {
   // Source records retain historical PPT prices; selling prices use the cumulative increase
   // for the model family. The .map callback is explicit so its index is not mistaken for a price delta.
   const expectedIncrease = dataExports.saunas.some((sauna) => sauna.id === record.id) ? MODEL_INCREASE : HOME_MODEL_INCREASE
-  const expectedVariants = record.price_variants.map((variant) => increasedVariant(variant, expectedIncrease))
+  const isMobileSauna = dataExports.saunas.some((sauna) => sauna.id === record.id)
+  const expectedVariants = record.price_variants.filter((variant) => !(isMobileSauna && /брус/i.test(variant))).map((variant) => increasedVariant(variant, expectedIncrease))
   if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(expectedVariants)) errors.push(`${record.id}: alternative prices differ from owner increase`)
+  if (isMobileSauna && (model?.priceVariants || []).some((variant) => /брус/i.test(variant))) errors.push(`${record.id}: bрус execution must not be sold as a price variant for a mobile sauna`)
   if (model?.priceFrom !== record.priceFrom + expectedIncrease) errors.push(`${record.id}: base price differs from owner increase`)
   const priceBlock = html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1]
   if (!priceBlock) errors.push(`${record.id}: missing price section`)
