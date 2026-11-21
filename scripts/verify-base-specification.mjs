@@ -123,7 +123,7 @@ for (const model of [...saunas,...homes]) {
   else assert.equal(clean(construction ?? ''), n === 31 ? 'Брус 90×140 мм' : 'Каркас 100 мм')
   const priceBlock = clean(html.match(/<section aria-label="Стоимость и варианты исполнения"[^>]*>([\s\S]*?)<\/section>/)?.[1] ?? '')
   const mainPrice = model.priceFrom.toLocaleString('ru-RU').replace(/\s+/g,' ')
-  assert(priceBlock.includes('Стоимость базового исполнения') && priceBlock.includes(`${mainPrice} ₽`), `${model.id}: price card must show compact label and unchanged fixed price`)
+  assert(priceBlock.includes(model.id === 'bg-20' ? 'Стоимость представленного исполнения' : 'Стоимость базового исполнения') && priceBlock.includes(`${mainPrice} ₽`), `${model.id}: price card must show compact label and unchanged fixed price`)
   assert(!priceBlock.includes(`от ${mainPrice}`), `${model.id}: fixed base price must not use "от"`)
   prices++
   for (const variant of model.priceVariants ?? []) { assert(priceBlock.includes(variant.replace(/\s+/g,' ')), `${model.id}: missing alternate price`); prices++ }
