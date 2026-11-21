@@ -9,7 +9,14 @@ export function resolveLeadContext(raw: string, modelName: string | undefined, b
   const match = /^\/(banya|dom)\/([^/]+)\/?$/.exec(modelPath)
   const inferred = match && (match[1] === 'banya' ? baths : houses).find(item => item.slug === match[2])
   const model = modelName || url.searchParams.get('model')?.slice(0,160) || inferred?.name || ''
-  const bath = baths.find(item => item.name === model), house = houses.find(item => item.name === model)
+  const identify = (items: Model[]) => {
+    const explicit = items.find(item => item.article && model === item.name + ' · ' + item.article)
+    if (explicit) return explicit
+    if (inferred && inferred.name === model && items.includes(inferred)) return inferred
+    const matches = items.filter(item => item.name === model)
+    return matches.length === 1 ? matches[0] : undefined
+  }
+  const bath = identify(baths), house = identify(houses)
   const promotion = url.searchParams.get('source') === 'exit-intent' && !house
   const source: Lead['source'] = promotion ? 'Exit-intent' : url.pathname.startsWith('/banya/') || url.pathname.startsWith('/dom/') ? 'Карточка модели' : url.pathname.startsWith('/komplektaciya') ? 'Конфигуратор' : url.pathname === '/' ? 'Получить консультацию' : 'Контакты'
   const sourcePath = url.searchParams.get('source') === 'exit-intent' && validFrom ? validFrom : url.pathname

@@ -1,4 +1,5 @@
 'use client'
+import cardStyles from '@/components/catalog/CatalogCard.module.css'
 import { modelCountWord } from '@/lib/catalog-labels'
 import { withBasePath } from '@/lib/site-path'
 
@@ -7,11 +8,11 @@ import { HomeCard } from '@/components/catalog/HomeCard'
 import { publishedHomes as homes } from '@/data'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
 import Link from 'next/link'
-import { filterByBudget, longestDimensionInMeters, sortByPrice } from '@/lib/catalog-filters'
+import { filterByBudget, longestDimensionInMeters, sortByPrice, sortByLength } from '@/lib/catalog-filters'
 
 
 export default function DomaCatalogPage() {
-  const [sort, setSort] = useState<'price_asc' | 'price_desc'>('price_asc')
+  const [sort, setSort] = useState<'length' | 'price_asc' | 'price_desc'>('length')
   const [length, setLength] = useState('Все')
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState<number | ''>('')
@@ -34,6 +35,7 @@ export default function DomaCatalogPage() {
     }
     list = filterByBudget(list, minPrice, maxPrice)
 
+    if (sort === 'length') list = sortByLength(list)
     if (sort === 'price_asc') list = sortByPrice(list, 'asc')
     if (sort === 'price_desc') list = sortByPrice(list, 'desc')
 
@@ -60,7 +62,8 @@ export default function DomaCatalogPage() {
             </label>
             <label className="text-sm text-cream/70">Сортировка
               <select value={sort} onChange={e => setSort(e.target.value as typeof sort)} className="input-glass mt-1 min-h-10 w-full rounded-xl px-3 py-2 text-sm text-cream">
-                <option value="price_asc" className="bg-graphite-900">Сначала дешевле</option><option value="price_desc" className="bg-graphite-900">Сначала дороже</option>
+                <option value="length" className="bg-graphite-900">По длине</option>
+              <option value="price_asc" className="bg-graphite-900">Сначала дешевле</option><option value="price_desc" className="bg-graphite-900">Сначала дороже</option>
               </select>
             </label>
             <div className="sm:col-span-2">
@@ -76,7 +79,7 @@ export default function DomaCatalogPage() {
         </div>
 
         {filtered.length > 0 ? (
-          <div className="grid auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className={cardStyles.catalogGrid}>
             {filtered.map((home) => (
               <HomeCard key={home.id} home={home} compareSelected={compareIds.includes(home.id)} compareDisabled={compareIds.length >= 4} onCompare={toggleCompare} />
             ))}

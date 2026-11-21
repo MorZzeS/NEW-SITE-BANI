@@ -14,7 +14,7 @@ import { WarrantySection } from '@/components/sections/WarrantySection'
 
 export default function HomePage() {
   return (
-    <>
+    <div className="homepage">
       <HeroSection />
       {releasePolicy.promotionalOffer && <ExitIntentOffer />}
       <ScrollReveal><CategoriesSection /></ScrollReveal>
@@ -26,6 +26,6 @@ export default function HomePage() {
       <ScrollReveal><InteriorPhotosSection /></ScrollReveal>
       <ScrollReveal><ArticlesSection /></ScrollReveal>
       <ScrollReveal><CTASection /></ScrollReveal>
-    </>
+    </div>
   )
 }

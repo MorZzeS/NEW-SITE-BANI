@@ -71,7 +71,7 @@ export function HomeCard({ home, compareSelected = false, compareDisabled = fals
             {home.name}
           </h3>
           <p className={clsx(styles.description, "text-sm text-cream/60 leading-relaxed mb-4")}>
-            {home.subtitle}
+            {home.subtitle.split('. ')[0].replace(/\.$/, '') + '.'}
           </p>
 
           {/* Specs */}

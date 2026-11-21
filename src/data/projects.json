@@ -518,7 +518,7 @@
     {
       "id": "project-premium-6x26",
       "slug": "skandinaviya-premium-individualnyy-proekt-6x26",
-      "title": "Скандинавия Премиум — индивидуальный проект 6 × 2,6 м",
+      "title": "Скандинавия Премиум 6 × 2,6 м",
       "pageHeading": "Скандинавия Премиум — проект 6 × 2,6 м",
       "model": "Скандинавия Премиум",
       "description": "Индивидуальная мобильная баня «Скандинавия Премиум» 6 × 2,6 м с отдельной парной и просторной гостевой. Фотографии показывают наружное исполнение, доставку и установку; первоначальные визуализация и планировка сохранены отдельно.",
@@ -528,7 +528,7 @@
       "caseType": "client-case",
       "projectCategory": "bathhouse",
       "executionConfirmed": true,
-      "coverMediaId": "premium-installed-photo",
+      "coverMediaId": "premium-owner-front",
       "characteristics": [],
       "media": [
         {
@@ -616,6 +616,21 @@
           "order": 6,
           "width": 1542,
           "height": 838,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "premium-owner-front",
+          "src": "/images/works/projects/premium/owner-front.webp",
+          "thumbnail": "/images/works/projects/premium/owner-front-thumb.webp",
+          "alt": "Скандинавия Премиум 6 × 2,6 м — фасад готовой бани",
+          "caption": "Фасад готовой бани «Скандинавия Премиум» 6 × 2,6 м",
+          "kind": "photo",
+          "order": 0,
+          "width": 1800,
+          "height": 1012,
           "focalPoint": {
             "x": 50,
             "y": 50

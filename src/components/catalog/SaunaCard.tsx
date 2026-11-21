@@ -42,10 +42,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
         featured && styles.featured
       )}>
         {/* Image */}
-        <div className={clsx(
-          styles.image,
-          sauna.id === 'bg-28' && styles.wideImage
-        )}>
+        <div className={styles.image}>
           <picture className="absolute inset-0 block">
             <source type="image/avif" srcSet={catalogCardImage(sauna.image, 'avif')} />
             <Image
@@ -84,7 +81,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
             {sauna.name}
           </h3>
           <p className={clsx(styles.description, "text-sm text-cream/60 leading-relaxed mb-4")}>
-            {sauna.subtitle}
+            {sauna.subtitle.split('. ')[0].replace(/\.$/, '') + '.'}
           </p>
 
           {/* Specs */}
@@ -101,11 +98,10 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
             ))}
           </div>
 
-          {sauna.id === 'bg-18' && <p className="text-xs leading-relaxed text-cream/75 mb-3">С проливным полом и двумя шпросами — {formatPrice(657600)}. Показанные дополнения не входят в базовую цену.</p>}
           {/* Price + CTA */}
           <div className={styles.footer}>
             <div>
-              <div className="text-[10px] text-cream/40 mb-0.5">{sauna.id === 'bg-28' ? 'Представленное исполнение' : 'Базовая комплектация'}</div>
+              <div className="text-[10px] text-cream/40 mb-0.5">{sauna.specs.some(spec => spec.value === 'Представленное исполнение') && sauna.id !== 'bg-18' ? 'Представленное исполнение' : 'Базовая комплектация'}</div>
               <div className="text-xl font-bold text-cream">
                 {formatPrice(sauna.priceFrom)}
               </div>

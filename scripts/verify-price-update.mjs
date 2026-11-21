@@ -10,7 +10,7 @@ import ts from 'typescript'
 // It only reads prices: running it cannot apply an increase.
 export const PRICE_BASELINE = '0e18849ddb891cae04d596babf8537cedd453cfe'
 export const OPTION_BASELINE = '51720e3d4bf63757b13fc1c7c1e81d4667e25736'
-// Exact owner-approved model corrections, 18 Nov 2026.
+// Exact owner-approved model corrections, 18 Nov 2026; public names simplified by the 20 Nov catalog brief.
 export const APPROVED_MODEL_OVERRIDES = {
   "bg-09": {
     "name": "Скандинавия 4,5 В"
@@ -32,10 +32,10 @@ export const APPROVED_MODEL_OVERRIDES = {
     "hasShower": true
   },
   "bg-14": {
-    "name": "Скандинавия Комфорт 6 Д"
+    "name": "Скандинавия 6 Д"
   },
   "bg-15": {
-    "name": "Скандинавия Комфорт 8 Д-В"
+    "name": "Скандинавия 8 Д-В"
   },
   "bg-16": {
     "name": "Скандинавия 6 С-Д"
@@ -48,15 +48,15 @@ export const APPROVED_MODEL_OVERRIDES = {
     "name": "Скандинавия 4"
   },
   "bg-19": {
-    "name": "Скандинавия Терра 6,5 Д-В",
+    "name": "Скандинавия 6,5 Д-В",
     "hasBathroom": false,
     "hasTerrace": true
   },
   "bg-20": {
-    "name": "Скандинавия Резиденс 7 С-Д"
+    "name": "Скандинавия 7 С-Д"
   },
   "bg-21": {
-    "name": "Скандинавия Панорама 8 С-Д"
+    "name": "Скандинавия 8 С-Д"
   },
   "bg-28": {
     "name": "Барн Премиум 8 Д-В"

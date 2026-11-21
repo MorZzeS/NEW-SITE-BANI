@@ -11,7 +11,7 @@ export function HeroContactDisclosure() {
   const panel = useRef<HTMLDivElement>(null)
   const reducedMotion = useReducedMotion()
   useEffect(() => {
-    if (!open || !window.matchMedia('(max-width: 1279px)').matches) return
+    if (!open || !window.matchMedia('(max-width: 767px)').matches) return
     panel.current?.scrollIntoView({ block: 'nearest', behavior: reducedMotion ? 'auto' : 'smooth' })
   }, [open, reducedMotion])
   return <div className="hero-contact-disclosure" onKeyDown={event => { if (event.key === 'Escape' && open) { event.preventDefault(); setOpen(false); trigger.current?.focus() } }}>

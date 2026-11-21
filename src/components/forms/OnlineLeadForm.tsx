@@ -27,7 +27,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
   const [locked, setLocked] = useState(false)
   const [rejected, setRejected] = useState(false)
   const documents = leadContract === 3 ? leadDocumentBundle.documents : null
-  const selectedModel = [...saunas, ...homes].find(model => model.name === context.model)
+  const selectedModel = [...saunas, ...homes].find(model => configurationDetails ? model.id === configurationDetails.modelId : Boolean(context.article) && model.article === context.article)
   const effectiveConfiguration = configurationDetails || (equipmentSelection && selectedModel ? calculateModelConfiguration(selectedModel, equipmentSelection.selectedIds, { quantities: equipmentSelection.quantities, deliveryDistrict: equipmentSelection.deliveryDistrict, deliveryAddress: equipmentSelection.deliveryAddress }) : undefined)
   useEffect(() => {
     setContext(resolveLeadContext(location.href, modelName, saunas, homes))
@@ -116,11 +116,11 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     {selection && <div className="mb-5 text-sm text-cream/80" data-configuration-summary><p className="whitespace-pre-wrap break-words">{selection}</p><button type="button" className="btn-secondary mt-3" onClick={() => { void navigator.clipboard.writeText(selection).catch(() => setError('Выделите и скопируйте текст выбора вручную.')) }}>Скопировать комплектацию</button></div>}
     {!ready && <p className="text-sm text-cream/70 mb-4">Онлайн-отправка пока недоступна на этом адресе. Свяжитесь с нами напрямую.</p>}
     {result ? <p role="status" className="text-cream">{result.status === 'sent' ? 'Заявка отправлена и доставлена менеджеру в MAX.' : 'Заявка сохранена сервером. Уведомление менеджеру ожидает доставки.'} Номер: {result.requestId}</p> : <form onSubmit={submit} className="space-y-3" noValidate>
-      <fieldset disabled={!ready || busy || locked || Boolean(attempt.current)} className="space-y-3">
-        <label className="block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input" value={name} onChange={e => setName(e.target.value)} /></label>
-        <label className="block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
+      <fieldset disabled={!ready || busy || locked || Boolean(attempt.current)} className="lead-fields space-y-3">
+        <label className="lead-name block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input" value={name} onChange={e => setName(e.target.value)} /></label>
+        <label className="lead-phone block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
         <label className="block text-sm text-cream">Модель<input className="lead-input" list={modelListId} maxLength={160} value={context.model} readOnly={Boolean(configurationDetails)} onChange={e => setContext(resolveLeadContext(location.href, e.target.value, saunas, homes))} /></label>
-        {!configurationDetails && <datalist id={modelListId}>{[...saunas, ...homes].map(model => <option key={model.id} value={model.name} />)}</datalist>}
+        {!configurationDetails && <datalist id={modelListId}>{[...saunas, ...homes].map(model => <option key={model.id} value={`${model.name} · ${model.article}`} />)}</datalist>}
         <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input" value={comment} onChange={e => setComment(e.target.value)} placeholder="Пожелания, сроки, вопросы" /></label>
         <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
         {documents ? <>

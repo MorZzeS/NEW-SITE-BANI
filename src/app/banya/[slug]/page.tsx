@@ -5,6 +5,7 @@ import { ModelTechnicalDimensions } from '@/components/catalog/ModelTechnicalDim
 import { PremiumConfigurationInfo } from '@/components/catalog/PremiumConfigurationInfo'
 import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
+import { PresentedExecution } from '@/components/catalog/PresentedExecution'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Phone } from 'lucide-react'
@@ -78,6 +79,7 @@ export default async function SaunaPage({ params }: Props) {
         </div>
 
         <ModelOverview model={sauna} />
+        <PresentedExecution model={sauna} />
         <ModelBaseSpecification model={sauna} />
         {!!interiorImages.length && <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>

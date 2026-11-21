@@ -25,3 +25,8 @@ export function filterByBudget<T extends { priceFrom: number }>(
 export function sortByPrice<T extends { priceFrom: number }>(products: readonly T[], direction: PriceSort): T[] {
   return [...products].sort((a, b) => direction === 'asc' ? a.priceFrom - b.priceFrom : b.priceFrom - a.priceFrom)
 }
+
+/** Length first; stable article/ID order keeps different executions together. */
+export function sortByLength<T extends { size: string; id: string }>(products: readonly T[]): T[] {
+  return [...products].sort((a, b) => longestDimensionInMeters(a.size) - longestDimensionInMeters(b.size) || a.id.localeCompare(b.id, 'ru', { numeric: true }))
+}

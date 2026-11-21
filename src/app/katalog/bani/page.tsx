@@ -1,4 +1,5 @@
 'use client'
+import cardStyles from '@/components/catalog/CatalogCard.module.css'
 import { modelCountWord } from '@/lib/catalog-labels'
 import { withBasePath } from '@/lib/site-path'
 
@@ -9,7 +10,7 @@ import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { publishedSaunas as saunas } from '@/data'
 import clsx from 'clsx'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
-import { filterByBudget, sortByPrice } from '@/lib/catalog-filters'
+import { filterByBudget, sortByPrice, sortByLength } from '@/lib/catalog-filters'
 
 const series = ['Все', ...Array.from(new Set(saunas.map(model => model.series === 'Север' ? 'Скандинавия' : model.series)))]
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
@@ -32,7 +33,7 @@ function SeriesQuery({ onChange }: { onChange: (value: string) => void }) {
 export default function BaniCatalogPage() {
   const [activeSeries, setActiveSeries] = useState('Все')
   const [activeLength, setActiveLength] = useState('Все')
-  const [sort, setSort] = useState<'price_asc' | 'price_desc' | 'area'>('price_asc')
+  const [sort, setSort] = useState<'length' | 'price_asc' | 'price_desc' | 'area'>('length')
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState<number | ''>('')
   const [hasShowerFilter, setHasShowerFilter] = useState(false)
@@ -66,7 +67,7 @@ export default function BaniCatalogPage() {
 
     if (activeLength !== 'Все') {
       list = list.filter((s) => {
-        const len = parseFloat(s.size)
+        const len = Number(s.size.split('×')[0].trim().replace(',', '.'))
         if (activeLength === '4–5 м') return len >= 4 && len < 6
         if (activeLength === '6–7 м') return len >= 6 && len < 8
         if (activeLength === '8+ м') return len >= 8
@@ -78,6 +79,7 @@ export default function BaniCatalogPage() {
     if (hasShowerFilter) list = list.filter(s => s.hasShower)
     if (hasTerraceFilter) list = list.filter(s => s.hasTerrace)
 
+    if (sort === 'length') list = sortByLength(list)
     if (sort === 'price_asc') list = sortByPrice(list, 'asc')
     if (sort === 'price_desc') list = sortByPrice(list, 'desc')
     if (sort === 'area') list.sort((a, b) => b.area - a.area)
@@ -178,6 +180,7 @@ export default function BaniCatalogPage() {
               onChange={(e) => setSort(e.target.value as typeof sort)}
               className="glass w-full rounded-xl px-4 py-2 text-sm text-cream bg-transparent outline-none cursor-pointer"
             >
+              <option value="length" className="bg-graphite-900">По длине</option>
               <option value="price_asc" className="bg-graphite-900">Сначала дешевле</option>
               <option value="price_desc" className="bg-graphite-900">Сначала дороже</option>
               <option value="area" className="bg-graphite-900">По площади</option>
@@ -193,7 +196,7 @@ export default function BaniCatalogPage() {
 
         {/* Grid */}
         {filtered.length > 0 ? (
-          <div className="catalog-model-grid">
+          <div className={cardStyles.catalogGrid}>
             {filtered.map((sauna) => (
               <SaunaCard key={sauna.id} sauna={sauna} compareSelected={compareIds.includes(sauna.id)} compareDisabled={compareIds.length >= 4} onCompare={toggleCompare} />
             ))}

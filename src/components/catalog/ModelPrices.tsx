@@ -7,7 +7,7 @@ export function ModelPrices({ model }: { model: Sauna | Home }) {
     <section aria-label="Стоимость и варианты исполнения" className="model-price-summary">
       <div className="model-price-primary">
         <div>
-          <h2 className="text-sm text-cream/70 mb-1">Стоимость базового исполнения</h2>
+          <h2 className="text-sm text-cream/70 mb-1">{model.id === 'bg-20' ? 'Стоимость представленного исполнения' : 'Стоимость базового исполнения'}</h2>
           {construction && <p className="text-xs font-semibold text-cream/75">{construction}</p>}
         </div>
         <p className="text-2xl sm:text-3xl font-extrabold text-cream tabular-nums whitespace-nowrap">{formatPrice(model.priceFrom)}</p>
@@ -25,7 +25,7 @@ export function ModelPrices({ model }: { model: Sauna | Home }) {
           {model.priceVariants.map((variant) => <li key={variant}>{variant}</li>)}
         </ul>
       </div>}
-      <p className="text-xs text-cream/60 mt-2">Базовая цена указана без доставки и дополнительных опций.</p>
+      <p className="text-xs text-cream/60 mt-2">{model.id === 'bg-20' ? 'Цена указана без доставки. Дополнительные изменения комплектации рассчитываются отдельно.' : 'Базовая цена указана без доставки и дополнительных опций.'}</p>
     </section>
   )
 }

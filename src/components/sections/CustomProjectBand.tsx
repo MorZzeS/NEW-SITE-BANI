@@ -1,5 +1,10 @@
 'use client'
 
+import Image from 'next/image'
+import Link from 'next/link'
+import { saunas } from '@/data'
+import { projects } from '@/data/projects'
+import { withBasePath } from '@/lib/site-path'
 import { CUSTOM_PROJECT_TOPIC, LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
 
 /**
@@ -8,6 +13,12 @@ import { CUSTOM_PROJECT_TOPIC, LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
  * "Свяжитесь с нами" form and scrolls to it.
  */
 export function CustomProjectBand() {
+  const barn = saunas.find(model => model.id === 'bg-28')!
+  const premium = projects.find(project => project.id === 'project-premium-6x26')!
+  const offers = [
+    { title: 'Барн Премиум', image: barn.image, href: '/banya/' + barn.slug, price: barn.priceFrom, note: 'Представленное исполнение' },
+    { title: 'Скандинавия 6 × 2,6 м', image: premium.cover.thumbnail, href: '/nashi-raboty/' + premium.slug, price: 1100000, note: 'С доставкой и установкой под ключ' },
+  ]
   function discussProject() {
     window.dispatchEvent(new CustomEvent(LEAD_TOPIC_EVENT, { detail: CUSTOM_PROJECT_TOPIC }))
     const target = document.querySelector<HTMLElement>('[data-home-lead-form]')
@@ -28,7 +39,7 @@ export function CustomProjectBand() {
     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/50 to-transparent" aria-hidden="true" />
     <div className="absolute inset-0 rounded-4xl border border-white/10" aria-hidden="true" />
 
-    <div className="relative z-10 grid gap-8 p-6 sm:p-9 lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,0.85fr)] lg:items-center lg:gap-14 lg:p-12">
+    <div className="relative z-10 grid gap-8 p-6 sm:p-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-center lg:gap-8 lg:p-8">
       <div className="max-w-2xl">
         <div className="section-tag mb-4">Индивидуальные решения</div>
         <h3 id="custom-project-title" className="text-2xl font-bold leading-tight tracking-tight text-cream sm:text-3xl lg:text-[34px]">Баня по вашему проекту</h3>
@@ -37,11 +48,17 @@ export function CustomProjectBand() {
         <p className="mt-4 text-sm font-semibold leading-relaxed text-cream sm:text-base">Каждый проект рассчитывается индивидуально — с учётом размеров, планировки и выбранного оснащения.</p>
       </div>
 
-      <div className="flex flex-col items-stretch gap-3 lg:items-end">
-        <button type="button" onClick={discussProject} className="btn-primary min-h-12 w-full justify-center px-7 text-base lg:w-auto" data-custom-project-cta>
+      <div className="flex min-w-0 flex-col items-stretch gap-4">
+        <div className="grid grid-cols-2 gap-3" data-custom-project-offers>
+          {offers.map(offer => <Link key={offer.href} href={offer.href} className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/15 focus-visible:outline-2 focus-visible:outline-gold-400">
+            <span className="relative block aspect-[3/2] overflow-hidden"><Image src={withBasePath(offer.image)} alt={offer.title} fill sizes="(min-width: 1024px) 280px, 45vw" className="object-cover" /></span>
+            <span className="flex flex-1 flex-col gap-2 p-3"><strong className="text-sm leading-snug text-cream">{offer.title}</strong><span className="mt-auto text-base font-bold text-gold-400">{offer.price.toLocaleString('ru-RU')} ₽</span><span className="text-xs leading-relaxed text-cream/70">{offer.note}</span></span>
+          </Link>)}
+        </div>
+        <button type="button" onClick={discussProject} className="btn-primary min-h-12 w-full justify-center px-7 text-base" data-custom-project-cta>
           Обсудить свой проект <span aria-hidden="true">→</span>
         </button>
-        <p className="text-xs leading-relaxed text-cream/60 lg:text-right">Планировка, комплектация и стоимость — после обсуждения проекта.</p>
+        <p className="text-xs leading-relaxed text-cream/60">Планировка, комплектация и стоимость — после обсуждения проекта.</p>
       </div>
     </div>
   </aside>

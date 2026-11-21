@@ -65,3 +65,12 @@ test('proven storage rollback allows same-ID retry, then accepted',async()=>{
 test('production disabled flag prevents all network calls',async()=>{
  const s=setup(()=>{throw Error('must not run')},false);await assert.rejects(()=>s.client.sendLead(candidate));assert.equal(s.calls(),0)
 })
+
+test('same-name models retain route identity and explicit article selection',()=>{
+ const baths=[{name:'Скандинавия 7 С-Д',article:'БГ-17',slug:'first'},{name:'Скандинавия 7 С-Д',article:'БГ-20',slug:'second'}]
+ const get=(url,name)=>context.resolveLeadContext(url,name,baths,[])
+ assert.equal(get('https://banger.su/banya/second',baths[1].name).article,'БГ-20')
+ assert.equal(get('https://banger.su/kontakty',baths[1].name+' · БГ-20').article,'БГ-20')
+ assert.equal(get('https://banger.su/kontakty',baths[1].name).article,'')
+ assert.equal(get('https://banger.su/kontakty?source=exit-intent&from=/banya/second').article,'БГ-20')
+})

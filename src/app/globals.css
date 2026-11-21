@@ -790,35 +790,34 @@ html { scroll-behavior: smooth; }
  .hero-subheading { font-size: 17px; }
  .hero-subheading p + p { font-size: 14px; }
 }
+/* Keep the action row independent of the disclosure height. */
 .hero-actions { width: 100%; max-width: 360px; }
-@media (min-width: 1024px) {
- .hero-actions { flex-direction: row; align-items: flex-start; width: max-content; max-width: 100%; }
+.hero-actions > .btn-primary,
+.hero-actions .hero-video-action { height: 52px; min-height: 52px; white-space: nowrap; }
+.hero-contact-trigger svg { flex-shrink: 0; }
+@media (min-width: 768px) {
+ .hero-main-content { min-height: 610px; }
+ .hero-actions { flex-direction: row; flex-wrap: wrap; align-items: flex-start; width: 100%; max-width: none; margin-top: 24px; }
  .hero-actions > * { flex: 0 0 auto; }
- .hero-actions .hero-contact-disclosure { width: auto; }
- .hero-actions .hero-contact-panel { position: relative; margin-top: 0; width: 560px; max-height: none; overflow: hidden; }
- .theme-hero:has(.hero-contact-panel) .hero-main-content { min-height: 620px; }
-}
-@media (min-width: 1280px) {
- .hero-actions { width: 100%; align-items: flex-end; }
- .hero-actions .hero-contact-disclosure { display: flex; flex: 1 1 0; min-width: 0; align-items: flex-end; gap: 12px; }
- .hero-actions .hero-contact-trigger { width: auto; flex: 0 0 auto; }
- .hero-actions .hero-contact-panel { flex: 1 1 0; min-width: 0; width: auto; }
- .hero-contact-panel .social-qr-horizontal { gap: 5px; padding: 8px; }
-}
-@media (min-width: 1024px) and (max-width: 1279px) {
- .hero-actions { width: 100%; flex-wrap: wrap; }
  .hero-actions .hero-contact-disclosure { display: contents; }
  .hero-actions .hero-contact-trigger { width: auto; }
- .hero-actions .hero-contact-panel { flex: 0 0 100%; max-width: 560px; margin-left: auto; }
- .hero-contact-panel .social-qr-horizontal { gap: 5px; padding: 8px; }
+ .hero-actions .hero-contact-panel { position: static; flex: 0 0 560px; width: 560px; max-width: 100%; max-height: none; margin: 4px 0 0 auto; overflow: hidden; }
+ .hero-contact-panel .social-qr-horizontal { gap: 8px; padding: 12px; }
+ .hero-contact-panel .social-qr-horizontal-image { width: 120px; height: auto; aspect-ratio: 1; }
 }
-@media (max-width: 1023px) {
+@media (min-width: 1280px) {
+ .hero-main-content { min-height: 650px; }
+ .hero-actions { flex-wrap: nowrap; min-height: 190px; margin-top: auto; }
+ .hero-actions .hero-contact-panel { position: absolute; top: 0; right: 0; width: calc(100% - 720px); margin: 0; }
+ .hero-contact-panel .social-qr-horizontal { gap: 6px; padding: 10px; }
+}
+@media (max-width: 767px) {
  .hero-actions { margin-top: 28px; }
  .hero-contact-disclosure { width: 100%; }
  .hero-contact-panel { position: static; width: 100%; margin-top: 8px; max-height: min(560px, calc(100svh - 100px)); }
  .hero-contact-panel .social-qr-horizontal { grid-template-columns: repeat(2, minmax(0, 1fr)); }
  .social-qr-horizontal-item { flex: initial; min-width: 0; gap: 6px; }
- .social-qr-horizontal-image { width: clamp(64px, 20vw, 96px); height: clamp(64px, 20vw, 96px); }
+ .hero-contact-panel .social-qr-horizontal-image { width: 120px; height: 120px; }
  .social-qr-horizontal-item .social-qr-name { font-size: 13px; }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -1125,4 +1124,20 @@ main section.py-24 { padding-block: 5rem; }
 @media (max-width: 639px) {
   main section.py-20 { padding-block: 3rem; }
   main section.py-24 { padding-block: 3.5rem; }
+}
+
+/* One responsive rhythm for homepage sections only. */
+.homepage { --home-section-space: clamp(28px, 3.3vw, 48px); }
+main .homepage section.py-20,
+main .homepage section.py-10 { padding-block: var(--home-section-space); }
+.home-consultation [data-home-lead-form] > section { padding: clamp(16px, 2vw, 24px); }
+.home-consultation .lead-input { padding: 10px 12px; }
+.home-consultation .lead-fields { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.home-consultation .lead-fields > * { margin: 0; min-width: 0; }
+.home-consultation .lead-fields details { overflow-wrap: anywhere; }
+@media (min-width: 640px) {
+ .home-consultation .lead-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .home-consultation .lead-fields > * { grid-column: 1 / -1; }
+ .home-consultation .lead-fields > .lead-name,
+ .home-consultation .lead-fields > .lead-phone { grid-column: auto; }
 }
