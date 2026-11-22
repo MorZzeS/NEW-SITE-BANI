@@ -55,7 +55,9 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
   const [documentVisible, setDocumentVisible] = useState(true)
-  const prefersReducedMotion = useReducedMotion()
+  const reducedMotionPreference = useReducedMotion()
+  const [motionPreferenceReady, setMotionPreferenceReady] = useState(false)
+  const prefersReducedMotion = motionPreferenceReady && Boolean(reducedMotionPreference)
   const interiorCarousel = items.some(item => item.type === 'INTERIOR_EXAMPLE')
   const swipeRef = useRef<number | null>(null)
   const swipeYRef = useRef(0)
@@ -78,6 +80,10 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
     setAutoplayEnabled(false)
     go(dir)
   }, [go])
+
+  useEffect(() => {
+    setMotionPreferenceReady(true)
+  }, [])
 
   useEffect(() => {
     const updateVisibility = () => setDocumentVisible(document.visibilityState === 'visible')

@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const variants = {
   hidden:  { opacity: 0, y: 8 },
@@ -13,7 +14,13 @@ const variants = {
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const reducedMotion = useReducedMotion()
+  const reducedMotionPreference = useReducedMotion()
+  const [motionPreferenceReady, setMotionPreferenceReady] = useState(false)
+  const reducedMotion = motionPreferenceReady && Boolean(reducedMotionPreference)
+
+  useEffect(() => {
+    setMotionPreferenceReady(true)
+  }, [])
 
   return (
     <AnimatePresence mode="wait" initial={false}>
