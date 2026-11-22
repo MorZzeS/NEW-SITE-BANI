@@ -54,7 +54,7 @@ export function ArticlesSection() {
   return (
     <section className={`py-20 ${styles.section}`} aria-labelledby="articles-heading">
       <div className="site-container">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 home-section-heading">
           <div>
             <div className="section-tag mb-3">Советы и статьи</div>
             <h2 id="articles-heading" className="text-4xl font-bold text-cream">Полезное</h2>

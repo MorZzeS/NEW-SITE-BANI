@@ -47,7 +47,7 @@ export function WhyUsSection() {
   return (
     <section className="py-20">
       <div className="site-container">
-        <div className="text-center mb-14">
+        <div className="text-center home-section-heading">
           <div className="section-tag mb-4">Почему выбирают нас</div>
           <h2 className="text-4xl font-bold text-cream mb-3">8 причин работать с нами</h2>
           <p className="text-cream/60 max-w-lg mx-auto">

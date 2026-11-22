@@ -43,7 +43,7 @@ export function HowItWorksSection() {
   return (
     <section className="home-process-section py-20">
         <div className="site-container">
-          <div className="text-center mb-14">
+          <div className="text-center home-section-heading">
             <div className="section-tag mb-4">Процесс заказа</div>
             <h2 className="text-4xl font-bold text-cream mb-3">Как это работает</h2>
             <p className="text-cream/60 max-w-md mx-auto">

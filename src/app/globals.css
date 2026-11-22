@@ -805,11 +805,16 @@ html { scroll-behavior: smooth; }
  .hero-contact-panel .social-qr-horizontal { gap: 8px; padding: 12px; }
  .hero-contact-panel .social-qr-horizontal-image { width: 120px; height: auto; aspect-ratio: 1; }
 }
-@media (min-width: 1280px) {
- .hero-main-content { min-height: 650px; }
+@media (min-width: 1024px) {
  .hero-actions { display: grid; grid-template-columns: repeat(3, max-content) minmax(0, 1fr); grid-template-rows: auto; }
  .hero-actions .hero-contact-panel { position: absolute; grid-column: 4 / 5; grid-row: 1 / 2; inset: auto 0 0; width: auto; margin: 0; }
  .hero-contact-panel .social-qr-horizontal { gap: 6px; padding: 10px; }
+}
+@media (min-width: 1024px) and (max-width: 1199px) {
+ .hero-contact-panel .social-qr-horizontal { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+ .hero-main-content { min-height: 650px; }
 }
 @media (max-width: 767px) {
 
@@ -1127,7 +1132,11 @@ main section.py-24 { padding-block: 5rem; }
 }
 
 /* One responsive rhythm for homepage sections only. */
-.homepage { --home-section-space: clamp(28px, 3.3vw, 48px); }
+.homepage {
+  --home-section-space: clamp(24px, 2.8vw, 40px);
+  --home-heading-space: clamp(20px, 2.3vw, 32px);
+}
+.homepage .home-section-heading { margin-bottom: var(--home-heading-space); }
 main .homepage section.py-20,
 main .homepage section.py-10 { padding-block: var(--home-section-space); }
 .home-consultation [data-home-lead-form] > section { padding: clamp(16px, 2vw, 24px); }

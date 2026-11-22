@@ -74,15 +74,14 @@ export function YandexReviewsWidget({
       className={`glass rounded-[var(--radius-lg)] p-5 sm:p-6 ${className}`.trim()}
       style={style}
     >
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="flex items-start gap-3">
+        <Star aria-hidden="true" size={22} className="shrink-0 text-[var(--integration-accent)]" />
         <div className="min-w-0">
-          <p className="section-tag mb-2">Репутация</p>
           <h2 id="yandex-reviews-title" className="text-xl font-semibold tracking-tight sm:text-2xl">
             {title}
           </h2>
           <p className="mt-2 max-w-xl text-sm text-[var(--color-text-muted)]">{description}</p>
         </div>
-        <Star aria-hidden="true" size={22} className="shrink-0 text-[var(--integration-accent)]" />
       </div>
 
       {themedEmbedUrl ? (

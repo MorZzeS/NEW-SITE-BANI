@@ -5,6 +5,7 @@ import type { Sauna } from '@/types'
 import { formatPrice } from '@/data'
 import clsx from 'clsx'
 import { catalogCardImage } from '@/lib/catalog-image'
+import { catalogPriceLabel } from '@/lib/catalog-labels'
 import styles from './CatalogCard.module.css'
 
 interface Props {
@@ -28,7 +29,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
     <div className={styles.wrapper}>
       {onCompare && <button
         type="button"
-        aria-label={`${compareSelected ? 'Убрать из' : 'Добавить в'} сравнение: ${sauna.name}`}
+        aria-label={`${compareSelected ? 'Убрать из сравнения' : 'Добавить в сравнение'}: ${sauna.name}, ${sauna.article ?? sauna.id}`}
         aria-pressed={compareSelected}
         disabled={compareDisabled && !compareSelected}
         onClick={() => onCompare(sauna.id)}
@@ -74,9 +75,6 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
         {/* Content */}
         <div className={styles.content}>
 
-          <div className="text-[10px] font-semibold tracking-widest uppercase text-gold-400/80 mb-1">
-            {sauna.series === 'Север' ? 'Скандинавия' : sauna.series}
-          </div>
           <h3 className={clsx(styles.title, "text-lg font-bold text-cream mb-1 group-hover:text-gold-300 transition-colors")}>
             {sauna.name}
           </h3>
@@ -88,7 +86,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
           <div className={clsx(styles.specs, "grid grid-cols-3 gap-2")}>
             {[
               { label: 'Размер', value: sauna.size },
-              { label: 'Площадь', value: `${sauna.area} м²` },
+              { label: 'Площадь', value: `${sauna.area.toLocaleString('ru-RU')} м²` },
               { label: 'Артикул', value: sauna.article },
             ].map((s) => (
               <div key={s.label} className="glass rounded-xl p-2.5 text-center">
@@ -99,14 +97,10 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
           </div>
 
           {/* Price + CTA */}
-          <div className={styles.footer}>
-            <div>
-              <div className="text-[10px] text-cream/40 mb-0.5">{sauna.specs.some(spec => spec.value === 'Представленное исполнение') && sauna.id !== 'bg-18' ? 'Представленное исполнение' : 'Базовая комплектация'}</div>
-              <div className="text-xl font-bold text-cream">
-                {formatPrice(sauna.priceFrom)}
-              </div>
-            </div>
-            <div className={clsx(styles.cta, "flex items-center gap-1.5 text-gold-400 text-sm font-semibold group-hover:gap-3 transition-all")}>
+          <div className={styles.saunaFooter}>
+            <div className="col-span-full text-xs text-cream/60">{catalogPriceLabel(sauna)}</div>
+            <div className="text-xl font-bold text-cream whitespace-nowrap tabular-nums">{formatPrice(sauna.priceFrom)}</div>
+            <div className={clsx(styles.cta, "flex items-center gap-1.5 text-gold-400 text-sm font-semibold")}>
               Подробнее <ArrowRight className="w-4 h-4" />
             </div>
           </div>

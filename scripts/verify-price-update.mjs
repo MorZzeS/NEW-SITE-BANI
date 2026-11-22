@@ -10,6 +10,10 @@ import ts from 'typescript'
 // It only reads prices: running it cannot apply an increase.
 export const PRICE_BASELINE = '0e18849ddb891cae04d596babf8537cedd453cfe'
 export const OPTION_BASELINE = '51720e3d4bf63757b13fc1c7c1e81d4667e25736'
+export const APPROVED_FRAME_ONLY_FEATURE_IDS = ['bg-09', 'bg-10', 'bg-11', 'bg-12', 'bg-13', 'bg-14', 'bg-15', 'bg-16', 'bg-17']
+const frameOnlyIds = new Set(APPROVED_FRAME_ONLY_FEATURE_IDS)
+const formerFrameFeature = 'Каркас 100 мм или брус 90 × 140 мм'
+const currentFrameFeature = 'Каркас 100 мм'
 // Exact owner-approved model corrections, 18 Nov 2026; public names simplified by the 20 Nov catalog brief.
 export const APPROVED_MODEL_OVERRIDES = {
   "bg-09": {
@@ -124,6 +128,7 @@ export function auditPriceUpdate(root = defaultRoot) {
     const expectedVariants = retainedVariants.map(variant => increasedVariant(variant, expectedIncrease))
     const expected = { ...before, priceFrom: before.priceFrom + expectedIncrease }
     Object.assign(expected, APPROVED_MODEL_OVERRIDES[before.id] || {})
+    if (frameOnlyIds.has(before.id)) expected.features = before.features.map(feature => feature === formerFrameFeature ? currentFrameFeature : feature)
     if (expectedVariants.length) expected.priceVariants = expectedVariants
     else delete expected.priceVariants
     check(equal(after, expected), `${before.id}: model differs from its authorised cumulative increase or nonprice data changed`)
@@ -135,6 +140,7 @@ export function auditPriceUpdate(root = defaultRoot) {
     for (const collection of ['saunas', 'homes']) data[collection] = data[collection].map(model => {
       const original = originals.find(item => item.id === model.id)
       if (!original) return model
+      if (frameOnlyIds.has(model.id)) model.features = model.features.map(feature => feature === currentFrameFeature ? formerFrameFeature : feature)
       return Object.fromEntries(Object.keys(original).map(key => [key, key === 'priceFrom' || key === 'priceVariants' || Object.hasOwn(APPROVED_MODEL_OVERRIDES[model.id] || {}, key) ? original[key] : model[key]]))
     })
     return data
@@ -232,6 +238,7 @@ export function auditPriceUpdate(root = defaultRoot) {
     const override = APPROVED_MODEL_OVERRIDES[id]
     const original = beforeModels.find(model => model.id === id)
     if (!override || !original) return line
+    if (frameOnlyIds.has(id)) line = line.replace(JSON.stringify(currentFrameFeature) + ',', JSON.stringify(formerFrameFeature) + ',')
     for (const [key, approved] of Object.entries(override)) {
       const literal = value => typeof value === 'object' ? JSON.stringify(value).replaceAll(',', ', ') : typeof value === 'string' ? JSON.stringify(value) : String(value)
       line = line.replace(key + ': ' + literal(approved), key + ': ' + literal(original[key]))

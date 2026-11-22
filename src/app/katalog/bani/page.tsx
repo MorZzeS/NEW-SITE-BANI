@@ -10,7 +10,7 @@ import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { publishedSaunas as saunas } from '@/data'
 import clsx from 'clsx'
 import { ProductDecisionTools } from '@/components/catalog/ProductDecisionTools'
-import { filterByBudget, sortByPrice, sortByLength } from '@/lib/catalog-filters'
+import { filterByBudget, longestDimensionInMeters, sortByPrice, sortByLength } from '@/lib/catalog-filters'
 
 const series = ['Все', ...Array.from(new Set(saunas.map(model => model.series === 'Север' ? 'Скандинавия' : model.series)))]
 const lengths = ['Все', '4–5 м', '6–7 м', '8+ м']
@@ -67,7 +67,7 @@ export default function BaniCatalogPage() {
 
     if (activeLength !== 'Все') {
       list = list.filter((s) => {
-        const len = Number(s.size.split('×')[0].trim().replace(',', '.'))
+        const len = longestDimensionInMeters(s.size)
         if (activeLength === '4–5 м') return len >= 4 && len < 6
         if (activeLength === '6–7 м') return len >= 6 && len < 8
         if (activeLength === '8+ м') return len >= 8
@@ -86,6 +86,16 @@ export default function BaniCatalogPage() {
 
     return list
   }, [categoryProducts, activeLength, sort, minPrice, maxPrice, hasShowerFilter, hasTerraceFilter])
+
+  const hasFilters = activeSeries !== 'Все' || activeLength !== 'Все' || minPrice > 0 || maxPrice !== '' || hasShowerFilter || hasTerraceFilter
+  const resetFilters = () => {
+    setActiveSeries('Все')
+    setActiveLength('Все')
+    setMinPrice(0)
+    setMaxPrice('')
+    setHasShowerFilter(false)
+    setHasTerraceFilter(false)
+  }
 
   return (
     <div className="pt-28 pb-20">
@@ -116,7 +126,7 @@ export default function BaniCatalogPage() {
                   aria-pressed={activeSeries === s}
                   onClick={() => setActiveSeries(s)}
                   className={clsx(
-                    'px-4 py-2 rounded-xl text-sm font-medium transition-all',
+                    'min-h-11 px-3 py-2 rounded-xl text-sm font-medium transition-colors',
                     activeSeries === s
                       ? 'bg-gold-400/25 text-gold-300 border border-gold-400/40'
                       : 'glass text-cream/70 hover:text-cream'
@@ -138,7 +148,7 @@ export default function BaniCatalogPage() {
                   aria-pressed={activeLength === l}
                   onClick={() => setActiveLength(l)}
                   className={clsx(
-                    'px-4 py-2 rounded-xl text-sm font-medium transition-all',
+                    'min-h-11 px-3 py-2 rounded-xl text-sm font-medium transition-colors',
                     activeLength === l
                       ? 'bg-gold-400/25 text-gold-300 border border-gold-400/40'
                       : 'glass text-cream/70 hover:text-cream'
@@ -154,8 +164,8 @@ export default function BaniCatalogPage() {
           <div>
             <div className="text-xs text-cream/50 mb-2 font-semibold">Особенности</div>
             <div className="flex flex-wrap gap-2">
-              <button aria-pressed={hasShowerFilter} onClick={() => setHasShowerFilter(!hasShowerFilter)} className={clsx('px-3 py-1.5 rounded-lg text-xs font-medium transition-all border', hasShowerFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Душ</button>
-              <button aria-pressed={hasTerraceFilter} onClick={() => setHasTerraceFilter(!hasTerraceFilter)} className={clsx('px-3 py-1.5 rounded-lg text-xs font-medium transition-all border', hasTerraceFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Терраса / крыльцо</button>
+              <button aria-pressed={hasShowerFilter} onClick={() => setHasShowerFilter(!hasShowerFilter)} className={clsx('min-h-11 px-3 py-2 rounded-xl text-sm font-medium transition-colors border', hasShowerFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Душ</button>
+              <button aria-pressed={hasTerraceFilter} onClick={() => setHasTerraceFilter(!hasTerraceFilter)} className={clsx('min-h-11 px-3 py-2 rounded-xl text-sm font-medium transition-colors border', hasTerraceFilter ? 'bg-gold-400/25 text-gold-300 border-gold-400/40' : 'glass text-cream/70 border-transparent')}>Терраса / крыльцо</button>
             </div>
           </div>
 
@@ -164,10 +174,10 @@ export default function BaniCatalogPage() {
             <div className="grid grid-cols-2 gap-2">
               <input aria-label="Цена от" type="number" min="0" value={minPrice || ''}
                 onChange={(e) => setMinPrice(Math.max(0, Number(e.target.value)))} placeholder="От"
-                className="input-glass min-w-0 rounded-xl px-3 py-2 text-sm" />
+                className="input-glass min-h-11 min-w-0 rounded-xl px-3 py-2 text-base sm:text-sm" />
               <input aria-label="Цена до" type="number" min="0" value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))} placeholder="До"
-                className="input-glass min-w-0 rounded-xl px-3 py-2 text-sm" />
+                className="input-glass min-h-11 min-w-0 rounded-xl px-3 py-2 text-base sm:text-sm" />
             </div>
           </div>
 
@@ -178,7 +188,7 @@ export default function BaniCatalogPage() {
               aria-label="Сортировка моделей"
               value={sort}
               onChange={(e) => setSort(e.target.value as typeof sort)}
-              className="glass w-full rounded-xl px-4 py-2 text-sm text-cream bg-transparent outline-none cursor-pointer"
+              className="input-glass min-h-11 w-full rounded-xl px-3 py-2 text-base text-cream sm:text-sm"
             >
               <option value="length" className="bg-graphite-900">По длине</option>
               <option value="price_asc" className="bg-graphite-900">Сначала дешевле</option>
@@ -190,8 +200,9 @@ export default function BaniCatalogPage() {
         </ProductDecisionTools>
 
         {/* Count */}
-        <div className="text-sm text-cream/50 mb-6">
-          Найдено: <span className="text-cream font-semibold">{filtered.length}</span> {modelCountWord(filtered.length)}
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-x-4 text-sm text-cream/70">
+          <p role="status">Найдено: <span className="text-cream font-semibold">{filtered.length}</span> {modelCountWord(filtered.length)}</p>
+          {hasFilters && filtered.length > 0 && <button type="button" className="min-h-11 font-semibold text-gold-400 underline underline-offset-4" onClick={resetFilters}>Сбросить фильтры</button>}
         </div>
 
         {/* Grid */}
@@ -205,7 +216,7 @@ export default function BaniCatalogPage() {
           <div className="glass rounded-3xl px-5 py-10 sm:p-12 text-center">
             <p className="text-cream/50 text-lg">По выбранным фильтрам ничего не найдено</p>
             <button
-              onClick={() => { setActiveSeries('Все'); setActiveLength('Все'); setMinPrice(0); setMaxPrice(''); setHasShowerFilter(false); setHasTerraceFilter(false) }}
+              onClick={resetFilters}
               className="btn-secondary mt-4 mx-auto"
             >
               Сбросить фильтры

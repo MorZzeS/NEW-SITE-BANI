@@ -1,6 +1,5 @@
 import type { Sauna } from '@/types'
 
-/** Only existing model data is shown until the extended specification is reconciled. */
 export function PresentedExecution({ model }: { model: Sauna }) {
   if (model.id !== 'bg-20') return null
 
@@ -10,6 +9,7 @@ export function PresentedExecution({ model }: { model: Sauna }) {
     <ul className="grid gap-2 sm:grid-cols-2 text-sm text-cream/80 list-disc pl-5">
       {model.features.map(feature => <li key={feature}>{feature}</li>)}
     </ul>
-    <p className="mt-4 text-sm leading-relaxed text-cream/65">Это отдельное исполнение модели со своей планировкой и стоимостью. Перечисленные особенности не прибавляются к указанной цене повторно. Полный состав исполнения фиксируется в спецификации при заказе.</p>
+    <p className="mt-3 text-sm leading-relaxed text-cream/65">Эти особенности учтены в цене исполнения. Точный состав заказа фиксируется в спецификации.</p>
+    <p className="mt-4 border-t border-cream/15 pt-3 text-sm leading-relaxed text-cream/80"><strong>На визуализации фасада</strong> видны декоративные рейки под окнами и над дверью, высокое окно и наружные светильники.</p>
   </section>
 }

@@ -73,7 +73,7 @@ export function YandexMapEmbed({
       className={`glass rounded-[var(--radius-lg)] p-5 sm:p-6 ${className}`.trim()}
       style={style}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-start gap-3">
         <MapPinned aria-hidden="true" size={22} className="shrink-0 text-[var(--integration-accent)]" />
         <h2 id="yandex-map-title" className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h2>
       </div>

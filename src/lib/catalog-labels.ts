@@ -1,3 +1,10 @@
+import type { ProductSpec } from '@/types'
+
+export function catalogPriceLabel(model: { id: string; specs: ProductSpec[] }): string {
+  const presented = model.specs.some(spec => spec.label === 'Исполнение' && spec.value === 'Представленное исполнение')
+  return presented && model.id !== 'bg-18' ? 'Представленное исполнение' : 'Базовая комплектация'
+}
+
 export function modelCountWord(count: number): string {
   const lastTwo = count % 100
   if (lastTwo >= 11 && lastTwo <= 14) return 'моделей'

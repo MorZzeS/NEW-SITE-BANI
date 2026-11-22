@@ -4,7 +4,7 @@ import crypto from 'node:crypto'
 import vm from 'node:vm'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
-import { APPROVED_MODEL_OVERRIDES, MODEL_INCREASE, HOME_MODEL_INCREASE, increasedVariant } from './verify-price-update.mjs'
+import { APPROVED_FRAME_ONLY_FEATURE_IDS, APPROVED_MODEL_OVERRIDES, MODEL_INCREASE, HOME_MODEL_INCREASE, increasedVariant } from './verify-price-update.mjs'
 
 const require = createRequire(import.meta.url)
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -132,7 +132,10 @@ for (const record of records) {
   for (const field of ['name', 'article', 'size', 'description', 'area']) {
     if (model?.[field] !== (field === 'name' ? (APPROVED_MODEL_OVERRIDES[record.id]?.name ?? record[field]) : record[field])) errors.push(`${record.id}: data differs from catalog: ${field}`)
   }
-  if (JSON.stringify(model?.features) !== JSON.stringify(APPROVED_MODEL_OVERRIDES[record.id]?.features ?? record.features)) errors.push(`${record.id}: features differ from catalog`)
+  const expectedFeatures = APPROVED_FRAME_ONLY_FEATURE_IDS.includes(record.id)
+    ? record.features.map(feature => feature === 'Каркас 100 мм или брус 90 × 140 мм' ? 'Каркас 100 мм' : feature)
+    : (APPROVED_MODEL_OVERRIDES[record.id]?.features ?? record.features)
+  if (JSON.stringify(model?.features) !== JSON.stringify(expectedFeatures)) errors.push(`${record.id}: features differ from catalog`)
   const mainAsset = path.join(dist, record.model_asset)
   if (!fs.existsSync(mainAsset)) errors.push(`${record.id}: missing main model asset`)
   else if (crypto.createHash('sha256').update(fs.readFileSync(mainAsset)).digest('hex') !== record.model_source_sha256) errors.push(`${record.id}: main image differs from source slide`)

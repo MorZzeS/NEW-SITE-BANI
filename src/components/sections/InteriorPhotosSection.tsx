@@ -21,7 +21,7 @@ export function InteriorPhotosSection() {
   }
   return <section className="py-20">
     <div className="site-container">
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 home-section-heading">
         <div><span className="section-tag text-xs px-3 py-1.5 mb-3 inline-block">Реальные фото</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-cream leading-tight">Как выглядит<br className="hidden sm:block" /> наша баня внутри</h2>
           <p className="mt-3 text-cream/60 text-base max-w-xl">Собственные фотографии реализованных объектов — парная, моечная, комната отдыха, водоснабжение и отделка.</p>

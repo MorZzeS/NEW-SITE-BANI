@@ -15,11 +15,13 @@
 .card a:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 5px; border-radius: 3px; }
 .integrations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; scroll-margin-top: 110px; }
 .map, .reviews { display: flex; flex-direction: column; min-width: 0; }
-.map [data-yandex-map-frame], .reviews [data-yandex-reviews-scroll] { height: 360px; }
+.map [data-yandex-map-frame], .reviews [data-yandex-reviews-scroll] { height: 360px; width: 100%; max-width: none; }
 .map [data-yandex-map-frame] iframe { height: 100%; }
 @media (min-width: 901px) {
   .map [data-yandex-map-frame], .reviews [data-yandex-reviews-scroll] { height: 500px; }
   @supports (grid-template-rows: subgrid) {
+    .card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; align-items: start; }
+    .card a { justify-self: start; }
     .map, .reviews { display: grid; grid-row: span 3; grid-template-rows: subgrid; }
     .map > [data-yandex-map-links] { align-self: end; }
   }

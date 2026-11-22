@@ -49,9 +49,9 @@ export function CustomProjectBand() {
       </div>
 
       <div className="flex min-w-0 flex-col items-stretch gap-4">
-        <div className="grid grid-cols-2 gap-3" data-custom-project-offers>
-          {offers.map(offer => <Link key={offer.href} href={offer.href} className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/15 focus-visible:outline-2 focus-visible:outline-gold-400">
-            <span className="relative block aspect-[3/2] overflow-hidden"><Image src={withBasePath(offer.image)} alt={offer.title} fill sizes="(min-width: 1024px) 280px, 45vw" className="object-cover" /></span>
+        <div className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-3" data-custom-project-offers>
+          {offers.map(offer => <Link key={offer.href} href={offer.href} className="flex min-w-0 min-[480px]:flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/15 focus-visible:outline-2 focus-visible:outline-gold-400">
+            <span className="relative block w-1/3 shrink-0 min-[480px]:w-full min-[480px]:aspect-[3/2] overflow-hidden"><Image src={withBasePath(offer.image)} alt={offer.title} fill sizes="(min-width: 1024px) 280px, 45vw" className="object-cover" /></span>
             <span className="flex flex-1 flex-col gap-2 p-3"><strong className="text-sm leading-snug text-cream">{offer.title}</strong><span className="mt-auto text-base font-bold text-gold-400">{offer.price.toLocaleString('ru-RU')} ₽</span><span className="text-xs leading-relaxed text-cream/70">{offer.note}</span></span>
           </Link>)}
         </div>

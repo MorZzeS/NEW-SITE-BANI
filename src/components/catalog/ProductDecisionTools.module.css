@@ -15,12 +15,13 @@
 .table .different{background:color-mix(in srgb,var(--color-accent) 7%,var(--color-surface))}
 .image{display:block;position:relative;aspect-ratio:3/2;background:var(--color-surface-2);margin-bottom:12px;border-radius:8px;overflow:hidden}
 .image img{object-fit:cover}
-.name{font-size:15px;line-height:1.4;font-weight:700;display:block;margin-bottom:10px}
-.price{font-size:16px;color:var(--color-accent);font-weight:700;display:block;margin-bottom:4px}
-.priceLabel,.note{font-size:12px;color:var(--color-text-subtle)}
+.name{font-size:15px;line-height:1.4;font-weight:700;display:block}
+.article,.note{font-size:12px;color:var(--color-text-subtle)}
+.table tbody tr:first-child td{font-weight:700;color:var(--color-accent);white-space:nowrap;font-variant-numeric:tabular-nums}
 .remove{display:flex;gap:6px;align-items:center;font-size:12px;margin-top:12px}
 .list{padding-left:16px;list-style:disc}.list li+li{margin-top:6px}
 .link{display:inline-flex;align-items:center;gap:5px;min-height:44px;color:var(--color-accent);font-weight:650}
 .note{margin-top:14px;line-height:1.7}
 .dialog button:focus-visible,.dialog a:focus-visible,.scroll:focus-visible{outline:2px solid var(--focus-color);outline-offset:3px}
 @media(max-width:767px){.overlay{padding:12px;align-items:flex-end}.dialog{--compare-label-width:112px;padding:16px;max-height:92dvh;border-radius:16px}.parameter,.table tr>:first-child{width:112px}.table th,.table td{padding:10px}.heading h2{font-size:20px}}
+@media(max-width:389px){.overlay{padding:6px}.dialog{--compare-label-width:88px;padding:12px}.parameter,.table tr>:first-child{width:88px}.table th,.table td{padding:8px}.heading{gap:8px}}

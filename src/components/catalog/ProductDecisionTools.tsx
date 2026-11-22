@@ -4,10 +4,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { createPortal } from 'react-dom'
 import { catalogCardImage } from '@/lib/catalog-image'
+import { catalogPriceLabel } from '@/lib/catalog-labels'
 import { modelBaseConfiguration, modelFeatures } from '@/data/model-configuration'
 import styles from './ProductDecisionTools.module.css'
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { ArrowRight, GitCompareArrows, X } from 'lucide-react'
+import { ArrowRight, ChevronDown, GitCompareArrows, SlidersHorizontal, X } from 'lucide-react'
 import type { Home, Sauna } from '@/types'
 import { formatPrice } from '@/data'
 
@@ -23,6 +24,7 @@ type Props = {
 
 export function ProductDecisionTools({ kind, products, selectedIds, onToggleCompare, children }: Props) {
   const [compareOpen, setCompareOpen] = useState(false)
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const compareTriggerRef = useRef<HTMLButtonElement>(null)
   const compareReturnRef = useRef<HTMLElement>(null)
   const closeCompareRef = useRef<HTMLButtonElement>(null)
@@ -34,8 +36,10 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
   )
 
   const comparisonRows: { label: string; value: (product: DecisionProduct) => string | string[] }[] = [
+    { label: 'Цена', value: product => formatPrice(product.priceFrom) },
+    { label: 'Комплектация по этой цене', value: catalogPriceLabel },
     { label: 'Габариты', value: product => product.size },
-    { label: 'Площадь застройки', value: product => `${product.area} м²` },
+    { label: 'Площадь застройки', value: product => `${product.area.toLocaleString('ru-RU')} м²` },
     { label: 'Планировка / назначение', value: product => product.subtitle },
     ...Array.from(new Set(selected.flatMap(product => modelBaseConfiguration(product).map(row => row.label)))).map(label => ({ label, value: (product: DecisionProduct) => modelBaseConfiguration(product).find(row => row.label === label)?.value ?? 'Не указано в комплектации модели' })),
     ...Array.from(new Set(selected.flatMap(product => product.specs.map(row => row.label)))).filter(label => !['Размер', 'Площадь', 'Площадь застройки', ...selected.flatMap(product => modelBaseConfiguration(product).map(row => row.label))].includes(label)).map(label => ({ label, value: (product: DecisionProduct) => product.specs.find(row => row.label === label)?.value ?? 'Не указано в каталоге' })),
@@ -75,22 +79,25 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
   }, [compareOpen])
 
   return (
-    <section ref={compareReturnRef} tabIndex={-1} className="mb-8 grid items-stretch gap-4 lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,.85fr)]" aria-label="Подбор и сравнение моделей">
-      <div className="glass rounded-2xl p-5 md:p-6">
-        <p className="section-tag mb-2">Подбор модели</p>
-        <h2 className="text-2xl font-bold text-cream">Найдите подходящий вариант</h2>
-        <p className="mt-2 text-sm leading-relaxed text-cream/60">Фильтры сразу обновляют список моделей ниже.</p>
-        <div className="mt-5 border-t border-cream/10 pt-5">{children}</div>
+    <section ref={compareReturnRef} tabIndex={-1} className="mb-6 grid items-start gap-3 lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,.85fr)]" aria-label="Подбор и сравнение моделей">
+      <div className="glass min-w-0 rounded-2xl px-4 py-2 sm:p-5 md:p-6">
+        <h2 className="font-bold text-cream">
+          <button type="button" className="flex min-h-11 w-full items-center gap-2 text-left sm:hidden" aria-expanded={filtersOpen} aria-controls={`catalog-filters-${kind}`} onClick={() => setFiltersOpen(open => !open)}>
+            <SlidersHorizontal size={17} aria-hidden="true" /> Фильтры и сортировка
+            <ChevronDown size={16} aria-hidden="true" className={`ml-auto shrink-0 ${filtersOpen ? 'rotate-180' : ''}`} />
+          </button>
+          <span className="hidden text-xl sm:block">Фильтры и сортировка</span>
+        </h2>
+        <div id={`catalog-filters-${kind}`} className={`${filtersOpen ? 'block' : 'hidden'} border-t border-cream/10 py-4 sm:mt-4 sm:block sm:pb-0`}>{children}</div>
       </div>
 
-      <div className="glass rounded-2xl p-5 md:p-6">
-        <div className="flex items-center gap-2 text-gold-300"><GitCompareArrows className="h-4 w-4" /><span className="text-sm font-semibold">Сравнение моделей</span></div>
-        <h2 className="mt-2 text-xl font-bold text-cream">Сравнение моделей по характеристикам</h2>
-        <p className="mt-2 text-sm text-cream/60">Отметьте модели в каталоге, чтобы сопоставить их рядом.</p>
-        <button ref={compareTriggerRef} type="button" className="btn-primary mt-4 inline-flex w-full items-center justify-center gap-2" disabled={selected.length < 2} onClick={() => setCompareOpen(true)}>
+      <div className="glass min-w-0 rounded-2xl p-4 sm:p-5 md:p-6">
+        <h2 className="flex items-center gap-2 text-lg font-bold text-cream sm:text-xl"><GitCompareArrows className="h-5 w-5 shrink-0 text-gold-400" aria-hidden="true" /> Сравнение моделей</h2>
+        <p className="mt-2 text-sm text-cream/70">Отметьте в каталоге от двух до четырёх моделей.</p>
+        <button ref={compareTriggerRef} type="button" className="btn-primary mt-3 inline-flex w-full items-center justify-center gap-2" disabled={selected.length < 2} onClick={() => setCompareOpen(true)}>
           Сравнить выбранные ({selected.length}/4)
         </button>
-        {selected.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{selected.map((product) => <button key={product.id} type="button" className="inline-flex items-center gap-1 rounded-lg border border-cream/15 px-2.5 py-1.5 text-xs text-cream/80" onClick={() => onToggleCompare(product.id)}>{product.name}<X className="h-3 w-3" /></button>)}</div>}
+        {selected.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{selected.map((product) => <button key={product.id} type="button" aria-label={`Убрать из сравнения: ${product.name}, ${product.article ?? product.id}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-cream/15 px-2.5 py-1.5 text-left text-xs text-cream/80" onClick={() => onToggleCompare(product.id)}>{product.name} · {product.article ?? product.id}<X className="h-3 w-3 shrink-0" aria-hidden="true" /></button>)}</div>}
       </div>
 
       {compareOpen && createPortal(<div className={styles.overlay} onClick={closeCompare}>
@@ -101,9 +108,9 @@ export function ProductDecisionTools({ kind, products, selectedIds, onToggleComp
               <caption className="sr-only">Сравнение характеристик выбранных моделей. Строки с отличиями выделены фоном.</caption>
               <colgroup><col className={styles.parameter} />{selected.map(product => <col key={product.id} className={styles.model} />)}</colgroup>
               <thead><tr><th scope="col">Модель</th>{selected.map(product => <th scope="col" key={product.id}>
-                <div className={styles.image} style={{ aspectRatio: product.image.includes('/bg-28/') ? '1664 / 928' : '3 / 2' }}><Image src={catalogCardImage(product.image)} alt={product.name} fill className="object-cover" sizes="220px" /></div>
-                <span className={styles.name}>{product.name}</span><span className={styles.priceLabel}>{product.id === 'bg-28' ? 'Представленное исполнение' : 'Базовая комплектация'}</span><span className={styles.price}>{formatPrice(product.priceFrom)}</span>
-                <button className={styles.remove} type="button" aria-label={`Убрать из сравнения: ${product.name}`} onClick={() => { closeCompareRef.current?.focus(); onToggleCompare(product.id) }}><X size={14} aria-hidden="true" />Убрать</button>
+                <div className={styles.image}><Image src={catalogCardImage(product.image)} alt="" fill className="object-cover" sizes="220px" /></div>
+                <span className={styles.name}>{product.name}</span><span className={styles.article}>{product.article ?? product.id}</span>
+                <button className={styles.remove} type="button" aria-label={`Убрать из сравнения: ${product.name}, ${product.article ?? product.id}`} onClick={() => { closeCompareRef.current?.focus(); onToggleCompare(product.id) }}><X size={14} aria-hidden="true" />Убрать</button>
               </th>)}</tr></thead>
               <tbody>{comparisonRows.map(row => {
                 const values = selected.map(row.value)

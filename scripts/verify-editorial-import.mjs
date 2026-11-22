@@ -43,6 +43,8 @@ for (const [index, block] of blocks.entries()) {
     paragraph = []
   }
   for (const line of lines.slice(bodyStart)) {
+    // Markdown section dividers are editor notes, not visitor-facing article copy.
+    if (line.trim() === '---') { flush(); continue }
     if (!line.trim()) { flush(); continue }
     const heading = line.match(/^(#{2,3})\s+(.+)$/)
     if (heading) {

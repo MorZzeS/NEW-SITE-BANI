@@ -1,0 +1,17 @@
+.title { font-size: clamp(2.1rem, 4vw, 3rem); line-height: 1.1; }
+.photo { aspect-ratio: 16 / 9; border-radius: var(--radius-lg); }
+.photo img { object-position: 50% 45%; }
+.story {
+  display: grid;
+  align-items: start;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border-radius: var(--radius-lg);
+}
+.story p { max-width: 68ch; }
+@media (min-width: 640px) {
+  .photo { aspect-ratio: 2.4; }
+}
+@media (min-width: 900px) {
+  .story { grid-template-columns: minmax(12rem, 1fr) minmax(0, 2.4fr); gap: 2rem; }
+}

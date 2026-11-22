@@ -5,6 +5,7 @@ import { publishedSaunas as saunas, publishedHomes as homes } from '@/data'
 import { Factory, Award, Users, Truck } from 'lucide-react'
 import { CompanyLocations } from '@/components/sections/CompanyLocations'
 import { withBasePath } from '@/lib/site-path'
+import styles from './About.module.css'
 
 export const metadata: Metadata = {
   title: 'О нас — Бани Герасимов',
@@ -49,22 +50,21 @@ export default function OKompaniiPage() {
       <div className="site-container">
         <div className="text-center mb-8">
           <div className="section-tag mb-4">О нас</div>
-          <h1 className="text-5xl font-extrabold text-cream mb-4">Бани Герасимов</h1>
+          <h1 className={`${styles.title} font-extrabold text-cream mb-4`}>Бани Герасимов</h1>
           <p className="text-xl text-cream/60 max-w-2xl mx-auto leading-relaxed">
             Производитель мобильных бань с {companyFacts.founded} года. Собственное производство — город Раменское.
           </p>
         </div>
 
         {/* Hero image */}
-        <div className="about-photo relative aspect-video rounded-3xl overflow-hidden mb-5">
-          <Image src={withBasePath('/images/showroom/exhibition.webp')} alt="Наша выставка бань в Раменском" fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 80vw" />
-          <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 to-transparent" />
+        <div className={`${styles.photo} about-photo relative overflow-hidden mb-5`}>
+          <Image src={withBasePath('/images/showroom/exhibition.webp')} alt="Наша выставка бань в Раменском" fill className="object-cover" sizes="(min-width: 1280px) 1216px, 100vw" />
         </div>
 
         {/* Story */}
-        <div id="production" className="about-story glass rounded-3xl p-6 md:p-8 mb-5 site-anchor">
-            <h2 className="text-3xl font-bold text-cream mb-4">Наша история</h2>
-            <div className="space-y-4 text-cream/70 leading-relaxed">
+        <div id="production" className={`${styles.story} about-story glass mb-5 site-anchor`}>
+            <h2 className="text-3xl font-bold text-cream">Наша история</h2>
+            <div className="space-y-3 text-cream/70 leading-relaxed">
               <p>
                 Надёжный производитель мобильных бань. Работаем с 2024 года. Собственное производство — город Раменское. Сегодня в нашем каталоге {companyFacts.saunas} моделей мобильных бань{companyFacts.homes > 0 ? ` и ${companyFacts.homes} моделей домов серии Усадьба` : ''}. Над проектами работает команда из {companyFacts.team} специалистов.
               </p>
@@ -77,7 +77,7 @@ export default function OKompaniiPage() {
             </div>
         </div>
 
-        <div className="about-values grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="about-values grid grid-cols-1 sm:grid-cols-2 sm:auto-rows-fr lg:grid-cols-4 gap-4">
           {[values[0], values[2], values[1], values[3]].map(({ icon: Icon, title, desc }) => (
             <div key={title} className="glass-card p-5">
               <Icon aria-hidden="true" className="w-6 h-6 text-gold-400 mb-3" />
@@ -86,7 +86,7 @@ export default function OKompaniiPage() {
             </div>
           ))}
         </div>
-        <div className={`grid grid-cols-1 gap-4 mt-8 ${stats.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
+        <div className={`grid grid-cols-1 gap-4 mt-4 ${stats.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
           {stats.map((stat) => (
             <div key={stat.label} className="glass-card p-5 text-center">
               <div className="text-3xl font-black text-gradient mb-2">{stat.value}</div>
