@@ -86,7 +86,7 @@ export default function OKompaniiPage() {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+        <div className={`grid grid-cols-1 gap-4 mt-8 ${stats.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
           {stats.map((stat) => (
             <div key={stat.label} className="glass-card p-5 text-center">
               <div className="text-3xl font-black text-gradient mb-2">{stat.value}</div>

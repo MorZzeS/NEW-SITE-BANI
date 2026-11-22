@@ -791,13 +791,13 @@ html { scroll-behavior: smooth; }
  .hero-subheading p + p { font-size: 14px; }
 }
 /* Keep the action row independent of the disclosure height. */
-.hero-actions { width: 100%; max-width: 360px; }
+.hero-actions { width: 100%; max-width: 360px; margin-top: auto; }
 .hero-actions > .btn-primary,
 .hero-actions .hero-video-action { height: 52px; min-height: 52px; white-space: nowrap; }
 .hero-contact-trigger svg { flex-shrink: 0; }
 @media (min-width: 768px) {
  .hero-main-content { min-height: 610px; }
- .hero-actions { flex-direction: row; flex-wrap: wrap; align-items: flex-start; width: 100%; max-width: none; margin-top: 24px; }
+ .hero-actions { flex-direction: row; flex-wrap: wrap; align-items: flex-start; width: 100%; max-width: none; }
  .hero-actions > * { flex: 0 0 auto; }
  .hero-actions .hero-contact-disclosure { display: contents; }
  .hero-actions .hero-contact-trigger { width: auto; }
@@ -807,12 +807,12 @@ html { scroll-behavior: smooth; }
 }
 @media (min-width: 1280px) {
  .hero-main-content { min-height: 650px; }
- .hero-actions { flex-wrap: nowrap; min-height: 190px; margin-top: auto; }
- .hero-actions .hero-contact-panel { position: absolute; top: 0; right: 0; width: calc(100% - 720px); margin: 0; }
+ .hero-actions { display: grid; grid-template-columns: repeat(3, max-content) minmax(0, 1fr); grid-template-rows: auto; }
+ .hero-actions .hero-contact-panel { position: absolute; grid-column: 4 / 5; grid-row: 1 / 2; inset: auto 0 0; width: auto; margin: 0; }
  .hero-contact-panel .social-qr-horizontal { gap: 6px; padding: 10px; }
 }
 @media (max-width: 767px) {
- .hero-actions { margin-top: 28px; }
+
  .hero-contact-disclosure { width: 100%; }
  .hero-contact-panel { position: static; width: 100%; margin-top: 8px; max-height: min(560px, calc(100svh - 100px)); }
  .hero-contact-panel .social-qr-horizontal { grid-template-columns: repeat(2, minmax(0, 1fr)); }

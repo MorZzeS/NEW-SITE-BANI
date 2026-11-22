@@ -79,7 +79,7 @@ export function YandexMapEmbed({
       </div>
 
       {safeEmbedUrl ? (
-        <div className="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)]">
+        <div data-yandex-map-frame className="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--glass-border-subtle)] bg-[var(--glass-bg-dark)]">
           <iframe
             src={safeEmbedUrl}
             title={title}
@@ -95,18 +95,20 @@ export function YandexMapEmbed({
         </div>
       )}
 
-      {safeMapUrl ? (
-        <a
-          href={safeMapUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-color)]"
-        >
-          Открыть карту на Яндексе
-          <ExternalLink aria-hidden="true" size={15} />
-        </a>
-      ) : null}
-      {safeRouteUrl && <a href={safeRouteUrl} target="_blank" rel="noopener noreferrer" className="mt-3 flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-[var(--color-text)] underline underline-offset-4">Построить маршрут<ExternalLink aria-hidden="true" size={15} /></a>}
+      <div data-yandex-map-links>
+        {safeMapUrl ? (
+          <a
+            href={safeMapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-color)]"
+          >
+            Открыть карту на Яндексе
+            <ExternalLink aria-hidden="true" size={15} />
+          </a>
+        ) : null}
+        {safeRouteUrl && <a href={safeRouteUrl} target="_blank" rel="noopener noreferrer" className="mt-3 flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-[var(--color-text)] underline underline-offset-4">Построить маршрут<ExternalLink aria-hidden="true" size={15} /></a>}
+      </div>
     </section>
   )
 }

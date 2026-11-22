@@ -108,19 +108,21 @@ export function YandexReviewsWidget({
         </div>
       )}
 
-      {themedEmbedUrl && <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Прокрутите список, чтобы увидеть остальные отзывы. Полный список и сортировка по дате доступны на Яндексе.</p>}
+      <div>
+        {themedEmbedUrl && <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Прокрутите список, чтобы увидеть остальные отзывы. Полный список и сортировка по дате доступны на Яндексе.</p>}
 
-      {safeBusinessUrl ? (
-        <a
-          href={safeBusinessUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-color)]"
-        >
-          Все отзывы на Яндексе
-          <ExternalLink aria-hidden="true" size={15} />
-        </a>
-      ) : null}
+        {safeBusinessUrl ? (
+          <a
+            href={safeBusinessUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-color)]"
+          >
+            Все отзывы на Яндексе
+            <ExternalLink aria-hidden="true" size={15} />
+          </a>
+        ) : null}
+      </div>
     </section>
   )
 }

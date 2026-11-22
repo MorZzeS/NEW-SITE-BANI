@@ -88,7 +88,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Main hero content — pushed down from nav */}
-        <div className="hero-main-content flex-1 flex items-stretch pb-6 md:pb-8">
+        <div className="hero-main-content flex-1 flex items-stretch pb-3 md:pb-4">
           <div className="site-container w-full flex flex-col">
             <div className="hero-copy">
                 {/* Headline */}
@@ -105,7 +105,7 @@ export function HeroSection() {
                   <p>Производитель мобильных бань с 2024 года</p>
                 </div>
               </div>
-            <div className="hero-actions hero-reveal relative mt-auto flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
+            <div className="hero-actions hero-reveal relative flex flex-col items-stretch gap-3" style={{ animationDelay: '0.32s' }}>
               <Link href="/katalog/bani" className="btn-primary justify-center text-sm px-7 py-3.5">
                 Смотреть каталог <ArrowRight className="w-4 h-4" />
               </Link>
