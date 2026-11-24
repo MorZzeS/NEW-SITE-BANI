@@ -61,6 +61,7 @@ export default async function ProjectPage({ params }: Props) {
                 {clientCase.size && <div><dt>Размер</dt><dd>{clientCase.size}</dd></div>}
                 {clientCase.base && <div><dt>Комплектация</dt><dd>{clientCase.base}</dd></div>}
                 {clientCase.duration && <div><dt>Эксплуатация</dt><dd>{clientCase.duration}</dd></div>}
+                {project.characteristics.map(item => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
               </dl>
               {clientCase.ownerFeedback && <p className="mt-4 text-sm leading-relaxed text-cream/75">{clientCase.ownerFeedback}</p>}
             </section>
