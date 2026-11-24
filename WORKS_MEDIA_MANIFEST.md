@@ -2,7 +2,7 @@
 
 Internal source IDs are resolved in the private project inventory. Client names, source directories and private addresses are intentionally absent.
 
-21 image derivatives (14 real photographs, 3 project renders, 3 plans, 1 explicitly labelled interior reference) and 5 MP4 clips. All originals remain unchanged. Public WebP files and thumbnails omit EXIF/XMP/IPTC; MP4 files contain one H.264 video stream and no audio/data/timecode track.
+34 image derivatives (27 real photographs, 3 project renders, 3 plans, 1 explicitly labelled interior reference) and 5 MP4 clips. All originals remain unchanged. Public WebP files and thumbnails omit EXIF/XMP/IPTC; MP4 files contain one H.264 video stream and no audio/data/timecode track.
 
 | Source | Project | Type / purpose | Public derivative |
 |---|---|---|---|
@@ -27,6 +27,19 @@ Internal source IDs are resolved in the private project inventory. Client names,
 | P23 | comfort-blockhouse | photo / delivery-photo | `/images/works/projects/comfort-blockhouse/delivery-photo.webp` |
 | P24 | comfort-blockhouse | photo / installation-photo | `/images/works/projects/comfort-blockhouse/installation-photo.webp` |
 | P26 | comfort-blockhouse | catalog-render / exterior-render | `/images/works/projects/comfort-blockhouse/exterior-render.webp` |
+| C01 | client-6x26 | photo / steam-room-benches | `/images/works/client-6x26/client-6x26-01.webp` |
+| C02 | client-6x26 | photo / wooden-floor-detail | `/images/works/client-6x26/client-6x26-02.webp` |
+| C03 | client-6x26 | photo / stove-area | `/images/works/client-6x26/client-6x26-03.webp` |
+| C04 | client-6x26 | photo / interior-window | `/images/works/client-6x26/client-6x26-04.webp` |
+| C05 | client-6x26 | photo / lime-benches | `/images/works/client-6x26/client-6x26-05.webp` |
+| C06 | client-6x26 | photo / steam-room-angle | `/images/works/client-6x26/client-6x26-06.webp` |
+| C07 | client-6x26 | photo / exterior-window-detail | `/images/works/client-6x26/client-6x26-07.webp` |
+| C08 | client-6x26 | photo / end-view | `/images/works/client-6x26/client-6x26-08.webp` |
+| C09 | client-6x26 | photo / entrance-facade | `/images/works/client-6x26/client-6x26-09.webp` |
+| C10 | client-6x26 | photo / corner-view | `/images/works/client-6x26/client-6x26-10.webp` |
+| C11 | client-6x26 | photo / cover-exterior | `/images/works/client-6x26/client-6x26-11.webp` |
+| C12 | client-6x26 | photo / interior-space | `/images/works/client-6x26/client-6x26-12.webp` |
+| C13 | client-6x26 | photo / stove-and-steam-room | `/images/works/client-6x26/client-6x26-13.webp` |
 | V01 | premium | silent video, source 7–11.2 s | `/images/works/projects/premium/unloading-yard.mp4` |
 | V03 | premium | silent video, source 16–28 s | `/images/works/projects/premium/unloading-lift.mp4` |
 | V04 | premium | silent video, source 10–22 s | `/images/works/projects/premium/installation-overview.mp4` |
@@ -37,7 +50,7 @@ Each image has a `-thumb.webp` derivative. Each video has a `-poster.webp` previ
 
 ## Attribution and covers
 
-Comfort cover: P24, real installation photo, cropped to exclude workers and the transport context. Premium cover: P07, real installed exterior. Standard cover: P11, clearly labelled project visualization. Showroom sauna cover: P14, frontal exterior. Mobile-home cover: P17, frontal exterior.
+Comfort cover: P24, real installation photo, cropped to exclude workers and the transport context. Premium cover: P07, real installed exterior. Standard cover: P11, clearly labelled project visualization. Showroom sauna cover: P14, frontal exterior. Mobile-home cover: P17, frontal exterior. Client 6 × 2.6 m cover: C11, real exterior; all 13 still photographs are also available in the detailed gallery.
 
 The separate existing evening terrace sample is retained as its own record: its vertical cladding, adjacent door/window and terrace differ from the Premium source set. It is not assigned to Premium without evidence. No suitable evening terrace image of the mapped Premium object exists in the reviewed source set.
 
@@ -51,6 +64,7 @@ The separate existing evening terrace sample is retained as its own record: its 
 | P10 | Generic stove visualization does not establish the installed stove model; not used as project evidence. |
 | P25 | Plan shows a different width (2.3 m) from the owner-confirmed Comfort 6 × 2.4 m; not published as the final plan. |
 | V02 | Moving frontal registration plate, driver cab and crane telephone require multiple moving masks; duplicate delivery scene. Cleaner installation clips selected instead. |
+| C14–C20 | Seven short Live Photo motion companions are not additional still photographs and are not published as project videos. The 13 corresponding still photographs are included in full. |
 
 ## Processing and verification
 
