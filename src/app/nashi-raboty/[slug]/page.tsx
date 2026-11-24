@@ -125,7 +125,10 @@ export default async function ProjectPage({ params }: Props) {
         </aside> : null}
 
         {(() => {
-          const photos = project.gallery.filter(item => item.kind === 'photo')
+          // The client 6 × 2.6 m source set contains 13 still photos. Its cover is
+          // one of those originals, so keep it in the detailed gallery as well as
+          // in the page header instead of making that photo appear to be missing.
+          const photos = (project.id === 'client-6x26' ? project.media : project.gallery).filter(item => item.kind === 'photo')
           const renders = project.gallery.filter(item => item.kind === 'catalog-render')
           const plans = project.gallery.filter(item => item.kind === 'plan')
           const references = project.gallery.filter(item => item.kind === 'reference')
