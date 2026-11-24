@@ -57,6 +57,8 @@ Obtain exact host public key and SHA256 fingerprint through authenticated provid
 Store staging_ssh_key privately, mode 600 on Linux; Windows ACLs require independent review. Use OpenSSH SFTP/SSH with -F staging_ssh_config and host alias spaceweb-staging. StrictHostKeyChecking yes, BatchMode yes, no agent/password fallback. Key mismatch stops transfer. No FTP, insecure HTTPS, StrictHostKeyChecking=no or curl -k.
 No ready transfer command is activated: future coordinator must approve concrete manifest plan/backup and implement controlled per-file upload after capabilities are verified.
 
+Every directory selected for publication must pass `node scripts/check-export-assets.mjs <directory>` after the final packaging step. The check is intentionally run against the actual upload directory, not only the original `dist` export: it rejects HTML that points to a missing Next.js script, stylesheet, preload, or CSS asset. A delta overlay that changes HTML must include every newly referenced `_next` asset, or the release must use the complete verified static export. Keep existing server chunks until the replacement has passed live route checks.
+
 ## Offline validation
 
 node scripts/spaceweb/test-safety.mjs (42 checks); node scripts/spaceweb/test-existing-build.mjs dist (928 checks on existing export).
