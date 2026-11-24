@@ -353,12 +353,233 @@
       "executionConfirmed": true
     },
     {
+      "id": "client-6x26",
+      "slug": "banya-6x26-proekt-klienta",
+      "title": "Фото бани одного из наших клиентов",
+      "pageHeading": "Фото бани одного из наших клиентов",
+      "model": "Баня 6 × 2,6 м",
+      "description": "Реализованный проект по индивидуальному заказу: фотографии бани размером 6 × 2,6 м, внешний вид объекта и внутреннее исполнение.",
+      "order": 2,
+      "visible": true,
+      "evidence": "owner-confirmed",
+      "caseType": "client-case",
+      "projectCategory": "bathhouse",
+      "executionConfirmed": true,
+      "coverMediaId": "client-6x26-11",
+      "characteristics": [],
+      "media": [
+        {
+          "id": "client-6x26-01",
+          "src": "/images/works/client-6x26/client-6x26-01.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-01-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — парная и полки",
+          "caption": "Парная и полки",
+          "kind": "photo",
+          "order": 1,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-02",
+          "src": "/images/works/client-6x26/client-6x26-02.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-02-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — деталь деревянного пола",
+          "caption": "Деталь деревянного пола",
+          "kind": "photo",
+          "order": 2,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-03",
+          "src": "/images/works/client-6x26/client-6x26-03.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-03-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — интерьер у печи",
+          "caption": "Интерьер у печи",
+          "kind": "photo",
+          "order": 3,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-04",
+          "src": "/images/works/client-6x26/client-6x26-04.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-04-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — интерьер и оконный проём",
+          "caption": "Интерьер и оконный проём",
+          "kind": "photo",
+          "order": 4,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-05",
+          "src": "/images/works/client-6x26/client-6x26-05.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-05-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — полки в парной",
+          "caption": "Полки в парной",
+          "kind": "photo",
+          "order": 5,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-06",
+          "src": "/images/works/client-6x26/client-6x26-06.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-06-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — парная с другого ракурса",
+          "caption": "Парная с другого ракурса",
+          "kind": "photo",
+          "order": 6,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-07",
+          "src": "/images/works/client-6x26/client-6x26-07.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-07-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — деталь наружной отделки и окна",
+          "caption": "Деталь наружной отделки и окна",
+          "kind": "photo",
+          "order": 7,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-08",
+          "src": "/images/works/client-6x26/client-6x26-08.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-08-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — внешний вид бани с торца",
+          "caption": "Внешний вид бани с торца",
+          "kind": "photo",
+          "order": 8,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-09",
+          "src": "/images/works/client-6x26/client-6x26-09.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-09-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — фасад бани и вход",
+          "caption": "Фасад бани и вход",
+          "kind": "photo",
+          "order": 9,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-10",
+          "src": "/images/works/client-6x26/client-6x26-10.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-10-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — баня с углового ракурса",
+          "caption": "Баня с углового ракурса",
+          "kind": "photo",
+          "order": 10,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-11",
+          "src": "/images/works/client-6x26/client-6x26-11.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-11-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — общий вид бани и входа",
+          "caption": "Общий вид бани и входа",
+          "kind": "photo",
+          "order": 11,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-12",
+          "src": "/images/works/client-6x26/client-6x26-12.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-12-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — внутреннее пространство",
+          "caption": "Внутреннее пространство",
+          "kind": "photo",
+          "order": 12,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-13",
+          "src": "/images/works/client-6x26/client-6x26-13.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-13-thumb.webp",
+          "alt": "Баня 6 × 2,6 м — печь и интерьер парной",
+          "caption": "Печь и интерьер парной",
+          "kind": "photo",
+          "order": 13,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        }
+      ],
+      "clientCase": {
+        "size": "6 × 2,6 м",
+        "base": "",
+        "duration": "",
+        "selectedExtras": [],
+        "ownerFeedback": ""
+      },
+      "cardDescription": "Реализованный проект по индивидуальному заказу. Фото бани одного из наших клиентов, 6 × 2,6 м."
+    },
+    {
       "id": "terrace-evening-temp",
       "slug": "banya-s-terrasoi-vecherniy-svet",
       "title": "Баня с террасой в вечернем освещении",
       "pageHeading": "Баня с террасой в вечернем освещении",
       "description": "Вечернее освещение подчёркивает архитектуру бани и уют террасы.",
-      "order": 2,
+      "order": 3,
       "visible": true,
       "evidence": "illustrative",
       "caseType": "photo-example",
@@ -522,7 +743,7 @@
       "pageHeading": "Скандинавия Премиум — проект 6 × 2,6 м",
       "model": "Скандинавия Премиум",
       "description": "Индивидуальная мобильная баня «Скандинавия Премиум» 6 × 2,6 м с отдельной парной и просторной гостевой. Фотографии показывают наружное исполнение, доставку и установку; первоначальные визуализация и планировка сохранены отдельно.",
-      "order": 6,
+      "order": 0,
       "visible": true,
       "evidence": "owner-confirmed",
       "caseType": "client-case",
