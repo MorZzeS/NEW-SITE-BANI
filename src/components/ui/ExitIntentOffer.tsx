@@ -6,6 +6,7 @@ import { ArrowRight, X } from 'lucide-react'
 import styles from './ExitIntentOffer.module.css'
 import { releasePolicy } from '@/lib/release-policy'
 import { withBasePath } from '@/lib/site-path'
+import { markEngagementPromptShown, wasEngagementPromptShown } from '@/lib/engagement-prompt'
 
 type ExitIntentOfferProps = {
   /** Called when the visitor chooses to continue to the contact flow. */
@@ -47,7 +48,7 @@ export function ExitIntentOffer({
     let moved = false
 
     const canShow = () => {
-      if (!eligible || open || shownThisVisit.current || document.querySelector('[data-site-preferences-notice], dialog[open], [aria-modal="true"]')) return false
+      if (!eligible || open || shownThisVisit.current || wasEngagementPromptShown() || document.querySelector('[data-site-preferences-notice], dialog[open], [aria-modal="true"]')) return false
       try {
         const saved = window.localStorage.getItem(storageKey)
         if (saved === null) return true
@@ -66,6 +67,7 @@ export function ExitIntentOffer({
     const onPointerLeave = (event: MouseEvent) => {
       if (isTouchDevice() || !moved || event.relatedTarget !== null || event.clientY > 8 || !canShow()) return
       shownThisVisit.current = true
+      markEngagementPromptShown()
       previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
       setOpen(true)
     }

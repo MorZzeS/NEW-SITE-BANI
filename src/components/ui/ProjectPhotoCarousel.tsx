@@ -44,7 +44,10 @@ export function ProjectPhotoCarousel({ photos, ariaLabel }: { photos: WorksPhoto
           if (event.button !== 0) return
           dragged.current = false
           pointer.current = { x: event.clientX, y: event.clientY, id: event.pointerId }
-          event.currentTarget.setPointerCapture(event.pointerId)
+          // Capture on the activated button (not the whole stage) so normal
+          // pointer clicks still reach its onClick after the pointer is released.
+          const captureTarget = event.target instanceof Element ? event.target.closest('button') : null
+          ;(captureTarget ?? event.currentTarget).setPointerCapture(event.pointerId)
         }}
         onPointerUp={finishPointer}
         onPointerCancel={() => { pointer.current = null }}

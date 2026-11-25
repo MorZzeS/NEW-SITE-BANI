@@ -124,13 +124,15 @@ function isConsentStorageWritable(): boolean {
  */
 export function readAnalyticsConsent(): AnalyticsConsent | null {
   if (typeof window === 'undefined') return null
-  if (hasAnalyticsDenialMarker()) return null
   if (!isConsentStorageWritable()) return null
   try {
     const raw = window.localStorage.getItem(ANALYTICS_CONSENT_STORAGE_KEY)
     if (!raw) return null
     const parsed: unknown = JSON.parse(raw)
-    return isAnalyticsConsent(parsed) ? parsed : null
+    if (!isAnalyticsConsent(parsed)) return null
+    // Keep a persisted refusal visible to the consent UI, while a denial marker
+    // still overrides any stale opt-in that could otherwise restart tracking.
+    return hasAnalyticsDenialMarker() && parsed.analytics ? null : parsed
   } catch {
     return null
   }

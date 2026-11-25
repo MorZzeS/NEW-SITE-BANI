@@ -13,6 +13,7 @@ import { siteSettings } from '@/data'
 import { themeScript } from '@/lib/theme'
 import { basePath, withBasePath } from '@/lib/site-path'
 import { releasePolicy } from '@/lib/release-policy'
+import { IdleContactPrompt } from '@/components/ui/IdleContactPrompt'
 
 const isGitHubPagesProject = basePath === '/NEW-SITE-BANI'
 const homepagePath = isGitHubPagesProject ? `${basePath}/` : '/'
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer settings={siteSettings} />
           <AnalyticsGate />
+          <IdleContactPrompt />
           <CookieConsent />
         </ThemeProvider>
       </body>

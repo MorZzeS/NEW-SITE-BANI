@@ -1,11 +1,10 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, GitCompareArrows } from 'lucide-react'
 import type { Sauna } from '@/types'
 import { formatPrice } from '@/data'
 import clsx from 'clsx'
-import { catalogCardImage } from '@/lib/catalog-image'
 import { catalogPriceLabel } from '@/lib/catalog-labels'
+import { CatalogCardGallery } from './CatalogCardGallery'
 import styles from './CatalogCard.module.css'
 
 interface Props {
@@ -37,44 +36,16 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
       >
         <GitCompareArrows className="h-3.5 w-3.5" /> {compareSelected ? 'В сравнении' : 'Сравнить'}
       </button>}
-      <Link href={`/banya/${sauna.slug}`} className={clsx("group", styles.link)}>
-      <div className={clsx(
+      <article className={clsx(
         'glass-card', styles.card,
         featured && styles.featured
       )}>
-        {/* Image */}
-        <div className={styles.image}>
-          <picture className="absolute inset-0 block">
-            <source type="image/avif" srcSet={catalogCardImage(sauna.image, 'avif')} />
-            <Image
-              src={catalogCardImage(sauna.image)}
-              alt={sauna.name}
-              fill
-              loading="lazy"
-              quality={85}
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes={featured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw'}
-            />
-          </picture>
-          {bestSeller && <span className={styles.bestSeller}>Хит продаж</span>}{/* Tags overlay */}
-          <div className={styles.tags}>
-            {sauna.tags.map((tag) => (
-              <span
-                key={tag}
-                className={clsx(
-                  'px-2 py-0.5 rounded-lg text-[10px] font-semibold border backdrop-blur-sm',
-                  tagColors[tag] || 'bg-cream/10 text-cream/60 border-cream/20'
-                )}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+        <CatalogCardGallery image={sauna.image} images={sauna.images} name={sauna.name} size={sauna.size} href={`/banya/${sauna.slug}`} bestSeller={bestSeller} />
 
         {/* Content */}
+        <Link href={`/banya/${sauna.slug}`} className={clsx('group', styles.contentLink)}>
         <div className={styles.content}>
-
+          {sauna.tags.length > 0 && <div className="mb-3 flex flex-wrap gap-1.5">{sauna.tags.map(tag => <span key={tag} className={clsx('px-2 py-0.5 rounded-lg text-[10px] font-semibold border', tagColors[tag] || 'bg-cream/10 text-cream/60 border-cream/20')}>{tag}</span>)}</div>}
           <h3 className={clsx(styles.title, "text-lg font-bold text-cream mb-1 group-hover:text-gold-300 transition-colors")}>
             {sauna.name}
           </h3>
@@ -83,9 +54,8 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
           </p>
 
           {/* Specs */}
-          <div className={clsx(styles.specs, "grid grid-cols-3 gap-2")}>
+          <div className={clsx(styles.specs, "grid grid-cols-2 gap-2")}>
             {[
-              { label: 'Размер', value: sauna.size },
               { label: 'Площадь', value: `${sauna.area.toLocaleString('ru-RU')} м²` },
               { label: 'Артикул', value: sauna.article },
             ].map((s) => (
@@ -105,8 +75,8 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
             </div>
           </div>
         </div>
-      </div>
-      </Link>
+        </Link>
+      </article>
 
     </div>
   )

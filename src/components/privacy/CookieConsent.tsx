@@ -130,13 +130,13 @@ export default function CookieConsent() {
     {bannerOpen && <section className={styles.notice} aria-label="Настройки cookie и статистики" data-site-preferences-notice>
       <p className={styles.noticeText}>
         {analyticsAvailable
-          ? <>Сайт использует cookie. «ОК» разрешает статистику Метрики; Вебвизор — только отдельно. </>
-          : <>Cookie нужны для работы сайта. </>}
-        <button type="button" className={styles.settings} onClick={showSettings}>Настройки</button>
-        {' · '}<Link href={analyticsAvailable ? '/privacy' : '/cookie'}>{analyticsAvailable ? 'Политика' : 'Подробнее'}</Link>
+          ? <>Разрешить cookie и статистику Яндекс Метрики. </>
+          : <>Сайт использует cookie. </>}
+        <Link href={analyticsAvailable ? '/privacy' : '/cookie'}>{analyticsAvailable ? 'Политика' : 'Подробнее'}</Link>
+        {' · '}<button type="button" className={styles.settings} onClick={showSettings}>Настройки</button>
       </p>
       <div className={styles.actions}>
-        <button type="button" className={styles.acknowledge} onClick={() => analyticsAvailable ? saveAnalyticsChoice(true, false) : dismissWithoutAnalytics()} aria-label={analyticsAvailable ? 'ОК, разрешить статистику Яндекс Метрики' : 'ОК, закрыть уведомление'}>ОК</button>
+        <button type="button" className={styles.acknowledge} onClick={() => analyticsAvailable ? saveAnalyticsChoice(true, false) : dismissWithoutAnalytics()} aria-label={analyticsAvailable ? 'Я согласен, разрешить статистику Яндекс Метрики' : 'Я согласен, закрыть уведомление'}>Я согласен, мне всё ясно</button>
       </div>
       {storageBlocked && <div className={styles.storageError}><p role="status">{status}</p></div>}
     </section>}
