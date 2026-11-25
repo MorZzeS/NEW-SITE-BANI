@@ -16,9 +16,40 @@ for (const kind of ['saunas', 'homes']) {
   assert.equal(catalog[kind].length, baseline[kind].length)
   for (const product of catalog[kind]) {
     const old = baseline[kind].find(item => item.id === product.id)
-    const { name, ...preserved } = product
+    const { name, executionFeatures, ...preserved } = product
     const { name: oldName, ...previous } = old
-    assert.equal(JSON.stringify(preserved), JSON.stringify(previous), `${product.id}: all non-name data preserved`)
+    if (product.id === 'bg-20') {
+      // Owner-approved public specification: these execution features are already included
+      // in the model's existing price and must never be added again by the calculator.
+      for (const field of ['subtitle', 'description']) {
+        delete preserved[field]
+        delete previous[field]
+      }
+      assert.equal(JSON.stringify(preserved), JSON.stringify(previous), `${product.id}: identity, price and unapproved data preserved`)
+      assert.equal(product.priceFrom, old.priceFrom, `${product.id}: approved price unchanged`)
+      assert.equal(product.priceVariants, old.priceVariants, `${product.id}: no alternative price introduced`)
+      assert.equal(product.name, oldName, `${product.id}: public model name preserved`)
+      assert.equal(JSON.stringify(product.features), JSON.stringify([
+        'Скрытая электрика и подсветка',
+        'Ламинация окон и двери',
+        'Тропический душ и бойлер 50 л',
+        'Санузел и декоративные рейки',
+      ]), 'catalogue features used by calculator remain unchanged')
+      assert.equal(JSON.stringify(executionFeatures), JSON.stringify([
+        'Санузел',
+        'Проливные полы в парной и помывочной',
+        'Панорамное окно',
+        'Декоративные наружные рейки под окнами и над дверью',
+        'Дополнительные наружные светильники',
+        'Индивидуальная планировка',
+        'Увеличение высоты на 20 см',
+        'Покраска по RAL',
+        'Полы из лиственницы в парной и помывочной',
+      ]))
+    } else {
+      assert.equal(JSON.stringify(preserved), JSON.stringify(previous), `${product.id}: all non-name data preserved`)
+      assert.equal(executionFeatures, undefined, `${product.id}: no unapproved included-options list`)
+    }
     assert.equal(name, oldName.replace(/^Скандинавия (Комфорт|Терра|Панорама|Резиденс) /, 'Скандинавия '))
   }
   const source = catalog[kind].filter(item => item.isPublished !== false)

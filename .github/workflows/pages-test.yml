@@ -24,6 +24,8 @@ jobs:
       # Production lead activation is verified separately; preview sends no applications.
       NEXT_PUBLIC_LEADS_ENDPOINT: ''
       NEXT_PUBLIC_LEADS_CONTRACT: '3'
+      NEXT_PUBLIC_ANALYTICS_ENABLED: 'false'
+      NEXT_PUBLIC_YANDEX_METRIKA_ID: ''
     steps:
       - uses: actions/checkout@v4
         with:

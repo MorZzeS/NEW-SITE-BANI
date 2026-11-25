@@ -40,17 +40,24 @@ export function EquipmentConfigurator() {
   const [deliveryDistrict, setDeliveryDistrict] = useState<DeliveryDistrict>('unknown')
   const [deliveryAddress, setDeliveryAddress] = useState('')
   const [opened, setOpened] = useState<string[]>([])
+  const calculatorStarted = useRef(false)
   const formRef = useRef<HTMLDivElement>(null)
   const selection = equipmentSelection(selectedIds, quantities, { deliveryDistrict, deliveryAddress })
   const { selected, knownTotal, unpricedCount, comment } = selection
   const selectedOptionIds = new Set(selected.map(option => option.id))
+  const markCalculatorStarted = () => {
+    if (calculatorStarted.current) return
+    calculatorStarted.current = true
+    trackGoal('calculator_start')
+  }
   const toggle = (id: string) => {
     setSelectedIds(previous => toggleEquipmentOption(previous, id))
-    trackGoal('configure_option')
+    markCalculatorStarted()
   }
   function setQuantity(id: string, value: number) {
     const option = enabledEquipmentOptions.find(item => item.id === id)
     if (!option) return
+    markCalculatorStarted()
     const quantity = normalizeOptionQuantity(option, value)
     if (quantity === 0) setSelectedIds(previous => previous.filter(item => item !== id))
     setQuantities(previous => ({ ...previous, [id]: quantity || 1 }))
@@ -60,10 +67,9 @@ export function EquipmentConfigurator() {
     setQuantities({})
     setDeliveryDistrict('unknown')
     setDeliveryAddress('')
-    trackGoal('configure_reset')
   }
   function calculate() {
-    trackGoal('configure_request')
+    markCalculatorStarted()
     formRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' })
     formRef.current?.querySelector<HTMLElement>('[data-release-profile="visual-contacts"]')?.focus({ preventScroll: true })
   }
@@ -83,7 +89,7 @@ export function EquipmentConfigurator() {
             </label>}
           </ConfigurationOption>)}</div></section>
       })}</div>
-      <aside className={styles.summary} aria-label="Выбранные дополнительные опции"><p className={styles.eyebrow}>Ваши пожелания</p><div key={selected.map(option => option.id).join("|") || "empty"} role="status" aria-live="polite" aria-atomic="true" translate="no" data-selected-count={selected.length} data-additional-total={knownTotal}><h3>{`Выбрано: ${optionCountLabel(selected.length)}`}</h3><p className={styles.sumLabel}>Оборудование: +{selection.equipmentSubtotal.toLocaleString('ru-RU')} ₽</p><p className={styles.sumLabel}>Логистика: +{selection.logisticsSubtotal.toLocaleString('ru-RU')}{selected.some(option => option.id === 'delivery' || option.id === 'crane-unload') && deliveryDistrict === 'ramenskoe' ? ' ₽ (ориентир от)' : ' ₽'}</p><p className={styles.sumLabel}>Итого дополнений по опубликованным тарифам:</p><p className={styles.sum}>{`+${knownTotal.toLocaleString('ru-RU')} ₽`}</p>{unpricedCount > 0 && <p className={styles.note}>Предварительная сумма без {optionCountLabel(unpricedCount)} индивидуального расчёта.</p>}{selected.some(option => option.id === 'delivery' || option.id === 'crane-unload') && <p className={styles.note}>Стоимость доставки и разгрузки — ориентир от; окончательная сумма зависит от адреса и условий подъезда.</p>}</div>{selected.length > 0 && <ul className={styles.selectedList} aria-label="Выбранные опции">{selected.map(option => <li key={option.id}><span>{option.name}{optionQuantityLabel(option)}</span><strong>{option.salePrice === null ? 'Индивидуальный расчёт' : preliminaryOptionPriceText(option.id, option.salePrice * option.quantity).replace(/^\+/, '')}</strong></li>)}</ul>}<p className={styles.note}>Сумма только выбранных дополнительных опций. Основная цена модели не меняется.</p><p className={styles.note}>Финальная стоимость зависит от выбранной модели и совместимости опций.</p><button type="button" className={styles.calculate} onClick={calculate}>Получить расчёт с выбранными опциями</button><button className={styles.clear} type="button" onClick={resetSelection}>Сбросить выбор</button></aside></div>
+      <aside className={`${styles.summary} ym-hide-content`} aria-label="Выбранные дополнительные опции"><p className={styles.eyebrow}>Ваши пожелания</p><div key={selected.map(option => option.id).join("|") || "empty"} role="status" aria-live="polite" aria-atomic="true" translate="no" data-selected-count={selected.length} data-additional-total={knownTotal}><h3>{`Выбрано: ${optionCountLabel(selected.length)}`}</h3><p className={styles.sumLabel}>Оборудование: +{selection.equipmentSubtotal.toLocaleString('ru-RU')} ₽</p><p className={styles.sumLabel}>Логистика: +{selection.logisticsSubtotal.toLocaleString('ru-RU')}{selected.some(option => option.id === 'delivery' || option.id === 'crane-unload') && deliveryDistrict === 'ramenskoe' ? ' ₽ (ориентир от)' : ' ₽'}</p><p className={styles.sumLabel}>Итого дополнений по опубликованным тарифам:</p><p className={styles.sum}>{`+${knownTotal.toLocaleString('ru-RU')} ₽`}</p>{unpricedCount > 0 && <p className={styles.note}>Предварительная сумма без {optionCountLabel(unpricedCount)} индивидуального расчёта.</p>}{selected.some(option => option.id === 'delivery' || option.id === 'crane-unload') && <p className={styles.note}>Стоимость доставки и разгрузки — ориентир от; окончательная сумма зависит от адреса и условий подъезда.</p>}</div>{selected.length > 0 && <ul className={styles.selectedList} aria-label="Выбранные опции">{selected.map(option => <li key={option.id}><span>{option.name}{optionQuantityLabel(option)}</span><strong>{option.salePrice === null ? 'Индивидуальный расчёт' : preliminaryOptionPriceText(option.id, option.salePrice * option.quantity).replace(/^\+/, '')}</strong></li>)}</ul>}<p className={styles.note}>Сумма только выбранных дополнительных опций. Основная цена модели не меняется.</p><p className={styles.note}>Финальная стоимость зависит от выбранной модели и совместимости опций.</p><button type="button" className={styles.calculate} onClick={calculate}>Получить расчёт с выбранными опциями</button><button className={styles.clear} type="button" onClick={resetSelection}>Сбросить выбор</button></aside></div>
     </div></section>
     <section className={styles.popular} aria-labelledby="equipment-popular-title"><div className={styles.inner}><p className={styles.eyebrow}>03 / Можно добавить</p><h2 id="equipment-popular-title">Популярные дополнения</h2><p className={styles.lead}>Несколько возможностей для индивидуального исполнения.</p><div className={styles.popularGrid}>{popular.map(option => <article key={option.id}>{optionGuidance[option.id] && <figure className={styles.popularVisual}><Image src={withBasePath(optionGuidance[option.id].image)} alt={option.id === 'boiler' ? 'Бойлер 50 л — фото из каталога' : `Схема: ${option.name}`} width={450} height={option.id === 'boiler' ? 316 : 220} sizes="(max-width: 760px) 100vw, 220px" /><figcaption>{option.id === 'boiler' ? 'Фото из каталога' : 'Схема опции'}</figcaption></figure>}<p className={styles.eyebrow}>{option.category}</p><h3>{option.name}</h3><p className={styles.description}>{option.description}</p><span className={styles.price}>{price(option)}</span><button className={styles.add} type="button" aria-pressed={selectedOptionIds.has(option.id)} onClick={() => toggle(option.id)} aria-label={`${selectedOptionIds.has(option.id) ? 'Убрать' : 'Добавить'}: ${option.name}`}>{selectedOptionIds.has(option.id) ? 'Добавлено' : 'Добавить'} <span aria-hidden="true">{selectedOptionIds.has(option.id) ? '✓' : '+'}</span></button>{optionHelp(option)}</article>)}</div></div></section>
     <div className={styles.shell}><section className={styles.cta}><div><p className={styles.eyebrow}>Следующий шаг</p><h2>Нужна комплектация<br />под ваши задачи?</h2><p className={styles.note}>Поможем подобрать опции и рассчитать итоговую стоимость.</p></div><button type="button" className={styles.calculate} onClick={calculate}>Получить расчёт с выбранными опциями</button></section><div ref={formRef} id="equipment-request" className={styles.form}><CTAFormInline configurationNote={comment} equipmentSelection={{ selectedIds: selection.selected.map(option => option.id), quantities, deliveryDistrict, deliveryAddress }} /></div></div>

@@ -1,10 +1,11 @@
 'use client'
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import type { DeliveryDistrict } from '@/lib/logistics'
 import type { Home, Sauna } from '@/types'
 import { calculateModelConfiguration, type ModelConfigurationCalculation } from '@/lib/model-configuration-selection'
 import { modelOptionAvailability } from '@/lib/model-option-availability'
 import { enabledEquipmentOptions, normalizeOptionQuantity, optionQuantityLimit, toggleEquipmentOption } from '@/lib/equipment-selection'
+import { trackGoal } from '@/lib/analytics'
 
 type ConfigurationContext = {
   configuration: ModelConfigurationCalculation
@@ -29,6 +30,7 @@ export function ModelConfigurationProvider({ model, children, optionsEnabled = t
   const [delivery, setDelivery] = useState<{ modelId: string; district: DeliveryDistrict; address: string }>({ modelId: model.id, district: 'unknown', address: '' })
   const [promotionalDiscount, setPromotionalDiscount] = useState(false)
   const [restoredModelId, setRestoredModelId] = useState<string | null>(null)
+  const calculatorStartedFor = useRef<string | null>(null)
   const allowed = new Set(optionsEnabled ? modelOptionAvailability(model).filter(row => (row.status === 'available' || row.status === 'unknown')).map(row => row.option.id) : [])
   useEffect(() => { setPromotionalDiscount(promotionFromLocation()) }, [model.id])
   useEffect(() => {
@@ -45,6 +47,11 @@ export function ModelConfigurationProvider({ model, children, optionsEnabled = t
     setRestoredModelId(model.id)
   }, [model, optionsEnabled])
   const configuration = calculateModelConfiguration(model, optionsEnabled && selection.modelId === model.id ? selection.ids : [], { promotionalDiscount, deliveryDistrict: optionsEnabled && delivery.modelId === model.id ? delivery.district : 'unknown', deliveryAddress: optionsEnabled && delivery.modelId === model.id ? delivery.address : '', quantities: optionsEnabled && selection.modelId === model.id ? selection.quantities : {} })
+  function markCalculatorStarted() {
+    if (calculatorStartedFor.current === model.id) return
+    calculatorStartedFor.current = model.id
+    trackGoal('calculator_start')
+  }
   useEffect(() => {
     if (!optionsEnabled || restoredModelId !== model.id) return
     try {
@@ -53,6 +60,7 @@ export function ModelConfigurationProvider({ model, children, optionsEnabled = t
   }, [model.id, optionsEnabled, restoredModelId, selection, delivery])
   function toggleOption(id: string) {
     if (!allowed.has(id)) return
+    markCalculatorStarted()
     setSelection(current => {
       const ids = current.modelId === model.id ? current.ids : []
       const quantities = current.modelId === model.id ? current.quantities : {}
@@ -64,6 +72,7 @@ export function ModelConfigurationProvider({ model, children, optionsEnabled = t
   function setOptionQuantity(id: string, quantity: number) {
     const option = enabledEquipmentOptions.find(item => item.id === id)
     if (!allowed.has(id) || !option || optionQuantityLimit(option) === 1) return
+    markCalculatorStarted()
     const steps = normalizeOptionQuantity(option, quantity)
     setSelection(current => {
       const ids = current.modelId === model.id ? current.ids : []
@@ -71,8 +80,8 @@ export function ModelConfigurationProvider({ model, children, optionsEnabled = t
     })
   }
   return <Context.Provider value={{ configuration, selectedIds: configuration.selectedOptionIds, promotionalDiscount, toggleOption, setOptionQuantity,
-    setDeliveryDistrict: district => setDelivery(current => ({ modelId: model.id, address: current.modelId === model.id ? current.address : '', district })),
-    setDeliveryAddress: address => setDelivery(current => ({ modelId: model.id, district: current.modelId === model.id ? current.district : 'unknown', address })),
+    setDeliveryDistrict: district => { markCalculatorStarted(); setDelivery(current => ({ modelId: model.id, address: current.modelId === model.id ? current.address : '', district })) },
+    setDeliveryAddress: address => { markCalculatorStarted(); setDelivery(current => ({ modelId: model.id, district: current.modelId === model.id ? current.district : 'unknown', address })) },
     resetSelection: () => { setSelection({ modelId: model.id, ids: [], quantities: {} }); setDelivery({ modelId: model.id, district: 'unknown', address: '' }) } }}>{children}</Context.Provider>
 }
 

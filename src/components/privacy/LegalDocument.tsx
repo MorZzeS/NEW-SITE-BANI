@@ -17,9 +17,9 @@ function inline(text: string): ReactNode[] {
   })
 }
 
-export function LegalDocument({ kind }: { kind: keyof typeof documents }) {
+export function LegalDocument({ kind, useLeadSnapshot = kind === 'consent' }: { kind: keyof typeof documents; useLeadSnapshot?: boolean }) {
   const document = documents[kind]
-  if (releasePolicy.onlineLeads && leadDocumentBundle.documents && (kind === 'consent' || kind === 'policy')) {
+  if (releasePolicy.onlineLeads && leadDocumentBundle.documents && useLeadSnapshot && (kind === 'consent' || kind === 'policy')) {
     const snapshot = leadDocumentBundle.documents[kind]
     return <article className="pt-28 pb-20"><div className="prose-column">
       <h1 className="text-3xl sm:text-4xl font-bold text-cream mb-5">{document.title}</h1>

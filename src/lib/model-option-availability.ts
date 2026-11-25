@@ -9,21 +9,21 @@ type ConfirmedFeature = { pattern: RegExp; feature: string }
 
 /**
  * Confirmed catalogue features that already include a paid option in the model.
- * Only the published model feature list (extracted from the owner's catalogue slides into
- * `src/data/index.ts`) is used. A price is never treated as compatibility evidence.
+ * Published model features plus explicitly owner-confirmed execution features are used.
+ * A price is never treated as compatibility evidence.
  */
 export const includedOptionFeatures: Readonly<Record<string, ConfirmedFeature>> = {
   boiler: { pattern: /бойлер\s*50\s*л/i, feature: 'Бойлер 50 л' },
   shower: { pattern: /тропический душ/i, feature: 'Тропический душ' },
   bucket: { pattern: /обливное устройство/i, feature: 'Обливное устройство' },
-  floor: { pattern: /проливной пол/i, feature: 'Проливной пол' },
+  floor: { pattern: /проливн[а-яё]*\s+пол[а-яё]*/iu, feature: 'Проливной пол' },
   wc: { pattern: /санузел/i, feature: 'Санузел' },
   guard: { pattern: /ограждение печи/i, feature: 'Ограждение печи' },
   ermak: { pattern: /печь\s+ермак\s*12\s*пс(?![а-яёa-z0-9])/iu, feature: 'Печь Ермак 12 ПС' },
   'ermak-base': { pattern: /печь\s+ермак\s*12(?!\s*пс)/iu, feature: 'Печь Ермак 12' },
   shade: { pattern: /абажур/i, feature: 'Абажур в парную' },
   'window-grid': { pattern: /шпросы/i, feature: 'Шпросы' },
-  decor: { pattern: /декоративн[а-яё]*\s+ре[йш]/i, feature: 'Декоративные рейки' },
+  decor: { pattern: /декоративн[а-яё]*(?:\s+наружн[а-яё]*)?\s+ре[йш]/iu, feature: 'Декоративные рейки' },
   lamination: { pattern: /ламинация/i, feature: 'Ламинация окон и двери' },
   roof: { pattern: /профлист в цвете/i, feature: 'Профлист в цвете' },
   'external-light': { pattern: /скрытая электрика/i, feature: 'Скрытая электрика' },
@@ -31,6 +31,10 @@ export const includedOptionFeatures: Readonly<Record<string, ConfirmedFeature>> 
   'wash-tap': { pattern: /вывод крана в мойку/i, feature: 'Вывод крана в мойку' },
   'steam-bench-oil': { pattern: /масло на полках/i, feature: 'Масло на полках' },
   'steam-floor-oil': { pattern: /масло на полках и полах парной/i, feature: 'Масло на полу парной' },
+  'facade-ral': { pattern: /покраска по\s+ral/i, feature: 'Покраска по RAL' },
+  'ceiling-height': { pattern: /увеличение высоты на 20 см/i, feature: 'Высота увеличена на 20 см' },
+  'outdoor-lighting': { pattern: /дополнительные наружные светильники/i, feature: 'Дополнительные наружные светильники' },
+  'larch-wash': { pattern: /полы из лиственницы.*помывочной/i, feature: 'Пол из лиственницы в помывочной' },
 }
 
 type Zone = 'steam' | 'wash' | 'bathroom' | 'lounge' | 'stove' | 'windows' | 'electrics' | 'building'
@@ -119,7 +123,8 @@ function confirmedZones(model: Sauna | Home) {
 }
 
 function includedEvidence(model: Sauna | Home) {
-  const features = model.features.join(' | ')
+  const executionFeatures = 'executionFeatures' in model ? model.executionFeatures ?? [] : []
+  const features = [...model.features, ...executionFeatures].join(' | ')
   return (optionId: string) => {
     const confirmed = includedOptionFeatures[optionId]
     return confirmed && confirmed.pattern.test(features) ? confirmed : undefined

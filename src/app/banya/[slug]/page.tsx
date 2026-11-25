@@ -9,7 +9,7 @@ import { PresentedExecution } from '@/components/catalog/PresentedExecution'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Phone } from 'lucide-react'
-import { saunas, publishedSaunas, siteSettings } from '@/data'
+import { formatPrice, saunas, publishedSaunas, siteSettings } from '@/data'
 import { SaunaCard } from '@/components/catalog/SaunaCard'
 import { saunaInteriorExamples, barnInteriorExamples } from '@/data/interior-examples'
 import { ModelPrices } from '@/components/catalog/ModelPrices'
@@ -80,6 +80,13 @@ export default async function SaunaPage({ params }: Props) {
 
         <ModelOverview model={sauna} />
         <PresentedExecution model={sauna} />
+        {sauna.executionFeatures?.length ? <section className="mb-10 rounded-2xl border border-gold-400/30 bg-gold-400/5 p-5 sm:p-6" aria-labelledby="model-execution-features" data-included-execution-features>
+          <h2 id="model-execution-features" className="text-xl font-bold text-cream">Особенности исполнения уже учтены в цене</h2>
+          <p className="mt-2 text-sm text-cream/70">Цена модели «{sauna.name}» — {formatPrice(sauna.priceFrom)} ₽. Перечисленные позиции не прибавляются к ней повторно.</p>
+          <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-2 text-sm text-cream/85 sm:grid-cols-2">
+            {sauna.executionFeatures.map(feature => <li key={feature} className="flex items-start gap-2"><Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" /><span>{feature}</span></li>)}
+          </ul>
+        </section> : null}
         <ModelBaseSpecification model={sauna} />
         {!!interiorImages.length && <div className="mb-16">
           <p className="text-sm text-cream/60 mb-6">Пример внутреннего исполнения. Фактическое исполнение зависит от выбранной комплектации.</p>

@@ -19,7 +19,7 @@ export function DeliveryFields({ id, district, address, onDistrict, onAddress }:
     </div>
     <div className={styles.field}>
     <label className={styles.label} htmlFor={`${id}-address`}>Адрес доставки (необязательно)</label>
-    <input id={`${id}-address`} className="lead-input w-full min-w-0" autoComplete="street-address" maxLength={300} value={address} onChange={event => onAddress(event.target.value)} />
+    <input id={`${id}-address`} className="lead-input ym-disable-keys w-full min-w-0" autoComplete="street-address" maxLength={300} value={address} onChange={event => onAddress(event.target.value)} />
     </div>
     <p className={styles.note}>Доставка и разгрузка выбираются отдельно. {district === 'ramenskoe' ? 'Для выбранного района: доставка 20 000 ₽, разгрузка краном 25 000 ₽.' : 'Без указанного Раменского района — индивидуальный расчёт; стоимость услуг в сумму не включена.'} Адрес и условия работ подтвердит менеджер.</p>
     </div>

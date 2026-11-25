@@ -22,7 +22,7 @@ export function CTASection() {
           <div className="absolute inset-0 rounded-4xl border border-white/10" />
 
           <div className="relative z-10 p-5 sm:p-8 lg:p-10">
-            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] gap-7 lg:gap-10 lg:items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)] gap-7 lg:gap-8 lg:items-stretch">
               {/* Left */}
               <div>
                 <div className="section-tag mb-4">Получить консультацию</div>

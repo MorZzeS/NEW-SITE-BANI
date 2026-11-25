@@ -8,6 +8,7 @@ import { PageTransition } from '@/components/ui/PageTransition'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import CookieConsent from '@/components/privacy/CookieConsent'
+import AnalyticsGate from '@/components/privacy/AnalyticsGate'
 import { siteSettings } from '@/data'
 import { themeScript } from '@/lib/theme'
 import { basePath, withBasePath } from '@/lib/site-path'
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer settings={siteSettings} />
+          <AnalyticsGate />
           <CookieConsent />
         </ThemeProvider>
       </body>

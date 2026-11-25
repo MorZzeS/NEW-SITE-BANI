@@ -136,8 +136,8 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
   assert.equal(calculated.selectedOptionIds.length, new Set(calculated.selectedOptionIds).size)
   assert.equal(calculated.selectedOptionIds.includes('replanning'), replanningEligible, `${model.id}: standard plan change must be included exactly for eligible saunas`)
   assert.ok(calculated.selectedOptionIds.every(id => ['available', 'unknown'].includes(items.find(item => item.option.id === id)?.status)), `${model.id}: confirmed and estimate-only options can be selected`)
-  assert.equal(calculated.unpricedCount, 3, `${model.id}: all pending prices and unpriced district logistics must be disclosed, while assembly replaces crane unloading`)
-  assert.deepEqual(JSON.parse(JSON.stringify(calculated.individualItems)), ['larch-wash', 'delivery', 'ermak-16-premium-cast-iron'])
+  assert.equal(calculated.unpricedCount, model.id === 'bg-20' ? 2 : 3, `${model.id}: all pending prices and unpriced district logistics must be disclosed, while assembly replaces crane unloading and confirmed included execution is not selected twice`)
+  assert.deepEqual(JSON.parse(JSON.stringify(calculated.individualItems)), model.id === 'bg-20' ? ['delivery', 'ermak-16-premium-cast-iron'] : ['larch-wash', 'delivery', 'ermak-16-premium-cast-iron'])
   assert.ok(calculated.selectedOptionIds.includes('onsite-assembly') && !calculated.selectedOptionIds.includes('crane-unload'), `${model.id}: assembly selection must not charge separate crane unloading`)
   assert.ok(calculation.configurationManagerText(calculated).includes('Предварительная сумма без позиций индивидуального расчёта, включая неподтверждённую логистику.'), `${model.id}: manager summary must carry the preliminary-total caveat`)
   assert.equal(calculation.calculateModelConfiguration(model, []).total, model.priceFrom)
@@ -165,10 +165,17 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
   const heightZero = calculation.calculateModelConfiguration(model, ['ceiling-height'], { quantities: { 'ceiling-height': 0 } })
   assert.equal(heightZero.selectedOptionIds.length, 0, '0 cm means no ceiling-height option')
   assert.equal(heightZero.optionsSubtotal, 0)
-  assert.equal(heightTwo.options[0].quantity, 2)
-  assert.equal(heightTwo.optionsSubtotal, 44_000, 'the maximum +20 cm option is two 22 000 RUB steps')
-  assert.equal(heightOutOfRange.options[0].quantity, 2, 'quantity above +20 cm must be clamped')
-  assert.equal(heightOutOfRange.optionsSubtotal, 44_000)
+  if (model.id === 'bg-20') {
+    assert.deepEqual(JSON.parse(JSON.stringify(heightTwo.selectedOptionIds)), [], 'BG20 already includes +20 cm and cannot add it again')
+    assert.equal(heightTwo.optionsSubtotal, 0)
+    assert.deepEqual(JSON.parse(JSON.stringify(heightOutOfRange.selectedOptionIds)), [])
+    assert.equal(heightOutOfRange.optionsSubtotal, 0)
+  } else {
+    assert.equal(heightTwo.options[0].quantity, 2)
+    assert.equal(heightTwo.optionsSubtotal, 44_000, 'the maximum +20 cm option is two 22 000 RUB steps')
+    assert.equal(heightOutOfRange.options[0].quantity, 2, 'quantity above +20 cm must be clamped')
+    assert.equal(heightOutOfRange.optionsSubtotal, 44_000)
+  }
   const windowEstimate = calculation.calculateModelConfiguration(model, ['wooden-window-600'])
   assert.deepEqual(JSON.parse(JSON.stringify(windowEstimate.selectedOptionIds)), ['wooden-window-600'], `${model.id}: unknown wooden-window compatibility is selectable as an estimate`)
   assert.equal(windowEstimate.total, model.priceFrom + 7_000)
@@ -201,7 +208,7 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
 const totals = { available: 0, included: 0, unavailable: 0, unknown: 0 }
 for (const model of matrix) for (const key of Object.keys(totals)) totals[key] += model.counts[key]
 assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 24 * 45 + 7 * 44, 'matrix must cover 45 options for eligible saunas and 44 for Barn Premium plus six homes')
-assert.equal(totals.included, 46, 'only catalogue-confirmed options already in the model are classified as included; the free gift furniture is not the paid furniture option')
+assert.equal(totals.included, 51, 'catalogue and explicitly confirmed BG20 execution options are classified as included; the free gift furniture is not the paid furniture option')
 assert.equal(totals.unavailable, 0, 'current sources confirm no incompatible option; do not invent unavailable rows')
 assert.ok(totals.available > 0 && totals.unknown > 0, 'matrix must distinguish confirmed availability from confirmation-needed positions')
 
@@ -225,6 +232,15 @@ assert.equal(models.find(model => model.id === 'bg-18').priceFrom, 619200, 'base
 assert.equal(evidence('bg-19').find(row => row.option === 'boiler').status, 'included')
 assert.equal(evidence('bg-19').find(row => row.option === 'shower').status, 'included')
 assert.equal(evidence('bg-20').find(row => row.option === 'wc').status, 'included')
+for (const id of ['boiler', 'shower', 'lamination', 'hidden-wiring', 'external-light', 'decor', 'floor', 'facade-ral', 'ceiling-height', 'outdoor-lighting', 'larch-wash']) {
+  assert.equal(evidence('bg-20').find(row => row.option === id).status, 'included', `bg-20/${id}: owner-confirmed execution is already in the displayed price`)
+}
+assert.equal(evidence('bg-20').find(row => row.option === 'panoramic-window-600-1800').status, 'unknown', 'BG20 panoramic-window dimensions are not inferred from a generic panoramic-window note')
+const bg20 = models.find(model => model.id === 'bg-20')
+const bg20Included = ['boiler', 'shower', 'wc', 'lamination', 'hidden-wiring', 'external-light', 'decor', 'floor', 'facade-ral', 'ceiling-height', 'outdoor-lighting', 'larch-wash']
+const bg20IncludedSelection = calculation.calculateModelConfiguration(bg20, bg20Included)
+assert.equal(JSON.stringify(bg20IncludedSelection.selectedOptionIds), JSON.stringify([]), 'included BG20 options cannot be added to the paid calculator total')
+assert.equal(bg20IncludedSelection.total, 1_039_100, 'BG20 included features do not increase its price')
 assert.equal(evidence('bg-21').find(row => row.option === 'floor').status, 'included')
 assert.equal(evidence('bg-23').find(row => row.option === 'floor').status, 'included')
 assert.equal(evidence('bg-24').find(row => row.option === 'ermak-base').status, 'included')

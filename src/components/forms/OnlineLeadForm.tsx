@@ -10,6 +10,7 @@ import type { DeliveryDistrict } from '@/lib/logistics'
 import { resolveLeadContext } from '@/lib/lead-context'
 import { LEAD_TOPIC_EVENT } from '@/lib/lead-topics'
 import { withBasePath } from '@/lib/site-path'
+import { trackGoal } from '@/lib/analytics'
 import { ApprovedLeadText } from './ApprovedLeadText'
 
 const LEGAL_CONSENT_TEXT = 'Я согласен на обработку персональных данных в соответствии с Согласием на обработку персональных данных и Политикой обработки персональных данных.'
@@ -96,6 +97,7 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
       const response = await sendLead(attempt.current)
       if (!response) throw new Error('Сервер не подтвердил сохранение заявки.')
       setResult(response)
+      trackGoal('lead_success')
       setLocked(true)
     } catch (cause) {
       setRejected(cause instanceof LeadSubmissionError && cause.state === 'rejected')
@@ -111,28 +113,34 @@ export function OnlineLeadForm({ modelName, configurationNote, configurationDeta
     displayed.promotion,
   ].filter(Boolean).join('\n')
   return <section className="glass rounded-2xl p-5 sm:p-8" tabIndex={-1} aria-label="Заявка на консультацию" data-release-profile="online-leads">
-    <h2 className="text-2xl font-bold text-cream mb-3">Свяжитесь с нами</h2>
-    <p className="text-sm text-cream/70 mb-4">Оставьте заявку — менеджер подтвердит комплектацию, совместимость опций и итоговую стоимость.</p>
-    {selection && <div className="mb-5 text-sm text-cream/80" data-configuration-summary><p className="whitespace-pre-wrap break-words">{selection}</p><button type="button" className="btn-secondary mt-3" onClick={() => { void navigator.clipboard.writeText(selection).catch(() => setError('Выделите и скопируйте текст выбора вручную.')) }}>Скопировать комплектацию</button></div>}
-    {!ready && <p className="text-sm text-cream/70 mb-4">Онлайн-отправка пока недоступна на этом адресе. Свяжитесь с нами напрямую.</p>}
-    {result ? <p role="status" className="text-cream">{result.status === 'sent' ? 'Заявка отправлена и доставлена менеджеру в MAX.' : 'Заявка сохранена сервером. Уведомление менеджеру ожидает доставки.'} Номер: {result.requestId}</p> : <form onSubmit={submit} className="space-y-3" noValidate>
+    {result ? <div role="status" className="space-y-2 text-cream ym-hide-content" data-lead-success>
+      <h3 className="text-xl font-bold text-gold-300">Спасибо за вашу заявку!</h3>
+      <p>Наш менеджер свяжется с вами в ближайшее время, чтобы обсудить детали, ответить на ваши вопросы и помочь с выбором комплектации.</p>
+      <p className="text-sm text-cream/70">{result.status === 'sent' ? 'Уведомление менеджеру доставлено в MAX.' : 'Заявка принята и сохранена сервером. Уведомление менеджеру ожидает доставки.'} Номер заявки: {result.requestId}</p>
+    </div> : <>
+      <h2 className="text-2xl font-bold text-cream mb-3">Свяжитесь с нами</h2>
+      <p className="text-sm text-cream/70 mb-4">Оставьте заявку — менеджер подтвердит комплектацию, совместимость опций и итоговую стоимость.</p>
+      {selection && <div className="mb-5 text-sm text-cream/80 ym-hide-content" data-configuration-summary><p className="whitespace-pre-wrap break-words">{selection}</p><button type="button" className="btn-secondary mt-3" onClick={() => { void navigator.clipboard.writeText(selection).catch(() => setError('Выделите и скопируйте текст выбора вручную.')) }}>Скопировать комплектацию</button></div>}
+      {!ready && <p className="text-sm text-cream/70 mb-4">Онлайн-отправка пока недоступна на этом адресе. Свяжитесь с нами напрямую.</p>}
+      <form onSubmit={submit} className="space-y-3" noValidate>
       <fieldset disabled={!ready || busy || locked || Boolean(attempt.current)} className="lead-fields space-y-3">
-        <label className="lead-name block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input" value={name} onChange={e => setName(e.target.value)} /></label>
-        <label className="lead-phone block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
-        <label className="block text-sm text-cream">Модель<input className="lead-input" list={modelListId} maxLength={160} value={context.model} readOnly={Boolean(configurationDetails)} onChange={e => setContext(resolveLeadContext(location.href, e.target.value, saunas, homes))} /></label>
+        <label className="lead-name block text-sm text-cream">Имя<input autoComplete="name" required minLength={2} maxLength={80} className="lead-input ym-disable-keys" value={name} onChange={e => setName(e.target.value)} /></label>
+        <label className="lead-phone block text-sm text-cream">Телефон<input type="tel" autoComplete="tel" required maxLength={30} className="lead-input ym-disable-keys" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+7 900 000-00-00" /></label>
+        <label className="block text-sm text-cream">Модель<input className="lead-input ym-disable-keys" list={modelListId} maxLength={160} value={context.model} readOnly={Boolean(configurationDetails)} onChange={e => setContext(resolveLeadContext(location.href, e.target.value, saunas, homes))} /></label>
         {!configurationDetails && <datalist id={modelListId}>{[...saunas, ...homes].map(model => <option key={model.id} value={`${model.name} · ${model.article}`} />)}</datalist>}
-        <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input" value={comment} onChange={e => setComment(e.target.value)} placeholder="Пожелания, сроки, вопросы" /></label>
-        <div className="lead-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
+        <label className="block text-sm text-cream">Комментарий<textarea rows={3} maxLength={1500} className="lead-input ym-disable-keys" value={comment} onChange={e => setComment(e.target.value)} placeholder="Пожелания, сроки, вопросы" /></label>
+        <div className="lead-honeypot" aria-hidden="true"><label>Website<input className="ym-disable-keys" name="website" tabIndex={-1} autoComplete="off" /></label></div>
         {documents ? <>
           <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><ApprovedLeadText kind="checkbox" document={documents.checkbox} /></label>
           <details><summary>Согласие на обработку данных</summary><p className="text-sm"><ApprovedLeadText kind="consent" document={documents.consent} /></p></details>
-          <details><summary>Политика обработки данных</summary><p className="text-sm"><ApprovedLeadText kind="policy" document={documents.policy} /></p></details>
+          <details><summary>Политика по заявке (редакция 11.11.2026)</summary><p className="text-sm"><ApprovedLeadText kind="policy" document={documents.policy} /></p></details>
         </> : <label className="flex gap-3 text-xs text-cream/70 items-start"><input type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} /><span>{LEGAL_CONSENT_TEXT} <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/soglasie-pd')} target="_blank" rel="noopener noreferrer">Согласие</a> · <a className="text-gold-400 underline underline-offset-2" href={withBasePath('/politika')} target="_blank" rel="noopener noreferrer">Политика</a></span></label>}
       </fieldset>
       <button type="submit" disabled={!ready || !consent || busy || locked} className="btn-primary w-full justify-center disabled:opacity-60">{busy ? 'Отправляем заявку…' : attempt.current ? 'Повторить исходную заявку' : 'Отправить заявку'}</button>
-    </form>}
-    {error && <p role="alert" className="mt-3 text-sm text-cream">{error}{attempt.current && ` Номер: ${attempt.current.requestId}`}</p>}
-    {rejected && <button type="button" className="btn-secondary mt-3" onClick={() => { if (discardRejectedLeadAttempt()) { attempt.current = null; started.current = Date.now(); setRejected(false); setError('') } }}>Изменить данные непринятой заявки</button>}
+      </form>
+      {error && <p role="alert" className="mt-3 text-sm text-cream ym-hide-content">{error}{attempt.current && ` Номер: ${attempt.current.requestId}`}</p>}
+      {rejected && <button type="button" className="btn-secondary mt-3" onClick={() => { if (discardRejectedLeadAttempt()) { attempt.current = null; started.current = Date.now(); setRejected(false); setError('') } }}>Изменить данные непринятой заявки</button>}
+    </>}
     <div className="flex flex-wrap gap-4 mt-5 text-sm text-gold-400"><a href={`tel:${siteSettings.phone}`}>{siteSettings.phoneDisplay}</a><a href={`tel:${siteSettings.phone2}`}>{siteSettings.phoneDisplay2}</a><a href={siteSettings.max} target="_blank" rel="noopener noreferrer">MAX</a><a href={siteSettings.telegram} target="_blank" rel="noopener noreferrer">Telegram</a></div>
   </section>
 }

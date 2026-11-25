@@ -18,6 +18,11 @@ function loadTypeScriptModule(file) {
 
 const isGitHubPagesProject = process.env.BANGER_GITHUB_PAGES === 'true'
 const basePath = isGitHubPagesProject ? '/NEW-SITE-BANI' : ''
+const analyticsRequested = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === 'true'
+const metrikaId = (process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID || '').trim()
+if (analyticsRequested && metrikaId !== '111684946') throw new Error('Analytics may only use the owner-approved Yandex Metrika counter 111684946')
+if (isGitHubPagesProject && analyticsRequested) throw new Error('Analytics must remain disabled on GitHub Pages')
+const analyticsEnabled = !isGitHubPagesProject && analyticsRequested && metrikaId === '111684946'
 const root = path.resolve(isGitHubPagesProject ? 'dist-pages' : 'dist')
 const files = fs.readdirSync(root, { recursive: true }).filter(name => fs.statSync(path.join(root, name)).isFile())
 const htmlFiles = files.filter(name => name.endsWith('.html'))
@@ -40,8 +45,23 @@ const leadClientSource = fs.readFileSync('src/lib/leads.ts', 'utf8')
 if (!/export const leadEndpoint = process\.env\.NEXT_PUBLIC_LEADS_ENDPOINT \|\| ''/.test(leadClientSource)) throw new Error('Lead client must use the gated lead endpoint')
 const policy = fs.readFileSync('src/lib/release-policy.ts', 'utf8')
 if (!/isOnlineLeadReleaseReady\(/.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy)) throw new Error('Unsafe release policy: onlineLeads must require the shared readiness gate')
-for (const flag of ['analytics']) {
-  if (!new RegExp(`\\b${flag}:\\s*false\\b`).test(policy)) throw new Error(`Unsafe release policy: ${flag}`)
+if (!/analytics:\s*analyticsConfigured\b/.test(policy) || !/NEXT_PUBLIC_ANALYTICS_ENABLED/.test(policy) || !/NEXT_PUBLIC_YANDEX_METRIKA_ID/.test(policy) || !/BANGER_GITHUB_PAGES/.test(policy)) throw new Error('Unsafe release policy: analytics must require the approved production build flags and exclude GitHub Pages')
+const analyticsSource = fs.readFileSync('src/lib/analytics.ts', 'utf8')
+const analyticsGateSource = fs.readFileSync('src/components/privacy/AnalyticsGate.tsx', 'utf8')
+const layoutSource = fs.readFileSync('src/app/layout.tsx', 'utf8')
+if (!analyticsSource.includes("'111684946'") || !analyticsGateSource.includes('isProductionAnalyticsHost') || !analyticsGateSource.includes('webvisor: behaviorReplay') || !analyticsGateSource.includes('clickmap: behaviorReplay') || !analyticsGateSource.includes('trackLinks: false') || !analyticsGateSource.includes('accurateTrackBounce: false') || !analyticsGateSource.includes('trackHash: false') || !analyticsGateSource.includes('safeAnalyticsPath') || !analyticsGateSource.includes('analyticsConsentEventAllowsLoading') || !layoutSource.includes('<AnalyticsGate />')) throw new Error('Metrika source gate, consent/path safety, conditional Webvisor, disabled automatic tracking, or root integration missing')
+const consentSource = fs.readFileSync('src/lib/analytics-consent.ts', 'utf8')
+const leadFormSource = fs.readFileSync('src/components/forms/OnlineLeadForm.tsx', 'utf8')
+const deliveryFieldsSource = fs.readFileSync('src/components/catalog/DeliveryFields.tsx', 'utf8')
+const equipmentConfiguratorSource = fs.readFileSync('src/components/catalog/EquipmentConfigurator.tsx', 'utf8')
+const modelConfigurationSource = fs.readFileSync('src/components/catalog/ModelBaseConfiguration.tsx', 'utf8')
+const consentUiSource = fs.readFileSync('src/components/privacy/CookieConsent.tsx', 'utf8')
+const legalSource = fs.readFileSync('src/data/site-legal.json', 'utf8')
+if (!consentSource.includes("'banger-consent-v3'") || !consentSource.includes("'banger-analytics-denied'") || !consentSource.includes('isConsentStorageWritable') || !consentSource.includes('ANALYTICS_CONSENT_MAX_AGE_MS') || !consentSource.includes('ANALYTICS_CONSENT_CHANNEL') || !consentSource.includes('canResumeAnalyticsForTab') || !analyticsGateSource.includes('canResumeAnalyticsForTab') || !analyticsGateSource.includes('BroadcastChannel') || !analyticsGateSource.includes('window.setInterval(sync, 1000)') || !consentUiSource.includes('BroadcastChannel') || !consentUiSource.includes('Разрешить Вебвизор и карты кликов/ссылок') || !consentUiSource.includes('Только статистика') || consentUiSource.includes('Продолжить без сохранения') || !legalSource.includes('banger-analytics-denied') || !legalSource.includes('sessionStorage') || !/истечени[ея] одного года/.test(legalSource)) throw new Error('Analytics and Webvisor require separate saved choices, expiry, cross-tab refusal, and a fail-closed refusal fallback')
+if (!leadFormSource.includes('ym-disable-keys') || !deliveryFieldsSource.includes('ym-disable-keys') || !leadFormSource.includes('ym-hide-content') || !legalSource.includes('Вебвизор и карты кликов/ссылок') || !/карта скроллинга и отч[её]ты аналитики форм/i.test(legalSource) || !legalSource.includes('не поддерживаются') || !/пункту? 1 части 1 статьи 6 Федерального закона №152-ФЗ/.test(legalSource) || !legalSource.includes('средствами Яндекс Метрики') || /Вебвизор (?:выключен|отключён|отключен)|Вебвизор и карта кликов отключены/i.test(legalSource)) throw new Error('Webvisor privacy disclosure, legal basis, SPA limitations, and form masking must match runtime behavior')
+if (!equipmentConfiguratorSource.includes('ym-hide-content') || !modelConfigurationSource.includes('ym-hide-content') || !/className="ym-hide-content">\{totalText\}/.test(modelConfigurationSource)) throw new Error('Dynamic calculator summaries, selected options, and totals must be masked in Webvisor')
+for (const goal of ['lead_success', 'phone_click', 'max_click', 'telegram_click', 'calculator_start', 'pdf_download', 'model_view', 'project_view']) {
+  if (!analyticsSource.includes(`'${goal}'`) && !analyticsGateSource.includes(`'${goal}'`) && !sourceFiles.some(file => file.content.includes(`'${goal}'`))) throw new Error(`Required analytics goal is missing: ${goal}`)
 }
 const automaticYandexEmbeds = /\bembeddedYandex:\s*'automatic'/.test(policy)
 if (!automaticYandexEmbeds && !/\bembeddedYandex:\s*false\b/.test(policy)) throw new Error('Missing explicit Yandex embed policy')
@@ -69,7 +89,10 @@ for (const name of files) {
   if (!leadArtifactFileAllowed(name.replaceAll('\\', '/'), content, leadsEnabled)) throw new Error('Lead artifact/profile mismatch: ' + name)
   if (name.endsWith('.html') && leadsEnabled && /<form\b/i.test(content)) onlineFormCount++
   if (/(?:MAX_BOT_TOKEN|MAX_USER_ID|-----BEGIN (?:RSA |EC )?PRIVATE KEY-----)/.test(content)) throw new Error(`Unexpected server-only material: ${name}`)
-  if (/mc\.yandex\.(?:ru|com)\/|api\.met\.no\/weatherapi|api\.open-meteo\.com\/|platform-api2\.max\.ru/.test(content)) throw new Error(`Disabled service shipped: ${name}`)
+  const metrikaReferences = [...content.matchAll(/https?:\/\/mc\.yandex\.(?:ru|com)\/[^\s"'`\\)]+/g)].map(match => match[0])
+  if (metrikaReferences.some(url => url !== 'https://mc.yandex.ru/metrika/tag.js')) throw new Error(`Unapproved Yandex Metrika endpoint: ${name}`)
+  if (metrikaReferences.length && !name.endsWith('.js')) throw new Error(`Metrika script URL must not be in a static artifact: ${name}`)
+  if (/api\.met\.no\/weatherapi|api\.open-meteo\.com\/|platform-api2\.max\.ru/.test(content)) throw new Error(`Disabled service shipped: ${name}`)
   if (forbiddenCopy.test(content) || /bestseller-bow-a\.svg/.test(content)) throw new Error(`Superseded owner copy or bow reference: ${name}`)
 }
 if (leadsEnabled && (!compiledLeadEndpointPresent(artifactTextFiles, leadsEndpoint) || onlineFormCount === 0)) throw new Error('Approved lead build is missing its exact compiled endpoint or active form')
@@ -114,13 +137,17 @@ for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-r
   const name = htmlFiles.find(name => name === `${route}.html` || name === `${route}/index.html`)
   if (!name) throw new Error(`Missing information route: ${route}`)
   const html = fs.readFileSync(path.join(root, name), 'utf8')
-  if (leadsEnabled && ['privacy', 'politika', 'soglasie-pd'].includes(route)) {
-    verifyRenderedDocument(htmlParser.parse(html), route === 'soglasie-pd' ? 'consent' : 'policy', name)
+  if (leadsEnabled && route === 'soglasie-pd') {
+    verifyRenderedDocument(htmlParser.parse(html), 'consent', name)
+  } else if (['privacy', 'politika'].includes(route) && (!html.includes('111684946') || !html.includes('отдельного сохранённого выбора посетителя') || !html.includes('подготовка и запуск скачивания PDF'))) {
+    throw new Error('Current privacy page must explain the optional Metrika consent separately from the pinned lead form snapshot')
+  } else if (route === 'cookie' && (!html.includes('111684946') || !html.includes('подготовка и запуск скачивания PDF'))) {
+    throw new Error('Cookie page must describe the current analytics choice and tracked event categories')
   } else if (/не передаются третьим|база.*на территории РФ|требует проверки владельцем|черновик/iu.test(html)) {
     throw new Error(`Unapproved legal assertion: ${route}`)
   }
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')
-fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: automaticYandexEmbeds ? 'automatic' : false, promotionalOffer: true }) + '\n')
-console.log(`Release export PASS: ${htmlFiles.length} HTML, ${leadsEnabled ? `online lead form enabled through ${leadsEndpoint}` : 'contacts only'}, weather UI and snapshots disabled, city component/source data retained in the repository for redesign, desktop offer retained; browser and legal acceptance required separately`)
+fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: analyticsEnabled, webvisor: analyticsEnabled, behaviorReplayRequiresConsent: analyticsEnabled, clickmap: analyticsEnabled, linkmap: analyticsEnabled, scrollmap: false, formAnalytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: automaticYandexEmbeds ? 'automatic' : false, promotionalOffer: true }) + '\n')
+console.log(`Release export PASS: ${htmlFiles.length} HTML, ${leadsEnabled ? `online lead form enabled through ${leadsEndpoint}` : 'contacts only'}, analytics ${analyticsEnabled ? `enabled after consent with counter ${metrikaId}; Webvisor and click/link maps require separate opt-in; scrollmap and form reports are unsupported on this SPA` : 'disabled'}, weather UI and snapshots disabled; legal acceptance required separately`)

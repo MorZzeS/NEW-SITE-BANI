@@ -34,9 +34,9 @@ export default function VystavkaPage() {
             <h2 className="text-2xl font-bold text-cream mb-4">Что можно посмотреть вживую</h2>
             <ul className="space-y-3 text-sm text-cream/70">
               <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Полностью собранная мобильная баня с комплектацией (печь, душ, отделка)</span></li>
-              <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Интерьер парной — липа, осина, базальтовое утепление, вентиляция</span></li>
-              <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Печь Каменка-2 и ЭТНА 18 — демонстрация работы и нагрева</span></li>
-              <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Душевая кабина + бойлер 50 л — пример установки в реальном модуле</span></li>
+              <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Варианты отделки парной и полков — в соответствии с комплектацией конкретного образца</span></li>
+              <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Печь и дымоход, установленные на выставочном образце</span></li>
+              <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Водоснабжение, душевая и бойлер — если они предусмотрены комплектацией образца</span></li>
               <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" /><span>Отделка: варианты цветов фасада и внутренних поверхностей</span></li>
             </ul>
           </div>

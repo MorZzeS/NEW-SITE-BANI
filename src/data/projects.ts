@@ -35,6 +35,8 @@ export type ProjectSpecificationGroup = {
 export type PortfolioRecord = {
   id: string
   slug: string
+  /** Legacy static URL that should resolve to the canonical project page. */
+  redirectTo?: string
   title: string
   model?: string
   description: string

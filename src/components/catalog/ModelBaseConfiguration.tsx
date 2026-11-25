@@ -107,14 +107,14 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
           </div>
           <div className={styles.priceBreakdown}>
             <p className={styles.eyebrow}>Предварительный расчёт</p>
-            <dl className={styles.summaryRows}>
+            <dl className={`${styles.summaryRows} ym-hide-content`}>
               <div><dt>Базовая комплектация</dt><dd>{basePriceText}</dd></div>
               <div><dt>Дополнительное оборудование</dt><dd>+{formatPrice(configuration.equipmentSubtotal)}</dd></div>
               {transportOptions.length > 0 && <div><dt>Доставка и разгрузка</dt><dd>{unpricedTransport ? 'Индивидуальный расчёт' : `от ${formatPrice(transportSubtotal)}`}</dd></div>}
               {assemblyOption && <div><dt>Сборка и установка</dt><dd>+{formatPrice(assemblyOption.price! * assemblyOption.quantity)}</dd></div>}
               <div data-discount-row={discount ? 'applied' : 'none'}><dt>{discount ? discountLabel : 'Скидка'}</dt><dd>{discount ? `−${formatPrice(discount)}` : 'не применена'}</dd></div>
             </dl>
-            <details className={styles.selectedDetails} open>
+            <details className={`${styles.selectedDetails} ym-hide-content`} open>
               <summary>Выбранные дополнения <span>{optionCountLabel(selected.length)}</span></summary>
               {selected.length > 0 ? <ul className={styles.selectedList} aria-label="Выбранные опции">
                 {selected.map(option => {
@@ -126,7 +126,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
                 })}
               </ul> : <p className={styles.emptySelection}>Пока без дополнений. Выберите подходящие опции справа — они появятся здесь.</p>}
             </details>
-            <div className={styles.total} role="status" aria-live="polite" aria-atomic="true" data-selected-count={selected.length} data-known-options-total={knownTotal} data-estimated-total={total} data-discount={discount} data-selected-option-ids={selected.map(option => option.id).join(',')}>
+            <div className={`${styles.total} ym-hide-content`} role="status" aria-live="polite" aria-atomic="true" data-selected-count={selected.length} data-known-options-total={knownTotal} data-estimated-total={total} data-discount={discount} data-selected-option-ids={selected.map(option => option.id).join(',')}>
               <span>{hasLogisticsEstimate || hasUnpriced ? 'Предварительный итог от' : 'Предварительный итог'}{unpricedCount ? ' (без опций по согласованию)' : ''}</span>
               <strong key={total}>{totalText}</strong>
             </div>
@@ -166,7 +166,7 @@ export function ModelBaseConfiguration({ model }: { model: Sauna | Home }) {
 
       </div>
       <div className={styles.mobileAction}>
-        <span><small>Итого</small><strong>{totalText}</strong></span>
+        <span><small>Итого</small><strong className="ym-hide-content">{totalText}</strong></span>
         <button type="button" onClick={goToContacts}>Оставить заявку</button>
       </div>
     </section>

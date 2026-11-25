@@ -130,7 +130,13 @@ for (const record of records) {
     if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
   }
   for (const field of ['name', 'article', 'size', 'description', 'area']) {
-    if (model?.[field] !== (field === 'name' ? (APPROVED_MODEL_OVERRIDES[record.id]?.name ?? record[field]) : record[field])) errors.push(`${record.id}: data differs from catalog: ${field}`)
+    const approvedDescription = record.id === 'bg-20'
+      ? 'Мобильная баня с санузлом и отдельной душевой. Особенности этого исполнения перечислены отдельно и уже учтены в указанной цене.'
+      : record[field]
+    const expectedValue = field === 'name'
+      ? (APPROVED_MODEL_OVERRIDES[record.id]?.name ?? record[field])
+      : field === 'description' ? approvedDescription : record[field]
+    if (model?.[field] !== expectedValue) errors.push(`${record.id}: data differs from catalog: ${field}`)
   }
   const expectedFeatures = APPROVED_FRAME_ONLY_FEATURE_IDS.includes(record.id)
     ? record.features.map(feature => feature === 'Каркас 100 мм или брус 90 × 140 мм' ? 'Каркас 100 мм' : feature)

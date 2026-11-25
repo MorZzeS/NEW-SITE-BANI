@@ -359,8 +359,8 @@
       "pageHeading": "Фото бани одного из наших клиентов",
       "model": "Баня 6 × 2,6 м",
       "description": "Реализованный проект по индивидуальному заказу: баня 6 × 2,6 м с отделкой парной липовой вагонкой, липовыми полками и проливными полами с сухим затвором.",
-      "order": 2,
-      "visible": true,
+      "order": 999,
+      "visible": false,
       "evidence": "owner-confirmed",
       "caseType": "client-case",
       "projectCategory": "bathhouse",
@@ -666,7 +666,8 @@
         "selectedExtras": [],
         "ownerFeedback": ""
       },
-      "cardDescription": "Реализованный проект по индивидуальному заказу. Фото бани одного из наших клиентов, 6 × 2,6 м."
+      "cardDescription": "Реализованный проект по индивидуальному заказу. Фото бани одного из наших клиентов, 6 × 2,6 м.",
+      "redirectTo": "skandinaviya-premium-individualnyy-proekt-6x26"
     },
     {
       "id": "terrace-evening-temp",
@@ -835,26 +836,126 @@
       "id": "project-premium-6x26",
       "slug": "skandinaviya-premium-individualnyy-proekt-6x26",
       "title": "Скандинавия Премиум 6 × 2,6 м",
-      "pageHeading": "Скандинавия Премиум — проект 6 × 2,6 м",
-      "model": "Скандинавия Премиум",
-      "description": "Индивидуальная мобильная баня «Скандинавия Премиум» 6 × 2,6 м с отдельной парной и просторной гостевой. Фотографии показывают наружное исполнение, доставку и установку; первоначальные визуализация и планировка сохранены отдельно.",
+      "pageHeading": "Скандинавия 6 × 2,6 м — индивидуальный проект",
+      "model": "Скандинавия 6 × 2,6 м",
+      "description": "Реализованный проект по индивидуальному заказу: каркасная баня «Скандинавия» размером 6 × 2,6 м. Парная отделана липовой вагонкой с естественным рисунком; полки и лавочка также сделаны из липы и обработаны подходящими маслами. Проливной пол выполнен с гидроизоляцией и сухим затвором от запахов из канализации, в парной установлены три подъёмных щита из лиственницы. Фотографии показывают фасад, интерьер, печь, доставку и установку объекта.",
       "order": 0,
       "visible": true,
       "evidence": "owner-confirmed",
       "caseType": "client-case",
       "projectCategory": "bathhouse",
       "executionConfirmed": true,
-      "coverMediaId": "premium-owner-front",
-      "characteristics": [],
+      "coverMediaId": "client-6x26-09",
+      "characteristics": [
+        {
+          "label": "Планировка",
+          "value": "Парная слева — 5,19 м²; помещение справа — 7,23 м²"
+        },
+        {
+          "label": "Наружная отделка",
+          "value": "Имитация бруса, краска Belinka № 14, наличники цвета графит"
+        },
+        {
+          "label": "Кровля",
+          "value": "Матовый профнастил цвета графит"
+        },
+        {
+          "label": "Печь",
+          "value": "ЭТНА Стандарт 18 (Панорама) М"
+        },
+        {
+          "label": "Полы и слив",
+          "value": "Проливной пол с гидроизоляцией, сухим затвором и тремя подъёмными щитами из лиственницы в парной"
+        },
+        {
+          "label": "Освещение и вентиляция",
+          "value": "Крупные соляные абажуры по углам; вентиляция по схеме Басту"
+        }
+      ],
       "media": [
+        {
+          "id": "client-6x26-09",
+          "src": "/images/works/client-6x26/client-6x26-09.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-09-thumb.webp",
+          "alt": "Фасад бани «Скандинавия» 6 × 2,6 м, прямой ракурс",
+          "caption": "Фасад прямо",
+          "kind": "photo",
+          "order": 1,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-11",
+          "src": "/images/works/client-6x26/client-6x26-11.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-11-thumb.webp",
+          "alt": "Баня «Скандинавия» 6 × 2,6 м на участке, входная зона",
+          "caption": "Общий вид и входная зона",
+          "kind": "photo",
+          "order": 2,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-10",
+          "src": "/images/works/client-6x26/client-6x26-10.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-10-thumb.webp",
+          "alt": "Баня «Скандинавия» 6 × 2,6 м с углового ракурса",
+          "caption": "Угловой ракурс фасада",
+          "kind": "photo",
+          "order": 3,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-08",
+          "src": "/images/works/client-6x26/client-6x26-08.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-08-thumb.webp",
+          "alt": "Баня «Скандинавия» 6 × 2,6 м, вид с торца",
+          "caption": "Вид с торца",
+          "kind": "photo",
+          "order": 4,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-07",
+          "src": "/images/works/client-6x26/client-6x26-07.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-07-thumb.webp",
+          "alt": "Окно и наружная отделка бани «Скандинавия» 6 × 2,6 м",
+          "caption": "Деталь окна и наружной отделки",
+          "kind": "photo",
+          "order": 5,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
         {
           "id": "premium-production-photo",
           "src": "/images/works/projects/premium/production-photo.webp",
           "thumbnail": "/images/works/projects/premium/production-photo-thumb.webp",
-          "alt": "Баня «Скандинавия Премиум» на производстве",
-          "caption": "Внешний вид перед отправкой.",
+          "alt": "Баня «Скандинавия» на производственной площадке перед отправкой",
+          "caption": "На производственной площадке",
           "kind": "photo",
-          "order": 1,
+          "order": 6,
           "width": 1160,
           "height": 900,
           "focalPoint": {
@@ -866,10 +967,10 @@
           "id": "premium-delivery-photo",
           "src": "/images/works/projects/premium/delivery-photo.webp",
           "thumbnail": "/images/works/projects/premium/delivery-photo-thumb.webp",
-          "alt": "Доставка бани «Скандинавия Премиум»",
-          "caption": "Доставка бани на участок.",
+          "alt": "Доставка бани «Скандинавия» 6 × 2,6 м на участок",
+          "caption": "Доставка на участок",
           "kind": "photo",
-          "order": 2,
+          "order": 7,
           "width": 1000,
           "height": 840,
           "focalPoint": {
@@ -881,10 +982,10 @@
           "id": "premium-installation-photo",
           "src": "/images/works/projects/premium/installation-photo.webp",
           "thumbnail": "/images/works/projects/premium/installation-photo-thumb.webp",
-          "alt": "Установка бани «Скандинавия Премиум»",
-          "caption": "Установка бани краном.",
+          "alt": "Установка бани «Скандинавия» 6 × 2,6 м на участке",
+          "caption": "Установка бани",
           "kind": "photo",
-          "order": 3,
+          "order": 8,
           "width": 1600,
           "height": 900,
           "focalPoint": {
@@ -896,10 +997,10 @@
           "id": "premium-installed-photo",
           "src": "/images/works/projects/premium/installed-photo.webp",
           "thumbnail": "/images/works/projects/premium/installed-photo-thumb.webp",
-          "alt": "«Скандинавия Премиум» на участке",
-          "caption": "Реальная фотография бани на участке.",
+          "alt": "Баня «Скандинавия» 6 × 2,6 м после установки",
+          "caption": "После установки на участке",
           "kind": "photo",
-          "order": 4,
+          "order": 9,
           "width": 1600,
           "height": 900,
           "focalPoint": {
@@ -908,15 +1009,120 @@
           }
         },
         {
-          "id": "premium-exterior-render",
-          "src": "/images/works/projects/premium/exterior-render.webp",
-          "thumbnail": "/images/works/projects/premium/exterior-render-thumb.webp",
-          "alt": "Первоначальная визуализация «Скандинавия Премиум»",
-          "caption": "Первоначальная проектная визуализация.",
-          "kind": "catalog-render",
-          "order": 5,
-          "width": 1154,
-          "height": 769,
+          "id": "client-6x26-12",
+          "src": "/images/works/client-6x26/client-6x26-12.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-12-thumb.webp",
+          "alt": "Внутреннее помещение бани с отделкой и стиральной машиной",
+          "caption": "Внутреннее помещение и бытовая зона",
+          "kind": "photo",
+          "order": 10,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-01",
+          "src": "/images/works/client-6x26/client-6x26-01.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-01-thumb.webp",
+          "alt": "Внутренний вид бани: деревянная отделка, окно и полки",
+          "caption": "Интерьер с окном и полками",
+          "kind": "photo",
+          "order": 11,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-04",
+          "src": "/images/works/client-6x26/client-6x26-04.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-04-thumb.webp",
+          "alt": "Внутреннее помещение: оконный проём и деревянная отделка",
+          "caption": "Интерьер у окна",
+          "kind": "photo",
+          "order": 12,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-05",
+          "src": "/images/works/client-6x26/client-6x26-05.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-05-thumb.webp",
+          "alt": "Липовые полки в парной бани «Скандинавия»",
+          "caption": "Липовые полки в парной",
+          "kind": "photo",
+          "order": 13,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-06",
+          "src": "/images/works/client-6x26/client-6x26-06.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-06-thumb.webp",
+          "alt": "Деталь липовых полков и пола в парной",
+          "caption": "Деталь полков и пола",
+          "kind": "photo",
+          "order": 14,
+          "width": 2400,
+          "height": 1350,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-13",
+          "src": "/images/works/client-6x26/client-6x26-13.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-13-thumb.webp",
+          "alt": "Печь ЭТНА 18 в парной бани «Скандинавия» 6 × 2,6 м",
+          "caption": "Печь в парной",
+          "kind": "photo",
+          "order": 15,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-03",
+          "src": "/images/works/client-6x26/client-6x26-03.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-03-thumb.webp",
+          "alt": "Печной узел и интерьер бани «Скандинавия»",
+          "caption": "Печной узел и интерьер",
+          "kind": "photo",
+          "order": 16,
+          "width": 1350,
+          "height": 2400,
+          "focalPoint": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        {
+          "id": "client-6x26-02",
+          "src": "/images/works/client-6x26/client-6x26-02.webp",
+          "thumbnail": "/images/works/client-6x26/client-6x26-02-thumb.webp",
+          "alt": "Деталь деревянного пола в бане «Скандинавия»",
+          "caption": "Деталь деревянного пола",
+          "kind": "photo",
+          "order": 17,
+          "width": 2400,
+          "height": 1350,
           "focalPoint": {
             "x": 50,
             "y": 50
@@ -929,7 +1135,7 @@
           "alt": "Планировка бани «Скандинавия Премиум» 6 × 2,6 м",
           "caption": "План-схема индивидуального проекта.",
           "kind": "plan",
-          "order": 6,
+          "order": 18,
           "width": 1542,
           "height": 838,
           "focalPoint": {
@@ -938,15 +1144,15 @@
           }
         },
         {
-          "id": "premium-owner-front",
-          "src": "/images/works/projects/premium/owner-front.webp",
-          "thumbnail": "/images/works/projects/premium/owner-front-thumb.webp",
-          "alt": "Скандинавия Премиум 6 × 2,6 м — фасад готовой бани",
-          "caption": "Фасад готовой бани «Скандинавия Премиум» 6 × 2,6 м",
-          "kind": "photo",
-          "order": 0,
-          "width": 1800,
-          "height": 1012,
+          "id": "premium-exterior-render",
+          "src": "/images/works/projects/premium/exterior-render.webp",
+          "thumbnail": "/images/works/projects/premium/exterior-render-thumb.webp",
+          "alt": "Первоначальная визуализация «Скандинавия Премиум»",
+          "caption": "Первоначальная проектная визуализация.",
+          "kind": "catalog-render",
+          "order": 19,
+          "width": 1154,
+          "height": 769,
           "focalPoint": {
             "x": 50,
             "y": 50
@@ -955,67 +1161,108 @@
       ],
       "clientCase": {
         "size": "6 × 2,6 м",
-        "base": "Индивидуальная каркасная комплектация",
+        "base": "",
         "duration": "",
-        "selectedExtras": [
-          "Отдельная просторная гостевая",
-          "Липовые полки и выдвижная лавочка",
-          "Организованный слив в парной",
-          "Панорамная входная ПВХ-дверь"
-        ],
+        "selectedExtras": [],
         "ownerFeedback": ""
       },
-      "cardDescription": "Индивидуальная баня 6 × 2,6 м: реальные фотографии, доставка и установка.",
+      "cardDescription": "Индивидуальный проект 6 × 2,6 м: фасад, липовая парная, печной узел и водоотведение.",
       "storySections": [
         {
-          "heading": "Задача проекта",
+          "heading": "Планировка и конструкция",
           "paragraphs": [
-            "Спроектировать компактную баню с двумя отдельными помещениями: парной и просторной гостевой. Внутреннюю компоновку согласовали под размер 6 × 2,6 м."
+            "Габариты бани — 6 × 2,6 м. По плану парная площадью 5,19 м² расположена слева, комната отдыха площадью 7,23 м² — справа. Передняя стена — 2200 мм, задняя — 2000 мм; односкатная крыша имеет уклон назад."
           ]
         },
         {
-          "heading": "Сочетание материалов",
+          "heading": "Липовая отделка парной",
           "paragraphs": [
-            "Для парной предусмотрены осиновая вагонка и липовые полки. В гостевой — хвойная вагонка. Наружное исполнение сочетает имитацию бруса, графитовые детали и односкатную кровлю."
+            "Стены парной отделаны вагонкой из липы с естественным рисунком древесины. Полки и лавочка также выполнены из липы. Для стен, полков и полов применены масла, предназначенные для соответствующих поверхностей."
+          ]
+        },
+        {
+          "heading": "Полы и водоотведение",
+          "paragraphs": [
+            "В парной выполнен проливной пол с гидроизоляцией. Водоотведение организовано через сухой затвор, который препятствует проникновению запаха из канализации. В парной установлены три подъёмных щита из лиственницы."
+          ]
+        },
+        {
+          "heading": "Печь и защита",
+          "paragraphs": [
+            "Установлена печь ЭТНА Стандарт 18 (Панорама) М. Вокруг печи смонтированы огнеупорные плиты на каркасе из алюминиевого профиля; внутри каркаса размещено огнеупорное одеяло."
+          ]
+        },
+        {
+          "heading": "Наружная отделка, освещение и вентиляция",
+          "paragraphs": [
+            "Фасад обшит имитацией бруса и окрашен краской Belinka № 14; наличники и матовая профилированная кровля выполнены в цвете графит. В интерьере установлены крупные соляные абажуры по углам и вентиляция по схеме Басту."
           ]
         }
       ],
       "specificationGroups": [
         {
-          "heading": "Каркас и защита",
+          "heading": "Планировка и конструкция",
           "items": [
             {
-              "label": "Каркас",
-              "value": "Утеплённая каркасная конструкция 100 мм из сухой строганой доски"
+              "label": "Габариты",
+              "value": "6 × 2,6 м"
             },
             {
-              "label": "Утепление",
-              "value": "Базальтовая минеральная вата «Технониколь»"
+              "label": "Парная",
+              "value": "5,19 м², расположена слева по плану"
             },
             {
-              "label": "Защита",
-              "value": "Пароизоляция «Изоспан» и огнебиозащитная обработка древесины"
+              "label": "Комната отдыха",
+              "value": "7,23 м², расположена справа по плану"
+            },
+            {
+              "label": "Высота стен",
+              "value": "Передняя — 2200 мм, задняя — 2000 мм"
+            },
+            {
+              "label": "Кровля",
+              "value": "Односкатная, уклон назад"
             }
           ]
         },
         {
-          "heading": "Планировка и внутреннее исполнение",
+          "heading": "Отделка и оборудование",
           "items": [
             {
-              "label": "Планировка",
-              "value": "Отдельные парная и гостевая"
+              "label": "Стены парной",
+              "value": "Вагонка из липы с естественным рисунком древесины"
             },
             {
-              "label": "Парная",
-              "value": "Осиновая вагонка класса А, липовые полки и выдвижная лавочка"
+              "label": "Полки и лавочка",
+              "value": "Липа"
             },
             {
-              "label": "Гостевая",
-              "value": "Вагонка «Штиль» (ель/сосна); мебель в спецификации не предусмотрена"
+              "label": "Защита древесины",
+              "value": "Поверхности обработаны маслами, предназначенными для стен, полков и полов"
             },
             {
-              "label": "Электрика",
-              "value": "Светильники в парной, гостевой и на фасаде; выключатели и розетки по согласованной схеме"
+              "label": "Наружная отделка",
+              "value": "Имитация бруса, окраска Belinka № 14, наличники цвета графит"
+            },
+            {
+              "label": "Кровля",
+              "value": "Матовый профнастил цвета графит"
+            },
+            {
+              "label": "Печь",
+              "value": "ЭТНА Стандарт 18 (Панорама) М"
+            },
+            {
+              "label": "Защита печного узла",
+              "value": "Огнеупорные плиты на каркасе из алюминиевого профиля; внутри — огнеупорное одеяло"
+            },
+            {
+              "label": "Пол и водоотведение",
+              "value": "Проливной пол с гидроизоляцией, сухим затвором и тремя подъёмными щитами из лиственницы в парной"
+            },
+            {
+              "label": "Освещение и вентиляция",
+              "value": "Крупные соляные абажуры по углам; вентиляция по схеме Басту"
             }
           ]
         }

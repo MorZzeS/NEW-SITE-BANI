@@ -12,9 +12,11 @@ function load(file, overrides = {}, scope = {}) {
   const code = ts.transpileModule(fs.readFileSync(path.join(root, file), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX } }).outputText
   vm.runInNewContext(code, { exports, require: id => {
     if (id in overrides) return overrides[id]
+    if (file === 'src/lib/release-policy.ts' && id === './lead-consent') return { leadDocumentBundle: { approved: false, documents: null } }
+    if (file === 'src/lib/release-policy.ts' && id === './lead-release-gate') return { isOnlineLeadReleaseReady: () => false }
     if (id.startsWith('@/')) return load(`src/${id.slice(2)}.ts`)
     throw Error(`Unexpected dependency ${id}`)
-  }, ...scope }, { filename: file })
+  }, ...(file === 'src/lib/release-policy.ts' ? { process: { env: {} } } : {}), ...scope }, { filename: file })
   if (!Object.keys(overrides).length) cache.set(file, exports)
   return exports
 }
@@ -112,13 +114,17 @@ assert.equal(equipmentSelection(['hidden-wiring', 'outdoor-lighting', 'external-
 let modelCases = 0
 for (const model of [...saunas, ...homes]) {
   const result = calculate(model, ['outdoor-lamp', 'roof-overhang-light', 'wall-point', 'panoramic-window-600-1800', 'ceiling-height'], { quantities: { 'outdoor-lamp': 3, 'roof-overhang-light': 4, 'wall-point': 2, 'panoramic-window-600-1800': 2, 'ceiling-height': 2 } })
-  assert.equal(result.optionsSubtotal, 129000)
-  assert.equal(result.total, model.priceFrom + 129000)
-  assert.deepEqual(plain(result.options.map(item => item.quantity)), [2, 2, 3, 4, 2])
+  const includedCeilingHeight = model.id === 'bg-20'
+  const expectedSubtotal = includedCeilingHeight ? 85000 : 129000
+  assert.equal(result.optionsSubtotal, expectedSubtotal)
+  assert.equal(result.total, model.priceFrom + expectedSubtotal)
+  assert.deepEqual(plain(result.options.map(item => item.quantity)), includedCeilingHeight ? [2, 3, 4, 2] : [2, 2, 3, 4, 2])
   const note = configurationManagerText(result)
-  assert.ok(note.includes('3 шт.') && note.includes('4 шт.') && note.includes('+20 см'))
+  assert.ok(note.includes('3 шт.') && note.includes('4 шт.'))
+  assert.equal(note.includes('+20 см'), !includedCeilingHeight)
   assert.ok(!note.includes('+30 см'))
   const included = modelOptionAvailability(model).filter(row => row.status === 'included').map(row => row.option.id)
+  if (includedCeilingHeight) assert.ok(included.includes('ceiling-height'))
   assert.equal(calculate(model, included).optionsSubtotal, 0)
   const finalOptions = calculate(model, ['led', 'steam-bench-oil'])
   assert.equal(finalOptions.optionsSubtotal, included.includes('steam-bench-oil') ? 12000 : 27000, `${model.id}: final prices charge once, already included oil remains free`)
@@ -149,6 +155,7 @@ const storage = new Map()
 const storageEvents = []
 const react = {
   createContext: () => ({ Provider: 'provider' }), useContext: () => undefined,
+  useRef: initial => { const index = hook++; if (!(index in states)) states[index] = { current: initial }; return states[index] },
   useState: initial => { const index = hook++; if (!(index in states)) states[index] = initial; return [states[index], next => { states[index] = typeof next === 'function' ? next(states[index]) : next }] },
   useEffect: (callback, deps) => { const index = hook++; if (!dependencies[index] || deps.some((value, position) => value !== dependencies[index][position])) { effects.push(callback); dependencies[index] = deps } },
 }

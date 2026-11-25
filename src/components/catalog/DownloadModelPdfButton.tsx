@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { Download } from 'lucide-react'
 import type { Sauna, Home } from '@/types'
 import { useModelConfiguration } from './ModelConfigurationContext'
+import { trackGoal } from '@/lib/analytics'
 
 export function DownloadModelPdfButton({ model, label = 'Скачать карточку с выбранной комплектацией (PDF)' }: { model: Sauna | Home; label?: string }) {
   const { configuration } = useModelConfiguration()
@@ -15,6 +16,7 @@ export function DownloadModelPdfButton({ model, label = 'Скачать карт
     try {
       const { downloadModelPdf } = await import('@/lib/model-pdf')
       await downloadModelPdf(model, configuration)
+      trackGoal('pdf_download')
     } catch { setError('Не удалось создать PDF. Попробуйте ещё раз.') }
     finally { busy.current = false; setPreparing(false) }
   }

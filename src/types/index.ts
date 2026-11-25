@@ -27,6 +27,8 @@ export interface Sauna {
   tags: string[]     // ['Хит', 'Новинка', 'В наличии', 'Под заказ']
   specs: ProductSpec[]
   features: string[]
+  /** Confirmed additions included in this model's displayed price; informational only. */
+  executionFeatures?: string[]
   isPopular?: boolean
   hasBathroom?: boolean; hasTerrace?: boolean; hasShower?: boolean
 }

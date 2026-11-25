@@ -17,6 +17,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = findProject(slug)
   if (!project) return {}
+  if (project.redirectTo) {
+    const canonical = `https://banger.su/nashi-raboty/${project.redirectTo}`
+    return {
+      title: 'Проект перенесён — Бани Герасимов',
+      robots: { index: false, follow: true },
+      alternates: { canonical },
+    }
+  }
   const canonical = `https://banger.su/nashi-raboty/${project.slug}`
   const description = project.caseType === 'client-case' ? project.description : `${project.title}. ${project.description}`
   return {
@@ -31,8 +39,12 @@ export default async function ProjectPage({ params }: Props) {
   const { slug } = await params
   const project = findProject(slug)
   if (!project) notFound()
+  if (project.redirectTo) {
+    const target = `/nashi-raboty/${project.redirectTo}`
+    return <div className="site-container min-h-[55vh] pt-32 pb-20"><p className="text-cream/80">Страница проекта объединена с основной галереей.</p><p className="mt-4"><a className="btn-primary" href={withBasePath(target)}>Открыть страницу проекта →</a></p><script dangerouslySetInnerHTML={{ __html: `window.location.replace(${JSON.stringify(withBasePath(target))})` }} /></div>
+  }
   const clientCase = project.caseType === 'client-case' && project.clientCase
-  const coverGallery = [project.cover, ...project.gallery.filter(item => item.kind === project.cover.kind)]
+  const coverGallery = clientCase ? [project.cover] : [project.cover, ...project.gallery.filter(item => item.kind === project.cover.kind)]
 
   return (
     <div className="project-page pt-24 pb-20">
@@ -129,7 +141,7 @@ export default async function ProjectPage({ params }: Props) {
           // The client 6 × 2.6 m source set contains 13 still photos. Its cover is
           // one of those originals, so keep it in the detailed gallery as well as
           // in the page header instead of making that photo appear to be missing.
-          const photos = (project.id === 'client-6x26' ? project.media : project.gallery).filter(item => item.kind === 'photo')
+          const photos = (clientCase ? project.media : project.gallery).filter(item => item.kind === 'photo')
           const renders = project.gallery.filter(item => item.kind === 'catalog-render')
           const plans = project.gallery.filter(item => item.kind === 'plan')
           const references = project.gallery.filter(item => item.kind === 'reference')
