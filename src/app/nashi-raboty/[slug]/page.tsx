@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { allProjects, findProject } from '@/data/projects'
 import { baseEquipmentRows } from '@/data/equipment'
 import { InteractivePhotoGallery } from '@/components/ui/InteractivePhotoGallery'
+import { ProjectPhotoCarousel } from '@/components/ui/ProjectPhotoCarousel'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { withBasePath } from '@/lib/site-path'
 
@@ -148,7 +149,9 @@ export default async function ProjectPage({ params }: Props) {
           return <>
             {photos.length ? <section className="project-photo-gallery" aria-labelledby="project-gallery-title">
               <h2 className="project-section-title" id="project-gallery-title">{project.caseType === 'client-case' ? 'Фотографии объекта' : 'Фотографии образца'}</h2>
-              <InteractivePhotoGallery photos={photos} ariaLabel={`Фотогалерея: ${project.title}`} />
+              {clientCase && photos.length > 1
+                ? <ProjectPhotoCarousel photos={photos} ariaLabel={`Фотогалерея: ${project.title}`} />
+                : <InteractivePhotoGallery photos={photos} ariaLabel={`Фотогалерея: ${project.title}`} />}
             </section> : null}
             {renders.length ? <section className="project-photo-gallery project-render-gallery" aria-labelledby="project-renders-title">
               <h2 className="project-section-title" id="project-renders-title">Первоначальный проект и визуализация</h2>

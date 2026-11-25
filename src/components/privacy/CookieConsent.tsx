@@ -127,26 +127,16 @@ export default function CookieConsent() {
   }
 
   return <>
-    {bannerOpen && <section className={styles.notice} aria-labelledby="site-preferences-notice-title" data-site-preferences-notice>
-      <div>
-        <p className={styles.eyebrow}>Ваши настройки</p>
-        <h2 id="site-preferences-notice-title">Статистика сайта</h2>
+    {bannerOpen && <section className={styles.notice} aria-label="Настройки cookie и статистики" data-site-preferences-notice>
+      <p className={styles.noticeText}>
         {analyticsAvailable
-          ? <p>Счётчик Яндекс Метрики 111684946 загружается только после вашего выбора. Вы можете отдельно разрешить статистику и запись поведения: Вебвизор и карты кликов/ссылок. Запись поведения по умолчанию выключена. Яндекс не поддерживает карту скроллинга и отчёты аналитики форм на используемой SPA-версии сайта; они не включаются. Значения полей ввода и отдельные динамические блоки скрываются от записи; выбор не влияет на работу формы. Можно отказаться или позже изменить выбор в «Настройках сайта». <Link href="/privacy">Политика</Link> · <Link href="/cookie">Cookie</Link>. Карта и отзывы Яндекса на странице «О компании» работают отдельно.</p>
-          : <p>В этой версии счётчик аналитики не включён. На странице «О компании» карта и отзывы Яндекса загружаются отдельно и могут передавать Яндексу технические данные соединения. <Link href="/cookie">Подробнее о cookie и настройках сайта</Link>.</p>}
-      </div>
+          ? <>Сайт использует cookie. «ОК» разрешает статистику Метрики; Вебвизор — только отдельно. </>
+          : <>Cookie нужны для работы сайта. </>}
+        <button type="button" className={styles.settings} onClick={showSettings}>Настройки</button>
+        {' · '}<Link href={analyticsAvailable ? '/privacy' : '/cookie'}>{analyticsAvailable ? 'Политика' : 'Подробнее'}</Link>
+      </p>
       <div className={styles.actions}>
-        {analyticsAvailable
-          ? <>
-            <button type="button" className="btn-primary" onClick={() => saveAnalyticsChoice(true, false)}>Только статистика</button>
-            <button type="button" className="btn-secondary" onClick={() => saveAnalyticsChoice(true, true)}>Разрешить запись поведения</button>
-            <button type="button" className="btn-secondary" onClick={dismissWithoutAnalytics}>Отказаться</button>
-            <button type="button" className={styles.settings} onClick={showSettings}>Настроить</button>
-          </>
-          : <>
-            <button type="button" className="btn-primary" onClick={dismissWithoutAnalytics}>Продолжить</button>
-            <button type="button" className={styles.settings} onClick={showSettings}>Настройки сайта</button>
-          </>}
+        <button type="button" className={styles.acknowledge} onClick={() => analyticsAvailable ? saveAnalyticsChoice(true, false) : dismissWithoutAnalytics()} aria-label={analyticsAvailable ? 'ОК, разрешить статистику Яндекс Метрики' : 'ОК, закрыть уведомление'}>ОК</button>
       </div>
       {storageBlocked && <div className={styles.storageError}><p role="status">{status}</p></div>}
     </section>}
@@ -179,7 +169,11 @@ export default function CookieConsent() {
       </div>
       {status && <p role="status" className={styles.status}>{status}</p>}
       <Link href="/cookie" onClick={() => dialog.current?.close()} className={styles.more}>Подробнее о хранении настроек</Link>
-      <div className={styles.dialogActions}><button type="button" className="btn-primary" onClick={() => saveAnalyticsChoice()}>{analyticsAvailable ? 'Сохранить выбор' : 'Сохранить настройки'}</button><button type="button" className="btn-secondary" onClick={() => dialog.current?.close()}>Закрыть</button></div>
+      <div className={styles.dialogActions}>
+        <button type="button" className="btn-primary" onClick={() => saveAnalyticsChoice()}>{analyticsAvailable ? 'Сохранить выбор' : 'Сохранить настройки'}</button>
+        {analyticsAvailable && <button type="button" className="btn-secondary" onClick={dismissWithoutAnalytics}>Отклонить аналитику</button>}
+        <button type="button" className="btn-secondary" onClick={() => dialog.current?.close()}>Закрыть</button>
+      </div>
     </dialog>
   </>
 }
