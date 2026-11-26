@@ -59,6 +59,8 @@ export interface Home {
 }
 
 export interface Article {
+  presentation?: 'immersive' | 'comparison' | 'process' | 'anatomy' | 'checklist' | 'reference'
+  updatedAt?: string
   coverImage?: string
   coverAlt?: string
   id: string

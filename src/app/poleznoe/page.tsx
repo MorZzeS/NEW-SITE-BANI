@@ -1,6 +1,6 @@
 import { defaultOpenGraph } from '@/lib/site-metadata'
 import Link from 'next/link'
-import { Clock, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { articles } from '@/data'
 import { withBasePath } from '@/lib/site-path'
 import { articleCoverPositions } from '@/data/article-visuals'
@@ -27,32 +27,26 @@ export default function PoleznoeePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="article-index-grid">
           {articles.map((article) => (
-            <Link href={`/poleznoe/${article.slug}`} key={article.id} className="group block">
-              <div className="glass-card overflow-hidden h-full flex flex-col">
-                {article.coverImage && <picture className="block aspect-video">
+            <Link href={`/poleznoe/${article.slug}`} key={article.id} className="article-index-card group">
+              <article className={`article-index-card-inner article-index-card-inner--${article.presentation || 'reference'}`}>
+                {article.coverImage && <picture className="article-index-image">
                   {article.imageAvif && <source srcSet={withBasePath(article.imageAvif)} type="image/avif" />}
-                  <img src={withBasePath(article.coverImage)} alt={article.coverAlt || article.title} width={article.imageWidth || 1600} height={article.imageHeight || 900} loading="lazy" decoding="async" className="w-full aspect-video object-cover" style={{ objectPosition: articleCoverPositions[article.slug] || 'center' }} />
+                  <img src={withBasePath(article.coverImage)} alt={article.coverAlt || article.title} width={article.imageWidth || 1600} height={article.imageHeight || 900} loading="lazy" decoding="async" style={{ objectPosition: articleCoverPositions[article.slug] || 'center' }} />
+                  {article.imageCaption?.includes('3D-визуализация') && <span className="article-index-visual-badge">3D-визуализация</span>}
+                  <span className="article-index-image-label">{article.category}</span>
                 </picture>}
-                <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-4 flex-wrap">
-                  <span className="section-tag text-[10px] px-3 py-1">{article.category}</span>
-                  <span className="flex items-center gap-1 text-xs text-cream/40">
-                    <Clock className="w-3 h-3" /> {article.readTime} мин
-                  </span>
+                <div className="article-index-copy">
+                  <div className="article-index-meta">
+                    <span>{article.readTime} мин чтения</span>
+                    {article.updatedAt && <span>Обновлено</span>}
+                  </div>
+                  <h2>{article.title}</h2>
+                  <p>{article.excerpt}</p>
+                  <span className="article-index-read">Читать статью <ArrowRight aria-hidden="true" /></span>
                 </div>
-                <h2 className="text-lg font-bold text-cream mb-3 flex-1 group-hover:text-gold-300 transition-colors leading-snug">
-                  {article.title}
-                </h2>
-                <p className="text-sm text-cream/60 leading-relaxed mb-4 line-clamp-3">
-                  {article.excerpt}
-                </p>
-                <div className="flex items-center gap-1.5 text-gold-400 text-sm font-semibold group-hover:gap-3 transition-all mt-auto">
-                  Читать <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-                </div>
-              </div>
+              </article>
             </Link>
           ))}
         </div>

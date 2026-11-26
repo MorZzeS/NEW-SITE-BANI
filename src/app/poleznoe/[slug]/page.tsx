@@ -7,13 +7,14 @@ import { articleAliases } from '@/data/article-aliases'
 import { articlePublicationNotices } from '@/data/article-publication-notices'
 import type { Metadata } from 'next'
 import { articleInlineVisuals } from '@/data/article-visuals'
+import { ArticleMediaAndContent } from '@/components/sections/ArticleMediaAndContent'
 
 function contentWithVisuals(slug: string, content: string) {
   // Hide markdown separators only while rendering; preserve the supplied article source.
   content = content.replace(/<p>\s*---\s*<\/p>/g, '')
   const escapeHtml = (value: string) => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!)
   for (const visual of articleInlineVisuals[slug] || []) {
-    const figure = `<figure><picture><source srcset="${escapeHtml(withBasePath(visual.avif))}" type="image/avif" /><img src="${escapeHtml(withBasePath(visual.src))}" alt="${escapeHtml(visual.alt)}" width="${visual.width}" height="${visual.height}" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;border-radius:16px" /></picture><figcaption>${escapeHtml(visual.caption)}</figcaption></figure>`
+    const figure = `<figure class="article-inline-figure"><button type="button" class="article-image-zoom" data-article-zoom="${escapeHtml(withBasePath(visual.src))}" data-article-alt="${escapeHtml(visual.alt)}" aria-label="Увеличить изображение: ${escapeHtml(visual.alt)}"><picture><source srcset="${escapeHtml(withBasePath(visual.avif))}" type="image/avif" /><img src="${escapeHtml(withBasePath(visual.src))}" alt="${escapeHtml(visual.alt)}" width="${visual.width}" height="${visual.height}" loading="lazy" decoding="async" /></picture><span class="article-image-zoom-label"><span aria-hidden="true">＋</span> Увеличить</span></button><figcaption>${escapeHtml(visual.caption)}</figcaption></figure>`
     content = content.replace(`<h2 id="${visual.beforeSection}">`, `${figure}<h2 id="${visual.beforeSection}">`)
   }
   return content
@@ -56,87 +57,121 @@ export default async function ArticlePage({ params }: Props) {
   if (articleAliases[slug]) return <div className="site-container pt-32 pb-20"><h1 className="text-3xl font-bold text-cream mb-6">Материал обновлён</h1><p className="text-cream/70 mb-6">Актуальная статья доступна по новому адресу.</p><Link href={`/poleznoe/${article.slug}`} className="btn-primary">{article.title}</Link></div>
 
   const heroImage = article.image || article.coverImage
+  const presentation = article.presentation || 'reference'
   const related = (article.relatedSlugs || []).map((slug) => articles.find((a) => a.slug === slug)).filter((a): a is NonNullable<typeof a> => Boolean(a))
   const publicationNotice = articlePublicationNotices[article.slug]
+  const canonical = `https://banger.su/poleznoe/${article.slug}`
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.metaDescription || article.excerpt,
+    image: heroImage ? [`https://banger.su${heroImage}`] : undefined,
+    datePublished: article.date,
+    dateModified: article.updatedAt || article.date,
+    mainEntityOfPage: canonical,
+    author: { '@type': 'Organization', name: 'Бани Герасимов' },
+    publisher: { '@type': 'Organization', name: 'Бани Герасимов', url: 'https://banger.su' },
+    inLanguage: 'ru-RU',
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://banger.su/' },
+      { '@type': 'ListItem', position: 2, name: 'Полезное', item: 'https://banger.su/poleznoe' },
+      { '@type': 'ListItem', position: 3, name: article.title, item: canonical },
+    ],
+  }
+  const jsonLd = (schema: object) => JSON.stringify(schema).replace(/</g, '\\u003c')
 
   return (
-    <div className="pt-28 pb-20">
+    <div className={`article-page article-page--${presentation} pt-28 pb-20`}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
       <div className="site-container">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm text-cream/50 mb-8">
-          <a href={withBasePath('/')} className="hover:text-cream transition-colors">Главная</a>
-          <span>/</span>
-          <Link href="/poleznoe" className="hover:text-cream transition-colors">Полезное</Link>
-          <span>/</span>
-          <span className="text-cream line-clamp-1">{article.title}</span>
-        </div>
+        <nav aria-label="Хлебные крошки" className="article-breadcrumbs">
+          <Link href="/" className="hover:text-[var(--color-text)] transition-colors">Главная</Link>
+          <span aria-hidden="true">/</span>
+          <Link href="/poleznoe" className="hover:text-[var(--color-text)] transition-colors">Полезное</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{article.title}</span>
+        </nav>
 
-        {/* Article */}
-        <div className="prose-column">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="section-tag text-xs px-3 py-1.5">{article.category}</span>
-            <span className="flex items-center gap-1.5 text-sm text-cream/40">
-              <Clock className="w-4 h-4" /> {article.readTime} минут чтения
-            </span>
-
+        <header className={`article-hero-layout article-hero-layout--${presentation}`}>
+          <div className="article-introduction">
+            <div className="article-reading-meta">
+              <span className="section-tag text-xs px-3 py-1.5">{article.category}</span>
+              <span className="flex items-center gap-1.5 text-sm"><Clock className="w-4 h-4" aria-hidden="true" /> {article.readTime} мин чтения</span>
+            </div>
+            <h1>{article.title}</h1>
+            <p>{article.excerpt}</p>
           </div>
+          {heroImage && <div className="article-hero-media">
+            <ArticleMediaAndContent
+              presentation={presentation}
+              title={article.title}
+              hero={{
+                src: heroImage,
+                alt: article.imageAlt || article.coverAlt || article.title,
+                caption: article.imageCaption,
+                width: article.imageWidth || 1600,
+                height: article.imageHeight || 900,
+              }}
+              html=""
+            />
+          </div>}
+        </header>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-cream mb-6 leading-tight break-words">{article.title}</h1>
+        {publicationNotice && <aside aria-label={publicationNotice.title} role="note" className="article-publication-notice">
+          <h2>{publicationNotice.title}</h2>
+          <p>{publicationNotice.text}</p>
+        </aside>}
 
-          <p className="text-xl text-cream/70 leading-relaxed mb-8 font-medium">{article.excerpt}</p>
-
-          {heroImage && <figure className="mb-8">
-            <picture>
-              {article.imageAvif && <source srcSet={withBasePath(article.imageAvif)} type="image/avif" />}
-              <img src={withBasePath(heroImage)} alt={article.imageAlt || article.coverAlt || article.title} width={article.imageWidth || (article.image ? 1440 : 1600)} height={article.imageHeight || (article.image ? 810 : 900)} fetchPriority="high" className="w-full h-auto rounded-3xl" />
-            </picture>
-            {article.imageCaption && <figcaption className="text-sm text-cream/60 mt-3">{article.imageCaption}</figcaption>}
-          </figure>}
-
-          {publicationNotice && <aside aria-label={publicationNotice.title} role="note" className="glass rounded-3xl p-5 sm:p-6 mb-8 border border-gold-400/30 text-[var(--color-text)]">
-            <h2 className="font-bold text-[var(--color-accent)] mb-2">{publicationNotice.title}</h2>
-            <p className="leading-relaxed">{publicationNotice.text}</p>
-          </aside>}
-
-          {article.toc && <nav aria-label="Содержание статьи" className="glass rounded-3xl p-5 sm:p-8 mb-8">
-            <h2 className="text-xl font-bold text-cream mb-4">Содержание</h2>
-            <ol className="space-y-2 text-cream/70">
-              {article.toc.map((item) => <li key={item.id} className={item.level === 3 ? 'pl-4' : ''}>
-                <a href={`#${item.id}`} className="hover:text-gold-300 underline underline-offset-4">{item.title}</a>
+        <div className={`article-reading-layout article-reading-layout--${presentation}`}>
+          {article.toc && <nav aria-label="Содержание статьи" className={`article-toc article-toc--${presentation}`}>
+            <h2>В статье</h2>
+            <ol>
+              {article.toc.map((item) => <li key={item.id} className={item.level === 3 ? 'article-toc-subitem' : ''}>
+                <a href={`#${item.id}`}>{item.title}</a>
               </li>)}
             </ol>
           </nav>}
-          <article className="article-body glass rounded-3xl p-5 sm:p-8 text-cream/80"
-            dangerouslySetInnerHTML={{ __html: articleHtmlWithBasePath(contentWithVisuals(article.slug, article.content), homes.map((home) => home.slug)) }} />
-          {article.photoBrief && !heroImage && <section aria-label="Место для иллюстраций" className="glass rounded-3xl p-5 sm:p-8 mt-8 border border-dashed border-cream/20">
-            <h2 className="text-xl font-bold text-cream mb-3">Иллюстрации к материалу</h2>
-            <p className="text-cream/70 leading-relaxed">{article.photoBrief}</p>
-            <p className="text-sm text-cream/50 mt-3">Фотографии и схемы будут добавлены после подтверждения исходников.</p>
-          </section>}
-          {Boolean(article.resourceLinks?.length) && <nav aria-label="Каталог и информация" className="flex flex-wrap gap-3 mt-8">
-            {article.resourceLinks?.map((link) => <Link key={link.href} href={link.href} className="btn-secondary">{link.label}</Link>)}
-          </nav>}
-
+          <ArticleMediaAndContent
+            presentation={presentation}
+            title={article.title}
+            html={articleHtmlWithBasePath(contentWithVisuals(article.slug, article.content), homes.map((home) => home.slug))}
+          />
         </div>
 
-        {/* Related articles */}
-        {related.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-cream mb-6">Читайте также</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {related.map((a) => (
-                <Link href={`/poleznoe/${a.slug}`} key={a.id} className="group block">
-                  <div className="glass-card p-5 h-full">
-                    <span className="section-tag text-[10px] px-2.5 py-1 mb-3 inline-block">{a.category}</span>
-                    <h3 className="text-sm font-bold text-cream group-hover:text-gold-300 transition-colors leading-snug">
-                      {a.title}
-                    </h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
+        <aside className="article-cta" aria-labelledby="article-cta-heading">
+          <div className="article-cta-copy">
+            <span className="section-tag text-xs px-3 py-1.5">Следующий шаг</span>
+            <h2 id="article-cta-heading">Подберите мобильную баню под свой участок</h2>
+            <p>Сравните модели и комплектации, посмотрите реализованные проекты или обсудите задачу со специалистом.</p>
           </div>
-        )}
+          <div className="article-cta-actions">
+            <Link href="/katalog/bani" className="btn-primary">Подобрать баню и комплектацию</Link>
+            <Link href="/kontakty#zayavka" className="btn-secondary">Получить консультацию</Link>
+            <Link href="/nashi-raboty" className="article-cta-text-link">Реализованные проекты</Link>
+          </div>
+        </aside>
+
+        {related.length > 0 && <section className="article-related" aria-labelledby="article-related-heading">
+          <div className="article-related-heading">
+            <span className="section-tag text-xs px-3 py-1.5">Продолжить чтение</span>
+            <h2 id="article-related-heading">Читайте по теме</h2>
+          </div>
+          <div className="article-related-grid">
+            {related.map((item) => <Link href={`/poleznoe/${item.slug}`} key={item.id} className="article-related-card">
+              <span>{item.category}</span>
+              <h3>{item.title}</h3>
+              <span className="article-related-arrow" aria-hidden="true">→</span>
+            </Link>)}
+          </div>
+        </section>}
+
+        <Link href="/poleznoe" className="article-back-link"><ArrowLeft aria-hidden="true" /> Все полезные статьи</Link>
       </div>
     </div>
   )
