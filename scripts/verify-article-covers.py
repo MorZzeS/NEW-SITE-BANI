@@ -5,7 +5,9 @@ from pathlib import Path
 from html.parser import HTMLParser
 
 root = Path(__file__).resolve().parents[1]
-dist_dir = root / ('dist-pages' if __import__('os').environ.get('BANGER_GITHUB_PAGES') == 'true' else 'dist')
+is_pages = __import__('os').environ.get('BANGER_GITHUB_PAGES') == 'true'
+dist_dir = root / ('dist-pages' if is_pages else 'dist')
+base_path = '/NEW-SITE-BANI' if is_pages else ''
 
 
 class Page(HTMLParser):
@@ -45,7 +47,8 @@ for slug, article in articles.items():
     page = Page((dist_dir / f'poleznoe/{slug}.html').read_text(encoding='utf-8'))
     image_path = '/' + cover['target'].removeprefix('public/')
     alt = generated['alt'] if slug == generated['slug'] else article['alt']
-    assert any(image['src'] == image_path and image['alt'] == alt for image in listing.images), slug
+    listing_path = base_path + image_path
+    assert any(image['src'] == listing_path and image['alt'] == alt for image in listing.images), slug
     assert page.meta['og:image'] == page.meta['twitter:image'] == 'https://banger.su' + image_path, slug
     assert page.meta['twitter:card'] == 'summary_large_image', slug
     assert page.meta['og:image:width'] == str(cover['width']) and page.meta['og:image:height'] == str(cover['height']), slug
