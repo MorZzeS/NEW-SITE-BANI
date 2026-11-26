@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Price verification compares the current catalog with the approved historic baseline.
+          # The test release must retain the currently published catalog/options exactly.
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -40,7 +40,7 @@ jobs:
       - run: npx tsc --noEmit
       - run: node scripts/verify-editorial-import.mjs
       - run: node scripts/check-approved-option-calculations.mjs
-      - run: node scripts/verify-price-update.mjs
+      - run: node scripts/verify-production-catalog-unchanged.mjs
       - run: npm run build
       - run: node scripts/verify-base-specification.mjs
       - run: python3 scripts/verify-article-covers.py
