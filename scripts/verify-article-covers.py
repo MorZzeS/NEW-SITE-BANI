@@ -30,31 +30,23 @@ class Page(HTMLParser):
             self.main = False
 
 
-manifest = json.loads((root / 'docs/article-covers-source.json').read_text(encoding='utf-8'))
-unavailable_sources = []
-def verify_source(source, expected_hash, label):
-    source_path = Path(source)
-    if source_path.is_file():
-        assert hashlib.sha256(source_path.read_bytes()).hexdigest() == expected_hash, label
-        return
-    unavailable_sources.append(label)
-
-verify_source(manifest['source'], manifest['source_sha256'], 'cover-source document')
+manifest = json.loads((root / 'docs/editorial-assets/2026-11-26/article-assets-manifest.json').read_text(encoding='utf-8'))
+source_articles = json.loads((root / 'docs/editorial-assets/2026-11-26/articles.json').read_text(encoding='utf-8'))
+provided = {article['slug']: article for article in manifest['articles']}
+articles = {article['slug']: article for article in source_articles}
+generated = manifest['productionIllustration']
 listing = Page((dist_dir / 'poleznoe.html').read_text(encoding='utf-8'))
-assert len(listing.images) == len(manifest['covers']) == 28
-for cover in manifest['covers']:
-    slug = cover['slug']
-    verify_source(cover['source'], cover['source_sha256'], slug)
-    assert hashlib.sha256((root / cover['output']).read_bytes()).hexdigest() == cover['output_sha256'], slug
+assert len(listing.images) == len(articles) == 28
+for slug, article in articles.items():
+    cover = generated if slug == generated['slug'] else provided[slug]
+    output = root / cover['target']
+    expected_hash = cover['sha256'].lower()
+    assert hashlib.sha256(output.read_bytes()).hexdigest() == expected_hash, slug
     page = Page((dist_dir / f'poleznoe/{slug}.html').read_text(encoding='utf-8'))
-    path = f'/images/articles/{slug}-cover.webp'
-    assert any(image['src'].endswith(path) and image['alt'] == cover['alt'] for image in listing.images), slug
-    assert page.meta['og:image'] == page.meta['twitter:image'] == 'https://banger.su' + path, slug
+    image_path = '/' + cover['target'].removeprefix('public/')
+    alt = generated['alt'] if slug == generated['slug'] else article['alt']
+    assert any(image['src'] == image_path and image['alt'] == alt for image in listing.images), slug
+    assert page.meta['og:image'] == page.meta['twitter:image'] == 'https://banger.su' + image_path, slug
     assert page.meta['twitter:card'] == 'summary_large_image', slug
     assert page.meta['og:image:width'] == str(cover['width']) and page.meta['og:image:height'] == str(cover['height']), slug
-visuals = json.loads((root / 'docs/article-visual-sources.json').read_text(encoding='utf-8'))
-for visual in visuals['visuals']:
-    verify_source(visual['source'], visual['source_sha256'], visual['slug'])
-    for output in visual['outputs']:
-        assert hashlib.sha256((root / output['file']).read_bytes()).hexdigest() == output['sha256']
-print(f'PASS: {len(manifest["covers"])}/{len(manifest["covers"])} covers, listing, OG/Twitter and output hashes; {len(unavailable_sources)} archived source files unavailable for rehash.')
+print(f'PASS: {len(articles)}/{len(articles)} current package covers, listing, OG/Twitter metadata and image hashes.')
