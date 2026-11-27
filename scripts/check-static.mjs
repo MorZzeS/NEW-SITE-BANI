@@ -110,13 +110,14 @@ for (const record of records) {
   const html = fs.readFileSync(card, 'utf8')
   const model = models.find((m) => m.id === record.id)
   // Source records retain historical PPT prices; selling prices use the cumulative increase
-  // for the model family. The .map callback is explicit so its index is not mistaken for a price delta.
+  // unless the owner's exact model-card price sheet overrides the current model price.
   const expectedIncrease = dataExports.saunas.some((sauna) => sauna.id === record.id) ? MODEL_INCREASE : HOME_MODEL_INCREASE
   const isMobileSauna = dataExports.saunas.some((sauna) => sauna.id === record.id)
   const expectedVariants = record.price_variants.filter((variant) => !(isMobileSauna && /брус/i.test(variant))).map((variant) => increasedVariant(variant, expectedIncrease))
   if (JSON.stringify(model?.priceVariants || []) !== JSON.stringify(expectedVariants)) errors.push(`${record.id}: alternative prices differ from owner increase`)
   if (isMobileSauna && (model?.priceVariants || []).some((variant) => /брус/i.test(variant))) errors.push(`${record.id}: bрус execution must not be sold as a price variant for a mobile sauna`)
-  if (model?.priceFrom !== record.priceFrom + expectedIncrease) errors.push(`${record.id}: base price differs from owner increase`)
+  const expectedBasePrice = APPROVED_MODEL_OVERRIDES[record.id]?.priceFrom ?? record.priceFrom + expectedIncrease
+  if (model?.priceFrom !== expectedBasePrice) errors.push(`${record.id}: base price differs from owner-approved price`)
   if (model?.isPublished === false) {
     if (!html.includes('временно') || !html.includes('noindex') || html.includes('Оставить заявку на эту комплектацию')) errors.push(`${record.id}: hidden route must be unavailable/noindex without ordering`)
     continue
@@ -125,13 +126,14 @@ for (const record of records) {
   if (!priceBlock) errors.push(`${record.id}: missing price section`)
   const visiblePrice = model && dataExports.formatPrice(model.priceFrom).replace(/\s/g, ' ')
   const visibleText = priceBlock?.replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/[\u00a0\u202f\s]+/g, ' ').trim() ?? ''
-  if (!priceBlock?.includes('model-price-primary') || !visibleText.includes(record.id === 'bg-20' ? 'Стоимость представленного исполнения' : 'Стоимость базового исполнения') || !visibleText.includes(visiblePrice)) errors.push(`${record.id}: primary price card must show the base-price label and exact catalogue price`)
+  const priceLabel = record.id === 'bg-20' ? 'Стоимость базовой комплектации' : 'Стоимость базового исполнения'
+  if (!priceBlock?.includes('model-price-primary') || !visibleText.includes(priceLabel) || !visibleText.includes(visiblePrice)) errors.push(`${record.id}: primary price card must show the base-price label and exact catalogue price`)
   for (const variant of expectedVariants) {
     if (!priceBlock?.includes(variant)) errors.push(`${record.id}: alternative price not displayed: ${variant}`)
   }
   for (const field of ['name', 'article', 'size', 'description', 'area']) {
     const approvedDescription = record.id === 'bg-20'
-      ? 'Мобильная баня с санузлом и отдельной душевой. Особенности этого исполнения перечислены отдельно и уже учтены в указанной цене.'
+      ? APPROVED_MODEL_OVERRIDES[record.id].description
       : record[field]
     const expectedValue = field === 'name'
       ? (APPROVED_MODEL_OVERRIDES[record.id]?.name ?? record[field])

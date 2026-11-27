@@ -8,9 +8,9 @@ export type ModelOptionEvidence = { status: ModelOptionStatus; reason: string; s
 type ConfirmedFeature = { pattern: RegExp; feature: string }
 
 /**
- * Confirmed catalogue features that already include a paid option in the model.
- * Published model features plus explicitly owner-confirmed execution features are used.
- * A price is never treated as compatibility evidence.
+ * Confirmed base-configuration features that already include a paid option in the model.
+ * Optional execution details are not treated as included merely because they appeared
+ * in a previous non-base execution. A price is never treated as compatibility evidence.
  */
 export const includedOptionFeatures: Readonly<Record<string, ConfirmedFeature>> = {
   boiler: { pattern: /бойлер\s*50\s*л/i, feature: 'Бойлер 50 л' },
@@ -123,8 +123,7 @@ function confirmedZones(model: Sauna | Home) {
 }
 
 function includedEvidence(model: Sauna | Home) {
-  const executionFeatures = 'executionFeatures' in model ? model.executionFeatures ?? [] : []
-  const features = [...model.features, ...executionFeatures].join(' | ')
+  const features = model.features.join(' | ')
   return (optionId: string) => {
     const confirmed = includedOptionFeatures[optionId]
     return confirmed && confirmed.pattern.test(features) ? confirmed : undefined

@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # The test release must retain the currently published catalog/options exactly.
+          # Preserve published identities/options; permit only the exact owner-approved model prices listed in the guard.
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:

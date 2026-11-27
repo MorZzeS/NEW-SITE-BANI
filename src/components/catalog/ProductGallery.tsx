@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import { withBasePath } from '@/lib/site-path'
+import { approvedColorVariantsFor } from '@/data/catalog-color-variants'
 import { useReducedMotion } from 'framer-motion'
 
 export type GalleryItem = {
@@ -18,6 +19,7 @@ interface Props {
   items: GalleryItem[]
   title?: string
   compact?: boolean
+  modelId?: string
 }
 
 function GalleryImage({ item, priority = false, full = false, contain = false, onAspectRatio }: { item: GalleryItem; priority?: boolean; full?: boolean; contain?: boolean; onAspectRatio?: (ratio: number) => void }) {
@@ -47,8 +49,11 @@ function GalleryImage({ item, priority = false, full = false, contain = false, o
   </>
 }
 
-export function ProductGallery({ items: sourceItems, title, compact = false }: Props) {
+export function ProductGallery({ items: sourceItems, title, compact = false, modelId }: Props) {
   const items = useMemo(() => sourceItems.filter((item, i) => sourceItems.findIndex((other) => other.src === item.src) === i), [sourceItems])
+  const colorVariants = useMemo(() => modelId ? approvedColorVariantsFor(modelId) : [], [modelId])
+  const [selectedColorCode, setSelectedColorCode] = useState<string | null>(null)
+  const selectedColor = colorVariants.find(variant => variant.colorCode === selectedColorCode)
   const [current, setCurrent] = useState(0)
   const [imageRatios, setImageRatios] = useState<Record<string, number>>({})
   const [autoplayEnabled, setAutoplayEnabled] = useState(true)
@@ -67,14 +72,21 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
   const dialogRef = useRef<HTMLDivElement>(null)
   const [lightbox, setLightbox] = useState(false)
 
-  const single = items.length <= 1
+  const single = selectedColor ? colorVariants.length <= 1 : items.length <= 1
 
   const go = useCallback((dir: number) => {
+    if (selectedColor && colorVariants.length > 1) {
+      setSelectedColorCode(code => {
+        const index = colorVariants.findIndex(variant => variant.colorCode === code)
+        return colorVariants[(index + dir + colorVariants.length) % colorVariants.length]?.colorCode ?? null
+      })
+      return
+    }
     setCurrent((c) => {
       const next = items.length ? (c + dir + items.length) % items.length : 0
       return next
     })
-  }, [items.length])
+  }, [colorVariants, items.length, selectedColor])
 
   const goByUser = useCallback((dir: number) => {
     setAutoplayEnabled(false)
@@ -125,15 +137,18 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
   }, [goByUser, lightbox])
 
   const currentItem = items.length ? items[current % items.length] : undefined
-  const observedAspectRatio = currentItem ? imageRatios[currentItem.src] ?? currentItem.aspectRatio ?? (currentItem.type === 'PLAN' ? 4 / 3 : 3 / 2) : 3 / 2
-  const portraitInterior = currentItem?.type === 'INTERIOR_EXAMPLE' && observedAspectRatio < 1
-  const currentAspectRatio = currentItem?.type === 'INTERIOR_EXAMPLE' ? undefined : observedAspectRatio
+  const displayItem: GalleryItem | undefined = selectedColor && currentItem
+    ? { src: selectedColor.src, type: 'MAIN', alt: `${currentItem.alt}, цвет ${selectedColor.colorName}`, label: `Цвет: ${selectedColor.colorName}`, aspectRatio: selectedColor.width / selectedColor.height }
+    : currentItem
+  const observedAspectRatio = displayItem ? imageRatios[displayItem.src] ?? displayItem.aspectRatio ?? (displayItem.type === 'PLAN' ? 4 / 3 : 3 / 2) : 3 / 2
+  const portraitInterior = displayItem?.type === 'INTERIOR_EXAMPLE' && observedAspectRatio < 1
+  const currentAspectRatio = displayItem?.type === 'INTERIOR_EXAMPLE' ? undefined : observedAspectRatio
   const rememberAspectRatio = useCallback((ratio: number) => {
     if (!Number.isFinite(ratio) || ratio <= 0) return
-    if (!currentItem) return
-    setImageRatios(previous => previous[currentItem.src] === ratio ? previous : { ...previous, [currentItem.src]: ratio })
-  }, [currentItem?.src])
-  if (!currentItem) return null
+    if (!displayItem) return
+    setImageRatios(previous => previous[displayItem.src] === ratio ? previous : { ...previous, [displayItem.src]: ratio })
+  }, [displayItem?.src])
+  if (!currentItem || !displayItem) return null
   const touchHandlers = {
     onPointerDown: (e: React.PointerEvent) => { swipeRef.current = e.clientX; swipeYRef.current = e.clientY; swipedRef.current = false },
     onPointerUp: (e: React.PointerEvent) => {
@@ -156,7 +171,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
         {!single && (
           <button
             onClick={() => goByUser(-1)}
-            aria-label="Назад"
+            aria-label={selectedColor ? 'Предыдущий цвет' : 'Назад'}
             className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
           >
           <ChevronLeft className="w-5 h-5" />
@@ -165,7 +180,7 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
         {!single && (
           <button
             onClick={() => goByUser(1)}
-            aria-label="Вперёд"
+            aria-label={selectedColor ? 'Следующий цвет' : 'Вперёд'}
             className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
           >
             <ChevronRight className="w-5 h-5" />
@@ -175,23 +190,39 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
         <button
           ref={openerRef}
           type="button"
-          aria-label={`Открыть ${currentItem.type === 'PLAN' ? 'планировку' : 'фото'}: ${currentItem.alt}`}
+          aria-label={`Открыть ${displayItem.type === 'PLAN' ? 'планировку' : 'фото'}: ${displayItem.alt}`}
           className={`block w-full relative cursor-pointer select-none touch-pan-y ${interiorCarousel ? 'interior-gallery-image' : ''}`}
           style={{ aspectRatio: currentAspectRatio }}
           onClick={() => { if (!swipedRef.current) { setAutoplayEnabled(false); setLightbox(true) }; swipedRef.current = false }}
           {...touchHandlers}
         >
-          <GalleryImage key={currentItem.src} item={currentItem} priority={current === 0 && !interiorCarousel} contain={portraitInterior} onAspectRatio={rememberAspectRatio} />
-          {currentItem.label && (
+          <GalleryImage key={displayItem.src} item={displayItem} priority={current === 0 && !interiorCarousel} contain={portraitInterior} onAspectRatio={rememberAspectRatio} />
+          {displayItem.label && (
             <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur px-3 py-1 rounded-xl text-xs text-white/90 border border-white/10">
-              {currentItem.label}
+              {displayItem.label}
             </div>
           )}
           <div className="absolute top-3 right-3 bg-black/70 backdrop-blur px-2.5 py-1 rounded-lg text-xs text-white/80 border border-white/10">
-            {current + 1} / {items.length}
+            {selectedColor ? `${colorVariants.findIndex(variant => variant.colorCode === selectedColor.colorCode) + 1} / ${colorVariants.length}` : `${current + 1} / ${items.length}`}
           </div>
         </button>
       </div>
+
+      {colorVariants.length > 0 && <section className="mt-4 min-w-0 rounded-xl border border-cream/10 bg-graphite-950/35 p-3" aria-label="Цветовые варианты модели">
+        <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <h3 className="text-sm font-semibold text-cream">Цвет на выбор</h3>
+          <span className="text-xs text-cream/65" aria-live="polite">{selectedColor?.colorName ?? 'Выберите вариант'}</span>
+        </div>
+        <div role="group" aria-label="Выбрать цвет фасада" className="flex min-w-0 gap-2 overflow-x-auto pb-1">
+          <button type="button" aria-pressed={!selectedColor} aria-label="Показать фото модели" onClick={() => setSelectedColorCode(null)} className={`flex min-h-[68px] shrink-0 flex-col items-center justify-center rounded-lg border px-3 text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-gold-400 focus-visible:outline-offset-2 ${!selectedColor ? 'border-gold-400 bg-gold-400/10 text-gold-300' : 'border-cream/15 text-cream/75 hover:border-cream/40'}`}>
+            Фото модели
+          </button>
+          {colorVariants.map(variant => <button key={variant.colorCode} type="button" aria-label={`Выбрать цвет фасада: ${variant.colorName}`} aria-pressed={selectedColorCode === variant.colorCode} title={variant.colorName} onClick={() => setSelectedColorCode(variant.colorCode)} className={`flex min-h-[68px] w-[88px] shrink-0 flex-col items-center justify-center gap-1 rounded-lg border p-1 transition-colors focus-visible:outline-2 focus-visible:outline-gold-400 focus-visible:outline-offset-2 ${selectedColorCode === variant.colorCode ? 'border-gold-400 bg-gold-400/10' : 'border-cream/15 hover:border-cream/40'}`}>
+            <Image src={withBasePath(variant.src)} alt="" width={72} height={40} sizes="72px" className="h-10 w-[72px] rounded object-contain" />
+            <span className="text-[10px] leading-tight text-cream/80">{variant.colorName}</span>
+          </button>)}
+        </div>
+      </section>}
 
       {interiorCarousel && items.length > 1 && <div className="product-gallery-autoplay-row">
         <span aria-live="polite">{prefersReducedMotion ? 'Автопрокрутка отключена настройками анимации' : autoplayEnabled ? 'Автопрокрутка включена' : 'Автопрокрутка на паузе'}</span>
@@ -206,10 +237,10 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
         {items.map((item, i) => (
           <button
             key={i}
-            onClick={() => { setAutoplayEnabled(false); setCurrent(i) }}
+            onClick={() => { setAutoplayEnabled(false); setSelectedColorCode(null); setCurrent(i) }}
             aria-label={`Перейти к ${i + 1}`}
             className={`relative shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-lg overflow-hidden border transition-opacity ${
-              i === current ? 'border-gold-400' : 'border-transparent opacity-65 hover:opacity-100'
+              i === current && !selectedColor ? 'border-gold-400' : 'border-transparent opacity-65 hover:opacity-100'
             }`}
           >
             <Image src={withBasePath(item.src)} alt={item.alt} fill className={item.type === 'PLAN' ? 'object-contain bg-white' : 'object-cover'} loading="lazy" />
@@ -219,15 +250,15 @@ export function ProductGallery({ items: sourceItems, title, compact = false }: P
 
       {/* Lightbox */}
       {lightbox && createPortal(
-        <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={currentItem.alt} className="fixed inset-0 z-[100] bg-graphite-950/95 flex items-center justify-center p-4" onClick={() => setLightbox(false)} {...touchHandlers}>
+        <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={displayItem.alt} className="fixed inset-0 z-[100] bg-graphite-950/95 flex items-center justify-center p-4" onClick={() => setLightbox(false)} {...touchHandlers}>
           <button ref={closeRef} onClick={() => setLightbox(false)} className="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20" aria-label="Закрыть">×</button>
           {!single && <>
             <button aria-label="Предыдущее фото" onClick={(e) => { e.stopPropagation(); goByUser(-1) }} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-graphite-950/70 text-white flex items-center justify-center hover:bg-white/20">‹</button>
             <button aria-label="Следующее фото" onClick={(e) => { e.stopPropagation(); goByUser(1) }} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-graphite-950/70 text-white flex items-center justify-center hover:bg-white/20">›</button>
           </>}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">{current + 1} / {items.length}</div>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">{selectedColor ? `${selectedColor.colorName} · ${colorVariants.findIndex(variant => variant.colorCode === selectedColor.colorCode) + 1} / ${colorVariants.length}` : `${current + 1} / ${items.length}`}</div>
           <div className="relative w-[90vw] h-[80vh]" onClick={(e) => e.stopPropagation()}>
-            <GalleryImage key={currentItem.src} item={currentItem} full />
+            <GalleryImage key={displayItem.src} item={displayItem} full />
           </div>
         </div>, document.body
       )}

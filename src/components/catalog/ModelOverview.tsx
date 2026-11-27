@@ -40,14 +40,14 @@ export function ModelOverview({ model }: { model: Sauna | Home }) {
         { src: model.image, type: 'MAIN', alt: model.name, label: 'Визуализация модели', aspectRatio: modelImageAspectRatio },
         ...(model.floorPlan ? [{ src: model.floorPlan, type: 'PLAN' as const, alt: `${model.name} — планировка`, label: 'Планировка модели' }] : []),
         ...model.images.filter(src => src !== model.image).map((src, i) => ({ src, type: 'MODEL_PHOTO' as const, alt: `${model.name} — изображение ${i + 1}`, aspectRatio: modelImageAspectRatio })),
-      ]} />
+      ]} modelId={isSauna ? model.id : undefined} />
       {model.id === 'bg-18' && <p className="mt-3 text-sm leading-relaxed text-cream/75" data-photo-options-note="bg-18">Визуализация показывает внешний вид модели с декоративными шпросами; проливной пол на изображении не показан. Ни проливной пол, ни два шпроса не входят в базовую комплектацию — их можно выбрать отдельно.</p>}
       </div>
       <div className="model-overview-details glass rounded-2xl p-4 sm:p-5 min-w-0">
         <p className="text-xs font-semibold tracking-[0.12em] text-gold-400 mb-1">{model.article}</p>
         <h1 className="text-3xl sm:text-4xl font-bold text-cream mb-2">{model.name}</h1>
         <p className="text-sm text-cream/70 leading-relaxed mb-3">{model.subtitle}</p>
-        <p className={styles.changeNote}>Цвет, комплектацию и планировку можно обсудить с менеджером</p>
+        <p className={styles.changeNote}>{isSauna ? 'Выберите цвет фасада ниже. Комплектацию и планировку можно обсудить с менеджером.' : 'Комплектацию и планировку можно обсудить с менеджером.'}</p>
         <dl className="model-parameters model-overview-parameters mb-3">
           <div><dt>Размер</dt><dd>{model.size}</dd></div>
           <div><dt>Площадь застройки</dt><dd>{model.area} м²</dd></div>

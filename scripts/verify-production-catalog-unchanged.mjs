@@ -5,10 +5,16 @@ import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 
-// Test releases may add owner-approved options and article content, while
-// existing model identities, base prices, and existing option prices remain
-// anchored to the currently published production revision.
+// Test releases may add owner-approved options/content and the exact model
+// prices in the owner's 27 Nov 2026 card-price sheet. Other model prices and
+// all existing option prices remain anchored to the production revision.
 export const PRODUCTION_BASELINE = '2a23ae0ba64f48904f05bb183cb02e1584be24e0'
+export const APPROVED_MODEL_PRICES = new Map([
+  ['bg-09', 575000], ['bg-10', 607000], ['bg-11', 640000], ['bg-12', 646000],
+  ['bg-13', 672000], ['bg-14', 646000], ['bg-15', 731000], ['bg-16', 640000],
+  ['bg-17', 698000], ['bg-18', 619000], ['bg-19', 752000], ['bg-20', 825000],
+  ['bg-21', 876000], ['bg-28', 1435000],
+])
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const files = ['src/data/index.ts', 'src/data/options.ts']
@@ -41,7 +47,10 @@ for (const collection of ['saunas', 'homes']) {
   for (const model of after) {
     const previous = beforeById.get(model.id)
     if (!previous) fail(`${collection} added model ${model.id} beyond production baseline ${PRODUCTION_BASELINE}`)
-    if (model.slug !== previous.slug || model.priceFrom !== previous.priceFrom) fail(`${model.id}: route identity or base price changed from production baseline`)
+    const approvedPrice = APPROVED_MODEL_PRICES.get(model.id)
+    if (model.slug !== previous.slug) fail(`${model.id}: route identity changed from production baseline`)
+    if (approvedPrice === undefined && model.priceFrom !== previous.priceFrom) fail(`${model.id}: unapproved base price changed from production baseline`)
+    if (approvedPrice !== undefined && model.priceFrom !== approvedPrice) fail(`${model.id}: card price must match the owner's approved ${approvedPrice} RUB`)
   }
   if (after.length !== before.length) fail(`${collection} model count changed from production baseline ${PRODUCTION_BASELINE}`)
   if (new Set(after.map(model => model.id)).size !== after.length) fail(`${collection} contains duplicate model IDs`)
@@ -68,4 +77,8 @@ for (const id of currentOptions.keys()) {
 const ral = currentOptions.get('facade-ral')
 if (!ral?.description.includes('С профлистом несовместима')) fail('RAL finish must remain incompatible with profile sheet')
 
-console.log(`PASS: sauna/home route identities and base prices; existing option prices; 3 approved exterior finishes; RAL incompatibility (${PRODUCTION_BASELINE})`)
+for (const modelId of APPROVED_MODEL_PRICES.keys()) {
+  if (!current[files[0]].saunas.some(model => model.id === modelId && model.isPublished)) fail(`Approved price model ${modelId} must exist as a published sauna`)
+}
+
+console.log(`PASS: sauna/home route identities; ${APPROVED_MODEL_PRICES.size} exact owner-approved prices; other base prices; existing option prices; 3 approved exterior finishes; RAL incompatibility (${PRODUCTION_BASELINE})`)

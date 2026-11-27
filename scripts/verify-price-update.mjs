@@ -14,56 +14,74 @@ export const APPROVED_FRAME_ONLY_FEATURE_IDS = ['bg-09', 'bg-10', 'bg-11', 'bg-1
 const frameOnlyIds = new Set(APPROVED_FRAME_ONLY_FEATURE_IDS)
 const formerFrameFeature = 'Каркас 100 мм или брус 90 × 140 мм'
 const currentFrameFeature = 'Каркас 100 мм'
-// Exact owner-approved model corrections, 18 Nov 2026; public names simplified by the 20 Nov catalog brief.
+// Exact owner-approved model corrections. The 27 Nov card price sheet also sets the current displayed/model base price for these 14 active models.
 export const APPROVED_MODEL_OVERRIDES = {
   "bg-09": {
-    "name": "Скандинавия 4,5 В"
+    "name": "Скандинавия 4,5 В",
+    "priceFrom": 575000
   },
   "bg-10": {
-    "name": "Скандинавия 6 В"
+    "name": "Скандинавия 6 В",
+    "priceFrom": 607000
   },
   "bg-11": {
     "name": "Скандинавия 6,5 Д-В",
-    "hasShower": true
+    "hasShower": true,
+    "priceFrom": 640000
   },
   "bg-12": {
     "name": "Скандинавия 7 Д",
     "hasTerrace": false,
-    "hasShower": true
+    "hasShower": true,
+    "priceFrom": 646000
   },
   "bg-13": {
     "name": "Скандинавия 7,5 Д-В",
-    "hasShower": true
+    "hasShower": true,
+    "priceFrom": 672000
   },
   "bg-14": {
-    "name": "Скандинавия 6 Д"
+    "name": "Скандинавия 6 Д",
+    "priceFrom": 646000
   },
   "bg-15": {
-    "name": "Скандинавия 8 Д-В"
+    "name": "Скандинавия 8 Д-В",
+    "priceFrom": 731000
   },
   "bg-16": {
-    "name": "Скандинавия 6 С-Д"
+    "name": "Скандинавия 6 С-Д",
+    "priceFrom": 640000
   },
   "bg-17": {
-    "name": "Скандинавия 7 С-Д"
+    "name": "Скандинавия 7 С-Д",
+    "priceFrom": 698000
   },
   "bg-18": {
     "features": ["Скрытая электрика и уличная подсветка", "Абажуры и ограждение печи"],
-    "name": "Скандинавия 4"
+    "name": "Скандинавия 4",
+    "priceFrom": 619000
   },
   "bg-19": {
     "name": "Скандинавия 6,5 Д-В",
     "hasBathroom": false,
-    "hasTerrace": true
+    "hasTerrace": true,
+    "priceFrom": 752000
   },
   "bg-20": {
-    "name": "Скандинавия 7 С-Д"
+    "name": "Скандинавия 7 С-Д",
+    "subtitle": "Базовая комплектация. Дополнительные опции рассчитываются отдельно.",
+    "description": "Мобильная баня 7 × 2,4 м с планировкой С-Д. Указанная цена 825 000 ₽ — базовая комплектация; дополнительные опции, включая увеличение высоты, отделку и оснащение, выбираются отдельно и добавляются к стоимости.",
+    "specs": [{"label": "Размер", "value": "7 × 2,4 м"}, {"label": "Площадь застройки", "value": "16,8 м²"}, {"label": "Исполнение", "value": "Базовая комплектация"}],
+    "features": ["Планировка С-Д по проекту"],
+    "priceFrom": 825000
   },
   "bg-21": {
-    "name": "Скандинавия 8 С-Д"
+    "name": "Скандинавия 8 С-Д",
+    "priceFrom": 876000
   },
   "bg-28": {
-    "name": "Барн Премиум 8 Д-В"
+    "name": "Барн Премиум 8 Д-В",
+    "priceFrom": 1435000
   }
 }
 export const MODEL_INCREASE = 55000

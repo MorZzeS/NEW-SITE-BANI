@@ -20,7 +20,7 @@ function load(relative) {
 const { saunas, homes } = load('src/data/index.ts')
 const { filterByBudget, sortByPrice } = load('src/lib/catalog-filters.ts')
 const thresholds = [575_000, 750_000, 850_000, 1_000_000, 1_200_000, 1_500_000]
-const saunaCounts = [10, 21, 22, 23, 24, 25]
+const saunaCounts = [10, 21, 23, 24, 24, 25]
 const homeCounts = [0, 0, 0, 0, 0, 4]
 
 for (const [products, expectedCounts, kind] of [[saunas, saunaCounts, 'saunas'], [homes, homeCounts, 'homes']]) {

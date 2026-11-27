@@ -70,14 +70,14 @@ assert.ok(optionGuidance.lamination.notes.includes('Цена указана за
 assert.match(optionComponentSource, /Цена указана за 1 шт\./)
 assert.doesNotMatch(optionComponentSource, /количество выберите ниже/i, 'calculator quantity hint belongs below the checkbox, not in PDF copy')
 for (const [ids, quantities, subtotal, total] of [
-  [[], {}, 0, 619200],
-  [['floor'], {}, 20600, 639800],
-  [['window-grid'], { 'window-grid': 2 }, 17800, 637000],
-  [['floor', 'window-grid'], { 'window-grid': 2 }, 38400, 657600],
-  [['floor', 'floor', 'window-grid', 'window-grid'], { 'window-grid': 2 }, 38400, 657600],
+  [[], {}, 0, 619000],
+  [['floor'], {}, 20600, 639600],
+  [['window-grid'], { 'window-grid': 2 }, 17800, 636800],
+  [['floor', 'window-grid'], { 'window-grid': 2 }, 38400, 657400],
+  [['floor', 'floor', 'window-grid', 'window-grid'], { 'window-grid': 2 }, 38400, 657400],
 ]) {
   const result = calculate(fourMetre, ids, { quantities })
-  assert.equal(result.basePrice, 619200)
+  assert.equal(result.basePrice, 619000)
   assert.equal(result.optionsSubtotal, subtotal)
   assert.equal(result.total, total, 'floor and grids must be selectable and counted once')
   assert.equal(result.options.length, new Set([...ids, 'exterior-imitation-board']).size, 'the standard zero-price exterior finish is included for sauna models')
@@ -115,8 +115,8 @@ assert.equal(equipmentSelection(['hidden-wiring', 'outdoor-lighting', 'external-
 let modelCases = 0
 for (const model of [...saunas, ...homes]) {
   const result = calculate(model, ['outdoor-lamp', 'roof-overhang-light', 'wall-point', 'panoramic-window-600-1800', 'ceiling-height'], { quantities: { 'outdoor-lamp': 3, 'roof-overhang-light': 4, 'wall-point': 2, 'panoramic-window-600-1800': 2, 'ceiling-height': 2 } })
-  const includedCeilingHeight = model.id === 'bg-20'
-  const expectedSubtotal = includedCeilingHeight ? 85000 : 129000
+  const includedCeilingHeight = false
+  const expectedSubtotal = 129000
   assert.equal(result.optionsSubtotal, expectedSubtotal)
   assert.equal(result.total, model.priceFrom + expectedSubtotal)
   const quantitiesByOption = Object.fromEntries(result.options.map(item => [item.id, item.quantity]))

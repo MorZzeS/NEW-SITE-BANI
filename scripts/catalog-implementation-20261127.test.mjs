@@ -24,7 +24,17 @@ require.extensions['.ts'] = (module, filename) => {
 const { calculateModelConfiguration, configurationManagerText } = require(path.join(root, 'src/lib/model-configuration-selection.ts'))
 const { toggleEquipmentOption } = require(path.join(root, 'src/lib/equipment-selection.ts'))
 const { approvedColorVariantsFor } = require(path.join(root, 'src/data/catalog-color-variants.ts'))
+const { saunas } = require(path.join(root, 'src/data/index.ts'))
 const { additionalOptions } = require(path.join(root, 'src/data/options.ts'))
+const ownerApprovedPrices = new Map([
+  ['bg-09', 575000], ['bg-10', 607000], ['bg-11', 640000], ['bg-12', 646000],
+  ['bg-13', 672000], ['bg-14', 646000], ['bg-15', 731000], ['bg-16', 640000],
+  ['bg-17', 698000], ['bg-18', 619000], ['bg-19', 752000], ['bg-20', 825000],
+  ['bg-21', 876000], ['bg-28', 1435000],
+])
+for (const [modelId, price] of ownerApprovedPrices) {
+  assert.equal(saunas.find(model => model.id === modelId)?.priceFrom, price, `${modelId} must use the owner-approved card/base price`)
+}
 const exteriorIds = ['exterior-imitation-board', 'exterior-blockhouse', 'exterior-profile-sheet']
 const finishRows = additionalOptions.filter(option => exteriorIds.includes(option.id))
 assert.equal(finishRows.length, 3, 'Only the three approved finish variants should exist')
@@ -150,7 +160,13 @@ for (const item of registry) {
   assert(fs.existsSync(assetPath), `Color image missing: ${item.src}`)
   assert.equal(crypto.createHash('sha256').update(fs.readFileSync(assetPath)).digest('hex'), item.webpSha256, `Color asset changed: ${item.src}`)
 }
-assert.match(fs.readFileSync(path.join(root, 'src/components/catalog/CatalogCardGallery.tsx'), 'utf8'), /approvedColorVariantsFor/u, 'Owner-approved supplied colors must be selectable')
-assert(!/Рендеры на проверке|ожидает сверки конструкции|кандидат рендера для проверки/u.test(fs.readFileSync(path.join(root, 'src/components/catalog/CatalogCardGallery.tsx'), 'utf8')))
+const catalogCardGallery = fs.readFileSync(path.join(root, 'src/components/catalog/CatalogCardGallery.tsx'), 'utf8')
+assert(!catalogCardGallery.includes('approvedColorVariantsFor'), 'Color selection stays inside the model detail, not the catalog card')
+assert(!/Цвет на выбор|colorSwatch|colorPreview/u.test(catalogCardGallery), 'Catalog cards must not display color badges or selectors')
+const productGallery = fs.readFileSync(path.join(root, 'src/components/catalog/ProductGallery.tsx'), 'utf8')
+assert.match(productGallery, /approvedColorVariantsFor/u, 'Owner-approved colors are selectable inside the model detail gallery')
+assert.match(productGallery, /aria-label="Выбрать цвет фасада"/u, 'The model detail color selector has an accessible group label')
+assert.match(fs.readFileSync(path.join(root, 'src/components/catalog/ModelOverview.tsx'), 'utf8'), /modelId=\{isSauna \? model\.id : undefined\}/u, 'Color selector receives IDs for sauna detail pages only')
+assert(!/Рендеры на проверке|ожидает сверки конструкции|кандидат рендера для проверки/u.test(productGallery))
 
 console.log(JSON.stringify({ status: 'PASS', finishCalculations: '500000 / 525000 / 535000 / 560000 RUB', finishExclusivity: 'PASS', ralCompatibleWithImitationAndBlockhouse: true, ralRejectedWithProfileSheet: true, barnExcluded: true, houseExcluded: true, modelCountersSeeded: seededIds.length, convertedColorRenders: registry.length, colorModelsWithSixVariants: publishedSaunas.length, missingColorModels: renderManifest.missingModelCodes, colorRendersOwnerApproved: true, modelCounterStorage: 'model_id + views only' }, null, 2))

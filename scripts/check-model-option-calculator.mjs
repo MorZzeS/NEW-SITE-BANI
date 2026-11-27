@@ -148,8 +148,8 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1) - finis
   assert.equal(calculated.selectedOptionIds.length, new Set(calculated.selectedOptionIds).size)
   assert.equal(calculated.selectedOptionIds.includes('replanning'), replanningEligible, `${model.id}: standard plan change must be included exactly for eligible saunas`)
   assert.ok(calculated.selectedOptionIds.every(id => ['available', 'unknown'].includes(items.find(item => item.option.id === id)?.status)), `${model.id}: confirmed and estimate-only options can be selected`)
-  assert.equal(calculated.unpricedCount, model.id === 'bg-20' ? 2 : 3, `${model.id}: all pending prices and unpriced district logistics must be disclosed, while assembly replaces crane unloading and confirmed included execution is not selected twice`)
-  assert.deepEqual(JSON.parse(JSON.stringify(calculated.individualItems)), model.id === 'bg-20' ? ['delivery', 'ermak-16-premium-cast-iron'] : ['larch-wash', 'delivery', 'ermak-16-premium-cast-iron'])
+  assert.equal(calculated.unpricedCount, 3, `${model.id}: pending prices and unpriced district logistics must be disclosed; BG20 upgrades are separately priced`)
+  assert.deepEqual(JSON.parse(JSON.stringify(calculated.individualItems)), ['larch-wash', 'delivery', 'ermak-16-premium-cast-iron'])
   assert.ok(calculated.selectedOptionIds.includes('onsite-assembly') && !calculated.selectedOptionIds.includes('crane-unload'), `${model.id}: assembly selection must not charge separate crane unloading`)
   assert.ok(calculation.configurationManagerText(calculated).includes('Предварительная сумма без позиций индивидуального расчёта, включая неподтверждённую логистику.'), `${model.id}: manager summary must carry the preliminary-total caveat`)
   assert.equal(calculation.calculateModelConfiguration(model, []).total, model.priceFrom)
@@ -178,10 +178,10 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1) - finis
   assert.deepEqual(JSON.parse(JSON.stringify(heightZero.selectedOptionIds)), defaultFinishIds, '0 cm means no ceiling-height option; only the zero-price standard finish may remain')
   assert.equal(heightZero.optionsSubtotal, 0)
   if (model.id === 'bg-20') {
-    assert.deepEqual(JSON.parse(JSON.stringify(heightTwo.selectedOptionIds)), defaultFinishIds, 'BG20 already includes +20 cm and cannot add it again')
-    assert.equal(heightTwo.optionsSubtotal, 0)
-    assert.deepEqual(JSON.parse(JSON.stringify(heightOutOfRange.selectedOptionIds)), defaultFinishIds)
-    assert.equal(heightOutOfRange.optionsSubtotal, 0)
+    assert.deepEqual(JSON.parse(JSON.stringify(heightTwo.selectedOptionIds)), [...defaultFinishIds, 'ceiling-height'], 'BG20 +20 cm is a separately selectable option')
+    assert.equal(heightTwo.optionsSubtotal, 44_000)
+    assert.deepEqual(JSON.parse(JSON.stringify(heightOutOfRange.selectedOptionIds)), [...defaultFinishIds, 'ceiling-height'])
+    assert.equal(heightOutOfRange.optionsSubtotal, 44_000)
   } else {
     assert.equal(heightTwo.options.find(option => option.id === 'ceiling-height')?.quantity, 2)
     assert.equal(heightTwo.optionsSubtotal, 44_000, 'the maximum +20 cm option is two 22 000 RUB steps')
@@ -220,7 +220,7 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1) - finis
 const totals = { available: 0, included: 0, unavailable: 0, unknown: 0 }
 for (const model of matrix) for (const key of Object.keys(totals)) totals[key] += model.counts[key]
 assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 24 * 48 + 7 * 44, 'matrix must cover 48 options for eligible saunas and 44 for Barn Premium plus six homes')
-assert.equal(totals.included, 51, 'catalogue and explicitly confirmed BG20 execution options are classified as included; the free gift furniture is not the paid furniture option')
+assert.equal(totals.included, 39, 'only the current base-configuration features are classified as included; BG20 former execution upgrades are separate options')
 assert.equal(totals.unavailable, 0, 'current sources confirm no incompatible option; do not invent unavailable rows')
 assert.ok(totals.available > 0 && totals.unknown > 0, 'matrix must distinguish confirmed availability from confirmation-needed positions')
 
@@ -240,19 +240,21 @@ assert.equal(evidence('bg-18').find(row => row.option === 'external-light').stat
 assert.equal(evidence('bg-18').find(row => row.option === 'shade').status, 'included')
 assert.equal(evidence('bg-18').find(row => row.option === 'floor').status, 'available')
 assert.equal(evidence('bg-18').find(row => row.option === 'window-grid').status, 'available')
-assert.equal(models.find(model => model.id === 'bg-18').priceFrom, 619200, 'base excludes optional floor and two grids')
+assert.equal(models.find(model => model.id === 'bg-18').priceFrom, 619000, 'owner-approved card price; base excludes optional floor and two grids')
 assert.equal(evidence('bg-19').find(row => row.option === 'boiler').status, 'included')
 assert.equal(evidence('bg-19').find(row => row.option === 'shower').status, 'included')
-assert.equal(evidence('bg-20').find(row => row.option === 'wc').status, 'included')
-for (const id of ['boiler', 'shower', 'lamination', 'hidden-wiring', 'external-light', 'decor', 'floor', 'facade-ral', 'ceiling-height', 'outdoor-lighting', 'larch-wash']) {
-  assert.equal(evidence('bg-20').find(row => row.option === id).status, 'included', `bg-20/${id}: owner-confirmed execution is already in the displayed price`)
+for (const id of ['boiler', 'shower', 'wc', 'lamination', 'hidden-wiring', 'external-light', 'decor', 'floor', 'facade-ral', 'ceiling-height', 'outdoor-lighting', 'larch-wash', 'floating-bench', 'aspen-bench', 'steam-bench-oil']) {
+  assert.equal(evidence('bg-20').find(row => row.option === id).status, 'available', `bg-20/${id}: add-on is selectable separately from the base price`)
 }
 assert.equal(evidence('bg-20').find(row => row.option === 'panoramic-window-600-1800').status, 'unknown', 'BG20 panoramic-window dimensions are not inferred from a generic panoramic-window note')
 const bg20 = models.find(model => model.id === 'bg-20')
-const bg20Included = ['boiler', 'shower', 'wc', 'lamination', 'hidden-wiring', 'external-light', 'decor', 'floor', 'facade-ral', 'ceiling-height', 'outdoor-lighting', 'larch-wash']
-const bg20IncludedSelection = calculation.calculateModelConfiguration(bg20, bg20Included)
-assert.equal(JSON.stringify(bg20IncludedSelection.selectedOptionIds), JSON.stringify(['exterior-imitation-board']), 'included BG20 options cannot be added to the paid calculator total; the base finish remains free')
-assert.equal(bg20IncludedSelection.total, 1_039_100, 'BG20 included features do not increase its price')
+const bg20Base = calculation.calculateModelConfiguration(bg20, [])
+assert.equal(bg20Base.total, 825_000, 'BG20 owner-approved price is the base configuration before add-ons')
+assert.deepEqual(JSON.parse(JSON.stringify(bg20Base.selectedOptionIds)), ['exterior-imitation-board'])
+const bg20Height = calculation.calculateModelConfiguration(bg20, ['ceiling-height'], { quantities: { 'ceiling-height': 2 } })
+assert.equal(bg20Height.total, 869_000, 'BG20 separately adds the confirmed +20 cm option')
+const bg20Bench = calculation.calculateModelConfiguration(bg20, ['floating-bench'])
+assert.equal(bg20Bench.total, 837_000, 'BG20 separately adds the owner-priced floating bench')
 assert.equal(evidence('bg-21').find(row => row.option === 'floor').status, 'included')
 assert.equal(evidence('bg-23').find(row => row.option === 'floor').status, 'included')
 assert.equal(evidence('bg-24').find(row => row.option === 'ermak-base').status, 'included')
@@ -303,9 +305,9 @@ console.log(JSON.stringify({
   modelPages: unitOnly ? 'not checked (--unit)' : checkedPages,
   compatibilityStates: totals,
   perModelAvailable: Object.fromEntries(matrix.map(model => [model.id, model.counts.available])),
-  basePriceSource: 'model.priceFrom, unchanged',
+  basePriceSource: 'model.priceFrom; 14 active sauna prices match the owner-approved 2026-11-27 card sheet',
   duplicateSelection: 'counted once',
   unpricedOption: 'excluded from total and disclosed',
   promotionalDiscount: '15 000 RUB only with exit-intent source, baths only',
-  baseOverlapEvidence: { furniture: 'bg-01', ermak: 'bg-09', externalLight: 'bg-18', boiler: 'bg-19', wc: 'bg-20', floor: 'bg-21', stoveReplacement: 'bg-04', planless: planless.map(model => model.id) },
+  baseOverlapEvidence: { furniture: 'bg-01', ermak: 'bg-09', externalLight: 'bg-18', boiler: 'bg-19', wcAvailableAsAddon: 'bg-20', floor: 'bg-21', stoveReplacement: 'bg-04', planless: planless.map(model => model.id) },
 }, null, 2))
