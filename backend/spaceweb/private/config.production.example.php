@@ -6,6 +6,7 @@ return [
     'document_bundle_path' => '', 'document_bundle_sha256' => '', // Private exact-byte approved bundle, independently pinned.
     'max_recipient_type' => '', 'max_recipient_id' => '', 'max_recipient_approved' => false,
     'approved' => false, 'db_dsn' => '', 'db_user' => '', 'db_password' => '',
+    'model_views_enabled' => false, 'model_views_approved' => false, 'model_views_https_proxy_verified' => false,
     'ip_hmac_key' => '', 'notify_enabled' => false, 'max_token' => '', 'max_tls_public_ca_verified' => false,
     'system_ca_bundle' => '', // Actual maintained host CA bundle, never the Ministry root alone.
     'backup_cleanup_approved' => false,

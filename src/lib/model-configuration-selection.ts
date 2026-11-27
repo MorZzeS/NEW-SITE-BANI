@@ -1,6 +1,7 @@
 import type { Home, Sauna } from '@/types'
 import { modelOptionAvailability } from '@/lib/model-option-availability'
 import { normalizeOptionIds, normalizeOptionQuantity, optionQuantityLabel } from '@/lib/equipment-selection'
+import { withDefaultExteriorFinish } from '@/lib/exterior-finishes'
 import { deliveryDistrictLabel, isLogisticsOption, isPreliminaryLogisticsEstimate, managerOptionName, normalizeDeliveryAddress, normalizeDeliveryDistrict, preliminaryOptionPriceText, resolveOptionPrice, type DeliveryDistrict } from '@/lib/logistics'
 
 export const PROMOTIONAL_DISCOUNT_RUB = 15_000
@@ -14,13 +15,15 @@ export type ModelConfigurationCalculation = {
 }
 type CalculationInput = { promotionalDiscount?: boolean; quantities?: Record<string, number>; deliveryDistrict?: DeliveryDistrict; deliveryAddress?: string }
 export function calculateModelConfiguration(model: Sauna | Home, ids: readonly string[], input: CalculationInput = {}): ModelConfigurationCalculation {
-  const unique = new Set(normalizeOptionIds(ids)), deliveryDistrict = normalizeDeliveryDistrict(input.deliveryDistrict)
+  const isBath = 'series' in model
+  const normalizedIds = withDefaultExteriorFinish(isBath ? 'sauna' : 'home', model.slug, normalizeOptionIds(ids))
+  const unique = new Set(normalizedIds), deliveryDistrict = normalizeDeliveryDistrict(input.deliveryDistrict)
   const options = modelOptionAvailability(model).filter(item => (item.status === 'available' || item.status === 'unknown') && unique.has(item.option.id) && normalizeOptionQuantity(item.option, input.quantities?.[item.option.id]) > 0).map(({ option }) => ({
     id: option.id, name: option.name, price: resolveOptionPrice(option, deliveryDistrict), kind: isLogisticsOption(option.id) ? 'logistics' as const : 'equipment' as const,
     quantity: normalizeOptionQuantity(option, input.quantities?.[option.id]),
   }))
   const subtotal = (kind?: string) => options.filter(option => !kind || option.kind === kind).reduce((sum, option) => sum + (option.price ?? 0) * option.quantity, 0)
-  const optionsSubtotal = subtotal(), isBath = 'series' in model
+  const optionsSubtotal = subtotal()
   const discount = input.promotionalDiscount && isBath ? Math.min(PROMOTIONAL_DISCOUNT_RUB, model.priceFrom + optionsSubtotal) : 0
   return { modelId: model.id, modelName: model.name, modelType: isBath ? 'sauna' : 'home', basePrice: model.priceFrom,
     selectedOptionIds: options.map(option => option.id), options, deliveryDistrict, deliveryAddress: normalizeDeliveryAddress(input.deliveryAddress),

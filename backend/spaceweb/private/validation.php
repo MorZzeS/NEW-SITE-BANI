@@ -11,19 +11,34 @@ function isoDate(mixed $value): bool {
 }
 function rubles(mixed $v): bool { return is_int($v) && $v>=0 && $v<=1000000000; }
 function validConfiguration(mixed $v, array $lead): bool {
+    $exteriorFinishPrices=[
+        'exterior-imitation-board'=>['name'=>'Имитация бруса — базовый вариант','price'=>0],
+        'exterior-blockhouse'=>['name'=>'Наружная отделка блок-хаусом','price'=>35000],
+        'exterior-profile-sheet'=>['name'=>'Наружная отделка профлистом','price'=>60000],
+    ];
+    $ralOption=['name'=>'Окраска внешней отделки по RAL','price'=>25000];
     $fields=['modelId','modelName','modelType','basePrice','selectedOptionIds','options','deliveryDistrict','deliveryAddress','equipmentSubtotal','logisticsSubtotal','individualItems','optionsSubtotal','discount','discountLabel','total','unpricedCount','currency','calculatedAt'];
     if (!exactKeys($v,$fields) || !boundedText($v['modelId'],1,80) || !boundedText($v['modelName'],1,160) || $v['modelName']!==$lead['model'] || $v['modelType']!==match($lead['modelKind']) {'bath'=>'sauna','house'=>'home',default=>''} || $v['currency']!=='RUB' || !isoDate($v['calculatedAt'])) return false;
     foreach (['basePrice','equipmentSubtotal','logisticsSubtotal','optionsSubtotal','discount','total'] as $key) if (!rubles($v[$key])) return false;
     if (!in_array($v['deliveryDistrict'],['unknown','ramenskoe','outside'],true) || !boundedText($v['deliveryAddress'],0,300) || !boundedText($v['discountLabel'],0,120) || !is_array($v['options']) || !array_is_list($v['options']) || count($v['options'])>80 || !is_array($v['selectedOptionIds']) || !array_is_list($v['selectedOptionIds']) || !is_array($v['individualItems']) || !array_is_list($v['individualItems'])) return false;
-    $ids=[]; $individual=[]; $equipment=0; $logistics=0;
+    $ids=[]; $individual=[]; $equipment=0; $logistics=0; $selectedExteriorFinishes=0;
     foreach ($v['options'] as $option) {
         if (!exactKeys($option,['id','name','price','quantity','kind']) || !boundedText($option['id'],1,80) || !boundedText($option['name'],1,160) || !is_int($option['quantity']) || $option['quantity']<1 || $option['quantity']>100 || !in_array($option['kind'],['equipment','logistics'],true) || ($option['price']!==null && !rubles($option['price'])) || in_array($option['id'],$ids,true)) return false;
+        if (isset($exteriorFinishPrices[$option['id']])) {
+            $expected=$exteriorFinishPrices[$option['id']];
+            if ($v['modelType']!=='sauna' || $option['name']!==$expected['name'] || $option['price']!==$expected['price'] || $option['quantity']!==1 || $option['kind']!=='equipment') return false;
+            $selectedExteriorFinishes++;
+            if ($selectedExteriorFinishes>1) return false;
+        }
+        if ($option['id']==='facade-ral'
+            && ($v['modelType']!=='sauna' || $option['name']!==$ralOption['name'] || $option['price']!==$ralOption['price'] || $option['quantity']!==1 || $option['kind']!=='equipment')) return false;
         $ids[]=$option['id'];
         if ($option['kind']==='logistics' && $v['deliveryDistrict']!=='ramenskoe' && $option['price']!==null) return false;
         if ($option['price']===null) $individual[]=$option['id'];
         elseif ($option['kind']==='equipment') $equipment+=$option['price']*$option['quantity'];
         else $logistics+=$option['price']*$option['quantity'];
     }
+    if (in_array('facade-ral',$ids,true) && in_array('exterior-profile-sheet',$ids,true)) return false;
     $subtotal=$equipment+$logistics;
     return $v['selectedOptionIds']===$ids && $v['individualItems']===$individual && $v['equipmentSubtotal']===$equipment && $v['logisticsSubtotal']===$logistics && $v['optionsSubtotal']===$subtotal && $v['unpricedCount']===count($individual) && $v['discount']<=$v['basePrice']+$subtotal && ($v['discount']>0 ? $v['discountLabel']!=='' : $v['discountLabel']==='') && $v['total']===$v['basePrice']+$subtotal-$v['discount'];
 }

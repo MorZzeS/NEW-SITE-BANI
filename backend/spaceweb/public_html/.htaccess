@@ -9,6 +9,9 @@ DirectoryIndex index.html
 <Files "leads.php">
     SetEnvIf X-Forwarded-Proto "^https$" HTTPS=on
 </Files>
+<Files "model-views.php">
+    SetEnvIf X-Forwarded-Proto "^https$" HTTPS=on
+</Files>
 DirectorySlash Off
 AddDefaultCharset UTF-8
 AddCharset UTF-8 .html .css .js .json .txt .xml
@@ -26,7 +29,7 @@ AddType video/mp4 .mp4
 </IfModule>
 
 # Не исполнять/публиковать случайно оставленные конфигурации и серверные файлы.
-<FilesMatch "^(?!leads\.php$)(?:\..*|.*\.(?i:php[0-9]?|phtml|phar|env|ini|conf|config|sql|bak|log|key|pem|zip|gz|tgz|tar|7z|dump|enc|sqlite|db|jsonl))$">
+<FilesMatch "^(?!leads\.php$|model-views\.php$)(?:\..*|.*\.(?i:php[0-9]?|phtml|phar|env|ini|conf|config|sql|bak|log|key|pem|zip|gz|tgz|tar|7z|dump|enc|sqlite|db|jsonl))$">
     Order allow,deny
     Deny from all
 </FilesMatch>
@@ -53,6 +56,7 @@ AddType video/mp4 .mp4
     RewriteRule (^|/)(private|config|userdata|backend|api|\.git|\.env)(/|$) - [F,L,NC]
     RewriteRule ^test-leads(?:\.html|/index\.html|/)?$ - [F,L,NC]
     RewriteRule ^leads\.php$ - [L]
+    RewriteRule ^model-views\.php$ - [L]
     RewriteRule \.(php[0-9]?|phtml|phar)(/|$) - [F,L,NC]
 
     # Существующие файлы (включая _next, изображения, видео, favicon) без изменений.

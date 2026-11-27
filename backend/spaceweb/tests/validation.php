@@ -6,6 +6,17 @@ foreach (['createdAt'=>'invalid','contractVersion'=>2,'consentVersion'=>'old','c
 $legacy=$good; unset($legacy['action']); $cases[]=[$legacy,false];
 $bad=$good;$bad['unexpected']='value';$cases[]=[$bad,false];
 $configured=$good; $configured['configurationDetails']=syntheticConfiguration($good); $cases[]=[$configured,true];
+$appendConfigurationOption=static function(array $d,array $option,int $amount):array{$c=&$d['configurationDetails'];$c['options'][]=$option;$c['selectedOptionIds'][]=$option['id'];$c['equipmentSubtotal']+=$amount;$c['optionsSubtotal']+=$amount;$c['total']+=$amount;return $d;};
+$withBlockhouse=$configured; $finish=['id'=>'exterior-blockhouse','name'=>'Наружная отделка блок-хаусом','price'=>35000,'quantity'=>1,'kind'=>'equipment']; $withBlockhouse['configurationDetails']['options'][]=$finish; $withBlockhouse['configurationDetails']['selectedOptionIds'][]=$finish['id']; $withBlockhouse['configurationDetails']['equipmentSubtotal']+=35000; $withBlockhouse['configurationDetails']['optionsSubtotal']+=35000; $withBlockhouse['configurationDetails']['total']+=35000; $cases[]=[$withBlockhouse,true];
+$imitation=['id'=>'exterior-imitation-board','name'=>'Имитация бруса — базовый вариант','price'=>0,'quantity'=>1,'kind'=>'equipment'];
+$ral=['id'=>'facade-ral','name'=>'Окраска внешней отделки по RAL','price'=>25000,'quantity'=>1,'kind'=>'equipment'];
+$withImitationRal=$appendConfigurationOption($appendConfigurationOption($configured,$imitation,0),$ral,25000);$cases[]=[$withImitationRal,true];
+$withBlockhouseRal=$appendConfigurationOption($withBlockhouse,$ral,25000);$cases[]=[$withBlockhouseRal,true];
+$profile=['id'=>'exterior-profile-sheet','name'=>'Наружная отделка профлистом','price'=>60000,'quantity'=>1,'kind'=>'equipment'];
+$badRalProfile=$appendConfigurationOption($appendConfigurationOption($configured,$profile,60000),$ral,25000);$cases[]=[$badRalProfile,false];
+$badRalPrice=$withImitationRal;$badRalPrice['configurationDetails']['options'][3]['price']=1;$badRalPrice['configurationDetails']['equipmentSubtotal']-=24999;$badRalPrice['configurationDetails']['optionsSubtotal']-=24999;$badRalPrice['configurationDetails']['total']-=24999;$cases[]=[$badRalPrice,false];
+$bad=$withBlockhouse; $bad['configurationDetails']['options'][2]['price']=1; $bad['configurationDetails']['equipmentSubtotal']-=34999; $bad['configurationDetails']['optionsSubtotal']-=34999; $bad['configurationDetails']['total']-=34999; $cases[]=[$bad,false];
+$bad=$withBlockhouse; $second=['id'=>'exterior-profile-sheet','name'=>'Наружная отделка профлистом','price'=>60000,'quantity'=>1,'kind'=>'equipment']; $bad['configurationDetails']['options'][]=$second; $bad['configurationDetails']['selectedOptionIds'][]=$second['id']; $bad['configurationDetails']['equipmentSubtotal']+=60000; $bad['configurationDetails']['optionsSubtotal']+=60000; $bad['configurationDetails']['total']+=60000; $cases[]=[$bad,false];
 foreach (['quantity'=>0,'price'=>-1,'kind'=>'unknown','name'=>"Synthetic\nSpoof"] as $key=>$value) { $bad=$configured; $bad['configurationDetails']['options'][0][$key]=$value; $cases[]=[$bad,false]; }
 foreach (['total'=>106001,'equipmentSubtotal'=>7000,'logisticsSubtotal'=>1,'unpricedCount'=>0,'selectedOptionIds'=>['delivery'],'individualItems'=>[],'deliveryAddress'=>str_repeat('x',301),'modelType'=>'home','currency'=>'USD'] as $key=>$value) { $bad=$configured; $bad['configurationDetails'][$key]=$value; $cases[]=[$bad,false]; }
 $bad=$configured;$bad['configurationDetails']['options'][1]['price']=10000;$cases[]=[$bad,false];

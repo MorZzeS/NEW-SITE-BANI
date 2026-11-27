@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-const BACKUP_TABLES=['documents','leads','consent_journal','outbox','rate_buckets'];
+const BACKUP_TABLES=['documents','leads','consent_journal','outbox','rate_buckets','model_view_counts'];
 function backupKey(array $c): string {
  $key=base64_decode($c['backup_key_base64']??'',true);if($key===false||strlen($key)!==32||!function_exists('openssl_encrypt'))throw new RuntimeException('backup_key_missing');return $key;
 }
@@ -43,7 +43,8 @@ function validateBackup($stream,string $key,string $environment,string $expected
    'leads'=>['id','environment','request_id','payload_hash','name','phone','model','comment','page','business_json','received_at'],
    'consent_journal'=>['lead_id','consent_version','policy_version','checkbox_version','consent_sha256','checkbox_sha256','policy_sha256','bundle_sha256','receipt_id','receipt_json','request_id','page','client_created_at','client_started_at_ms','assertion','recorded_at'],
    'outbox'=>['id','lead_id','created_at','state','attempts','message_parts','next_part','delivery_ids','available_at','lease_until','delivery_id','error_code'],
-   'rate_buckets'=>['environment','ip_hash','bucket','hits']
+   'rate_buckets'=>['environment','ip_hash','bucket','hits'],
+   'model_view_counts'=>['model_id','views']
   };
   $keys=array_keys($r['row']);sort($keys);sort($columns);if($keys!==$columns)throw new RuntimeException('row_columns_invalid');
   foreach($r['row'] as $v)if(!is_string($v)&&!is_int($v)&&$v!==null)throw new RuntimeException('row_value_invalid');

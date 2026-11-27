@@ -7,6 +7,7 @@ return [
     // Dedicated test bot and authorised test recipient, used only by bin/outbox.php --test.
     'max_test_destination' => ['token' => '', 'recipient_type' => '', 'recipient_id' => '', 'approved' => false],
     'approved' => false, 'db_dsn' => '', 'db_user' => '', 'db_password' => '',
+    'model_views_enabled' => false, 'model_views_approved' => false, 'model_views_https_proxy_verified' => false,
     'ip_hmac_key' => '', 'notify_enabled' => false, 'max_tls_public_ca_verified' => false,
     'system_ca_bundle' => '', // Actual maintained host CA bundle, never the Ministry root alone.
     'backup_cleanup_approved' => false,

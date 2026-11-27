@@ -14,8 +14,8 @@ try {
  $tables=BACKUP_TABLES; $counts=[];$snapshot=bin2hex(random_bytes(32));$sequence=0;
  writeBackupRecord($f,['format'=>'spaceweb-backup-v3','environment'=>$c['environment'],'at'=>gmdate('c'),'snapshot'=>$snapshot],$key,$snapshot,$sequence++);
  foreach ($tables as $table) {
-  $sql=match($table) {'documents'=>'SELECT * FROM documents','leads'=>'SELECT * FROM leads WHERE environment=?','rate_buckets'=>'SELECT * FROM rate_buckets WHERE environment=?',default=>'SELECT t.* FROM '.$table.' t JOIN leads l ON l.id=t.lead_id WHERE l.environment=?'};
-  $q=$db->prepare($sql); $q->execute($table==='documents'?[]:[$c['environment']]); $counts[$table]=0;
+  $sql=match($table) {'documents'=>'SELECT * FROM documents','model_view_counts'=>'SELECT * FROM model_view_counts','leads'=>'SELECT * FROM leads WHERE environment=?','rate_buckets'=>'SELECT * FROM rate_buckets WHERE environment=?',default=>'SELECT t.* FROM '.$table.' t JOIN leads l ON l.id=t.lead_id WHERE l.environment=?'};
+  $q=$db->prepare($sql); $q->execute(in_array($table,['documents','model_view_counts'],true)?[]:[$c['environment']]); $counts[$table]=0;
   while ($row=$q->fetch(PDO::FETCH_ASSOC)) { // Binary hashes are base64, not lossy UTF-8 conversion.
    foreach (['payload_hash','ip_hash'] as $column) if (isset($row[$column])) $row[$column]=base64_encode($row[$column]);
    $line=sealBackup(['table'=>$table,'row'=>$row],$key,$snapshot,$sequence++); if (fwrite($f,$line)!==strlen($line)) throw new RuntimeException('write_failed'); $counts[$table]++;

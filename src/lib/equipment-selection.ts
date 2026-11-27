@@ -1,8 +1,14 @@
 import { deliveryDistrictLabel, isLogisticsOption, isPreliminaryLogisticsEstimate, managerOptionName, normalizeDeliveryAddress, normalizeDeliveryDistrict, preliminaryOptionPriceText, resolveOptionPrice, type DeliveryDistrict } from '@/lib/logistics'
 import { additionalOptions } from '@/data/options'
+import { DEFAULT_EXTERIOR_FINISH_ID, exteriorFinishOptionIds } from '@/lib/exterior-finishes'
 export const enabledEquipmentOptions = additionalOptions.filter(option => option.enabled)
+export { DEFAULT_EXTERIOR_FINISH_ID, exteriorFinishOptionIds } from '@/lib/exterior-finishes'
+export function isExteriorFinishOption(id: string): boolean {
+  return (exteriorFinishOptionIds as readonly string[]).includes(id)
+}
 export const stoveOptionIds = ['ermak-base', 'ermak', 'ermak-16-ps', 'ermak-16-premium-steel', 'ermak-16-premium-cast-iron'] as const
-export function optionSelectionGroup(id: string): 'stove' | undefined {
+export function optionSelectionGroup(id: string): 'stove' | 'exterior-finish' | undefined {
+  if ((exteriorFinishOptionIds as readonly string[]).includes(id)) return 'exterior-finish'
   return (stoveOptionIds as readonly string[]).includes(id) ? 'stove' : undefined
 }
 export function optionQuantityLimit(option: { id: string; priceUnit?: string }): number {
@@ -20,6 +26,8 @@ const selectionConflicts: Readonly<Record<string, readonly string[]>> = {
   'external-light': ['outdoor-lighting', 'hidden-wiring'],
   'outdoor-lighting': ['external-light'], 'hidden-wiring': ['external-light'],
   'onsite-assembly': ['crane-unload'], 'crane-unload': ['onsite-assembly'],
+  'facade-ral': ['exterior-profile-sheet'],
+  'exterior-profile-sheet': ['facade-ral'],
 }
 /** Last explicit selection wins, including restored/stale input and direct calculator calls. */
 export function normalizeOptionIds(ids: readonly string[]): string[] {

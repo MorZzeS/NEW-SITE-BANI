@@ -87,6 +87,11 @@ const scenarios = [
   { name: '07-base-stove-specification-pending', optionIds: ['ermak-base'], input: {} },
   { name: '08-scandinavia-four-base', model: data.saunas.find(item => item.id === 'bg-18'), expectedTotal: 619200, optionIds: [], input: {} },
   { name: '09-scandinavia-four-photo', model: data.saunas.find(item => item.id === 'bg-18'), expectedTotal: 657600, optionIds: ['floor', 'window-grid'], input: { quantities: { 'window-grid': 2 } } },
+  { name: '10-exterior-imitation-board', model: data.saunas.find(item => item.id === 'bg-10'), expectedTotal: data.saunas.find(item => item.id === 'bg-10').priceFrom, optionIds: ['exterior-imitation-board'], input: {} },
+  { name: '11-exterior-blockhouse', model: data.saunas.find(item => item.id === 'bg-10'), expectedTotal: data.saunas.find(item => item.id === 'bg-10').priceFrom + 35000, optionIds: ['exterior-blockhouse'], input: {} },
+  { name: '12-exterior-profile-sheet', model: data.saunas.find(item => item.id === 'bg-10'), expectedTotal: data.saunas.find(item => item.id === 'bg-10').priceFrom + 60000, optionIds: ['exterior-profile-sheet'], input: {} },
+  { name: '13-imitation-board-with-ral', model: data.saunas.find(item => item.id === 'bg-10'), expectedTotal: data.saunas.find(item => item.id === 'bg-10').priceFrom + 25000, optionIds: ['exterior-imitation-board', 'facade-ral'], input: {} },
+  { name: '14-blockhouse-with-ral', model: data.saunas.find(item => item.id === 'bg-10'), expectedTotal: data.saunas.find(item => item.id === 'bg-10').priceFrom + 35000 + 25000, optionIds: ['exterior-blockhouse', 'facade-ral'], input: {} },
 ]
 const normalize = value => String(value).replace(/[\u00a0\u202f]/g, ' ').replace(/[\u2011-\u2014]/g, '-').replace(/\s+/g, ' ').trim()
 const money = value => `${value.toLocaleString('ru-RU')} ₽`
@@ -160,6 +165,14 @@ for (const scenario of scenarios) {
   if (scenario.name === '09-scandinavia-four-photo') {
     assert.ok(allText.includes(normalize(optionGuidance['window-grid'].notes)), 'PDF must explain per-element price without implying quantity one')
     assert.ok(!allText.includes(normalize('В расчёт включён один элемент')), 'PDF must not contradict the two selected window grids')
+  }
+  if (scenario.name.startsWith('10-exterior-') || scenario.name.startsWith('11-exterior-') || scenario.name.startsWith('12-exterior-') || scenario.name.startsWith('13-imitation-board-with-ral') || scenario.name.startsWith('14-blockhouse-with-ral')) {
+    assert.equal(configuration.options.filter(option => option.id.startsWith('exterior-')).length, 1, `${scenario.name}: exactly one finish must reach PDF`)
+    assert.equal(configuration.total, scenario.expectedTotal, `${scenario.name}: selected exterior finish price must be included once`)
+    if (scenario.name.endsWith('with-ral')) {
+      assert.equal(configuration.options.find(option => option.id === 'facade-ral')?.price, 25000, `${scenario.name}: RAL price must reach PDF`)
+      assert.ok(allText.includes('Окраска внешней отделки по RAL'), `${scenario.name}: RAL option missing in PDF`)
+    }
   }
   const maxPages = scenario.name === '04-twelve-options' ? 3 : 2
   assert.ok(pageCount <= maxPages, `${scenario.name}: expected at most ${maxPages} pages, got ${pageCount}`)

@@ -27,5 +27,10 @@ assert(steamGunNotice?.text.includes('8 000 ₽'), 'Steam gun price clarificatio
 assert(steamGunNotice.text.includes('совместимость') && steamGunNotice.text.includes('недоступна для самостоятельного выбора в калькуляторе'), 'Steam gun article must disclose the unconfirmed compatibility status')
 assert.equal(exports.articles.length, 28, 'The current 28-article package is authoritative')
 assert(currentArticles.has('pochemu-karkasnaya-banya'), 'The production article route must remain published')
-assert.equal(currentArticles.get('pochemu-karkasnaya-banya').title, 'Как устроена каркасная баня BANGER: от производства до готового изделия')
+const productionProcessArticle = currentArticles.get('pochemu-karkasnaya-banya')
+assert.equal(productionProcessArticle.title, 'Как проходит заказ мобильной бани BANGER: от выбора до разгрузки')
+for (const step of ['Выбор модели и комплектации', 'Оформление заказа', 'Оплата', 'Производство', 'Поставка готовой бани', 'Разгрузка на участке заказчика']) {
+  assert(productionProcessArticle.content.includes(step), `The approved customer process must include: ${step}`)
+}
+assert(!/подготовка пиломатериалов|нижняя обвязка|прокладка коммуникаций|установка печи и дымохода/i.test(productionProcessArticle.content), 'Do not present unverified factory details as facts')
 console.log(JSON.stringify({ status: 'PASS', archivedSourceArticles: blocks.length, retainedHistoricalRoutes: retainedRoutes.length, currentArticles: exports.articles.length, currentArticlePackage: '2026-11-26' }, null, 2))

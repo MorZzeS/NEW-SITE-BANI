@@ -1,6 +1,6 @@
 import type { Home, Sauna } from '@/types'
 import { modelBaseConfiguration, requiresBaseConfigurationConfirmation } from '@/data/model-configuration'
-import { enabledEquipmentOptions } from '@/lib/equipment-selection'
+import { DEFAULT_EXTERIOR_FINISH_ID, enabledEquipmentOptions, exteriorFinishOptionIds } from '@/lib/equipment-selection'
 
 export type ModelOptionStatus = 'available' | 'included' | 'unavailable' | 'unknown'
 export type ModelOptionEvidence = { status: ModelOptionStatus; reason: string; source: string }
@@ -150,7 +150,12 @@ export type ModelOptionRow = {
 export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
   const zones = confirmedZones(model)
   const included = includedEvidence(model)
-  const modelOptions = enabledEquipmentOptions.filter(option => option.id !== 'replanning' || ('series' in model && model.slug !== 'barn-premium'))
+  const isSauna = 'series' in model
+  const isBarnPremium = isSauna && model.slug === 'barn-premium'
+  const modelOptions = enabledEquipmentOptions.filter(option =>
+    (option.id !== 'replanning' || (isSauna && !isBarnPremium))
+    && (!exteriorFinishOptionIds.includes(option.id as typeof exteriorFinishOptionIds[number]) || (isSauna && !isBarnPremium)),
+  )
   return modelOptions.map(option => {
     const row = (status: ModelOptionStatus, reason: string, source: string): ModelOptionRow => ({
       option, status, reason, source, blockedReason: status === 'available' ? undefined : reason,
@@ -158,6 +163,10 @@ export function modelOptionAvailability(model: Sauna | Home): ModelOptionRow[] {
     if (option.id === 'delivery' || option.id === 'crane-unload') return row('available', 'Предварительная услуга с ориентиром цены для Раменского района; адрес и окончательная стоимость согласуются при заказе.', availabilitySources.options)
     if (option.id === 'onsite-assembly') return row('available', 'Отдельная услуга сборки, разгрузки и установки. При её выборе разгрузка краном отдельно не начисляется; доставка до участка согласуется отдельно.', availabilitySources.options)
     if (option.id === 'replanning') return row('available', option.description, 'Решение владельца от 10.11.2026')
+    if (exteriorFinishOptionIds.includes(option.id as typeof exteriorFinishOptionIds[number])) {
+      const isDefaultFinish = option.id === DEFAULT_EXTERIOR_FINISH_ID
+      return row('available', isDefaultFinish ? 'Стандартная наружная отделка уже входит в базовую цену. Выберите другую отделку, чтобы заменить вариант без повторного начисления.' : 'Замена стандартной наружной отделки; указанная стоимость учитывается один раз в расчёте.', 'Решение владельца от 27.11.2026')
+    }
     if (model.id === 'bg-18' && option.id === 'floor') return row('available', 'Проливной пол в парной выбирается отдельно и не входит в базовую цену.', 'Прямое подтверждение владельца от 18.11.2026')
     const inBase = included(option.id)
     if (inBase) {

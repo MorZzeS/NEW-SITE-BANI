@@ -40,7 +40,7 @@ export function SaunaCard({ sauna, featured, bestSeller = false, compareSelected
         'glass-card', styles.card,
         featured && styles.featured
       )}>
-        <CatalogCardGallery image={sauna.image} images={sauna.images} name={sauna.name} size={sauna.size} href={`/banya/${sauna.slug}`} bestSeller={bestSeller} />
+        <CatalogCardGallery image={sauna.image} images={sauna.images} name={sauna.name} size={sauna.size} href={`/banya/${sauna.slug}`} bestSeller={bestSeller} modelId={sauna.id} />
 
         {/* Content */}
         <Link href={`/banya/${sauna.slug}`} className={clsx('group', styles.contentLink)}>

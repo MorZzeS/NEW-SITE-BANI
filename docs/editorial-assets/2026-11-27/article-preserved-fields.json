@@ -1,0 +1,900 @@
+[
+  {
+    "id": "research-sauna-body",
+    "slug": "chto-proishodit-s-organizmom-v-bane",
+    "coverImage": "/images/articles/2026-11-26/chto-proishodit-s-organizmom-v-bane.webp",
+    "coverAlt": "Тёплая парная и удобные полки — основа комфортного отдыха.",
+    "image": "/images/articles/2026-11-26/chto-proishodit-s-organizmom-v-bane.webp",
+    "imageAlt": "Тёплая парная и удобные полки — основа комфортного отдыха.",
+    "imageCaption": "3D-визуализация. Тёплая парная и удобные полки — основа комфортного отдыха.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Здоровье и отдых",
+    "date": "2026-10-05",
+    "presentation": "immersive",
+    "relatedSlugs": [
+      "ventilyatsiya-mobilnoy-bani",
+      "kak-vybrat-pech-dlya-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-01",
+    "slug": "kak-vybrat-drevesinu-dlya-mobilnoy-bani",
+    "coverImage": "/images/articles/2026-11-26/kak-vybrat-drevesinu-dlya-mobilnoy-bani.webp",
+    "coverAlt": "Деревянные стойки образуют каркас; качество доски важно для геометрии конструкции.",
+    "image": "/images/articles/2026-11-26/kak-vybrat-drevesinu-dlya-mobilnoy-bani.webp",
+    "imageAlt": "Деревянные стойки образуют каркас; качество доски важно для геометрии конструкции.",
+    "imageCaption": "3D-визуализация. Деревянные стойки образуют каркас; качество доски важно для геометрии конструкции.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Материалы",
+    "date": "",
+    "presentation": "checklist",
+    "relatedSlugs": [
+      "materialy-dlya-mobilnoy-bani",
+      "pochemu-karkasnaya-banya"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-02",
+    "slug": "obrabotka-drevesiny-neomid-v-bane",
+    "coverImage": "/images/articles/2026-11-26/obrabotka-drevesiny-neomid-v-bane.webp",
+    "coverAlt": "Деревянный фасад требует покрытия, рассчитанного на наружную эксплуатацию.",
+    "image": "/images/articles/2026-11-26/obrabotka-drevesiny-neomid-v-bane.webp",
+    "imageAlt": "Деревянный фасад требует покрытия, рассчитанного на наружную эксплуатацию.",
+    "imageCaption": "3D-визуализация. Деревянный фасад требует покрытия, рассчитанного на наружную эксплуатацию.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Материалы",
+    "date": "",
+    "presentation": "reference",
+    "relatedSlugs": [
+      "uhod-za-mobilnoy-baney",
+      "fasad-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-03",
+    "slug": "materialy-dlya-mobilnoy-bani",
+    "coverImage": "/images/articles/2026-11-26/materialy-dlya-mobilnoy-bani.webp",
+    "coverAlt": "Пример сочетания деревянного каркаса, утеплителя, мембран и облицовки.",
+    "image": "/images/articles/2026-11-26/materialy-dlya-mobilnoy-bani.webp",
+    "imageAlt": "Пример сочетания деревянного каркаса, утеплителя, мембран и облицовки.",
+    "imageCaption": "3D-визуализация. Пример сочетания деревянного каркаса, утеплителя, мембран и облицовки.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Материалы",
+    "date": "",
+    "presentation": "anatomy",
+    "relatedSlugs": [
+      "pirog-steny-mobilnoy-bani",
+      "uteplenie-isover-ursa-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-04",
+    "slug": "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+    "coverImage": "/images/articles/2026-11-26/podgotovka-ploshchadki-pod-mobilnuyu-banyu.webp",
+    "coverAlt": "Готовый модуль устанавливают на заранее подготовленное место с доступом для техники.",
+    "image": "/images/articles/2026-11-26/podgotovka-ploshchadki-pod-mobilnuyu-banyu.webp",
+    "imageAlt": "Готовый модуль устанавливают на заранее подготовленное место с доступом для техники.",
+    "imageCaption": "3D-визуализация. Готовый модуль устанавливают на заранее подготовленное место с доступом для техники.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Монтаж",
+    "date": "",
+    "presentation": "process",
+    "relatedSlugs": [
+      "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+      "dostavka-i-ustanovka-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-05",
+    "slug": "fundament-dlya-mobilnoy-bani-bloki-ili-svai",
+    "coverImage": "/images/articles/2026-11-26/fundament-dlya-mobilnoy-bani-bloki-ili-svai.webp",
+    "coverAlt": "Пример опирания готового модуля; число, тип и расположение опор определяются проектом.",
+    "image": "/images/articles/2026-11-26/fundament-dlya-mobilnoy-bani-bloki-ili-svai.webp",
+    "imageAlt": "Пример опирания готового модуля; число, тип и расположение опор определяются проектом.",
+    "imageCaption": "3D-визуализация. Пример опирания готового модуля; число, тип и расположение опор определяются проектом.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Монтаж",
+    "date": "",
+    "presentation": "comparison",
+    "relatedSlugs": [
+      "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+      "dostavka-i-ustanovka-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-06",
+    "slug": "karkas-ili-brus-dlya-bani",
+    "coverImage": "/images/articles/2026-11-26/karkas-ili-brus-dlya-bani.webp",
+    "coverAlt": "Слева — каркасная конструкция, справа — массивная брусовая стена.",
+    "image": "/images/articles/2026-11-26/karkas-ili-brus-dlya-bani.webp",
+    "imageAlt": "Слева — каркасная конструкция, справа — массивная брусовая стена.",
+    "imageCaption": "3D-визуализация. Слева — каркасная конструкция, справа — массивная брусовая стена.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Конструкция",
+    "date": "",
+    "presentation": "comparison",
+    "relatedSlugs": [
+      "pochemu-karkasnaya-banya",
+      "materialy-dlya-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-07",
+    "slug": "pirog-steny-mobilnoy-bani",
+    "coverImage": "/images/articles/2026-11-26/pirog-steny-mobilnoy-bani.webp",
+    "coverAlt": "Снаружи внутрь: облицовка, фасадная прослойка, ветровлагозащита, утеплённый каркас, фольгированная парозащита и внутренняя вагонка. Зазоры уточняют по проекту.",
+    "image": "/images/articles/2026-11-26/pirog-steny-mobilnoy-bani.webp",
+    "imageAlt": "Снаружи внутрь: облицовка, фасадная прослойка, ветровлагозащита, утеплённый каркас, фольгированная парозащита и внутренняя вагонка. Зазоры уточняют по проекту.",
+    "imageCaption": "3D-визуализация. Снаружи внутрь: облицовка, фасадная прослойка, ветровлагозащита, утеплённый каркас, фольгированная парозащита и внутренняя вагонка. Зазоры уточняют по проекту.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Конструкция",
+    "date": "",
+    "presentation": "anatomy",
+    "relatedSlugs": [
+      "materialy-dlya-mobilnoy-bani",
+      "ventilyatsiya-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-08",
+    "slug": "uteplenie-mobilnoy-bani-dlya-zimy",
+    "coverImage": "/images/articles/2026-11-26/uteplenie-mobilnoy-bani-dlya-zimy.webp",
+    "coverAlt": "Утепление стен, потолка и пола — часть единого теплового контура.",
+    "image": "/images/articles/2026-11-26/uteplenie-mobilnoy-bani-dlya-zimy.webp",
+    "imageAlt": "Утепление стен, потолка и пола — часть единого теплового контура.",
+    "imageCaption": "3D-визуализация. Утепление стен, потолка и пола — часть единого теплового контура.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Конструкция",
+    "date": "",
+    "presentation": "reference",
+    "relatedSlugs": [
+      "uteplenie-isover-ursa-bani",
+      "pochemu-ne-ispolzuem-epps-v-polu"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-09",
+    "slug": "pol-i-sliv-v-bane",
+    "coverImage": "/images/articles/2026-11-26/pol-i-sliv-v-bane.webp",
+    "coverAlt": "Водосборная поверхность направляет воду к трапу под деревянным настилом.",
+    "image": "/images/articles/2026-11-26/pol-i-sliv-v-bane.webp",
+    "imageAlt": "Водосборная поверхность направляет воду к трапу под деревянным настилом.",
+    "imageCaption": "3D-визуализация. Водосборная поверхность направляет воду к трапу под деревянным настилом.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Конструкция",
+    "date": "",
+    "presentation": "process",
+    "relatedSlugs": [
+      "prolivnoy-pol-v-bane",
+      "uhod-za-mobilnoy-baney"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-10",
+    "slug": "ventilyatsiya-mobilnoy-bani",
+    "coverImage": "/images/articles/2026-11-26/ventilyatsiya-mobilnoy-bani.webp",
+    "coverAlt": "Парная с выносной топкой. Приток и вытяжку размещают по инструкции печи и проекту вентиляции.",
+    "image": "/images/articles/2026-11-26/ventilyatsiya-mobilnoy-bani.webp",
+    "imageAlt": "Парная с выносной топкой. Приток и вытяжку размещают по инструкции печи и проекту вентиляции.",
+    "imageCaption": "3D-визуализация. Парная с выносной топкой. Приток и вытяжку размещают по инструкции печи и проекту вентиляции.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Эксплуатация",
+    "date": "",
+    "presentation": "anatomy",
+    "relatedSlugs": [
+      "pirog-steny-mobilnoy-bani",
+      "voda-i-boyler-v-mobilnoy-bane"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-11",
+    "slug": "kak-vybrat-pech-dlya-mobilnoy-bani",
+    "coverImage": "/images/articles/2026-11-26/kak-vybrat-pech-dlya-mobilnoy-bani.webp",
+    "coverAlt": "Корпус печи находится в парной; загрузка дров — через топочный канал из смежного помещения.",
+    "image": "/images/articles/2026-11-26/kak-vybrat-pech-dlya-mobilnoy-bani.webp",
+    "imageAlt": "Корпус печи находится в парной; загрузка дров — через топочный канал из смежного помещения.",
+    "imageCaption": "3D-визуализация. Корпус печи находится в парной; загрузка дров — через топочный канал из смежного помещения.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Печи и пар",
+    "date": "",
+    "presentation": "comparison",
+    "relatedSlugs": [
+      "dymohod-v-derevyannoy-bane",
+      "otkrytaya-ili-zakrytaya-kamenka",
+      "parovaya-pushka-v-bane"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-12",
+    "slug": "dymohod-v-derevyannoy-bane",
+    "coverImage": "/images/articles/2026-11-26/dymohod-v-derevyannoy-bane.webp",
+    "coverAlt": "Дымоход и потолочный проход: внешний вид не подтверждает правильность скрытой разделки.",
+    "image": "/images/articles/2026-11-26/dymohod-v-derevyannoy-bane.webp",
+    "imageAlt": "Дымоход и потолочный проход: внешний вид не подтверждает правильность скрытой разделки.",
+    "imageCaption": "3D-визуализация. Дымоход и потолочный проход: внешний вид не подтверждает правильность скрытой разделки.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Безопасность",
+    "date": "",
+    "presentation": "checklist",
+    "relatedSlugs": [
+      "kak-vybrat-pech-dlya-mobilnoy-bani",
+      "elektrika-v-bane"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-13",
+    "slug": "elektrika-v-bane",
+    "coverImage": "/images/articles/2026-11-26/elektrika-v-bane.webp",
+    "coverAlt": "Пример освещения деревянной парной; оборудование выбирают по температуре и влажности.",
+    "image": "/images/articles/2026-11-26/elektrika-v-bane.webp",
+    "imageAlt": "Пример освещения деревянной парной; оборудование выбирают по температуре и влажности.",
+    "imageCaption": "3D-визуализация. Пример освещения деревянной парной; оборудование выбирают по температуре и влажности.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Безопасность",
+    "date": "",
+    "presentation": "checklist",
+    "relatedSlugs": [
+      "voda-i-boyler-v-mobilnoy-bane",
+      "kak-prinyat-mobilnuyu-banyu"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-14",
+    "slug": "voda-i-boyler-v-mobilnoy-bane",
+    "coverImage": "/images/articles/2026-11-26/voda-i-boyler-v-mobilnoy-bane.webp",
+    "coverAlt": "Душевая зона мобильной бани; ввод воды, нагрев и слив согласовывают при заказе.",
+    "image": "/images/articles/2026-11-26/voda-i-boyler-v-mobilnoy-bane.webp",
+    "imageAlt": "Душевая зона мобильной бани; ввод воды, нагрев и слив согласовывают при заказе.",
+    "imageCaption": "3D-визуализация. Душевая зона мобильной бани; ввод воды, нагрев и слив согласовывают при заказе.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Инженерные системы",
+    "date": "",
+    "presentation": "process",
+    "relatedSlugs": [
+      "pol-i-sliv-v-bane",
+      "ventilyatsiya-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-15",
+    "slug": "otdelka-parnoy-i-polki",
+    "coverImage": "/images/articles/2026-11-26/otdelka-parnoy-i-polki.webp",
+    "coverAlt": "Деревянная вагонка и полки; породу древесины и размеры подбирают под проект.",
+    "image": "/images/articles/2026-11-26/otdelka-parnoy-i-polki.webp",
+    "imageAlt": "Деревянная вагонка и полки; породу древесины и размеры подбирают под проект.",
+    "imageCaption": "3D-визуализация. Деревянная вагонка и полки; породу древесины и размеры подбирают под проект.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Материалы",
+    "date": "",
+    "presentation": "reference",
+    "relatedSlugs": [
+      "obrabotka-drevesiny-neomid-v-bane",
+      "uhod-za-mobilnoy-baney"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-16",
+    "slug": "okna-i-dveri-v-bane",
+    "coverImage": "/images/articles/2026-11-26/okna-i-dveri-v-bane.webp",
+    "coverAlt": "Наружные окна и входная дверь — часть теплового контура бани.",
+    "image": "/images/articles/2026-11-26/okna-i-dveri-v-bane.webp",
+    "imageAlt": "Наружные окна и входная дверь — часть теплового контура бани.",
+    "imageCaption": "3D-визуализация. Наружные окна и входная дверь — часть теплового контура бани.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Материалы",
+    "date": "",
+    "presentation": "anatomy",
+    "relatedSlugs": [
+      "fasad-mobilnoy-bani",
+      "materialy-dlya-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-17",
+    "slug": "fasad-mobilnoy-bani",
+    "coverImage": "/images/articles/2026-11-26/fasad-mobilnoy-bani.webp",
+    "coverAlt": "Деревянная облицовка и графитовые элементы фасада.",
+    "image": "/images/articles/2026-11-26/fasad-mobilnoy-bani.webp",
+    "imageAlt": "Деревянная облицовка и графитовые элементы фасада.",
+    "imageCaption": "3D-визуализация. Деревянная облицовка и графитовые элементы фасада.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Материалы",
+    "date": "",
+    "presentation": "immersive",
+    "relatedSlugs": [
+      "obrabotka-drevesiny-neomid-v-bane",
+      "okna-i-dveri-v-bane"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-18",
+    "slug": "dostavka-i-ustanovka-mobilnoy-bani",
+    "coverImage": "/images/articles/2026-11-26/dostavka-i-ustanovka-mobilnoy-bani.webp",
+    "coverAlt": "Готовая каркасная баня на участке после установки — иллюстрация результата монтажа.",
+    "image": "/images/articles/2026-11-26/dostavka-i-ustanovka-mobilnoy-bani.webp",
+    "imageAlt": "Готовая каркасная баня на участке после установки — иллюстрация результата монтажа.",
+    "imageCaption": "3D-визуализация. Готовая каркасная баня на участке после установки — иллюстрация результата монтажа.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Монтаж",
+    "date": "",
+    "presentation": "process",
+    "relatedSlugs": [
+      "podgotovka-ploshchadki-pod-mobilnuyu-banyu",
+      "kak-prinyat-mobilnuyu-banyu"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-19",
+    "slug": "kak-prinyat-mobilnuyu-banyu",
+    "coverImage": "/images/articles/2026-11-26/kak-prinyat-mobilnuyu-banyu.webp",
+    "coverAlt": "Комната отдыха: при приёмке проверяют отделку, окна, двери и комплектность.",
+    "image": "/images/articles/2026-11-26/kak-prinyat-mobilnuyu-banyu.webp",
+    "imageAlt": "Комната отдыха: при приёмке проверяют отделку, окна, двери и комплектность.",
+    "imageCaption": "3D-визуализация. Комната отдыха: при приёмке проверяют отделку, окна, двери и комплектность.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Покупка",
+    "date": "",
+    "presentation": "checklist",
+    "relatedSlugs": [
+      "dostavka-i-ustanovka-mobilnoy-bani",
+      "uhod-za-mobilnoy-baney"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "word-20",
+    "slug": "uhod-za-mobilnoy-baney",
+    "coverImage": "/images/articles/2026-11-26/uhod-za-mobilnoy-baney.webp",
+    "coverAlt": "Поднятый настил открывает доступ к водосборной поверхности для уборки и сушки.",
+    "image": "/images/articles/2026-11-26/uhod-za-mobilnoy-baney.webp",
+    "imageAlt": "Поднятый настил открывает доступ к водосборной поверхности для уборки и сушки.",
+    "imageCaption": "3D-визуализация. Поднятый настил открывает доступ к водосборной поверхности для уборки и сушки.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Эксплуатация",
+    "date": "",
+    "presentation": "reference",
+    "relatedSlugs": [
+      "otdelka-parnoy-i-polki",
+      "prolivnoy-pol-v-bane"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "editorial-20261116-01",
+    "slug": "pochemu-karkasnaya-banya",
+    "coverImage": "/images/articles/2026-11-26/pochemu-karkasnaya-banya-production.webp",
+    "coverAlt": "Каркас мобильной бани на этапе сборки в производственном помещении — 3D-визуализация",
+    "image": "/images/articles/2026-11-26/pochemu-karkasnaya-banya-production.webp",
+    "imageAlt": "Каркас мобильной бани на этапе сборки в производственном помещении — 3D-визуализация",
+    "imageCaption": "Нейтральная 3D-визуализация условного этапа каркасного производства BANGER; не технический чертёж и не фотография конкретного заказа.",
+    "imageWidth": 1672,
+    "imageHeight": 941,
+    "category": "Производство BANGER",
+    "date": "2026-11-16",
+    "presentation": "process",
+    "relatedSlugs": [
+      "karkas-ili-brus-dlya-bani",
+      "materialy-dlya-mobilnoy-bani",
+      "dostavka-i-ustanovka-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "editorial-20261116-02",
+    "slug": "uteplenie-isover-ursa-bani",
+    "coverImage": "/images/articles/2026-11-26/uteplenie-isover-ursa-bani.webp",
+    "coverAlt": "Минеральная вата между стойками каркаса; базовая толщина в BANGER — 100 мм.",
+    "image": "/images/articles/2026-11-26/uteplenie-isover-ursa-bani.webp",
+    "imageAlt": "Минеральная вата между стойками каркаса; базовая толщина в BANGER — 100 мм.",
+    "imageCaption": "3D-визуализация. Минеральная вата между стойками каркаса; базовая толщина в BANGER — 100 мм.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "О технологии BANGER",
+    "date": "2026-11-16",
+    "presentation": "anatomy",
+    "relatedSlugs": [
+      "uteplenie-mobilnoy-bani-dlya-zimy",
+      "pirog-steny-mobilnoy-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "editorial-20261116-03",
+    "slug": "pochemu-ne-ispolzuem-epps-v-polu",
+    "coverImage": "/images/articles/2026-11-26/pochemu-ne-ispolzuem-epps-v-polu.webp",
+    "coverAlt": "Волокнистый утеплитель в деревянном каркасе. Выбор теплоизоляции зависит от всей конструкции пола.",
+    "image": "/images/articles/2026-11-26/pochemu-ne-ispolzuem-epps-v-polu.webp",
+    "imageAlt": "Волокнистый утеплитель в деревянном каркасе. Выбор теплоизоляции зависит от всей конструкции пола.",
+    "imageCaption": "3D-визуализация. Волокнистый утеплитель в деревянном каркасе. Выбор теплоизоляции зависит от всей конструкции пола.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "О технологии BANGER",
+    "date": "2026-11-16",
+    "presentation": "comparison",
+    "relatedSlugs": [
+      "uteplenie-mobilnoy-bani-dlya-zimy",
+      "pol-i-sliv-v-bane"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "editorial-20261116-04",
+    "slug": "prolivnoy-pol-v-bane",
+    "coverImage": "/images/articles/2026-11-26/prolivnoy-pol-v-bane.webp",
+    "coverAlt": "Подъёмные деревянные щиты над водосборной поверхностью с трапом. Тип затвора определяет проект.",
+    "image": "/images/articles/2026-11-26/prolivnoy-pol-v-bane.webp",
+    "imageAlt": "Подъёмные деревянные щиты над водосборной поверхностью с трапом. Тип затвора определяет проект.",
+    "imageCaption": "3D-визуализация. Подъёмные деревянные щиты над водосборной поверхностью с трапом. Тип затвора определяет проект.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "О технологии BANGER",
+    "date": "2026-11-16",
+    "presentation": "anatomy",
+    "relatedSlugs": [
+      "pol-i-sliv-v-bane",
+      "uhod-za-mobilnoy-baney"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "editorial-20261116-05",
+    "slug": "otkrytaya-ili-zakrytaya-kamenka",
+    "coverImage": "/images/articles/2026-11-26/otkrytaya-ili-zakrytaya-kamenka.webp",
+    "coverAlt": "Сравнение верхних частей открытой и закрытой каменок; устройство конкретной печи уточняют по паспорту.",
+    "image": "/images/articles/2026-11-26/otkrytaya-ili-zakrytaya-kamenka.webp",
+    "imageAlt": "Сравнение верхних частей открытой и закрытой каменок; устройство конкретной печи уточняют по паспорту.",
+    "imageCaption": "3D-визуализация. Сравнение верхних частей открытой и закрытой каменок; устройство конкретной печи уточняют по паспорту.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Печи и пар",
+    "date": "2026-11-16",
+    "presentation": "comparison",
+    "relatedSlugs": [
+      "kak-vybrat-pech-dlya-mobilnoy-bani",
+      "kakie-kamni-luchshe-dlya-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "editorial-20261116-06",
+    "slug": "kakie-kamni-luchshe-dlya-bani",
+    "coverImage": "/images/articles/2026-11-26/kakie-kamni-luchshe-dlya-bani.webp",
+    "coverAlt": "Фактура и форма камней для каменки; пригодность подтверждают паспортом материала.",
+    "image": "/images/articles/2026-11-26/kakie-kamni-luchshe-dlya-bani.webp",
+    "imageAlt": "Фактура и форма камней для каменки; пригодность подтверждают паспортом материала.",
+    "imageCaption": "3D-визуализация. Фактура и форма камней для каменки; пригодность подтверждают паспортом материала.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Печи и пар",
+    "date": "2026-11-16",
+    "presentation": "reference",
+    "relatedSlugs": [
+      "otkrytaya-ili-zakrytaya-kamenka",
+      "parovaya-pushka-v-bane"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  },
+  {
+    "id": "editorial-20261116-07",
+    "slug": "parovaya-pushka-v-bane",
+    "coverImage": "/images/articles/2026-11-26/parovaya-pushka-v-bane.webp",
+    "coverAlt": "Иллюстрация принципа подачи воды к нагретым камням; не устройство конкретной паровой пушки.",
+    "image": "/images/articles/2026-11-26/parovaya-pushka-v-bane.webp",
+    "imageAlt": "Иллюстрация принципа подачи воды к нагретым камням; не устройство конкретной паровой пушки.",
+    "imageCaption": "3D-визуализация. Иллюстрация принципа подачи воды к нагретым камням; не устройство конкретной паровой пушки.",
+    "imageWidth": 1600,
+    "imageHeight": 900,
+    "category": "Печи и пар",
+    "date": "2026-11-16",
+    "presentation": "reference",
+    "relatedSlugs": [
+      "kak-vybrat-pech-dlya-mobilnoy-bani",
+      "kakie-kamni-luchshe-dlya-bani"
+    ],
+    "resourceLinks": [
+      {
+        "href": "/katalog/bani",
+        "label": "Подобрать баню и комплектацию"
+      },
+      {
+        "href": "/kontakty#zayavka",
+        "label": "Получить консультацию"
+      },
+      {
+        "href": "/nashi-raboty",
+        "label": "Посмотреть реализованные проекты"
+      }
+    ]
+  }
+]

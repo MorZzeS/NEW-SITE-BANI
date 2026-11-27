@@ -57,6 +57,54 @@ function fetchMethod(call) {
   return method || 'GET'
 }
 
+function objectProperty(object, name) {
+  if (!object || !ts.isObjectLiteralExpression(object) || object.properties.some(property => {
+    if (ts.isShorthandPropertyAssignment(property)) return false
+    return !ts.isPropertyAssignment(property) || ts.isComputedPropertyName(property.name)
+  })) return undefined
+  const matches = object.properties.filter(property => {
+    const key = property.name
+    return (ts.isIdentifier(key) || ts.isStringLiteral(key)) && key.text === name
+  })
+  if (matches.length !== 1) return undefined
+  const match = matches[0]
+  return ts.isShorthandPropertyAssignment(match) ? match.name : match.initializer
+}
+
+function hasOnlyObjectProperties(object, names) {
+  if (!object || !ts.isObjectLiteralExpression(object) || object.properties.length !== names.length) return false
+  return names.every(name => objectProperty(object, name) !== undefined)
+}
+
+function isTrueLiteral(expression) {
+  return Boolean(expression && (expression.kind === ts.SyntaxKind.TrueKeyword
+    || ts.isPrefixUnaryExpression(expression) && expression.operator === ts.SyntaxKind.ExclamationToken
+      && expression.operand.kind === ts.SyntaxKind.NumericLiteral && expression.operand.text === '0'))
+}
+
+function isApprovedModelViewPost(file, call) {
+  const normalizedPath = file.path.replaceAll('\\', '/')
+  if (!normalizedPath.endsWith('/src/lib/model-view-counter.ts') && normalizedPath !== 'src/lib/model-view-counter.ts') return false
+  const [target, options] = call.arguments
+  if (!target || !(ts.isStringLiteral(target) || ts.isNoSubstitutionTemplateLiteral(target)) || target.text !== '/model-views.php') return false
+  if (!options || !hasOnlyObjectProperties(options, ['method', 'credentials', 'cache', 'referrerPolicy', 'headers', 'body'])) return false
+  if (propertyString(options, 'method')?.toUpperCase() !== 'POST'
+      || propertyString(options, 'credentials') !== 'same-origin'
+      || propertyString(options, 'cache') !== 'no-store'
+      || propertyString(options, 'referrerPolicy') !== 'no-referrer') return false
+  const headers = objectProperty(options, 'headers')
+  if (!headers || !hasOnlyObjectProperties(headers, ['Content-Type', 'Accept'])
+      || propertyString(headers, 'Content-Type') !== 'application/json; charset=utf-8'
+      || propertyString(headers, 'Accept') !== 'application/json') return false
+  const body = objectProperty(options, 'body')
+  if (!body || !ts.isCallExpression(body) || !ts.isPropertyAccessExpression(body.expression)
+      || !ts.isIdentifier(body.expression.expression) || body.expression.expression.text !== 'JSON'
+      || body.expression.name.text !== 'stringify' || body.arguments.length !== 1) return false
+  const payload = body.arguments[0]
+  if (!hasOnlyObjectProperties(payload, ['modelId'])) return false
+  return ts.isIdentifier(objectProperty(payload, 'modelId'))
+}
+
 function isFetchCall(node) {
   return ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'fetch'
 }
@@ -141,6 +189,7 @@ function isSafeCompiledGetTarget(file, call, source) {
  */
 export function sourceLeadTransportAllowed(files) {
   let approvedLeadPostCount = 0
+  let approvedModelViewPostCount = 0
   let approvedFormCount = 0
   for (const file of files) {
     const scriptKind = /\.(?:tsx|jsx)$/.test(file.path) ? ts.ScriptKind.TSX : /\.(?:js|mjs)$/.test(file.path) ? ts.ScriptKind.JS : ts.ScriptKind.TS
@@ -158,7 +207,8 @@ export function sourceLeadTransportAllowed(files) {
               && ts.isStringLiteral(target.right) && target.right.text === '')
           if (method !== 'POST' || !approvedTarget) allowed = false
           else approvedLeadPostCount++
-        } else if (method !== 'GET' || !node.arguments[0] || !isSafeSourceGetTarget(node.arguments[0])) allowed = false
+        } else if (method === 'POST' && isApprovedModelViewPost(file, node)) approvedModelViewPostCount++
+        else if (method !== 'GET' || !node.arguments[0] || !isSafeSourceGetTarget(node.arguments[0])) allowed = false
       }
       if (isUnsupportedFetchAccessCall(node)) allowed = false
       if (ts.isIdentifier(node) && node.text === 'fetch' && !(ts.isCallExpression(node.parent) && node.parent.expression === node)) allowed = false
@@ -192,7 +242,7 @@ export function sourceLeadTransportAllowed(files) {
     visit(source)
     if (!allowed) return false
   }
-  return approvedLeadPostCount === 1 && approvedFormCount === 1
+  return approvedLeadPostCount === 1 && approvedModelViewPostCount === 1 && approvedFormCount === 1
 }
 
 function isSafeSourceGetTarget(expression) {
@@ -228,6 +278,7 @@ export function compiledLeadEndpointPresent(files, endpoint) {
           if (!isNextRouterDataRequest(file, node)) allowed = false
         } else if (method === 'POST') {
           if (node.arguments[0] && ts.isStringLiteral(node.arguments[0]) && node.arguments[0].text === endpoint) approvedPostCount++
+          else if (node.arguments[0] && ts.isStringLiteral(node.arguments[0]) && node.arguments[0].text === '/model-views.php' && isApprovedCompiledModelViewPost(node)) { /* reviewed aggregate counter transport */ }
           else if (!isNextServerActionPost(file, node)) allowed = false
         } else if (method === 'GET') {
           if (!isSafeCompiledGetTarget(file, node, source)) allowed = false
@@ -239,4 +290,12 @@ export function compiledLeadEndpointPresent(files, endpoint) {
     if (!allowed) return false
   }
   return approvedPostCount > 0
+}
+
+function isApprovedCompiledModelViewPost(call) {
+  // Compiled code lives in content-addressed Next chunks; validate the same
+  // literal endpoint, same-origin settings and three-field aggregate payload.
+  // The source gate binds this transport to src/lib/model-view-counter.ts.
+  const syntheticFile = { path: 'src/lib/model-view-counter.ts' }
+  return isApprovedModelViewPost(syntheticFile, call)
 }

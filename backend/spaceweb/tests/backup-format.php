@@ -6,9 +6,10 @@ $snapshot=bin2hex(random_bytes(32));$otherSnapshot=bin2hex(random_bytes(32));
 $sealed=sealBackup($fixture,$key,$snapshot,1);if(openBackup($sealed,$key,$snapshot,1)!==$fixture)throw new RuntimeException('roundtrip');$checks++;
 try{openBackup($sealed,random_bytes(32),$snapshot,1);throw new LogicException('wrong_key');}catch(RuntimeException){$checks++;}
 $r=json_decode($sealed,true);$r['cipher']=base64_encode('tampered');try{openBackup(json_encode($r),$key,$snapshot,1);throw new LogicException('tamper');}catch(RuntimeException){$checks++;}
-$meta=['format'=>'spaceweb-backup-v3','environment'=>'TEST','at'=>'2026-10-09T00:00:00+00:00','snapshot'=>$snapshot];$counts=array_fill_keys(BACKUP_TABLES,0);$counts['leads']=1;$footer=['completed'=>true,'counts'=>$counts];
+$meta=['format'=>'spaceweb-backup-v3','environment'=>'TEST','at'=>'2026-10-09T00:00:00+00:00','snapshot'=>$snapshot];$counts=array_fill_keys(BACKUP_TABLES,0);$counts['leads']=1;$counts['model_view_counts']=1;$footer=['completed'=>true,'counts'=>$counts];
+$modelViews=['table'=>'model_view_counts','row'=>['model_id'=>'bg-09','views'=>'42']];
 $validate=function(array $records,bool $expected)use($key,$snapshot,&$checks):void{$f=fopen('php://temp','w+');try{foreach($records as $i=>$r)fwrite($f,sealBackup($r,$key,$snapshot,$i));rewind($f);try{validateBackup($f,$key,'TEST',$snapshot);$accepted=true;}catch(Throwable){$accepted=false;}if($accepted!==$expected)throw new RuntimeException('validation_mismatch');$checks++;}finally{fclose($f);}};
-$validate([$meta,$fixture,$footer],true);
+$validate([$meta,$fixture,$modelViews,$footer],true);
 $bad=$meta;$bad['environment']='PRODUCTION';$validate([$bad,$fixture,$footer],false);
 $bad=$meta;$bad['format']='unknown';$validate([$bad,$fixture,$footer],false);
 $validate([$fixture,$footer],false);$validate([$meta,$fixture],false);

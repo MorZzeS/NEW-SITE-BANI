@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { optionGuidance } from '@/data/option-guidance'
 import { baseEquipmentRows } from '@/data/equipment'
 import { optionCategories } from '@/data/options'
-import { enabledEquipmentOptions, equipmentSelection, optionCountLabel, optionQuantityLimit, normalizeOptionQuantity, optionQuantityLabel, optionSelectionGroup, toggleEquipmentOption } from '@/lib/equipment-selection'
+import { enabledEquipmentOptions, exteriorFinishOptionIds, equipmentSelection, optionCountLabel, optionQuantityLimit, normalizeOptionQuantity, optionQuantityLabel, optionSelectionGroup, toggleEquipmentOption } from '@/lib/equipment-selection'
 import { CTAFormInline } from '@/components/forms/CTAFormInline'
 import { InteriorExecutionGallery } from './InteriorExecutionGallery'
 import { trackGoal } from '@/lib/analytics'
@@ -14,8 +14,9 @@ import { withBasePath } from '@/lib/site-path'
 import styles from './EquipmentConfigurator.module.css'
 import { ConfigurationCategoryTitle, ConfigurationOption } from './ConfigurationOption'
 
-const popular = ['lamination', 'ermak', 'shower', 'boiler', 'led'].map(id => enabledEquipmentOptions.find(option => option.id === id)!)
-const categories = optionCategories.filter(category => enabledEquipmentOptions.some(option => option.category === category))
+const equipmentOptions = enabledEquipmentOptions.filter(option => !exteriorFinishOptionIds.includes(option.id as typeof exteriorFinishOptionIds[number]))
+const popular = ['lamination', 'ermak', 'shower', 'boiler', 'led'].map(id => equipmentOptions.find(option => option.id === id)!)
+const categories = optionCategories.filter(category => equipmentOptions.some(option => option.category === category))
 function price(option: typeof enabledEquipmentOptions[number]) {
   if (option.salePrice === null && 'confirmedRetailPrice' in option && typeof option.confirmedRetailPrice === 'number') {
     return `Полная цена печи ${option.confirmedRetailPrice.toLocaleString('ru-RU')} ₽; доплата за замену не определена`
@@ -55,7 +56,7 @@ export function EquipmentConfigurator() {
     markCalculatorStarted()
   }
   function setQuantity(id: string, value: number) {
-    const option = enabledEquipmentOptions.find(item => item.id === id)
+    const option = equipmentOptions.find(item => item.id === id)
     if (!option) return
     markCalculatorStarted()
     const quantity = normalizeOptionQuantity(option, value)
@@ -81,8 +82,8 @@ export function EquipmentConfigurator() {
     </div>
     <section className={styles.extras} id="equipment-options" aria-labelledby="equipment-options-title"><div className={styles.inner}><p className={styles.eyebrow}>02 / Все дополнительные опции</p><h2 id="equipment-options-title">Сделайте баню под себя</h2><p className={styles.lead}>Добавьте только то, что действительно нужно — от окон и отделки до печи, душевой и инженерии.</p><p className={styles.note}>Текущие продажные цены. Окончательная совместимость и состав работ согласуются при заказе. Откройте категорию и отметьте нужные дополнения.</p>
       <div className={styles.config}><div className={styles.accordion}>{categories.map((category, index) => {
-        const group = enabledEquipmentOptions.filter(option => option.category === category), expanded = opened.includes(category), id = `equipment-category-${index}`
-        return <section key={category} className={styles.category}><h3><button type="button" className={styles.categoryButton} aria-expanded={expanded} aria-controls={id} onClick={() => setOpened(previous => expanded ? previous.filter(value => value !== category) : [...previous, category])}><ConfigurationCategoryTitle name={category} count={optionCountLabel(group.length)} /></button></h3><div id={id} hidden={!expanded} className={styles.categoryBody}>{category === 'Логистика' && <DeliveryFields id="equipment" district={deliveryDistrict} address={deliveryAddress} onDistrict={setDeliveryDistrict} onAddress={setDeliveryAddress} />}{group.map(option => <ConfigurationOption key={option.id} option={isLogisticsOption(option.id) ? { ...option, salePrice: resolveOptionPrice(option, deliveryDistrict) } : option} checked={selectedOptionIds.has(option.id)} onToggle={() => toggle(option.id)} inputId={`equipment-option-${option.id}`} groupName={optionSelectionGroup(option.id) ? "equipment-stove" : undefined} price={isLogisticsOption(option.id) && resolveOptionPrice(option, deliveryDistrict) === null ? 'Индивидуальный расчёт' : price(option)}>
+        const group = equipmentOptions.filter(option => option.category === category), expanded = opened.includes(category), id = `equipment-category-${index}`
+        return <section key={category} className={styles.category}><h3><button type="button" className={styles.categoryButton} aria-expanded={expanded} aria-controls={id} onClick={() => setOpened(previous => expanded ? previous.filter(value => value !== category) : [...previous, category])}><ConfigurationCategoryTitle name={category} count={optionCountLabel(group.length)} /></button></h3><div id={id} hidden={!expanded} className={styles.categoryBody}>{category === 'Логистика' && <DeliveryFields id="equipment" district={deliveryDistrict} address={deliveryAddress} onDistrict={setDeliveryDistrict} onAddress={setDeliveryAddress} />}{group.map(option => <ConfigurationOption key={option.id} option={isLogisticsOption(option.id) ? { ...option, salePrice: resolveOptionPrice(option, deliveryDistrict) } : option} checked={selectedOptionIds.has(option.id)} onToggle={() => toggle(option.id)} inputId={`equipment-option-${option.id}`} groupName={optionSelectionGroup(option.id) ? `equipment-${optionSelectionGroup(option.id)}` : undefined} price={isLogisticsOption(option.id) && resolveOptionPrice(option, deliveryDistrict) === null ? 'Индивидуальный расчёт' : price(option)}>
             {optionQuantityLimit(option) > 1 && selectedOptionIds.has(option.id) && <label className="mt-3 flex flex-wrap items-center gap-2 text-sm" htmlFor={option.id === 'ceiling-height' ? 'equipment-ceiling-steps' : `equipment-quantity-${option.id}`}>
               <span>{option.id === 'ceiling-height' ? 'Шаги увеличения по 10 см:' : 'Количество, шт.:'}</span>
               <input id={option.id === 'ceiling-height' ? 'equipment-ceiling-steps' : `equipment-quantity-${option.id}`} type="number" className="input-glass w-20 rounded-lg px-2 py-2" min={1} max={optionQuantityLimit(option)} step={1} value={quantities[option.id] || 1} onChange={e => setQuantity(option.id, Number(e.target.value))} />

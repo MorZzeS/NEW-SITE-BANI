@@ -5,6 +5,7 @@ import { ModelTechnicalDimensions } from '@/components/catalog/ModelTechnicalDim
 import { PremiumConfigurationInfo } from '@/components/catalog/PremiumConfigurationInfo'
 import { modelFeatures } from '@/data/model-configuration'
 import { ModelOverview } from '@/components/catalog/ModelOverview'
+import { ModelViewTracker } from '@/components/catalog/ModelViewCount'
 import { PresentedExecution } from '@/components/catalog/PresentedExecution'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -67,7 +68,7 @@ export default async function SaunaPage({ params }: Props) {
   const related = publishedSaunas.filter((s) => s.series === sauna.series && s.id !== sauna.id).slice(0, 3)
 
   return (
-    <ModelConfigurationProvider key={sauna.id} model={sauna} optionsEnabled={sauna.slug !== 'barn-premium'}><div className="pt-24 pb-20">
+    <ModelConfigurationProvider key={sauna.id} model={sauna} optionsEnabled={sauna.slug !== 'barn-premium'}><ModelViewTracker modelId={sauna.id} /><div className="pt-24 pb-20">
       <div className="site-container">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-cream/50 mb-8">

@@ -26,25 +26,30 @@ function compile(relative, mapped = {}) {
 
 const data = compile('src/data/index.ts')
 const optionsData = compile('src/data/options.ts')
+const exteriorFinishes = compile('src/lib/exterior-finishes.ts')
 const modelConfig = compile('src/data/model-configuration.ts')
 const logistics = compile('src/lib/logistics.ts')
-const selection = compile('src/lib/equipment-selection.ts', { '@/data/options': optionsData, '@/lib/logistics': logistics })
+const selection = compile('src/lib/equipment-selection.ts', { '@/data/options': optionsData, '@/lib/logistics': logistics, '@/lib/exterior-finishes': exteriorFinishes })
 const availability = compile('src/lib/model-option-availability.ts', {
   '@/data/model-configuration': modelConfig,
   '@/lib/equipment-selection': selection,
 })
-const calculation = compile('src/lib/model-configuration-selection.ts', { '@/lib/model-option-availability': availability, '@/lib/logistics': logistics, '@/lib/equipment-selection': selection })
+const calculation = compile('src/lib/model-configuration-selection.ts', { '@/lib/model-option-availability': availability, '@/lib/logistics': logistics, '@/lib/equipment-selection': selection, '@/lib/exterior-finishes': exteriorFinishes })
 const unitOnly = process.argv.includes('--unit')
 const guidance = compile('src/data/option-guidance.ts')
 const models = [...data.saunas, ...data.homes]
 const enabled = optionsData.additionalOptions.filter(option => option.enabled)
 assert.equal(models.length, 31, 'all 25 sauna and 6 home models must be checked')
-assert.equal(enabled.length, 45, 'global option list must contain the historical entries and approved additions/updates')
+  assert.equal(enabled.length, 48, 'global option list must contain the historical entries and approved additions/updates')
 assert.equal(enabled.find(option => option.id === 'replanning')?.salePrice, 10000, 'standard plan change must use the owner-approved 10 000 RUB price')
 assert.equal(enabled.find(option => option.id === 'replanning')?.name, 'Изменение стандартной планировки')
 assert.equal(enabled.find(option => option.id === 'replanning')?.description, 'Изменение стандартной планировки бани по пожеланиям заказчика. Возможность перепланировки согласовывается индивидуально. Дополнительные материалы и сложные конструктивные изменения рассчитываются отдельно.')
 assert.equal(enabled.find(option => option.id === 'onsite-assembly')?.salePrice, 300000, 'on-site assembly service must use the owner-approved 300 000 RUB amount')
-assert.deepEqual(JSON.parse(JSON.stringify(enabled.slice(19, 29).map(option => [option.id, option.salePrice, option.priceUnit]))), [
+const enabledById = new Map(enabled.map(option => [option.id, option]))
+assert.deepEqual(JSON.parse(JSON.stringify([
+  'facade-ral', 'ceiling-height', 'outdoor-lighting', 'larch-wash', 'delivery', 'crane-unload',
+  'onsite-assembly', 'wooden-window-600', 'wooden-window-400', 'replanning',
+].map(id => { const option = enabledById.get(id); return [option?.id, option?.salePrice, option?.priceUnit] }))), [
   ['facade-ral', 25_000, 'опция'],
   ['ceiling-height', 22_000, '10 см'],
   ['outdoor-lighting', 15_000, 'опция'],
@@ -109,7 +114,9 @@ for (const model of models) {
   }
   const items = availability.modelOptionAvailability(model)
   const replanningEligible = !isHome && !premium
-assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${model.id}: only eligible mobile sauna models may offer standard plan changes`)
+  const defaultFinishIds = !isHome && !premium ? ['exterior-imitation-board'] : []
+const finishOptionsExcluded = isHome || premium ? 3 : 0
+assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1) - finishOptionsExcluded, `${model.id}: only supported bath models may offer finish options and eligible mobile saunas may offer plan changes`)
   const replanningRow = items.find(item => item.option.id === 'replanning')
   if (replanningEligible) {
     assert.equal(replanningRow?.status, 'available', `${model.id}: plan-change service must be offered`)
@@ -122,6 +129,11 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
   assert.equal(new Set(renderedIds).size, renderedIds.length, `${model.id}: duplicate option row`)
   for (const item of items) {
     const image = guidance.optionGuidance[item.option.id]?.image
+    if (['exterior-imitation-board', 'exterior-blockhouse', 'exterior-profile-sheet'].includes(item.option.id)) {
+      assert.equal(image, undefined, `${model.id}/${item.option.id}: do not use an unapproved substitute image`)
+      assert.ok(fs.readFileSync(path.join(root, 'src/components/catalog/ConfigurationOption.tsx'), 'utf8').includes('Иллюстрация<br />ожидает проверки'), `${item.option.id}: missing visual must remain visibly pending`)
+      continue
+    }
     assert.ok(image && fs.existsSync(path.join(root, 'public', image.replace(/^\//, ''))), `${model.id}/${item.option.id}: missing option photo or diagram`)
     if (!unitOnly && !premium && model.isPublished !== false && item.status === 'unknown' && item.blockedReason) {
       assert.ok(!html.includes(item.blockedReason), `${model.id}/${item.option.id}: internal compatibility rationale must not leak into the public card`)
@@ -146,7 +158,7 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
   assert.equal(replanningOnly.total, model.priceFrom + (replanningEligible ? 10000 : 0))
   assert.equal(replanningOnly.selectedOptionIds.includes('replanning'), replanningEligible)
   const logisticsSelected = calculation.calculateModelConfiguration(model, ['delivery', 'crane-unload'])
-  assert.deepEqual(JSON.parse(JSON.stringify(logisticsSelected.selectedOptionIds)), ['delivery', 'crane-unload'])
+  assert.deepEqual(JSON.parse(JSON.stringify(logisticsSelected.selectedOptionIds.filter(id => ['delivery', 'crane-unload'].includes(id)))), ['delivery', 'crane-unload'])
   assert.equal(logisticsSelected.logisticsSubtotal, 0, `${model.id}: no district means no fixed logistics tariff`)
   assert.equal(logisticsSelected.unpricedCount, 2)
   const logisticsRamensky = calculation.calculateModelConfiguration(model, ['delivery', 'crane-unload'], { deliveryDistrict: 'ramenskoe', deliveryAddress: 'Раменский район' })
@@ -163,21 +175,21 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
   const heightTwo = calculation.calculateModelConfiguration(model, ['ceiling-height'], { quantities: { 'ceiling-height': 2 } })
   const heightOutOfRange = calculation.calculateModelConfiguration(model, ['ceiling-height'], { quantities: { 'ceiling-height': 3 } })
   const heightZero = calculation.calculateModelConfiguration(model, ['ceiling-height'], { quantities: { 'ceiling-height': 0 } })
-  assert.equal(heightZero.selectedOptionIds.length, 0, '0 cm means no ceiling-height option')
+  assert.deepEqual(JSON.parse(JSON.stringify(heightZero.selectedOptionIds)), defaultFinishIds, '0 cm means no ceiling-height option; only the zero-price standard finish may remain')
   assert.equal(heightZero.optionsSubtotal, 0)
   if (model.id === 'bg-20') {
-    assert.deepEqual(JSON.parse(JSON.stringify(heightTwo.selectedOptionIds)), [], 'BG20 already includes +20 cm and cannot add it again')
+    assert.deepEqual(JSON.parse(JSON.stringify(heightTwo.selectedOptionIds)), defaultFinishIds, 'BG20 already includes +20 cm and cannot add it again')
     assert.equal(heightTwo.optionsSubtotal, 0)
-    assert.deepEqual(JSON.parse(JSON.stringify(heightOutOfRange.selectedOptionIds)), [])
+    assert.deepEqual(JSON.parse(JSON.stringify(heightOutOfRange.selectedOptionIds)), defaultFinishIds)
     assert.equal(heightOutOfRange.optionsSubtotal, 0)
   } else {
-    assert.equal(heightTwo.options[0].quantity, 2)
+    assert.equal(heightTwo.options.find(option => option.id === 'ceiling-height')?.quantity, 2)
     assert.equal(heightTwo.optionsSubtotal, 44_000, 'the maximum +20 cm option is two 22 000 RUB steps')
-    assert.equal(heightOutOfRange.options[0].quantity, 2, 'quantity above +20 cm must be clamped')
+    assert.equal(heightOutOfRange.options.find(option => option.id === 'ceiling-height')?.quantity, 2, 'quantity above +20 cm must be clamped')
     assert.equal(heightOutOfRange.optionsSubtotal, 44_000)
   }
   const windowEstimate = calculation.calculateModelConfiguration(model, ['wooden-window-600'])
-  assert.deepEqual(JSON.parse(JSON.stringify(windowEstimate.selectedOptionIds)), ['wooden-window-600'], `${model.id}: unknown wooden-window compatibility is selectable as an estimate`)
+  assert.deepEqual(JSON.parse(JSON.stringify(windowEstimate.selectedOptionIds)), [...defaultFinishIds, 'wooden-window-600'], `${model.id}: unknown wooden-window compatibility is selectable as an estimate`)
   assert.equal(windowEstimate.total, model.priceFrom + 7_000)
   for (const item of items) {
     assert.ok(['available', 'included', 'unavailable', 'unknown'].includes(item.status))
@@ -207,7 +219,7 @@ assert.equal(items.length, enabled.length - (replanningEligible ? 0 : 1), `${mod
 
 const totals = { available: 0, included: 0, unavailable: 0, unknown: 0 }
 for (const model of matrix) for (const key of Object.keys(totals)) totals[key] += model.counts[key]
-assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 24 * 45 + 7 * 44, 'matrix must cover 45 options for eligible saunas and 44 for Barn Premium plus six homes')
+assert.equal(totals.available + totals.included + totals.unavailable + totals.unknown, 24 * 48 + 7 * 44, 'matrix must cover 48 options for eligible saunas and 44 for Barn Premium plus six homes')
 assert.equal(totals.included, 51, 'catalogue and explicitly confirmed BG20 execution options are classified as included; the free gift furniture is not the paid furniture option')
 assert.equal(totals.unavailable, 0, 'current sources confirm no incompatible option; do not invent unavailable rows')
 assert.ok(totals.available > 0 && totals.unknown > 0, 'matrix must distinguish confirmed availability from confirmation-needed positions')
@@ -239,7 +251,7 @@ assert.equal(evidence('bg-20').find(row => row.option === 'panoramic-window-600-
 const bg20 = models.find(model => model.id === 'bg-20')
 const bg20Included = ['boiler', 'shower', 'wc', 'lamination', 'hidden-wiring', 'external-light', 'decor', 'floor', 'facade-ral', 'ceiling-height', 'outdoor-lighting', 'larch-wash']
 const bg20IncludedSelection = calculation.calculateModelConfiguration(bg20, bg20Included)
-assert.equal(JSON.stringify(bg20IncludedSelection.selectedOptionIds), JSON.stringify([]), 'included BG20 options cannot be added to the paid calculator total')
+assert.equal(JSON.stringify(bg20IncludedSelection.selectedOptionIds), JSON.stringify(['exterior-imitation-board']), 'included BG20 options cannot be added to the paid calculator total; the base finish remains free')
 assert.equal(bg20IncludedSelection.total, 1_039_100, 'BG20 included features do not increase its price')
 assert.equal(evidence('bg-21').find(row => row.option === 'floor').status, 'included')
 assert.equal(evidence('bg-23').find(row => row.option === 'floor').status, 'included')
@@ -259,7 +271,7 @@ const managerText = calculation.configurationManagerText(calculation.calculateMo
 const managerBasePrice = managerModel.priceFrom.toLocaleString('ru-RU').replace(/[\u00a0\u202f]/g, ' ')
 for (const expected of ['Комплектация: Исток 4', `Базовая стоимость: ${managerBasePrice} ₽`, 'Бойлер 50 л', 'Декоративные решётки', 'Итого:'])
   assert.ok(managerText.includes(expected), `manager configuration text is missing ${expected}`)
-assert.ok(calculation.configurationManagerText(calculation.calculateModelConfiguration(models.find(model => model.id === 'bg-01'), [])).includes('не выбраны'))
+assert.ok(calculation.configurationManagerText(calculation.calculateModelConfiguration(models.find(model => model.id === 'bg-01'), [])).includes('Имитация бруса — базовый вариант'))
 const managerConfiguration = calculation.configurationManagerText(calculation.calculateModelConfiguration(models.find(model => model.id === 'bg-01'), ['boiler', 'decor', 'led']))
 const merged = calculation.mergeManagerComment('Перезвоните после 18:00', managerConfiguration)
 assert.ok(merged.length <= 1500, 'manager comment must fit the server limit')

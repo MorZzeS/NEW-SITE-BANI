@@ -1,7 +1,7 @@
 export const articleInlineVisuals: Record<string, { beforeSection: string; src: string; avif: string; alt: string; width: number; height: number; caption: string }[]> = {
   "kak-vybrat-drevesinu-dlya-mobilnoy-bani": [
     {
-      "beforeSection": "section-3",
+      "beforeSection": "section-5",
       "src": "/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-timber.webp",
       "avif": "/images/articles/kak-vybrat-drevesinu-dlya-mobilnoy-bani-timber.avif",
       "alt": "Подготовленные сухие строганые доски на производстве",
@@ -12,7 +12,7 @@ export const articleInlineVisuals: Record<string, { beforeSection: string; src: 
   ],
   "obrabotka-drevesiny-neomid-v-bane": [
     {
-      "beforeSection": "section-5",
+      "beforeSection": "section-3",
       "src": "/images/articles/obrabotka-drevesiny-neomid-v-bane-treatment.webp",
       "avif": "/images/articles/obrabotka-drevesiny-neomid-v-bane-treatment.avif",
       "alt": "Иллюстрация обработки древесины; состав выбирают по зоне применения",
@@ -23,7 +23,7 @@ export const articleInlineVisuals: Record<string, { beforeSection: string; src: 
   ],
   "materialy-dlya-mobilnoy-bani": [
     {
-      "beforeSection": "section-5",
+      "beforeSection": "section-3",
       "src": "/images/articles/materialy-dlya-mobilnoy-bani-insulation.webp",
       "avif": "/images/articles/materialy-dlya-mobilnoy-bani-insulation.avif",
       "alt": "Утеплитель в ячейках деревянного каркаса",
@@ -34,7 +34,7 @@ export const articleInlineVisuals: Record<string, { beforeSection: string; src: 
   ],
   "pirog-steny-mobilnoy-bani": [
     {
-      "beforeSection": "section-3",
+      "beforeSection": "section-1",
       "src": "/images/articles/pirog-steny-mobilnoy-bani-wall.webp",
       "avif": "/images/articles/pirog-steny-mobilnoy-bani-wall.avif",
       "alt": "Иллюстративный разрез каркасной стены",

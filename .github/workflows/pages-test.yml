@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-test
   cancel-in-progress: true
 
 jobs:
@@ -26,6 +26,7 @@ jobs:
       NEXT_PUBLIC_LEADS_CONTRACT: '3'
       NEXT_PUBLIC_ANALYTICS_ENABLED: 'false'
       NEXT_PUBLIC_YANDEX_METRIKA_ID: ''
+      NEXT_PUBLIC_MODEL_VIEWS_ENABLED: 'false'
     steps:
       - uses: actions/checkout@v4
         with:

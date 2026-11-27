@@ -5,9 +5,9 @@ import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 
-// Article-only test releases must preserve the exact catalog and option data
-// from the currently published production revision. This replaces a historic
-// price audit whose baseline predates several approved catalog updates.
+// Test releases may add owner-approved options and article content, while
+// existing model identities, base prices, and existing option prices remain
+// anchored to the currently published production revision.
 export const PRODUCTION_BASELINE = '2a23ae0ba64f48904f05bb183cb02e1584be24e0'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -37,12 +37,35 @@ for (const collection of ['saunas', 'homes']) {
   const before = baseline[files[0]][collection]
   const after = current[files[0]][collection]
   if (!Array.isArray(before) || !Array.isArray(after)) fail(`${collection} must be an exported array`)
-  if (!equal(after, before)) fail(`${collection} changed from production baseline ${PRODUCTION_BASELINE}`)
+  const beforeById = new Map(before.map(model => [model.id, model]))
+  for (const model of after) {
+    const previous = beforeById.get(model.id)
+    if (!previous) fail(`${collection} added model ${model.id} beyond production baseline ${PRODUCTION_BASELINE}`)
+    if (model.slug !== previous.slug || model.priceFrom !== previous.priceFrom) fail(`${model.id}: route identity or base price changed from production baseline`)
+  }
+  if (after.length !== before.length) fail(`${collection} model count changed from production baseline ${PRODUCTION_BASELINE}`)
   if (new Set(after.map(model => model.id)).size !== after.length) fail(`${collection} contains duplicate model IDs`)
 }
 
-if (!equal(current[files[1]], baseline[files[1]])) {
-  fail(`src/data/options.ts changed from production baseline ${PRODUCTION_BASELINE}`)
+const beforeOptions = new Map(baseline[files[1]].additionalOptions.map(option => [option.id, option]))
+const currentOptions = new Map(current[files[1]].additionalOptions.map(option => [option.id, option]))
+for (const [id, option] of beforeOptions) {
+  const updated = currentOptions.get(id)
+  if (!updated) fail(`Existing option ${id} was removed`)
+  if (option.salePrice !== updated.salePrice) fail(`Existing option ${id} price changed from production baseline`)
 }
+const approvedNewFinishes = new Map([
+  ['exterior-imitation-board', 0],
+  ['exterior-blockhouse', 35000],
+  ['exterior-profile-sheet', 60000],
+])
+for (const [id, price] of approvedNewFinishes) {
+  if (currentOptions.get(id)?.salePrice !== price) fail(`Approved exterior finish ${id} must cost ${price} RUB`)
+}
+for (const id of currentOptions.keys()) {
+  if (!beforeOptions.has(id) && !approvedNewFinishes.has(id)) fail(`Unapproved new option ${id}`)
+}
+const ral = currentOptions.get('facade-ral')
+if (!ral?.description.includes('С профлистом несовместима')) fail('RAL finish must remain incompatible with profile sheet')
 
-console.log(`PASS: sauna/home model records and options exactly match production ${PRODUCTION_BASELINE}`)
+console.log(`PASS: sauna/home route identities and base prices; existing option prices; 3 approved exterior finishes; RAL incompatibility (${PRODUCTION_BASELINE})`)

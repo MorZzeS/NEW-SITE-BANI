@@ -1,6 +1,27 @@
-# Точка продолжения — 26.11.2026
+# Точка продолжения — 27.11.2026
 
-## Текущая задача: обновление комплекта «Полезное» и рабочий процесс SpaceWeb
+## Текущий статус
+На локальной тестовой ветке codex/2026-11-27-articles-catalog-implementation (HEAD deb3b2f) получен архив «Рендеры наших бань.zip». Добавлены недостающие 24 варианта цвета BG-09—BG-12; каталог теперь содержит 84 варианта для 14 опубликованных моделей, по шесть на модель. Предыдущие 60 исходников не заменялись.
+
+24 новых PNG преобразованы в WebP quality 88, effort 6; разрешение каждого исходника 2752×1536 сохранено, без кадрирования, изменения пропорций или цветокоррекции. Входной объём — 177 554 151 байт, WebP — 22 045 162 байта (сжатие 87,6%). Исходники, их SHA-256, список файлов и контакт-листы хранятся в D:/Максим/Memory/Projects/BANGER.SU/Work/2026-11-27/Implementation-articles-catalog/qa-final-audit/incoming-renders-2026-11-27.
+
+Визуальная сверка контакт-листов подтвердила, что внутри каждой шестёрки совпадают общий силуэт, крыша, проёмы и расположение дверей/окон; варианты различаются отделкой/цветом. Это не инженерная проверка по чертежам. Независимая read-only проверка PASS: проверены hashes/размеры 24 PNG и 24 WebP, корректность 84 записей и переключения; в Chromium все 84 swatch сопоставлены точным URL модели и цвета. Замечаний, блокирующих эти рендеры, нет.
+
+## Проверки текущего этапа
+- npm test — PASS; включая 28 статей и каталог: 84 варианта, все 14 опубликованных бань имеют 6 swatches.
+- npx tsc --noEmit — PASS.
+- npm run build — PASS: статический экспорт 163 HTML, 125 ссылок на ресурсы, пропусков нет.
+- npm run check:static — PASS: 163 страниц, 474 локальных URL, 31 модель, 28 планировок, 549 файлов production path audit.
+- Изолированный Chromium — PASS: 84/84 переключения на 14 карточках; DAY/NIGHT при 1440 px и 390 px; JS exceptions 0, мобильный overflow 0. Свидетельства: qa-final-audit/incoming-renders-2026-11-27/chromium-smoke-renders-exact-results.json и screenshots-renders-exact-20261127/.
+- Общие ограничения остаются: PHP/MySQL hosting runtime и миграция не тестировались, WebKit недоступен, достоверные картинки наружных отделок ещё ожидаются, настройка access logs SpaceWeb аккаунта неизвестна.
+
+Изменения не закоммичены и не опубликованы. GitHub, SpaceWeb, production, база, DNS и MAX не менялись. Новые 24 изображения взяты из комплекта владельца; остальные JPEG/PNG архива в публичную сборку не импортировались. Точка продолжения: получить достоверные изображения трёх вариантов фасадной отделки; завершить PHP/MySQL staging и проверку access logs для счётчика; повторить WebKit, когда он доступен. До закрытия оставшихся release gates не публиковать.
+
+## Рабочий стол
+Удаление C:/Users/maxto/Desktop/НОВЫЙ САЙТ ранее было отклонено политикой среды; обход не выполнялся. 74 обычных файла каталожной презентации и QA-рендеров сохранены с SHA-256 проверкой в D:/Максим/Memory/Projects/BANGER.SU/Work/2026-11-27/Desktop-cleanup/BANGER_Catalog_Refresh_2026-11-16. Исходная desktop-папка ранее оставалась; пользователь запрещал размещать там новые рабочие материалы.
+
+
+## Историческая задача — обновление комплекта «Полезное» и рабочий процесс SpaceWeb (26.11.2026)
 
 - Рабочая база: `D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-24\Emergency-recovery\worktree`; ветка `fix/emergency-static-assets-20261124`, базовый HEAD `2a23ae0ba64f48904f05bb183cb02e1584be24e0`. Неиспользуемые `output/pdf/`, `tmp/`, `tsconfig.tsbuildinfo` не трогать и не коммитить.
 - В коде оставлено ровно 28 уникальных статей, URL не изменялись. Удалён старый appended-блок с семью дубликатами. Сохранены шесть утверждённых обложек; 27 исходных визуалов пакета скопированы byte-for-byte. Для статьи о производстве создана отдельная нейтральная 3D-визуализация после прямого разрешения владельца; подпись не выдаёт её за фото заказа или техчертёж.
@@ -229,3 +250,61 @@
 - CI run #71 (`45777044072`) passed the replacement catalog guard, npm test, TypeScript, article import, Pages build and base-specification check, then exposed that `verify-article-covers.py` still expected superseded `/images/articles/<slug>-cover.webp` paths and the old source manifest. Updated it to validate the current package's 28 image paths, exact output hashes, listing alt text, and OG/Twitter metadata against the current asset manifest. A local Node parity check passed all 28 covers and metadata; rerun the Python gate in CI after push.
 - CI run #72 (`45777615002`) reached the same cover gate but exposed a base-path-only mismatch: GitHub Pages listing images correctly use `/NEW-SITE-BANI/images/...`, while production uses `/images/...`. The cover verifier now applies the Pages base path only to rendered listing images and continues checking absolute production OG/Twitter URLs. Local Pages build/export PASS (163 HTML, 124 asset references, 0 missing); Node parity validation passed all 28 listing paths/alts, image hashes, and social metadata. CI must rerun the Python gate after this fix.
 - Current continuation: commit/push the narrow CI fix to `work/github-pages-test-20261030`; wait for the Pages workflow and inspect the deployed test site. Then rebuild production for the final source SHA (retain online leads, Metрика 111684946, consent-gated analytics), prepare a static-only overlay and rollback package in Memory, publish through the existing authorized SpaceWeb Chrome session, and verify live release SHA plus article pages. Do not touch main, backend, DNS, PHP or secrets.
+
+## 27.11.2026 — Articles and catalog implementation (owner-authorized, no production)
+
+- Base: deb3b2fd54f0f4a99c386eec52e4809840f440af; isolated branch codex/2026-11-27-articles-catalog-implementation in Memory. Recovery ref backup/2026-11-27-catalog-base. Prior worktree and its changes remain untouched.
+- Live release.json probe timed out; latest recorded production SHA in Memory is deb3b2f. No deploy, DB change, DNS, or GitHub publication.
+- Preparation audit: prepared 28-article JSON, 60 color images for 10 model sets; missing BG-09—BG-12 (24). All candidate color render geometry is still marked for visual verification. No production assets have been replaced.
+- In progress: import clean article text/meta while retaining URLs and illustrations; implement server-persisted counter, color picker only for supplied assets, and exterior-finish pricing/images/placeholder states. Preserve current form contract and consent; do not send test leads.
+- Next checkpoint: inspect the article verifier, option compatibility flow, current PHP bootstrap/validation, and local test tooling before edits. Never access or write the user Desktop.
+
+## 27.11.2026 — реализация статей и каталога (тестовая ветка, не опубликовано)
+- На изолированной ветке codex/2026-11-27-articles-catalog-implementation внедрены 28 статей (641 блок) с сохранением URL, SEO и существующих иллюстраций; Chromium и WebKit прошли 28/28 страниц.
+- Добавлены отделки: имитация бруса 0 ₽, блок-хаус +35 000 ₽, профлист +60 000 ₽. Проверен расчёт, сводка заявки и PDF; Барн Премиум и дома исключены.
+- 60 предоставленных цветовых рендеров оптимизированы в WebP без resize и доступны только в dev preview с маркировкой сверки. BG-09—BG-12: отсутствуют 24 варианта. WebKit выявил обрезание zoom-окна, исправлено portal-компонентом, повторная проверка PASS.
+- Подготовлены, но выключены, MySQL/PHP миграция и endpoint счётчика просмотров. PHP CLI и MySQL runtime отсутствовали; серверная интеграция не запускалась.
+- PASS: npm test, npx tsc --noEmit, npm run build, npm run check:static, PDF (12 сценариев + 31 модель), Chromium/WebKit (28 статей и мобильный калькулятор), git diff --check. Production/GitHub/SpaceWeb/DNS не тронуты; коммита и push нет.
+- До публикации: подтвердить производство статьи, сверить 60 цветов, получить 24 отсутствующих рендера, три точных изображения отделки, пройти Legal RU/Security Auditor/QA, выполнить PHP/MySQL integration и утвердить включение счётчика.
+- Отчёт: Work/2026-11-27/Implementation-articles-catalog/IMPLEMENTATION_REPORT.md. Скриншоты/PDF рядом в qa-screenshots/. Cleanup временных QA-файлов отклонён automatic review («blocked by policy»); они остались в Memory/worktree, Desktop не использовался.
+- Точка продолжения: ждать проверки владельца и решений по blocker-списку. После этого повторять только затронутые проверки; production не публиковать без отдельного разрешения.
+
+## 27.11.2026 — финальная проверка после уточнений владельца
+
+- Исправлена статья по slug pochemu-karkasnaya-banya: фактическая последовательность заказа изложена в шести утверждённых шагах; URL и обложка сохранены.
+- 60 существующих цветовых рендеров помечены как одобренные владельцем; исходные изображения не менялись. Цветовой выбор доступен на 10 карточках с готовыми изображениями; 24 рендера BG-09—BG-12 остаются ожидаемым материалом владельца.
+- Отделки: имитация бруса 0 ₽, блок-хаус +35 000 ₽, профлист +60 000 ₽; RAL +25 000 ₽ допускается с имитацией/блок-хаусом и взаимоисключается с профлистом. Проверены клиентский расчёт, серверная валидация и PDF-сценарии.
+- Счётчик переделан в агрегатную таблицу только model_id + views; каждое открытие увеличивает значение атомарным UPDATE. Нет cookie/localStorage/UUID/HMAC/IP/UA/referer/истории в приложении. Endpoint остаётся выключенным флагами, в том числе до проверки HTTPS proxy.
+- PASS: npm test, npx tsc --noEmit, npm run check:static (163 HTML, 391 URL, 550 файлов production path audit), статья (28/28), PDF (14 сценариев + 31 модель), production build (163 HTML, 125 ссылок на ресурсы, 0 отсутствующих), isolated Chromium (1440/390 DAY/NIGHT, 60/60 swatches, 0 JS exceptions, mobile overflow 0).
+- PHP lint/integration, MySQL atomicity и WebKit не проверены: локально отсутствует PHP runtime и изолированная тестовая БД; WebKit недоступен. Production counter и deployment не включались.
+- SpaceWeb документирует access logs с IP/временем/путём/User-Agent (формат может включать Referer); срок — до 30 дней. Настройка логов данного аккаунта не подтверждена. Само приложение не хранит эти поля, но хостинг может их журналировать; см. backend/spaceweb/README.md и https://help.sweb.ru/kak-posmotret6-logi_42.html.
+- Ожидаются: ZIP с 24 цветами BG-09—BG-12, проверенные изображения трёх наружных отделок, подтверждение фактического режима access logs, тестовая среда PHP/MySQL и проверка поведения HTTPS reverse proxy.
+- Chromium screenshots/result: Work/2026-11-27/Implementation-articles-catalog/qa-final-audit/screenshots и chromium-smoke-results.json. Код не коммичен и не опубликован; SpaceWeb, GitHub, DNS, MAX и production не менялись. Текущая точка продолжения — получить недостающие материалы и предоставить эту сводку владельцу.
+
+### Браузерная проверка RAL — 27.11.2026
+
+В изолированном Chromium проверена модель «Скандинавия 6 В» в собранном сайте: RAL +25 000 ₽; блок-хаус +35 000 ₽ вместе с RAL даёт +60 000 ₽; профлист заменяет блок-хаус и снимает RAL, сохраняя только +60 000 ₽; выбор RAL при профлисте возвращает базовую имитацию бруса и +25 000 ₽. Выбранные опции отражены в сводке модели. Изменений рабочего сайта нет.
+
+Независимый read-only reviewer проверил изменённые каталожные, PDF, статейные и counter-файлы; подтверждённых дефектов не выявил. Его ограничение совпадает с нашим: PHP/MySQL runtime и SpaceWeb staging не проверены.
+
+## Источники цветовых рендеров — 27.11.2026
+
+- Исправленный набор из C:\Users\maxto\Downloads\BANGER_CATALOG_COLOR_RENDERS скопирован в docs/source-assets/catalog-color-renders/BANGER_CATALOG_COLOR_RENDERS внутри активной локальной рабочей копии проекта.
+- Копия включает 10 папок моделей, 60 PNG и README (около 420,6 МБ). SHA-256 каждого файла сверены с источником. Исходная папка и ZIP не изменялись.
+- Оригиналы находятся вне public/, не входят в статическую сборку и исключены из локального Git status через .git/info/exclude, чтобы не добавить случайно 420 МБ исходников в релиз. Для сайта используются уже подготовленные оптимизированные WebP в public/images/catalog/color-variants/ (84 файла для 14 моделей).
+- BG-09—BG-12 в этой копии отсутствуют; набор для сайта ранее поступал отдельным архивом.
+- Commit, push и публикация не выполнялись. Следующий шаг по запросу владельца: использовать копию как исходники при подготовке новых цветовых рендеров/обновлении моделей, затем оптимизировать нужные изображения в WebP.
+### Updated color-render source set — 27.11.2026
+
+- The owner added BG-09—BG-12 to Downloads. Repaired their extraction names by decoding CP866 and normalizing Unicode NFC; each of four folders contains six PNGs. All 24 source SHA-256 values match the already-approved sourceSha256 entries in catalog-color-variants.ts.
+- Merged the four model folders into docs/source-assets/catalog-color-renders/BANGER_CATALOG_COLOR_RENDERS. The local source copy now has 14 model folders/84 PNGs (plus the retained original README and a source-set index); all copied image SHA-256 values match their Downloads source.
+- The __MACOSX AppleDouble metadata files in Downloads are not image renders and were left untouched there, but excluded from the project copy. The already connected public WebP variants remain the website assets; no duplicate PNGs were added to public.
+- No application code, commit, push, GitHub, SpaceWeb or production update was made. Next: verify all 84 source hashes against the local render registry and confirm only the four previously integrated BG-09—BG-12 assets were added to the source archive.
+### Source render set — final verification 27.11.2026
+
+- Final durable folder: docs/source-assets/catalog-color-renders/BANGER_CATALOG_COLOR_RENDERS. It contains 14 correctly named model folders and 84 source PNGs, six variants per model. The four added folders BG-09—BG-12 were repaired from CP866 extraction and Unicode-normalized.
+- Integrity: all 84 source SHA-256 hashes match the corresponding src/data/catalog-color-variants.ts entries; all 84 optimized public WebP hashes match the registry. Every PNG decodes. There are no missing models in the 14-model published set. Contact sheets were reviewed for all 14 model groups.
+- Resolution: 82 images at 2752×1536; BG-28 variants 04 and 06 are 1376×768. The __MACOSX AppleDouble metadata was excluded from the project copy.
+- Report/evidence: D:\Максим\Memory\Projects\BANGER.SU\Work\2026-11-27\Implementation-articles-catalog\qa-final-audit\extracted-color-renders-2026-11-27\quality-report.md and source-set-integrity.json. Source-set index is in the durable folder.
+- The specified Downloads folder path was absent at final verification; this agent did not remove it. The complete verified D: copy remains intact and the original 60-image ZIP remains in Downloads. The current app already uses the matching 84 WebP variants, so no code changes were required. No commit, push or production publication was made.
+- Resume point: use source originals from the durable D: folder for any future image conversion. Before production publication, satisfy the current release gates and get the separately required publication authorization.

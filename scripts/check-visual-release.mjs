@@ -32,8 +32,9 @@ const leadContract = process.env.NEXT_PUBLIC_LEADS_CONTRACT || ''
 const endpointConfigured = leadsEndpoint.length > 0
 const leadDocumentBundle = buildDocuments.readLeadBuildDocuments(process.env)
 const { isOnlineLeadReleaseReady } = loadTypeScriptModule('src/lib/lead-release-gate.ts')
-const leadsEnabled = isOnlineLeadReleaseReady(leadsEndpoint, leadContract, leadDocumentBundle)
+const leadsEnabled = !isGitHubPagesProject && isOnlineLeadReleaseReady(leadsEndpoint, leadContract, leadDocumentBundle)
 if (endpointConfigured && !leadsEnabled) throw new Error('Unsafe lead build: endpoint requires contract 3 and a complete approved document bundle')
+if (isGitHubPagesProject && leadsEnabled) throw new Error('Online leads must remain disabled on GitHub Pages')
 if (leadsEnabled && leadsEndpoint !== 'https://banger.su/leads.php') throw new Error('Lead endpoint must be the reviewed SpaceWeb HTTPS handler')
 const sourceFiles = fs.readdirSync('src', { recursive: true }).filter(name => /\.(?:ts|tsx|js|jsx)$/.test(name)).map(name => ({ path: `src/${name}`.replaceAll('\\', '/'), content: fs.readFileSync(path.join('src', name), 'utf8') }))
 if (!sourceLeadTransportAllowed(sourceFiles)) throw new Error('Unsafe lead transport: browser POSTs must use the single gated SpaceWeb lead client')
@@ -44,7 +45,7 @@ let onlineFormCount = 0
 const leadClientSource = fs.readFileSync('src/lib/leads.ts', 'utf8')
 if (!/export const leadEndpoint = process\.env\.NEXT_PUBLIC_LEADS_ENDPOINT \|\| ''/.test(leadClientSource)) throw new Error('Lead client must use the gated lead endpoint')
 const policy = fs.readFileSync('src/lib/release-policy.ts', 'utf8')
-if (!/isOnlineLeadReleaseReady\(/.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy)) throw new Error('Unsafe release policy: onlineLeads must require the shared readiness gate')
+if (!/const leadsEndpointConfigured = !isGitHubPagesProject && isOnlineLeadReleaseReady\(/.test(policy) || !/\bonlineLeads:\s*leadsEndpointConfigured\b/.test(policy) || !/const isGitHubPagesProject/.test(policy) || !/const modelViewsConfigured = !isGitHubPagesProject/.test(policy) || !/modelViews:\s*modelViewsConfigured/.test(policy)) throw new Error('Unsafe release policy: online leads, analytics, and model views must be gated for GitHub Pages')
 if (!/analytics:\s*analyticsConfigured\b/.test(policy) || !/NEXT_PUBLIC_ANALYTICS_ENABLED/.test(policy) || !/NEXT_PUBLIC_YANDEX_METRIKA_ID/.test(policy) || !/BANGER_GITHUB_PAGES/.test(policy)) throw new Error('Unsafe release policy: analytics must require the approved production build flags and exclude GitHub Pages')
 const analyticsSource = fs.readFileSync('src/lib/analytics.ts', 'utf8')
 const analyticsGateSource = fs.readFileSync('src/components/privacy/AnalyticsGate.tsx', 'utf8')
@@ -82,6 +83,7 @@ const forbiddenCopy = /Сведения о конкретном клиентск
 for (const name of files) {
   const normalized = name.replaceAll('\\', '/')
   if (/(^|\/)(?:docs|backend|node_modules|\.git)(\/|$)|(^|\/)\.env(?:\.|$)|\.map$/i.test(normalized)) throw new Error(`Private deployment file: ${name}`)
+  if (/\.(?:php|sql|sh|ps1|bat|cmd)$/i.test(normalized)) throw new Error(`Server or shell source must not ship in a static export: ${name}`)
   if (!/\.(?:html|js|json|txt|xml|svg)$/i.test(name)) continue
   const content = fs.readFileSync(path.join(root, name), 'utf8')
   artifactTextFiles.push({ path: name.replaceAll('\\', '/'), content })
@@ -149,5 +151,5 @@ for (const route of ['privacy', 'politika', 'cookie', 'soglasie-pd', 'soglasie-r
 }
 const sha = process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 if (!/^[a-f0-9]{40}$/.test(sha)) throw new Error('Invalid public release SHA')
-fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, analytics: analyticsEnabled, webvisor: analyticsEnabled, behaviorReplayRequiresConsent: analyticsEnabled, clickmap: analyticsEnabled, linkmap: analyticsEnabled, scrollmap: false, formAnalytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: automaticYandexEmbeds ? 'automatic' : false, promotionalOffer: true }) + '\n')
-console.log(`Release export PASS: ${htmlFiles.length} HTML, ${leadsEnabled ? `online lead form enabled through ${leadsEndpoint}` : 'contacts only'}, analytics ${analyticsEnabled ? `enabled after consent with counter ${metrikaId}; Webvisor and click/link maps require separate opt-in; scrollmap and form reports are unsupported on this SPA` : 'disabled'}, weather UI and snapshots disabled; legal acceptance required separately`)
+fs.writeFileSync(path.join(root, 'release.json'), JSON.stringify({ profile: leadsEnabled ? 'online-leads' : 'visual-contacts', sha, basePath, onlineLeads: leadsEnabled, modelViews: !isGitHubPagesProject && process.env.NEXT_PUBLIC_MODEL_VIEWS_ENABLED === 'true', analytics: analyticsEnabled, webvisor: analyticsEnabled, behaviorReplayRequiresConsent: analyticsEnabled, clickmap: analyticsEnabled, linkmap: analyticsEnabled, scrollmap: false, formAnalytics: false, weather: 'disabled', weatherTransport: 'none', embeddedYandex: automaticYandexEmbeds ? 'automatic' : false, promotionalOffer: true }) + '\n')
+console.log(`Release export PASS: ${htmlFiles.length} HTML, ${leadsEnabled ? `online lead form enabled through ${leadsEndpoint}` : 'contacts only'}, model views ${isGitHubPagesProject ? 'disabled on GitHub Pages' : process.env.NEXT_PUBLIC_MODEL_VIEWS_ENABLED === 'true' ? 'enabled' : 'disabled'}, analytics ${analyticsEnabled ? `enabled after consent with counter ${metrikaId}; Webvisor and click/link maps require separate opt-in; scrollmap and form reports are unsupported on this SPA` : 'disabled'}, weather UI and snapshots disabled; legal acceptance required separately`)
